@@ -1,0 +1,42 @@
+{
+    "name": "stevebauman/maintenance",
+    "description": "A Preventative Maintenance Application (CMMS) for Laravel",
+    "authors": [
+        {
+            "name": "Steve Bauman",
+            "email": "steven_bauman_7@hotmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+		"cartalyst/sentry": "2.*@dev",
+		"adldap/adldap": "dev-master",
+		"stevebauman/corp": "dev-master",
+		"jildertmiedema/laravel-plupload": "dev-master",
+		"rtconner/laravel-tagging": "dev-master",
+		"anahkiasen/former": "dev-master",
+		"stevemo/cpanel": "dev-develop",
+		"baum/baum": "~1.0",
+		"dinesh/barcode": "dev-master",
+		"dmyers/laravel-storage": "dev-master"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+			"src/controllers",
+			"src/models",
+			"src/services",
+			"src/validators",
+			"src/exceptions",
+			"src/filters",
+			"src/composers",
+			"src/apis",
+			"src/requests"
+        ],
+        "psr-0": {
+            "Stevebauman\\Maintenance\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

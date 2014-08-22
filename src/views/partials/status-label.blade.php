@@ -1,0 +1,1 @@
+<span class="label label-{{ $status->color }}">{{ $status->name }}</span>
