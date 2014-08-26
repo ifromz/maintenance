@@ -66,7 +66,6 @@ class AssetImageRequest extends AbstractRequest {
 	 */
 	public function store($asset_id, $data){
 		try{
-                   
                     $asset = $this->asset->find($asset_id);
 
                     //Check if any files have been uploaded
@@ -103,9 +102,11 @@ class AssetImageRequest extends AbstractRequest {
                                 $this->messageType = 'danger';
                                 
                             }
-                            return $this->response();
+                            
                         }
                     }
+                    
+                    return $this->response();
                     
 		} catch(RecordNotFoundException $e){
 			return $this->assetNotFound();
