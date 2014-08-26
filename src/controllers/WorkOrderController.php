@@ -1,14 +1,13 @@
 <?php namespace Stevebauman\Maintenance\Controllers;
 
 use View;
-use Config;
 use Input;
 use Response;
 use Redirect;
 use Request;
 use HTML;
 use Stevebauman\Maintenance\Controllers\BaseController;
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Requests\WorkOrderRequest;
 use Stevebauman\Maintenance\Services\WorkOrderCategoryService;
 use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
@@ -16,7 +15,7 @@ use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 class WorkOrderController extends BaseController {
 	
 	public function __construct(
-			WorkOrderService $workOrder,
+			WorkOrderRequest $workOrder,
 			WorkOrderCategoryService $category, 
 			StatusService $status, 
 			WorkOrderValidator $workOrderValidator
@@ -33,10 +32,7 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function index(){
-		$workOrders = $this->workOrder->getByPage();
-		
-		$this->layout = View::make('maintenance::work-orders.index', compact('workOrders'));
-		$this->layout->title = 'Work Orders';
+            return $this->workOrder->index();
 	}
 
 
@@ -46,10 +42,7 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function create(){
-		$statuses = $this->status->dropdown();
-		
-		$this->layout = View::make('maintenance::work-orders.create', compact('statuses'));
-		$this->layout->title = 'Create a Work Order';
+            return $this->workOrder->create();
 	}
 
 	/**
@@ -58,28 +51,7 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function store(){
-		$validator = new $this->workOrderValidator;
-		
-		if($validator->passes()){
-			$data = Input::all();
-			
-			$workOrder = $this->workOrder->create($data);
-			
-			if(Request::ajax()){
-				return Response::json(array(
-					'workOrderCreated' => true,
-					'message' => sprintf('Successfully created work order. %s', HTML::link(route('maintenance.work-orders.show', array($workOrder->id)), 'Show')),
-					'messageType' => 'success',
-				));
-			}
-		} else{
-			if(Request::ajax()){
-				return Response::json(array(
-					'workOrderCreated' => false,
-					'errors' => $validator->getJsonErrors(),
-				));
-			}
-		}
+            return $this->workOrder->store(Input::all());
 	}
 
 
@@ -90,14 +62,7 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function show($id){
-		if($workOrder = $this->workOrder->find($id)){
-			
-			$this->layout = View::make('maintenance::work-orders.show', compact('workOrder'));
-			$this->layout->title = 'Viewing Work Order: ' . $workOrder->subject;
-			
-		} else{
-			
-		}
+            return $this->workOrder->show($id);
 	}
 
 

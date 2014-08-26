@@ -3,7 +3,7 @@
 return array(
 
 	'conditions' => array(
-		'5'	=> 'New',
+		'5' => 'New',
 		'4' => 'Excellent',
 		'3' => 'Good',
 		'2' => 'Fair',

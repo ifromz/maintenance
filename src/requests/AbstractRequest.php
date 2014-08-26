@@ -1,25 +1,47 @@
 <?php namespace Stevebauman\Maintenance\Requests;
 
-use Request;
-use Response;
-use Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Redirect;
 
 abstract class AbstractRequest {
 	
+	/**
+	 * Stores the URL to redirect to
+	 */
 	protected $redirect;
 	
+	/**
+	 * Stores the message to display to the user
+	 */
 	protected $message;
-	
+    
+	/**
+	 * Stores the type of message that is displayed to the user
+	 */   
 	protected $messageType;
 	
+	/**
+	 * Holds validator errors
+	 */  
 	protected $errors;
 	
+	/**
+	 * Asks the request if it's ajax or not
+	 *
+	 * @return Response
+	 */
 	public function isAjax(){
 		return Request::ajax();
 	}
 	
+	/**
+	 * Returns the proper response to user. If the request was made from ajax, then an json response is sent.
+	 * If a request is a typical request without ajax, a user is sent a redirect with session flash messages
+	 *
+	 * @return Response
+	 */
 	public function response(){
-		
 		if($this->isAjax()){
 			if($this->errors){
 				return Response::json(array(

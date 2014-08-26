@@ -16,31 +16,29 @@ class CreateWorkOrderTables extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->integer('user_id')->unsigned();
+                        $table->integer('location_id')->unsigned();
 			$table->integer('work_order_category_id')->unsigned();
 			$table->integer('status_id')->unsigned();
-			$table->integer('priority_id')->unsigned();
+			$table->integer('priority')->nullable();
 			$table->dateTime('started_at')->nullable();
 			$table->dateTime('completed_at')->nullable();
 			$table->string('subject');
 			$table->text('description')->nullable();
-			$table->string('make')->nullable();
-			$table->string('model')->nullable();
-			$table->string('serial')->nullable();
 			$table->decimal('hours', 5, 2)->nullable();
 			
 			$table->foreign('user_id')->references('id')->on('users')
 						->onUpdate('restrict')
 						->onDelete('cascade');
-						
+			
+                        $table->foreign('location_id')->references('id')->on('locations')
+						->onUpdate('restrict')
+						->onDelete('cascade');
+                        
 			$table->foreign('work_order_category_id')->references('id')->on('work_order_categories')
 						->onUpdate('restrict')
 						->onDelete('cascade');
 			
 			$table->foreign('status_id')->references('id')->on('statuses')
-						->onUpdate('restrict')
-						->onDelete('cascade');
-						
-			$table->foreign('priority_id')->references('id')->on('priorities')
 						->onUpdate('restrict')
 						->onDelete('cascade');
 		});
@@ -91,17 +89,12 @@ class CreateWorkOrderTables extends Migration {
 			$table->timestamps();
 			$table->integer('work_order_id')->unsigned();
 			$table->integer('asset_id')->unsigned();
-			$table->integer('user_id')->unsigned();
 			
 			$table->foreign('work_order_id')->references('id')->on('work_orders')
 						->onUpdate('restrict')
 						->onDelete('cascade');
 			
 			$table->foreign('asset_id')->references('id')->on('assets')
-						->onUpdate('restrict')
-						->onDelete('cascade');
-			
-			$table->foreign('user_id')->references('id')->on('users')
 						->onUpdate('restrict')
 						->onDelete('cascade');
 		});

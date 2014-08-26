@@ -11,7 +11,6 @@
                 <li class="active"><a href="#tab_1" data-toggle="tab">Work Order</a></li>
                 <li class=""><a href="#tab_2" data-toggle="tab">Details</a></li>
                 <li class=""><a href="#tab_3" data-toggle="tab">Parts</a></li>
-                <li class=""><a href="#tab_4" data-toggle="tab">QR Code</a></li>
                 <li class="dropdown pull-right">
                 	<a href="#" class="text-muted dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></a>
                     <ul class="dropdown-menu">
@@ -25,9 +24,21 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
+                    
                     <p><b>{{ $workOrder->subject }}</b></p>
                     <p>{{ $workOrder->description }}</p>
                    
+                    <p><hr></p>
+                    @if($workOrder->assets->count() > 0)
+                        <ul class="list-unstyled tags">
+                        @foreach($workOrder->assets as $asset)
+                        
+                              <li><a href="{{ route('maintenance.assets.show', array($asset->id)) }}">{{ $asset->name }} <span>View</span></a></li>
+                        
+                        @endforeach
+                        </ul>
+                    @endif
+                    
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_2">
                    <table class="table">
@@ -55,10 +66,6 @@
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_3">
                 
-                </div>
-                
-                <div class="tab-pane" id="tab_4">
-                	{{ DNS2D::getBarcodeSVG(route('maintenance.work-orders.show', array($workOrder->id)), "QRCODE") }}
                 </div>
             </div><!-- /.tab-content -->
         </div>

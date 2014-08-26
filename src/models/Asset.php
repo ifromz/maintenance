@@ -24,7 +24,7 @@ class Asset extends \Eloquent {
 	}
 	
 	public function images(){
-		return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'asset_images', 'attachment_id');
+		return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'asset_images', 'asset_id', 'attachment_id');
 	}
 	
 	public function getConditionAttribute($attr){

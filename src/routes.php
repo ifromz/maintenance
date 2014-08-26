@@ -40,7 +40,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 		));
 		
 		Route::get('work-orders/settings', array(
-			'as' => 'maintenance.work-orders.settings',
+			'as' => 'maintenance.work-orders.settings.index',
 			'uses' => 'WorkOrderSettingController@index',
 		));
 		
@@ -83,6 +83,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 				'destroy' 	=> 'maintenance.work-orders.categories.destroy',
 			),
 		));
+                
 		
 		/*
 		|--------------------------------------------------------------------------
@@ -177,6 +178,27 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			),
 		));
 		
+		Route::post('assets/images/uploads', array(
+			'as' => 'maintenance.assets.images.uploads.store',
+			'uses' => 'AssetImageUploadController@store'
+		));
+		
+		Route::post('assets/images/uploads/destroy', array(
+			'as' => 'maintenance.assets.images.uploads.destroy',
+			'uses' => 'AssetImageUploadController@destroy'
+		));
+		
+		Route::resource('attachments', 'AttachmentController', 
+			array(
+				'only' => array(
+					'destroy'
+				),
+				'names' => array(
+					'destroy' => 'maintenace.attachments.destroy',
+				),
+			)
+		);
+		
 		Route::resource('assets.images', 'AssetImageController', array(
 			'names'=> array(
 				'index'		=> 'maintenance.assets.images.index',
@@ -189,6 +211,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			),
 		));
 		
+                
 		Route::resource('assets', 'AssetController', array(
 			'names'=> array(
 				'index'		=> 'maintenance.assets.index',
@@ -200,7 +223,6 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 				'destroy' 	=> 'maintenance.assets.destroy',
 			),
 		));
-		
 		
 		
 		/*
@@ -243,34 +265,6 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			),
 		));
 		
-		/*
-		|--------------------------------------------------------------------------
-		| Maintenance Global Attachment Routes
-		|--------------------------------------------------------------------------
-		*/
-		Route::resource('upload', 'UploadController', 
-			array(
-				'only' => array(
-					'store',
-					'destroy',
-				),
-				'names' => array(
-					'store' => 'maintenance.uploads.store',
-					'destroy' => 'maintenance.uploads.destroy'
-				),
-			)
-		);
-		Route::resource('attachments', 'AttachmentController', 
-			array(
-				'only' => array(
-					'destroy'
-				),
-				'names' => array(
-					'destroy' => 'maintenace.attachments.destroy',
-				),
-			)
-		);
-		
 		
 	}); /* End Maintenance Controller Routes */
 
@@ -285,7 +279,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 		
 		/*
 		|--------------------------------------------------------------------------
-		| Maintenance Work Order Routes
+		| Maintenance Work Order Api Routes
 		|--------------------------------------------------------------------------
 		*/
 		Route::group(array('prefix'=>'work-orders'), function(){
@@ -296,7 +290,15 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			Route::get('{work_orders}', array('as'=>'maintenance.api.work-orders.find', 'uses'=>'WorkOrderApi@find'));
 		});
 	
-		
+		/*
+		|--------------------------------------------------------------------------
+		| Maintenance Asset Api Routes
+		|--------------------------------------------------------------------------
+		*/
+                Route::group(array('prefix'=>'assets'), function(){
+			Route::get('', array('as'=>'maintenance.api.assets.get', 'uses'=>'AssetApi@get'));
+                        Route::get('q', array('as'=>'maintenance.api.assets.query', 'uses'=>'AssetApi@getByQuery'));
+		});
 	}); /* End Maintenance API Routes */
 	
 	

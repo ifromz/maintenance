@@ -5,8 +5,11 @@ return array(
 	
 	'title' => 'Maintenance', // Title of the Application
 	
+	// Paths for file storage. All paths have to end with trailing slash
 	'paths' => array(
 		'base' => 'files/', // Base default storage location
+		
+		'temp' => 'temp/', // Temporary file location storage for ajax uploads, these will be cleared periodically 
 		
 		'assets' => array(
 			'images' => 'assets/images/',

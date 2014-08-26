@@ -62,7 +62,8 @@ class WorkOrderService extends AbstractModelService {
 	public function create($data){
 		$insert = array(
 			'user_id' => $this->sentry->getCurrentUser()->id,
-			'category_id' => $data['category'],
+			'work_order_category_id' => $data['work_order_category_id'],
+                        'location_id' => $data['location_id'],
 			'status_id' => $data['status'],
 			'subject' => $data['subject'],
 			'description' => $data['description'],
@@ -71,6 +72,11 @@ class WorkOrderService extends AbstractModelService {
 		);
 		
 		if($record = $this->model->create($insert)){
+                    if(array_key_exists('assets', $data)){
+                        $ids = explode(',', $data['assets']);
+                        
+                        $record->assets()->attach($ids);
+                    }
 			return $record;
 		} return false;
 	}
@@ -93,9 +99,9 @@ class WorkOrderService extends AbstractModelService {
 	}
 	
 	private function formatDateWithTime($date, $time = NULL){
-		if($date){
-			return date('Y-m-d H:i:s', strtotime($date. ' ' .$time));
-		} return NULL;
+            if($date){
+                    return date('Y-m-d H:i:s', strtotime($date. ' ' .$time));
+            } return NULL;
 	}
 	
 }

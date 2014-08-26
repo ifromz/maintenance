@@ -46,8 +46,8 @@ class AssetImageController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id){
-		//
+	public function show($asset_id, $image_id){
+            return $this->asset->show($asset_id, $image_id);
 	}
 
 
@@ -79,8 +79,8 @@ class AssetImageController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id){
-		//
+	public function destroy($asset_id, $attachment_id){
+            return $this->asset->destroy($asset_id, $attachment_id);
 	}
 	
 

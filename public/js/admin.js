@@ -2,7 +2,7 @@ $(function() {
 
     $('a[rel=tooltip]').tooltip();
 
-        //Apply twitter bootstrap alike style to select element
+   	//Apply twitter bootstrap alike style to select element
     $('.select2').select2({
         width :'element',
         placeholder : 'Select'
@@ -13,8 +13,11 @@ $(function() {
         tags: ['view','create','update','delete'],
         width: 'element'
     });
+	
+	
 
 });
+
 
 /**
  * Create a confirm modal
@@ -71,7 +74,7 @@ $(function() {
 		    			var form =
 					        $('<form>', {
 					            'method': 'POST',
-					            'action': link.attr('href')
+					            'action': link.attr('href'),
 					        });
 
 					    var hiddenInput =
@@ -96,5 +99,5 @@ $(function() {
 	};
 
 	laravel.initialize();
-
+	
 })();

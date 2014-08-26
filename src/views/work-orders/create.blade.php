@@ -15,25 +15,39 @@
             <div class="panel-body">
             {{ Form::open(array('url'=>route('maintenance.work-orders.store'), 'class'=>'form-horizontal', 'id'=>'maintenance-work-order-create')) }}
             	<legend class="margin-top-10">Work Order Information</legend>
-            	<div class="form-group">
-                    <label class="col-sm-2 control-label" for="name">Name</label>
-                    <div class="col-md-4">
-                    	{{ Form::text('user', NULL, array('class'=>'form-control', 'placeholder'=>Sentry::getUser()->first_name.' '.Sentry::getUser()->last_name, 'disabled')) }}
-                   	</div>
-                </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="location_name">Category</label>
                     <div class="col-md-4">
-                      	{{ Form::text('category', NULL, array('class'=>'form-control', 'id'=>'work-order-category', 'disabled')) }}
-                        <a href="{{ route('maintenance.api.categories.index') }}" data-title='Choose a category'>Select</a>
+                      	@include('maintenance::select.work-order-category')
                     </div>
-              	</div>
+                </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Status</label>
+                    <label class="col-sm-2 control-label" for="location_name">Location</label>
                     <div class="col-md-4">
-                    	{{ Form::select('status', $statuses, '0', array('class'=>'form-control select2', 'placeholder'=>'ex. Admin / Maintenance')) }}
+                      	@include('maintenance::select.location')
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="status_name">Status</label>
+                    <div class="col-md-4">
+                    	{{ Form::select('status', $statuses, '0', array('class'=>'form-control select2', 'placeholder'=>'ex. Repaired / Awaiting for Parts')) }}
+                   	</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="location_name">Priority</label>
+                    <div class="col-md-4">
+                    	{{ Form::select('priorities', $priorities, '0', array('class'=>'form-control select2', 'placeholder'=>'ex. Low / Lowest')) }}
+                   	</div>
+                </div>
+                
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">Assets Involved</label>
+                    <div class="col-md-4">
+                    	@include('maintenance::select.assets')
                    	</div>
                 </div>
                 

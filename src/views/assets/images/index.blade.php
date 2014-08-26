@@ -1,0 +1,60 @@
+@extends('maintenance::layouts.main')
+
+@section('header')
+	<h1>{{ $title }}</h1>
+@stop
+
+@section('content')
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Asset Images
+        </div>
+    </div>
+    <div class="panel-body">
+        @if($asset->images->count() > 0)
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th class="hidden-xs">File Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($asset->images as $image)
+                <tr>
+                    <td width="200">
+                        <img class="img-responsive" src="{{ Storage::url($image->file_path.$image->file_name) }}">
+                    </td>
+                    <td class="hidden-xs">{{ $image->file_name }}</td>
+                    <td>
+                        <div class="btn-group">
+                                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Action
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ route('maintenance.assets.images.show', array($asset->id, $image->id)) }}">
+                                            <i class="fa fa-search"></i> View Image
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('maintenance.assets.images.destroy', array($asset->id, $image->id)) }}" data-method="delete" data-message="Are you sure you want to delete this asset?">
+                                            <i class="fa fa-trash-o"></i> Delete Image
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        @else
+        
+        @endif
+    </div>
+</div>
+@stop

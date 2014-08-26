@@ -1,6 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Requests;
 
-use View;
+use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Validators\AssetValidator;
 use Stevebauman\Maintenance\Requests\AbstractRequest;

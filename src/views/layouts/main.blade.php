@@ -21,6 +21,9 @@
         <!-- Theme style -->
         {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/adminlte.css') }}
         
+        <!-- Tags style -->
+        {{ HTML::style('packages/stevebauman/maintenance/css/tags.css') }}
+        
         <!-- JS Tree Style -->
         {{ HTML::style('packages/stevebauman/maintenance/jsTree/dist/themes/default/style.min.css') }}
         
@@ -189,7 +192,7 @@
                         </li>
                         
                         <li>
-                            <a href="#" style="margin-left: 10px;">
+                            <a href="{{ route('maintenance.work-orders.settings.index') }}" style="margin-left: 10px;">
                                 <i class="fa fa-cog"></i> Settings
                             </a>
                         </li>
@@ -223,7 +226,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="#" style="margin-left: 10px;">
+                            <a href="{{ route('maintenance.assets.index') }}" style="margin-left: 10px;">
                                 <i class="fa fa-book"></i> All Assets
                             </a>
                         </li>

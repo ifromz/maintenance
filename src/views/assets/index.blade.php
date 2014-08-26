@@ -43,7 +43,7 @@
                         <td>{{ $asset->condition }}</td>
                         <td class="hidden-xs">{{ $asset->created_at }}</td>
                         <td>
-                        	<div class="btn-group">
+                            <div class="btn-group">
                                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
                                     Action
                                     <span class="caret"></span>
@@ -76,7 +76,7 @@
         	<p>There are no assets to display.</p>
         @endif
         </div>
-        
+            
         <div class="btn-toolbar text-center">
             {{ $assets->links() }}
         </div>
