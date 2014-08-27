@@ -8,9 +8,9 @@ class WorkOrderService extends AbstractModelService {
 	public function __construct(WorkOrder $workOrder, SentryService $sentry){
 		$this->model = $workOrder;
 		$this->sentry = $sentry;
-	}
-	
-	public function getByPage(){
+        }
+        
+	public function getByPageWithFilter($data = array()){
 		return $this->model
 			->with(array(
 				'status',
@@ -18,8 +18,14 @@ class WorkOrderService extends AbstractModelService {
 				'category',
 				'user',
 			))
+                        ->priority((array_key_exists('priority', $data) ? $data['priority'] : NULL))
+                        ->subject((array_key_exists('subject', $data) ? $data['subject'] : NULL))
+                        ->description((array_key_exists('description', $data) ? $data['description'] : NULL))
+                        ->status((array_key_exists('status', $data) ? $data['status'] : NULL))
+                        ->category((array_key_exists('category', $data) ? $data['category'] : NULL))
 			->paginate(25);
 	}
+        
 	
 	public function getByPageWithCategoryId($category_id){
 		return $this->model
@@ -65,6 +71,7 @@ class WorkOrderService extends AbstractModelService {
 			'work_order_category_id' => $data['work_order_category_id'],
                         'location_id' => $data['location_id'],
 			'status_id' => $data['status'],
+                        'priority' => $data['priority'],
 			'subject' => $data['subject'],
 			'description' => $data['description'],
 			'started_at' => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
@@ -73,27 +80,32 @@ class WorkOrderService extends AbstractModelService {
 		
 		if($record = $this->model->create($insert)){
                     if(array_key_exists('assets', $data)){
-                        $ids = explode(',', $data['assets']);
-                        
-                        $record->assets()->attach($ids);
+                        $record->assets()->attach($data['assets']);
                     }
-			return $record;
+		
+                    return $record;
 		} return false;
 	}
 	
 	public function update($id, $data){
 		if($workOrder = $this->find($id)){
 			$insert = array(
-				'category_id' => $data['category'],
-				'status_id' => $data['status'],
-				'subject' => $data['subject'],
-				'description' => $data['description'],
-				'started_at' => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
-				'completed_at' => $this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
+                            'work_order_category_id' => $data['work_order_category_id'],
+                            'location_id' => $data['location_id'],
+                            'status_id' => $data['status'],
+                            'priority' => $data['priority'],
+                            'subject' => $data['subject'],
+                            'description' => $data['description'],
+                            'started_at' => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
+                            'completed_at' =>$this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
 			);
 			
 			if($record = $workOrder->update($insert)){
-				return $record;
+                            if(array_key_exists('assets', $data)){
+                                $record->assets()->sync($data['assets']);
+                            }
+                            
+                            return $record;
 			} return false;
 		}
 	}

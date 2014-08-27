@@ -5,13 +5,13 @@
 @stop
 
 @section('content')
-
 	<div class="nav-tabs-custom">
 		<ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_1" data-toggle="tab">Asset</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab">Details</a></li>
-                    <li class=""><a href="#tab_3" data-toggle="tab">Manuals</a></li>
-                    <li class=""><a href="#tab_4" data-toggle="tab">QR Code</a></li>
+                    <li class=""><a href="#tab_2" data-toggle="tab">Work Orders</a></li>
+                    <li class=""><a href="#tab_3" data-toggle="tab">Details</a></li>
+                    <li class=""><a href="#tab_4" data-toggle="tab">Manuals</a></li>
+                    <li class=""><a href="#tab_5" data-toggle="tab">QR Code</a></li>
                     <li class="dropdown pull-right">
        			<a href="#" class="text-muted dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></a>
         		<ul class="dropdown-menu">
@@ -33,18 +33,22 @@
        			</ul>
                     </li>
 		</ul>
-            <div class="tab-content" style="display:table">
+            <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                     @include('maintenance::assets.tabs.index', compact('asset'))
                 </div>
 
                 <div class="tab-pane" id="tab_2">
+                    @include('maintenance::assets.tabs.work-orders', compact('asset'))
                 </div>
 
                 <div class="tab-pane" id="tab_3">
                 </div>
 
                 <div class="tab-pane" id="tab_4">
+                </div>
+                
+                <div class="tab-pane" id="tab_5">
                   {{ DNS2D::getBarcodeSVG(route('maintenance.assets.show', array($asset->id)), "QRCODE") }}
                 </div>
             </div>

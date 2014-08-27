@@ -28,8 +28,8 @@
                     <p><b>{{ $workOrder->subject }}</b></p>
                     <p>{{ $workOrder->description }}</p>
                    
-                    <p><hr></p>
                     @if($workOrder->assets->count() > 0)
+                        <p><hr></p>
                         <ul class="list-unstyled tags">
                         @foreach($workOrder->assets as $asset)
                         

@@ -32,7 +32,7 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function index(){
-            return $this->workOrder->index();
+            return $this->workOrder->index(Input::all());
 	}
 
 
@@ -73,31 +73,7 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function edit($id){
-		if($workOrder = $this->workOrder->find($id)){
-			$statuses = $this->status->dropdown();
-			
-			$dateFormat = 'Y/m/d';
-			$timeFormat = 'H:i A';
-			
-			$dates = array(
-				'started'=>array(
-					'date'=>($workOrder->started_at ? date($dateFormat, strtotime($workOrder->started_at)) : NULL),
-					'time'=>($workOrder->started_at ? date($timeFormat, strtotime($workOrder->started_at)) : NULL),
-				),
-				'completed'=>array(
-					'date'=>($workOrder->completed_at ? date($dateFormat, strtotime($workOrder->completed_at)) : NULL),
-					'time'=>($workOrder->completed_at ? date($timeFormat, strtotime($workOrder->completed_at)) : NULL),
-				),
-			);
-			
-			$this->layout = View::make('maintenance::work-orders.edit')
-				->with(compact('workOrder'))
-				->with(compact('statuses'))
-				->with(compact('dates'));
-			$this->layout->title = 'Editing Work Order: ' . $workOrder->subject;
-		} else {
-			
-		}
+            return $this->workOrder->edit($id);
 	}
 
 
@@ -108,28 +84,7 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function update($id){
-		$validator = new $this->workOrderValidator;
-		
-		if($validator->passes()){
-			$data = Input::all();
-			
-			$this->workOrder->update($id, $data);
-			
-			if(Request::ajax()){
-				return Response::json(array(
-					'workOrderEdited' => true,
-					'message' => sprintf('Successfully edited work order. %s', HTML::link(route('maintenance.work-orders.show', array($id)), 'Show')),
-					'messageType' => 'success',
-				));
-			}
-		} else{
-			if(Request::ajax()){
-				return Response::json(array(
-					'workOrderEdited' => false,
-					'errors' => $validator->getJsonErrors(),
-				));
-			}
-		}
+            return $this->workOrder->update($id, Input::all());
 	}
 
 
@@ -140,19 +95,7 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function destroy($id){
-		if($this->workOrder->destroy($id)){
-			if(Request::ajax()){
-				return Response::json(array(
-					'workOrderDeleted' => true,
-					'message' => 'Successfully deleted work order',
-					'messageType' => 'success'
-				));
-			} else{
-				return Redirect::route('maintenance.work-orders.index')
-					->with('message', 'Successfully deleted work order')
-					->with('messageType', 'success');
-			}
-		}
+            return $this->workOrder->destroy($id);
 	}
 	
 	

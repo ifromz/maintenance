@@ -8,6 +8,10 @@ use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Requests\AbstractRequest;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 
+/**
+ * Controls the asset images resource, as well as moving the temporary uploaded files to a stationary location
+ *
+ */
 class AssetImageRequest extends AbstractRequest {
 	
 	public function __construct(AssetService $asset, AttachmentService $attachment){
@@ -75,16 +79,17 @@ class AssetImageRequest extends AbstractRequest {
                             $attributes = explode('|', $file);
                             
                             $fileName = $attributes[0];
-                            $filePath = $attributes[1];
+                            $fileOriginalName = $attributes[1];
                             
                             //Ex. files/assets/images/1/example.png
                             $movedFilePath = Config::get('maintenance::site.paths.assets.images').sprintf('%s/', $asset->id);
                             
                             //Move the file
-                            Storage::move($filePath.$fileName, $movedFilePath.$fileName);
+                            Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
                             
                             //Data to insert into DB
                             $insert = array(
+                                'name' => $fileOriginalName,
                                 'file_name' => $fileName,
                                 'file_path' => $movedFilePath,
                             );
@@ -205,7 +210,7 @@ class AssetImageRequest extends AbstractRequest {
 	}
         
         /**
-	 * Return user to asset index and show an error messsage
+	 * Return user to asset image index and show an error messsage
 	 *
 	 * @return $this->response (object or json response)
 	 */

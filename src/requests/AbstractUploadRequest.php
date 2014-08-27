@@ -24,15 +24,18 @@ abstract class AbstractUploadRequest extends AbstractRequest {
 	public function upload(){
             //Init Plupload receive
             return Plupload::receive('file', function ($file){
-                $url = Storage::url($this->uploadPath. $file->getClientOriginalName());
-                $filePath = $this->uploadPath. $file->getClientOriginalName();
-                      
-                if($file->move($this->storagePath.$this->uploadPath, $file->getClientOriginalName())){
+                
+                $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
+                $filePath = $this->uploadPath . $fileName;
+                $url = Storage::url($filePath);
+                
+                if($file->move($this->storagePath.$this->uploadPath, $fileName)){
                     //Return ajax response with file information on successful upload
-                    return array('url'=>$url, 'name'=>$file->getClientOriginalName(), 'html'=>View::make($this->responseView)
+                    return array('url'=>$url, 'name'=>$fileName, 'html'=>View::make($this->responseView)
                         ->with('file', $file)
-                        ->with('file_path', $filePath)
-                        ->with('file_folder', $this->uploadPath)
+                        ->with('fileName', $fileName)
+                        ->with('filePath', $filePath)
+                        ->with('fileFolder', $this->uploadPath)
                         ->render());
                 } else{
                     $this->messageType = 'danger';

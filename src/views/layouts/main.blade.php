@@ -180,7 +180,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="#" style="margin-left: 10px;">
+                            <a href="{{ route('maintenance.work-orders.index') }}" style="margin-left: 10px;">
                                 <i class="fa fa-book"></i> Work Orders
                             </a>
                         </li>

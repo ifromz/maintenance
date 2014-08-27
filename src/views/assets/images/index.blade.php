@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th>Image</th>
+                    <th>Name</th>
                     <th class="hidden-xs">File Name</th>
                     <th>Action</th>
                 </tr>
@@ -27,26 +28,27 @@
                     <td width="200">
                         <img class="img-responsive" src="{{ Storage::url($image->file_path.$image->file_name) }}">
                     </td>
+                    <td>{{ $image->name }}</td>
                     <td class="hidden-xs">{{ $image->file_name }}</td>
                     <td>
                         <div class="btn-group">
-                                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Action
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('maintenance.assets.images.show', array($asset->id, $image->id)) }}">
-                                            <i class="fa fa-search"></i> View Image
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('maintenance.assets.images.destroy', array($asset->id, $image->id)) }}" data-method="delete" data-message="Are you sure you want to delete this asset?">
-                                            <i class="fa fa-trash-o"></i> Delete Image
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                Action
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ route('maintenance.assets.images.show', array($asset->id, $image->id)) }}">
+                                        <i class="fa fa-search"></i> View Image
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('maintenance.assets.images.destroy', array($asset->id, $image->id)) }}" data-method="delete" data-message="Are you sure you want to delete this asset?">
+                                        <i class="fa fa-trash-o"></i> Delete Image
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

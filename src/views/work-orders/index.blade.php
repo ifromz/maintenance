@@ -12,10 +12,10 @@
                     <i class="fa fa-plus"></i>
                     New Work Order
                 </a>
-            </div>
-
-            <div class="btn-toolbar text-center">
-                {{ $workOrders->links() }}
+                <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
+                    <i class="fa fa-search"></i>
+                    Search
+                </a>
             </div>
         </div>
         
@@ -24,9 +24,10 @@
             	<table class="table table-striped">
                 	<thead>
                     	<tr>
-                        	<th>ID</th>
+                            <th>ID</th>
                             <th>Status</th>
                             <th>Priority</th>
+                            <th>Subject</th>
                             <th>Description</th>
                             <th>Category</th>
                             <th>Created By</th>
@@ -36,16 +37,23 @@
                     </thead>
                     <tbody class="workOrder-body">
               		@foreach($workOrders as $workOrder)
-              			<tr>
-                        	<td>{{ $workOrder->id }}</td>
+                        <tr>
+                            <td>{{ $workOrder->id }}</td>
                             <td>@include('maintenance::partials.status-label', array('status'=>$workOrder->status))</td>
-                            <td></td>
-                            <td>{{ $workOrder->description }}</td>
                             <td>
-                            	@if($workOrder->category)
+                                @if($workOrder->priority) 
+                                    {{ trans(sprintf('maintenance::priorities.%s', $workOrder->priority)) }}
+                                @else
+                                    <em>None Set</em>
+                                @endif
+                            </td>
+                            <td>{{ $workOrder->subject }}</td>
+                            <td>{{ str_limit($workOrder->description) }}</td>
+                            <td>
+                                @if($workOrder->category)
                                     {{ renderNode($workOrder->category) }}
                                 @endif
-                         	</td>
+                            </td>
                             <td>@include('maintenance::partials.full-name', array('user'=>$workOrder->user))</td>
                             <td>{{ $workOrder->created_at }}</td>
                             <td>
@@ -77,14 +85,73 @@
                         @endforeach
                         
                         <div class="btn-toolbar text-center">
-                            {{ $workOrders->links() }}
+                            {{ $workOrders->appends(Input::except('page'))->links() }}
                         </div>
                     @else
                         <h5>There are no work orders to list</h5>
                     @endif
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
                
-       	</div>
-	</div>
+        </div>
+    </div>
+
+<div class="modal fade" id="search-modal" tabindex="-1 "role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            {{ Form::open(array('url'=>route('maintenance.work-orders.index'), 'method'=>'GET', 'class'=>'form-horizontal')) }}
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Filter Your Work Order Results</h4>
+            </div>
+            <div class="modal-body">
+                
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Subject</label>
+                        <div class="col-md-10">
+                            {{ Form::text(
+                                        'subject', 
+                                        (Input::has('subject') ? Input::get('subject') : NULL),  
+                                        array('class'=>'form-control', 'placeholder'=>'Enter Subject')
+                                    ) 
+                            }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description</label>
+                        <div class="col-md-10">
+                            {{ Form::text(
+                                        'description', 
+                                        (Input::has('description') ? Input::get('description') : NULL),  
+                                        array('class'=>'form-control', 'placeholder'=>'Enter Description')
+                                    ) 
+                            }}
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Priority</label>
+                        <div class="col-md-10">
+                            {{ Form::select(
+                                        'priority', 
+                                        trans('maintenance::priorities'), 
+                                        (Input::has('priority') ? Input::get('priority') : NULL), 
+                                        array('class'=>'form-control select2', 'placeholder'=>'ex. Low / Lowest')
+                                    ) 
+                            }}
+                        </div>
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+        
+        {{ Form::close() }}
+    </div>
+</div>
 @stop

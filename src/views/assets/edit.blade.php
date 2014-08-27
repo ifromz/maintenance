@@ -10,41 +10,37 @@
 	 <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit Asset</h3>
+                <h3 class="panel-title">Create a new Asset</h3>
             </div>
             <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.assets.update', array($asset->id)), 'method'=>'PATCH', 'class'=>'form-horizontal', 'id'=>'maintenance-asset-edit')) }}
+            {{ Form::open(array('url'=>route('maintenance.assets.update',array($asset->id)), 'method'=>'PATCH', 'class'=>'form-horizontal', 'id'=>'maintenance-asset-edit')) }}
             	<legend class="margin-top-10">Required Information</legend>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Name</label>
                     <div class="col-md-4">
-                    	{{ Form::text('name', $asset->name, array('class'=>'form-control', 'placeholder'=>'ex. Ford F150')) }}
+                    	{{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Ford F150')) }}
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Condition</label>
                     <div class="col-md-4">
-                    	{{ Form::select('condition', trans('maintenance::assets.conditions'), $asset->condition, array('class'=>'form-control select2')) }}
+                    	{{ Form::select('condition', trans('maintenance::assets.conditions'), NULL, array('class'=>'form-control select2')) }}
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Category</label>
                     <div class="col-md-4">
-                    	@include('maintenance::select.asset-category', array(
-                        	'category' => $asset->category
-                        ))
+                    	@include('maintenance::select.asset-category')
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Location</label>
                     <div class="col-md-4">
-                    	@include('maintenance::select.location', array(
-                        	'location' => $asset->location
-                        ))
+                    	@include('maintenance::select.location')
                    	</div>
                 </div>
                 
@@ -52,49 +48,49 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Vendor</label>
                     <div class="col-md-4">
-                    	{{ Form::text('vendor', $asset->vendor, array('class'=>'form-control', 'placeholder'=>'ex. Ford')) }}
+                    	{{ Form::text('vendor', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Ford')) }}
                    	</div>
                 </div>
                 
                  <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Make</label>
                     <div class="col-md-4">
-                    	{{ Form::text('make', $asset->make, array('class'=>'form-control', 'placeholder'=>'ex. F')) }}
+                    	{{ Form::text('make', NULL, array('class'=>'form-control', 'placeholder'=>'ex. F')) }}
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Model</label>
                     <div class="col-md-4">
-                    	{{ Form::text('model', $asset->model, array('class'=>'form-control', 'placeholder'=>'ex. 150')) }}
+                    	{{ Form::text('model', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 150')) }}
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Size</label>
                     <div class="col-md-4">
-                    	{{ Form::text('size', $asset->size, array('class'=>'form-control', 'placeholder'=>'ex. 1905 x 2463')) }}
+                    	{{ Form::text('size', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 1905 x 2463')) }}
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Weight</label>
                     <div class="col-md-4">
-                    	{{ Form::text('weight', $asset->weight, array('class'=>'form-control', 'placeholder'=>'ex. 1 ton')) }}
+                    	{{ Form::text('weight', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 1 ton')) }}
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Serial</label>
                     <div class="col-md-4">
-                    	{{ Form::text('serial', $asset->serial, array('class'=>'form-control', 'placeholder'=>'ex. 153423-13432432-2342423')) }}
+                    	{{ Form::text('serial', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 153423-13432432-2342423')) }}
                    	</div>
                 </div>
                 
             	<div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Aquisition Date</label>
                     <div class="col-md-4">
-                    	{{ Form::text('aquired_at', $asset->aquired_at, array('class'=>'pickadate form-control', 'placeholder'=>'Click to Select Date')) }}
+                    	{{ Form::text('aquired_at', NULL, array('class'=>'pickadate form-control', 'placeholder'=>'Click to Select Date')) }}
                    	</div>
                 </div>
                 

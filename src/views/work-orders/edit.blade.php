@@ -6,35 +6,48 @@
 
 @section('content')
 
-	<script src="/packages/stevebauman/maintenance/js/work-orders/edit.js"></script>
+    <script src="/packages/stevebauman/maintenance/js/work-orders/edit.js"></script>
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Create a new Work Order</h3>
+                <h3 class="panel-title">Edit Work Order</h3>
             </div>
             <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.work-orders.update', array($workOrder->id)), 'method'=>'PATCH', 'class'=>'form-horizontal', 'id'=>'maintenance-work-order-edit')) }}
-            	{{ Form::hidden('current_category_id', $workOrder->category_id) }}
+            {{ Form::open(array('url'=>route('maintenance.work-orders.store'), 'class'=>'form-horizontal', 'id'=>'maintenance-work-order-edit')) }}
             	<legend class="margin-top-10">Work Order Information</legend>
-            	<div class="form-group">
-                    <label class="col-sm-2 control-label" for="name">Name</label>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="location_name">Category</label>
                     <div class="col-md-4">
-                    	{{ Form::text('user', NULL, array('class'=>'form-control', 'placeholder'=>$workOrder->user->first_name.' '.$workOrder->user->last_name, 'disabled')) }}
+                      	@include('maintenance::select.work-order-category', array('category'=>$workOrder->category))
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="location_name">Location</label>
+                    <div class="col-md-4">
+                      	@include('maintenance::select.location', array('location'=>$workOrder->location))
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="status_name">Status</label>
+                    <div class="col-md-4">
+                    	{{ Form::select('status', $statuses, $workOrder->status, array('class'=>'form-control select2', 'placeholder'=>'ex. Repaired / Awaiting for Parts')) }}
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Category</label>
+                    <label class="col-sm-2 control-label" for="location_name">Priority</label>
                     <div class="col-md-4">
-                    	<div id="category-tree"></div>
-                      	{{ Form::hidden('category', NULL, array('id'=>'work-order-category')) }}
-                    </div>
-              	</div>
+                    	{{ Form::select('priority', $priorities, $workOrder->priority, array('class'=>'form-control select2', 'placeholder'=>'ex. Low / Lowest')) }}
+                   	</div>
+                </div>
                 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Status</label>
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">Assets Involved</label>
                     <div class="col-md-4">
-                    	{{ Form::select('status', $statuses, $workOrder->status_id, array('class'=>'form-control select2', 'placeholder'=>'ex. Admin / Maintenance')) }}
+                    	@include('maintenance::select.assets', array('assets'=>$workOrder->assets))
                    	</div>
                 </div>
                 

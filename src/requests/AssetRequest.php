@@ -72,7 +72,7 @@ class AssetRequest extends AbstractRequest {
 	 */
 	public function show($id){
 		try{
-			$asset = $this->asset->find($id);
+			$asset = $this->asset->with('workOrders')->find($id);
 				
 			return View::make('maintenance::assets.show',
 				array(

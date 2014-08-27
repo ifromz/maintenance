@@ -25,9 +25,10 @@
         
         <div class="panel-body">
         @if($assets->count() > 0)
-        	<table class="table">
+        	<table class="table table-striped">
             	<thead>
-                	<tr>
+                    <tr>
+                        <th>ID</th>
                     	<th>Name</th>
                         <th class="hidden-xs">Category</th>
                         <th>Condition</th>
@@ -37,7 +38,8 @@
                 </thead>
                 <tbody>
                 @foreach($assets as $asset)
-                	<tr>
+                    <tr>
+                        <td>{{ $asset->id }}</td>
                     	<td>{{ $asset->name }}</td>
                         <td class="hidden-xs">{{ $asset->category->name }}</td>
                         <td>{{ $asset->condition }}</td>

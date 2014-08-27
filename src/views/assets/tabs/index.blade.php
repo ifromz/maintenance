@@ -1,5 +1,15 @@
-<div class="col-md-3">
-    
+
+    <style>
+        .slider-size {
+        height: 200px; /* This is your slider height */
+        width: 300px; /* This is your slider height */
+        }
+        .carousel {
+            width:100%;
+            margin:0 auto; /* center your carousel if other than 100% */ 
+        }
+    </style>
+<div class="slider-size">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             @if($asset->images->count() > 1)
@@ -17,17 +27,20 @@
             @foreach($asset->images as $image)
             
             @if($asset->images->first()->id == $image->id)
-                <div class="item active">
-                    
+                <div class="item active">  
             @else
                 <div class="item">
             @endif
-                    <a href="{{ route('maintenance.assets.images.show', array($asset->id, $image->id)) }}"><img class="img-responsive" src="{{ Storage::url($image->file_path.$image->file_name) }}"></a>
+                    <div style="background:url({{ Storage::url($image->file_path.$image->file_name) }}) center center; 
+          background-size:cover;" class="slider-size">
+                    </div>
                 </div>
             @endforeach
         @else
             <div class="item active">
-                <img src="http://placehold.it/700x500&text=No+Images+Found" alt="Placeholder">
+                <a href="{{ route('maintenance.assets.images.create', array($asset->id)) }}">
+                    <img src="http://placehold.it/300x200&text=Click+To+Add+Pictures" alt="Placeholder">
+                </a>
             </div>
         @endif
         </div>
@@ -39,5 +52,5 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
         @endif
-    </div>
-</div>      
+    </div>  
+</div>

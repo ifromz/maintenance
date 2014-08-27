@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="location_name">Priority</label>
                     <div class="col-md-4">
-                    	{{ Form::select('priorities', $priorities, '0', array('class'=>'form-control select2', 'placeholder'=>'ex. Low / Lowest')) }}
+                    	{{ Form::select('priority', $priorities, '0', array('class'=>'form-control select2', 'placeholder'=>'ex. Low / Lowest')) }}
                    	</div>
                 </div>
                 

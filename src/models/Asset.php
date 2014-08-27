@@ -26,7 +26,11 @@ class Asset extends \Eloquent {
 	public function images(){
 		return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'asset_images', 'asset_id', 'attachment_id');
 	}
-	
+        
+        public function workOrders(){
+            return $this->belongsToMany('Stevebauman\Maintenance\Models\WorkOrder', 'work_order_assets', 'asset_id', 'work_order_id')->withTimestamps();
+        }
+        
 	public function getConditionAttribute($attr){
 		return trans(sprintf('maintenance::assets.conditions.%s',$attr));
 	}
