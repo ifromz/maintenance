@@ -130,7 +130,7 @@ class WorkOrderRequest extends AbstractRequest {
                     'dates' => $dates,
                 ));
                 
-            } catch (RecrodNotFoundExce $e) {
+            } catch (RecordNotFoundException $e) {
                 return $this->workOrderNotFound();
             }
 	}
