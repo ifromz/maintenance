@@ -2,7 +2,8 @@
 	{{ Form::text('location', (isset($location_name) ? $location_name : NULL), array('readonly', 'class'=>'form-control')) }}
     {{ Form::hidden('location_id', (isset($location_id) ? $location_id : NULL)) }}
     <span class="input-group-btn">
-    	<button class="btn btn-default" data-toggle="modal" data-target="#locationModal" type="button">Select</button>
+    	<button class="btn btn-primary" data-toggle="modal" data-target="#locationModal" type="button">Select</button>
+        <a href="{{ route('maintenance.locations.index') }}" class="btn btn-default" data-toggle="tooltip" data-title="Manage locations"> Manage</a>
     </span>
 </div><!-- /input-group -->
 

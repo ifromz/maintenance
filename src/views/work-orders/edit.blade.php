@@ -4,6 +4,13 @@
 	<h1>{{ $title }}</h1>
 @stop
 
+@section('breadcrumb')
+<li class="active">
+    <i class="fa fa-book"></i> 
+    Work Orders
+</li>
+@stop
+
 @section('content')
 
     <script src="/packages/stevebauman/maintenance/js/work-orders/edit.js"></script>
@@ -17,7 +24,7 @@
             	<legend class="margin-top-10">Work Order Information</legend>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Category</label>
+                    <label class="col-sm-2 control-label">Category</label>
                     <div class="col-md-4">
                       	@include('maintenance::select.work-order-category', array(
                                 'category_name'=>$workOrder->category->name,
@@ -27,44 +34,45 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Location</label>
+                    <label class="col-sm-2 control-label">Location</label>
                     <div class="col-md-4">
                       	@include('maintenance::select.location', array(
-                                'location_name'=>$workOrder->location->id
+                                'location_name'=>$workOrder->location->name,
+                                'location_id' => $workOrder->location->id,
                             ))
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="status_name">Status</label>
+                    <label class="col-sm-2 control-label">Status</label>
                     <div class="col-md-4">
                     	{{ Form::select('status', $statuses, $workOrder->status, array('class'=>'form-control select2', 'placeholder'=>'ex. Repaired / Awaiting for Parts')) }}
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Priority</label>
+                    <label class="col-sm-2 control-label">Priority</label>
                     <div class="col-md-4">
                     	{{ Form::select('priority', $priorities, $workOrder->priority, array('class'=>'form-control select2', 'placeholder'=>'ex. Low / Lowest')) }}
                    	</div>
                 </div>
                 
                  <div class="form-group">
-                    <label class="col-sm-2 control-label" for="name">Assets Involved</label>
+                    <label class="col-sm-2 control-label">Assets Involved</label>
                     <div class="col-md-4">
                     	@include('maintenance::select.assets', array('assets'=>$workOrder->assets->lists('id')))
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Subject</label>
+                    <label class="col-sm-2 control-label">Subject</label>
                     <div class="col-md-4">
                     	{{ Form::text('subject', $workOrder->subject, array('class'=>'form-control', 'placeholder'=>'ex. Worked on HVAC')) }}
                    	</div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Description / Details</label>
+                    <label class="col-sm-2 control-label">Description / Details</label>
                     <div class="col-md-4">
                     	{{ Form::textarea('description', $workOrder->description, array('class'=>'form-control', 'style'=>'min-width:100%', 'placeholder'=>'ex. Added components')) }}
                    	</div>
@@ -72,7 +80,7 @@
                 
                 <legend class="margin-top-10">Other Information</legend>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Start Date</label>
+                    <label class="col-sm-2 control-label">Start Date</label>
                     <div class="col-md-4">
                     	<div class="col-md-6">
                         	{{ Form::text('started_at_date', $dates['started']['date'], array('class'=>'form-control pickadate', 'placeholder'=>'Choose Date')) }}
@@ -84,7 +92,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Completion Date</label>
+                    <label class="col-sm-2 control-label">Completion Date</label>
                     <div class="col-md-4">
                     	<div class="col-md-6">
                     		{{ Form::text('completed_at_date', $dates['completed']['date'], array('class'=>'form-control pickadate', 'placeholder'=>'Choose Date')) }}

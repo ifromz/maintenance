@@ -1,13 +1,10 @@
 <?php namespace Stevebauman\Maintenance\Controllers;
 
-use View;
-use Validator;
-use Request;
-use Response;
-use Redirect;
-use Input;
-use Config;
-use Lang;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 abstract class AbstractNestedSetController extends BaseController {
@@ -77,7 +74,7 @@ abstract class AbstractNestedSetController extends BaseController {
 			
 			return Response::json(array(
 				'categoryCreated' => true,
-				'message' => Lang::get('maintenance::messages/category.create.success'),
+				'message' => trans('maintenance::messages/category.create.success'),
 				'messageType' => 'success',
 			));
 			

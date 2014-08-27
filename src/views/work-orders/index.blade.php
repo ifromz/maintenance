@@ -4,6 +4,10 @@
 	<h1>{{ $title }}</h1>
 @stop
 
+@section('breadcrumb')
+    @include('maintenance::breadcrumbs.work-orders.index')
+@stop
+
 @section('content')
 	<div class="panel panel-default">
     	<div class="panel-heading">
