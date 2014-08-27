@@ -1,6 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-class Attachment extends \Eloquent {
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class Attachment extends Eloquent {
 	
 	protected $table = 'attachments';
 	

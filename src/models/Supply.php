@@ -1,6 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-class Supply extends \Eloquent {
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class Supply extends Eloquent {
 	
 	protected $table = 'supplies';
 	

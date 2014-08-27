@@ -1,6 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-class WorkOrder extends \Eloquent {
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class WorkOrder extends Eloquent {
 	
 	protected $table = 'work_orders';
 	

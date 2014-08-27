@@ -1,6 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-class User extends \Eloquent {
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class User extends Eloquent {
 	
 	protected $table = 'users';
 	

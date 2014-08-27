@@ -1,6 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-class Assignment extends \Eloquent {
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class Assignment extends Eloquent {
 	
 	protected $table = 'assignments';
 	

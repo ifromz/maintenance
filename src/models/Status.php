@@ -1,6 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-class Status extends \Eloquent {
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class Status extends Eloquent {
 	
 	protected $table = 'statuses';
 	

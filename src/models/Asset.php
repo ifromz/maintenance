@@ -1,6 +1,9 @@
 <?php namespace  Stevebauman\Maintenance\Models;
 
-class Asset extends \Eloquent {
+
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+class Asset extends Eloquent {
 	
 	protected $table = 'assets';
 	
