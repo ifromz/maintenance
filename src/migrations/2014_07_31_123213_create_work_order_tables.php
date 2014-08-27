@@ -13,7 +13,7 @@ class CreateWorkOrderTables extends Migration {
 	public function up()
 	{
 		Schema::create('work_orders', function(Blueprint $table) {
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->timestamps();
 			$table->integer('user_id')->unsigned();
                         $table->integer('location_id')->unsigned();
@@ -44,7 +44,7 @@ class CreateWorkOrderTables extends Migration {
 		});
 		
 		Schema::create('work_order_attachment', function(Blueprint $table) {
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->timestamps();
 			$table->integer('work_order_id')->unsigned();
 			$table->integer('attachment_id')->unsigned();
@@ -64,7 +64,7 @@ class CreateWorkOrderTables extends Migration {
 		});
 		
 		Schema::create('work_order_supplies', function(Blueprint $table) {
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->timestamps();
 			$table->integer('work_order_id')->unsigned();
 			$table->integer('supply_id')->unsigned();
@@ -85,7 +85,7 @@ class CreateWorkOrderTables extends Migration {
 		});
 		
 		Schema::create('work_order_assets', function(Blueprint $table) {
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->timestamps();
 			$table->integer('work_order_id')->unsigned();
 			$table->integer('asset_id')->unsigned();

@@ -13,7 +13,7 @@ class CreateAssetManualsTable extends Migration {
 	public function up()
 	{
 		Schema::create('asset_manuals', function(Blueprint $table){
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->timestamps();
                         $table->integer('asset_id')->unsigned();
 			$table->integer('attachment_id')->unsigned();
@@ -29,7 +29,7 @@ class CreateAssetManualsTable extends Migration {
 		});
 		
 		Schema::create('asset_images', function(Blueprint $table){
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->timestamps();
                         $table->integer('asset_id')->unsigned();
 			$table->integer('attachment_id')->unsigned();

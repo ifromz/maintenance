@@ -13,7 +13,7 @@ class CreateAssignmentsTable extends Migration {
 	public function up()
 	{
 		Schema::create('assignments', function(Blueprint $table) {
-			$table->increments('id');
+			$table->bigIncrements('id');
 			$table->timestamps();
 			$table->integer('work_order_id')->unsigned();
 			$table->integer('by_user_id')->unsigned();
