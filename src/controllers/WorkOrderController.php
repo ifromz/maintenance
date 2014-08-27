@@ -97,22 +97,5 @@ class WorkOrderController extends BaseController {
 	public function destroy($id){
             return $this->workOrder->destroy($id);
 	}
-	
-	
-	public function getWorkOrdersBySlug($location, $hierarchy = NULL){
-		if($location = $this->location->getLocationBySlug($location)){
-			
-			$categories = explode('/', $hierarchy);
-			
-			if($category = $this->category->getCategoryBySlugAndLocationId($location->id)){
-				$workOrders = $this->workOrder->getByPageWithCategoryId($category->id);
-				
-				$this->layout = View::make('maintenance::work-orders.index', compact('workOrders'));
-				$this->layout->title = sprintf('Work Orders <small>%s</small>', renderNode($category));
-			} else{
-			}
-		}
-	}
-
 
 }
