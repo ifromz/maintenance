@@ -22,10 +22,11 @@ class WorkOrderService extends AbstractModelService {
                         ->subject((array_key_exists('subject', $data) ? $data['subject'] : NULL))
                         ->description((array_key_exists('description', $data) ? $data['description'] : NULL))
                         ->status((array_key_exists('status', $data) ? $data['status'] : NULL))
-                        ->category((array_key_exists('category', $data) ? $data['category'] : NULL))
+                        ->category((array_key_exists('work_order_category_id', $data) ? $data['work_order_category_id'] : NULL))
+                        ->assets((array_key_exists('assets', $data) ? $data['assets'] : NULL))
+                        ->orderBy('created_at', 'DESC')
 			->paginate(25);
 	}
-        
 	
 	public function getByPageWithCategoryId($category_id){
 		return $this->model
@@ -35,7 +36,7 @@ class WorkOrderService extends AbstractModelService {
 				'category',
 				'user',
 			))
-			->where('category_id', $category_id)
+			->where('work_order_category_id', $category_id)
 			->paginate(25);
 	}
 	
@@ -62,8 +63,6 @@ class WorkOrderService extends AbstractModelService {
 			->where('serial', 'LIKE', '%'.$serial.'%')
 			->get();
 	}
-	
-	
 	
 	public function create($data){
 		$insert = array(

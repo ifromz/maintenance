@@ -33,14 +33,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="status_name">Status</label>
                     <div class="col-md-4">
-                    	{{ Form::select('status', $statuses, '0', array('class'=>'form-control select2', 'placeholder'=>'ex. Repaired / Awaiting for Parts')) }}
+                    	@include('maintenance::select.status')
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="location_name">Priority</label>
                     <div class="col-md-4">
-                    	{{ Form::select('priority', $priorities, '0', array('class'=>'form-control select2', 'placeholder'=>'ex. Low / Lowest')) }}
+                    	@include('maintenance::select.priority')
                    	</div>
                 </div>
                 

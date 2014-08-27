@@ -1,6 +1,6 @@
 <div class="input-group">
-	{{ Form::text('location', (isset($location) ? $location->name : NULL), array('readonly', 'class'=>'form-control')) }}
-    {{ Form::hidden('location_id', (isset($location) ? $location->id : NULL)) }}
+	{{ Form::text('location', (isset($location_name) ? $location_name : NULL), array('readonly', 'class'=>'form-control')) }}
+    {{ Form::hidden('location_id', (isset($location_id) ? $location_id : NULL)) }}
     <span class="input-group-btn">
     	<button class="btn btn-default" data-toggle="modal" data-target="#locationModal" type="button">Select</button>
     </span>

@@ -97,7 +97,7 @@
     </div>
 
 <div class="modal fade" id="search-modal" tabindex="-1 "role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             {{ Form::open(array('url'=>route('maintenance.work-orders.index'), 'method'=>'GET', 'class'=>'form-horizontal')) }}
             
@@ -134,20 +134,44 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Priority</label>
                         <div class="col-md-10">
-                            {{ Form::select(
-                                        'priority', 
-                                        trans('maintenance::priorities'), 
-                                        (Input::has('priority') ? Input::get('priority') : NULL), 
-                                        array('class'=>'form-control select2', 'placeholder'=>'ex. Low / Lowest')
-                                    ) 
-                            }}
+                            @include('maintenance::select.priority', array(
+                                'priority' => (Input::has('priority') ? Input::get('priority') : NULL)
+                            ))
                         </div>
                     </div>
+                
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Status</label>
+                        <div class="col-md-10">
+                            @include('maintenance::select.status', array(
+                                'status' => (Input::has('status') ? Input::get('status') : NULL)
+                            ))
+                        </div>
+                    </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Category</label>
+                    <div class="col-md-10">
+                        @include('maintenance::select.work-order-category', array(
+                            'category_name' => (Input::has('work_order_category') ? Input::get('work_order_category') : NULL),
+                            'category_id' => (Input::has('work_order_category_id') ? Input::get('work_order_category_id') : NULL)
+                        ))
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Assets Included</label>
+                    <div class="col-md-10">
+                        @include('maintenance::select.assets', array(
+                            'assets' => (Input::has('assets') ? Input::get('assets') : NULL),
+                        ))
+                    </div>
+                </div>
                 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search-plus"></i> Search</button>
             </div>
         </div>
         

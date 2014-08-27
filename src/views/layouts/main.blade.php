@@ -8,6 +8,10 @@
     <!-- Styles -->
         <!-- bootstrap 3.1.0 -->
         {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/bootstrap.min.css') }}
+        
+        <!-- bootstrap stackable modals extension -->
+        {{ HTML::style('packages/stevebauman/maintenance/bootstrap-modal/css/bootstrap-modal.css') }}
+        
         <!-- Font Awesome -->
         {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/font-awesome.min.css') }}
         
@@ -44,8 +48,13 @@
         
         <!-- jQuery UI 1.10.3 -->
         {{ HTML::script('packages/stevebauman/maintenance/js/vendor/jquery-ui-1.10.3.min.js') }}
+        
         <!-- Bootstrap -->
         {{ HTML::script('packages/stevebauman/maintenance/adminlte/js/bootstrap.min.js') }}
+        
+        <!-- bootstrap modals -->
+        {{ HTML::script('packages/stevebauman/maintenance/bootstrap-modal/js/bootstrap-modalmanager.js') }}
+        {{ HTML::script('packages/stevebauman/maintenance/bootstrap-modal/js/bootstrap-modal.js') }}
         
         <!-- Select2 3.4.5-->
         {{ HTML::script('packages/stevebauman/maintenance/adminlte/select2-3.4.5/select2.min.js') }}

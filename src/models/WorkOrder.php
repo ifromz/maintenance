@@ -62,7 +62,7 @@ class WorkOrder extends \Eloquent {
         public function scopeStatus($query, $status = NULL){
             if($status){
                 return $query->whereHas('status', function($query) use($status){
-                        $query->where('name', 'LIKE', '%'.$status.'%');
+                        $query->where('id', $status);
                 });
             }
 	}
@@ -70,8 +70,16 @@ class WorkOrder extends \Eloquent {
         public function scopeCategory($query, $category = NULL){
             if($category){
                 return $query->whereHas('category', function($query) use($category){
-                        $query->where('name', 'LIKE', '%'.$category.'%');
+                        $query->where('id', $category);
                 });
             }
 	}
+        
+        public function scopeAssets($query, $assets = NULL){
+            if($assets){
+                return $query->whereHas('assets', function($query) use($assets){
+                        $query->whereIn('asset_id', $assets);
+                });
+            }
+        }
 }

@@ -1,29 +1,13 @@
 <?php namespace Stevebauman\Maintenance\Controllers;
 
-use View;
-use Input;
-use Response;
-use Redirect;
-use Request;
-use HTML;
+use Illuminate\Support\Facades\Input;
 use Stevebauman\Maintenance\Controllers\BaseController;
 use Stevebauman\Maintenance\Requests\WorkOrderRequest;
-use Stevebauman\Maintenance\Services\WorkOrderCategoryService;
-use Stevebauman\Maintenance\Services\StatusService;
-use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 
 class WorkOrderController extends BaseController {
 	
-	public function __construct(
-			WorkOrderRequest $workOrder,
-			WorkOrderCategoryService $category, 
-			StatusService $status, 
-			WorkOrderValidator $workOrderValidator
-		){
+	public function __construct(WorkOrderRequest $workOrder){
 		$this->workOrder = $workOrder;
-		$this->category = $category;
-		$this->status = $status;
-		$this->workOrderValidator = $workOrderValidator;
 	}
 	
 	/**

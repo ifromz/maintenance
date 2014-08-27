@@ -19,14 +19,19 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="location_name">Category</label>
                     <div class="col-md-4">
-                      	@include('maintenance::select.work-order-category', array('category'=>$workOrder->category))
+                      	@include('maintenance::select.work-order-category', array(
+                                'category_name'=>$workOrder->category->name,
+                                'category_id'=>$workOrder->category->id
+                            ))
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="location_name">Location</label>
                     <div class="col-md-4">
-                      	@include('maintenance::select.location', array('location'=>$workOrder->location))
+                      	@include('maintenance::select.location', array(
+                                'location_name'=>$workOrder->location->id
+                            ))
                     </div>
                 </div>
                 
@@ -47,7 +52,7 @@
                  <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Assets Involved</label>
                     <div class="col-md-4">
-                    	@include('maintenance::select.assets', array('assets'=>$workOrder->assets))
+                    	@include('maintenance::select.assets', array('assets'=>$workOrder->assets->lists('id')))
                    	</div>
                 </div>
                 
