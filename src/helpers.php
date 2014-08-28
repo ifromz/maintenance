@@ -14,7 +14,7 @@
 		}
 		
 		return $html;
-    }
+        }
 	
 	function currentControllerAction($method){
 		$class =  explode('@', \Route::currentRouteAction());

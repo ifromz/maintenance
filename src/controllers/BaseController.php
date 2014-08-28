@@ -17,10 +17,6 @@ class BaseController extends Controller {
 		{
 			$this->layout = View::make($this->layout);
 		}
-		
-            //Share the config option to all the views
-            $site_title = Config::get('maintenance::site.title',array());
-            View::share('site_title', $site_title);
 	}
 
 }

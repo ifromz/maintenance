@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
 
 class MaintenanceServiceProvider extends ServiceProvider {
@@ -19,11 +20,20 @@ class MaintenanceServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('stevebauman/maintenance');
+                
+                $this->app->bind('maintenance:install', function($app) {
+                    return new Commands\InstallCommand();
+                });
+                $this->commands(array(
+                    'maintenance:install'
+                ));
+                
 		include __DIR__ .'/../../routes.php';
 		include __DIR__ .'/../../filters.php';
 		include __DIR__ .'/../../composers.php';
 		include __DIR__ .'/../../validators.php';
 		include __DIR__ .'/../../helpers.php';
+                
 	}
 
 	/**

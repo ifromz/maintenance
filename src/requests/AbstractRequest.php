@@ -50,7 +50,8 @@ abstract class AbstractRequest {
 			} else{
 				return Response::json(array(
 					'message' => $this->message,
-					'messageType' => $this->messageType
+					'messageType' => $this->messageType,
+                                        'redirect' => $this->redirect
 				));
 			}
 		} else{

@@ -1,12 +1,35 @@
 <?php
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Routes
 |--------------------------------------------------------------------------
 */
 Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
-	
+	/*
+        |--------------------------------------------------------------------------
+        | Maintenance Public Routes
+        |--------------------------------------------------------------------------
+        */
+        Route::group(array('prefix'=>'register', 'namespace'=>'Stevebauman\Maintenance\Controllers'), function(){
+            Route::get('', array(
+                'as' => 'maintenance.register',
+                'uses' => 'AuthController@getRegister',
+            ));
+            
+            Route::get('why', array(
+                'as' => 'maintenance.register.why',
+                'uses' => 'AuthController@getWhyRegister',
+            ));
+            
+            Route::post('', array(
+                'as' => 'maintenance.register',
+                'uses' => 'AuthController@postRegister',
+            ));
+        });
+    
 	Route::group(array('prefix'=>'login', 'namespace'=>'Stevebauman\Maintenance\Controllers', 'before'=>'maintenance.notauth'), function(){
 	
 		Route::get('', array(

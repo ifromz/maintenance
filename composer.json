@@ -24,6 +24,7 @@
     "autoload": {
         "classmap": [
             "src/migrations",
+                        "src/commands",
 			"src/controllers",
 			"src/models",
 			"src/services",
