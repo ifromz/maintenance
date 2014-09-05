@@ -3,9 +3,9 @@
 return array(
         
         /*
-         * The integer which tells the system when the work order is complete or not
+         * The integer which tells the system when the work order is complete or not 
          */
-        'complete' => '0',
+        'complete' => 0, //**MUST BE AN INTEGER**
         
         /*
          * Options to list for dropdown box

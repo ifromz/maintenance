@@ -18,18 +18,18 @@ class AssetService extends AbstractModelService {
 	
 	public function create($data){
 		$insert = array(
-			'user_id' 			=> $this->sentry->getCurrentUserId(),
-			'location_id' 		=> ($data['location_id'] ? $data['location_id'] : NULL),
+			'user_id'           => $this->sentry->getCurrentUserId(),
+			'location_id'       => ($data['location_id'] ? $data['location_id'] : NULL),
 			'asset_category_id' => $data['asset_category_id'],
-			'name' 				=> $data['name'],
-			'condition' 		=> $data['condition'],
-			'vendor' 			=> $data['vendor'],
-			'make' 				=> $data['make'],
-			'model' 			=> $data['model'],
-			'size' 				=> $data['size'],
-			'weight' 			=> $data['weight'],
-			'serial' 			=> $data['serial'],
-			'aquired_at' 		=> $data['aquired_at'],
+			'name'              => $this->clean($data['name']),
+			'condition'         => $data['condition'],
+			'vendor'            => $this->clean($data['vendor']),
+			'make'              => $this->clean($data['make']),
+			'model'             => $this->clean($data['model']),
+			'size'              => $this->clean($data['size']),
+			'weight'            => $this->clean($data['weight']),
+			'serial'            => $this->clean($data['serial']),
+			'aquired_at'        => $data['aquired_at'],
 		);
 		
 		if($record = $this->model->create($insert)){
@@ -41,17 +41,17 @@ class AssetService extends AbstractModelService {
 		
 		if($record = $this->find($id)){
 			$edit = array(
-				'location_id' 		=> ($data['location_id'] ? $data['location_id'] : NULL),
+				'location_id'       => ($data['location_id'] ? $data['location_id'] : NULL),
 				'asset_category_id' => $data['asset_category_id'],
-				'name' 				=> $data['name'],
-				'condition' 		=> $data['condition'],
-				'vendor' 			=> $data['vendor'],
-				'make' 				=> $data['make'],
-				'model' 			=> $data['model'],
-				'size' 				=> $data['size'],
-				'weight' 			=> $data['weight'],
-				'serial' 			=> $data['serial'],
-				'aquired_at' 		=> $data['aquired_at'],
+				'name'              => $this->clean($data['name']),
+				'condition'         => $data['condition'],
+                                'vendor'            => $this->clean($data['vendor']),
+                                'make'              => $this->clean($data['make']),
+                                'model'             => $this->clean($data['model']),
+                                'size'              => $this->clean($data['size']),
+                                'weight'            => $this->clean($data['weight']),
+                                'serial'            => $this->clean($data['serial']),
+				'aquired_at'        => $data['aquired_at'],
 			);
 			
 			if($record->update($edit)){

@@ -70,8 +70,8 @@ class WorkOrderService extends AbstractModelService {
                         'location_id' => $data['location_id'],
 			'status' => $data['status'],
                         'priority' => $data['priority'],
-			'subject' => $data['subject'],
-			'description' => $data['description'],
+			'subject' => $this->clean($data['subject']),
+			'description' => $this->clean($data['description']),
 			'started_at' => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
 			'completed_at' =>$this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
 		);
@@ -92,8 +92,8 @@ class WorkOrderService extends AbstractModelService {
                             'location_id' => $data['location_id'],
                             'status' => $data['status'],
                             'priority' => $data['priority'],
-                            'subject' => $data['subject'],
-                            'description' => $data['description'],
+                            'subject' => $this->clean($data['subject']),
+                            'description' => $this->clean($data['description']),
                             'started_at' => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
                             'completed_at' =>$this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
 			);

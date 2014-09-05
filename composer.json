@@ -10,16 +10,17 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "4.2.*",
-		"cartalyst/sentry": "2.*@dev",
-		"adldap/adldap": "dev-master",
-		"stevebauman/corp": "dev-master",
-		"jildertmiedema/laravel-plupload": "dev-master",
-		"rtconner/laravel-tagging": "dev-master",
-		"anahkiasen/former": "dev-master",
-		"stevemo/cpanel": "dev-develop",
-		"baum/baum": "~1.0",
-		"dinesh/barcode": "dev-master",
-		"dmyers/laravel-storage": "dev-master"
+        "cartalyst/sentry": "2.*@dev",
+        "adldap/adldap": "dev-master",
+        "stevebauman/corp": "dev-master",
+        "jildertmiedema/laravel-plupload": "dev-master",
+        "rtconner/laravel-tagging": "dev-master",
+        "anahkiasen/former": "dev-master",
+        "stevemo/cpanel": "dev-develop",
+        "baum/baum": "~1.0",
+        "dinesh/barcode": "dev-master",
+        "dmyers/laravel-storage": "dev-master",
+        "mews/purifier": "dev-master"
     },
     "autoload": {
         "classmap": [

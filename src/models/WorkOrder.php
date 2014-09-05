@@ -50,7 +50,7 @@ class WorkOrder extends Eloquent {
         }
         
         public function report(){
-            return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrderReport', 'id', 'work_order_id');
+            return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrderReport', 'work_order_id');
         }
         
         public function assignments(){

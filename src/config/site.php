@@ -18,7 +18,7 @@ return array(
 		
 		'assets' => array(
 			'images' => 'assets/images/',
-			'manuals' => '',
+			'manuals' => 'assets/manuals/',
 		),
 	),
 	

@@ -8,7 +8,12 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">
-            Asset Images
+            <div class="btn-toolbar">
+                <a href="{{ route('maintenance.assets.images.create', array($asset->id)) }}" class="btn btn-primary" data-toggle="tooltip" title="Upload Asset Images">
+                    <i class="fa fa-plus"></i>
+                    Upload Images
+                </a>
+            </div>
         </div>
     </div>
     <div class="panel-body">
@@ -55,6 +60,8 @@
             </tbody>
         </table>
         @else
+        
+        <h5>There are currently no asset images to list.</h5>
         
         @endif
     </div>

@@ -10,14 +10,14 @@ class Asset extends Eloquent {
 		'user_id',
 		'location_id', 
 		'asset_category_id', 
-		'name', 
-		'condition', 
-		'size', 
-		'weight', 
-		'vendor', 
-		'make', 
-		'model', 
-		'serial', 
+		'name',
+		'condition',
+		'size',
+		'weight',
+		'vendor',
+		'make',
+		'model',
+		'serial',
 		'price'
 	);
 	
@@ -44,5 +44,5 @@ class Asset extends Eloquent {
         public function getLabelAttribute(){
             return sprintf('<a href="%s" class="label label-primary">%s</span></a>', route('maintenance.assets.show', array($this->attributes['id'])), $this->attributes['name']);
         }
-	
+        
 }

@@ -1,11 +1,12 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
+use Mews\Purifier\Facades\Purifier;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 
 abstract class AbstractModelService {
-	
+    
     protected $model;
-	
+    
     /**
      * Return all model records
      *
@@ -125,6 +126,10 @@ abstract class AbstractModelService {
             if($this->model->destroy($id)){
                     return true;
             } return false;
+    }
+    
+    public function clean($input){
+        return Purifier::clean($input);
     }
 
 	

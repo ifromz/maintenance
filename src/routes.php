@@ -123,31 +123,44 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                     'uses' => 'WorkOrderSessionController@postEnd'
                 ));
                 
-                Route::resource('work-orders.assignments', 'AssignmentController', array(
+                /*
+		|--------------------------------------------------------------------------
+		| Maintenance Work Order Report Routes
+		|--------------------------------------------------------------------------
+		*/
+                Route::resource('work-orders/{work_orders}/report', 'WorkOrderReportController', array(
                     'only' => array(
-                        'index',
-                        'create',
                         'store',
-                        'destroy'
+                        'show', 
+                        'edit',  
+                        'update', 
+                        'destroy',
                     ),
-                    'names' => array(
-                        'index' => 'maintenance.work-orders.assignments.index',
-                        'create' => 'maintenance.work-orders.assignments.create',
-                        'store' => 'maintenance.work-orders.assignments.store',
-                        'destroy' => 'maintenance.work-orders.assignments.destroy'
+                    'names'=> array(
+                        'store'   	=> 'maintenance.work-orders.report.store',
+                        'show'    	=> 'maintenance.work-orders.report.show',
+                        'edit'    	=> 'maintenance.work-orders.report.edit',
+                        'update'  	=> 'maintenance.work-orders.report.update',
+                        'destroy' 	=> 'maintenance.work-orders.report.destroy',
                     ),
-                ));
+		));
                 
+                
+                /*
+		|--------------------------------------------------------------------------
+		| Maintenance Work Order Routes
+		|--------------------------------------------------------------------------
+		*/
 		Route::resource('work-orders', 'WorkOrderController', array(
-			'names'=> array(
-                            'index'	=> 'maintenance.work-orders.index',
-                            'create'  	=> 'maintenance.work-orders.create',
-                            'store'   	=> 'maintenance.work-orders.store',
-                            'show'    	=> 'maintenance.work-orders.show',
-                            'edit'    	=> 'maintenance.work-orders.edit',
-                            'update'  	=> 'maintenance.work-orders.update',
-                            'destroy' 	=> 'maintenance.work-orders.destroy',
-			),
+                    'names'=> array(
+                        'index'	=> 'maintenance.work-orders.index',
+                        'create'  	=> 'maintenance.work-orders.create',
+                        'store'   	=> 'maintenance.work-orders.store',
+                        'show'    	=> 'maintenance.work-orders.show',
+                        'edit'    	=> 'maintenance.work-orders.edit',
+                        'update'  	=> 'maintenance.work-orders.update',
+                        'destroy' 	=> 'maintenance.work-orders.destroy',
+                    ),
 		));
 		
 		
@@ -168,6 +181,26 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			),
 		));
 		
+                /*
+		|--------------------------------------------------------------------------
+		| Maintenance Work Order Assignment Routes
+		|--------------------------------------------------------------------------
+		*/
+                Route::resource('work-orders.assignments', 'AssignmentController', array(
+                    'only' => array(
+                        'index',
+                        'create',
+                        'store',
+                        'destroy'
+                    ),
+                    'names' => array(
+                        'index' => 'maintenance.work-orders.assignments.index',
+                        'create' => 'maintenance.work-orders.assignments.create',
+                        'store' => 'maintenance.work-orders.assignments.store',
+                        'destroy' => 'maintenance.work-orders.assignments.destroy'
+                    ),
+                ));
+                
 		/*
 		|--------------------------------------------------------------------------
 		| Maintenance Asset Category Routes
@@ -222,13 +255,18 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 		));
                 
                 Route::resource('assets.images', 'AssetImageController', array(
+                        'only' => array(
+                            'index',	
+                            'create', 
+                            'store',
+                            'show', 
+                            'destroy'
+                        ),
 			'names'=> array(
 				'index'		=> 'maintenance.assets.images.index',
 				'create'  	=> 'maintenance.assets.images.create',
 				'store'   	=> 'maintenance.assets.images.store',
 				'show'    	=> 'maintenance.assets.images.show',
-				'edit'    	=> 'maintenance.assets.images.edit',
-				'update'  	=> 'maintenance.assets.images.update',
 				'destroy' 	=> 'maintenance.assets.images.destroy',
 			),
 		));
@@ -241,23 +279,26 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                  * Asset Manual Upload Routes
                  */
                 Route::post('assets/manuals/uploads', array(
-			'as' => 'maintenance.assets.images.uploads.store',
-			'uses' => 'AssetImageUploadController@store'
+			'as' => 'maintenance.assets.manuals.uploads.store',
+			'uses' => 'AssetManualUploadController@store'
 		));
 		
 		Route::post('assets/manuals/uploads/destroy', array(
-			'as' => 'maintenance.assets.images.uploads.destroy',
-			'uses' => 'AssetImageUploadController@destroy'
+			'as' => 'maintenance.assets.manuals.uploads.destroy',
+			'uses' => 'AssetManualUploadController@destroy'
 		));
                 
-                Route::resource('assets.manuals', 'AssetImageController', array(
+                Route::resource('assets.manuals', 'AssetManualController', array(
+                        'only' => array(
+                            'index',
+                            'create',
+                            'store',
+                            'destroy'
+                        ),
 			'names'=> array(
 				'index'		=> 'maintenance.assets.manuals.index',
 				'create'  	=> 'maintenance.assets.manuals.create',
 				'store'   	=> 'maintenance.assets.manuals.store',
-				'show'    	=> 'maintenance.assets.manuals.show',
-				'edit'    	=> 'maintenance.assets.manuals.edit',
-				'update'  	=> 'maintenance.assets.manuals.update',
 				'destroy' 	=> 'maintenance.assets.manuals.destroy',
 			),
 		));

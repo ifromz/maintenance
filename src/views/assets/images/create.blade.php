@@ -20,6 +20,7 @@
             <tr>
                 <th>File Name</th>
                 <th>File Size</th>
+                <th>Progress</th>
                 <th>Remove</th>
             </tr>
         </thead>
@@ -52,7 +53,7 @@
         var current_uploader = new plupload.Uploader({
                 filters: {
                     mime_types : [
-                      { title : "Image files", extensions : "jpg,gif,png" }
+                      { title : "Image files", extensions : "jpg,png,gif" }
                     ],
                     max_file_size: "200mb",
                     prevent_duplicates: true
@@ -77,6 +78,10 @@
                                                 '<tr id="'+file.id+'">'+
                                                         '<td>'+file.name+'</td>'+
                                                         '<td>'+plupload.formatSize(file.size)+'</td>'+
+                                                        "<td><div class='progress progress-striped active'>"+
+                                                            "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100'>"+
+                                                            "</div>"+
+                                                        "</div></td>"+
                                                         '<td><a href="#" class="remove btn btn-danger btn-xs">Remove</a></td>'+
                                                 '</tr>'
                                         );
@@ -100,6 +105,10 @@
             }
             $('#uploaded-list').append(myData.result.html);
 			$('#'+file.id).remove();
+        });
+        
+        current_uploader.bind('UploadProgress', function(up, file) {
+            $('#'+file.id).find('.progress-bar').css('width',file.percent+'%')
         });
 
     $(document).on('click', '.delete-file-uploaded', function(){
