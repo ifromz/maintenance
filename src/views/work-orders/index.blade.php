@@ -43,7 +43,7 @@
               		@foreach($workOrders as $workOrder)
                         <tr>
                             <td>{{ $workOrder->id }}</td>
-                            <td>@include('maintenance::partials.status-label', array('status'=>$workOrder->status))</td>
+                            <td>{{ $workOrder->status_label }}</td>
                             <td>
                                 @if($workOrder->priority) 
                                     {{ trans(sprintf('maintenance::priorities.%s', $workOrder->priority)) }}
@@ -58,7 +58,7 @@
                                     {{ renderNode($workOrder->category) }}
                                 @endif
                             </td>
-                            <td>@include('maintenance::partials.full-name', array('user'=>$workOrder->user))</td>
+                            <td>{{ $workOrder->user->full_name }}</td>
                             <td>{{ $workOrder->created_at }}</td>
                             <td>
                                 <div class="btn-group">

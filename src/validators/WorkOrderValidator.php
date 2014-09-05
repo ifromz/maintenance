@@ -6,8 +6,8 @@ class WorkOrderValidator extends AbstractValidator {
 	
 	protected $rules = array(
                 'work_order_category' => 'required',
-		'work_order_category_id' => 'required|integer',
-		'status' => 'required|not_in:0',
+		'work_order_category_id' => 'integer',
+		'status' => 'required',
 		'subject' => 'required|min:5',
 		'description'=> 'min:5',
 		

@@ -13,10 +13,9 @@ class WorkOrderService extends AbstractModelService {
 	public function getByPageWithFilter($data = array()){
 		return $this->model
 			->with(array(
-				'status',
-				'updates',
 				'category',
 				'user',
+                                'sessions',
 			))
                         ->priority((array_key_exists('priority', $data) ? $data['priority'] : NULL))
                         ->subject((array_key_exists('subject', $data) ? $data['subject'] : NULL))
@@ -69,7 +68,7 @@ class WorkOrderService extends AbstractModelService {
 			'user_id' => $this->sentry->getCurrentUser()->id,
 			'work_order_category_id' => $data['work_order_category_id'],
                         'location_id' => $data['location_id'],
-			'status_id' => $data['status'],
+			'status' => $data['status'],
                         'priority' => $data['priority'],
 			'subject' => $data['subject'],
 			'description' => $data['description'],
@@ -91,7 +90,7 @@ class WorkOrderService extends AbstractModelService {
 			$insert = array(
                             'work_order_category_id' => $data['work_order_category_id'],
                             'location_id' => $data['location_id'],
-                            'status_id' => $data['status'],
+                            'status' => $data['status'],
                             'priority' => $data['priority'],
                             'subject' => $data['subject'],
                             'description' => $data['description'],
@@ -99,12 +98,12 @@ class WorkOrderService extends AbstractModelService {
                             'completed_at' =>$this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
 			);
 			
-			if($record = $workOrder->update($insert)){
+			if($workOrder->update($insert)){
                             if(array_key_exists('assets', $data)){
-                                $record->assets()->sync($data['assets']);
+                                $workOrder->assets()->sync($data['assets']);
                             }
                             
-                            return $record;
+                            return $workOrder;
 			} return false;
 		}
 	}

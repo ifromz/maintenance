@@ -1,1 +1,1 @@
-<span class="label label-{{ $status->color }}">{{ $status->name }}</span>
+<span class="label label-{{ trans('maintenance::statuses.'.$status) }}">Status</span>

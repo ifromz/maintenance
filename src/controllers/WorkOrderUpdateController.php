@@ -47,18 +47,18 @@ class WorkOrderUpdateController extends \BaseController {
 			$validator = new $this->updateValidator;
 			
 			if($validator->passes()){
-				$data = array(
-					'work_order_id' => $workOrder->id,
-					'content' => Input::get('update_content')
-				);
-							
-				$update = $this->update->create($data);
+                                    
+				$update = $this->update->create(array(
+                                    'content' => Input::get('update_content')
+                                ));
 				
+                                $workOrder->customerUpdates()->save($update);
+                                
 				return Response::json(array(
 					'updateCreated' => true,
 					'message' => 'Successfully added update',
 					'messageType' => 'success',
-					'html' => View::make('maintenance::partials.update', compact('update'))->render()
+					'html' => View::make('maintenance::partials.update', compact('update'), compact('workOrder'))->render()
 				));
 			} else{
 				return Response::json(array(

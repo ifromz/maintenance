@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Requests\AbstractRequest;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 
@@ -11,11 +10,9 @@ class WorkOrderRequest extends AbstractRequest {
         
         public function __construct(
                 WorkOrderService $workOrder, 
-                WorkOrderValidator $workOrderValidator,
-                StatusService $status){
+                WorkOrderValidator $workOrderValidator){
             $this->workOrder = $workOrder;
             $this->workOrderValidator = $workOrderValidator;
-            $this->status = $status;
         }
         
 	/**
@@ -39,13 +36,9 @@ class WorkOrderRequest extends AbstractRequest {
 	 * @return Response
 	 */
 	public function create(){
-            $statuses = $this->status->dropdown();
-            $priorities = trans('maintenance::priorities');
             
             return View::make('maintenance::work-orders.create', array(
-                'title' => 'Create a Work Order',
-                'statuses' => $statuses,
-                'priorities' => $priorities,
+                'title' => 'Create a Work Order'
             ));
 	}
 
@@ -81,7 +74,7 @@ class WorkOrderRequest extends AbstractRequest {
 	 */
 	public function show($id){
             try{
-                $workOrder = $this->workOrder->with('assets')->find($id);
+                $workOrder = $this->workOrder->find($id);
 
                 return View::make('maintenance::work-orders.show', 
                     array(
@@ -105,8 +98,6 @@ class WorkOrderRequest extends AbstractRequest {
 	public function edit($id){
             try{
                 $workOrder = $this->workOrder->with('category')->find($id);
-                $statuses = $this->status->dropdown();
-                $priorities = trans('maintenance::priorities');
                 
                 $dateFormat = 'Y/m/d';
                 $timeFormat = 'H:i A';
@@ -125,8 +116,6 @@ class WorkOrderRequest extends AbstractRequest {
                 return View::make('maintenance::work-orders.edit', array(
                     'title' => 'Editing Work Order: '.$workOrder->subject,
                     'workOrder' => $workOrder,
-                    'statuses' => $statuses,
-                    'priorities' => $priorities,
                     'dates' => $dates,
                 ));
                 
@@ -152,7 +141,7 @@ class WorkOrderRequest extends AbstractRequest {
                         $record = $this->workOrder->update($id, $data);
 
                         $this->redirect = route('maintenance.work-orders.show', array($id));
-                        $this->message = sprintf('Successfully edited work order. %s', HTML::link(route('maintenance.work-orders.show', array($record->id)), 'Show'));
+                        $this->message = sprintf('Successfully edited work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($record->id)));
                         $this->messageType = 'success';
                         
                     } catch(RecordNotFoundException $e){
@@ -173,7 +162,21 @@ class WorkOrderRequest extends AbstractRequest {
 	 * @return Response
 	 */
 	public function destroy($id){
+            try{
+                if($this->workOrder->destroy($id)){
+                    $this->message = 'Successfully deleted work order';
+                    $this->messageType = 'success';
+                    $this->redirect = route('maintenance.work-orders.index');
+                } else{
+                    $this->message = 'There was an error deleting the work order. Please try again';
+                    $this->messageType = 'danger';
+                    $this->redirect = route('maintenance.work-orders.show', array($id));
+                }
+            } catch(RecordNotFoundException $e){
+                return $this->workOrderNotFound();
+            }
             
+            return $this->response();
 	}
         
         public function workOrderNotFound(){

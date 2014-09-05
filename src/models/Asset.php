@@ -1,6 +1,5 @@
 <?php namespace  Stevebauman\Maintenance\Models;
 
-
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Asset extends Eloquent {
@@ -30,12 +29,20 @@ class Asset extends Eloquent {
 		return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'asset_images', 'asset_id', 'attachment_id');
 	}
         
+        public function manuals(){
+		return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'asset_manuals', 'asset_id', 'attachment_id');
+	}
+        
         public function workOrders(){
             return $this->belongsToMany('Stevebauman\Maintenance\Models\WorkOrder', 'work_order_assets', 'asset_id', 'work_order_id')->withTimestamps();
         }
         
 	public function getConditionAttribute($attr){
-		return trans(sprintf('maintenance::assets.conditions.%s',$attr));
+            return trans(sprintf('maintenance::assets.conditions.%s',$attr));
 	}
+        
+        public function getLabelAttribute(){
+            return sprintf('<a href="%s" class="label label-primary">%s</span></a>', route('maintenance.assets.show', array($this->attributes['id'])), $this->attributes['name']);
+        }
 	
 }

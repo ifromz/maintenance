@@ -12,8 +12,7 @@ class UpdateService extends AbstractModelService {
 	
 	public function create($data){
 		$insert = array(
-			'user_id' => $this->sentry->getCurrentUser()->id,
-			'work_order_id' => $data['work_order_id'],
+                        'user_id' => $this->sentry->getCurrentUserId(),
 			'content' => $data['content']
 		);
 		

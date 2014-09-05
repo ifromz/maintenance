@@ -29,9 +29,7 @@ class AuthController extends BaseController {
      * @return \View
      */
     public function getRegister(){
-        return View::make('maintenance::register', array(
-            'title' => 'Register an Account',
-        ));
+        return $this->auth->getRegister();
     }
     
     /**
@@ -48,7 +46,7 @@ class AuthController extends BaseController {
     }
     
     public function postRegister(){
-        
+        return $this->auth->postRegister(Input::all());
     }
 	
     /**

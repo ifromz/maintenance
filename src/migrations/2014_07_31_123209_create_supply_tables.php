@@ -15,7 +15,7 @@ class CreateSupplyTables extends Migration {
 		Schema::create('supplies', function(Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->timestamps();
-			$table->integer('supply_category_id')->unsigned();
+			$table->bigInteger('supply_category_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 			$table->string('name');
 			$table->string('description')->nullable();
@@ -36,8 +36,8 @@ class CreateSupplyTables extends Migration {
 		Schema::create('supply_attachments', function(Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->timestamps();
-			$table->integer('supply_id')->unsigned();
-			$table->integer('attachment_id')->unsigned();
+			$table->bigInteger('supply_id')->unsigned();
+			$table->bigInteger('attachment_id')->unsigned();
 			
 			$table->foreign('supply_id')->references('id')->on('supplies')
 						->onUpdate('restrict')
@@ -53,8 +53,8 @@ class CreateSupplyTables extends Migration {
 		Schema::create('supply_locations', function(Blueprint $table){
 			$table->bigIncrements('id');
 			$table->timestamps();
-			$table->integer('supply_id')->unsigned();
-			$table->integer('location_id')->unsigned();
+			$table->bigInteger('supply_id')->unsigned();
+			$table->bigInteger('location_id')->unsigned();
 			$table->decimal('quantity', 10, 2);
 			
 			$table->foreign('supply_id')->references('id')->on('supplies')

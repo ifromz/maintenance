@@ -17,8 +17,8 @@ class CreateAssetTable extends Migration {
 			$table->timestamps();
 			$table->datetime('aquired_at')->nullable();
 			$table->integer('user_id')->unsigned();
-			$table->integer('location_id')->nullable()->unsigned();
-			$table->integer('asset_category_id')->unsigned();
+			$table->bigInteger('location_id')->unsigned()->nullable();
+			$table->bigInteger('asset_category_id')->unsigned();
 			$table->string('name');
 			$table->integer('condition')->nullable();
 			$table->string('size')->nullable();

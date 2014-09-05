@@ -7,9 +7,9 @@
     <form id="maintenance-login" action="{{ route('maintenance.login') }}" method="post">
         <div class="body bg-gray">
             @if (Session::has('message'))
-            <div class="status-message alert alert-{{ Session::get('messageType') }}">
-                {{ Session::get('message') }}
-            </div>
+                <div class="status-message alert alert-{{ Session::get('messageType') }}">
+                    {{ Session::get('message') }}
+                </div>
             @endif
 
             <div id="maintenance-login-status">
@@ -17,7 +17,7 @@
             </div>
 
             <div class="form-group">
-                <input type="text" name="username" class="form-control" placeholder="Username"/>
+                <input type="text" name="email" class="form-control" placeholder="Email / Username"/>
             </div>
             <div class="form-group">
                 <input type="password" name="password" class="form-control" placeholder="Password"/>

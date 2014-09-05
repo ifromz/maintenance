@@ -5,10 +5,10 @@ return array(
 	
 	'title' => array(
             'backend' => 'Maintenance', // Title of the backend Application
-            'public' => 'Maintenance', // Title of the frontend Application
         ),
 	
-    
+        //Enable ldap authentication
+        'ldap' => true,
     
 	// Paths for file storage. All paths have to end with trailing slash
 	'paths' => array(

@@ -15,8 +15,8 @@ class CreateAssetManualsTable extends Migration {
 		Schema::create('asset_manuals', function(Blueprint $table){
 			$table->bigIncrements('id');
 			$table->timestamps();
-                        $table->integer('asset_id')->unsigned();
-			$table->integer('attachment_id')->unsigned();
+                        $table->bigInteger('asset_id')->unsigned();
+			$table->bigInteger('attachment_id')->unsigned();
 			$table->string('name')->nullable();
 			
                         $table->foreign('asset_id')->references('id')->on('assets')
@@ -31,8 +31,8 @@ class CreateAssetManualsTable extends Migration {
 		Schema::create('asset_images', function(Blueprint $table){
 			$table->bigIncrements('id');
 			$table->timestamps();
-                        $table->integer('asset_id')->unsigned();
-			$table->integer('attachment_id')->unsigned();
+                        $table->bigInteger('asset_id')->unsigned();
+			$table->bigInteger('attachment_id')->unsigned();
 			$table->string('name')->nullable();
 			
                         $table->foreign('asset_id')->references('id')->on('assets')

@@ -20,7 +20,7 @@
                 <h3 class="panel-title">Edit Work Order</h3>
             </div>
             <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.work-orders.store'), 'class'=>'form-horizontal', 'id'=>'maintenance-work-order-edit')) }}
+            {{ Form::open(array('url'=>route('maintenance.work-orders.update', array($workOrder->id)), 'class'=>'form-horizontal', 'method'=>'PATCH', 'id'=>'maintenance-work-order-edit')) }}
             	<legend class="margin-top-10">Work Order Information</legend>
 
                 <div class="form-group">
@@ -46,14 +46,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Status</label>
                     <div class="col-md-4">
-                    	{{ Form::select('status', $statuses, $workOrder->status, array('class'=>'form-control select2', 'placeholder'=>'ex. Repaired / Awaiting for Parts')) }}
+                    	@include('maintenance::select.status', array('status'=>$workOrder->status))
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Priority</label>
                     <div class="col-md-4">
-                    	{{ Form::select('priority', $priorities, $workOrder->priority, array('class'=>'form-control select2', 'placeholder'=>'ex. Low / Lowest')) }}
+                    	@include('maintenance::select.priority', array('priority'=>$workOrder->priority))
                    	</div>
                 </div>
                 

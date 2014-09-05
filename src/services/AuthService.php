@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
+use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\LdapService;
 use Stevebauman\Maintenance\Services\SentryService;
 
@@ -19,9 +20,11 @@ class AuthService {
      * @return boolean
      */
 	public function ldapAuthenticate($credentials){
-		if($this->ldap->authenticate($credentials['username'], $credentials['password'])){
-			return true;
-		} return false;
+            $login_attribute = Config::get('cartalyst/sentry::users.login_attribute');
+            
+            if($this->ldap->authenticate($credentials[$login_attribute], $credentials['password'])){
+                    return true;
+            } return false;
 	}
 	
 	/**
