@@ -30,6 +30,7 @@
                     <tr>
                         <th>ID</th>
                     	<th>Name</th>
+                        <th>Location</th>
                         <th class="hidden-xs">Category</th>
                         <th>Condition</th>
                         <th class="hidden-xs">Created At</th>
@@ -41,7 +42,8 @@
                     <tr>
                         <td>{{ $asset->id }}</td>
                     	<td>{{ $asset->name }}</td>
-                        <td class="hidden-xs">{{ $asset->category->name }}</td>
+                        <td>{{ renderNode($asset->location) }}</td>
+                        <td class="hidden-xs">{{ renderNode($asset->category) }}</td>
                         <td>{{ $asset->condition }}</td>
                         <td class="hidden-xs">{{ $asset->created_at }}</td>
                         <td>

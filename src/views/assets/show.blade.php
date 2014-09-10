@@ -7,11 +7,9 @@
 @section('content')
 	<div class="nav-tabs-custom">
 		<ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_1" data-toggle="tab">Asset</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab">Work Orders</a></li>
-                    <li class=""><a href="#tab_3" data-toggle="tab">Details</a></li>
-                    <li class=""><a href="#tab_4" data-toggle="tab">Manuals</a></li>
-                    <li class=""><a href="#tab_5" data-toggle="tab">QR Code</a></li>
+                    <li class="active"><a href="#tab_asset" data-toggle="tab">Asset</a></li>
+                    <li class=""><a href="#tab_work_orders" data-toggle="tab">Work Orders</a></li>
+                    <li class=""><a href="#tab_manuals" data-toggle="tab">Manuals</a></li>
                     <li class="dropdown pull-right">
        			<a href="#" class="text-muted dropdown-toggle" data-toggle="dropdown"><i class="fa fa-gear"></i></a>
         		<ul class="dropdown-menu">
@@ -34,23 +32,16 @@
                     </li>
 		</ul>
             <div class="tab-content">
-                <div class="tab-pane active" id="tab_1">
-                    @include('maintenance::assets.tabs.index', compact('asset'))
+                <div class="tab-pane active" id="tab_asset">
+                    @include('maintenance::assets.tabs.asset', compact('asset'))
                 </div>
 
-                <div class="tab-pane" id="tab_2">
+                <div class="tab-pane" id="tab_work_orders">
                     @include('maintenance::assets.tabs.work-orders', compact('asset'))
                 </div>
-
-                <div class="tab-pane" id="tab_3">
-                </div>
-
-                <div class="tab-pane" id="tab_4">
-                    @include('maintenance::assets.tabs.manuals', compact('asset'))
-                </div>
                 
-                <div class="tab-pane" id="tab_5">
-                  {{ DNS2D::getBarcodeSVG(route('maintenance.assets.show', array($asset->id)), "QRCODE") }}
+                <div class="tab-pane" id="tab_manuals">
+                    @include('maintenance::assets.tabs.manuals', compact('asset'))
                 </div>
             </div>
 	</div>

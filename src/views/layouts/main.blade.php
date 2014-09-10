@@ -40,6 +40,10 @@
         {{ HTML::style('packages/stevebauman/maintenance/ludo-jquery-treetable/css/jquery.treetable.css') }}
         {{ HTML::style('packages/stevebauman/maintenance/ludo-jquery-treetable/css/jquery.treetable.theme.default.css') }}
         
+        <!-- FullCalendar -->
+        {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.css') }}
+        {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.print.css', array('media'=>'print')) }}
+    
     <!-- End Styles -->
     
     <!-- Scripts -->
@@ -72,6 +76,9 @@
         
         <!-- TreeTable -->
     	{{ HTML::script('packages/stevebauman/maintenance/ludo-jquery-treetable/jquery.treetable.js') }}
+        
+        <!-- FullCalendar -->
+        {{ HTML::script('packages/stevebauman/maintenance/fullcalendar/fullcalendar.js') }}
         
         {{ HTML::script('packages/stevebauman/maintenance/js/base.js') }}
   	<!-- End Scripts -->
@@ -163,7 +170,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="#" style="margin-left: 10px;">
+                            <a href="{{ route('maintenance.dashboard.index') }}" style="margin-left: 10px;">
                                 <i class="fa fa-dashboard"></i> Dashboard
                             </a>
                         </li>

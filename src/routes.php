@@ -416,6 +416,38 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			Route::get('', array('as'=>'maintenance.api.assets.get', 'uses'=>'AssetApi@get'));
                         Route::get('q', array('as'=>'maintenance.api.assets.query', 'uses'=>'AssetApi@getByQuery'));
 		});
+                
+                /*
+		|--------------------------------------------------------------------------
+		| Maintenance Calendar Api Routes
+		|--------------------------------------------------------------------------
+		*/
+                Route::group(array('prefix'=>'calendar'), function(){
+                    
+                    Route::resource('events', 'EventApi', array(
+			'names'=> array(
+				'index'		=> 'maintenance.api.calendar.events.index',
+				'create'  	=> 'maintenance.api.calendar.events.create',
+				'store'   	=> 'maintenance.api.calendar.events.store',
+				'show'    	=> 'maintenance.api.calendar.events.show',
+				'edit'    	=> 'maintenance.api.calendar.events.edit',
+				'update'  	=> 'maintenance.api.calendar.events.update',
+				'destroy' 	=> 'maintenance.api.calendar.events.destroy',
+			),
+                    ));
+                    
+                    Route::resource('events/assets', 'AssetEventApi', array(
+                        'only' => array(
+                            'index',
+                            'show',
+                        ),
+			'names'=> array(
+				'index' => 'maintenance.api.calendar.events.assets.index',
+                                'show' => 'maintenance.api.calendar.events.assets.show',
+			),
+                    ));
+                    
+                });
 	}); /* End Maintenance API Routes */
 	
 	

@@ -1,5 +1,6 @@
 <?php namespace  Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Services\EventService;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Asset extends Eloquent {
@@ -20,6 +21,14 @@ class Asset extends Eloquent {
 		'serial',
 		'price'
 	);
+        
+        public function user(){
+            return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
+        }
+        
+        public function location(){
+            return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');
+        }
 	
 	public function category(){
 		return $this->hasOne('Stevebauman\Maintenance\Models\AssetCategory', 'id', 'asset_category_id');
@@ -37,6 +46,10 @@ class Asset extends Eloquent {
             return $this->belongsToMany('Stevebauman\Maintenance\Models\WorkOrder', 'work_order_assets', 'asset_id', 'work_order_id')->withTimestamps();
         }
         
+        public function events(){
+            return $this->belongsToMany('Stevebauman\Maintenance\Models\Event', 'asset_events', 'asset_id', 'event_id')->withTimestamps();
+        }
+        
 	public function getConditionAttribute($attr){
             return trans(sprintf('maintenance::assets.conditions.%s',$attr));
 	}
@@ -44,5 +57,6 @@ class Asset extends Eloquent {
         public function getLabelAttribute(){
             return sprintf('<a href="%s" class="label label-primary">%s</span></a>', route('maintenance.assets.show', array($this->attributes['id'])), $this->attributes['name']);
         }
+        
         
 }
