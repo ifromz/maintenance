@@ -13,12 +13,12 @@ class CreateAssetTable extends Migration {
 	public function up()
 	{
 		Schema::create('assets', function(Blueprint $table){
-			$table->bigIncrements('id');
+			$table->increments('id');
 			$table->timestamps();
 			$table->datetime('aquired_at')->nullable();
 			$table->integer('user_id')->unsigned();
-			$table->bigInteger('location_id')->unsigned()->nullable();
-			$table->bigInteger('asset_category_id')->unsigned();
+			$table->integer('location_id')->unsigned()->nullable();
+			$table->integer('asset_category_id')->unsigned();
 			$table->string('name');
 			$table->integer('condition')->nullable();
 			$table->string('size')->nullable();

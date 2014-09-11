@@ -159,6 +159,17 @@ class WorkOrder extends Eloquent {
         }
         
         /**
+         * Checks if the current work has workers assigned to it
+         * 
+         * @return boolean
+         */
+        public function hasWorkersAssigned(){
+            if($this->assignments->count() > 0){
+                return true;
+            } return false;
+        }
+        
+        /**
          * Checks if the user is currently checked into the current work order
          * 
          * @return boolean

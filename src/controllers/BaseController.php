@@ -1,11 +1,11 @@
 <?php namespace Stevebauman\Maintenance\Controllers;
 
-use Controller;
-use View;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\View;
 
 class BaseController extends Controller {
 
-	/**
+        /**
 	 * Setup the layout used by the controller.
 	 *
 	 * @return void
@@ -17,5 +17,4 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
 		}
 	}
-
 }

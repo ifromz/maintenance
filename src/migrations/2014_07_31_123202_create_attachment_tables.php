@@ -13,7 +13,7 @@ class CreateAttachmentTables extends Migration {
 	public function up()
 	{
 		Schema::create('attachments', function(Blueprint $table) {
-			$table->bigIncrements('id');
+			$table->increments('id');
 			$table->timestamps();
 			$table->string('name')->nullable();
 			$table->string('file_name');

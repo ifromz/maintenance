@@ -13,7 +13,7 @@ class CreateUpdateTables extends Migration {
 	public function up()
 	{
 		Schema::create('updates', function(Blueprint $table) {
-                    $table->bigIncrements('id');
+                    $table->increments('id');
                     $table->timestamps();
                     $table->integer('user_id')->unsigned();
                     $table->text('content');

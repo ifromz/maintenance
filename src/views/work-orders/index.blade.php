@@ -5,7 +5,7 @@
 @stop
 
 @section('breadcrumb')
-    @include('maintenance::breadcrumbs.work-orders.index')
+
 @stop
 
 @section('content')

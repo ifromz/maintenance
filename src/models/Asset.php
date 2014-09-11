@@ -1,6 +1,5 @@
 <?php namespace  Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Services\EventService;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Asset extends Eloquent {

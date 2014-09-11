@@ -1,12 +1,11 @@
 <?php namespace Stevebauman\Maintenance\Controllers;
 
-use Input;
 use Attachment;
 use Request;
 use Response;
 use Storage;
 use Config;
-Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
 class AttachmentController extends BaseController {
 	

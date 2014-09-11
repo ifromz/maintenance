@@ -13,13 +13,6 @@
                     <i class="fa fa-plus"></i>
                     New Asset
                 </a>
-                
-                <div class="col-md-4 pull-right input-group">
-                  <input type="text" class="form-control">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search</button>
-                  </span>
-                </div><!-- /input-group -->
             </div>
         </div>
         

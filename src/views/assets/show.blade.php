@@ -7,7 +7,8 @@
 @section('content')
 	<div class="nav-tabs-custom">
 		<ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_asset" data-toggle="tab">Asset</a></li>
+                    <li class="active"><a href="#tab_asset" data-toggle="tab">Profile</a></li>
+                    <li class=""><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
                     <li class=""><a href="#tab_work_orders" data-toggle="tab">Work Orders</a></li>
                     <li class=""><a href="#tab_manuals" data-toggle="tab">Manuals</a></li>
                     <li class="dropdown pull-right">
@@ -34,6 +35,10 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_asset">
                     @include('maintenance::assets.tabs.asset', compact('asset'))
+                </div>
+                
+                <div class="tab-pane" id="tab_calendar">
+                    @include('maintenance::assets.calendar', compact('asset'))
                 </div>
 
                 <div class="tab-pane" id="tab_work_orders">

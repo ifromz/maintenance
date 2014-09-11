@@ -96,16 +96,6 @@
     <div class="clearfix"></div> 
     
     
-    
-    <div class="col-md-6">
-        <legend>Maintenance Schedule</legend>
-        @if($asset->events)
-            @include('maintenance::assets.calendar', compact('asset'))
-        @else
-            <h5>There are no scheduled events for this asset.</h5>
-        @endif
-    </div>
-    
     <div class="col-md-2">
         <legend>QR Code</legend>
         

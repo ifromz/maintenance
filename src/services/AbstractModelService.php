@@ -129,7 +129,9 @@ abstract class AbstractModelService {
     }
     
     public function clean($input){
-        return Purifier::clean($input);
+        return Purifier::clean($input, array(
+            'AutoFormat.AutoParagraph' => false,
+        ));
     }
 
 	

@@ -25,6 +25,17 @@ Route::filter('maintenance.notauth', function($route, $request){
 	}
 });
 
+Route::filter('maintenance.permission', function($route, $request){ 
+    /*
+    if(Sentry::getUser()->hasAccess(Route::currentRouteName())){
+        return Response::json(array('message'=>'User does have access'));
+    } else{
+        return Response::json(array('message'=>'User does not have access'));
+    }
+     * 
+     */
+});
+
 /**
  * Filter to check if the URL Slug is valid
  *

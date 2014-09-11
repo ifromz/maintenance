@@ -217,13 +217,13 @@
                 
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-dropbox"></i> Supplies
+                        <i class="fa fa-dropbox"></i> Inventory
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li>
                             <a href="#" style="margin-left: 10px;">
-                        		<i class="fa fa-gears"></i> All Supplies
+                        		<i class="fa fa-gears"></i> All Items
                             </a>
                         </li>
                         

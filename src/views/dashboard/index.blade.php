@@ -7,7 +7,7 @@
 
 @section('content')
     
-    <div class="col-md-12">
+    <div class="col-md-8">
     <div class="box box-primary">
         <div class="box-body no-padding">
             

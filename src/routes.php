@@ -50,7 +50,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 	| Maintenance Controller Routes
 	|--------------------------------------------------------------------------
 	*/	
-	Route::group(array('namespace'=>'Stevebauman\Maintenance\Controllers', 'before'=>'maintenance.auth'), function(){
+	Route::group(array('namespace'=>'Stevebauman\Maintenance\Controllers', 'before'=>'maintenance.auth|maintenance.permission'), function(){
 		
 		Route::get('/', array(
 			'as' => 'maintenance.dashboard.index',

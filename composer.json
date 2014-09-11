@@ -34,7 +34,8 @@
 			"src/filters",
 			"src/composers",
 			"src/apis",
-			"src/requests"
+			"src/requests",
+                        "src/seeders"
         ],
         "psr-0": {
             "Stevebauman\\Maintenance\\": "src/"

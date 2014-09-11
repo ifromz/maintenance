@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
+use Illuminate\Support\Facades\Config;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Cartalyst\Sentry\Users\UserNotFoundException;
 use Cartalyst\Sentry\Users\UserExistsException;
@@ -7,6 +8,7 @@ use Cartalyst\Sentry\Users\WrongPasswordException;
 use Cartalyst\Sentry\Users\UserNotActivatedException;
 use Cartalyst\Sentry\Throttling\UserSuspendedException;
 use Cartalyst\Sentry\Throttling\UserBannedException;
+use Cartalyst\Sentry\Groups\GroupNotFoundException;
 
 class SentryService {
 	
@@ -60,10 +62,11 @@ class SentryService {
      *
      * @author Steve Bauman
      *
-	 * @param $data
+     * @param $data
      * @return void
      */
-	public function createUser($data){
+	public function createUser($data, $groups = NULL){
+            try{
 		$user = Sentry::getUserProvider()->create(array(
 			'email'    => $data['email'],
 			'password' => $data['password'],
@@ -74,16 +77,75 @@ class SentryService {
 		
 		$activationCode = $user->getActivationCode();
 		$user->attemptActivation($activationCode);
+                
+                if(isset($groups)){
+                    foreach($groups as $group){
+                        
+                        try{
+                            
+                            $group = Sentry::findGroupByName($group);
+
+                            $user->addGroup($group);
+                            
+                        } catch(GroupNotFoundException $e){
+                            
+                        }
+                    }
+                }
+                
+                
+            } catch(UserExistsException $e){
+                $login_attribute = Config::get('cartalyst/sentry::users.login_attribute');
+                
+                $user = Sentry::findUserByLogin($data[$login_attribute]);
+               
+            }
+
+            return $user;
 	}
+        
+        
+        
+        /**
+         * Create or update a group through Sentry
+         * 
+         * @author Steve Bauman
+         * 
+         * @param string $name The name for the group to find or create
+         * @param array $permissions The permissions to assign the group.
+         * If the array is empty it will leave the current permissions intact.
+         */
+        public function createOrUpdateGroup($name, $permissions = array()){
+            
+            try{
+                
+                $group = Sentry::findGroupByName($name);
+                
+                if(!empty($permissions)){
+                    $group->permissions = $permissions;
+                    $group->save();
+                }
+                
+            } catch(GroupNotFoundException $e){
+                
+                $group = Sentry::createGroup(array(
+                    'name' => $name,
+                    'permissions' => $permissions,
+                ));
+                
+            }
+            
+            return $group;
+        }
 	
 	/**
-     * Find a user through Sentry
-     *
-     * @author Steve Bauman
-     *
-	 * @param $id
-     * @return object or boolean
-     */
+        * Find a user through Sentry
+        *
+        * @author Steve Bauman
+        *
+        * @param $id
+        * @return object or boolean
+        */
 	public function findUserById($id){
 		try{
 			$user = Sentry::findUserById($id);
