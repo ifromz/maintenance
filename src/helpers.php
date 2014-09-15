@@ -2,7 +2,7 @@
 
 	function renderNode($node){
 		$html = '';
-		
+                
 		$ancestors = $node->getAncestorsAndSelf();
 		
 		foreach($ancestors as $ancestor){

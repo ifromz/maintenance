@@ -43,7 +43,10 @@
         <!-- FullCalendar -->
         {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.css') }}
         {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.print.css', array('media'=>'print')) }}
-    
+        
+        
+        {{ HTML::style('packages/stevebauman/maintenance/summernote-master/dist/summernote.css') }}
+        {{ HTML::style('packages/stevebauman/maintenance/summernote-master/dist/summernote-bs3.css') }}
     <!-- End Styles -->
     
     <!-- Scripts -->
@@ -79,6 +82,8 @@
         
         <!-- FullCalendar -->
         {{ HTML::script('packages/stevebauman/maintenance/fullcalendar/fullcalendar.js') }}
+        
+        {{ HTML::script('packages/stevebauman/maintenance/summernote-master/dist/summernote.min.js') }}
         
         {{ HTML::script('packages/stevebauman/maintenance/js/base.js') }}
   	<!-- End Scripts -->
@@ -126,7 +131,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="{{route('cpanel.users.show',array(Sentry::getUser()->id))}}" class="btn btn-default btn-flat">Profile</a>
+                                <a href="" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{route('maintenance.logout')}}" class="btn btn-default btn-flat">Sign out</a>
@@ -222,7 +227,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li>
-                            <a href="#" style="margin-left: 10px;">
+                            <a href="{{ route('maintenance.inventory.index') }}" style="margin-left: 10px;">
                         		<i class="fa fa-gears"></i> All Items
                             </a>
                         </li>

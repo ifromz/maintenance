@@ -9,7 +9,7 @@ class Asset extends Eloquent {
 	protected $fillable = array(
 		'user_id',
 		'location_id', 
-		'asset_category_id', 
+		'category_id', 
 		'name',
 		'condition',
 		'size',
@@ -30,7 +30,7 @@ class Asset extends Eloquent {
         }
 	
 	public function category(){
-		return $this->hasOne('Stevebauman\Maintenance\Models\AssetCategory', 'id', 'asset_category_id');
+		return $this->hasOne('Stevebauman\Maintenance\Models\Category', 'id', 'category_id');
 	}
 	
 	public function images(){

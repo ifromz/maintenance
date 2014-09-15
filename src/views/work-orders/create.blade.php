@@ -19,7 +19,7 @@
 
 @section('content')
 
-	<script src="/packages/stevebauman/maintenance/js/work-orders/create.js"></script>
+    <script src="/packages/stevebauman/maintenance/js/work-orders/create.js"></script>
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">

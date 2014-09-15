@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssetCategoriesTable extends Migration {
+class CreateCategoriesTable extends Migration {
 
   /**
    * Run the migrations.
@@ -11,7 +11,7 @@ class CreateAssetCategoriesTable extends Migration {
    * @return void
    */
   public function up() {
-    Schema::create('asset_categories', function(Blueprint $table) {
+    Schema::create('categories', function(Blueprint $table) {
       // These columns are needed for Baum's Nested Set implementation to work.
       // Column names may be changed, but they *must* all exist and be modified
       // in the model.
@@ -36,7 +36,7 @@ class CreateAssetCategoriesTable extends Migration {
    * @return void
    */
   public function down() {
-    Schema::drop('asset_categories');
+    Schema::drop('categories');
   }
 
 }

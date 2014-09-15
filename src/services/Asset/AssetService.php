@@ -20,7 +20,7 @@ class AssetService extends AbstractModelService {
 		$insert = array(
 			'user_id'           => $this->sentry->getCurrentUserId(),
 			'location_id'       => ($data['location_id'] ? $data['location_id'] : NULL),
-			'asset_category_id' => $data['asset_category_id'],
+			'category_id'       => $data['category_id'],
 			'name'              => $this->clean($data['name']),
 			'condition'         => $data['condition'],
 			'vendor'            => $this->clean($data['vendor']),
@@ -42,7 +42,7 @@ class AssetService extends AbstractModelService {
 		if($record = $this->find($id)){
 			$edit = array(
 				'location_id'       => ($data['location_id'] ? $data['location_id'] : NULL),
-				'asset_category_id' => $data['asset_category_id'],
+				'category_id'       => $data['category_id'],
 				'name'              => $this->clean($data['name']),
 				'condition'         => $data['condition'],
                                 'vendor'            => $this->clean($data['vendor']),

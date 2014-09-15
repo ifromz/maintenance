@@ -200,46 +200,6 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                         'destroy' => 'maintenance.work-orders.assignments.destroy'
                     ),
                 ));
-                
-		/*
-		|--------------------------------------------------------------------------
-		| Maintenance Asset Category Routes
-		|--------------------------------------------------------------------------
-		*/
-		Route::get('assets/categories/json', array(
-				'as' => 'maintenance.assets.categories.json',
-				'uses' => 'AssetCategoryController@getJson',
-			)
-		);
-		
-		Route::get('assets/categories/create/{categories?}', array(
-				'as' => 'maintenance.assets.categories.nodes.create',
-				'uses' => 'AssetCategoryController@create',
-			)
-		);
-		
-		Route::post('assets/categories/move/{categories?}', array(
-			'as' => 'maintenance.assets.categories.nodes.move',
-			'uses'=> 'AssetCategoryController@postMoveCategory'
-		));
-		
-		Route::post('assets/categories/create/{categories?}', array(
-				'as' => 'maintenance.assets.categories.nodes.store',
-				'uses' => 'AssetCategoryController@store',
-			)
-		);
-		
-		Route::resource('assets/categories', 'AssetCategoryController', array(
-			'names'=> array(
-				'index'		=> 'maintenance.assets.categories.index',
-				'create'  	=> 'maintenance.assets.categories.create',
-				'store'   	=> 'maintenance.assets.categories.store',
-				'show'    	=> 'maintenance.assets.categories.show',
-				'edit'    	=> 'maintenance.assets.categories.edit',
-				'update'  	=> 'maintenance.assets.categories.update',
-				'destroy' 	=> 'maintenance.assets.categories.destroy',
-			),
-		));
 		
                 /*
                  * Asset Image Upload Routes
@@ -324,6 +284,47 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                  * End Asset Routes
                  */
                 
+                Route::resource('inventory', 'InventoryController', array(
+			'names'=> array(
+				'index'		=> 'maintenance.inventory.index',
+				'create'  	=> 'maintenance.inventory.create',
+				'store'   	=> 'maintenance.inventory.store',
+				'show'    	=> 'maintenance.inventory.show',
+				'edit'    	=> 'maintenance.inventory.edit',
+				'update'  	=> 'maintenance.inventory.update',
+				'destroy' 	=> 'maintenance.inventory.destroy',
+			),
+		));
+                
+                Route::resource('inventory.stocks', 'InventoryStockController', array(
+                        'only' => array(
+                            'create',
+                            'store',
+                            'show',
+                            'edit',
+                            'update',
+                            'destroy',
+                        ),
+			'names'=> array(
+				'index'		=> 'maintenance.inventory.stocks.index',
+				'create'  	=> 'maintenance.inventory.stocks.create',
+				'store'   	=> 'maintenance.inventory.stocks.store',
+				'show'    	=> 'maintenance.inventory.stocks.show',
+				'edit'    	=> 'maintenance.inventory.stocks.edit',
+				'update'  	=> 'maintenance.inventory.stocks.update',
+				'destroy' 	=> 'maintenance.inventory.stocks.destroy',
+			),
+		));
+                
+                Route::resource('inventory.stocks.movements', 'InventoryStockController', array(
+                        'only' => array(
+                            'index'
+                        ),
+			'names'=> array(
+				'index'		=> 'maintenance.inventory.stocks.movements.index',
+			),
+		));
+                
                 /*
                  * Global Attachment Routes
                  */
@@ -382,6 +383,46 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			),
 		));
 		
+                
+                /*
+		|--------------------------------------------------------------------------
+		| Maintenance Category Routes
+		|--------------------------------------------------------------------------
+		*/
+		Route::get('categories/json', array(
+				'as' => 'maintenance.categories.json',
+				'uses' => 'CategoryController@getJson',
+			)
+		);
+		
+		Route::get('categories/create/{categories?}', array(
+				'as' => 'maintenance.categories.nodes.create',
+				'uses' => 'CategoryController@create',
+			)
+		);
+		
+		Route::post('categories/move/{categories?}', array(
+			'as' => 'maintenance.categories.nodes.move',
+			'uses'=> 'CategoryController@postMoveCategory'
+		));
+		
+		Route::post('categories/create/{categories?}', array(
+				'as' => 'maintenance.categories.nodes.store',
+				'uses' => 'CategoryController@store',
+			)
+		);
+		
+		Route::resource('categories', 'CategoryController', array(
+			'names'=> array(
+				'index'		=> 'maintenance.categories.index',
+				'create'  	=> 'maintenance.categories.create',
+				'store'   	=> 'maintenance.categories.store',
+				'show'    	=> 'maintenance.categories.show',
+				'edit'    	=> 'maintenance.categories.edit',
+				'update'  	=> 'maintenance.categories.update',
+				'destroy' 	=> 'maintenance.categories.destroy',
+			),
+		));
 		
 	}); /* End Maintenance Controller Routes */
 

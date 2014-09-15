@@ -152,7 +152,7 @@ class AssetRequest extends AbstractRequest {
 			
 			return $this->response();
 		} catch(RecordNotFoundException $e){
-			$this->assetNotFound();
+                    return $this->assetNotFound();
 		}
 	}
 	

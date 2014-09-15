@@ -8,7 +8,7 @@
     <script src="{{ asset('packages/stevebauman/maintenance/js/work-orders/show.js') }}"></script>
     <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#tab_1" data-toggle="tab">Work Order</a></li>
+                <li class="active"><a href="#tab_1" data-toggle="tab">Profile</a></li>
                 <li class=""><a href="#tab_2" data-toggle="tab">Details</a></li>
                 <li class=""><a href="#tab_3" data-toggle="tab">Parts</a></li>
                 <li class=""><a href="#tab_4" data-toggle="tab">History</a></li>
@@ -16,7 +16,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
-                    @include('maintenance::work-orders.tabs.work-order', array('workOrder'=>$workOrder))
+                    @include('maintenance::work-orders.tabs.profile', array('workOrder'=>$workOrder))
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_2">
                    @include('maintenance::work-orders.tabs.details', array('workOrder'=>$workOrder))

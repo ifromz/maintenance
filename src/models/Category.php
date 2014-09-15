@@ -5,15 +5,15 @@ use Baum\Node;
 /**
 * AssetCategory
 */
-class AssetCategory extends Node {
+class Category extends Node {
 
   /**
    * Table name.
    *
    * @var string
    */
-  protected $table = 'asset_categories';
-
+  protected $table = 'categories';
+  
   //////////////////////////////////////////////////////////////////////////////
 
   //

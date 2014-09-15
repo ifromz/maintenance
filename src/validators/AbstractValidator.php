@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Validators;
 
-use Illuminate\Validation\Validator;
-use Request;
-use Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Input;
 
 abstract class AbstractValidator {
 		
@@ -15,7 +15,7 @@ abstract class AbstractValidator {
 	}
  
 	public function passes(){
-    	$validation = \Validator::make($this->input, $this->rules);
+    	$validation = Validator::make($this->input, $this->rules);
  
     	if($validation->passes()) return true;
      
