@@ -1,9 +1,9 @@
-<?php namespace Stevebauman\Maintenance\Requests;
+<?php namespace Stevebauman\Maintenance\Http\Requests;
 
 use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Requests\AbstractRequest;
+use Stevebauman\Maintenance\Http\Requests\AbstractRequest;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 
 class WorkOrderRequest extends AbstractRequest {

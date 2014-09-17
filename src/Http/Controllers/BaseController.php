@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;

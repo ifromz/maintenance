@@ -1,8 +1,8 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Requests\AuthRequest;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Requests\AuthRequest;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class AuthController extends BaseController {
 	

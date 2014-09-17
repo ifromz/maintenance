@@ -51,7 +51,7 @@
     
     <!-- Scripts -->
         <!-- jQuery 1.10.2 -->
-        {{ HTML::script('packages/stevebauman/maintenance/adminlte/js/jquery-1.10.2.js') }}
+        {{ HTML::script('packages/stevebauman/maintenance/adminlte/js/jquery-1.11.1.min.js') }}
         
         <!-- jQuery UI 1.10.3 -->
         {{ HTML::script('packages/stevebauman/maintenance/js/vendor/jquery-ui-1.10.3.min.js') }}
@@ -70,10 +70,11 @@
         {{ HTML::script('packages/stevebauman/maintenance/jsTree/dist/jstree.min.js') }}
         
         <!-- Pickadate -->
+        
         {{ HTML::script('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/picker.js') }}
         {{ HTML::script('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/picker.date.js') }}
         {{ HTML::script('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/picker.time.js') }}
-        
+        {{ HTML::script('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/legacy.js') }}
         <!-- Typeahead -->
         {{ HTML::script('packages/stevebauman/maintenance/js/vendor/bootstrap3-typeahead.js') }}
         

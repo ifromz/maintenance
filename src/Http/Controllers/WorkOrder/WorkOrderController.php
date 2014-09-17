@@ -1,8 +1,8 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Controllers\BaseController;
-use Stevebauman\Maintenance\Requests\WorkOrderRequest;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Requests\WorkOrderRequest;
 
 class WorkOrderController extends BaseController {
 	

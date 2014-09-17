@@ -79,10 +79,13 @@
             <dt>Aquired At:</dt>
             <dd>{{ ($asset->aquired_at ? $asset->aquired_at : '<em>None</em>') }}</dd>
             
+            @if($asset->location)
             <p></p>
-            
             <dt>Location:</dt>
-            <dd>{{ renderNode($asset->location) }}</dd>
+            <dd>
+                {{ renderNode($asset->location) }}
+            </dd>
+            @endif
             
             <p></p>
             

@@ -1,11 +1,18 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
+use Illuminate\Support\Facades\App;
 use Mews\Purifier\Facades\Purifier;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 
 abstract class AbstractModelService {
     
     protected $model;
+    
+    protected $db;
+    
+    public function __construct(){
+        $this->db = App::make('db');
+    }
     
     /**
      * Return all model records

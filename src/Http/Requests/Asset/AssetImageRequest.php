@@ -1,11 +1,11 @@
-<?php namespace Stevebauman\Maintenance\Requests;
+<?php namespace Stevebauman\Maintenance\Http\Requests;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Config;
 use Dmyers\Storage\Storage;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Requests\AbstractRequest;
+use Stevebauman\Maintenance\Http\Requests\AbstractRequest;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 
 /**

@@ -1,9 +1,9 @@
-<?php namespace Stevebauman\Maintenance\Apis;
+<?php namespace Stevebauman\Maintenance\Http\Apis;
 
 use Response;
 use Input;
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Apis\BaseApiController;
+use Stevebauman\Maintenance\Http\Apis\BaseApiController;
 
 class WorkOrderApi extends BaseApiController {
 	

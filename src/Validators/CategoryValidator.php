@@ -5,7 +5,7 @@ use Stevebauman\Maintenance\Validators\AbstractValidator;
 class CategoryValidator extends AbstractValidator {
 	
 	protected $rules = array(
-		'name' => 'required|max:20|alpha_dash',
+		'name' => 'required|max:20',
 	);
 	
 }

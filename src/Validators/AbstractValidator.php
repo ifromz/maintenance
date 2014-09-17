@@ -31,5 +31,9 @@ abstract class AbstractValidator {
 			return $this->errors;
 		}
   	}
+        
+        public function ignore($field, $table, $column, $ignore = 'NULL'){
+            $this->rules[$field] .= sprintf('|unique:%s,%s,%s', $table, $column, $ignore);
+        }
 	
 }

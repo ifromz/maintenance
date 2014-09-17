@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Requests;
+<?php namespace Stevebauman\Maintenance\Http\Requests;
 
 use JildertMiedema\LaravelPlupload\Facades\Plupload;
 use Dmyers\Storage\Storage;

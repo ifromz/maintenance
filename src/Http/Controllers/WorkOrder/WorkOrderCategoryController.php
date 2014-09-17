@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Stevebauman\Maintenance\Controllers\NestedSetController;
 use Stevebauman\Maintenance\Services\WorkOrderCategoryService;

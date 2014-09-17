@@ -1,8 +1,8 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Stevebauman\Maintenance\Services\CategoryService;
 use Stevebauman\Maintenance\Validators\CategoryValidator;
-use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractNestedSetController;
 
 class CategoryController extends AbstractNestedSetController {
 	

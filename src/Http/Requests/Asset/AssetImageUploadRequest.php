@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Requests;
+<?php namespace Stevebauman\Maintenance\Http\Requests;
 
 use Stevebauman\Maintenance\Requests\AbstractUploadRequest;
 

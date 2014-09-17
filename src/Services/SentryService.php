@@ -42,6 +42,8 @@ class SentryService {
                     $response['message'] = 'Your account has been permanetly banned';
 		} catch(UserExistsException $e){
                     $response['message'] = 'Username or Password is incorrect.';
+                } catch (UserNotFoundException $e){
+                    $response['message'] = 'Username or Password is incorrect.';
                 }
 		return $response;
 	}

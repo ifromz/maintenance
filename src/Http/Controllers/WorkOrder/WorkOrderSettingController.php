@@ -1,6 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 use View;
 
 class WorkOrderSettingController extends BaseController {

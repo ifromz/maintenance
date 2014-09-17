@@ -13,7 +13,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
         | Maintenance Public Routes
         |--------------------------------------------------------------------------
         */
-        Route::group(array('prefix'=>'register', 'namespace'=>'Stevebauman\Maintenance\Controllers'), function(){
+        Route::group(array('prefix'=>'register', 'namespace'=>'Stevebauman\Maintenance\Http\Controllers'), function(){
             Route::get('', array(
                 'as' => 'maintenance.register',
                 'uses' => 'AuthController@getRegister',
@@ -30,7 +30,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
             ));
         });
     
-	Route::group(array('prefix'=>'login', 'namespace'=>'Stevebauman\Maintenance\Controllers', 'before'=>'maintenance.notauth'), function(){
+	Route::group(array('prefix'=>'login', 'namespace'=>'Stevebauman\Maintenance\Http\Controllers', 'before'=>'maintenance.notauth'), function(){
 	
 		Route::get('', array(
 			'as' => 'maintenance.login',
@@ -50,7 +50,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 	| Maintenance Controller Routes
 	|--------------------------------------------------------------------------
 	*/	
-	Route::group(array('namespace'=>'Stevebauman\Maintenance\Controllers', 'before'=>'maintenance.auth|maintenance.permission'), function(){
+	Route::group(array('namespace'=>'Stevebauman\Maintenance\Http\Controllers', 'before'=>'maintenance.auth|maintenance.permission'), function(){
 		
 		Route::get('/', array(
 			'as' => 'maintenance.dashboard.index',
@@ -153,7 +153,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 		*/
 		Route::resource('work-orders', 'WorkOrderController', array(
                     'names'=> array(
-                        'index'	=> 'maintenance.work-orders.index',
+                        'index'         => 'maintenance.work-orders.index',
                         'create'  	=> 'maintenance.work-orders.create',
                         'store'   	=> 'maintenance.work-orders.store',
                         'show'    	=> 'maintenance.work-orders.show',
@@ -316,6 +316,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			),
 		));
                 
+                
                 Route::resource('inventory.stocks.movements', 'InventoryStockController', array(
                         'only' => array(
                             'index'
@@ -432,7 +433,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 	| Maintenance JSON API Routes
 	|--------------------------------------------------------------------------
 	*/
-	Route::group(array('prefix'=>'api', 'namespace'=>'Stevebauman\Maintenance\Apis'), function(){
+	Route::group(array('prefix'=>'api', 'namespace'=>'Stevebauman\Maintenance\Http\Apis'), function(){
 		
 		
 		/*
@@ -457,6 +458,17 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			Route::get('', array('as'=>'maintenance.api.assets.get', 'uses'=>'AssetApi@get'));
                         Route::get('q', array('as'=>'maintenance.api.assets.query', 'uses'=>'AssetApi@getByQuery'));
 		});
+                
+                Route::resource('inventory.stocks', 'InventoryStockApi', array(
+                    'only' => array(
+                        'edit',
+                        'update'
+                    ),
+                    'names' => array(
+                        'edit'    	=> 'maintenance.api.inventory.stocks.edit',
+                        'update'  	=> 'maintenance.api.inventory.stocks.update',
+                    ),
+                ));
                 
                 /*
 		|--------------------------------------------------------------------------

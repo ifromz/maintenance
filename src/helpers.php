@@ -4,12 +4,16 @@
 		$html = '';
                 
 		$ancestors = $node->getAncestorsAndSelf();
-		
+               
 		foreach($ancestors as $ancestor){
-			if($ancestors[0]->name == $ancestor->name){
-				$html .= $ancestor->name;
-			} else{
-				$html .= ' > '.$ancestor->name;
+			if($node->equals($ancestor) && $node->isRoot()){
+				$html .= sprintf('<b>%s</b>', $ancestor->name);
+			} elseif($node->equals($ancestor)){
+                                $html .= sprintf(' > <b>%s</b>', $ancestor->name);
+                        } elseif($ancestor->isRoot()){
+                                $html .= sprintf('%s', $ancestor->name);
+                        } else{
+				$html .= sprintf(' > %s', $ancestor->name);
 			}
 		}
 		

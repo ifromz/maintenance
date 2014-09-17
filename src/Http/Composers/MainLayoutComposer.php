@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Composers;
+<?php namespace Stevebauman\Maintenance\Http\Composers;
 
 use Illuminate\Support\Facades\Config;
 

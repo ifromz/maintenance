@@ -1,15 +1,16 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php namespace Stevebauman\Maintenance\Http\Controllers;
 
-use View;
-use Validator;
-use Request;
-use Response;
-use Redirect;
-use Input;
-use Config;
-use Lang;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
 use Stevebauman\Maintenance\Services\CategoryService;
 use Stevebauman\Maintenance\Validators\CategoryValidator;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class CategoryNodeController extends BaseController {
 	

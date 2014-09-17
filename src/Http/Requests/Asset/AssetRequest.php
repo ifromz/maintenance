@@ -1,11 +1,11 @@
-<?php namespace Stevebauman\Maintenance\Requests;
+<?php namespace Stevebauman\Maintenance\Http\Requests;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Services\EventService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Validators\AssetValidator;
-use Stevebauman\Maintenance\Requests\AbstractRequest;
+use Stevebauman\Maintenance\Http\Requests\AbstractRequest;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 
 class AssetRequest extends AbstractRequest {

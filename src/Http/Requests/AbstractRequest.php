@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Requests;
+<?php namespace Stevebauman\Maintenance\Http\Requests;
 
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
@@ -61,6 +61,7 @@ abstract class AbstractRequest {
 					->withErrors($this->errors);
 			} else{
 				return Redirect::to($this->redirect)
+                                        ->withInput()
 					->with('message', $this->message)
 					->with('messageType', $this->messageType);
 			}

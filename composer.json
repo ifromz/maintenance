@@ -14,17 +14,13 @@
     "autoload": {
         "classmap": [
             "src/migrations",
-                        "src/commands",
-			"src/controllers",
-			"src/models",
-			"src/services",
-			"src/validators",
-			"src/exceptions",
-			"src/filters",
-			"src/composers",
-			"src/apis",
-			"src/requests",
-                        "src/seeders"
+            "src/commands",
+            "src/http",
+            "src/models",
+            "src/services",
+            "src/validators",
+            "src/exceptions",
+            "src/seeders"
         ],
         "psr-0": {
             "Stevebauman\\Maintenance\\": "src/"

@@ -1,8 +1,8 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Input;
-use Stevebauman\Maintenance\Requests\AssetImageRequest;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Requests\AssetImageRequest;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class AssetImageController extends BaseController {
 	
