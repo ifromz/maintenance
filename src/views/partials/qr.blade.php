@@ -1,0 +1,1 @@
+<img src="data:image/png;base64, {{ base64_encode(QrCode::format('png')->margin(0)->size(150)->generate($content)) }}" />
