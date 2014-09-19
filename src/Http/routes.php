@@ -266,6 +266,13 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                  * End Asset Manual Upload Routes
                  */
 		
+                Route::resource('assets.events', 'AssetEventController', array(
+                    'only' => array('store'),
+                    'names' => array(
+                        'store'=>'maintenance.assets.events.store'
+                    )
+                ));
+                
                 /*
                  * Asset Routes
                  */

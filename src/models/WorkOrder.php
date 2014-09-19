@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Config;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Stevebauman\Maintenance\Models\BaseModel;
 
-class WorkOrder extends Eloquent {
+class WorkOrder extends BaseModel {
 	
 	protected $table = 'work_orders';
 	
@@ -63,8 +63,9 @@ class WorkOrder extends Eloquent {
          * @return object
          */
         public function scopePriority($query, $priority = NULL){
-            if($priority){
-                return $query->where('priority', 'LIKE', '%'.$priority.'%');
+            
+            if(isset($priority)){
+                return $query->where('priority', $priority);
             }
 	}
         
@@ -97,8 +98,8 @@ class WorkOrder extends Eloquent {
          * @return object
          */
         public function scopeStatus($query, $status = NULL){
-            if($status){
-                return $query->where('status', 'LIKE', '%'.$status.'.%');
+            if(isset($status)){
+                return $query->where('status', $status);
             }
 	}
         

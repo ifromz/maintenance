@@ -1,9 +1,9 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Stevebauman\Maintenance\Models\BaseModel;
 
-class Event extends Model {
+class Event extends BaseModel {
 
     protected $table = 'events';
     

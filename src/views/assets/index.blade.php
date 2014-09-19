@@ -35,8 +35,16 @@
                     <tr>
                         <td>{{ $asset->id }}</td>
                     	<td>{{ $asset->name }}</td>
-                        <td>{{ renderNode($asset->location) }}</td>
-                        <td class="hidden-xs">{{ renderNode($asset->category) }}</td>
+                        <td>
+                            @if($asset->location)
+                            {{ renderNode($asset->location) }}
+                            @else
+                            <em>None</em>
+                            @endif
+                        </td>
+                        <td class="hidden-xs">
+                            {{ renderNode($asset->category) }}
+                        </td>
                         <td>{{ $asset->condition }}</td>
                         <td class="hidden-xs">{{ $asset->created_at }}</td>
                         <td>

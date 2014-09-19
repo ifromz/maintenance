@@ -2,7 +2,7 @@
 
 use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\Maintenance\Validators\LocationValidator;
-use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractNestedSetController;
 
 class LocationController extends AbstractNestedSetController {
 	

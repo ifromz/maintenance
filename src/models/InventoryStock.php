@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Stevebauman\Maintenance\Models\BaseModel;
 
-class InventoryStock extends Eloquent {
+class InventoryStock extends BaseModel {
 	
 	protected $table = 'inventory_stocks';
 	

@@ -18,8 +18,8 @@ class InventoryRequest extends AbstractRequest {
 	 *
 	 * @return Response
 	 */
-	public function index(){
-            $items = $this->inventory->get();
+	public function index($data){
+            $items = $this->inventory->getByPageWithFilter($data);
             
             return View::make('maintenance::inventory.index', array(
                 'title' => 'Inventory',

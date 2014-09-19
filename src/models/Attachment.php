@@ -1,9 +1,9 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
 use Dmyers\Storage\Storage;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Stevebauman\Maintenance\Models\BaseModel;
 
-class Attachment extends Eloquent {
+class Attachment extends BaseModel {
 	
 	protected $table = 'attachments';
 	

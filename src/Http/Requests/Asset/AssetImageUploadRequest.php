@@ -1,6 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Http\Requests;
 
-use Stevebauman\Maintenance\Requests\AbstractUploadRequest;
+use Stevebauman\Maintenance\Http\Requests\AbstractUploadRequest;
 
 /**
  * Processes the upload from PLUpload and store's it inside a temporary location.

@@ -13,7 +13,7 @@
                 <h3 class="panel-title">Edit asset</h3>
             </div>
             <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.assets.update',array($asset->id)), 'method'=>'PATCH', 'class'=>'form-horizontal', 'id'=>'maintenance-asset-edit')) }}
+            {{ Form::open(array('url'=>route('maintenance.assets.update', array($asset->id)), 'method'=>'PATCH', 'class'=>'form-horizontal', 'id'=>'maintenance-asset-edit')) }}
             	<legend class="margin-top-10">Required Information</legend>
                 
                 <div class="form-group">
@@ -36,16 +36,16 @@
                     	@include('maintenance::select.category', array(
                             'category'=>$asset->category
                         ))
-                   	</div>
+                    </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Location</label>
                     <div class="col-md-4">
-                    	@include('maintenance::select.location', array(
+                    	@include('maintenance::select.location', ($asset->location ? array(
                             'location_name'=>$asset->location->name,
                             'location_id' => $asset->location->id
-                        ))
+                        ) : array()))
                    	</div>
                 </div>
                 

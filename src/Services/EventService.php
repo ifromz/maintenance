@@ -12,6 +12,27 @@ class EventService extends AbstractModelService {
 		$this->sentry = $sentry;
         }
         
+        public function create($data){
+            $insert = array(
+                'title' => $data['title'],
+                'description' => $data['description'],
+                'start' => $data['start'],
+                'end' => $data['end'],
+                'allDay' => $data['allDay'],
+                'color' => $data['color'],
+                'background_color' => $data['background_color'],
+                'recur_frequency' => $data['frequency'],
+                'recur_count' => $data['count'],
+                'recur_filter_days' => $data['specific_days'],
+                'recur_filter_months' => $data['specific_months'],
+                'recur_filter_years' => $data['specific_years'],
+            );
+            
+            if($record = $this->model->create($insert)){
+                return $record;
+            } return false;
+        }
+        
         public function update($id, $data){
             $record = $this->model->find($id);
             

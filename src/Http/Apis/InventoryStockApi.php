@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 use Stevebauman\Maintenance\Services\InventoryStockService;
 use Stevebauman\Maintenance\Services\InventoryService;
-use Stevebauman\Maintenance\Requests\InventoryStockRequest;
+use Stevebauman\Maintenance\Http\Requests\InventoryStockRequest;
 use Stevebauman\Maintenance\Http\Apis\BaseApiController;
 
 class InventoryStockApi extends BaseApiController {

@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Stevebauman\Maintenance\Models\BaseModel;
 
-class Update extends Eloquent {
+class Update extends BaseModel {
 	
 	protected $table = 'updates';
 	

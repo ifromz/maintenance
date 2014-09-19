@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Stevebauman\Maintenance\Models\BaseModel;
 
-class AssetManual extends Eloquent {
+class AssetManual extends BaseModel {
 	
 	protected $table = 'asset_manuals';
 

@@ -16,7 +16,7 @@ class InventoryController extends BaseController {
 	 * @return Response
 	 */
 	public function index(){
-            return $this->inventory->index();
+            return $this->inventory->index(Input::all());
 	}
 
 

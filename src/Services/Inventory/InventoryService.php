@@ -11,10 +11,23 @@ class InventoryService extends AbstractModelService {
         $this->sentry = $sentry;
     }
     
-    public function getByPage(){
-            return $this->model
-                    ->paginate(25);
-    }
+    public function getByPageWithFilter($data = array()){
+		return $this->model
+			->with(array(
+				'category',
+				'user',
+                                'stocks',
+			))
+                        ->name((array_key_exists('name', $data) ? $data['name'] : NULL))
+                        ->description((array_key_exists('description', $data) ? $data['description'] : NULL))
+                        ->location((array_key_exists('location_id', $data) ? $data['location_id'] : NULL))
+                        ->stock(
+                                (array_key_exists('operator', $data) ? $data['operator'] : NULL),
+                                (array_key_exists('quantity', $data) ? $data['quantity'] : NULL)
+                        )
+                        ->orderBy('created_at', 'DESC')
+			->paginate(25);
+	}
     
     public function create($data){
         

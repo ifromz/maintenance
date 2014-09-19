@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Stevebauman\Maintenance\Models\BaseModel;
 
-class WorkOrderSupply extends Eloquent {
+class WorkOrderSupply extends BaseModel {
 	
 	protected $table = 'work_order_supplies';
 	

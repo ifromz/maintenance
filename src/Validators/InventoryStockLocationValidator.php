@@ -17,12 +17,13 @@ class InventoryStockLocationValidator extends Validator {
     }
     
      public function validateStockLocation($attribute, $location_id, $parameters){
+         $item_id = Route::getCurrentRoute()->getParameter('inventory');
          $stock_id = Route::getCurrentRoute()->getParameter('stocks');
          
          if(isset($stock_id)){
-             $stocks = $this->inventoryStock->where('id', '!=', $stock_id)->where('location_id', $location_id)->get();
+             $stocks = $this->inventoryStock->where('inventory_id', $item_id)->where('id', '!=', $stock_id)->where('location_id', $location_id)->get();
          } else{
-             $stocks = $this->inventoryStock->where('location_id', $location_id)->get();
+             $stocks = $this->inventoryStock->where('inventory_id', $item_id)->where('location_id', $location_id)->get();
          }
          
          if($stocks->count() > 0){
