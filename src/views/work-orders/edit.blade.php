@@ -37,8 +37,8 @@
                     <label class="col-sm-2 control-label">Location</label>
                     <div class="col-md-4">
                       	@include('maintenance::select.location', array(
-                                'location_name'=>$workOrder->location->name,
-                                'location_id' => $workOrder->location->id,
+                                'location_name'=>($workOrder->location ? $workOrder->location->name : NULL),
+                                'location_id' => ($workOrder->location ? $workOrder->location->id : NULL),
                             ))
                     </div>
                 </div>

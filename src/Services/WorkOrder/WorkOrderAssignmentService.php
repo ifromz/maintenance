@@ -2,11 +2,11 @@
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\AbstractModelService;
-use Stevebauman\Maintenance\Models\Assignment;
+use Stevebauman\Maintenance\Models\WorkOrderAssignment;
 
-class AssignmentService extends AbstractModelService {
+class WorkOrderAssignmentService extends AbstractModelService {
 	
-	public function __construct(Assignment $assignment, SentryService $sentry){
+	public function __construct(WorkOrderAssignment $assignment, SentryService $sentry){
 		$this->model = $assignment;
                 $this->sentry = $sentry;
 	}

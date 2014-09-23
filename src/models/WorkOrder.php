@@ -54,7 +54,7 @@ class WorkOrder extends BaseModel {
         }
         
         public function assignments(){
-            return $this->hasMany('Stevebauman\Maintenance\Models\Assignment', 'work_order_id', 'id');
+            return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderAssignment', 'work_order_id', 'id');
         }
         
         /**

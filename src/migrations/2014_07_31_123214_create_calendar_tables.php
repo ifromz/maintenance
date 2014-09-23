@@ -25,7 +25,7 @@ class CreateCalendarTables extends Migration {
                 $table->string('color')->nullable();
                 $table->string('background_color')->nullable();
                 $table->string('recur_frequency')->nullable();
-                $table->integer('recur_count')->nullable();
+                $table->integer('recur_count')->nullable()->default(NULL);
                 $table->string('recur_filter_days')->nullable();
                 $table->string('recur_filter_months')->nullable();
                 $table->string('recur_filter_years')->nullable();

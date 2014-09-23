@@ -1,12 +1,12 @@
 <?php namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Http\Requests\AssignmentRequest;
+use Stevebauman\Maintenance\Http\Requests\WorkOrderAssignmentRequest;
 use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
-class AssignmentController extends BaseController {
+class WorkOrderAssignmentController extends BaseController {
     
-        public function __construct(AssignmentRequest $assignment){
+        public function __construct(WorkOrderAssignmentRequest $assignment){
             $this->assignment = $assignment;
         }
     

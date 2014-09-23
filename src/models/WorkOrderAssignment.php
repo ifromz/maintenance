@@ -2,9 +2,9 @@
 
 use Stevebauman\Maintenance\Models\BaseModel;
 
-class Assignment extends BaseModel {
+class WorkOrderAssignment extends BaseModel {
 	
-	protected $table = 'assignments';
+	protected $table = 'work_order_assignments';
 	
         protected $fillable = array('work_order_id', 'by_user_id', 'to_user_id');
         

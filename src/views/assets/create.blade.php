@@ -7,7 +7,7 @@
 @section('content')
 	
     {{ HTML::script('packages/stevebauman/maintenance/js/assets/create.js') }}
-	 <div class="col-md-12">
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Create a new Asset</h3>
@@ -97,10 +97,10 @@
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-2">
                     	{{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
-                   	</div>
+                    </div>
                 </div>
-           	</div>
+            </div>
       	</div>
-  	</div>
+    </div>
     
 @stop

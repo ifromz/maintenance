@@ -1,5 +1,6 @@
 <?php  namespace Stevebauman\Maintenance\Http\Requests;
 
+use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 use Stevebauman\Maintenance\Validators\WorkOrderReportValidator;
 use Stevebauman\Maintenance\Services\WorkOrderReportService;
@@ -31,6 +32,11 @@ class WorkOrderReportRequest extends AbstractRequest {
                     $data['work_order_id'] = $workOrder->id;
                     
                     if($record = $this->report->create($data)){
+                        
+                        $workOrder->update(array(
+                            'status' => Config::get('maintenance::status.complete')
+                        ));
+                        
                         $this->message = 'Successfully created work order report';
                         $this->messageType = 'success';
                         $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));

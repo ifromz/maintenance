@@ -267,9 +267,14 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                  */
 		
                 Route::resource('assets.events', 'AssetEventController', array(
-                    'only' => array('store'),
                     'names' => array(
-                        'store'=>'maintenance.assets.events.store'
+                                'index'		=> 'maintenance.assets.events.index',
+				'create'  	=> 'maintenance.assets.events.create',
+				'store'   	=> 'maintenance.assets.events.store',
+				'show'    	=> 'maintenance.assets.events.show',
+				'edit'    	=> 'maintenance.assets.events.edit',
+				'update'  	=> 'maintenance.assets.events.update',
+				'destroy' 	=> 'maintenance.assets.events.destroy',
                     )
                 ));
                 

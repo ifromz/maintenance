@@ -3,12 +3,12 @@
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 use Stevebauman\Maintenance\Validators\AssignmentValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Services\AssignmentService;
+use Stevebauman\Maintenance\Services\WorkOrderAssignmentService;
 use Stevebauman\Maintenance\Http\Requests\AbstractRequest;
 
-class AssignmentRequest extends AbstractRequest {
+class WorkOrderAssignmentRequest extends AbstractRequest {
         
-        public function __construct(AssignmentService $assignment, WorkOrderService $workOrder, AssignmentValidator $assignmentValidator){
+        public function __construct(WorkOrderAssignmentService $assignment, WorkOrderService $workOrder, AssignmentValidator $assignmentValidator){
             $this->assignment = $assignment;
             $this->workOrder = $workOrder;
             $this->assignmentValidator = $assignmentValidator;

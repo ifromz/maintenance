@@ -26,7 +26,7 @@ class AssetEventApi extends BaseApiController {
             'end' => date($format, Input::get('end')),
         );
         
-        $events = $this->event->parseEvents($this->event->with(array('assets'=>function($query){
+        $events = $this->event->parseEvents($this->event->with(array('assets'=>function($query) use($asset_id){
             $query->where('asset_id', $asset_id);
         }))->get(), $data);
         

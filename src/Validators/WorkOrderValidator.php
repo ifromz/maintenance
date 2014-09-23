@@ -5,10 +5,10 @@ use Stevebauman\Maintenance\Validators\AbstractValidator;
 class WorkOrderValidator extends AbstractValidator { 
 	
 	protected $rules = array(
-                'work_order_category' => 'required|alpha_dash',
+                'work_order_category' => 'required',
 		'work_order_category_id' => 'integer',
 		'status' => 'required|integer',
-		'subject' => 'required|min:5|alpha_dash',
+		'subject' => 'required|min:5',
 		'description'=> 'min:5',
 		
 		'started_at_date' => '',

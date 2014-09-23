@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Http\Requests;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
@@ -26,6 +27,17 @@ abstract class AbstractRequest {
 	 */  
 	protected $errors;
 	
+        /**
+         * Returns a view object. This will render the view to pure HTML if the request is ajax.
+         */
+        public function view($view, $args = NULL){
+            if($this->isAjax()){
+                return View::make($view, $args)->render();
+            } else{
+                return View::make($view, $args);
+            }
+        }
+        
 	/**
 	 * Asks the request if it's ajax or not
 	 *

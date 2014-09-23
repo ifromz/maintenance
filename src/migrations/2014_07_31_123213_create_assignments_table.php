@@ -12,7 +12,7 @@ class CreateAssignmentsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('assignments', function(Blueprint $table) {
+		Schema::create('work_order_assignments', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->integer('work_order_id')->unsigned();
@@ -40,7 +40,7 @@ class CreateAssignmentsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('assignments');
+		Schema::drop('work_order_assignments');
 	}
 
 }

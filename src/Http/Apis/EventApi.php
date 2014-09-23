@@ -57,7 +57,7 @@ class EventApi extends BaseApiController {
         public function update($id){
             try{
                
-                $this->event->update($id, Input::all());
+                $this->event->updateDates($id);
                 
                 return Response::json(array(
                     'message' => 'Successfully updated event',

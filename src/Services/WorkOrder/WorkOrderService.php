@@ -65,15 +65,15 @@ class WorkOrderService extends AbstractModelService {
 	
 	public function create($data){
 		$insert = array(
-			'user_id' => $this->sentry->getCurrentUser()->id,
-			'work_order_category_id' => $data['work_order_category_id'],
-                        'location_id' => $data['location_id'],
-			'status' => $data['status'],
-                        'priority' => $data['priority'],
-			'subject' => $this->clean($data['subject']),
-			'description' => $this->clean($data['description']),
-			'started_at' => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
-			'completed_at' =>$this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
+			'user_id'                   => $this->sentry->getCurrentUser()->id,
+			'work_order_category_id'    => $this->input('work_order_category_id'),
+                        'location_id'               => $this->input('location_id'),
+			'status'                    => $this->input('status'),
+                        'priority'                  => $this->input('priority'),
+			'subject'                   => $this->input('subject', true),
+			'description'               => $this->input('description', true),
+			'started_at'                => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
+			'completed_at'              => $this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
 		);
 		
 		if($record = $this->model->create($insert)){
@@ -88,15 +88,15 @@ class WorkOrderService extends AbstractModelService {
 	public function update($id, $data){
 		if($workOrder = $this->find($id)){
 			$insert = array(
-                            'work_order_category_id' => $data['work_order_category_id'],
-                            'location_id' => $data['location_id'],
-                            'status' => $data['status'],
-                            'priority' => $data['priority'],
-                            'subject' => $this->clean($data['subject']),
-                            'description' => $this->clean($data['description']),
-                            'started_at' => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
-                            'completed_at' =>$this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
-			);
+                            'work_order_category_id'    => $this->input('work_order_category_id'),
+                            'location_id'               => $this->input('location_id'),
+                            'status'                    => $this->input('status'),
+                            'priority'                  => $this->input('priority'),
+                            'subject'                   => $this->input('subject', true),
+                            'description'               => $this->input('description', true),
+                            'started_at'                => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
+                            'completed_at'              => $this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
+                        );
 			
 			if($workOrder->update($insert)){
                             if(array_key_exists('assets', $data)){
@@ -108,10 +108,6 @@ class WorkOrderService extends AbstractModelService {
 		}
 	}
 	
-	private function formatDateWithTime($date, $time = NULL){
-            if($date){
-                    return date('Y-m-d H:i:s', strtotime($date. ' ' .$time));
-            } return NULL;
-	}
+	
 	
 }

@@ -6,7 +6,7 @@
 
 @section('content')
 
-	<div class="panel panel-default">
+    <div class="panel panel-default">
     	<div class="panel-heading">
             <div class="btn-toolbar">
                 <a href="{{ route('maintenance.assets.create') }}" class="btn btn-primary pull-left" data-toggle="tooltip" title="Create a new Asset">
@@ -85,6 +85,6 @@
         <div class="btn-toolbar text-center">
             {{ $assets->links() }}
         </div>
-  	</div>
+    </div>
     
 @stop

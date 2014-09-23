@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\App;
 use Mews\Purifier\Facades\Purifier;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
@@ -135,10 +136,53 @@ abstract class AbstractModelService {
             } return false;
     }
     
-    public function clean($input){
-        return Purifier::clean($input, array(
-            'AutoFormat.AutoParagraph' => false,
-        ));
+    /**
+     * Cleans input from data removing invalid HTML tags such as scripts
+     * 
+     * @param type $input
+     * @return type
+     */
+    protected function clean($input){
+        if($input){
+            return Purifier::clean($input, array(
+                'AutoFormat.AutoParagraph' => false,
+            ));
+        } else{
+            return NULL;
+        }
+    }
+    
+    /**
+     * Returns input from the client. If clean is set to true, the input will be
+     * ran through the purifier before it is returned.
+     * 
+     * @param type $input
+     * @param type $clean
+     * @return null OR Input
+     */
+    protected function input($input, $clean = FALSE){
+        if(Input::has($input)){
+            if($clean){
+                return $this->clean(Input::get($input));
+            } else{
+                return Input::get($input);
+            }
+        } else{
+            return NULL;
+        }
+    }
+    
+    /**
+     * Formats javascript plugin 'Pickadate' and 'Pickatime' date strings into PHP dates
+     * 
+     * @param type $date
+     * @param type $time
+     * @return null OR date
+     */
+    protected function formatDateWithTime($date, $time = NULL){
+        if($date){
+                return date('Y-m-d H:i:s', strtotime($date. ' ' .$time));
+        } return NULL;
     }
 
 	
