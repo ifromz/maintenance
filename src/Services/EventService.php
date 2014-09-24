@@ -16,17 +16,17 @@ class EventService extends AbstractModelService {
 
             $insert = array(
                 'user_id'               => $this->sentry->getCurrentUserId(),
-                'title'                 => ($this->input('title', true) ?: $record->title),
-                'description'           => ($this->input('description', true) ?: $record->description),
-                'start'                 => ($this->formatDateWithTime($this->input('start_date'), $this->input('start_time')) ?: $record->start),
-                'end'                   => ($this->formatDateWithTime($this->input('end_date'), $this->input('end_time')) ?: $record->end),
+                'title'                 => $this->input('title', true),
+                'description'           => $this->input('description', true),
+                'start'                 => $this->formatDateWithTime($this->input('start_date'), $this->input('start_time')),
+                'end'                   => $this->formatDateWithTime($this->input('end_date'), $this->input('end_time')),
                 'allDay'                => ($this->input('all_day') ?: 0),
-                'color'                 => ($this->input('color') ?: $record->color),
-                'background_color'      => ($this->input('background_color') ?: $record->background_color),
-                'recur_frequency'       => ($this->input('recur_frequency') ?: $record->recur_frequency),
+                'color'                 => $this->input('color'),
+                'background_color'      => $this->input('background_color'),
+                'recur_frequency'       => $this->input('recur_frequency'),
                 'recur_count'           => ($this->input('recur_limit') ?: NULL),
-                'recur_filter_days'     => ($this->input('recur_days') ?: $record->recur_filter_days),
-                'recur_filter_months'   => ($this->input('recur_months') ?: $record->recur_filter_months)
+                'recur_filter_days'     => $this->input('recur_days'),
+                'recur_filter_months'   => $this->input('recur_months')
             );
             
             if($record = $this->model->create($insert)){

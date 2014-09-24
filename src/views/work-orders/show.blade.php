@@ -10,7 +10,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab_1" data-toggle="tab">Profile</a></li>
                 <li class=""><a href="#tab_2" data-toggle="tab">Details</a></li>
-                <li class=""><a href="#tab_3" data-toggle="tab">Parts</a></li>
+                <li class=""><a href="#tab_3" data-toggle="tab">Parts / Supplies</a></li>
                 <li class=""><a href="#tab_4" data-toggle="tab">History</a></li>
                 <li class=""><a href="#tab_5" data-toggle="tab">Photos</a></li>
             </ul>
@@ -19,10 +19,10 @@
                     @include('maintenance::work-orders.tabs.profile', array('workOrder'=>$workOrder))
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_2">
-                   @include('maintenance::work-orders.tabs.details', array('workOrder'=>$workOrder))
+                    @include('maintenance::work-orders.tabs.details', array('workOrder'=>$workOrder))
                 </div><!-- /.tab-pane -->
                 <div class="tab-pane" id="tab_3">
-                
+                    @include('maintenance::work-orders.tabs.parts', array('workOrder'=>$workOrder))
                 </div>
                 <div class="tab-pane" id="tab_4">
                     @include('maintenance::work-orders.tabs.sessions', array($workOrder))
