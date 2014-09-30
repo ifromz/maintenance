@@ -1,14 +1,16 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
+use Stevebauman\Maintenance\Exceptions\InventoryNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Services\AbstractModelService;
 
 class InventoryService extends AbstractModelService {
     
-    public function __construct(Inventory $inventory, SentryService $sentry){
+    public function __construct(Inventory $inventory, SentryService $sentry, InventoryNotFoundException $notFoundException){
         $this->model = $inventory;
         $this->sentry = $sentry;
+        $this->notFoundException = $notFoundException;
     }
     
     public function getByPageWithFilter($data = array()){
@@ -20,6 +22,7 @@ class InventoryService extends AbstractModelService {
 			))
                         ->name((array_key_exists('name', $data) ? $data['name'] : NULL))
                         ->description((array_key_exists('description', $data) ? $data['description'] : NULL))
+                        ->category((array_key_exists('category_id', $data) ? $data['category_id'] : NULL))
                         ->location((array_key_exists('location_id', $data) ? $data['location_id'] : NULL))
                         ->stock(
                                 (array_key_exists('operator', $data) ? $data['operator'] : NULL),

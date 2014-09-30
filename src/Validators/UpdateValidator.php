@@ -5,7 +5,7 @@ use Stevebauman\Maintenance\Validators\AbstractValidator;
 class UpdateValidator extends AbstractValidator { 
 	
 	protected $rules = array(
-		'update_content' => 'required|max:400',
+		'update_content' => 'required|max:1000',
 	);
 
 }

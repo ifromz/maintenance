@@ -1,6 +1,8 @@
 <div class="input-group">
-	{{ Form::text('category', (isset($category) ? $category->name : NULL), array('readonly', 'class'=>'form-control')) }}
-    {{ Form::hidden('category_id', (isset($category) ? $category->id : NULL)) }}
+    
+    {{ Form::text('category', (isset($category_name) ? $category_name : NULL), array('readonly', 'class'=>'form-control')) }}
+    {{ Form::hidden('category_id', (isset($category_id) ? $category_id : NULL)) }}
+    
     <span class="input-group-btn">
     	<button class="btn btn-primary" data-toggle="modal" data-target="#categoryModal" type="button">Select</button>
         <a href="{{ route('maintenance.categories.index') }}" class="btn btn-default" data-toggle="tooltip" data-title="Manage Categories"> Manage</a>
@@ -9,21 +11,25 @@
 
 <!-- Modal -->
 <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">Select a Category</h4>
-			</div>
-      		<div class="modal-body">
-				<div id="category-tree"></div>
-      		</div>
-			<div class="modal-footer">
+            </div>
+            
+            <div class="modal-body">
+                <div id="category-tree"></div>
+            </div>
+
+            <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button id="category-select" type="button" class="btn btn-primary" disabled="disabled" data-dismiss="modal">Select</button>
-			</div>
-		</div>
-	</div>
+            </div>
+            
+        </div>
+    </div>
 </div>
 
 <script>

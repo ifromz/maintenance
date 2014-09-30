@@ -1,15 +1,17 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
+use Stevebauman\Maintenance\Exceptions\InventoryStockNotFoundException;
 use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Services\InventoryStockMovementService;
 use Stevebauman\Maintenance\Services\AbstractModelService;
 
 class InventoryStockService extends AbstractModelService {
     
-    public function __construct(InventoryStock $inventoryStock, InventoryStockMovementService $inventoryStockMovement){
+    public function __construct(InventoryStock $inventoryStock, InventoryStockMovementService $inventoryStockMovement, InventoryStockNotFoundException $notFoundException){
         parent::__construct();
         $this->model = $inventoryStock;
         $this->inventoryStockMovement = $inventoryStockMovement;
+        $this->notFoundException = $notFoundException;
     }
     
     public function create($data){
@@ -43,7 +45,7 @@ class InventoryStockService extends AbstractModelService {
             
             $insert = array(
                 'location_id' => $data['location_id'],
-                'quantity' => $data['quantity']
+                'quantity' => $data['quantity'],
             );
             
             $this->db->beginTransaction();
@@ -54,8 +56,8 @@ class InventoryStockService extends AbstractModelService {
                     'stock_id' => $record->id,
                     'before' => $record->movements->first()->after,
                     'after' => $record->quantity,
-                    'reason' => 'Stock Adjustment',
-                    'cost' => NULL,
+                    'reason' => (array_key_exists('reason', $data) ? $data['reason'] : 'Stock Adjustment'),
+                    'cost' => (array_key_exists('cost', $data) ? $data['cost'] : NULL),
                 );
                 
                 if($this->inventoryStockMovement->create($movement)){

@@ -62,11 +62,6 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			'uses'=>'AuthController@getLogout',
 		));
 		
-		Route::get('work-orders/settings', array(
-			'as' => 'maintenance.work-orders.settings.index',
-			'uses' => 'WorkOrderSettingController@index',
-		));
-		
 		/*
 		|--------------------------------------------------------------------------
 		| Maintenance Work Order Category Routes
@@ -186,7 +181,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 		| Maintenance Work Order Assignment Routes
 		|--------------------------------------------------------------------------
 		*/
-                Route::resource('work-orders.assignments', 'AssignmentController', array(
+                Route::resource('work-orders.assignments', 'WorkOrderAssignmentController', array(
                     'only' => array(
                         'index',
                         'create',
@@ -309,14 +304,6 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 		));
                 
                 Route::resource('inventory.stocks', 'InventoryStockController', array(
-                        'only' => array(
-                            'create',
-                            'store',
-                            'show',
-                            'edit',
-                            'update',
-                            'destroy',
-                        ),
 			'names'=> array(
 				'index'		=> 'maintenance.inventory.stocks.index',
 				'create'  	=> 'maintenance.inventory.stocks.create',
@@ -329,7 +316,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 		));
                 
                 
-                Route::resource('inventory.stocks.movements', 'InventoryStockController', array(
+                Route::resource('inventory.stocks.movements', 'InventoryStockMovementController', array(
                         'only' => array(
                             'index'
                         ),
@@ -447,6 +434,16 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 	*/
 	Route::group(array('prefix'=>'api', 'namespace'=>'Stevebauman\Maintenance\Http\Apis'), function(){
 		
+            Route::group(array('prefix'=>'notifications'), function(){
+                
+                Route::resource('notifications', 'NotificationApi', array(
+                    'only' => array('update'),
+                    'names' => array(
+                        'update' => 'maintenance.api.notifications.update'
+                    ),
+                ));
+                
+            });
 		
 		/*
 		|--------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ $site_title }} | {{ $title }}</title>
+    <title>{{ $siteTitle }} | {{ $title }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     
     <!-- Styles -->
@@ -43,10 +43,7 @@
         <!-- FullCalendar -->
         {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.css') }}
         {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.print.css', array('media'=>'print')) }}
-        
-        
-        {{ HTML::style('packages/stevebauman/maintenance/summernote-master/dist/summernote.css') }}
-        {{ HTML::style('packages/stevebauman/maintenance/summernote-master/dist/summernote-bs3.css') }}
+
     <!-- End Styles -->
     
     <!-- Scripts -->
@@ -84,7 +81,9 @@
         <!-- FullCalendar -->
         {{ HTML::script('packages/stevebauman/maintenance/fullcalendar/fullcalendar.js') }}
         
-        {{ HTML::script('packages/stevebauman/maintenance/summernote-master/dist/summernote.min.js') }}
+        {{ HTML::script('packages/stevebauman/maintenance/ckeditor/ckeditor.js') }}
+        
+        {{ HTML::script('packages/stevebauman/maintenance/jscroll-master/jquery.jscroll.min.js') }}
         
         {{ HTML::script('packages/stevebauman/maintenance/js/base.js') }}
   	<!-- End Scripts -->
@@ -101,7 +100,7 @@
 <body class="skin-blue">
 
 <header class="header">
-    <a href="{{ route('maintenance.dashboard.index') }}" class="logo"><i class="fa fa-wrench"></i> {{ $site_title }}</a>
+    <a href="{{ route('maintenance.dashboard.index') }}" class="logo"><i class="fa fa-wrench"></i> {{ $siteTitle }}</a>
 
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
@@ -218,8 +217,8 @@
                         </li>
                         
                         <li>
-                            <a href="{{ route('maintenance.work-orders.settings.index') }}" style="margin-left: 10px;">
-                                <i class="fa fa-cog"></i> Settings
+                            <a href="{{ route('maintenance.work-orders.categories.index') }}" style="margin-left: 10px;">
+                                <i class="fa fa-folder"></i> Categories
                             </a>
                         </li>
                     </ul>
@@ -237,11 +236,19 @@
                             </a>
                         </li>
                         
-                        <li>
-                            <a href="#" style="margin-left: 10px;">
-                           		Current Stock
-                            </a>
-                        </li>
+                        @if($siteCategoryRoots)
+                        
+                            @foreach($siteCategoryRoots as $category)
+                            
+                            <li>
+                                <a href="{{ route('maintenance.inventory.index', array('category_id'=>$category->id)) }}" style="margin-left: 10px;">
+                                    {{ $category->name }}
+                                </a>
+                            </li>
+                            
+                            @endforeach
+                        
+                        @endif
                     </ul>
                 </li>
                 
@@ -257,11 +264,20 @@
                             </a>
                         </li>
                         
-                        <li>
-                            <a href="#" style="margin-left: 10px;">
-                                <i class="fa fa-book"></i> Dynamic Category List
-                            </a>
-                        </li>
+                        @if($siteCategoryRoots)
+                        
+                            @foreach($siteCategoryRoots as $category)
+                            
+                            <li>
+                                <a href="{{ route('maintenance.assets.index', array('category_id'=>$category->id)) }}" style="margin-left: 10px;">
+                                    {{ $category->name }}
+                                </a>
+                            </li>
+                            
+                            @endforeach
+                        
+                        @endif
+                        
                     </ul>
                 </li>
                 

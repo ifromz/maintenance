@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Http\Requests\AbstractRequest;
-use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 
 class WorkOrderRequest extends AbstractRequest {
         
@@ -178,14 +177,6 @@ class WorkOrderRequest extends AbstractRequest {
             
             return $this->response();
 	}
-        
-        public function workOrderNotFound(){
-            $this->redirect = route('maintenance.work-orders.index');
-            $this->message = 'Work order not found; It either does not exist, or has been deleted';
-            $this->messageType = 'danger';
-            
-            return $this->response();
-        }
 
 
 }

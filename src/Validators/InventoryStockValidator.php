@@ -8,6 +8,8 @@ class InventoryStockValidator extends AbstractValidator {
             'location_id' => 'integer|stock_location',
             'location' => 'required',
             'quantity' => 'required|positive',
+            'reason' => 'max:250',
+            'cost' => 'positive',
         );
     
 }

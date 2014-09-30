@@ -74,8 +74,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Description / Details</label>
                     <div class="col-md-4">
-                    	{{ Form::textarea('description', $workOrder->description, array('class'=>'form-control', 'style'=>'min-width:100%', 'placeholder'=>'ex. Added components')) }}
-                   	</div>
+                        {{ Form::textarea('description', $workOrder->description, array('class'=>'form-control', 'style'=>'min-width:100%','placeholder'=>'ex. Added components')) }}
+                    </div>
                 </div>
                 
                 <legend class="margin-top-10">Other Information</legend>

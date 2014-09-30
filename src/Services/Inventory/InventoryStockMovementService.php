@@ -11,6 +11,10 @@ class InventoryStockMovementService extends AbstractModelService {
         $this->sentry = $sentry;
     }
     
+    public function getByPageWithFilter($stock_id, $data = array()){
+        return $this->model->where('stock_id', $stock_id)->paginate(25);
+    }
+    
     public function create($data){
         
         $insert = array(
@@ -24,7 +28,7 @@ class InventoryStockMovementService extends AbstractModelService {
         
         //Only create a record if the before and after quantity differ
         if($insert['before'] != $insert['after']){
-            if($record = $this->model->create($data)){
+            if($record = $this->model->create($insert)){
                 return $record;
             } else{
                 return false;

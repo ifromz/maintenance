@@ -19,11 +19,17 @@ class InventoryStockMovement extends BaseModel {
 		return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
 	}
         
+        public function getCostAttribute($cost){
+            if($cost == NULL){
+                return '0.00';
+            } return $cost;
+        }
+        
         public function getChangeAttribute(){
             if($this->before > $this->after){
-                return $this->before - $this->after;
+                return sprintf('- %s', $this->before - $this->after);
             } else{
-                return $this->after - $this->before;
+                return sprintf('+ %s', $this->after - $this->before);
             }
         }
         

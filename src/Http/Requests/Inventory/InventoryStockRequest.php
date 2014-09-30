@@ -1,7 +1,5 @@
 <?php namespace Stevebauman\Maintenance\Http\Requests;
 
-use Illuminate\Support\Facades\View;
-use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 use Stevebauman\Maintenance\Validators\InventoryStockValidator;
 use Stevebauman\Maintenance\Services\InventoryService;
 use Stevebauman\Maintenance\Services\InventoryStockService;
@@ -14,25 +12,29 @@ class InventoryStockRequest extends AbstractRequest {
             $this->inventoryStock = $inventoryStock;
             $this->inventoryStockValidator = $inventoryStockValidator;
         }
+        
+        public function index($inventory_id){
+            $item = $this->inventory->find($inventory_id);
 
+            return $this->view('maintenance::inventory.stocks.index', array(
+                'title' => 'Current Stocks for Item: '.$item->name,
+                'item' => $item,
+            ));
+        }
+        
 	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
 	 */
 	public function create($inventory_id){
-            try{
-                $item = $this->inventory->find($inventory_id);
-                
-                return View::make('maintenance::inventory.stocks.create', array(
-                    'title' => 'Add Stock Location to: '.$item->name,
-                    'item' => $item,
-                ));
-                
-                
-            } catch (RecordNotFoundException $e) {
-                return $this->inventoryNotFound();
-            }
+            $item = $this->inventory->find($inventory_id);
+
+            return $this->view('maintenance::inventory.stocks.create', array(
+                'title' => 'Add Stock Location to: '.$item->name,
+                'item' => $item,
+            ));
+               
 	}
 
 
@@ -45,27 +47,22 @@ class InventoryStockRequest extends AbstractRequest {
             $validator = new $this->inventoryStockValidator;
             
             if($validator->passes()){
-            
-                try{
-                    $item = $this->inventory->find($inventory_id);
+                
+                $item = $this->inventory->find($inventory_id);
 
-                    $data['inventory_id'] = $item->id;
+                $data['inventory_id'] = $item->id;
 
-                    if($record = $this->inventoryStock->create($data)){
-                        $this->message = 'Successfully added stock to this item';
-                        $this->messageType = 'success';
-                        $this->redirect = route('maintenance.inventory.show', array($item->id));
+                if($record = $this->inventoryStock->create($data)){
+                    $this->message = 'Successfully added stock to this item';
+                    $this->messageType = 'success';
+                    $this->redirect = route('maintenance.inventory.show', array($item->id));
 
-                    } else{
+                } else{
 
-                        $this->message = 'There was an error trying to add stock to this item. Please try again.';
-                        $this->messageType = 'danger';
-                        $this->redirect = route('maintenance.inventory.show', array($item->id));
+                    $this->message = 'There was an error trying to add stock to this item. Please try again.';
+                    $this->messageType = 'danger';
+                    $this->redirect = route('maintenance.inventory.show', array($item->id));
 
-                    }
-
-                } catch (RecordNotFoundException $e) {
-                    return $this->inventoryNotFound();
                 }
                 
             } else{
@@ -82,9 +79,18 @@ class InventoryStockRequest extends AbstractRequest {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($inventory_id, $stock_id)
 	{
-		//
+            $item = $this->inventory->find($inventory_id);
+
+            $stock = $this->inventoryStock->find($stock_id);
+
+            return $this->view('maintenance::inventory.stocks.show', array(
+                'title' => sprintf('Viewing Stock for item: %s inside Location: %s', $item->name, renderNode($stock->location)),
+                'item' => $item,
+                'stock' => $stock,
+            ));
+            
 	}
 
 
@@ -95,27 +101,16 @@ class InventoryStockRequest extends AbstractRequest {
 	 * @return Response
 	 */
 	public function edit($inventory_id, $stock_id){
-            try{
-                
-                $item = $this->inventory->find($inventory_id);
-                
-                try{
-                  
-                    $stock = $this->inventoryStock->find($stock_id);
-                    
-                    return View::make('maintenance::inventory.stocks.edit', array(
-                        'title' => sprintf('Update Stock for item: %s inside %s', $item->name, $stock->location->name),
-                        'stock' => $stock,
-                        'item'=>$item
-                    ));
-                    
-                } catch (RecordNotFoundException $e) {
-                    return $this->inventoryStockNotFound($item->id);
-                }
-                
-            } catch (RecordNotFoundException $e) {
-                return $this->inventoryNotFound();
-            }
+            
+            $item = $this->inventory->find($inventory_id);
+            
+            $stock = $this->inventoryStock->find($stock_id);
+
+            return $this->view('maintenance::inventory.stocks.edit', array(
+                'title' => sprintf('Update Stock for item: %s inside %s', $item->name, $stock->location->name),
+                'stock' => $stock,
+                'item'=>$item
+            ));
 	}
 
 
@@ -130,8 +125,6 @@ class InventoryStockRequest extends AbstractRequest {
             
             if($validator->passes()){
                 
-                try{
-                    
                     $item = $this->inventory->find($inventory_id);
 
                     $data['inventory_id'] = $item->id;
@@ -145,10 +138,6 @@ class InventoryStockRequest extends AbstractRequest {
                         $this->messageType = 'danger';
                         $this->redirect = route('maintenance.inventory.stock.edit', array($item->id, $stock_id));
                     }
-                    
-                } catch (RecordNotFoundException $e) {
-                    return $this->inventoryNotFound();
-                }
                 
             } else{
                 $this->errors = $validator->getErrors();
@@ -165,32 +154,17 @@ class InventoryStockRequest extends AbstractRequest {
 	 * @return Response
 	 */
 	public function destroy($inventory_id, $stock_id){
+            
             if($this->inventoryStock->destroy($stock_id)){
                 $this->message = 'Successfully deleted stock';
                 $this->messageType = 'success';
-                $this->redirect = route('maintenace.inventory.show', array($inventory_id));
+                $this->redirect = route('maintenance.inventory.show', array($inventory_id));
             } else{
                 $this->message = 'There was an error trying to delete the stock for this item. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenace.inventory.show', array($inventory_id));
+                $this->redirect = route('maintenance.inventory.show', array($inventory_id));
             }
             
             return $this->response();
 	}
-        
-        public function inventoryStockNotFound($inventory_id){
-            $this->message = 'Inventory stock record not found; It either does not exist, or has been deleted';
-            $this->messageType = 'danger';
-            $this->redirect = route('maintenance.inventory.show', array($inventory_id));
-            
-            return $this->response();
-        }
-        
-        public function inventoryNotFound(){
-            $this->message = 'Inventory item not found; It either does not exist, or has been deleted';
-            $this->messageType = 'danger';
-            $this->redirect = route('maintenance.inventory.index');
-            
-            return $this->response();
-        }
 }

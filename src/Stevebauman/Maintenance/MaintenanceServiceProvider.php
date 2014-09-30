@@ -1,6 +1,6 @@
 <?php namespace Stevebauman\Maintenance;
 
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\ServiceProvider;
 
 class MaintenanceServiceProvider extends ServiceProvider {
@@ -33,6 +33,7 @@ class MaintenanceServiceProvider extends ServiceProvider {
 		include __DIR__ .'/../../Http/composers.php';
 		include __DIR__ .'/../../validators.php';
 		include __DIR__ .'/../../helpers.php';
+                include __DIR__ .'/../../observers.php';
                 
 	}
 
@@ -47,6 +48,7 @@ class MaintenanceServiceProvider extends ServiceProvider {
 		{
 			return new Maintenance($app['config']);
 		});
+                
 	}
 
 	/**

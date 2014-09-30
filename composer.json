@@ -20,7 +20,8 @@
             "src/services",
             "src/validators",
             "src/exceptions",
-            "src/seeders"
+            "src/seeders",
+            "src/observers"
         ],
         "psr-0": {
             "Stevebauman\\Maintenance\\": "src/"

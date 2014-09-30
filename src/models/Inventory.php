@@ -48,6 +48,12 @@ class Inventory extends BaseModel {
             }
         }
         
+        public function scopeCategory($query, $category_id = NULL){
+            if($category_id){
+                return $query->where('category_id', $category_id);
+            }
+        }
+        
         public function scopeLocation($query, $location_id = NULL){
             if($location_id){
                 return $query->whereHas('stocks', function($query) use($location_id){

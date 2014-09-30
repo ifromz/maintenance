@@ -1,13 +1,15 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
+use Stevebauman\Maintenance\Exceptions\WorkOrderNotFoundException;
 use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Services\SentryService;
 
 class WorkOrderService extends AbstractModelService {
 	
-	public function __construct(WorkOrder $workOrder, SentryService $sentry){
+	public function __construct(WorkOrder $workOrder, SentryService $sentry, WorkOrderNotFoundException $notFoundException){
 		$this->model = $workOrder;
 		$this->sentry = $sentry;
+                $this->notFoundException = $notFoundException;
         }
         
 	public function getByPageWithFilter($data = array()){
@@ -62,7 +64,7 @@ class WorkOrderService extends AbstractModelService {
 			->where('serial', 'LIKE', '%'.$serial.'%')
 			->get();
 	}
-	
+        
 	public function create($data){
 		$insert = array(
 			'user_id'                   => $this->sentry->getCurrentUser()->id,

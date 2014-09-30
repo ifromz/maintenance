@@ -10,25 +10,27 @@
 
 @section('content')
 	<div class="panel panel-default">
-    	<div class="panel-heading">
-            <div class="btn-toolbar">
-                <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Add new Item to inventory">
-                    <i class="fa fa-plus"></i>
-                    New Item
-                </a>
-                <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
-                    <i class="fa fa-search"></i>
-                    Search
-                </a>
+            <div class="panel-heading">
+                <div class="btn-toolbar">
+                    <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Add new Item to inventory">
+                        <i class="fa fa-plus"></i>
+                        New Item
+                    </a>
+                    <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
+                        <i class="fa fa-search"></i>
+                        Search
+                    </a>
+                </div>
             </div>
-        </div>
         
             <div class="panel-body">
                 @if($items->count() > 0)
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Current Stock</th>
                             <th>Description</th>
                             <th>Added</th>
@@ -38,38 +40,40 @@
                     <tbody>
                         @foreach($items as $item)
                         <tr>
+                            <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
+                            <td>{{ renderNode($item->category) }}</td>
                             <td>{{ $item->currentStock }}</td>
                             <td>{{ $item->description_short }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>
-                            <div class="btn-group">
-                                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Action
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('maintenance.inventory.show', array($item->id)) }}">
-                                            <i class="fa fa-search"></i> View Item
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('maintenance.inventory.edit', array($item->id)) }}">
-                                            <i class="fa fa-edit"></i> Edit Item
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a 
-                                            href="{{ route('maintenance.inventory.destroy', array($item->id)) }}" 
-                                            data-method="delete" 
-                                            data-message="Are you sure you want to delete this item?">
-                                            <i class="fa fa-trash-o"></i> Delete Item
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                                        Action
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ route('maintenance.inventory.show', array($item->id)) }}">
+                                                <i class="fa fa-search"></i> View Item
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('maintenance.inventory.edit', array($item->id)) }}">
+                                                <i class="fa fa-edit"></i> Edit Item
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a 
+                                                href="{{ route('maintenance.inventory.destroy', array($item->id)) }}" 
+                                                data-method="delete" 
+                                                data-message="Are you sure you want to delete this item?">
+                                                <i class="fa fa-trash-o"></i> Delete Item
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                         
@@ -135,9 +139,18 @@
                     </div>
                 </div>
                 
-                
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Category</label>
+                    <div class="col-md-10">
+                        @include('maintenance::select.category', array(
+                            'category' => (Input::has('category_name') ? Input::get('category_name') : NULL),
+                            'category_id' => (Input::has('category_id') ? Input::get('category_id') : NULL)
+                        ))
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Location</label>
                     <div class="col-md-10">
                         @include('maintenance::select.location', array(
                             'location_name' => (Input::has('location_name') ? Input::get('location_name') : NULL),

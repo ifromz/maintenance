@@ -1,7 +1,5 @@
 <?php namespace Stevebauman\Maintenance\Http\Requests;
 
-use Illuminate\Support\Facades\View;
-use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 use Stevebauman\Maintenance\Validators\InventoryValidator;
 use Stevebauman\Maintenance\Services\InventoryService;
 use Stevebauman\Maintenance\Http\Requests\AbstractRequest;
@@ -19,9 +17,10 @@ class InventoryRequest extends AbstractRequest {
 	 * @return Response
 	 */
 	public function index($data){
+            
             $items = $this->inventory->getByPageWithFilter($data);
             
-            return View::make('maintenance::inventory.index', array(
+            return $this->view('maintenance::inventory.index', array(
                 'title' => 'Inventory',
                 'items' => $items,
             ));
@@ -34,7 +33,7 @@ class InventoryRequest extends AbstractRequest {
 	 * @return Response
 	 */
 	public function create(){
-            return View::make('maintenance::inventory.create', array(
+            return $this->view('maintenance::inventory.create', array(
                 'title' => 'Add an Item to the Inventory',
             ));
 	}
@@ -75,18 +74,12 @@ class InventoryRequest extends AbstractRequest {
 	 * @return Response
 	 */
 	public function show($id){
-            try{
-                
-                $item = $this->inventory->find($id);
-                
-                return View::make('maintenance::inventory.show', array(
-                    'title' => 'Viewing Inventory Item: '.$item->name,
-                    'item' => $item,
-                ));
-                
-            } catch (RecordNotFoundException $ex) {
-                return $this->inventoryNotFound();
-            }
+            $item = $this->inventory->find($id);
+
+            return $this->view('maintenance::inventory.show', array(
+                'title' => 'Viewing Inventory Item: '.$item->name,
+                'item' => $item,
+            ));
 	}
 
 
@@ -97,18 +90,12 @@ class InventoryRequest extends AbstractRequest {
 	 * @return Response
 	 */
 	public function edit($id){
-            try{
-                
-                $item = $this->inventory->find($id);
-                
-                return View::make('maintenance::inventory.edit', array(
-                    'title' => 'Editing Inventory Item: '.$item->name,
-                    'item' => $item,
-                ));
-                
-            } catch (RecordNotFoundException $ex) {
-                return $this->inventoryNotFound();
-            }
+            $item = $this->inventory->find($id);
+
+            return $this->view('maintenance::inventory.edit', array(
+                'title' => 'Editing Inventory Item: '.$item->name,
+                'item' => $item,
+            ));
 	}
 
 
@@ -122,22 +109,18 @@ class InventoryRequest extends AbstractRequest {
             $validator = new $this->inventoryValidator;
             
             if($validator->passes()){
-                try{
 
-                    if($item = $this->inventory->update($id, $data)){
+                if($item = $this->inventory->update($id, $data)){
 
-                        $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', array($item->id)));
-                        $this->messageType = 'success';
-                        $this->redirect = route('maintenance.inventory.show', array($item->id));
-                    } else{
-                        $this->message = 'There was an error trying to update this item. Please try again.';
-                        $this->messageType = 'danger';
-                        $this->redirect = route('maintenance.inventory.edit', array($item->id));
-                    }
-
-                } catch (RecordNotFoundException $ex) {
-                    return $this->inventoryNotFound();
+                    $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', array($item->id)));
+                    $this->messageType = 'success';
+                    $this->redirect = route('maintenance.inventory.show', array($item->id));
+                } else{
+                    $this->message = 'There was an error trying to update this item. Please try again.';
+                    $this->messageType = 'danger';
+                    $this->redirect = route('maintenance.inventory.edit', array($item->id));
                 }
+
             } else{
                 $this->errors = $validator->getErrors();
             }
@@ -153,25 +136,12 @@ class InventoryRequest extends AbstractRequest {
 	 * @return Response
 	 */
 	public function destroy($id){
-            try{
-                $this->inventory->destroy($id);
+            $this->inventory->destroy($id);
 
-                $this->redirect = route('maintenance.inventory.index');
-                $this->message = 'Successfully deleted item';
-                $this->messageType = 'success';
-
-                return $this->response();
-            } catch(RecordNotFoundException $e){
-                return $this->inventoryNotFound();
-            }
-	}
-        
-        public function inventoryNotFound(){
-            $this->message = 'Inventory item not found; It either does not exist, or has been deleted';
-            $this->messageType = 'danger';
             $this->redirect = route('maintenance.inventory.index');
-            
-            return $this->response();
-        }
+            $this->message = 'Successfully deleted item';
+            $this->messageType = 'success';
 
+            return $this->response();
+	}
 }

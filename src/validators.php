@@ -1,5 +1,9 @@
 <?php
 
+/*
+ * Validator Registrations
+ */
+
 Validator::resolver(function($translator, $data, $rules, $messages){
     
     $assignment = App::make('Stevebauman\Maintenance\Services\WorkOrderAssignmentService');

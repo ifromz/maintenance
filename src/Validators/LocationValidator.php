@@ -5,7 +5,7 @@ use Stevebauman\Maintenance\Validators\AbstractValidator;
 class LocationValidator extends AbstractValidator {
 	
 	protected $rules = array(
-		'name' => 'required|max:20',
+		'name' => 'required|max:250',
 	);
 	
 }

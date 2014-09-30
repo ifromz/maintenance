@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\App;
 use Mews\Purifier\Facades\Purifier;
-use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 
 abstract class AbstractModelService {
     
     protected $model;
     
     protected $db;
+    
+    protected $notFoundException;
     
     public function __construct(){
         $this->db = App::make('db');
@@ -76,6 +77,10 @@ abstract class AbstractModelService {
     public function orderBy($column, $direction = NULL){
             return $this->model->orderBy($column, $direction);
     }
+    
+    public function groupBy($column){
+        return $this->model->groupBy($column);
+    }
 	
     /**
      * Find a record by ID
@@ -89,7 +94,7 @@ abstract class AbstractModelService {
             if($record = $this->model->find($id)){
                     return $record;
             } else{
-                    throw new RecordNotFoundException('No record was found with the given ID.');
+                    throw new $this->notFoundException;
             }
     }
 	
@@ -144,9 +149,9 @@ abstract class AbstractModelService {
      */
     protected function clean($input){
         if($input){
-            return Purifier::clean($input, array(
-                'AutoFormat.AutoParagraph' => false,
-            ));
+            $cleaned = Purifier::clean($input);
+            
+            return $cleaned;
         } else{
             return NULL;
         }

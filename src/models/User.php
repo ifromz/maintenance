@@ -9,4 +9,8 @@ class User extends BaseModel {
 	public function getFullNameAttribute(){
             return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
         }
+        
+        public function getId(){
+            return $this->id;
+        }
 }

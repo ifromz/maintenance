@@ -34,7 +34,8 @@
                     <label class="col-sm-2 control-label" for="name">Category</label>
                     <div class="col-md-4">
                     	@include('maintenance::select.category', array(
-                            'category'=>$asset->category
+                            'category_name'=>$asset->category->name,
+                            'category_id'=>$asset->category->id
                         ))
                     </div>
                 </div>

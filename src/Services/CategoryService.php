@@ -8,5 +8,9 @@ class CategoryService extends AbstractModelService {
 	public function __construct(Category $category){
 		$this->model = $category;
 	}
+        
+        public function roots(){
+            return $this->model->roots()->get();
+        }
 	
 }

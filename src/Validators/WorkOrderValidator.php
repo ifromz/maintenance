@@ -8,7 +8,7 @@ class WorkOrderValidator extends AbstractValidator {
                 'work_order_category' => 'required',
 		'work_order_category_id' => 'integer',
 		'status' => 'required|integer',
-		'subject' => 'required|min:5',
+		'subject' => 'required|min:5|max:250',
 		'description'=> 'min:5',
 		
 		'started_at_date' => '',

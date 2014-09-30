@@ -28,6 +28,23 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label class="col-sm-2 control-label">Reason</label>
+    <div class="col-md-10">
+        {{ Form::text('reason', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Stock was Moved')) }}
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">Cost</label>
+    <div class="col-md-10">
+        
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
+            {{ Form::text('cost', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 15.00')) }}
+        </div>
+    </div>
+</div>
 
 <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">

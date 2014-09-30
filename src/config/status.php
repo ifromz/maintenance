@@ -11,10 +11,12 @@ return array(
          * Options to list for dropdown box
          */
         'options' => array(
+            NULL => trans('maintenance::statuses.none'),
             '0' => trans('maintenance::statuses.0'),
             '1' => trans('maintenance::statuses.1'),
             '2' => trans('maintenance::statuses.2'),
             '3' => trans('maintenance::statuses.3'),
+            '4' => trans('maintenance::statuses.4'),
         ),
         
         /*
@@ -25,6 +27,7 @@ return array(
 		'1' => 'danger',
 		'2' => 'info',
 		'3' => 'warning',
+                '4' => 'warning',
 	),
 	
 );

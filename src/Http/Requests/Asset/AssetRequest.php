@@ -1,7 +1,5 @@
 <?php namespace Stevebauman\Maintenance\Http\Requests;
 
-use Carbon\Carbon;
-use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Services\EventService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Validators\AssetValidator;
@@ -24,12 +22,10 @@ class AssetRequest extends AbstractRequest {
 	public function index(){
 		$assets = $this->asset->getByPage();
 		
-		return View::make('maintenance::assets.index', 
-			array(
-				'title' => 'All Assets', 
-				'assets' => $assets
-			)
-		);
+		return $this->view('maintenance::assets.index', array(
+                    'title' => 'All Assets', 
+                    'assets' => $assets
+                ));
 	}
 	
 	/**
@@ -38,7 +34,9 @@ class AssetRequest extends AbstractRequest {
 	 * @return View
 	 */
 	public function create(){
-		return View::make('maintenance::assets.create', array('title' => 'Create an Asset'));
+            return $this->view('maintenance::assets.create', array(
+                'title' => 'Create an Asset'
+            ));
 	}
 	
 	
@@ -55,9 +53,9 @@ class AssetRequest extends AbstractRequest {
 			
 			if($record = $this->asset->create($data)){
 				
-				$this->redirect = route('maintenance.assets.index');
-				$this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
-				$this->messageType = 'success';
+                            $this->redirect = route('maintenance.assets.index');
+                            $this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
+                            $this->messageType = 'success';
 				
 			}
 		} else{
@@ -74,19 +72,13 @@ class AssetRequest extends AbstractRequest {
 	 * @return View
 	 */
 	public function show($id){
-		try{
-			$asset = $this->asset->find($id);
- 
-			return View::make('maintenance::assets.show',
-				array(
-					'title' =>'Viewing Asset: '.$asset->name,
-					'asset' => $asset
-				)
-			);
-			
-		} catch(RecordNotFoundException $e){
-			return $this->assetNotFound();
-		}
+                $asset = $this->asset->find($id);
+
+                return $this->view('maintenance::assets.show',array(
+                    'title' =>'Viewing Asset: '.$asset->name,
+                    'asset' => $asset
+                ));
+
 	}
 	
 	/**
@@ -98,7 +90,7 @@ class AssetRequest extends AbstractRequest {
 		try{
 			$asset = $this->asset->find($id);
 			
-			return View::make('maintenance::assets.edit', 
+			return $this->view('maintenance::assets.edit', 
 				array(
 					'title' => 'Editing asset: '.$asset->name,
 					'asset' => $asset,
@@ -116,25 +108,22 @@ class AssetRequest extends AbstractRequest {
 	 * @return $this->response (object or json response)
 	 */
 	public function update($id, $data){
-		$validator = new $this->assetValidator;
-		
-		if($validator->passes()){
-			try{
-				$record = $this->asset->update($id, $data);
-				
-				$this->redirect = route('maintenance.assets.show', array($record->id));
-				$this->message = sprintf('Successfully edited asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
-				$this->messageType = 'success';
+            $validator = new $this->assetValidator;
 
-			} catch(RecordNotFoundException $e){
-				return $this->assetNotFound();
-			}
-		} else{
-			$this->redirect = route('maintenance.assets.edit', array($id));
-			$this->errors = $validator->getErrors();
-		}
-		
-		return $this->response();
+            if($validator->passes()){
+
+                $record = $this->asset->update($id, $data);
+
+                $this->redirect = route('maintenance.assets.show', array($record->id));
+                $this->message = sprintf('Successfully edited asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
+                $this->messageType = 'success';
+
+            } else{
+                $this->redirect = route('maintenance.assets.edit', array($id));
+                $this->errors = $validator->getErrors();
+            }
+
+            return $this->response();
 	}
 	
 	/**
@@ -143,30 +132,13 @@ class AssetRequest extends AbstractRequest {
 	 * @return $this->response (object or json response)
 	 */
 	public function destroy($id){
-		try{
-			$this->asset->destroy($id);
-			
-			$this->redirect = route('maintenance.assets.index');
-			$this->message = 'Successfully deleted asset';
-			$this->messageType = 'success';
-			
-			return $this->response();
-		} catch(RecordNotFoundException $e){
-                    return $this->assetNotFound();
-		}
-	}
-	
-	/**
-	 * Return user to asset index and show an error messsage
-	 *
-	 * @return $this->response (object or json response)
-	 */
-	public function assetNotFound(){
-		$this->redirect = route('maintenance.assets.index');
-		$this->message = 'Cannot find asset; It either does not exist, or has been deleted.';
-		$this->messageType = 'danger';
-		
-		return $this->response();
+            $this->asset->destroy($id);
+
+            $this->redirect = route('maintenance.assets.index');
+            $this->message = 'Successfully deleted asset';
+            $this->messageType = 'success';
+
+            return $this->response();
 	}
 	
 }
