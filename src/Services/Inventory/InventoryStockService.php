@@ -57,7 +57,7 @@ class InventoryStockService extends AbstractModelService {
                     'stock_id' => $record->id,
                     'before' => $record->movements->first()->after,
                     'after' => $record->quantity,
-                    'reason' => ($this->input('reason') ? $this->input('reason') : 'Stock Adjustment'),
+                    'reason' => $this->input('reason', true),
                     'cost' => $this->input('cost'),
                 );
                 

@@ -37,7 +37,7 @@ class AssetService extends AbstractModelService {
 		} return false;
 	}
 	
-	public function update($id, $data){
+	public function update($id){
 		
 		if($record = $this->find($id)){
 			$edit = array(

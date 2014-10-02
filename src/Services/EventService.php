@@ -12,7 +12,7 @@ class EventService extends AbstractModelService {
 		$this->sentry = $sentry;
         }
         
-        public function create($data){
+        public function create(){
 
             $insert = array(
                 'user_id'               => $this->sentry->getCurrentUserId(),
@@ -35,7 +35,7 @@ class EventService extends AbstractModelService {
             
         }
         
-        public function update($id, $data){
+        public function update($id){
             $record = $this->model->find($id);
             
             $insert = array(
@@ -51,8 +51,6 @@ class EventService extends AbstractModelService {
                 'recur_filter_days'     => ($this->input('recur_days') ?: $record->recur_filter_days),
                 'recur_filter_months'   => ($this->input('recur_months') ?: $record->recur_filter_months)
             );
-            
-            
             
             if($record->update($insert)){
                 return $record;

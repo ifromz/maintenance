@@ -44,7 +44,7 @@ class AssetController extends AbstractController {
 	 *
 	 * @return $this->response (object or json response)
 	 */
-	public function store($data){
+	public function store(){
 		
 		$validator = new $this->assetValidator;
 		
@@ -106,7 +106,7 @@ class AssetController extends AbstractController {
 	 *
 	 * @return $this->response (object or json response)
 	 */
-	public function update($id, $data){
+	public function update($id){
             $validator = new $this->assetValidator;
 
             if($validator->passes()){

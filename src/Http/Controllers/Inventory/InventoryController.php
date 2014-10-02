@@ -16,9 +16,9 @@ class InventoryController extends AbstractController {
 	 *
 	 * @return Response
 	 */
-	public function index($data){
+	public function index(){
             
-            $items = $this->inventory->getByPageWithFilter($data);
+            $items = $this->inventory->getByPageWithFilter();
             
             return $this->view('maintenance::inventory.index', array(
                 'title' => 'Inventory',
@@ -44,12 +44,12 @@ class InventoryController extends AbstractController {
 	 *
 	 * @return Response
 	 */
-	public function store($data){
+	public function store(){
             $validator = new $this->inventoryValidator;
             
             if($validator->passes()){
                 
-                if($record = $this->inventory->create($data)){
+                if($record = $this->inventory->create()){
                     $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', array($record->id)));
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.inventory.index');
@@ -105,12 +105,12 @@ class InventoryController extends AbstractController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, $data){
+	public function update($id){
             $validator = new $this->inventoryValidator;
             
             if($validator->passes()){
 
-                if($item = $this->inventory->update($id, $data)){
+                if($item = $this->inventory->update($id)){
 
                     $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', array($item->id)));
                     $this->messageType = 'success';

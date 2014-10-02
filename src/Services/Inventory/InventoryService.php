@@ -32,7 +32,7 @@ class InventoryService extends AbstractModelService {
 			->paginate(25);
 	}
     
-    public function create($data){
+    public function create(){
         
         $insert = array(
             'category_id' => $this->input('category_id'),
@@ -49,7 +49,7 @@ class InventoryService extends AbstractModelService {
         
     }
     
-    public function update($id, $data){
+    public function update($id){
         if($record = $this->find($id)){
             
             $insert = array(

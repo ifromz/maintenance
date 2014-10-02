@@ -16,16 +16,11 @@ class InventoryStockMovementService extends AbstractModelService {
     }
     
     public function create($data){
+            
+        $insert = $data;
         
-        $insert = array(
-            'stock_id' => $this->input('stock_id'),
-            'user_id' => $this->sentry->getCurrentUserId(),
-            'before' => $this->input('before'),
-            'after' => $this->input('after'),
-            'cost' => $this->input('cost'),
-            'reason' => $this->input('reason', true),
-        );
-        
+        $insert['user_id'] = $this->sentry->getCurrentUserId();
+
         //Only create a record if the before and after quantity differ
         if($insert['before'] != $insert['after']){
             if($record = $this->model->create($insert)){

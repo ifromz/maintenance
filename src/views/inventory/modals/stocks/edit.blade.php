@@ -31,7 +31,7 @@
 <div class="form-group">
     <label class="col-sm-2 control-label">Reason</label>
     <div class="col-md-10">
-        {{ Form::text('reason', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Stock was Moved')) }}
+        {{ Form::text('reason', "Stock Adjustment", array('class'=>'form-control', 'placeholder'=>'ex. Stock was Moved')) }}
     </div>
 </div>
 

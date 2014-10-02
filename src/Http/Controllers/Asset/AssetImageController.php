@@ -1,19 +1,14 @@
 <?php namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Dmyers\Storage\Storage;
-use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\AssetService;
-use Stevebauman\Maintenance\Services\AttachmentService;
+use Stevebauman\Maintenance\Services\AssetImageService;
 use Stevebauman\Maintenance\Http\Controllers\AbstractController;
-/**
- * Controls the asset images resource, as well as moving the temporary uploaded files to a stationary location
- *
- */
+
 class AssetImageController extends AbstractController {
 	
-	public function __construct(AssetService $asset, AttachmentService $attachment){
+	public function __construct(AssetService $asset, AssetImageService $assetImage){
 		$this->asset = $asset;
-		$this->attachment = $attachment;
+		$this->assetImage = $assetImage;
 	}
 	
 	/**
@@ -52,46 +47,17 @@ class AssetImageController extends AbstractController {
 	 *
 	 * @return Response
 	 */
-	public function store($asset_id, $data){
+	public function store($asset_id){
             $asset = $this->asset->find($asset_id);
-
-            //Check if any files have been uploaded
-            if(array_key_exists('files', $data)){
-                //For each file, create the attachment record, and sync asset image pivot table
-                foreach($data['files'] as $file){
-                    $attributes = explode('|', $file);
-
-                    $fileName = $attributes[0];
-                    $fileOriginalName = $attributes[1];
-
-                    //Ex. files/assets/images/1/example.png
-                    $movedFilePath = Config::get('maintenance::site.paths.assets.images').sprintf('%s/', $asset->id);
-
-                    //Move the file
-                    Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
-
-                    //Data to insert into DB
-                    $insert = array(
-                        'name' => $fileOriginalName,
-                        'file_name' => $fileName,
-                        'file_path' => $movedFilePath,
-                    );
-
-                    if($record = $this->attachment->create($insert)){
-                        $asset->images()->attach($record);
-
-                        $this->redirect = route('maintenance.assets.images.index', array($asset->id));
-                        $this->message = 'Successfully added images';
-                        $this->messageType = 'success';
-
-                    } else{
-                        $this->redirect = route('maintenance.assets.images.create', array($asset->id));
-                        $this->message = 'There was an error adding images to the asset, please try again';
-                        $this->messageType = 'danger';
-
-                    }
-
-                }
+            
+            if($this->assetImage->create($asset)){
+                 $this->redirect = route('maintenance.assets.images.index', array($asset->id));
+                $this->message = 'Successfully added images';
+                $this->messageType = 'success';
+            } else{
+                $this->redirect = route('maintenance.assets.images.create', array($asset->id));
+                $this->message = 'There was an error adding images to the asset, please try again';
+                $this->messageType = 'danger';
             }
 
             return $this->response();

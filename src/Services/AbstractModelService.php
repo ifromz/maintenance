@@ -99,35 +99,6 @@ abstract class AbstractModelService {
     }
 	
     /**
-     * Create a new record with mass assignment
-     *
-     * @author Steve Bauman
-     *
-	 * @param $data (array)
-     * @return object or boolean
-     */
-    public function create($data){
-            if($record = $this->model->create($data)){
-                    return $record;
-            } return false;
-    }
-	
-    /**
-     * Update a record with mass assignment
-     *
-     * @author Steve Bauman
-     *
-	 * @param $id (int/string), $data (array)
-     * @return object or boolean
-     */
-    public function update($id, $data){
-            $record = $this->model->find($id);
-            if($record->update($data)){
-                    return $record;
-            } return false;
-    }
-	
-    /**
      * Destroy a record from given ID
      *
      * @author Steve Bauman
@@ -172,9 +143,9 @@ abstract class AbstractModelService {
             } else{
                 return Input::get($input);
             }
-        } else{
-            return NULL;
         }
+        
+        return NULL;
     }
     
     protected function inputAll(){

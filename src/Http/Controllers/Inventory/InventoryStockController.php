@@ -43,7 +43,7 @@ class InventoryStockController extends AbstractController {
 	 *
 	 * @return Response
 	 */
-	public function store($inventory_id, $data){
+	public function store($inventory_id){
             $validator = new $this->inventoryStockValidator;
             
             if($validator->passes()){
@@ -118,7 +118,7 @@ class InventoryStockController extends AbstractController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($inventory_id, $stock_id, $data){
+	public function update($inventory_id, $stock_id){
             $validator = new $this->inventoryStockValidator;
             
             if($validator->passes()){

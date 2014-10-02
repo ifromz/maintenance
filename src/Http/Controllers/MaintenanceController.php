@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractController;
 
-class MaintenanceController extends BaseController {
+class MaintenanceController extends AbstractController {
 	
 	public function __construct(SentryService $sentry){
             $this->sentry = $sentry;

@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractController;
 
-abstract class AbstractNestedSetController extends BaseController {
+abstract class AbstractNestedSetController extends AbstractController {
 	
 	protected $service;
 	
@@ -60,11 +60,7 @@ abstract class AbstractNestedSetController extends BaseController {
 		
 		if($validator->passes()){
 			
-			$data = array(
-				'name' => Input::get('name'),
-			);
-			
-			$category = $this->service->create($data);
+			$category = $this->service->create();
 			
 			if($id){
 				if($parent = $this->service->find($id)){

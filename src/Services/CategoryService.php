@@ -1,9 +1,9 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Services\AbstractModelService;
 use Stevebauman\Maintenance\Models\Category;
+use Stevebauman\Maintenance\Services\AbstractNestedSetModelService;
 
-class CategoryService extends AbstractModelService {
+class CategoryService extends AbstractNestedSetModelService {
 	
 	public function __construct(Category $category){
 		$this->model = $category;
