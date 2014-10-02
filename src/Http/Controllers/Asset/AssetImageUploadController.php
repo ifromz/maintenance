@@ -1,33 +1,18 @@
 <?php namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
-use Stevebauman\Maintenance\Http\Requests\AssetImageUploadRequest;
+use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
 
-class AssetImageUploadController extends BaseController {
+/**
+ * Processes the upload from PLUpload and store's it inside a temporary location.
+ * A json view response is defineable here you can customize the layout of the dynamic uploads. 
+ *
+ */
+class AssetImageUploadController extends AbstractUploadController {
 	
-	public function __construct(AssetImageUploadRequest $assetImage){
-		$this->assetImage = $assetImage;
+	public function __construct(){
+            parent::__construct();
+			
+            $this->responseView = 'maintenance::partials.upload';
 	}
 	
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(){
-		return $this->assetImage->upload();
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy(){
-		return $this->assetImage->destroy();
-	}
-
-
 }

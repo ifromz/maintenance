@@ -9,16 +9,17 @@ class InventoryStockService extends AbstractModelService {
     
     public function __construct(InventoryStock $inventoryStock, InventoryStockMovementService $inventoryStockMovement, InventoryStockNotFoundException $notFoundException){
         parent::__construct();
+        
         $this->model = $inventoryStock;
         $this->inventoryStockMovement = $inventoryStockMovement;
         $this->notFoundException = $notFoundException;
     }
     
-    public function create($data){
+    public function create($item_id){
         $insert = array(
-            'inventory_id' => $data['inventory_id'],
-            'location_id' => $data['location_id'],
-            'quantity' => $data['quantity']
+            'inventory_id' => $item_id,
+            'location_id' => $this->input('location_id'),
+            'quantity' => $this->input('quantity')
         );
         
         if($record = $this->model->create($insert)){
@@ -40,12 +41,12 @@ class InventoryStockService extends AbstractModelService {
         } return false;
     }
     
-    public function update($id, $data){
+    public function update($id){
         if($record = $this->find($id)){
             
             $insert = array(
-                'location_id' => $data['location_id'],
-                'quantity' => $data['quantity'],
+                'location_id' => $this->input('location_id'),
+                'quantity' => $this->input('quantity'),
             );
             
             $this->db->beginTransaction();
@@ -56,8 +57,8 @@ class InventoryStockService extends AbstractModelService {
                     'stock_id' => $record->id,
                     'before' => $record->movements->first()->after,
                     'after' => $record->quantity,
-                    'reason' => (array_key_exists('reason', $data) ? $data['reason'] : 'Stock Adjustment'),
-                    'cost' => (array_key_exists('cost', $data) ? $data['cost'] : NULL),
+                    'reason' => ($this->input('reason') ? $this->input('reason') : 'Stock Adjustment'),
+                    'cost' => $this->input('cost'),
                 );
                 
                 if($this->inventoryStockMovement->create($movement)){

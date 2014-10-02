@@ -177,6 +177,10 @@ abstract class AbstractModelService {
         }
     }
     
+    protected function inputAll(){
+        return Input::all();
+    }
+    
     /**
      * Formats javascript plugin 'Pickadate' and 'Pickatime' date strings into PHP dates
      * 

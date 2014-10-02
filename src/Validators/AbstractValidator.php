@@ -10,30 +10,38 @@ abstract class AbstractValidator {
  	
 	protected $errors;
 	
+        protected $rules;
+        
  	public function __construct($input = NULL){
-		$this->input = $input ?: Input::all();
+            $this->input = $input ?: Input::all();
 	}
- 
+        
 	public function passes(){
-    	$validation = Validator::make($this->input, $this->rules);
+            $validation = Validator::make($this->input, $this->rules);
  
-    	if($validation->passes()) return true;
+            if($validation->passes()) return true;
      
-		$this->errors = $validation->messages();
+            $this->errors = $validation->messages();
 		
-    	return false;
+            return false;
   	}
  
  	public function getErrors(){
-		if(Request::ajax()){
-			return $this->errors->getMessages();
-		} else{
-			return $this->errors;
-		}
+            if(Request::ajax()){
+                    return $this->errors->getMessages();
+            } else{
+                    return $this->errors;
+            }
   	}
+        
+        public function setRules($rules){
+            $this->rules = $rules;
+        }
         
         public function ignore($field, $table, $column, $ignore = 'NULL'){
             $this->rules[$field] .= sprintf('|unique:%s,%s,%s', $table, $column, $ignore);
         }
+        
+        
 	
 }

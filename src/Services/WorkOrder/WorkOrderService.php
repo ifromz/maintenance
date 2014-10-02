@@ -12,19 +12,20 @@ class WorkOrderService extends AbstractModelService {
                 $this->notFoundException = $notFoundException;
         }
         
-	public function getByPageWithFilter($data = array()){
+	public function getByPageWithFilter(){
+            
 		return $this->model
 			->with(array(
 				'category',
 				'user',
                                 'sessions',
 			))
-                        ->priority((array_key_exists('priority', $data) ? $data['priority'] : NULL))
-                        ->subject((array_key_exists('subject', $data) ? $data['subject'] : NULL))
-                        ->description((array_key_exists('description', $data) ? $data['description'] : NULL))
-                        ->status((array_key_exists('status', $data) ? $data['status'] : NULL))
-                        ->category((array_key_exists('work_order_category_id', $data) ? $data['work_order_category_id'] : NULL))
-                        ->assets((array_key_exists('assets', $data) ? $data['assets'] : NULL))
+                        ->priority($this->input('priority'))
+                        ->subject($this->input('subject'))
+                        ->description($this->input('description'))
+                        ->status($this->input('status'))
+                        ->category($this->input('work_order_category_id'))
+                        ->assets($this->input('assets'))
                         ->orderBy('created_at', 'DESC')
 			->paginate(25);
 	}
@@ -65,7 +66,7 @@ class WorkOrderService extends AbstractModelService {
 			->get();
 	}
         
-	public function create($data){
+	public function create(){
 		$insert = array(
 			'user_id'                   => $this->sentry->getCurrentUser()->id,
 			'work_order_category_id'    => $this->input('work_order_category_id'),
@@ -74,21 +75,24 @@ class WorkOrderService extends AbstractModelService {
                         'priority'                  => $this->input('priority'),
 			'subject'                   => $this->input('subject', true),
 			'description'               => $this->input('description', true),
-			'started_at'                => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
-			'completed_at'              => $this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
+			'started_at'                => $this->formatDateWithTime($this->input('started_at_date'), $this->input('started_at_time')),
+			'completed_at'              => $this->formatDateWithTime($this->input('completed_at_date'), $this->input('completed_at_time')),
 		);
 		
 		if($record = $this->model->create($insert)){
-                    if(array_key_exists('assets', $data)){
-                        $record->assets()->attach($data['assets']);
+                    
+                    if($assets = $this->input('assets')){
+                        $record->assets()->attach($assets);
                     }
 		
                     return $record;
 		} return false;
 	}
 	
-	public function update($id, $data){
+	public function update($id){
+            
 		if($workOrder = $this->find($id)){
+                    
 			$insert = array(
                             'work_order_category_id'    => $this->input('work_order_category_id'),
                             'location_id'               => $this->input('location_id'),
@@ -96,18 +100,20 @@ class WorkOrderService extends AbstractModelService {
                             'priority'                  => $this->input('priority'),
                             'subject'                   => $this->input('subject', true),
                             'description'               => $this->input('description', true),
-                            'started_at'                => $this->formatDateWithTime($data['started_at_date'], $data['started_at_time']),
-                            'completed_at'              => $this->formatDateWithTime($data['completed_at_date'], $data['completed_at_time']),
+                            'started_at'                => $this->formatDateWithTime($this->input('started_at_date'), $this->input('started_at_time')),
+                            'completed_at'              => $this->formatDateWithTime($this->input('completed_at_date'), $this->input('completed_at_time')),
                         );
 			
 			if($workOrder->update($insert)){
-                            if(array_key_exists('assets', $data)){
-                                $workOrder->assets()->sync($data['assets']);
+                            
+                            if($assets = $this->input('assets')){
+                                $workOrder->assets()->sync($assets);
                             }
                             
                             return $workOrder;
 			} return false;
 		}
+                
 	}
 	
 	

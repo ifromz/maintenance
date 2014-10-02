@@ -16,20 +16,20 @@ class AssetService extends AbstractModelService {
 			->paginate(25);
 	}
 	
-	public function create($data){
+	public function create(){
 		$insert = array(
 			'user_id'           => $this->sentry->getCurrentUserId(),
-			'location_id'       => ($data['location_id'] ? $data['location_id'] : NULL),
-			'category_id'       => $data['category_id'],
-			'name'              => $this->clean($data['name']),
-			'condition'         => $data['condition'],
-			'vendor'            => $this->clean($data['vendor']),
-			'make'              => $this->clean($data['make']),
-			'model'             => $this->clean($data['model']),
-			'size'              => $this->clean($data['size']),
-			'weight'            => $this->clean($data['weight']),
-			'serial'            => $this->clean($data['serial']),
-			'aquired_at'        => $data['aquired_at'],
+			'location_id'       => $this->input('location_id'),
+			'category_id'       => $this->input('category_id'),
+			'name'              => $this->input('name', true),
+			'condition'         => $this->input('condition'),
+			'vendor'            => $this->input('vendor', true),
+			'make'              => $this->input('make', true),
+			'model'             => $this->input('model', true),
+			'size'              => $this->input('size', true),
+			'weight'            => $this->input('weight', true),
+			'serial'            => $this->input('serial', true),
+			'aquired_at'        => $this->input('aquired_at'),
 		);
 		
 		if($record = $this->model->create($insert)){
@@ -41,19 +41,19 @@ class AssetService extends AbstractModelService {
 		
 		if($record = $this->find($id)){
 			$edit = array(
-				'location_id'       => ($data['location_id'] ? $data['location_id'] : NULL),
-				'category_id'       => $data['category_id'],
-				'name'              => $this->clean($data['name']),
-				'condition'         => $data['condition'],
-                                'vendor'            => $this->clean($data['vendor']),
-                                'make'              => $this->clean($data['make']),
-                                'model'             => $this->clean($data['model']),
-                                'size'              => $this->clean($data['size']),
-                                'weight'            => $this->clean($data['weight']),
-                                'serial'            => $this->clean($data['serial']),
-				'aquired_at'        => $data['aquired_at'],
+				'location_id'       => $this->input('location_id'),
+				'category_id'       => $this->input('category_id'),
+				'name'              => $this->input('name', true),
+				'condition'         => $this->input('condition'),
+                                'vendor'            => $this->input('vendor', true),
+                                'make'              => $this->input('make', true),
+                                'model'             => $this->input('model', true),
+                                'size'              => $this->input('size', true),
+                                'weight'            => $this->input('weight', true),
+                                'serial'            => $this->input('serial', true),
+				'aquired_at'        => $this->input('aquired_at'),
 			);
-			
+                        
 			if($record->update($edit)){
 				return $record;
 			} return false;

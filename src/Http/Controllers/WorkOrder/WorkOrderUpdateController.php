@@ -1,10 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Http\Controllers;
 
-use View;
-use Input;
-use Response;
-use Request;
-use Redirect;
+use Illuminate\Support\Facades\Response;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Validators\UpdateValidator;
@@ -43,30 +39,30 @@ class WorkOrderUpdateController extends \BaseController {
 	 * @return Response
 	 */
 	public function store($workOrder_id){
-		if($workOrder = $this->workOrder->find($workOrder_id)){
-			$validator = new $this->updateValidator;
+            
+            $validator = new $this->updateValidator;
+            
+            if($validator->passes()){
+		
+                if($workOrder = $this->workOrder->find($workOrder_id)){
 			
-			if($validator->passes()){
-                                    
-				$update = $this->update->create(array(
-                                    'content' => Input::get('update_content')
-                                ));
-				
-                                $workOrder->customerUpdates()->save($update);
-                                
-				return Response::json(array(
-					'updateCreated' => true,
-					'message' => 'Successfully added update',
-					'messageType' => 'success',
-					'html' => View::make('maintenance::partials.update', compact('update'), compact('workOrder'))->render()
-				));
-			} else{
-				return Response::json(array(
-					'updateCreated' => false,
-					'errors' => $validator->getJsonErrors(),
-				));
-			}
-		}
+                        $update = $this->update->create();
+
+                        $workOrder->customerUpdates()->save($update);
+                        
+                        return Response::json(array(
+                                'updateCreated' => true,
+                                'message' => 'Successfully added update',
+                                'messageType' => 'success',
+                                'html' => View::make('maintenance::partials.update', compact('update'), compact('workOrder'))->render()
+                        ));
+                } else{
+                        return Response::json(array(
+                                'updateCreated' => false,
+                                'errors' => $validator->getJsonErrors(),
+                        ));
+                }
+            }
 	}
 
 

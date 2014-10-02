@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Http\Requests;
+<?php namespace Stevebauman\Maintenance\Http\Controllers;
 
 use JildertMiedema\LaravelPlupload\Facades\Plupload;
 use Dmyers\Storage\Storage;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Config;
 use ErrorException;
 
-abstract class AbstractUploadRequest extends AbstractRequest {
+abstract class AbstractUploadController extends AbstractController {
 	
 	protected $storagePath;
 	
@@ -21,7 +21,7 @@ abstract class AbstractUploadRequest extends AbstractRequest {
             $this->storagePath = Config::get('maintenance::site.paths.base');
 	}
 	
-	public function upload(){
+	public function store(){
             //Init Plupload receive
             return Plupload::receive('file', function ($file){
                 

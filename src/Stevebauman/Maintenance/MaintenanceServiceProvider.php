@@ -49,6 +49,12 @@ class MaintenanceServiceProvider extends ServiceProvider {
 			return new Maintenance($app['config']);
 		});
                 
+                $this->app->missing(function($e){
+                    return \View::make('maintenance::404', array(
+                        'title' => '404 - Not Found'
+                    ));
+                });
+                
 	}
 
 	/**

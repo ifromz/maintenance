@@ -195,6 +195,33 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                         'destroy' => 'maintenance.work-orders.assignments.destroy'
                     ),
                 ));
+                
+                /*
+		|--------------------------------------------------------------------------
+		| Maintenance Work Order Part / Supply Routes
+		|--------------------------------------------------------------------------
+		*/
+                Route::resource('work-orders.parts', 'WorkOrderPartController', array(
+                    'only' => array(
+                        'index',
+                        'destroy',
+                    ),
+                    'names' => array(
+                        'index' => 'maintenance.work-orders.parts.index',
+                        'destroy' => 'maintenance.work-orders.parts.destroy'
+                    ),
+                ));
+                
+                Route::resource('work-orders.parts.stocks', 'WorkOrderPartStockController', array(
+                    'only' => array(
+                        'create',
+                        'store'
+                    ),
+                    'names' => array(
+                        'create' => 'maintenance.work-orders.parts.stocks.create',
+                        'store' => 'maintenance.work-orders.parts.stocks.store',
+                    ),
+                ));
 		
                 /*
                  * Asset Image Upload Routes

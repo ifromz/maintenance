@@ -20,13 +20,13 @@ class InventoryService extends AbstractModelService {
 				'user',
                                 'stocks',
 			))
-                        ->name((array_key_exists('name', $data) ? $data['name'] : NULL))
-                        ->description((array_key_exists('description', $data) ? $data['description'] : NULL))
-                        ->category((array_key_exists('category_id', $data) ? $data['category_id'] : NULL))
-                        ->location((array_key_exists('location_id', $data) ? $data['location_id'] : NULL))
+                        ->name($this->input('name'))
+                        ->description($this->input('description'))
+                        ->category($this->input('category_id'))
+                        ->location($this->input('location_id'))
                         ->stock(
-                                (array_key_exists('operator', $data) ? $data['operator'] : NULL),
-                                (array_key_exists('quantity', $data) ? $data['quantity'] : NULL)
+                                $this->input('operator'),
+                                $this->input('quantity')
                         )
                         ->orderBy('created_at', 'DESC')
 			->paginate(25);
@@ -35,10 +35,10 @@ class InventoryService extends AbstractModelService {
     public function create($data){
         
         $insert = array(
-            'category_id' => $data['category_id'],
+            'category_id' => $this->input('category_id'),
             'user_id' => $this->sentry->getCurrentUserId(),
-            'name' => $this->clean($data['name']),
-            'description' => $this->clean($data['description']),
+            'name' => $this->input('name', true),
+            'description' => $this->input('description', true),
         );
         
         if($record = $this->model->create($insert)){
@@ -53,9 +53,9 @@ class InventoryService extends AbstractModelService {
         if($record = $this->find($id)){
             
             $insert = array(
-                'category_id' => $data['category_id'],
-                'name' => $this->clean($data['name']),
-                'description' => $this->clean($data['description']),
+                'category_id' => $this->input('category_id'),
+                'name' => $this->input('name', true),
+                'description' => $this->input('description', true),
             );
             
             if($record->update($insert)){

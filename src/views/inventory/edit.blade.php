@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Description</label>
                     <div class="col-md-4">
-                        {{ Form::textarea('description', $item->description, array('class'=>'form-control', 'placeholder'=>'Description')) }}
+                        {{ Form::textarea('description', htmlspecialchars($item->description), array('class'=>'form-control', 'placeholder'=>'Description')) }}
                     </div>
                 </div>
                 

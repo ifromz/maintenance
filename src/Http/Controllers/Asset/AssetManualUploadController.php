@@ -1,33 +1,18 @@
 <?php namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
-use Stevebauman\Maintenance\Http\Requests\AssetManualUploadRequest;
+use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
 
-class AssetManualUploadController extends BaseController {
+/**
+ * Processes the upload from PLUpload and store's it inside a temporary location.
+ * A json view response is defineable here you can customize the layout of the dynamic uploads. 
+ *
+ */
+class AssetManualUploadController extends AbstractUploadController {
 	
-	public function __construct(AssetManualUploadRequest $assetManual){
-		$this->assetManual = $assetManual;
+	public function __construct(){
+            parent::__construct();
+            
+            $this->responseView = 'maintenance::partials.upload';
 	}
 	
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(){
-		return $this->assetManual->upload();
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy(){
-		return $this->assetManual->destroy();
-	}
-
-
 }

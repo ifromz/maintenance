@@ -1,4 +1,5 @@
- 
+<legend>Profile</legend>
+
 @if($workOrder->userCheckedIn())
     <a href="{{ route('maintenance.work-orders.session.end', array($workOrder->id, $workOrder->getCurrentSession()->id)) }}" 
         data-method="post"

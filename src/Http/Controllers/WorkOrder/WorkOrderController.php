@@ -1,22 +1,30 @@
 <?php namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
-use Stevebauman\Maintenance\Http\Requests\WorkOrderRequest;
+use Stevebauman\Maintenance\Validators\WorkOrderValidator;
+use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Http\Controllers\AbstractController;
 
-class WorkOrderController extends BaseController {
-	
-	public function __construct(WorkOrderRequest $workOrder){
-		$this->workOrder = $workOrder;
-	}
-	
+class WorkOrderController extends AbstractController {
+        
+        public function __construct(
+                WorkOrderService $workOrder, 
+                WorkOrderValidator $workOrderValidator){
+            $this->workOrder = $workOrder;
+            $this->workOrderValidator = $workOrderValidator;
+        }
+        
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index(){
-            return $this->workOrder->index(Input::all());
+            $workOrders = $this->workOrder->getByPageWithFilter();
+            
+            return $this->view('maintenance::work-orders.index', array(
+                'title' => 'Work Orders',
+                'workOrders' => $workOrders
+            ));
 	}
 
 
@@ -26,8 +34,12 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function create(){
-            return $this->workOrder->create();
+            
+            return $this->view('maintenance::work-orders.create', array(
+                'title' => 'Create a Work Order'
+            ));
 	}
+
 
 	/**
 	 * Store a newly created resource in storage.
@@ -35,7 +47,20 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function store(){
-            return $this->workOrder->store(Input::all());
+            $validator = new $this->workOrderValidator;
+		
+            if($validator->passes()){
+                $workOrder = $this->workOrder->create();
+
+                $this->redirect = route('maintenance.work-orders.index');
+                $this->message = sprintf('Successfully created work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($workOrder->id)));
+                $this->messageType = 'success';
+            } else{
+                $this->redirect = route('maintenance.work-orders.create');
+                $this->errors = $validator->getErrors();
+            }
+            
+            return $this->response();
 	}
 
 
@@ -46,7 +71,14 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function show($id){
-            return $this->workOrder->show($id);
+            $workOrder = $this->workOrder->find($id);
+
+            return $this->view('maintenance::work-orders.show', 
+                array(
+                    'title' => 'Viewing Work Order: '.$workOrder->subject,
+                    'workOrder' => $workOrder
+                )
+            );
 	}
 
 
@@ -57,7 +89,29 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function edit($id){
-            return $this->workOrder->edit($id);
+
+            $workOrder = $this->workOrder->with('category')->find($id);
+
+            $dateFormat = 'Y/m/d';
+            $timeFormat = 'H:i A';
+
+            $dates = array(
+                    'started'=>array(
+                            'date'=>($workOrder->started_at ? date($dateFormat, strtotime($workOrder->started_at)) : NULL),
+                            'time'=>($workOrder->started_at ? date($timeFormat, strtotime($workOrder->started_at)) : NULL),
+                    ),
+                    'completed'=>array(
+                            'date'=>($workOrder->completed_at ? date($dateFormat, strtotime($workOrder->completed_at)) : NULL),
+                            'time'=>($workOrder->completed_at ? date($timeFormat, strtotime($workOrder->completed_at)) : NULL),
+                    ),
+            );
+
+            return $this->view('maintenance::work-orders.edit', array(
+                'title' => 'Editing Work Order: '.$workOrder->subject,
+                'workOrder' => $workOrder,
+                'dates' => $dates,
+            ));
+                
 	}
 
 
@@ -68,7 +122,23 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function update($id){
-            return $this->workOrder->update($id, Input::all());
+            
+            $validator = new $this->workOrderValidator;
+		
+		if($validator->passes()){
+
+                    $record = $this->workOrder->update($id);
+
+                    $this->redirect = route('maintenance.work-orders.show', array($id));
+                    $this->message = sprintf('Successfully edited work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($record->id)));
+                    $this->messageType = 'success';
+                        
+
+		} else{
+                    $this->errors = $validator->getErrors();
+		}
+                
+                return $this->response();
 	}
 
 
@@ -79,7 +149,19 @@ class WorkOrderController extends BaseController {
 	 * @return Response
 	 */
 	public function destroy($id){
-            return $this->workOrder->destroy($id);
+
+            if($this->workOrder->destroy($id)){
+                $this->message = 'Successfully deleted work order';
+                $this->messageType = 'success';
+                $this->redirect = route('maintenance.work-orders.index');
+            } else{
+                $this->message = 'There was an error deleting the work order. Please try again';
+                $this->messageType = 'danger';
+                $this->redirect = route('maintenance.work-orders.show', array($id));
+            }
+
+            return $this->response();
 	}
+
 
 }

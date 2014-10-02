@@ -1,13 +1,16 @@
 <?php namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Http\Requests\WorkOrderAssignmentRequest;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Validators\AssignmentValidator;
+use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrderAssignmentService;
+use Stevebauman\Maintenance\Http\Controllers\AbstractController;
 
-class WorkOrderAssignmentController extends BaseController {
-    
-        public function __construct(WorkOrderAssignmentRequest $assignment){
+class WorkOrderAssignmentController extends AbstractController {
+        
+        public function __construct(WorkOrderAssignmentService $assignment, WorkOrderService $workOrder, AssignmentValidator $assignmentValidator){
             $this->assignment = $assignment;
+            $this->workOrder = $workOrder;
+            $this->assignmentValidator = $assignmentValidator;
         }
     
 	/**
@@ -16,7 +19,7 @@ class WorkOrderAssignmentController extends BaseController {
 	 * @return Response
 	 */
 	public function index($workOrder_id){
-            return $this->assignment->index($workOrder_id);
+            
 	}
 
 
@@ -26,7 +29,7 @@ class WorkOrderAssignmentController extends BaseController {
 	 * @return Response
 	 */
 	public function create($workOrder_id){
-            return $this->assignment->create($workOrder_id);
+            
 	}
 
 
@@ -36,45 +39,30 @@ class WorkOrderAssignmentController extends BaseController {
 	 * @return Response
 	 */
 	public function store($workOrder_id){
-            return $this->assignment->store($workOrder_id, Input::all());
+            $validator = new $this->assignmentValidator;
+            
+            if($validator->passes()){
+                    
+                $workOrder = $this->workOrder->find($workOrder_id);
+
+                if($records = $this->assignment->create($workOrder->id)){
+                    $this->message = 'Successfully assigned worker(s)';
+                    $this->messageType = 'success';
+                    $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+                } else{
+                    $this->message = 'There was an error trying to assign workers to this work order. Please try again.';
+                    $this->messageType = 'danger';
+                    $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+                }
+                    
+            } else{
+                $this->errors = $validator->getErrors();
+                $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+            }
+            
+            return $this->response();
 	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
+        
 
 	/**
 	 * Remove the specified resource from storage.
@@ -84,7 +72,17 @@ class WorkOrderAssignmentController extends BaseController {
 	 */
 	public function destroy($workOrder_id, $assignment_id)
 	{
-            return $this->assignment->destroy($workOrder_id, $assignment_id);
+            if($this->assignment->destroy($assignment_id)){
+                $this->message = 'Successfully removed worker from this work order.';
+                $this->messageType = 'success';
+                $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+            } else{
+                $this->message = 'There was an error trying to remove this worker from this work order. Please try again later.';
+                $this->messageType = 'danger';
+                $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+            }
+            
+            return $this->response();
 	}
 
 

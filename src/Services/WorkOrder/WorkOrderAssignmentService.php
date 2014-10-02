@@ -13,15 +13,15 @@ class WorkOrderAssignmentService extends AbstractModelService {
                 $this->notFoundException = $notFoundException;
 	}
         
-        public function create($data){
-            if(array_key_exists('users', $data)){
+        public function create($workOrder_id){
+            if($users = $this->input('users')){
                 
                 $records = array();
                 
-                foreach($data['users'] as $user){
+                foreach($users as $user){
                     
                     $insert = array(
-                        'work_order_id' => $data['work_order_id'],
+                        'work_order_id' => $workOrder_id,
                         'by_user_id' => $this->sentry->getCurrentUserId(),
                         'to_user_id' => $user
                     );

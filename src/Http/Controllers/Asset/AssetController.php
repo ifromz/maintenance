@@ -1,87 +1,143 @@
 <?php namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Input;
-use Stevebauman\Maintenance\Http\Requests\AssetRequest;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Services\EventService;
+use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Validators\AssetValidator;
+use Stevebauman\Maintenance\Http\Controllers\AbstractController;
 
-class AssetController extends BaseController {
+class AssetController extends AbstractController {
 	
-	public function __construct(AssetRequest $asset){
+	public function __construct(AssetService $asset, AssetValidator $assetValidator, EventService $event){
 		$this->asset = $asset;
+                $this->event = $event;
+		$this->assetValidator = $assetValidator;
 	}
 	
 	/**
-	 * Display a listing of the resource.
+	 * Show the index of all assets
 	 *
-	 * @return Response
+	 * @return View
 	 */
 	public function index(){
-		return $this->asset->index();
+		$assets = $this->asset->getByPage();
+		
+		return $this->view('maintenance::assets.index', array(
+                    'title' => 'All Assets', 
+                    'assets' => $assets
+                ));
 	}
-
-
+	
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the create form for assets
 	 *
-	 * @return Response
+	 * @return View
 	 */
 	public function create(){
-		return $this->asset->create();
+            return $this->view('maintenance::assets.create', array(
+                'title' => 'Create an Asset'
+            ));
 	}
-
-
+	
+	
 	/**
-	 * Store a newly created resource in storage.
+	 * Process and store the creation of the asset
 	 *
-	 * @return Response
+	 * @return $this->response (object or json response)
 	 */
-	public function store(){
-		return $this->asset->store(Input::all());
+	public function store($data){
+		
+		$validator = new $this->assetValidator;
+		
+		if($validator->passes()){
+			
+			if($record = $this->asset->create()){
+				
+                            $this->redirect = route('maintenance.assets.index');
+                            $this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
+                            $this->messageType = 'success';
+				
+			}
+		} else{
+			$this->redirect = route('maintenance.assets.create');
+			$this->errors = $validator->getErrors();
+		}
+		
+		return $this->response();
 	}
-
-
+	
 	/**
-	 * Display the specified resource.
+	 * Show the asset
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @return View
 	 */
 	public function show($id){
-		return $this->asset->show($id);
+                $asset = $this->asset->find($id);
+
+                return $this->view('maintenance::assets.show',array(
+                    'title' =>'Viewing Asset: '.$asset->name,
+                    'asset' => $asset
+                ));
+
 	}
-
-
+	
 	/**
-	 * Show the form for editing the specified resource.
+	 * Show the edit form
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @return View
 	 */
 	public function edit($id){
-		return $this->asset->edit($id);
+		try{
+			$asset = $this->asset->find($id);
+			
+			return $this->view('maintenance::assets.edit', 
+				array(
+					'title' => 'Editing asset: '.$asset->name,
+					'asset' => $asset,
+				)
+			);
+			
+		} catch(RecordNotFoundException $e){
+			return $this->assetNotFound();
+		}
 	}
-
-
+	
 	/**
-	 * Update the specified resource in storage.
+	 * Process the edit form and update the record
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @return $this->response (object or json response)
 	 */
-	public function update($id){
-		return $this->asset->update($id, Input::all());
+	public function update($id, $data){
+            $validator = new $this->assetValidator;
+
+            if($validator->passes()){
+
+                $record = $this->asset->update($id);
+
+                $this->redirect = route('maintenance.assets.show', array($record->id));
+                $this->message = sprintf('Successfully edited asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
+                $this->messageType = 'success';
+
+            } else{
+                $this->redirect = route('maintenance.assets.edit', array($id));
+                $this->errors = $validator->getErrors();
+            }
+
+            return $this->response();
 	}
-
-
+	
 	/**
-	 * Remove the specified resource from storage.
+	 * Delete an asset record
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @return $this->response (object or json response)
 	 */
 	public function destroy($id){
-		return $this->asset->destroy($id);
+            $this->asset->destroy($id);
+
+            $this->redirect = route('maintenance.assets.index');
+            $this->message = 'Successfully deleted asset';
+            $this->messageType = 'success';
+
+            return $this->response();
 	}
-
-
+	
 }
