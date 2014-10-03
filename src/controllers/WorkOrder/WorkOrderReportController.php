@@ -1,10 +1,10 @@
-<?php  namespace Stevebauman\Maintenance\Http\Controllers;
+<?php  namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Validators\WorkOrderReportValidator;
 use Stevebauman\Maintenance\Services\WorkOrderReportService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class WorkOrderReportController extends AbstractController {
         
@@ -26,7 +26,7 @@ class WorkOrderReportController extends AbstractController {
 
                 $workOrder = $this->workOrder->find($workOrder_id);
                 
-                if($record = $this->report->create($workOrder->id)){
+                if($record = $this->report->create($this->inputAll(), $workOrder->id)){
 
                     $workOrder->update(array(
                         'status' => Config::get('maintenance::status.complete')

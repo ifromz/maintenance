@@ -78,38 +78,42 @@
     <dd>{{ $workOrder->subject }}</dd>
 
     <p></p>
+    
+    @if($workOrder->description)
+        <dt>Description:</dt>
+        <dd>{{ $workOrder->description }}</dd>
 
-    <dt>Description:</dt>
-    <dd>{{ $workOrder->description }}</dd>
-
-    <p></p>
-    <dt>Assets Involved:</dt>
-    <dd>
-        @if($workOrder->assets->count() > 0)
-        
+        <p></p>
+    @endif
+    
+    @if($workOrder->assets->count() > 0)
+        <dt>Assets Involved:</dt>
+        <dd>
             @foreach($workOrder->assets as $asset)
                 {{ $asset->label }}
             @endforeach
-            
-        @else
-            
-            <em>None Attached</em>
-        
-        @endif
-    </dd>
+        </dd>
+
+        <p></p>
+    @endif
     
-    <p></p>
+    @if($workOrder->assignments->count() > 0)
     <dt>Workers Assigned:</dt>
     <dd>
         @foreach($workOrder->assignments as $assignment)
             {{ $assignment->label }}
         @endforeach
     </dd>
+    @endif
 </dl>
 
 <div class="clearfix"></div>
 
 <hr>
+
+<div class="col-md-12 alert alert-info">
+    The update field below is for updating the customer with updated information about the work order. The customer can also reply and you will see their responses below.
+</div>
 
 @include('maintenance::partials.update-box', array('workOrder'=>$workOrder))
 

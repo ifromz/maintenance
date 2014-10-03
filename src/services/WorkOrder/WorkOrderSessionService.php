@@ -11,10 +11,10 @@ class WorkOrderSessionService extends AbstractModelService {
 		$this->sentry = $sentry;
 	}
         
-        public function create($workOrder_id){
+        public function create(){
             $insert = array(
                 'user_id' => $this->sentry->getCurrentUser()->id,
-                'work_order_id' => $workOrder_id,
+                'work_order_id' => $this->getInput('work_order_id'),
                 'in' => Carbon::now()->toDateTimeString(),
             );
             
@@ -23,15 +23,17 @@ class WorkOrderSessionService extends AbstractModelService {
             } return false;
         }
         
-        public function update($session_id, $workOrder_id){
-            if($record = $this->model->find($session_id)){
+        public function update($id){
+            if($record = $this->model->find($id)){
+                
                 $insert = array(
                     'out' => Carbon::now()->toDateTimeString(),
                 );
                 
-                $record->update($insert);
-                $record->save();
-                return $record;
+                if($record->update($insert)){
+                    return $record;
+                }
+                
             } return false;
         }
 }

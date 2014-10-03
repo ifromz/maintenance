@@ -1,9 +1,9 @@
-<?php namespace Stevebauman\Maintenance\Http\Apis;
+<?php namespace Stevebauman\Maintenance\Apis;
 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Stevebauman\Maintenance\Services\AssetService;
-use Stevebauman\Maintenance\Http\Apis\BaseApiController;
+use Stevebauman\Maintenance\Apis\BaseApiController;
 
 class AssetApi extends BaseApiController {
 	
@@ -23,5 +23,23 @@ class AssetApi extends BaseApiController {
             $records = $this->asset->where('name', 'LIKE', '%'.$term.'%')->get();
 
             return Response::json($records);
+	}
+        
+        public function getMakes(){
+		$records = $this->asset->getMakes(Input::get('query'));
+		
+		return Response::json($records->lists('make'));
+	}
+	
+	public function getModels(){
+		$records = $this->asset->getModels(Input::get('query'));
+		
+		return Response::json($records->lists('model'));
+	}
+	
+	public function getSerials(){
+		$records = $this->asset->getSerials(Input::get('query'));
+		
+		return Response::json($records->lists('serial'));
 	}
 }

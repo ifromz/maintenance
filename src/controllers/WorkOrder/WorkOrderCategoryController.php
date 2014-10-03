@@ -1,6 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Http\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
 use Stevebauman\Maintenance\Services\WorkOrderCategoryService;
 use Stevebauman\Maintenance\Validators\WorkOrderCategoryValidator;
 

@@ -1,19 +1,81 @@
 <?php namespace Stevebauman\Maintenance\Services;
 
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\App;
 use Mews\Purifier\Facades\Purifier;
 
 abstract class AbstractModelService {
     
+    /*
+     * Holds the eloquent model to query
+     */
     protected $model;
     
+    /*
+     * Holds the database facade
+     */
     protected $db;
     
+    /*
+     * Holds the data to be inserted into the database
+     */
+    protected $input =  array();
+    
+    /*
+     * Holds the exception to be thrown when a record isn't found
+     */
     protected $notFoundException;
     
     public function __construct(){
         $this->db = App::make('db');
+    }
+    
+    /**
+     * Set's the input data to be inserted into DB
+     * 
+     * @param type $input
+     */
+    public function setInput($input = array()){
+        $this->input = $input;
+        
+        return $this;
+    }
+    
+    /**
+     * Retrieves data from the input array
+     * 
+     * @param type $field - Field to grab from the input data
+     * @param type $default - Default value to set the input to
+     * @param type $clean - Clean the input before returning
+     * @return null
+     */
+    public function getInput($field,  $default = NULL, $clean = FALSE){
+        /*
+         * If the field exists in the input array
+         */
+        if(array_key_exists($field, $this->input)){
+            /*
+             * If clean is set to true, clean the input and return it
+             */
+            if($clean){
+                return $this->clean($this->input[$field]);
+            } else{
+                //If clean is set to false, return the input
+                return $this->input[$field];
+            }
+        } else{
+            /*
+             * If key does not exist in the input array, and a 
+             * default value is specified, return the default value
+             */
+            if($default !== NULL){
+                return $default;
+            } else{
+                /*
+                 * Return NULL if the default value is not set
+                 */
+                return NULL;
+            }
+        }
     }
     
     /**
@@ -66,7 +128,34 @@ abstract class AbstractModelService {
         }
 
     }
-	
+    
+    /**
+     * Create a record through eloquent mass assignment
+     * 
+     * @return boolean OR object
+     */
+    public function create(){
+        $record = $this->model->create($this->input);
+        if($record){
+           return $record; 
+        } return false;
+    }
+    
+    /**
+     * Update a record through eloquent mass assignment
+     * 
+     * @param type $id
+     * @return boolean OR object
+     */
+    public function update($id){
+        $record = $this->find($id);
+        
+        if($record->update($this->input)){
+            return $record;
+        } return false;
+    }
+
+
     /**
      * Apply order by sorting to the model
      *
@@ -78,6 +167,12 @@ abstract class AbstractModelService {
             return $this->model->orderBy($column, $direction);
     }
     
+    /**
+     * Apply group by sorting to the model
+     * 
+     * @param type $column
+     * @return type
+     */
     public function groupBy($column){
         return $this->model->groupBy($column);
     }
@@ -128,29 +223,6 @@ abstract class AbstractModelService {
         }
     }
     
-    /**
-     * Returns input from the client. If clean is set to true, the input will be
-     * ran through the purifier before it is returned.
-     * 
-     * @param type $input
-     * @param type $clean
-     * @return null OR Input
-     */
-    protected function input($input, $clean = FALSE){
-        if(Input::has($input)){
-            if($clean){
-                return $this->clean(Input::get($input));
-            } else{
-                return Input::get($input);
-            }
-        }
-        
-        return NULL;
-    }
-    
-    protected function inputAll(){
-        return Input::all();
-    }
     
     /**
      * Formats javascript plugin 'Pickadate' and 'Pickatime' date strings into PHP dates

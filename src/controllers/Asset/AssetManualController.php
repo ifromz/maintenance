@@ -1,10 +1,10 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Dmyers\Storage\Storage;
 use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\AssetService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class AssetManualController extends AbstractController {
         
@@ -48,10 +48,12 @@ class AssetManualController extends AbstractController {
 	 *
 	 * @return Response
 	 */
-	public function store($asset_id, $data){
+	public function store($asset_id){
 
             $asset = $this->asset->find($asset_id);
-
+            
+            $data = $this->inputAll();
+            
             //Check if any files have been uploaded
             if(array_key_exists('files', $data)){
                 //For each file, create the attachment record, and sync asset image pivot table
@@ -68,13 +70,13 @@ class AssetManualController extends AbstractController {
                     Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
 
                     //Data to insert into DB
-                    $insert = array(
+                    $data = array(
                         'name' => $fileOriginalName,
                         'file_name' => $fileName,
                         'file_path' => $movedFilePath,
                     );
 
-                    if($record = $this->attachment->create($insert)){
+                    if($record = $this->attachment->setInput($data)->create()){
                         $asset->manuals()->attach($record);
 
                         $this->redirect = route('maintenance.assets.manuals.index', array($asset->id));

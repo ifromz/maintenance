@@ -1,14 +1,17 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
+use Dmyers\Storage\Storage;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Services\AssetImageService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Services\AttachmentService;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class AssetImageController extends AbstractController {
 	
-	public function __construct(AssetService $asset, AssetImageService $assetImage){
+	public function __construct(AssetService $asset, AssetImageService $assetImage, AttachmentService $attachment){
 		$this->asset = $asset;
 		$this->assetImage = $assetImage;
+                $this->attachment = $attachment;
 	}
 	
 	/**
@@ -50,7 +53,10 @@ class AssetImageController extends AbstractController {
 	public function store($asset_id){
             $asset = $this->asset->find($asset_id);
             
-            if($this->assetImage->create($asset)){
+            $data = $this->inputAll();
+            $data['asset_id'] = $asset->id;
+            
+            if($this->assetImage->setInput($data)->create()){
                  $this->redirect = route('maintenance.assets.images.index', array($asset->id));
                 $this->message = 'Successfully added images';
                 $this->messageType = 'success';
@@ -117,7 +123,7 @@ class AssetImageController extends AbstractController {
 
             $asset = $this->asset->find($asset_id);
             $attachment = $this->attachment->find($attachment_id);
-
+            
             if(Storage::delete($attachment->file_path.$attachment->file_name)){
                 $attachment->delete();
 

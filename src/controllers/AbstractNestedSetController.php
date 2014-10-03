@@ -1,11 +1,11 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 abstract class AbstractNestedSetController extends AbstractController {
 	
@@ -60,7 +60,7 @@ abstract class AbstractNestedSetController extends AbstractController {
 		
 		if($validator->passes()){
 			
-			$category = $this->service->create();
+			$category = $this->service->setInput($this->inputAll())->create();
 			
 			if($id){
 				if($parent = $this->service->find($id)){
@@ -115,33 +115,27 @@ abstract class AbstractNestedSetController extends AbstractController {
 	 * @return Response
 	 */
 	public function update($id){
-		if($category = $this->service->find($id)){
-			$validator = new $this->serviceValidator;
-			
-			if($validator->passes()){
-				$data = array(
-					'name' => Input::get('name'),
-				);
-				
-				$category->update($data);
-				
-				return Response::json(array(
-					'categoryEdited' => true,
-					'message' => Lang::get('maintenance::messages/category.edit.success'),
-					'messageType' => 'success'
-				));
-				
-			} else{
-				if(Request::ajax()){
-					return Response::json(array(
-						'categoryEdited' => false,
-						'errors' => $validator->getJsonErrors(),
-					));
-				}
-			}
-		}
-	}
+            $validator = new $this->serviceValidator;
 
+            if($validator->passes()){
+
+                    $this->service->setInput($this->inputAll())->update($id);
+
+                    return Response::json(array(
+                            'categoryEdited' => true,
+                            'message' => Lang::get('maintenance::messages/category.edit.success'),
+                            'messageType' => 'success'
+                    ));
+
+            } else{
+                    if(Request::ajax()){
+                            return Response::json(array(
+                                    'categoryEdited' => false,
+                                    'errors' => $validator->getJsonErrors(),
+                            ));
+                    }
+            }
+	}
 
 	/**
 	 * Remove the specified resource from storage.

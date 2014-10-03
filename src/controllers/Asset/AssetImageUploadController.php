@@ -1,6 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
+use Stevebauman\Maintenance\Controllers\AbstractUploadController;
 
 /**
  * Processes the upload from PLUpload and store's it inside a temporary location.

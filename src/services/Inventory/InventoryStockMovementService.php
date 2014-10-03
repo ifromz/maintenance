@@ -15,11 +15,16 @@ class InventoryStockMovementService extends AbstractModelService {
         return $this->model->where('stock_id', $stock_id)->paginate(25);
     }
     
-    public function create($data){
-            
-        $insert = $data;
+    public function create(){
         
-        $insert['user_id'] = $this->sentry->getCurrentUserId();
+        $insert = array(
+            'user_id' => $this->sentry->getCurrentUserId(),
+            'stock_id' => $this->getInput('stock_id'),
+            'before' => $this->getInput('before'),
+            'after' => $this->getInput('after'),
+            'cost' => $this->getInput('cost'),
+            'reason' => $this->getInput('reason', 'Stock Adjustment', true)
+        );
 
         //Only create a record if the before and after quantity differ
         if($insert['before'] != $insert['after']){

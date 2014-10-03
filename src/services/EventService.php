@@ -16,17 +16,17 @@ class EventService extends AbstractModelService {
 
             $insert = array(
                 'user_id'               => $this->sentry->getCurrentUserId(),
-                'title'                 => $this->input('title', true),
-                'description'           => $this->input('description', true),
-                'start'                 => $this->formatDateWithTime($this->input('start_date'), $this->input('start_time')),
-                'end'                   => $this->formatDateWithTime($this->input('end_date'), $this->input('end_time')),
-                'allDay'                => ($this->input('all_day') ?: 0),
-                'color'                 => $this->input('color'),
-                'background_color'      => $this->input('background_color'),
-                'recur_frequency'       => $this->input('recur_frequency'),
-                'recur_count'           => ($this->input('recur_limit') ?: NULL),
-                'recur_filter_days'     => $this->input('recur_days'),
-                'recur_filter_months'   => $this->input('recur_months')
+                'title'                 => $this->getInput('title', true),
+                'description'           => $this->getInput('description', true),
+                'start'                 => $this->formatDateWithTime($this->getInput('start_date'), $this->getInput('start_time')),
+                'end'                   => $this->formatDateWithTime($this->getInput('end_date'), $this->getInput('end_time')),
+                'allDay'                => $this->getInput('all_day', 0),
+                'color'                 => $this->getInput('color'),
+                'background_color'      => $this->getInput('background_color'),
+                'recur_frequency'       => $this->getInput('recur_frequency'),
+                'recur_count'           => $this->getInput('recur_limit'),
+                'recur_filter_days'     => $this->getInput('recur_days'),
+                'recur_filter_months'   => $this->getInput('recur_months')
             );
             
             if($record = $this->model->create($insert)){
@@ -39,17 +39,17 @@ class EventService extends AbstractModelService {
             $record = $this->model->find($id);
             
             $insert = array(
-                'title'                 => ($this->input('title', true) ?: $record->title),
-                'description'           => ($this->input('description', true) ?: $record->description),
-                'start'                 => ($this->formatDateWithTime($this->input('start_date'), $this->input('start_time')) ?: $record->start),
-                'end'                   => ($this->formatDateWithTime($this->input('end_date'), $this->input('end_time')) ?: $record->end),
-                'allDay'                => ($this->input('all_day') ?: 0),
-                'color'                 => ($this->input('color') ?: $record->color),
-                'background_color'      => ($this->input('background_color') ?: $record->background_color),
-                'recur_frequency'       => ($this->input('recur_frequency') ?: $record->recur_frequency),
-                'recur_count'           => ($this->input('recur_limit') ?: NULL),
-                'recur_filter_days'     => ($this->input('recur_days') ?: $record->recur_filter_days),
-                'recur_filter_months'   => ($this->input('recur_months') ?: $record->recur_filter_months)
+                'title'                 => $this->getInput('title', $record->title, true),
+                'description'           => $this->getInput('description', $record->description, true),
+                'start'                 => ($this->formatDateWithTime($this->getInput('start_date'), $this->getInput('start_time')) ?: $record->start),
+                'end'                   => ($this->formatDateWithTime($this->getInput('end_date'), $this->getInput('end_time')) ?: $record->end),
+                'allDay'                => $this->getInput('all_day', $record->allDay),
+                'color'                 => $this->getInput('color', $record->color),
+                'background_color'      => $this->getInput('background_color', $record->background_color),
+                'recur_frequency'       => $this->getInput('recur_frequency', $record->recur_frequency),
+                'recur_count'           => $this->getInput('recur_limit', $record->recur_count),
+                'recur_filter_days'     => $this->getInput('recur_days', $record->recur_filter_days),
+                'recur_filter_months'   => $this->getInput('recur_months', $record->recur_filter_months)
             );
             
             if($record->update($insert)){
@@ -61,9 +61,9 @@ class EventService extends AbstractModelService {
             $record = $this->model->find($id);
             
             $insert = array(
-                'start' => $this->input('start'),
-                'end'   => $this->input('end'),
-                'allDay' => $this->input('all_day')
+                'start' => $this->getInput('start'),
+                'end'   => $this->getInput('end'),
+                'allDay' => $this->getInput('all_day')
             );
             
             if($record->update($insert)){

@@ -13,32 +13,32 @@ class InventoryService extends AbstractModelService {
         $this->notFoundException = $notFoundException;
     }
     
-    public function getByPageWithFilter($data = array()){
-		return $this->model
-			->with(array(
-				'category',
-				'user',
-                                'stocks',
-			))
-                        ->name($this->input('name'))
-                        ->description($this->input('description'))
-                        ->category($this->input('category_id'))
-                        ->location($this->input('location_id'))
-                        ->stock(
-                                $this->input('operator'),
-                                $this->input('quantity')
-                        )
-                        ->orderBy('created_at', 'DESC')
-			->paginate(25);
-	}
+    public function getByPageWithFilter(){
+            return $this->model
+                    ->with(array(
+                            'category',
+                            'user',
+                            'stocks',
+                    ))
+                    ->name($this->getInput('name'))
+                    ->description($this->getInput('description'))
+                    ->category($this->getInput('category_id'))
+                    ->location($this->getInput('location_id'))
+                    ->stock(
+                            $this->getInput('operator'),
+                            $this->getInput('quantity')
+                    )
+                    ->orderBy('created_at', 'DESC')
+                    ->paginate(25);
+    }
     
     public function create(){
         
         $insert = array(
-            'category_id' => $this->input('category_id'),
+            'category_id' => $this->getInput('category_id'),
             'user_id' => $this->sentry->getCurrentUserId(),
-            'name' => $this->input('name', true),
-            'description' => $this->input('description', true),
+            'name' => $this->getInput('name', NULL, true),
+            'description' => $this->getInput('description', NULL, true),
         );
         
         if($record = $this->model->create($insert)){
@@ -53,9 +53,9 @@ class InventoryService extends AbstractModelService {
         if($record = $this->find($id)){
             
             $insert = array(
-                'category_id' => $this->input('category_id'),
-                'name' => $this->input('name', true),
-                'description' => $this->input('description', true),
+                'category_id' => $this->getInput('category_id'),
+                'name' => $this->getInput('name', $record->name, true),
+                'description' => $this->getInput('description', $record->description, true),
             );
             
             if($record->update($insert)){

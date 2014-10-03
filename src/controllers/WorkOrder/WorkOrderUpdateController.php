@@ -1,11 +1,12 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Support\Facades\Response;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Validators\UpdateValidator;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
-class WorkOrderUpdateController extends \BaseController {
+class WorkOrderUpdateController extends AbstractController {
 	
 	public function __construct(WorkOrderService $workOrder, UpdateService $update, UpdateValidator $updateValidator){
 		$this->workOrder = $workOrder;
@@ -46,7 +47,7 @@ class WorkOrderUpdateController extends \BaseController {
 		
                 if($workOrder = $this->workOrder->find($workOrder_id)){
 			
-                        $update = $this->update->create();
+                        $update = $this->update->create($this->inputAll());
 
                         $workOrder->customerUpdates()->save($update);
                         
@@ -54,7 +55,10 @@ class WorkOrderUpdateController extends \BaseController {
                                 'updateCreated' => true,
                                 'message' => 'Successfully added update',
                                 'messageType' => 'success',
-                                'html' => View::make('maintenance::partials.update', compact('update'), compact('workOrder'))->render()
+                                'html' => $this->view('maintenance::partials.update', array(
+                                    'update' => $update,
+                                    'workOrder' => $workOrder
+                                ))
                         ));
                 } else{
                         return Response::json(array(
@@ -109,25 +113,20 @@ class WorkOrderUpdateController extends \BaseController {
 	 * @return Response
 	 */
 	public function destroy($workOrder_id, $update_id){
-		if($workOrder = $this->workOrder->find($workOrder_id)){
-			if($update = $this->update->find($update_id)){
-				$update->delete();
-				
-				if(Request::ajax()){
-					return Response::json(array(
-						'updateDeleted' => true,
-						'message' => 'Successfully deleted update',
-						'messageType' => 'success'
-					));
-				} else{
-					return Redirect::route('maintenance.work-orders.show', array($workOrder->id))
-						->with('message', 'Successfully deleted message')
-						->with('messageType', 'success');
-				}
-			}
-		} else{
-			
-		}
+            $workOrder = $this->workOrder->find($workOrder_id);
+            $update = $this->update->find($update_id);
+                            
+            if($update->delete()){
+                $this->message = 'Successfully deleted update';
+                $this->messageType = 'success';
+            } else{
+                $this->message = 'There was an error trying to delete this update, please try again.';
+                $this->messageType = 'danger';
+            }
+
+            $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+
+            return $this->response();
 	}
 
 

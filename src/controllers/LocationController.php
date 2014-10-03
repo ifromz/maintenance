@@ -1,8 +1,8 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\Maintenance\Validators\LocationValidator;
-use Stevebauman\Maintenance\Http\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
 
 class LocationController extends AbstractNestedSetController {
 	

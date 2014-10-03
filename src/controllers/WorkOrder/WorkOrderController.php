@@ -1,8 +1,8 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class WorkOrderController extends AbstractController {
         
@@ -50,7 +50,7 @@ class WorkOrderController extends AbstractController {
             $validator = new $this->workOrderValidator;
 		
             if($validator->passes()){
-                $workOrder = $this->workOrder->create();
+                $workOrder = $this->workOrder->setInput($this->inputAll())->create();
 
                 $this->redirect = route('maintenance.work-orders.index');
                 $this->message = sprintf('Successfully created work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($workOrder->id)));
@@ -127,7 +127,7 @@ class WorkOrderController extends AbstractController {
 		
 		if($validator->passes()){
 
-                    $record = $this->workOrder->update($id);
+                    $record = $this->workOrder->setInput($this->inputAll())->update($id);
 
                     $this->redirect = route('maintenance.work-orders.show', array($id));
                     $this->message = sprintf('Successfully edited work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($record->id)));

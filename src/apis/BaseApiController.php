@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Http\Apis;
+<?php namespace Stevebauman\Maintenance\Apis;
 
 class BaseApiController extends \Controller {
     

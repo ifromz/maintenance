@@ -11,12 +11,12 @@ class WorkOrderReportService extends AbstractModelService {
         $this->sentry = $sentry;
     }
     
-    public function create($workOrder_id){
+    public function create(){
         
         $insert = array(
             'user_id' => $this->sentry->getCurrentUserId(),
-            'work_order_id' => $workOrder_id,
-            'description' => $this->input('description', true),
+            'work_order_id' => $this->getInput('work_order_id'),
+            'description' => $this->input('description', NULL, true),
         );
         
         if($record = $this->model->create($insert)){

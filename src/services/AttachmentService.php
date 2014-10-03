@@ -9,8 +9,8 @@ class AttachmentService extends AbstractModelService {
 		$this->model = $attachment;
 	}
         
-        public function create($data){
-            if($record = $this->model->create($data)){
+        public function create(){
+            if($record = $this->model->create($this->input)){
                 return $record;
             } return false;
         }

@@ -15,11 +15,11 @@ class InventoryStockService extends AbstractModelService {
         $this->notFoundException = $notFoundException;
     }
     
-    public function create($item_id){
+    public function create(){
         $insert = array(
-            'inventory_id' => $item_id,
-            'location_id' => $this->input('location_id'),
-            'quantity' => $this->input('quantity')
+            'inventory_id' => $this->getInput('inventory_id'),
+            'location_id' => $this->getInput('location_id'),
+            'quantity' => $this->getInput('quantity')
         );
         
         if($record = $this->model->create($insert)){
@@ -33,7 +33,7 @@ class InventoryStockService extends AbstractModelService {
             );
             
             //If the inventory movement has been successfully created, return the record. Otherwise delete it.
-            if($this->inventoryStockMovement->create($movement)){
+            if($this->inventoryStockMovement->setInput($movement)->create()){
                 return $record;
             } else{
                 $record->delete();
@@ -44,10 +44,21 @@ class InventoryStockService extends AbstractModelService {
     public function update($id){
         if($record = $this->find($id)){
             
-            $insert = array(
-                'location_id' => $this->input('location_id'),
-                'quantity' => $this->input('quantity'),
-            );
+            $taken = $this->getInput('taken');
+            
+            if($taken){
+                $insert = array(
+                    'location_id' => $this->getInput('location_id', $record->location_id),
+                    'quantity' => $record->quantity - $this->getInput('quantity'),
+                );
+            } else{
+                $insert = array(
+                    'location_id' => $this->getInput('location_id', $record->location_id),
+                    'quantity' => $this->getInput('quantity', $record->quantity),
+                );
+            }
+            
+            
             
             $this->db->beginTransaction();
             
@@ -57,11 +68,11 @@ class InventoryStockService extends AbstractModelService {
                     'stock_id' => $record->id,
                     'before' => $record->movements->first()->after,
                     'after' => $record->quantity,
-                    'reason' => $this->input('reason', true),
-                    'cost' => $this->input('cost'),
+                    'reason' => $this->getInput('reason', NULL, true),
+                    'cost' => $this->getInput('cost'),
                 );
                 
-                if($this->inventoryStockMovement->create($movement)){
+                if($this->inventoryStockMovement->setInput($movement)->create()){
                     $this->db->commit();
                     return $record;
                     

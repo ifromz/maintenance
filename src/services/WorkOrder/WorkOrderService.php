@@ -20,12 +20,12 @@ class WorkOrderService extends AbstractModelService {
 				'user',
                                 'sessions',
 			))
-                        ->priority($this->input('priority'))
-                        ->subject($this->input('subject'))
-                        ->description($this->input('description'))
-                        ->status($this->input('status'))
-                        ->category($this->input('work_order_category_id'))
-                        ->assets($this->input('assets'))
+                        ->priority($this->getInput('priority'))
+                        ->subject($this->getInput('subject'))
+                        ->description($this->getInput('description'))
+                        ->status($this->getInput('status'))
+                        ->category($this->getInput('work_order_category_id'))
+                        ->assets($this->getInput('assets'))
                         ->orderBy('created_at', 'DESC')
 			->paginate(25);
 	}
@@ -41,47 +41,23 @@ class WorkOrderService extends AbstractModelService {
 			->where('work_order_category_id', $category_id)
 			->paginate(25);
 	}
-	
-	public function getMakes($make = NULL){
-		return $this->model
-			->select('make')
-			->distinct()
-			->where('make', 'LIKE', '%'.$make.'%')
-			->get();
-	}
-	
-	public function getModels($model = NULL){
-		return $this->model
-			->distinct()
-			->select('model')
-			->where('model', 'LIKE', '%'.$model.'%')
-			->get();
-	}
-	
-	public function getSerials($serial = NULL){
-		return $this->model
-			->distinct()
-			->select('serial')
-			->where('serial', 'LIKE', '%'.$serial.'%')
-			->get();
-	}
         
 	public function create(){
 		$insert = array(
 			'user_id'                   => $this->sentry->getCurrentUser()->id,
-			'work_order_category_id'    => $this->input('work_order_category_id'),
-                        'location_id'               => $this->input('location_id'),
-			'status'                    => $this->input('status'),
-                        'priority'                  => $this->input('priority'),
-			'subject'                   => $this->input('subject', true),
-			'description'               => $this->input('description', true),
-			'started_at'                => $this->formatDateWithTime($this->input('started_at_date'), $this->input('started_at_time')),
-			'completed_at'              => $this->formatDateWithTime($this->input('completed_at_date'), $this->input('completed_at_time')),
+			'work_order_category_id'    => $this->getInput('work_order_category_id'),
+                        'location_id'               => $this->getInput('location_id'),
+			'status'                    => $this->getInput('status'),
+                        'priority'                  => $this->getInput('priority'),
+			'subject'                   => $this->getInput('subject', NULL, true),
+			'description'               => $this->getInput('description', NULL, true),
+			'started_at'                => $this->formatDateWithTime($this->getInput('started_at_date'), $this->getInput('started_at_time')),
+			'completed_at'              => $this->formatDateWithTime($this->getInput('completed_at_date'), $this->getInput('completed_at_time')),
 		);
 		
 		if($record = $this->model->create($insert)){
                     
-                    if($assets = $this->input('assets')){
+                    if($assets = $this->getInput('assets')){
                         $record->assets()->attach($assets);
                     }
 		
@@ -90,27 +66,27 @@ class WorkOrderService extends AbstractModelService {
 	}
 	
 	public function update($id){
-            
-		if($workOrder = $this->find($id)){
-                    
+
+		if($record = $this->find($id)){
+   
 			$insert = array(
-                            'work_order_category_id'    => $this->input('work_order_category_id'),
-                            'location_id'               => $this->input('location_id'),
-                            'status'                    => $this->input('status'),
-                            'priority'                  => $this->input('priority'),
-                            'subject'                   => $this->input('subject', true),
-                            'description'               => $this->input('description', true),
-                            'started_at'                => $this->formatDateWithTime($this->input('started_at_date'), $this->input('started_at_time')),
-                            'completed_at'              => $this->formatDateWithTime($this->input('completed_at_date'), $this->input('completed_at_time')),
+                            'work_order_category_id'    => $this->getInput('work_order_category_id', $record->work_order_category_id),
+                            'location_id'               => $this->getInput('location_id', $record->location_id),
+                            'status'                    => $this->getInput('status', $record->status),
+                            'priority'                  => $this->getInput('priority', $record->priority),
+                            'subject'                   => $this->getInput('subject', $record->subject, true),
+                            'description'               => $this->getInput('description', $record->description, true),
+                            'started_at'                => $this->formatDateWithTime($this->getInput('started_at_date'), $this->getInput('started_at_time')),
+                            'completed_at'              => $this->formatDateWithTime($this->getInput('completed_at_date'), $this->getInput('completed_at_time')),
                         );
 			
-			if($workOrder->update($insert)){
+			if($record->update($insert)){
                             
-                            if($assets = $this->input('assets')){
-                                $workOrder->assets()->sync($assets);
+                            if($assets = $this->getInput('assets')){
+                                $record->assets()->sync($assets);
                             }
                             
-                            return $workOrder;
+                            return $record;
 			} return false;
 		}
                 

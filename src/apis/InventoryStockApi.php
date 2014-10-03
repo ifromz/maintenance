@@ -1,10 +1,10 @@
-<?php namespace Stevebauman\Maintenance\Http\Apis;
+<?php namespace Stevebauman\Maintenance\Apis;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
 use Stevebauman\Maintenance\Services\InventoryStockService;
 use Stevebauman\Maintenance\Services\InventoryService;
-use Stevebauman\Maintenance\Http\Apis\BaseApiController;
+use Stevebauman\Maintenance\Apis\BaseApiController;
 
 class InventoryStockApi extends BaseApiController {
     
@@ -28,7 +28,10 @@ class InventoryStockApi extends BaseApiController {
     }
     
     public function update($inventory_id, $stock_id){
-        return $this->inventoryStockRequest->update($stock_id);
+        $data = \Input::all();
+        $data['inventory_id'] = $inventory_id;
+        
+        return $this->inventoryStock->setInput($data)->update($stock_id);
     }
     
     

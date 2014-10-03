@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Config;
@@ -8,7 +8,7 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\UserService;
 use Stevebauman\Maintenance\Services\LdapService;
 use Stevebauman\Maintenance\Services\AuthService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class AuthController extends AbstractController {
         

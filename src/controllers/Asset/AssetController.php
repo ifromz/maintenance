@@ -1,9 +1,9 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Services\EventService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Validators\AssetValidator;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class AssetController extends AbstractController {
 	
@@ -50,16 +50,16 @@ class AssetController extends AbstractController {
 		
 		if($validator->passes()){
 			
-			if($record = $this->asset->create()){
-				
-                            $this->redirect = route('maintenance.assets.index');
-                            $this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
-                            $this->messageType = 'success';
-				
-			}
+                    if($record = $this->asset->setInput($this->inputAll())->create()){
+
+                        $this->redirect = route('maintenance.assets.index');
+                        $this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
+                        $this->messageType = 'success';
+
+                    }
 		} else{
-			$this->redirect = route('maintenance.assets.create');
-			$this->errors = $validator->getErrors();
+                    $this->redirect = route('maintenance.assets.create');
+                    $this->errors = $validator->getErrors();
 		}
 		
 		return $this->response();
@@ -86,19 +86,12 @@ class AssetController extends AbstractController {
 	 * @return View
 	 */
 	public function edit($id){
-		try{
-			$asset = $this->asset->find($id);
-			
-			return $this->view('maintenance::assets.edit', 
-				array(
-					'title' => 'Editing asset: '.$asset->name,
-					'asset' => $asset,
-				)
-			);
-			
-		} catch(RecordNotFoundException $e){
-			return $this->assetNotFound();
-		}
+            $asset = $this->asset->find($id);
+
+            return $this->view('maintenance::assets.edit', array(
+                    'title' => 'Editing asset: '.$asset->name,
+                    'asset' => $asset,
+            ));
 	}
 	
 	/**
@@ -111,7 +104,7 @@ class AssetController extends AbstractController {
 
             if($validator->passes()){
 
-                $record = $this->asset->update($id);
+                $record = $this->asset->setInput($this->inputAll())->update($id);
 
                 $this->redirect = route('maintenance.assets.show', array($record->id));
                 $this->message = sprintf('Successfully edited asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));

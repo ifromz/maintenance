@@ -1,8 +1,8 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\InventoryValidator;
 use Stevebauman\Maintenance\Services\InventoryService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class InventoryController extends AbstractController {
         
@@ -18,7 +18,7 @@ class InventoryController extends AbstractController {
 	 */
 	public function index(){
             
-            $items = $this->inventory->getByPageWithFilter();
+            $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
             
             return $this->view('maintenance::inventory.index', array(
                 'title' => 'Inventory',
@@ -49,7 +49,7 @@ class InventoryController extends AbstractController {
             
             if($validator->passes()){
                 
-                if($record = $this->inventory->create()){
+                if($record = $this->inventory->create($this->inputAll())){
                     $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', array($record->id)));
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.inventory.index');
@@ -110,7 +110,7 @@ class InventoryController extends AbstractController {
             
             if($validator->passes()){
 
-                if($item = $this->inventory->update($id)){
+                if($item = $this->inventory->update($id, $this->inputAll())){
 
                     $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', array($item->id)));
                     $this->messageType = 'success';

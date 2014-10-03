@@ -9,6 +9,8 @@ class AssetValidator extends AbstractValidator {
 		'condition' => 'required|integer',
 		'category' => 'required',
 		'category_id' => 'integer',
+                'location' => 'required',
+                'location_id' => 'integer'
 	);
 	
 }

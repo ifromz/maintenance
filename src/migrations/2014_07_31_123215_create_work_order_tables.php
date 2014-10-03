@@ -144,14 +144,34 @@ class CreateWorkOrderTables extends Migration {
 			$table->increments('id');
 			$table->timestamps();
 			$table->integer('work_order_id')->unsigned();
-			$table->integer('inventory_id')->unsigned();
-			$table->decimal('before', 8, 2);
+			$table->integer('stock_id')->unsigned();
+			$table->decimal('quantity', 8, 2);
                         
 			$table->foreign('work_order_id')->references('id')->on('work_orders')
 						->onUpdate('restrict')
 						->onDelete('cascade');
 			
-			$table->foreign('inventory_id')->references('id')->on('inventories')
+			$table->foreign('stock_id')->references('id')->on('inventory_stocks')
+						->onUpdate('restrict')
+						->onDelete('cascade');
+		});
+                
+                Schema::create('work_order_assignments', function(Blueprint $table) {
+			$table->increments('id');
+			$table->timestamps();
+			$table->integer('work_order_id')->unsigned();
+			$table->integer('by_user_id')->unsigned();
+			$table->integer('to_user_id')->unsigned();
+			
+			$table->foreign('work_order_id')->references('id')->on('work_orders')
+						->onUpdate('restrict')
+						->onDelete('cascade');
+			
+			$table->foreign('by_user_id')->references('id')->on('users')
+						->onUpdate('restrict')
+						->onDelete('cascade');
+			
+			$table->foreign('to_user_id')->references('id')->on('users')
 						->onUpdate('restrict')
 						->onDelete('cascade');
 		});
@@ -164,6 +184,7 @@ class CreateWorkOrderTables extends Migration {
 	 */
 	public function down()
 	{
+                Schema::drop('work_order_assignments');
                 Schema::drop('work_order_parts');
 		Schema::drop('work_order_assets');
 		Schema::drop('work_order_attachment');

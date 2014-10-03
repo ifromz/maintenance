@@ -1,8 +1,8 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class MaintenanceController extends AbstractController {
 	

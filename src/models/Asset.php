@@ -18,7 +18,8 @@ class Asset extends BaseModel {
 		'make',
 		'model',
 		'serial',
-		'price'
+		'price',
+                'aquired_at',
 	);
         
         public function user(){

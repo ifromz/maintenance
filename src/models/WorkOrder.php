@@ -57,6 +57,10 @@ class WorkOrder extends BaseModel {
             return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderAssignment', 'work_order_id', 'id');
         }
         
+        public function parts(){
+            return $this->belongsToMany('Stevebauman\Maintenance\Models\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('quantity');
+        }
+        
         /**
          * Filters work order results by priority
          * 

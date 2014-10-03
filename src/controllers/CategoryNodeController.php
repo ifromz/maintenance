@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Stevebauman\Maintenance\Services\CategoryService;
 use Stevebauman\Maintenance\Validators\CategoryValidator;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
 class CategoryNodeController extends BaseController {
 	
@@ -49,12 +49,7 @@ class CategoryNodeController extends BaseController {
 			
 			if($validator->passes()){
 				
-				$data = array(
-					'name' => Input::get('name'),
-					'icon' => Input::get('icon'),
-				);
-				
-				$subcategory = $this->category->create($data);
+				$subcategory = $this->category->create($this->inputAll());
 				$subcategory->makeChildOf($category);
 				
 				if(Request::ajax()){

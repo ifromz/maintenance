@@ -1,11 +1,11 @@
-<?php namespace Stevebauman\Maintenance\Http\Apis;
+<?php namespace Stevebauman\Maintenance\Apis;
 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 use Stevebauman\Maintenance\Services\EventService;
-use Stevebauman\Maintenance\Http\Apis\BaseApiController;
+use Stevebauman\Maintenance\Apis\BaseApiController;
 
 class AssetEventApi extends BaseApiController {
 

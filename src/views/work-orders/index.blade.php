@@ -175,6 +175,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <a href="{{ route('maintenance.work-orders.index') }}" class="btn btn-info">Reset Filter</a>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-search-plus"></i> Search</button>
             </div>
         </div>

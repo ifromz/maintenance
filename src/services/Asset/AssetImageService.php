@@ -13,11 +13,12 @@ class AssetImageService extends AbstractModelService {
 		$this->attachment = $attachment;
 	}
 	
-        
-        public function create($asset){
+        public function create(){
+            
+            $asset = $this->asset->find($this->getInput('asset_id'));
             
             //Check if any files have been uploaded
-            if($files = $this->input('files')){
+            if($files = $this->getInput('files')){
                 
                 //For each file, create the attachment record, and sync asset image pivot table
                 foreach($files as $file){
@@ -40,7 +41,7 @@ class AssetImageService extends AbstractModelService {
                         'file_path' => $movedFilePath,
                     );
                     
-                    if($record = $this->attachment->create($insert)){
+                    if($record = $this->attachment->setInput($insert)->create()){
                         $asset->images()->attach($record);
                     }
                 }

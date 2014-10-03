@@ -1,9 +1,9 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\AssignmentValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrderAssignmentService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class WorkOrderAssignmentController extends AbstractController {
         
@@ -44,8 +44,11 @@ class WorkOrderAssignmentController extends AbstractController {
             if($validator->passes()){
                     
                 $workOrder = $this->workOrder->find($workOrder_id);
-
-                if($records = $this->assignment->create($workOrder->id)){
+                
+                $data = $this->inputAll();
+                $data['work_order_id'] = $workOrder->id;
+                
+                if($records = $this->assignment->setInput($data)->create()){
                     $this->message = 'Successfully assigned worker(s)';
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));

@@ -1,9 +1,9 @@
-<?php namespace Stevebauman\Maintenance\Http\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\InventoryStockValidator;
 use Stevebauman\Maintenance\Services\InventoryService;
 use Stevebauman\Maintenance\Services\InventoryStockService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class InventoryStockController extends AbstractController {
     
@@ -50,7 +50,10 @@ class InventoryStockController extends AbstractController {
                 
                 $item = $this->inventory->find($inventory_id);
                 
-                if($record = $this->inventoryStock->create($item->id)){
+                $data = $this->inputAll();
+                $data['inventory_id'] = $item->id;
+                
+                if($record = $this->inventoryStock->setInput($data)->create()){
                     $this->message = 'Successfully added stock to this item';
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.inventory.show', array($item->id));
@@ -124,10 +127,8 @@ class InventoryStockController extends AbstractController {
             if($validator->passes()){
                 
                     $item = $this->inventory->find($inventory_id);
-
-                    $data['inventory_id'] = $item->id;
                     
-                    if($record = $this->inventoryStock->update($stock_id)){
+                    if($record = $this->inventoryStock->setInput($this->inputAll())->update($stock_id)){
                         $this->message = 'Successfully updated stock for item: '.$item->name;
                         $this->messageType = 'success';
                         $this->redirect = route('maintenance.inventory.show', array($item->id));

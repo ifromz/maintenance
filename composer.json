@@ -14,8 +14,10 @@
     "autoload": {
         "classmap": [
             "src/migrations",
+            "src/apis",
             "src/commands",
-            "src/http",
+            "src/composers",
+            "src/controllers",
             "src/models",
             "src/services",
             "src/validators",
