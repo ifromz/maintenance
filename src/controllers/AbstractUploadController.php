@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php 
+
+namespace Stevebauman\Maintenance\Controllers;
 
 use JildertMiedema\LaravelPlupload\Facades\Plupload;
 use Dmyers\Storage\Storage;

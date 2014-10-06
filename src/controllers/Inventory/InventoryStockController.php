@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php 
+
+namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\InventoryStockValidator;
 use Stevebauman\Maintenance\Services\InventoryService;

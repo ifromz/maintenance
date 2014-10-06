@@ -1,7 +1,7 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php 
 
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Config;
+namespace Stevebauman\Maintenance\Controllers;
+
 use Stevebauman\Maintenance\Validators\AuthLoginValidator;
 use Stevebauman\Maintenance\Validators\AuthRegisterValidator;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -35,17 +35,19 @@ class AuthController extends AbstractController {
 	 * @return Response
 	 */
 	public function getLogin(){
-            return View::make('maintenance::login', array(
+            return $this->view('maintenance::login', array(
                 'title' => 'Sign In',
             ));
 	}
         
-        public function postLogin($data){
+        public function postLogin(){
             $validator = new $this->loginValidator;
             
             if($validator->passes()){
                 
-                if(Config::get('maintenance::site.ldap.enabled') === true){
+                $data = $this->inputAll();
+                
+                if($this->config('maintenance::site.ldap.enabled') === true){
                     //If user exists on active directory
                     if($this->ldap->getUserEmail($data['email'])){
                         //Try authentication
@@ -91,16 +93,19 @@ class AuthController extends AbstractController {
 	 * @return Response
 	 */
 	public function getRegister(){
-            return View::make('maintenance::register', array(
+            return $this->view('maintenance::register', array(
                 'title' => 'Register an Account',
             ));
 	}
 
-        public function postRegister($data){
+        public function postRegister(){
             $validator = new $this->registerValidator;
             
             if($validator->passes()){
-                $data['username'] = uniqid();
+                
+                $data = $this->inputAll();
+                $data['username'] = uniqid(); //Randomize username since username is only for LDAP logins
+                
                 $this->sentry->createUser($data);
                 
                 $this->message = 'Successfully created account. You can now login.';

@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php 
+
+namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Services\EventService;
 use Stevebauman\Maintenance\Services\AssetService;

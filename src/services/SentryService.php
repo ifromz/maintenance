@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Services;
+<?php 
+
+namespace Stevebauman\Maintenance\Services;
 
 use Illuminate\Support\Facades\Config;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;

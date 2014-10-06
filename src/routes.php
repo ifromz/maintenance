@@ -8,6 +8,7 @@
 |--------------------------------------------------------------------------
 */
 Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
+    
 	/*
         |--------------------------------------------------------------------------
         | Maintenance Public Routes
@@ -212,16 +213,23 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                     ),
                 ));
                 
-                Route::resource('work-orders.parts.stocks', 'WorkOrderPartStockController', array(
-                    'only' => array(
-                        'create',
-                        'store'
-                    ),
-                    'names' => array(
-                        'create' => 'maintenance.work-orders.parts.stocks.create',
-                        'store' => 'maintenance.work-orders.parts.stocks.store',
-                    ),
+                Route::get('work-orders/{work_orders}/parts/{inventory}/stocks', array(
+                    'as' => 'maintenance.work-orders.parts.stocks.index',
+                    'uses' => 'WorkOrderPartStockController@getIndex'
                 ));
+                
+                
+                Route::get('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/add', array(
+                    'as' => 'maintenance.work-orders.parts.stocks.add',
+                    'uses' => 'WorkOrderPartStockController@getAdd'
+                ));
+                
+                Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}', array(
+                    'as' => 'maintenance.work-orders.parts.stocks.store',
+                    'uses' => 'WorkOrderPartStockController@postStore'
+                ));
+                
+                Route::resource('work-orders.parts.stocks.location', '');
 		
                 /*
                  * Asset Image Upload Routes
@@ -451,6 +459,25 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			),
 		));
 		
+                /*
+                |--------------------------------------------------------------------------
+                | Maintenance Administration Routes
+                |--------------------------------------------------------------------------
+                */
+                Route::group(array('prefix'=>'admin'), function(){
+                    Route::resource('users', 'UserController', array(
+                        'names' => array(
+                            'index'     => 'maintenance.admin.users.index',
+                            'create'    => 'maintenance.admin.users.create',
+                            'store'   	=> 'maintenance.admin.users.store',
+                            'show'    	=> 'maintenance.admin.users.show',
+                            'edit'    	=> 'maintenance.admin.users.edit',
+                            'update'  	=> 'maintenance.admin.users.update',
+                            'destroy' 	=> 'maintenance.admin.users.destroy',
+                        ),
+                    ));
+                });
+                
 	}); /* End Maintenance Controller Routes */
 
 	

@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Services;
+<?php 
+
+namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Exceptions\InventoryStockNotFoundException;
 use Stevebauman\Maintenance\Models\InventoryStock;
@@ -42,6 +44,7 @@ class InventoryStockService extends AbstractModelService {
     }
     
     public function update($id){
+
         if($record = $this->find($id)){
             
             $taken = $this->getInput('taken');

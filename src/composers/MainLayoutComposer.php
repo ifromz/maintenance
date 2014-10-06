@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Http\Composers;
+<?php 
+
+namespace Stevebauman\Maintenance\Composers;
 
 use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\CategoryService;
@@ -10,7 +12,7 @@ class MainLayoutComposer {
         }
     
 	public function compose($view){
-            $siteTitle = Config::get('maintenance::site.title.backend', 'Maintenance');
+            $siteTitle = Config::get('maintenance::site.title.main');
             
             $siteCategoryRoots = $this->category->roots();
             

@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php 
+
+namespace Stevebauman\Maintenance\Controllers;
 
 use Dmyers\Storage\Storage;
 use Stevebauman\Maintenance\Services\AssetService;

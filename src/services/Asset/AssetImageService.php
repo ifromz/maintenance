@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Services;
+<?php 
+
+namespace Stevebauman\Maintenance\Services;
 
 use Dmyers\Storage\Storage;
 use Illuminate\Support\Facades\Config;

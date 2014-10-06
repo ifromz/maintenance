@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Services;
+<?php 
+
+namespace Stevebauman\Maintenance\Services;
 
 use Carbon\Carbon;
 use Stevebauman\Maintenance\Models\WorkOrderSession;

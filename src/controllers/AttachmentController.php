@@ -1,15 +1,17 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php 
 
-use Attachment;
-use Request;
-use Response;
-use Storage;
-use Config;
+namespace Stevebauman\Maintenance\Controllers;
+
+use Dmyers\Storage\Storage;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Config;
+use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class AttachmentController extends BaseController {
 	
-	public function __construct(Attachment $attachment){
+	public function __construct(AttachmentService $attachment){
 		$this->attachment = $attachment;
 	}
 	

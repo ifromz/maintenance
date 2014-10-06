@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php 
+
+namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;

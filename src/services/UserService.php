@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Services;
+<?php 
+
+namespace Stevebauman\Maintenance\Services;
 
 use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -13,6 +15,10 @@ class UserService extends AbstractModelService {
 		$this->sentry = $sentry;
 		$this->ldap = $ldap;
 	}
+        
+        public function getByPageWithFilter(){
+            return $this->model->paginate(25);
+        }
 	
 	/**
         * Create or Update a User for authentication

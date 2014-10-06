@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php 
+
+namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\InventoryValidator;
 use Stevebauman\Maintenance\Services\InventoryService;
@@ -49,7 +51,7 @@ class InventoryController extends AbstractController {
             
             if($validator->passes()){
                 
-                if($record = $this->inventory->create($this->inputAll())){
+                if($record = $this->inventory->setInput($this->inputAll())->create()){
                     $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', array($record->id)));
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.inventory.index');
@@ -110,7 +112,7 @@ class InventoryController extends AbstractController {
             
             if($validator->passes()){
 
-                if($item = $this->inventory->update($id, $this->inputAll())){
+                if($item = $this->inventory->setInput($this->inputAll())->update($id)){
 
                     $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', array($item->id)));
                     $this->messageType = 'success';

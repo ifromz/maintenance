@@ -15,7 +15,9 @@
     {{ HTML::script('packages/stevebauman/maintenance/adminlte/js/jquery-1.10.2.js') }}
     <!-- Bootstrap -->
     {{ HTML::script('packages/stevebauman/maintenance/adminlte/js/bootstrap.min.js') }}
-
+    
+    {{ HTML::script('packages/stevebauman/maintenance/ckeditor/ckeditor.js') }}
+    
     {{ HTML::script('packages/stevebauman/maintenance/js/base.js') }}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

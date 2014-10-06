@@ -10,7 +10,8 @@ return array(
          * Title of the backend Application
          */
 	'title' => array(
-            'backend' => 'Maintenance',
+            'main' => 'Maintenance',
+            'admin' => 'Admin Panel'
         ),
 	
         /*

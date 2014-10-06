@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Services;
+<?php 
+
+namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Exceptions\WorkOrderNotFoundException;
 use Stevebauman\Maintenance\Models\WorkOrder;

@@ -47,7 +47,7 @@ class WorkOrderUpdateController extends AbstractController {
 		
                 if($workOrder = $this->workOrder->find($workOrder_id)){
 			
-                        $update = $this->update->create($this->inputAll());
+                        $update = $this->update->setInput($this->inputAll())->create();
 
                         $workOrder->customerUpdates()->save($update);
                         

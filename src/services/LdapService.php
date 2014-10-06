@@ -1,6 +1,8 @@
-<?php namespace Stevebauman\Maintenance\Services;
+<?php 
 
-use Corp;
+namespace Stevebauman\Maintenance\Services;
+
+use Stevebauman\Corp\Facades\Corp;
 
 class LdapService {
 	

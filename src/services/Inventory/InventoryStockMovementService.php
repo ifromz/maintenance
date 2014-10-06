@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Services;
+<?php 
+
+namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\InventoryStockMovement;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -11,8 +13,8 @@ class InventoryStockMovementService extends AbstractModelService {
         $this->sentry = $sentry;
     }
     
-    public function getByPageWithFilter($stock_id, $data = array()){
-        return $this->model->where('stock_id', $stock_id)->paginate(25);
+    public function getByPageWithFilter(){
+        return $this->model->where('stock_id', $this->getInput('stock_id'))->paginate(25);
     }
     
     public function create(){

@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Services;
+<?php 
+
+namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Update;
 use Stevebauman\Maintenance\Services\SentryService;

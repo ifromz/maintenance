@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php 
+
+namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
@@ -6,9 +8,7 @@ use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class WorkOrderController extends AbstractController {
         
-        public function __construct(
-                WorkOrderService $workOrder, 
-                WorkOrderValidator $workOrderValidator){
+        public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator){
             $this->workOrder = $workOrder;
             $this->workOrderValidator = $workOrderValidator;
         }
