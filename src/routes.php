@@ -229,7 +229,10 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                     'uses' => 'WorkOrderPartStockController@postStore'
                 ));
                 
-                Route::resource('work-orders.parts.stocks.location', '');
+                Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/remove', array(
+                    'as' => 'maintenance.work-orders.parts.stocks.destroy',
+                    'uses' => 'WorkOrderPartStockController@postDestroy'
+                ));
 		
                 /*
                  * Asset Image Upload Routes

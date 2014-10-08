@@ -9,6 +9,11 @@
 @stop
 
 @section('content')
+
+        @include('maintenance::inventory.modals.search', array(
+            'url' => route('maintenance.inventory.index')
+        ))
+
 	<div class="panel panel-default">
             <div class="panel-heading">
                 <div class="btn-toolbar">
@@ -23,7 +28,7 @@
                 </div>
             </div>
         
-            <div class="panel-body">
+            <div id="resource-paginate" class="panel-body">
                 @if($items->count() > 0)
                 <table class="table table-striped">
                     <thead>
@@ -88,8 +93,5 @@
             </div>
         </div>
 
-@include('maintenance::inventory.modals.search', array(
-    'url' => route('maintenance.inventory.index')
-))
 
 @stop

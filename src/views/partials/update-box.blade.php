@@ -11,7 +11,12 @@
     </div><!-- /.chat -->
     
     <div class="box-footer">
-        {{ Form::open(array('url'=>route('maintenance.work-orders.updates.store', array($workOrder->id)), 'id'=>'work-order-update')) }}
+        {{ Form::open(array(
+                    'url'=>route('maintenance.work-orders.updates.store', array($workOrder->id)), 
+                    'class'=>'ajax-form-post clear-form', 
+                    'data-refresh-target'=>'#chat-box'
+                )) 
+        }}
         <div class="input-group">
             <input name="update_content" class="form-control" placeholder="Type an update..."/>
             <div class="input-group-btn">

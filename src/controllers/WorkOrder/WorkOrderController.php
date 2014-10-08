@@ -19,7 +19,7 @@ class WorkOrderController extends AbstractController {
 	 * @return Response
 	 */
 	public function index(){
-            $workOrders = $this->workOrder->getByPageWithFilter();
+            $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
             
             return $this->view('maintenance::work-orders.index', array(
                 'title' => 'Work Orders',

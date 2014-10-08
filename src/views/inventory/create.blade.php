@@ -9,15 +9,14 @@
 @stop
 
 @section('content')
- <div class="col-md-12">
+<div class="col-md-12">
         
-        {{ HTML::script('packages/stevebauman/maintenance/js/inventory/create.js') }}
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Add an Item</h3>
             </div>
             <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.inventory.store'), 'class'=>'form-horizontal', 'id'=>'maintenance-inventory-create')) }}
+            {{ Form::open(array('url'=>route('maintenance.inventory.store'), 'class'=>'form-horizontal ajax-form-post clear-form')) }}
             	<legend class="margin-top-10">Item Information</legend>
                 
                 <div class="alert alert-info">

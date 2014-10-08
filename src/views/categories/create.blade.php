@@ -5,7 +5,6 @@
 @stop
 
 @section('content')
-	<script type="text/javascript" src="{{ asset('packages/stevebauman/maintenance/js/categories/create.js') }}"></script>
     
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -14,10 +13,9 @@
             </div>
             <div class="panel-body">
                 {{ Form::open(array(
-                        'url'=>action(currentControllerAction('store')), 
-                        'id'=>'maintenance-category-create',
-                        'class'=>'form-horizontal'
-                    )) 
+                        'url'=>action(currentControllerAction('store')),
+                        'class'=>'form-horizontal ajax-form-post clear-form'
+                    ))
                 }}
                 
                     <legend class="margin-top-10">Category Information</legend>

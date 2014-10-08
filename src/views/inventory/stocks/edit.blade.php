@@ -17,12 +17,10 @@
             <div class="panel-body">
                 <div id="update-form">
                 
-                {{ HTML::script('packages/stevebauman/maintenance/js/inventory/stocks/edit.js') }}
                 {{ Form::open(array(
                             'url'=>route('maintenance.inventory.stocks.update', array($item->id, $stock->id)),
                             'method'=>'PATCH',
-                            'class'=>'form-horizontal', 
-                            'id'=>'maintenance-inventory-stocks-edit'
+                            'class'=>'form-horizontal ajax-form-post', 
                         )) 
                 }}
             	<legend class="margin-top-10">Enter New Quantity</legend>

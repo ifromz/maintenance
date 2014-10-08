@@ -13,12 +13,11 @@
             </div>
             <div class="panel-body">
             <legend class="margin-top-10">Category Information</legend>
-            {{ Form::open(
-            	array(
-                	'url'=>action(currentControllerAction('store'), array($category->id)), 
-                    'id'=>'maintenance-category-create', 'class'=>'form-horizontal'
-               	)) 
-         	}}
+            {{ Form::open(array(
+                    'url'=>action(currentControllerAction('store'), array($category->id)), 
+                    'class'=>'form-horizontal ajax-form-post clear-form'
+                )) 
+            }}
             
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="location_name">Name</label>

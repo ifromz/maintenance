@@ -47,35 +47,17 @@ class InventoryStockService extends AbstractModelService {
 
         if($record = $this->find($id)){
             
-            $taken = $this->getInput('taken');
-            
-            if($taken){
-                $insert = array(
-                    'location_id' => $this->getInput('location_id', $record->location_id),
-                    'quantity' => $record->quantity - $this->getInput('quantity'),
-                );
-            } else{
-                $insert = array(
-                    'location_id' => $this->getInput('location_id', $record->location_id),
-                    'quantity' => $this->getInput('quantity', $record->quantity),
-                );
-            }
-            
-            
-            
+            $insert = array(
+                'location_id' => $this->getInput('location_id', $record->location_id),
+                'quantity' => $this->getInput('quantity', $record->quantity),
+            );
+ 
             $this->db->beginTransaction();
             
             if($record->update($insert)){
                 
-                $movement = array(
-                    'stock_id' => $record->id,
-                    'before' => $record->movements->first()->after,
-                    'after' => $record->quantity,
-                    'reason' => $this->getInput('reason', NULL, true),
-                    'cost' => $this->getInput('cost'),
-                );
-                
-                if($this->inventoryStockMovement->setInput($movement)->create()){
+                if($this->createMovement($record)){
+                    
                     $this->db->commit();
                     return $record;
                     
@@ -90,6 +72,52 @@ class InventoryStockService extends AbstractModelService {
             }
             
         } return false;
+    }
+    
+    public function take($id){
+        if($record = $this->find($id)){
+        
+            $insert = array(
+                'quantity' => $record->quantity - $this->getInput('quantity'),
+            );
+            
+            $record->update($insert);
+            
+            $this->createMovement($record);
+            
+            return $record;
+            
+        } return false;
+    }
+    
+    public function put($id){
+        if($record = $this->find($id)){
+        
+            $insert = array(
+                'quantity' => $record->quantity + $this->getInput('quantity'),
+            );
+            
+            $record->update($insert);
+            
+            $this->createMovement($record);
+            
+            return $record;
+            
+        } return false;
+    }
+    
+    private function createMovement($record){
+        $movement = array(
+            'stock_id' => $record->id,
+            'before' => $record->movements->first()->after,
+            'after' => $record->quantity,
+            'reason' => $this->getInput('reason', NULL, true),
+            'cost' => $this->getInput('cost'),
+        );
+        
+        $this->inventoryStockMovement->setInput($movement)->create();
+        
+        return true;
     }
     
 }

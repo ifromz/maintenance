@@ -215,7 +215,9 @@
             </section>
         </aside><!-- /.right-side -->
     </div><!-- ./wrapper -->
-
+    
+    @include('maintenance::layouts.main.foot')
+    
     <!-- Bootbox-->
     {{ HTML::script('packages/stevebauman/maintenance/adminlte/bootbox/bootbox.min.js') }}
     <!-- AdminLTE App -->

@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-	<div class="panel panel-default">
+    <div class="panel panel-default">
     	<div class="panel-heading">
             <div class="btn-toolbar">
                 <a href="{{ route('maintenance.work-orders.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Create a new Work Order">
@@ -23,11 +23,11 @@
             </div>
         </div>
         
-        <div class="panel-body">
+        <div id="resource-paginate" class="panel-body">
             @if($workOrders->count() > 0)
-            	<table class="table table-striped">
-                	<thead>
-                    	<tr>
+                <table class="table table-striped">
+                        <thead>
+                        <tr>
                             <th>ID</th>
                             <th>Status</th>
                             <th>Priority</th>
@@ -40,7 +40,7 @@
                         </tr>
                     </thead>
                     <tbody class="workOrder-body">
-              		@foreach($workOrders as $workOrder)
+                        @foreach($workOrders as $workOrder)
                         <tr>
                             <td>{{ $workOrder->id }}</td>
                             <td>{{ $workOrder->status_label }}</td>
@@ -67,7 +67,7 @@
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                    	<li>
+                                        <li>
                                             <a href="{{ route('maintenance.work-orders.show', array($workOrder->id)) }}">
                                                 <i class="fa fa-search"></i> View Work Order
                                             </a>
@@ -85,25 +85,22 @@
                                     </ul>
                                 </div>
                             </td>
-                      	</tr>
+                        </tr>
                         @endforeach
-                        
-                        <div class="btn-toolbar text-center">
-                            {{ $workOrders->appends(Input::except('page'))->links() }}
-                        </div>
-                    @else
-                        <h5>There are no work orders to list</h5>
-                    @endif
-                </tbody>
-            </table>
-               
+                    </tbody>
+                </table>
+            @else
+                <h5>There are no work orders to list</h5>
+            @endif
+
+            <div class="text-center">{{ $workOrders->appends(Input::except('page'))->links() }}</div>
         </div>
     </div>
 
 <div class="modal fade" id="search-modal" tabindex="-1 "role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            {{ Form::open(array('url'=>route('maintenance.work-orders.index'), 'method'=>'GET', 'class'=>'form-horizontal', 'data-refresh-target'=>'.panel',)) }}
+            {{ Form::open(array('url'=>route('maintenance.work-orders.index'), 'method'=>'GET', 'class'=>'form-horizontal ajax-form-get', 'data-refresh-target'=>'#resource-paginate',)) }}
             
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

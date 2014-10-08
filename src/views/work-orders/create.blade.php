@@ -19,14 +19,13 @@
 
 @section('content')
 
-    <script src="/packages/stevebauman/maintenance/js/work-orders/create.js"></script>
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Create a new Work Order</h3>
             </div>
             <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.work-orders.store'), 'class'=>'form-horizontal', 'id'=>'maintenance-work-order-create')) }}
+            {{ Form::open(array('url'=>route('maintenance.work-orders.store'), 'class'=>'form-horizontal ajax-form-post clear-form')) }}
             	<legend class="margin-top-10">Work Order Information</legend>
                 
                 <div class="form-group">

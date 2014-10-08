@@ -4,9 +4,9 @@
 {{ Form::open(array(
             'url'=>route('maintenance.inventory.stocks.update', array($item->id, $stock->id)),
             'method'=>'PATCH',
-            'class'=>'form-horizontal', 
-            'data-refresh' => '#inventory-stocks-table',
-            'id'=>'maintenance-inventory-stocks-edit'
+            'class'=>'form-horizontal ajax-form-post', 
+            'data-refresh-target' =>'#inventory-stocks-table',
+            'data-status-target'=>'#inventory-stock-update-alert'
         ))
 }}
 <legend class="margin-top-10">Enter New Quantity</legend>

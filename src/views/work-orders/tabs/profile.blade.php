@@ -24,7 +24,7 @@
     data-target="#assign-workers-modal"
     data-toggle="modal"
     class="btn btn-app">
-    <i class="fa fa-users"></i> Assign Workers
+    <i class="fa fa-users"></i> Workers
 </a>
 
 @if(!$workOrder->report)
@@ -35,9 +35,6 @@
     <i class="fa fa-check-circle-o"></i> Complete
 </a>
 @endif
-
-@include('maintenance::work-orders.modals.assignments.create', array('workOrder'=>$workOrder))
-@include('maintenance::work-orders.modals.complete', array('workOrder'=>$workOrder))
 
 <a href="{{ route('maintenance.work-orders.edit', array($workOrder->id)) }}" class="btn btn-app">
     <i class="fa fa-edit"></i> Edit
@@ -96,25 +93,9 @@
 
         <p></p>
     @endif
-    
-    @if($workOrder->assignments->count() > 0)
-    <dt>Workers Assigned:</dt>
-    <dd>
-        @foreach($workOrder->assignments as $assignment)
-            {{ $assignment->label }}
-        @endforeach
-    </dd>
-    @endif
 </dl>
 
-<div class="clearfix"></div>
-
-<hr>
-
-<div class="col-md-12 alert alert-info">
-    The update field below is for updating the customer with updated information about the work order. The customer can also reply and you will see their responses below.
-</div>
-
-@include('maintenance::partials.update-box', array('workOrder'=>$workOrder))
+@include('maintenance::work-orders.modals.assignments.create', array('workOrder'=>$workOrder))
+@include('maintenance::work-orders.modals.complete', array('workOrder'=>$workOrder))
 
                     

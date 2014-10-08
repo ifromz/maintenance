@@ -14,9 +14,8 @@
             <div class="panel-body">
                 <legend class="margin-top-10">Category Information</legend>
                 {{ Form::open(array(
-                        'url'=>action(currentControllerAction('update'), array($category->id)), 
-                        'id'=>'maintenance-category-edit', 
-                        'class'=>'form-horizontal',
+                        'url'=>action(currentControllerAction('update'), array($category->id)),
+                        'class'=>'form-horizontal ajax-form-post',
                         'method' => 'PATCH',
                     )) 
                 }}

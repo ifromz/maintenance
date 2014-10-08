@@ -11,7 +11,6 @@
 @section('content')
  <div class="col-md-12">
         
-        {{ HTML::script('packages/stevebauman/maintenance/js/inventory/edit.js') }}
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Edit Item</h3>
@@ -20,9 +19,8 @@
             {{ Form::open(array(
                         'url'=>route('maintenance.inventory.update', array($item->id)), 
                         'method'=>'PATCH', 
-                        'class'=>'form-horizontal', 
-                        'id'=>'maintenance-inventory-edit'
-                        )) 
+                        'class'=>'form-horizontal ajax-form-post',
+                    )) 
             }}
                 
                 <div class="form-group">

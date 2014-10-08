@@ -58,7 +58,7 @@ class WorkOrder extends BaseModel {
         }
         
         public function parts(){
-            return $this->belongsToMany('Stevebauman\Maintenance\Models\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('quantity');
+            return $this->belongsToMany('Stevebauman\Maintenance\Models\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');
         }
         
         /**
@@ -68,7 +68,7 @@ class WorkOrder extends BaseModel {
          */
         public function scopePriority($query, $priority = NULL){
             
-            if(isset($priority)){
+            if(isset($priority) && $priority != '0'){
                 return $query->where('priority', $priority);
             }
 	}
@@ -102,7 +102,7 @@ class WorkOrder extends BaseModel {
          * @return object
          */
         public function scopeStatus($query, $status = NULL){
-            if(isset($status)){
+            if(isset($status) && $status != 0){
                 return $query->where('status', $status);
             }
 	}

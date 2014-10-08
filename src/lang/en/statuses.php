@@ -1,11 +1,11 @@
 <?php
 
 return array(
-    'none' => 'None',
-    '0' => 'Closed',
-    '1' => 'Open',
-    '2' => 'Awaiting for Parts / Supplies',
-    '3' => 'Work In Progress',
-    '4' => 'Requested',
+    '0' => 'None',
+    '1' => 'Closed',
+    '2' => 'Open',
+    '3' => 'Awaiting for Parts / Supplies',
+    '4' => 'Work In Progress',
+    '5' => 'Requested',
     
 );

@@ -1,6 +1,6 @@
 <div class="row">
 
-	<div class="col-md-12">
+    <div class="col-md-12">
         <div id="alert-container">
             @if(Session::has('errors'))
                 <div class="alert alert-danger">

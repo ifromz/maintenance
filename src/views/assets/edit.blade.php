@@ -13,7 +13,7 @@
                 <h3 class="panel-title">Edit asset</h3>
             </div>
             <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.assets.update', array($asset->id)), 'method'=>'PATCH', 'class'=>'form-horizontal', 'id'=>'maintenance-asset-edit')) }}
+            {{ Form::open(array('url'=>route('maintenance.assets.update', array($asset->id)), 'method'=>'PATCH', 'class'=>'form-horizontal ajax-form-post')) }}
             	<legend class="margin-top-10">Required Information</legend>
                 
                 <div class="form-group">

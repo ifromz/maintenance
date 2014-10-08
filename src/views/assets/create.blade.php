@@ -13,7 +13,7 @@
                 <h3 class="panel-title">Create a new Asset</h3>
             </div>
             <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.assets.store'), 'class'=>'form-horizontal', 'id'=>'maintenance-asset-create')) }}
+            {{ Form::open(array('url'=>route('maintenance.assets.store'), 'class'=>'form-horizontal ajax-form-post clear-form')) }}
             	<legend class="margin-top-10">Required Information</legend>
                 
                 <div class="form-group">

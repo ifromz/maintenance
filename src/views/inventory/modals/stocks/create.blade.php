@@ -6,14 +6,12 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">Add new Stock Location</h4>
             </div>
-                {{ HTML::script('packages/stevebauman/maintenance/js/inventory/stocks/create.js') }}
                 {{ Form::open(array(
                             'url'=>route('maintenance.inventory.stocks.store', array($item->id)), 
-                            'class'=>'form-horizontal', 
-                            'id'=>'maintenance-inventory-stocks-create',
-                            'data-status-container' => '#stock-location-status',
-                            'data-refresh' => '#inventory-stocks-table',
-                            ))
+                            'class'=>'form-horizontal ajax-form-post clear-form',
+                            'data-status-target' => '#stock-location-status',
+                            'data-refresh-target' => '#inventory-stocks-table',
+                        ))
                 }}
             <div class="modal-body">
 
