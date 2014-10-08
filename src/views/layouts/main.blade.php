@@ -207,11 +207,16 @@
                     @show
                 </ol>
             </section>
-
+            
             <!-- Main content -->
             <section class="content">
-                @include('maintenance::partials.alert')
-                @yield('content')
+                <div id="alerts">
+                    @include('maintenance::partials.alert')
+                </div>
+                
+                <div id="content">
+                    @yield('content')
+                </div>
             </section>
         </aside><!-- /.right-side -->
     </div><!-- ./wrapper -->

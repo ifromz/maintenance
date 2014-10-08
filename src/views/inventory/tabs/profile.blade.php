@@ -1,5 +1,3 @@
-{{ HTML::script('packages/stevebauman/maintenance/js/inventory/stocks/update.js') }}
-
 @include('maintenance::inventory.tabs.profile.menu', array('item'=>$item))
 
 <div class="clearfix"></div>
@@ -16,4 +14,4 @@
 
 <hr>
 
-    @include('maintenance::inventory.tabs.profile.current-stock', array('item'=>$item))
+@include('maintenance::inventory.tabs.profile.current-stock', array('item'=>$item))

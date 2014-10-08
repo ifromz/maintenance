@@ -1,5 +1,11 @@
 <?php 
 
+/**
+ * Handles inventory stock movement interactions
+ * 
+ * @author Steve Bauman <sbauman@bwbc.gc.ca>
+ */
+
 namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\InventoryStockMovement;

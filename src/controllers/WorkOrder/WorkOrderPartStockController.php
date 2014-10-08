@@ -24,6 +24,14 @@ class WorkOrderPartStockController extends AbstractController {
         $this->workOrderPartValidator = $workOrderPartValidator;
     }
     
+    /**
+     * Display Inventory item stocks per location available to transfer into the
+     * work order.
+     * 
+     * @param type $workOrder_id
+     * @param type $inventory_id
+     * @return type Response
+     */
     public function getIndex($workOrder_id, $inventory_id){
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
@@ -35,6 +43,15 @@ class WorkOrderPartStockController extends AbstractController {
         ));
     }
     
+    /**
+     * Display the form to update the quantity the user is taking from the inventory
+     * for the work order.
+     * 
+     * @param type $workOrder_id
+     * @param type $inventory_id
+     * @param type $stock_id
+     * @return type Response
+     */
     public function getAdd($workOrder_id, $inventory_id, $stock_id){
         
         $workOrder = $this->workOrder->find($workOrder_id);
@@ -50,6 +67,14 @@ class WorkOrderPartStockController extends AbstractController {
         
     }
     
+    /**
+     * Process the quantity the user is taking from the stock location
+     * 
+     * @param type $workOrder_id
+     * @param type $inventory_id
+     * @param type $stock_id
+     * @return type Response
+     */
     public function postStore($workOrder_id, $inventory_id, $stock_id){
         $validator = new $this->workOrderPartValidator;
         
@@ -59,14 +84,29 @@ class WorkOrderPartStockController extends AbstractController {
             $item = $this->inventory->find($inventory_id);
             $stock = $this->inventoryStock->find($stock_id);
             
-            $workOrder->parts()->attach($stock->id, array('quantity'=>$this->input('quantity')));
+            /*
+             * If stock record already exists
+             */
+            if($record = $workOrder->parts->find($stock->id)){
+                $newQuantity = $record->pivot->quantity + $this->input('quantity');
+                
+                $workOrder->parts()->updateExistingPivot($record->id, array('quantity'=>$newQuantity));
+            } else{
+                $workOrder->parts()->attach($stock->id, array('quantity'=>$this->input('quantity')));
+            }
             
             $data = $this->inputAll();
             $data['reason'] = sprintf('Used for <a href="%s">Work Order</a>', route('maintenance.work-orders.show', array($workOrder->id)));
 
             $this->inventoryStock->setInput($data)->take($stock->id);
             
-            $this->message = sprintf('Successfully added %s of %s to work order', $this->input('quantity'), $item->name);
+            $this->message = sprintf(
+                    'Successfully added %s of %s to work order. %s or %s', 
+                        $this->input('quantity'), 
+                        $item->name, 
+                        link_to_route('maintenance.work-orders.parts.index', 'Add More', array($workOrder->id)),
+                        link_to_route('maintenance.work-orders.show', 'View Work Order', array($workOrder->id))
+                    );
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.parts.index', array($workOrder->id));
             
@@ -81,6 +121,16 @@ class WorkOrderPartStockController extends AbstractController {
         return $this->response();
     }
     
+    /**
+     * Destroys the pivot table entry of the stock quantity used in the work order,
+     * then returns the quantity back to the stock and creates a movement indicating
+     * that the quantity of the item was put back from a work order.
+     * 
+     * @param type $workOrder_id
+     * @param type $inventory_id
+     * @param type $stock_id
+     * @return type Response
+     */
     public function postDestroy($workOrder_id, $inventory_id, $stock_id){
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);

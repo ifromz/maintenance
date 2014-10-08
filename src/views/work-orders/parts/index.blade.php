@@ -57,15 +57,21 @@
                     <td>{{ renderNode($stock->location) }}</td>
                     <td>{{ $stock->pivot->created_at }}</td>
                     <td>
-                        {{ Form::open(array('url'=>'')) }}
-                        
-                        <button 
+                        {{ Form::open(array(
+                                    'url'=>route('maintenance.work-orders.parts.stocks.destroy', array($workOrder->id, $stock->item->id, $stock->id)), 
+                                    'class'=>'ajax-form-post',
+                                    'data-refresh-target'=>'#content'
+                                ))
+                        }}
+
+                        <button
                             type="submit" 
                             class="btn btn-primary confirm"
-                            data-confirm-message="Are you sure you want to put back {{ $stock->pivot->quantity }} of {{ $stock->item->name }}?">
+                            data-confirm-message="Are you sure you want to put back {{ $stock->pivot->quantity }} of {{ $stock->item->name }}?"
+                            >
                             <i class="fa fa-reply"></i> Put Back
                         </button>
-                        
+
                         {{ Form::close() }}
                     </td>
                 </tr>
@@ -73,6 +79,9 @@
                 @endforeach
             </tbody>
         </table>
+        @else
+        
+        <h5>There are currently no parts/supplies attached to this work order.</h5>
         
         @endif
     </div>

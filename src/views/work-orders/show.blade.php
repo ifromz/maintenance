@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <script src="{{ asset('packages/stevebauman/maintenance/js/work-orders/show.js') }}"></script>
+
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab_1" data-toggle="tab">Profile</a></li>

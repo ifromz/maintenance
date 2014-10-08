@@ -1,5 +1,11 @@
 <?php 
 
+/**
+ * Handles asset interactions
+ * 
+ * @author Steve Bauman <sbauman@bwbc.gc.ca>
+ */
+
 namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Exceptions\AssetNotFoundException;
@@ -15,11 +21,23 @@ class AssetService extends AbstractModelService {
                 $this->notFoundException = $notFoundException;
 	}
 	
+        /**
+         * Returns all assets paginated
+         * 
+         * @return type Collection
+         */
 	public function getByPage(){
 		return $this->model
 			->paginate(25);
 	}
         
+        /**
+         * Returns common makes that are inputted into the DB for
+         * auto-complete functionality
+         * 
+         * @param type $make
+         * @return type Collection
+         */
         public function getMakes($make = NULL){
 		return $this->model
 			->select('make')
@@ -28,6 +46,13 @@ class AssetService extends AbstractModelService {
 			->get();
 	}
 	
+        /**
+         * Returns common models that are inputted into the DB for
+         * auto-complete functionality
+         * 
+         * @param type $model
+         * @return type Collection
+         */
 	public function getModels($model = NULL){
 		return $this->model
 			->distinct()
@@ -36,6 +61,13 @@ class AssetService extends AbstractModelService {
 			->get();
 	}
 	
+        /**
+         * Returns common serials that are inputted into the DB for
+         * auto-complete functionality
+         * 
+         * @param type $serial
+         * @return type Collection
+         */
 	public function getSerials($serial = NULL){
 		return $this->model
 			->distinct()
@@ -44,7 +76,16 @@ class AssetService extends AbstractModelService {
 			->get();
 	}
 	
+        /**
+         * Creates an asset
+         * 
+         * @return boolean OR object
+         */
 	public function create(){
+                
+                /*
+                 * Set insert data
+                 */
 		$insert = array(
 			'user_id'           => $this->sentry->getCurrentUserId(),
                         'category_id'       => $this->getInput('category_id'),
@@ -60,14 +101,35 @@ class AssetService extends AbstractModelService {
 			'aquired_at'        => $this->formatDateWithTime($this->getInput('aquired_at')),
 		);
 		
+                /*
+                 * Create the record and return it upon success
+                 */
 		if($record = $this->model->create($insert)){
 			return $record;
-		} return false;
+		} 
+                
+                /*
+                 * Failed to create record, return false
+                 */
+                return false;
 	}
 	
+        /**
+         * Updates an asset record
+         * 
+         * @param type $id
+         * @return boolean OR object
+         */
 	public function update($id){
+            
+                /*
+                 * Find the asset record
+                 */
 		$record = $this->find($id);
                 
+                /*
+                 * Set update data
+                 */
                 $edit = array(
                         'location_id'       => $this->getInput('location_id', $record->location_id),
                         'category_id'       => $this->getInput('category_id', $record->category_id),
@@ -81,10 +143,18 @@ class AssetService extends AbstractModelService {
                         'serial'            => $this->getInput('serial', $record->serial, true),
                         'aquired_at'        => ($this->formatDateWithTime($this->getInput('aquired_at')) ?: $record->aquired_at),
                 );
-                        
+                
+                /*
+                 * Update the record and return it upon success
+                 */
                 if($record->update($edit)){
-                        return $record;
-                } return false;
+                    return $record;
+                } 
+                
+                /*
+                 * Failed to update record, return false;
+                 */
+                return false;
 		
 	}
 	

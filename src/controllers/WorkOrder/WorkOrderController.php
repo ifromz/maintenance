@@ -14,7 +14,7 @@ class WorkOrderController extends AbstractController {
         }
         
 	/**
-	 * Display a listing of the resource.
+	 * Displays all work orders (paginated with search functionality)
 	 *
 	 * @return Response
 	 */
@@ -29,7 +29,7 @@ class WorkOrderController extends AbstractController {
 
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Displays the form to create a work order
 	 *
 	 * @return Response
 	 */
@@ -42,7 +42,7 @@ class WorkOrderController extends AbstractController {
 
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Stores a new work order
 	 *
 	 * @return Response
 	 */
@@ -65,7 +65,7 @@ class WorkOrderController extends AbstractController {
 
 
 	/**
-	 * Display the specified resource.
+	 * Displays the specified work order
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -83,7 +83,7 @@ class WorkOrderController extends AbstractController {
 
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Displays the edit form for the specified work order
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -114,9 +114,8 @@ class WorkOrderController extends AbstractController {
                 
 	}
 
-
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified work order
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -141,9 +140,8 @@ class WorkOrderController extends AbstractController {
                 return $this->response();
 	}
 
-
 	/**
-	 * Remove the specified resource from storage.
+	 * Removes the work order
 	 *
 	 * @param  int  $id
 	 * @return Response
