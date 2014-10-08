@@ -1,0 +1,1 @@
+{{ Form::select('recur_days[]', trans('maintenance::recur.days'), (isset($days) ? $days : NULL), array('class'=>'form-control select2', 'placeholder'=>'Select Days', 'multiple'=>true)) }}

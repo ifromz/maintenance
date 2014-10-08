@@ -1,0 +1,1 @@
+{{ Form::select($name, trans('maintenance::colors'), (isset($color) ? $color : NULL), array('class'=>'form-control')) }}
