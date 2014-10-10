@@ -60,7 +60,7 @@ abstract class AbstractController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function response(){
+	public function response(){            
             if($this->isAjax()){
                 if($this->errors){
                     return Response::json(array(
@@ -87,6 +87,16 @@ abstract class AbstractController extends Controller {
             }
 	}
         
+        /**
+         * Returns a JSON response to the client
+         * 
+         * @param type $data
+         * @return type
+         */
+        public function responseJson($data){
+            return Response::json($data);
+        }
+        
     /**
      * Returns input from the client. If clean is set to true, the input will be
      * ran through the purifier before it is returned.
@@ -107,6 +117,11 @@ abstract class AbstractController extends Controller {
         return NULL;
     }
     
+    /**
+     * Returns all input
+     * 
+     * @return type Array
+     */
     protected function inputAll(){
         return Input::all();
     }

@@ -211,7 +211,7 @@
             <!-- Main content -->
             <section class="content">
                 <div id="alerts">
-                    @include('maintenance::partials.alert')
+                    @include('maintenance::layouts.main.alert')
                 </div>
                 
                 <div id="content">

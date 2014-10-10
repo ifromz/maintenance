@@ -13,6 +13,17 @@ class WorkOrderReportController extends AbstractController {
             $this->report = $report;
             $this->reportValidator = $reportValidator;
         }
+        
+        public function create($workOrder_id){
+            
+            $workOrder = $this->workOrder->find($workOrder_id);
+            
+            return $this->view('maintenance::work-orders.report.create', array(
+                'title' => 'Create a Work Order Report',
+                'workOrder' => $workOrder
+            ));
+            
+        }
 
 	/**
 	 * Store a newly created resource in storage.
@@ -26,7 +37,10 @@ class WorkOrderReportController extends AbstractController {
 
                 $workOrder = $this->workOrder->find($workOrder_id);
                 
-                if($record = $this->report->create($this->inputAll(), $workOrder->id)){
+                $data = $this->inputAll();
+                $data['work_order_id'] = $workOrder->id;
+                
+                if($record = $this->report->setInput($data)->create()){
 
                     $workOrder->update(array(
                         'status' => Config::get('maintenance::status.complete')

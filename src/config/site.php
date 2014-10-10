@@ -63,6 +63,10 @@ return array(
 			'images' => 'assets/images/',
 			'manuals' => 'assets/manuals/',
 		),
+            
+                'work-orders' => array(
+                    'attachments' => 'work-orders/attachments/'
+                )
 	),
 	
 );

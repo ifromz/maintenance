@@ -17,13 +17,9 @@
         {{ $workOrder->subject }}
     </a>
 </li>
-<li>
+<li class="active">
     <i class="fa fa-wrench"></i> 
     Parts
-</li>
-<li class="active">
-    <i class="fa fa-plus-circle"></i> 
-    Add
 </li>
 @stop
 
@@ -106,6 +102,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Category</th>
                     <th>Stock</th>
                     <th>Add</th>
                 </tr>
@@ -114,6 +111,7 @@
                 @foreach($items as $item)
                 <tr>
                     <td>{{ $item->name }}</td>
+                    <td>{{ renderNode($item->category) }}</td>
                     <td>{{ $item->current_stock }}</td>
                     <td><a href="{{ route('maintenance.work-orders.parts.stocks.index', array($workOrder->id, $item->id)) }}" class="btn btn-primary">Add</a></td>
                 </tr>

@@ -10,15 +10,17 @@ namespace Stevebauman\Maintenance\Services;
 
 use Dmyers\Storage\Storage;
 use Illuminate\Support\Facades\Config;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Services\AttachmentService;
+use Stevebauman\Maintenance\Services\AbstractModelService;
 
 class AssetImageService extends AbstractModelService {
 	
-	public function __construct(AssetService $asset, AttachmentService $attachment){
+	public function __construct(AssetService $asset, AttachmentService $attachment, SentryService $sentry){
 		$this->asset = $asset;
 		$this->attachment = $attachment;
+                $this->sentry = $sentry;
 	}
 	
         /**
@@ -66,6 +68,7 @@ class AssetImageService extends AbstractModelService {
                         'name' => $fileOriginalName,
                         'file_name' => $fileName,
                         'file_path' => $movedFilePath,
+                        'user_id' => $this->sentry->getCurrentUserId()
                     );
                     
                     /*

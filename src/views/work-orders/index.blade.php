@@ -5,7 +5,12 @@
 @stop
 
 @section('breadcrumb')
-
+<li>
+    <a href="{{ route('maintenance.work-orders.index') }}">
+        <i class="fa fa-book"></i> 
+        Work Orders
+    </a>
+</li>
 @stop
 
 @section('content')

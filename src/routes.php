@@ -126,6 +126,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 		*/
                 Route::resource('work-orders/{work_orders}/report', 'WorkOrderReportController', array(
                     'only' => array(
+                        'create',
                         'store',
                         'show', 
                         'edit',  
@@ -133,6 +134,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                         'destroy',
                     ),
                     'names'=> array(
+                        'create'        => 'maintenance.work-orders.report.create',
                         'store'   	=> 'maintenance.work-orders.report.store',
                         'show'    	=> 'maintenance.work-orders.report.show',
                         'edit'    	=> 'maintenance.work-orders.report.edit',
@@ -233,7 +235,37 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                     'as' => 'maintenance.work-orders.parts.stocks.destroy',
                     'uses' => 'WorkOrderPartStockController@postDestroy'
                 ));
+                
+                /*
+                 * Work Order Attachment Upload Routes
+                 */
+		Route::post('work-orders/attachmemnts/uploads', array(
+			'as' => 'maintenance.work-orders.attachments.uploads.store',
+			'uses' => 'WorkOrderAttachmentUploadController@store'
+		));
 		
+		Route::post('work-orders/attachmemnts/uploads/destroy', array(
+			'as' => 'maintenance.work-orders.attachments.uploads.destroy',
+			'uses' => 'WorkOrderAttachmentUploadController@store@destroy'
+		));
+                
+                Route::resource('work-orders.attachments', 'WorkOrderAttachmentController', array(
+                    'only' => array(
+                        'index',	
+                        'create', 
+                        'store',
+                        'show', 
+                        'destroy'
+                    ),
+                    'names' => array(
+                        'index'		=> 'maintenance.work-orders.attachments.index',
+                        'create'  	=> 'maintenance.work-orders.attachments.create',
+                        'store'   	=> 'maintenance.work-orders.attachments.store',
+                        'show'    	=> 'maintenance.work-orders.attachments.show',
+                        'destroy' 	=> 'maintenance.work-orders.attachments.destroy',
+                    )
+                ));
+                
                 /*
                  * Asset Image Upload Routes
                  */
@@ -468,6 +500,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                 |--------------------------------------------------------------------------
                 */
                 Route::group(array('prefix'=>'admin'), function(){
+                    
                     Route::resource('users', 'UserController', array(
                         'names' => array(
                             'index'     => 'maintenance.admin.users.index',
@@ -478,6 +511,18 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                             'update'  	=> 'maintenance.admin.users.update',
                             'destroy' 	=> 'maintenance.admin.users.destroy',
                         ),
+                    ));
+                    
+                    Route::resource('groups', 'GroupController', array(
+                        'names'=>array(
+                            'index'     => 'maintenance.admin.groups.index',
+                            'create'    => 'maintenance.admin.groups.create',
+                            'store'   	=> 'maintenance.admin.groups.store',
+                            'show'    	=> 'maintenance.admin.groups.show',
+                            'edit'    	=> 'maintenance.admin.groups.edit',
+                            'update'  	=> 'maintenance.admin.groups.update',
+                            'destroy' 	=> 'maintenance.admin.groups.destroy',
+                        )
                     ));
                 });
                 
@@ -490,7 +535,25 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 	|--------------------------------------------------------------------------
 	*/
 	Route::group(array('prefix'=>'api', 'namespace'=>'Stevebauman\Maintenance\Apis'), function(){
-		
+            
+            Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
+                
+                Route::group(array('prefix'=>'assets'), function(){
+                   
+                    Route::get('', array(
+                        'as'=>'maintenance.api.v1.assets.get',
+                        'uses'=>'AssetApi@get'
+                    ));
+                    
+                    Route::get('find/{assets}', array(
+                        'as'=>'maintenance.api.v1.assets.find',
+                        'uses'=>'AssetApi@find'
+                    ));
+                    
+                });
+                
+            });
+            
             Route::group(array('prefix'=>'notifications'), function(){
                 
                 Route::resource('notifications', 'NotificationApi', array(

@@ -57,6 +57,10 @@ class WorkOrder extends BaseModel {
             return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderAssignment', 'work_order_id', 'id');
         }
         
+        public function attachments(){
+		return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'work_order_attachments', 'work_order_id', 'attachment_id')->withTimestamps();
+	}
+        
         public function parts(){
             return $this->belongsToMany('Stevebauman\Maintenance\Models\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');
         }
@@ -208,10 +212,47 @@ class WorkOrder extends BaseModel {
          * @return string
          */
         public function getStatusLabelAttribute(){
-            return sprintf(
+            if(array_key_exists('status', $this->attributes)){
+                return sprintf(
                     '<span class="label label-%s">%s</span>', 
                     Config::get('maintenance::status.colors.'.$this->attributes['status']),
                     trans('maintenance::statuses.'.$this->attributes['status'])
                 );
+            }
+        }
+        
+        /**
+         * Returns a pretty label of the work order priority
+         * 
+         * @return string
+         */
+        public function getPriorityLabelAttribute(){
+            if(array_key_exists('priority', $this->attributes)){
+                return sprintf(
+                    '<span class="label label-%s">%s</span>' , 
+                    Config::get('maintenance::priority.colors.'.$this->attributes['priority']),
+                    trans('maintenance::priorities.'.$this->attributes['priority'])
+                );
+            }
+            
+        }
+        
+        /**
+         * Set the default work order category id to null if the given value is empty
+         * 
+         * @param type $value
+         */
+        public function setWorkOrderCategoryIdAttribute($value){
+            $this->attributes['work_order_category_id'] = $value ? $value : NULL;
+        }
+        
+        
+        /**
+         * Set the default location id to null if the given value is empty
+         * 
+         * @param type $value
+         */
+        public function setLocationIdAttribute($value){
+            $this->attributes['location_id'] = $value ? $value : NULL;
         }
 }

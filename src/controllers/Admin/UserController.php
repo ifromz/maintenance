@@ -36,7 +36,12 @@ class UserController extends AbstractController {
     
     public function show($id)
     {
+        $user = $this->user->find($id);
         
+        return $this->view('maintenance::admin.users.show', array(
+            'title'=>'Viewing User',
+            'user'=>$user
+        ));
     }
     
     public function edit($id)

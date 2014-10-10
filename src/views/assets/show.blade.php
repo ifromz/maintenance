@@ -4,6 +4,18 @@
 	<h1>{{ $title }}</h1>
 @stop
 
+@section('breadcrumb')
+<li>
+    <a href="{{ route('maintenance.assets.index') }}">
+        <i class="fa fa-truck"></i> 
+        Assets
+    </a>
+</li>
+<li class="active">
+    {{ $asset->name }}
+</li>
+@stop
+
 @section('content')
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">

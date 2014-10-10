@@ -4,11 +4,34 @@
 	<h1>{{ $title }}</h1>
 @stop
 
+@section('breadcrumb')
+<li>
+    <a href="{{ route('maintenance.work-orders.index') }}">
+        <i class="fa fa-book"></i> 
+        Work Orders
+    </a>
+</li>
+<li>
+    <a href="{{ route('maintenance.work-orders.show', array($workOrder->id)) }}"> 
+        {{ $workOrder->subject }}
+    </a>
+</li>
+<li>
+    <a href="{{ route('maintenance.work-orders.parts.index', array($workOrder->id)) }}"> 
+    <i class="fa fa-wrench"></i> 
+    Parts
+    </a>
+</li>
+<li class="active">
+        {{ $item->name }}
+</li>
+@stop
+
 @section('content')
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Enter Quantity Used for each Stock Location</h3>
+        <h3 class="panel-title">Choose a Stock Location for Item: {{ $item->name }}</h3>
     </div>
     
     <div class="panel-body">

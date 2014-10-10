@@ -11,5 +11,14 @@ return array(
         '0' => trans('maintenance::priorities.0'),
     ),
     
+    'colors' => array(
+        '5' => 'danger',
+        '4' => 'danger',
+        '3' => 'warning',
+        '2' => 'success',
+        '1' => 'success',
+        '0' => 'info',
+    ),
+    
 );
 

@@ -5,7 +5,23 @@
 @stop
 
 @section('breadcrumb')
-
+<li>
+    <a href="{{ route('maintenance.inventory.index') }}">
+        <i class="fa fa-dropbox"></i> 
+        Inventory
+    </a>
+</li>
+<li>
+    <a href="{{ route('maintenance.inventory.show', array($item->id)) }}"> 
+        {{ $item->name }}
+    </a>
+</li>
+<li>
+    {{ renderNode($stock->location) }}
+</li>
+<li>
+    Movements
+</li>
 @stop
 
 @section('content')

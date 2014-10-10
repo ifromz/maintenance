@@ -45,28 +45,22 @@ class WorkOrderUpdateController extends AbstractController {
             
             if($validator->passes()){
 		
-                if($workOrder = $this->workOrder->find($workOrder_id)){
+                $workOrder = $this->workOrder->find($workOrder_id);
 			
-                        $update = $this->update->setInput($this->inputAll())->create();
+                $update = $this->update->setInput($this->inputAll())->create();
 
-                        $workOrder->customerUpdates()->save($update);
-                        
-                        return Response::json(array(
-                                'updateCreated' => true,
-                                'message' => 'Successfully added update',
-                                'messageType' => 'success',
-                                'html' => $this->view('maintenance::partials.update', array(
-                                    'update' => $update,
-                                    'workOrder' => $workOrder
-                                ))
-                        ));
-                } else{
-                        return Response::json(array(
-                                'updateCreated' => false,
-                                'errors' => $validator->getJsonErrors(),
-                        ));
-                }
+                $workOrder->customerUpdates()->save($update);
+
+                $this->message = 'Successfully added update';
+                $this->messageType = 'success';
+                $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+                
+            } else{
+                $this->errors = $validator->getErrors();
+                $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
             }
+            
+            return $this->response();
 	}
 
 

@@ -15,9 +15,14 @@ class CreateAttachmentTables extends Migration {
 		Schema::create('attachments', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
+                        $table->integer('user_id')->unsigned();
 			$table->string('name')->nullable();
 			$table->string('file_name');
 			$table->text('file_path');
+                        
+                        $table->foreign('user_id')->references('id')->on('users')
+						->onUpdate('restrict')
+						->onDelete('cascade');
 		});
 	}
 

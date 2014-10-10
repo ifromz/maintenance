@@ -59,7 +59,7 @@ class AssetImageController extends AbstractController {
             $data['asset_id'] = $asset->id;
             
             if($this->assetImage->setInput($data)->create()){
-                 $this->redirect = route('maintenance.assets.images.index', array($asset->id));
+                $this->redirect = route('maintenance.assets.images.index', array($asset->id));
                 $this->message = 'Successfully added images';
                 $this->messageType = 'success';
             } else{

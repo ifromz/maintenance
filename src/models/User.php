@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Models\BaseModel;
+use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 
-class User extends BaseModel {
+class User extends SentryUser {
 	
 	protected $table = 'users';
 	
@@ -10,7 +10,10 @@ class User extends BaseModel {
             return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
         }
         
+        /*
         public function getId(){
             return $this->id;
         }
+         * 
+         */
 }

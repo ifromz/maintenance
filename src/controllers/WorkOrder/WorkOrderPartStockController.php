@@ -37,7 +37,7 @@ class WorkOrderPartStockController extends AbstractController {
         $item = $this->inventory->find($inventory_id);
         
         return $this->view('maintenance::work-orders.parts.stocks.index', array(
-            'title' => 'Choose Quantities',
+            'title' => 'Choose a Stock Location',
             'workOrder' => $workOrder,
             'item' => $item
         ));
@@ -136,18 +136,30 @@ class WorkOrderPartStockController extends AbstractController {
         $item = $this->inventory->find($inventory_id);
         $stock = $this->inventoryStock->find($stock_id);
         
+        /*
+         * Find the specific work order part record from the stock id
+         */
         $record = $workOrder->parts->find($stock->id);
         
+        /*
+         * Set the reason and quantity of why the putting back is taking place
+         */
         $data = array(
             'reason' => sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', array($workOrder->id))),
             'quantity' => $record->pivot->quantity
         );
         
+        /*
+         * Update the inventory stock record
+         */
         $this->inventoryStock->setInput($data)->put($stock->id);
         
+        /*
+         * Remove the part from the work order
+         */
         $workOrder->parts()->detach($stock->id);
         
-        $this->message = 'Successfully removed '.$item->name;
+        $this->message = sprintf('Successfully put back %s into the inventory', $item->name);
         $this->messageType = 'success';
         $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
         

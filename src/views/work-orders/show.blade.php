@@ -4,6 +4,18 @@
 	<h1>{{ $title }}</h1>
 @stop
 
+@section('breadcrumb')
+<li>
+    <a href="{{ route('maintenance.work-orders.index') }}">
+        <i class="fa fa-book"></i> 
+        Work Orders
+    </a>
+</li>
+<li class="active">
+        {{ $workOrder->subject }}
+</li>
+@stop
+
 @section('content')
 
     <div class="nav-tabs-custom">
@@ -12,7 +24,7 @@
             <li class=""><a href="#tab_2" data-toggle="tab">Details</a></li>
             <li class=""><a href="#tab_3" data-toggle="tab">Parts / Supplies</a></li>
             <li class=""><a href="#tab_4" data-toggle="tab">History</a></li>
-            <li class=""><a href="#tab_5" data-toggle="tab">Photos</a></li>
+            <li class=""><a href="#tab_5" data-toggle="tab">Attachments</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tab_1">
@@ -25,16 +37,16 @@
                 @include('maintenance::work-orders.tabs.parts', array('workOrder'=>$workOrder))
             </div>
             <div class="tab-pane" id="tab_4">
-                @include('maintenance::work-orders.tabs.sessions', array($workOrder))
+                @include('maintenance::work-orders.tabs.sessions', array('workOrder'=>$workOrder))
             </div>
             <div class="tab-pane" id="tab_5">
-
+                @include('maintenance::work-orders.tabs.attachments', array('workOrder'=>$workOrder))
             </div>
         </div><!-- /.tab-content -->
     </div>
     
     <div class="clearfix"></div>
     
-    @include('maintenance::partials.update-box', array('workOrder'=>$workOrder))
+    @include('maintenance::work-orders.partials.update-box', array('workOrder'=>$workOrder))
 
 @stop

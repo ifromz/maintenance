@@ -79,14 +79,14 @@
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
 
-                    <li class="treeview">
-                        <a href="#">
+                    <li>
+                        <a href="{{ route('maintenance.admin.users.index') }}">
                             <i class="fa fa-user"></i> Users
                         </a>
                     </li>
                     
-                    <li class="treeview">
-                        <a href="#">
+                    <li>
+                        <a href="{{ route('maintenance.admin.groups.index') }}">
                             <i class="fa fa-users"></i> Groups
                         </a>
                     </li>
@@ -112,9 +112,14 @@
             </section>
 
             <!-- Main content -->
-            <section class="content">
-                @include('maintenance::partials.alert')
-                @yield('content')
+             <section class="content">
+                <div id="alerts">
+                    @include('maintenance::layouts.main.alert')
+                </div>
+                
+                <div id="content">
+                    @yield('content')
+                </div>
             </section>
         </aside><!-- /.right-side -->
     </div><!-- ./wrapper -->

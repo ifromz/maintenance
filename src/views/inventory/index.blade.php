@@ -5,7 +5,12 @@
 @stop
 
 @section('breadcrumb')
-
+<li>
+    <a href="{{ route('maintenance.inventory.index') }}">
+        <i class="fa fa-dropbox"></i> 
+        Inventory
+    </a>
+</li>
 @stop
 
 @section('content')

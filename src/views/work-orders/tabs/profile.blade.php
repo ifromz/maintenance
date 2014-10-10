@@ -28,9 +28,7 @@
 </a>
 
 @if(!$workOrder->report)
-<a href=""
-   data-target="#complete-work-order-modal"
-   data-toggle="modal"
+<a href="{{ route('maintenance.work-orders.report.create', array($workOrder->id)) }}"
    class="btn btn-app">
     <i class="fa fa-check-circle-o"></i> Complete
 </a>
@@ -43,7 +41,7 @@
 <a href="{{ route('maintenance.work-orders.destroy', array($workOrder->id)) }}" 
    data-method="delete"
    data-title="Delete work order?"
-   data-message="Are you sure you want to delete this work order? This will also remove all updates, parts used, photos, history and assignments." 
+   data-message="Are you sure you want to delete this work order? This will also remove all updates, parts used, attachments, history and assignments." 
    class="btn btn-app">
     <i class="fa fa-trash-o"></i> Delete
 </a>
@@ -65,7 +63,14 @@
     <dd>{{ $workOrder->status_label }}</dd>
 
     <p></p>
+    
+    @if($workOrder->priority)
+    <dt>Priority:</dt>
+    <dd>{{ $workOrder->priority_label }}</dd>
 
+    <p></p>
+    @endif
+    
     <dt>Created By:</dt>
     <dd>{{ $workOrder->user->full_name }}</dd>
 

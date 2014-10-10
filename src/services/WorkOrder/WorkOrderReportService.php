@@ -18,7 +18,7 @@ class WorkOrderReportService extends AbstractModelService {
         $insert = array(
             'user_id' => $this->sentry->getCurrentUserId(),
             'work_order_id' => $this->getInput('work_order_id'),
-            'description' => $this->input('description', NULL, true),
+            'description' => $this->getInput('description', NULL, true),
         );
         
         if($record = $this->model->create($insert)){

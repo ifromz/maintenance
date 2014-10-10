@@ -5,30 +5,45 @@
 @stop
 
 @section('breadcrumb')
+<li>
+    <a href="{{ route('maintenance.work-orders.index') }}">
+        <i class="fa fa-book"></i> 
+        Work Orders
+    </a>
+</li>
+<li>
+    <a href="{{ route('maintenance.work-orders.show', array($workOrder->id)) }}"> 
+        {{ $workOrder->subject }}
+    </a>
+</li>
 <li class="active">
-    <i class="fa fa-book"></i> 
-    Work Orders
+    <i class="fa fa-edit"></i>
+    Edit
 </li>
 @stop
 
 @section('content')
 
-    <script src="/packages/stevebauman/maintenance/js/work-orders/edit.js"></script>
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Edit Work Order</h3>
             </div>
             <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.work-orders.update', array($workOrder->id)), 'class'=>'form-horizontal', 'method'=>'PATCH', 'id'=>'maintenance-work-order-edit')) }}
+            {{ Form::open(array(
+                        'url'=>route('maintenance.work-orders.update', array($workOrder->id)), 
+                        'class'=>'form-horizontal ajax-form-post', 
+                        'method'=>'PATCH'
+                    )) 
+            }}
             	<legend class="margin-top-10">Work Order Information</legend>
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Category</label>
                     <div class="col-md-4">
                       	@include('maintenance::select.work-order-category', array(
-                                'category_name'=>$workOrder->category->name,
-                                'category_id'=>$workOrder->category->id
+                                'category_name'=>($workOrder->category ? $workOrder->category->name : NULL),
+                                'category_id'=>($workOrder->category ? $workOrder->category->id : NULL)
                             ))
                     </div>
                 </div>

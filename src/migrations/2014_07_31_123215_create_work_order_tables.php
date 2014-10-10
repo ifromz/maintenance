@@ -105,22 +105,17 @@ class CreateWorkOrderTables extends Migration {
 						->onDelete('cascade');
                 });
                 
-		Schema::create('work_order_attachment', function(Blueprint $table) {
+		Schema::create('work_order_attachments', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
 			$table->integer('work_order_id')->unsigned();
 			$table->integer('attachment_id')->unsigned();
-			$table->integer('user_id')->unsigned();
 			
 			$table->foreign('work_order_id')->references('id')->on('work_orders')
 						->onUpdate('restrict')
 						->onDelete('cascade');
 			
 			$table->foreign('attachment_id')->references('id')->on('attachments')
-						->onUpdate('restrict')
-						->onDelete('cascade');
-			
-			$table->foreign('user_id')->references('id')->on('users')
 						->onUpdate('restrict')
 						->onDelete('cascade');
 		});
@@ -187,7 +182,7 @@ class CreateWorkOrderTables extends Migration {
                 Schema::drop('work_order_assignments');
                 Schema::drop('work_order_parts');
 		Schema::drop('work_order_assets');
-		Schema::drop('work_order_attachment');
+		Schema::drop('work_order_attachments');
                 Schema::drop('work_order_sessions');
                 Schema::drop('work_order_customer_updates');
                 Schema::drop('work_order_technician_updates');

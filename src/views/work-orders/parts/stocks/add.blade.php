@@ -4,6 +4,34 @@
 	<h1>{{ $title }}</h1>
 @stop
 
+@section('breadcrumb')
+<li>
+    <a href="{{ route('maintenance.work-orders.index') }}">
+        <i class="fa fa-book"></i> 
+        Work Orders
+    </a>
+</li>
+<li>
+    <a href="{{ route('maintenance.work-orders.show', array($workOrder->id)) }}"> 
+        {{ $workOrder->subject }}
+    </a>
+</li>
+<li>
+    <a href="{{ route('maintenance.work-orders.parts.index', array($workOrder->id)) }}"> 
+    <i class="fa fa-wrench"></i> 
+    Parts
+    </a>
+</li>
+<li>
+    <a href="{{ route('maintenance.work-orders.parts.stocks.index', array($workOrder->id, $item->id)) }}"> 
+        {{ $item->name }}
+    </a>
+</li>
+<li class="active">
+    Enter Quantity
+</li>
+@stop
+
 @section('content')
 
 <div class="col-md-12">
