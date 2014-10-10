@@ -48,7 +48,7 @@ class WorkOrderController extends AbstractController {
 	 */
 	public function store(){
             $validator = new $this->workOrderValidator;
-		
+            
             if($validator->passes()){
                 $workOrder = $this->workOrder->setInput($this->inputAll())->create();
 

@@ -28,7 +28,7 @@ class WorkOrderService extends AbstractModelService {
                         ->status($this->getInput('status'))
                         ->category($this->getInput('work_order_category_id'))
                         ->assets($this->getInput('assets'))
-                        ->orderBy('created_at', 'DESC')
+                        ->sort($this->getInput('field'), $this->getInput('sort'))
 			->paginate(25);
 	}
 	

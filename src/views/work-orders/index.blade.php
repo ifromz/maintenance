@@ -33,14 +33,14 @@
                 <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Status</th>
-                            <th>Priority</th>
-                            <th>Subject</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Created By</th>
-                            <th>Created At</th>
+                            <th>{{ link_to_sort('maintenance.work-orders.index', 'ID', array('field'=>'id', 'sort'=>'asc'), 'fa-sort-numeric') }}</th>
+                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Status', array('field'=>'status', 'sort'=>'asc'), 'fa-sort-alpha') }}</th>
+                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Priority', array('field'=>'priority', 'sort'=>'asc'), 'fa-sort-numeric') }}</th>
+                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Subject', array('field'=>'subject', 'sort'=>'asc'), 'fa-sort-alpha') }}</th>
+                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Description', array('field'=>'description', 'sort'=>'asc'), 'fa-sort-alpha') }}</th>
+                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Category', array('field'=>'category_id', 'sort'=>'asc'), 'fa-sort-alpha') }}</th>
+                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Created By', array('field'=>'user', 'sort'=>'asc'), 'fa-sort-alpha') }}</th>
+                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Created At', array('field'=>'created_at', 'sort'=>'asc'), 'fa-sort-alpha') }}</th>
                             <th>Action</th>
                         </tr>
                     </thead>
