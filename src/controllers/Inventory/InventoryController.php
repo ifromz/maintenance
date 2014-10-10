@@ -14,7 +14,7 @@ class InventoryController extends AbstractController {
         }
     
 	/**
-	 * Display a listing of the resource.
+	 * Display all inventory entries (paginated with search functionality)
 	 *
 	 * @return Response
 	 */
@@ -30,7 +30,7 @@ class InventoryController extends AbstractController {
 
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for creating an inventory
 	 *
 	 * @return Response
 	 */
@@ -42,7 +42,7 @@ class InventoryController extends AbstractController {
 
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a new inventory
 	 *
 	 * @return Response
 	 */
@@ -70,7 +70,7 @@ class InventoryController extends AbstractController {
 
 
 	/**
-	 * Display the specified resource.
+	 * Display the specified inventory
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -86,7 +86,7 @@ class InventoryController extends AbstractController {
 
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Displays the edit form for the specified inventory
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -102,7 +102,7 @@ class InventoryController extends AbstractController {
 
 
 	/**
-	 * Update the specified resource in storage.
+	 * Updates the specified inventory
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -132,7 +132,7 @@ class InventoryController extends AbstractController {
 
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Removes the specified inventory
 	 *
 	 * @param  int  $id
 	 * @return Response

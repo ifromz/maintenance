@@ -15,6 +15,12 @@ class InventoryStockController extends AbstractController {
             $this->inventoryStockValidator = $inventoryStockValidator;
         }
         
+        /**
+         * Displays all inventory stock entries
+         * 
+         * @param type $inventory_id
+         * @return type
+         */
         public function index($inventory_id){
             $item = $this->inventory->find($inventory_id);
 
@@ -25,7 +31,7 @@ class InventoryStockController extends AbstractController {
         }
         
 	/**
-	 * Show the form for creating a new resource.
+	 * Displays the form for creating a new stock entry for the inventory
 	 *
 	 * @return Response
 	 */
@@ -41,7 +47,7 @@ class InventoryStockController extends AbstractController {
 
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Create a new stock entry for the inventory
 	 *
 	 * @return Response
 	 */
@@ -77,7 +83,7 @@ class InventoryStockController extends AbstractController {
 
 
 	/**
-	 * Display the specified resource.
+	 * Displays the specified stock entry for the specified inventory
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -98,7 +104,7 @@ class InventoryStockController extends AbstractController {
 
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Displays the edit form for the specified stock for the specified inventory
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -118,7 +124,7 @@ class InventoryStockController extends AbstractController {
 
 
 	/**
-	 * Update the specified resource in storage.
+	 * Updates the specified stock for the specified inventory
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -149,7 +155,7 @@ class InventoryStockController extends AbstractController {
 
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Removes the specified stock from the specified inventory
 	 *
 	 * @param  int  $id
 	 * @return Response

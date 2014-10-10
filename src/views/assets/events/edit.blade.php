@@ -4,6 +4,30 @@
 	<h1>{{ $title }}</h1>
 @stop
 
+@section('breadcrumb')
+<li>
+    <a href="{{ route('maintenance.assets.index') }}">
+        <i class="fa fa-truck"></i> 
+        Assets
+    </a>
+</li>
+<li>
+    <a href="{{ route('maintenance.assets.show', array($asset->id)) }}">
+        {{ $asset->name }}
+    </a>
+</li>
+<li>
+    <a href="{{ route('maintenance.assets.events.index', array($asset->id)) }}">
+        <i class="fa fa-calendar"></i>
+        Events
+    </a>
+</li>
+<li class="active">
+    <i class="fa fa-edit"></i>
+    Edit
+</li>
+@stop
+
 @section('content')
 	
     {{ HTML::script('packages/stevebauman/maintenance/js/assets/edit.js') }}

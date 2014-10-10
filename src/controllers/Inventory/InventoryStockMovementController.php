@@ -15,6 +15,14 @@ class InventoryStockMovementController extends AbstractController {
             $this->inventoryStockMovement = $inventoryStockMovement;
         }
         
+        /**
+         * Dispalys all the stock movement entries for the specified stock for the 
+         * specified inventory
+         * 
+         * @param type $inventory_id
+         * @param type $stock_id
+         * @return type
+         */
         public function index($inventory_id, $stock_id){
             
             $item = $this->inventory->find($inventory_id);
