@@ -4,7 +4,7 @@ Maintenance
 A Preventative Maintenance Application (CMMS) for Laravel
 
 ###Features
-* Infinite Category Management with Laravel [Baum](https://github.com/etrepat/baum)
+* Infinite Category Management with Laravel [Baum](https://github.com/etrepat/baum) & [JsTree](https://github.com/vakata/jstree)
 * Dynamic Ajax Uploads for Attachments & Images with [Plupload](https://github.com/jildertmiedema/laravel-plupload)
 * LDAP Authentication Combined with [Sentry](https://github.com/cartalyst/sentry)
 * Work Order / Inventory / Asset Management (with Maintenance Scheduling)
