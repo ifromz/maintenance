@@ -50,7 +50,8 @@
          * @param type $icon
          * @return type
          */
-        function link_to_sort($name, $title, $parameters, $icon){
+        function link_to_sort($name, $title, $parameters){
+            $field = Input::get('field');
             $sort = Input::get('sort');
             
             if($sort == 'desc'){
@@ -59,7 +60,11 @@
                 $parameters['sort'] = 'desc';
             }
             
-            $icon = sprintf('fa %s-%s', $icon, $parameters['sort']);
+            if($field == $parameters['field']){
+                $icon = sprintf('fa %s-%s', 'fa-sort', $parameters['sort']);
+            } else{
+                $icon = sprintf('fa %s', 'fa-sort');
+            }
             
             return sprintf('<a href="%s">%s <i class="%s"></i></a>', route($name, $parameters), $title, $icon);
         }

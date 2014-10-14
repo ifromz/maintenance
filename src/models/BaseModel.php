@@ -73,12 +73,13 @@ class BaseModel extends Eloquent {
                     return $query->orderBy($field, $sort);
                 }
             }
-        } else{
-            /*
-             * Default order by created at field
-             */
-            return $query->orderBy('created_at', 'desc');
         }
+        
+        /*
+         * Default order by created at field
+         */
+        return $query->orderBy('created_at', 'desc');
+        
     }
     
     /**

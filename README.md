@@ -10,6 +10,16 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Work Order / Inventory / Asset Management (with Maintenance Scheduling using [FullCalendar](https://github.com/arshaw/fullcalendar))
 * And More...
 
+###TO DO
+* Robust notifications
+* Finish asset events with event reporting / other additions
+* Asset manual attachments
+* Customizable user dashboard
+* User profile with assigned work orders view
+* User registration with public work order creation
+* Better category management
+* Tests
+
 ###Screenshots
 
 ####Work Order Index

@@ -16,7 +16,7 @@
 @section('content')
 
         @include('maintenance::inventory.modals.search', array(
-            'url' => route('maintenance.inventory.index')
+            'url' => route('maintenance.inventory.index', Input::only('field', 'sort'))
         ))
 
 	<div class="panel panel-default">
@@ -38,12 +38,12 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Current Stock</th>
-                            <th>Description</th>
-                            <th>Added</th>
+                            <th>{{ link_to_sort('maintenance.inventory.index', 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort('maintenance.inventory.index', 'Name', array('field'=>'name', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort('maintenance.inventory.index', 'Category', array('field'=>'category_id', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort('maintenance.inventory.index', 'Current Stock', array('field'=>'stocks.quantity', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort('maintenance.inventory.index', 'Description', array('field'=>'description', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort('maintenance.inventory.index', 'Added', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -53,7 +53,7 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ renderNode($item->category) }}</td>
-                            <td>{{ $item->currentStock }}</td>
+                            <td>{{ $item->current_stock }}</td>
                             <td>{{ $item->description_short }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>

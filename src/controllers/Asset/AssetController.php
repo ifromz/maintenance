@@ -21,7 +21,7 @@ class AssetController extends AbstractController {
 	 * @return View
 	 */
 	public function index(){
-		$assets = $this->asset->getByPage();
+		$assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter();
 		
 		return $this->view('maintenance::assets.index', array(
                     'title' => 'All Assets', 

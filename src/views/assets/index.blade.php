@@ -30,12 +30,12 @@
         	<table class="table table-striped">
             	<thead>
                     <tr>
-                        <th>ID</th>
-                    	<th>Name</th>
-                        <th>Location</th>
-                        <th class="hidden-xs">Category</th>
-                        <th>Condition</th>
-                        <th class="hidden-xs">Created At</th>
+                        <th>{{ link_to_sort('maintenance.assets.index', 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
+                    	<th>{{ link_to_sort('maintenance.assets.index', 'Name', array('field'=>'name', 'sort'=>'asc')) }}</th>
+                        <th>{{ link_to_sort('maintenance.assets.index', 'Location', array('field'=>'location_id', 'sort'=>'asc')) }}</th>
+                        <th class="hidden-xs">{{ link_to_sort('maintenance.assets.index', 'Category', array('field'=>'category_id', 'sort'=>'asc')) }}</th>
+                        <th>{{ link_to_sort('maintenance.assets.index', 'Condition', array('field'=>'condition', 'sort'=>'asc')) }}</th>
+                        <th class="hidden-xs">{{ link_to_sort('maintenance.assets.index', 'Created At', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
                         <th>Action</th>
                     </tr>
                 </thead>

@@ -26,8 +26,9 @@ class AssetService extends AbstractModelService {
          * 
          * @return type Collection
          */
-	public function getByPage(){
+	public function getByPageWithFilter(){
 		return $this->model
+                        ->sort($this->getInput('field'), $this->getInput('sort'))
 			->paginate(25);
 	}
         

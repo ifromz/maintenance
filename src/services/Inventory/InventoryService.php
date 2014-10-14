@@ -42,7 +42,7 @@ class InventoryService extends AbstractModelService {
                             $this->getInput('operator'),
                             $this->getInput('quantity')
                     )
-                    ->orderBy('created_at', 'DESC')
+                    ->sort($this->getInput('field'), $this->getInput('sort'))
                     ->paginate(25);
     }
     
