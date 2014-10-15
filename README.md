@@ -17,8 +17,9 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Customizable user dashboard
 * User profile with assigned work orders view
 * User registration with public work order creation
-* Better category management
+* <del>Better category management</del> - Oct 15th 2014
 * Better breadcrumb management
+* Clean up routes
 * Tests
 
 ###Screenshots

@@ -10,9 +10,7 @@ class CategoryController extends AbstractNestedSetController {
 		$this->service = $category;
 		$this->serviceValidator = $categoryValidator;
 		
-		$this->indexTitle = 'All Categories';
-		$this->createTitle = 'Create a Category';
-		$this->editTitle = 'Edit Category';
+                $this->resource = 'Inventory / Asset Category';
 	}
 	
 }

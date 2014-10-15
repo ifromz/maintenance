@@ -22,6 +22,10 @@
                     <i class="fa fa-plus"></i>
                     New Asset
                 </a>
+                <a href="" class="btn btn-primary">
+                    <i class="fa fa-search"></i>
+                    Search
+                </a>
             </div>
         </div>
         

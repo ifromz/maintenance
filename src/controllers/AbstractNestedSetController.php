@@ -2,11 +2,8 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Input;
 use Stevebauman\Maintenance\Controllers\AbstractController;
 
 abstract class AbstractNestedSetController extends AbstractController {
@@ -15,11 +12,11 @@ abstract class AbstractNestedSetController extends AbstractController {
 	
 	protected $serviceValidator;
 	
-	public $indexTitle;
-	
-	public $createTitle;
-	
-	public $editTitle;
+        /*
+         * Holds the title of the nested set resource.
+         * Ex. Categories or Locations
+         */
+        public $resource;
 	
 	/**
 	 * Display a listing of the resource.
@@ -29,8 +26,11 @@ abstract class AbstractNestedSetController extends AbstractController {
 	public function index(){
 		$categories = $this->service->get();
 
-		$this->layout = View::make('maintenance::categories.index', compact('categories'));
-		$this->layout->title = $this->indexTitle;
+		return $this->view('maintenance::categories.index', array(
+                    'title' => sprintf('All %s', str_plural($this->resource)),
+                    'categories' => $categories,
+                    'resource' => $this->resource
+                ));
 	}
 
 
@@ -41,13 +41,18 @@ abstract class AbstractNestedSetController extends AbstractController {
 	 */
 	public function create($id = NULL){
 		if($id){
-			if($category = $this->service->find($id)){
-				$this->layout = View::make('maintenance::categories.nodes.create', compact('category'));
-				$this->layout->title = sprintf('%s under %s', $this->createTitle, $category->name);
-			}
+                    if($category = $this->service->find($id)){
+                        return $this->view('maintenance::categories.nodes.create', array(
+                            'title' => sprintf('Create a %s under %s', $this->resource, $category->name),
+                            'category' => $category,
+                            'resource' => $this->resource
+                        ));
+                    }
 		} else{
-			$this->layout = View::make('maintenance::categories.create');
-			$this->layout->title = $this->createTitle;
+                    return $this->view('maintenance::categories.create', array(
+                        'title' => sprintf('Create a %s', $this->resource),
+                        'resource' => $this->resource
+                    ));
 		}
 	}
 
@@ -62,26 +67,21 @@ abstract class AbstractNestedSetController extends AbstractController {
 		
 		if($validator->passes()){
 			
-			$category = $this->service->setInput($this->inputAll())->create();
-			
-			if($id){
-				if($parent = $this->service->find($id)){
-					$category->makeChildOf($parent);
-				}
-			}
-			
-			return Response::json(array(
-				'categoryCreated' => true,
-				'message' => trans('maintenance::messages/category.create.success'),
-				'messageType' => 'success',
-			));
+                    $category = $this->service->setInput($this->inputAll())->create();
+
+                    if($id){
+                        $parent = $this->service->find($id);
+                        $category->makeChildOf($parent);
+                    }
+
+                    $this->message = sprintf('Successfully created %s', $this->resource);
+                    $this->messageType = 'success';
 			
 		} else{
-			return Response::json(array(
-				'categoryCreated' => false,
-				'errors' => $validator->getErrors(),
-			));
+                    $this->errors = $validator->getErrors();
 		}
+                
+                return $this->response();
 	}
 
 
@@ -103,10 +103,13 @@ abstract class AbstractNestedSetController extends AbstractController {
 	 * @return Response
 	 */
 	public function edit($id){
-		if($category = $this->service->find($id)){
-			$this->layout = View::make('maintenance::categories.edit', compact('category'));
-			$this->layout->title = $this->editTitle;
-		}
+            $category = $this->service->find($id);
+            
+            return $this->view('maintenance::categories.edit', array(
+                'title' => sprintf('Edit %s', $this->resource),
+                'category' => $category,
+                'resource' => $this->resource
+            ));
 	}
 
 
@@ -122,21 +125,15 @@ abstract class AbstractNestedSetController extends AbstractController {
             if($validator->passes()){
 
                     $this->service->setInput($this->inputAll())->update($id);
-
-                    return Response::json(array(
-                            'categoryEdited' => true,
-                            'message' => Lang::get('maintenance::messages/category.edit.success'),
-                            'messageType' => 'success'
-                    ));
+                    
+                    $this->message = sprintf('Successfully edited %s. %s', $this->resource, link_to_action(currentControllerAction('index'), 'View All'));
+                    $this->messageType = 'success';
 
             } else{
-                    if(Request::ajax()){
-                            return Response::json(array(
-                                    'categoryEdited' => false,
-                                    'errors' => $validator->getJsonErrors(),
-                            ));
-                    }
+                $this->errors = $validator->getErrors();
             }
+            
+            return $this->response();
 	}
 
 	/**
@@ -148,39 +145,33 @@ abstract class AbstractNestedSetController extends AbstractController {
 	public function destroy($id){
 		$this->service->destroy($id);
 		
-		if(Request::ajax()){
-			return Response::json(array(
-				'categoryDeleted' => true,
-				'message' => 'Successfully deleted category',
-				'messageType' => 'success'
-			));
-		} else{
-			return Redirect::action(currentControllerAction('index'))
-				->with('message', 'Successfully deleted work order category')
-				->with('messageType', 'success');
-		}
+                $this->message = sprintf('Successfully deleted %s', $this->resource);
+                $this->messageType = 'success';
+                $this->redirect = action(currentControllerAction('index'));
+
+                return $this->response();
 	}
 	
 	public function postMoveCategory($id){
-		if($category = $this->service->find($id)){
-			$parent = Input::get('parent_id');
-			
-			if($parent == '#'){
-				$category->makeRoot();
-				
-				return Response::json(array(
-					'categoryMoved' => true,
-				));
-			} else{
-				if($parent_category = $this->service->find($parent)){
-					$category->makeChildOf($parent_category);
-					
-					return Response::json(array(
-						'categoryMoved' => true,
-					));
-				}
-			}
-		}
+            if($category = $this->service->find($id)){
+                $parent = $this->input('parent_id');
+
+                if($parent == '#'){
+                    $category->makeRoot();
+
+                    return Response::json(array(
+                            'categoryMoved' => true,
+                    ));
+                } else{
+                    if($parent_category = $this->service->find($parent)){
+                            $category->makeChildOf($parent_category);
+
+                            return Response::json(array(
+                                    'categoryMoved' => true,
+                            ));
+                    }
+                }
+            }
 	}
 	
 	/**
@@ -189,26 +180,33 @@ abstract class AbstractNestedSetController extends AbstractController {
 	 * @return Response
 	 */
 	public function getJson(){
-		if(Request::ajax()){
-			$categories = $this->service->orderBy('name', 'ASC')->get();
-			
-			if($categories->count() > 0){
-				$json_categories = array();
-				foreach($categories as $category){
-					$json_categories[] = array(
-						'id'=>(string)$category->id,
-						'parent'=>($category->parent_id ? (string)$category->parent_id : '#'),
-						'text'=>(string)$category->name,
-						 "class" => "jstree-drop",
-						 'data-jstree'=> array(
-							'icon'=>$category->icon,
-						),
-					);
-				} return Response::json($json_categories);
-			} else{
-				return NULL;
-			}
-		}
+            if(Request::ajax()){
+                $categories = $this->service->orderBy('name', 'ASC')->get();
+
+                if($categories->count() > 0){
+                    
+                    $json_categories = array();
+                    
+                    foreach($categories as $category){
+                        
+                        $json_categories[] = array(
+                            'id'=>(string)$category->id,
+                            'parent'=>($category->parent_id ? (string)$category->parent_id : '#'),
+                            'text'=>(string)$category->name,
+                            "class" => "jstree-drop",
+                            'data-jstree'=> array(
+                                'icon'=>$category->icon,
+                            ),
+                        );
+                        
+                    } 
+                    
+                    return Response::json($json_categories);
+                    
+                } else{
+                    return NULL;
+                }
+            }
 	}
 	
 	

@@ -29,9 +29,9 @@
     {{ HTML::style('packages/stevebauman/maintenance/jsTree/dist/themes/default/style.min.css') }}
 
     <!-- Pickadate Styles -->
-    {{ HTML::style('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/themes/classic.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/themes/classic.date.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/themes/classic.time.css') }}
+    {{ HTML::style('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/themes/default.css') }}
+    {{ HTML::style('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/themes/default.date.css') }}
+    {{ HTML::style('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/themes/default.time.css') }}
 
     <!-- TreeTable -->
     {{ HTML::style('packages/stevebauman/maintenance/ludo-jquery-treetable/css/jquery.treetable.css') }}

@@ -12,9 +12,7 @@ class WorkOrderCategoryController extends AbstractNestedSetController {
 		$this->service = $categoryService;
 		$this->serviceValidator = $categoryValidator;
 		
-		$this->indexTitle = 'All Work Order Categories';
-		$this->createTitle = 'Create a Work Order Category';
-		$this->editTitle = 'Edit Category';
+		$this->resource = 'Work Order Category';
 	}
 
 }

@@ -4,6 +4,14 @@
 	<h1>{{ $title }}</h1>
 @stop
 
+@section('breadcrumb')
+<li class="active">
+    <a href="{{ action(currentControllerAction('index')) }}">
+        {{ str_plural($resource) }}
+    </a>
+</li>
+@stop
+
 @section('content')
 
     <div class="btn-toolbar">
@@ -33,7 +41,12 @@
         <div class="pull-right">
              <a 
                 href="{{ action(currentControllerAction('destroy')) }}" 
-                data-method="delete" data-message="Are you sure you want to delete this category? This can have a large cascade effect."
+                data-method="delete" 
+                data-message="
+                    Are you sure you want to delete this category? This can have a large cascade effect. 
+                    Anything attached to this category will be deleted, as well as categories below the selected category.
+                    You should move or rename the category instead of deleting it if possible.
+                "
                 id="delete-sub-category"
                 data-toggle="tooltip" 
                 title="" 
@@ -69,10 +82,9 @@
 						$('#delete-sub-category').css('display', 'inline-block');
 						
 						for(i = 0, j = data.selected.length; i < j; i++) {
-							$('#edit-category').attr('href', window.location.href.toString()+"/"+data.instance.get_node(data.selected[i]).id+"/edit");
-							$('#create-sub-category').attr('href', window.location.href.toString()+"/create/"+data.instance.get_node(data.selected[i]).id);
-							$('#delete-sub-category').attr('href', window.location.href.toString()+"/"+data.instance.get_node(data.selected[i]).id);
-							
+                                                    $('#edit-category').attr('href', window.location.href.toString()+"/"+data.instance.get_node(data.selected[i]).id+"/edit");
+                                                    $('#create-sub-category').attr('href', window.location.href.toString()+"/create/"+data.instance.get_node(data.selected[i]).id);
+                                                    $('#delete-sub-category').attr('href', window.location.href.toString()+"/"+data.instance.get_node(data.selected[i]).id);
 						}
 					  }).jstree({ 
 						"plugins" : [ "core", "json_data", "themes", "ui", "dnd", "crrm" ],
@@ -81,7 +93,6 @@
 							'check_callback' : true
 						}
 					}).bind("loaded.jstree", function (event, data) {
-						// you get two params - event & data - check the core docs for a detailed description
 						$(this).jstree("open_all");
 					}).bind("move_node.jstree", function(e, data){
 						$.post(

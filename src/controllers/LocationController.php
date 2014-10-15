@@ -10,9 +10,7 @@ class LocationController extends AbstractNestedSetController {
 		$this->service = $location;
 		$this->serviceValidator = $locationValidator;
 		
-		$this->indexTitle = 'All Locations';
-		$this->createTitle = 'Create a Location';
-		$this->editTitle = 'Edit Location';
+		$this->resource = 'Location';
 	}
 	
 }
