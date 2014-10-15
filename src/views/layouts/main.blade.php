@@ -30,7 +30,7 @@
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header bg-light-blue">
-                                <img src="{{asset('packages/stevebauman/maintenance/adminlte/img/user.jpg')}}" class="img-circle" alt="User Image" />
+                                <img src="{{ asset('packages/stevebauman/maintenance/adminlte/img/user.jpg') }}" class="img-circle" alt="User Image" />
                                 <p>
                                     {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}
                                     <small>Member since {{ Sentry::getUser()->created_at->format('M. Y') }}</small>

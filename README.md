@@ -13,11 +13,12 @@ A Preventative Maintenance Application (CMMS) for Laravel
 ###TO DO
 * Robust notifications
 * Finish asset events with event reporting / other additions
-* Asset manual attachments
+* <del>Asset manual attachments</del> - Oct 15th 2014
 * Customizable user dashboard
 * User profile with assigned work orders view
 * User registration with public work order creation
 * Better category management
+* Better breadcrumb management
 * Tests
 
 ###Screenshots

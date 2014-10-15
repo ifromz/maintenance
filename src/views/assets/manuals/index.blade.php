@@ -11,6 +11,14 @@
         Assets
     </a>
 </li>
+<li>
+    <a href="{{ route('maintenance.assets.show', array($asset->id)) }}"> 
+        {{ $asset->name }}
+    </a>
+</li>
+<li class="active">
+    Manuals
+</li>
 @stop
 
 @section('content')

@@ -1,3 +1,9 @@
+<legend>Manuals / Attachments</legend>
+
+<a href="{{ route('maintenance.assets.manuals.create', array($asset->id)) }}" class="btn btn-app">
+    <i class="fa fa-plus-circle"></i> Add Manuals
+</a>
+
 @if($asset->manuals->count() > 0)
 
 <table class="table table-condensed table-striped">

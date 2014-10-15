@@ -14,7 +14,7 @@ class AssetManualUploadController extends AbstractUploadController {
 	public function __construct(){
             parent::__construct();
             
-            $this->responseView = 'maintenance::partials.upload';
+            $this->responseView = 'maintenance::partials.asset-upload';
 	}
 	
 }

@@ -5,13 +5,15 @@ namespace Stevebauman\Maintenance\Controllers;
 use Dmyers\Storage\Storage;
 use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\AttachmentService;
+use Stevebauman\Maintenance\Services\AssetManualService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class AssetManualController extends AbstractController {
         
-        public function __construct(AssetService $asset, AttachmentService $attachment){
+        public function __construct(AssetService $asset, AssetManualService $assetManual, AttachmentService $attachment){
             $this->asset = $asset;
+            $this->assetManual = $assetManual;
             $this->attachment = $attachment;
         }
     
@@ -55,44 +57,18 @@ class AssetManualController extends AbstractController {
             $asset = $this->asset->find($asset_id);
             
             $data = $this->inputAll();
-            
-            //Check if any files have been uploaded
-            if(array_key_exists('files', $data)){
-                //For each file, create the attachment record, and sync asset image pivot table
-                foreach($data['files'] as $file){
-                    $attributes = explode('|', $file);
+            $data['asset_id'] = $asset->id;
 
-                    $fileName = $attributes[0];
-                    $fileOriginalName = $attributes[1];
+            if($this->assetManual->setInput($data)->create()){
+                $this->redirect = route('maintenance.assets.manuals.index', array($asset->id));
+                $this->message = 'Successfully added manual(s)';
+                $this->messageType = 'success';
 
-                    //Ex. files/assets/images/1/example.png
-                    $movedFilePath = Config::get('maintenance::site.paths.assets.manuals').sprintf('%s/', $asset->id);
+            } else{
+                $this->redirect = route('maintenance.assets.manuals.create', array($asset->id));
+                $this->message = 'There was an error adding manuals to the asset, please try again';
+                $this->messageType = 'danger';
 
-                    //Move the file
-                    Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
-
-                    //Data to insert into DB
-                    $data = array(
-                        'name' => $fileOriginalName,
-                        'file_name' => $fileName,
-                        'file_path' => $movedFilePath,
-                    );
-
-                    if($record = $this->attachment->setInput($data)->create()){
-                        $asset->manuals()->attach($record);
-
-                        $this->redirect = route('maintenance.assets.manuals.index', array($asset->id));
-                        $this->message = 'Successfully added manual(s)';
-                        $this->messageType = 'success';
-
-                    } else{
-                        $this->redirect = route('maintenance.assets.manuals.create', array($asset->id));
-                        $this->message = 'There was an error adding manuals to the asset, please try again';
-                        $this->messageType = 'danger';
-
-                    }
-
-                }
             }
 
             return $this->response();
