@@ -22,3 +22,5 @@ View::composer('maintenance::select.assets', 'Stevebauman\Maintenance\Composers\
 View::composer('maintenance::select.status', 'Stevebauman\Maintenance\Composers\StatusSelectComposer');
 
 View::composer('maintenance::select.users', 'Stevebauman\Maintenance\Composers\UserSelectComposer');
+
+View::composer('maintenance::select.routes', 'Stevebauman\Maintenance\Composers\RouteSelectComposer');

@@ -39,6 +39,19 @@ class BaseModel extends Eloquent {
     }
     
     /**
+     * Allows all tables extending from the base model to be scoped by ID
+     * 
+     * @param type $query
+     * @param type $id
+     * @return type
+     */
+    public function scopeId($query, $id = NULL){
+        if($id){
+            return $query->where('id', $id);
+        }
+    }
+    
+    /**
      * Allows all columns on the current database table to be sorted through
      * query scope
      * 

@@ -28,6 +28,10 @@ class AssetService extends AbstractModelService {
          */
 	public function getByPageWithFilter(){
 		return $this->model
+                        ->name($this->getInput('name'))
+                        ->condition($this->getInput('condition'))
+                        ->category($this->getInput('category'))
+                        ->location($this->getInput('location'))
                         ->sort($this->getInput('field'), $this->getInput('sort'))
 			->paginate(25);
 	}

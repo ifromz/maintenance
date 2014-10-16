@@ -14,6 +14,10 @@
 @stop
 
 @section('content')
+    
+    @include('maintenance::assets.modals.search', array(
+        'url' => route('maintenance.assets.index', Input::only('field', 'sort'))
+    ))
 
     <div class="panel panel-default">
     	<div class="panel-heading">
@@ -22,7 +26,7 @@
                     <i class="fa fa-plus"></i>
                     New Asset
                 </a>
-                <a href="" class="btn btn-primary">
+                <a href="" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
                     <i class="fa fa-search"></i>
                     Search
                 </a>

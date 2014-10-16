@@ -36,8 +36,8 @@ class InventoryService extends AbstractModelService {
                     ))
                     ->name($this->getInput('name'))
                     ->description($this->getInput('description'))
-                    ->category($this->getInput('category_id'))
-                    ->location($this->getInput('location_id'))
+                    ->category($this->getInput('category'))
+                    ->location($this->getInput('location'))
                     ->stock(
                             $this->getInput('operator'),
                             $this->getInput('quantity')

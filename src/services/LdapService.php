@@ -29,8 +29,10 @@ class LdapService {
      * @return string or boolean
      */
 	public function getUserEmail($username){
-		if($email = Corp::userEmail($username)){
-			return $email;
+		$user = Corp::user($username);
+                
+                if($user){
+                    return $user->email;
 		} return false;
 	}
 	
@@ -43,7 +45,9 @@ class LdapService {
      * @return string or boolean
      */
 	public function getUserFullName($username){
-		if($name = Corp::userFullname($username)){
+		$user = Corp::user($username);
+                
+                if($user){
 			return $name;
 		} return false;
 	}

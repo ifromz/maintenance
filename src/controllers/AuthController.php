@@ -44,12 +44,14 @@ class AuthController extends AbstractController {
             $validator = new $this->loginValidator;
             
             if($validator->passes()){
-                
+
                 $data = $this->inputAll();
                 
                 if($this->config('maintenance::site.ldap.enabled') === true){
                     //If user exists on active directory
+
                     if($this->ldap->getUserEmail($data['email'])){
+
                         //Try authentication
                         if($this->auth->ldapAuthenticate($data)){
                             //If authentication is good, update their web profile incase of a password update in AD

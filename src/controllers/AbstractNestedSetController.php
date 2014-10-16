@@ -8,8 +8,14 @@ use Stevebauman\Maintenance\Controllers\AbstractController;
 
 abstract class AbstractNestedSetController extends AbstractController {
 	
+        /*
+         * Holds the service for querying the specific nested set
+         */
 	protected $service;
 	
+        /*
+         * Holds the validator for the specific nested set
+         */
 	protected $serviceValidator;
 	
         /*

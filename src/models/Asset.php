@@ -50,6 +50,34 @@ class Asset extends BaseModel {
             return $this->belongsToMany('Stevebauman\Maintenance\Models\Event', 'asset_events', 'asset_id', 'event_id')->withTimestamps();
         }
         
+        public function scopeName($query, $name = NULL){
+            if($name){
+                return $query->where('name', 'LIKE', '%'.$name.'%');
+            }
+        }
+        
+        public function scopeCondition($query, $condition = NULL){
+            if($condition){
+                return $query->where('condition', 'LIKE', '%'.$condition.'%');
+            }
+        }
+        
+        public function scopeCategory($query, $category = NULL){
+            if($category){
+                $query->whereHas('category', function($query) use($category){
+                    return $query->where('name', 'LIKE', '%'.$category.'%');
+                });
+            }
+        }
+        
+        public function scopeLocation($query, $location = NULL){
+            if($location){
+                $query->whereHas('location', function($query) use($location){
+                    return $query->where('name', 'LIKE', '%'.$location.'%');
+                });
+            }
+        }
+        
 	public function getConditionAttribute($attr){
             return trans(sprintf('maintenance::assets.conditions.%s',$attr));
 	}

@@ -48,16 +48,18 @@ class Inventory extends BaseModel {
             }
         }
         
-        public function scopeCategory($query, $category_id = NULL){
-            if($category_id){
-                return $query->where('category_id', $category_id);
+        public function scopeCategory($query, $category = NULL){
+            if($category){
+                $query->whereHas('category', function($query) use($category){
+                    return $query->where('name', 'LIKE', '%'.$category.'%');
+                });
             }
         }
         
-        public function scopeLocation($query, $location_id = NULL){
-            if($location_id){
-                return $query->whereHas('stocks', function($query) use($location_id){
-                    return $query->where('location_id', $location_id);
+        public function scopeLocation($query, $location = NULL){
+            if($location){
+                $query->whereHas('location', function($query) use($location){
+                    return $query->where('name', 'LIKE', '%'.$location.'%');
                 });
             }
         }
