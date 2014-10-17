@@ -47,10 +47,11 @@ class UserController extends AbstractController {
     public function edit($id)
     {
         
+        $user = $this->user->find($id);
+        
         return $this->view('maintenance::admin.users.edit', array(
             'title'=>'Editing User',
-            'user'=>$user,
-            'routes'=>$routes
+            'user'=>$user
         ));
         
     }

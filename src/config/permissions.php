@@ -2,8 +2,11 @@
 
 return array(
     
-    'workers' => array(
-        
+    'default' => array(
+        /*
+         * Allows access to all site functions
+         */
+        'superuser' => 'superuser',
     ),
     
 );

@@ -26,14 +26,24 @@ Route::filter('maintenance.notauth', function($route, $request){
 });
 
 Route::filter('maintenance.permission', function($route, $request){ 
-    /*
-    if(Sentry::getUser()->hasAccess(Route::currentRouteName())){
-        return Response::json(array('message'=>'User does have access'));
-    } else{
-        return Response::json(array('message'=>'User does not have access'));
+    
+    if(!Sentry::getUser()->hasAccess(Route::currentRouteName())){
+        
+        $message = 'You do not have access to do perform this function.';
+        $messageType = 'danger';
+        
+        if(Request::ajax()){
+            return Response::json(array(
+                'message'=>$message,
+                'messageType'=>$messageType
+            ));  
+        } else{
+            return Redirect::route('maintenance.permission-denied.index')
+                    ->with('message', $message)
+                    ->with('messageType', $messageType);
+        }
     }
-     * 
-     */
+    
 });
 
 /**

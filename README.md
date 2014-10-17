@@ -8,7 +8,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Dynamic Ajax Uploads for Attachments & Images with [Plupload](https://github.com/jildertmiedema/laravel-plupload)
 * LDAP Authentication with [Corp](https://github.com/stevebauman/Corp) Combined with [Sentry](https://github.com/cartalyst/sentry)
 * Work Order / Inventory / Asset Management (with Maintenance Scheduling using [FullCalendar](https://github.com/arshaw/fullcalendar))
-* And More...
+* And more...
 
 ###TO DO
 * Robust notifications
@@ -20,6 +20,8 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * <del>Better category management</del> - Oct 15th 2014
 * Better breadcrumb management
 * Finish administration panel for managing permissions/users/groups
+* Add date for end of life for assets
+* Ability to assign users to events
 * Clean up routes
 * Tests
 

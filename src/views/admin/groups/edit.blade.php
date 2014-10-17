@@ -27,14 +27,14 @@
                 }}
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Group Name</label>
+                    <label class="col-sm-2 control-label">Name</label>
                     <div class="col-md-4">
-                        {{ Form::text('name', $group->name, array('class'=>'form-control')) }}
+                        {{ Form::text('name', $group->name, array('class'=>'form-control', 'placeholder'=>'ex. Admininistrators')) }}
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Users in this Group</label>
+                    <label class="col-sm-2 control-label">Users</label>
                     <div class="col-md-4">
                         @include('maintenance::select.users', array(
                             'users'=>$group->users->lists('id', 'username')
@@ -43,7 +43,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Permissions for this Group</label>
+                    <label class="col-sm-2 control-label">Permissions</label>
                     <div class="col-md-4">
                         @include('maintenance::select.routes', array(
                             'routes'=>$group->permissions

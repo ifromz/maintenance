@@ -43,8 +43,25 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 			'uses'=>'AuthController@postLogin',
 		));
 	
-	}); /* End Maintenance Authentication Routes */
+	});
+        
+        Route::group(array('namespace'=>'Stevebauman\Maintenance\Controllers', 'before'=>'maintenance.auth'), function(){
+            
+            Route::get('logout', array(
+                    'as' => 'maintenance.logout',
+                    'uses'=>'AuthController@getLogout',
+            ));
+            
+        });
+        
+        /* End Maintenance Authentication Routes */
 	
+        
+        
+        Route::get('permission-denied', array(
+            'as'=>'maintenance.permission-denied.index',
+            'uses'=>'Stevebauman\Maintenance\Controllers\PermissionDeniedController@getIndex'
+        ));
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -56,11 +73,6 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
 		Route::get('/', array(
 			'as' => 'maintenance.dashboard.index',
 			'uses'=>'MaintenanceController@getIndex',
-		));
-		
-		Route::get('logout', array(
-			'as' => 'maintenance.logout',
-			'uses'=>'AuthController@getLogout',
 		));
 		
 		/*
@@ -523,6 +535,11 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                             'update'  	=> 'maintenance.admin.groups.update',
                             'destroy' 	=> 'maintenance.admin.groups.destroy',
                         )
+                    ));
+                    
+                    Route::post('users/{users}/check-access', array(
+                        'as' => 'maintenance.admin.users.check-access',
+                        'uses' => 'AccessController@postCheck'
                     ));
                 });
                 

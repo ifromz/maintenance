@@ -26,14 +26,39 @@ class GroupController extends AbstractController {
     
     public function create()
     {
-        return $this->view('maintenance::admin.users.create', array(
+        return $this->view('maintenance::admin.groups.create', array(
             'title' => 'Create a User'
         ));
     }
     
     public function store()
     {
+        $validator = new $this->groupValidator;
         
+        if($validator->passes()){
+            
+            $data = $this->inputAll();
+            $data['permissions'] = $this->routesToPermissions($this->input('routes'));
+            
+            $record = $this->group->setInput($data)->create();
+            
+            if($record){
+                $this->message = sprintf('Successfully created group. %s', link_to_route('maintenance.admin.groups.show', 'Show', array($record->id)));
+                $this->messageType = 'success';
+                $this->redirect = route('maintenance.admin.groups.index');
+            } else{
+                $this->message = 'There was an error trying to create the group, please try again';
+                $this->messageType = 'danger';
+                $this->redirect = route('maintenance.admin.groups.create');
+            }
+            
+            return $this->response();
+            
+        } else{
+            $this->errors = $validator->getErrors();
+        }
+        
+        return $this->response();
     }
     
     public function show($id)
@@ -61,22 +86,13 @@ class GroupController extends AbstractController {
         $validator = new $this->groupValidator;
         
         if($validator->passes()){
-        
-            $routes = $this->input('routes');
             
-            $permissions = array();
-            
-            if($routes){
-                foreach($routes as $route){
-                    $permissions[$route] = 1;
-                }
-            }
-            
-            $data = $this->inputAll();
-            $data['permissions'] = $permissions;
 
-            if($this->group->setInput($data)->update($id)){
-                $this->message = 'Successfully updated group';
+            $data = $this->inputAll();
+            $data['permissions'] = $this->routesToPermissions($this->input('routes'));
+
+            if($record = $this->group->setInput($data)->update($id)){
+                $this->message = sprintf('Successfully updated group. %s', link_to_route('maintenance.admin.groups.show', 'Show', array($record->id)));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.admin.groups.index');
             } else{
@@ -96,6 +112,33 @@ class GroupController extends AbstractController {
     public function destroy($id)
     {
         
+    }
+    
+    /**
+     * Converts the submitted route array key values to 1 for sentry
+     * permissions
+     * 
+     * @param array $routes
+     */
+    private function routesToPermissions($routes = NULL)
+    {
+        $permissions = array();
+        
+        /*
+         * If routes are provided
+         */
+        if($routes){
+            foreach($routes as $route){
+                
+                /*
+                 * Set the route value key to 1, indicating that the user has
+                 * permission in Sentry
+                 */
+                $permissions[$route] = 1;
+            }
+        }
+        
+        return $permissions;
     }
     
 }
