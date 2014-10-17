@@ -23,6 +23,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Add date for end of life for assets
 * Ability to assign users to events
 * Clean up routes
+* Add soft deletes for some tables for recoverable data
 * Tests
 
 ###Screenshots
