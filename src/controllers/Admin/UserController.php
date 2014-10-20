@@ -1,6 +1,6 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\Admin;
 
 use Stevebauman\Maintenance\Services\UserService;
 use Stevebauman\Maintenance\Controllers\AbstractController;

@@ -17,7 +17,7 @@
     <div class="btn-toolbar">
         <a href="{{ action(currentControllerAction('create')) }}" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Create a new Category">
             <i class="fa fa-plus"></i>
-            New Category
+            New {{ $resource }}
         </a>
         
         <a id="edit-category" 
@@ -26,7 +26,7 @@
             class="btn btn-warning" 
             style="display:none;" href="">
                 <i class="fa fa-pencil"></i>
-                Edit Category
+                Edit {{ $resource }}
         </a>
         
         <a id="create-sub-category" 
@@ -35,7 +35,7 @@
             class="btn btn-success" 
             style="display:none;" href="">
                 <i class="fa fa-plus"></i>
-                New Sub-Category
+                New Sub-{{ $resource }}
         </a>
         
         <div class="pull-right">
@@ -43,19 +43,19 @@
                 href="{{ action(currentControllerAction('destroy')) }}" 
                 data-method="delete" 
                 data-message="
-                    Are you sure you want to delete this category? This can have a large cascade effect. 
-                    Anything attached to this category will be deleted, as well as categories below the selected category.
-                    You should move or rename the category instead of deleting it if possible.
+                    Are you sure you want to delete this {{ $resource }}? This can have a large cascade effect. 
+                    Anything attached to this {{ $resource }} will be deleted, as well as {{ str_plural($resource) }} below the selected {{ $resource }}.
+                    You should move or rename the {{ $resource }} instead of deleting it if possible.
                 "
                 id="delete-sub-category"
                 data-toggle="tooltip" 
-                title="" 
+                title=""
                 data-original-title="Delete selected category" 
                 class="btn btn-danger" 
                 style="display:none;"
             >
                     <i class="fa fa-trash-o"></i>
-                    Delete Category
+                    Delete {{ $resource }}
             </a>
         </div>
     </div>

@@ -9,17 +9,27 @@ class BaseModel extends Eloquent {
     /**
      * Formats the created_at timestamp
      * 
-     * @param type $created_at
-     * @return type
+     * @param string $created_at
+     * @return string
      */
     public function getCreatedAtAttribute($created_at){
         return Carbon::parse($created_at)->format('M dS Y - h:ia'); 
     }
     
     /**
+     * Formats the deleted_at timestamp
+     * 
+     * @param string $deleted_at
+     * @return string
+     */
+    public function getDeletedAtAttribute($deleted_at){
+        return Carbon::parse($deleted_at)->format('M dS Y - h:ia'); 
+    }
+    
+    /**
      * 
      * 
-     * @param type $string
+     * @param string $string
      * @return boolean OR array
      */
     protected function getOperator($string){
@@ -41,9 +51,9 @@ class BaseModel extends Eloquent {
     /**
      * Allows all tables extending from the base model to be scoped by ID
      * 
-     * @param type $query
-     * @param type $id
-     * @return type
+     * @param object $query
+     * @param integer/string $id
+     * @return object
      */
     public function scopeId($query, $id = NULL){
         if($id){
@@ -55,9 +65,9 @@ class BaseModel extends Eloquent {
      * Allows all columns on the current database table to be sorted through
      * query scope
      * 
-     * @param type $query
-     * @param type $field
-     * @param type $sort
+     * @param object $query
+     * @param string $field
+     * @param string $sort
      * @return object
      */
     public function scopeSort($query, $field = NULL, $sort = NULL){
@@ -95,10 +105,16 @@ class BaseModel extends Eloquent {
         
     }
     
+    public function scopeArchived($query, $archived = NULL){
+        if($archived){
+            return $query->onlyTrashed();
+        }
+    }
+    
     /**
      * Allows all models extending from BaseModel to have notifications
      * 
-     * @return type
+     * @return object
      */
     public function notifications(){
         return $this->morphMany('Stevebauman\Maintenance\Models\Notification', 'notifiable');

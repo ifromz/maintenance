@@ -26,13 +26,14 @@ class AssetService extends AbstractModelService {
          * 
          * @return type Collection
          */
-	public function getByPageWithFilter(){
+	public function getByPageWithFilter($archived = NULL){
 		return $this->model
                         ->name($this->getInput('name'))
                         ->condition($this->getInput('condition'))
                         ->category($this->getInput('category'))
                         ->location($this->getInput('location'))
                         ->sort($this->getInput('field'), $this->getInput('sort'))
+                        ->archived($archived)
 			->paginate(25);
 	}
         
@@ -162,5 +163,5 @@ class AssetService extends AbstractModelService {
                 return false;
 		
 	}
-	
+        
 }

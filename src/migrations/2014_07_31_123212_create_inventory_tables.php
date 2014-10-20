@@ -16,6 +16,7 @@ class CreateInventoryTables extends Migration {
             {
                 $table->increments('id');
                 $table->timestamps();
+                $table->softDeletes();
                 $table->integer('category_id')->unsigned()->nullable();
                 $table->integer('user_id')->unsigned()->nullable();
                 $table->string('name');

@@ -184,7 +184,7 @@ abstract class AbstractModelService {
      *
      * @author Steve Bauman
      *
-	 * @param $id (int/string)
+     * @param $id (int/string)
      * @return object
      */
     public function find($id){
@@ -194,19 +194,51 @@ abstract class AbstractModelService {
                     throw new $this->notFoundException;
             }
     }
-	
+    
+    /**
+     * Find a deleted record by ID
+     * 
+     * @param type $id
+     * @return type
+     * @throws type
+     */
+    public function findArchived($id){
+        if($record = $this->model->withTrashed()->find($id)){
+            return $record;
+        } else{
+            throw new $this->notFoundException;
+        }
+    }
+    
     /**
      * Destroy a record from given ID
      *
      * @author Steve Bauman
      *
-	 * @param $id (int/string)
+     * @param $id (int/string)
      * @return boolean
      */
     public function destroy($id){
             if($this->model->destroy($id)){
                     return true;
             } return false;
+    }
+    
+    /**
+     * Destroy a soft deleted record by ID
+     * 
+     * @param type $id
+     */
+    public function destroyArchived($id){
+        $record = $this->findArchived($id);
+
+        return $record->forceDelete();
+    }
+    
+    public function restoreArchived($id){
+        $record = $this->findArchived($id);
+        
+        return $record->restore();
     }
     
     /**

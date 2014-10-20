@@ -95,7 +95,7 @@
                     </tbody>
                 </table>
             @else
-                <h5>There are no work orders to list</h5>
+                <h5>There are no work orders to display.</h5>
             @endif
 
             <div class="text-center">{{ $workOrders->appends(Input::except('page'))->links() }}</div>

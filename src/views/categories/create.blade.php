@@ -21,7 +21,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Create Category</h3>
+                <h3 class="panel-title">Create {{ $resource }}</h3>
             </div>
             <div class="panel-body">
                 {{ Form::open(array(
@@ -30,7 +30,7 @@
                     ))
                 }}
                 
-                    <legend class="margin-top-10">Category Information</legend>
+                    <legend class="margin-top-10">{{ $resource }} Information</legend>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="name">Name</label>
                         <div class="col-md-4">

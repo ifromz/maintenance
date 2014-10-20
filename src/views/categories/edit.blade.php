@@ -17,14 +17,14 @@
 @stop
 
 @section('content')
-<script type="text/javascript" src="{{ asset('packages/stevebauman/maintenance/js/categories/edit.js') }}"></script>
+
 	<div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Edit Category {{ $category->name }}</h3>
+                <h3 class="panel-title">Edit {{ $resource }} {{ $category->name }}</h3>
             </div>
             <div class="panel-body">
-                <legend class="margin-top-10">Category Information</legend>
+                <legend class="margin-top-10">{{ $resource }} Information</legend>
                 {{ Form::open(array(
                         'url'=>action(currentControllerAction('update'), array($category->id)),
                         'class'=>'form-horizontal ajax-form-post',

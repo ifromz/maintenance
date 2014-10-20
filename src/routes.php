@@ -56,8 +56,6 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
         
         /* End Maintenance Authentication Routes */
 	
-        
-        
         Route::get('permission-denied', array(
             'as'=>'maintenance.permission-denied.index',
             'uses'=>'Stevebauman\Maintenance\Controllers\PermissionDeniedController@getIndex'
@@ -511,7 +509,12 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                 | Maintenance Administration Routes
                 |--------------------------------------------------------------------------
                 */
-                Route::group(array('prefix'=>'admin'), function(){
+                Route::group(array('prefix'=>'admin', 'namespace'=>'Admin'), function(){
+                    
+                    Route::get('/', array(
+                        'as' => 'maintenance.admin.dashboard.index',
+                        'uses'=> 'DashboardController@getIndex'
+                    ));
                     
                     Route::resource('users', 'UserController', array(
                         'names' => array(
@@ -540,6 +543,24 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
                     Route::post('users/{users}/check-access', array(
                         'as' => 'maintenance.admin.users.check-access',
                         'uses' => 'AccessController@postCheck'
+                    ));
+                    
+                    Route::get('archive', array(
+                        'as' => 'maintenance.admin.archive.index',
+                        'uses' => 'ArchiveController@getIndex'
+                    ));
+                    
+                    Route::post('archive/assets/{assets}/restore', array(
+                        'as' => 'maintenance.admin.archive.assets.restore',
+                        'uses' => 'ArchiveAssetController@restore'
+                    ));
+                    
+                    Route::resource('archive/assets', 'ArchiveAssetController',  array(
+                        'names' => array(
+                            'index'     => 'maintenance.admin.archive.assets.index',
+                            'show'    	=> 'maintenance.admin.archive.assets.show',
+                            'destroy' 	=> 'maintenance.admin.archive.assets.destroy',
+                        ),
                     ));
                 });
                 

@@ -16,6 +16,7 @@ class CreateWorkOrderTables extends Migration {
 		Schema::create('work_orders', function(Blueprint $table) {
 			$table->increments('id');
 			$table->timestamps();
+                        $table->softDeletes();
 			$table->integer('user_id')->unsigned();
 			$table->integer('work_order_category_id')->unsigned()->nullable();
                         $table->integer('location_id')->unsigned()->nullable();

@@ -42,6 +42,15 @@
 	}
         
         /**
+         * A helper alias for returning the current route name
+         * 
+         * @return string
+         */
+        function currentRouteName(){
+            return Route::currentRouteName();
+        }
+        
+        /**
          * Returns a link to sort a table column with the query scope 'sort'
          * 
          * @param type $name

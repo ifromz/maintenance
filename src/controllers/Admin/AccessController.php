@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\Admin;
 
 use Stevebauman\Maintenance\Validators\AccessCheckValidator;
 use Stevebauman\Maintenance\Services\UserService;

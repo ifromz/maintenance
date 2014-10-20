@@ -15,6 +15,7 @@ class CreateAssetTable extends Migration {
 		Schema::create('assets', function(Blueprint $table){
 			$table->increments('id');
 			$table->timestamps();
+                        $table->softDeletes();
 			$table->datetime('aquired_at')->nullable();
 			$table->integer('user_id')->unsigned();
 			$table->integer('location_id')->unsigned()->nullable();

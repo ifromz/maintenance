@@ -10,6 +10,8 @@ View::composer('maintenance::layouts.main', 'Stevebauman\Maintenance\Composers\M
  */
 View::composer('maintenance::layouts.admin', 'Stevebauman\Maintenance\Composers\AdminLayoutComposer');
 
+View::composer('maintenance::admin.dashboard.index', 'Stevebauman\Maintenance\Composers\AdminDashboardComposer');
+
 /*
  * Notifications Composer
  */
