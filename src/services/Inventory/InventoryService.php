@@ -27,7 +27,7 @@ class InventoryService extends AbstractModelService {
      * 
      * @return type Collection
      */
-    public function getByPageWithFilter(){
+    public function getByPageWithFilter($archived = NULL){
             return $this->model
                     ->with(array(
                             'category',
@@ -42,6 +42,7 @@ class InventoryService extends AbstractModelService {
                             $this->getInput('operator'),
                             $this->getInput('quantity')
                     )
+                    ->archived($archived)
                     ->sort($this->getInput('field'), $this->getInput('sort'))
                     ->paginate(25);
     }
@@ -67,6 +68,14 @@ class InventoryService extends AbstractModelService {
          * If the record is created, return it, otherwise return false
          */
         if($record = $this->model->create($insert)){
+            
+            /*
+             * Fire created event
+             */
+            $this->fireEvent('maintenance.inventory.created', array(
+                'item' => $record
+            ));
+            
             return $record;
         } else{
             return false;
@@ -84,29 +93,51 @@ class InventoryService extends AbstractModelService {
         /*
          * Find the item record
          */
-        if($record = $this->find($id)){
+        $record = $this->find($id);
             
+        /*
+         * Set update data
+         */
+        $insert = array(
+            'category_id' => $this->getInput('category_id'),
+            'name' => $this->getInput('name', $record->name, true),
+            'description' => $this->getInput('description', $record->description, true),
+        );
+
+        /*
+         * Update the record, return it upon success
+         */
+        if($record->update($insert)){
+
             /*
-             * Set update data
+             * Fire updated event
              */
-            $insert = array(
-                'category_id' => $this->getInput('category_id'),
-                'name' => $this->getInput('name', $record->name, true),
-                'description' => $this->getInput('description', $record->description, true),
-            );
-            
-            /*
-             * Update the record, return it upon success
-             */
-            if($record->update($insert)){
-                return $record;
-            }
-            
-        } 
+            $this->fireEvent('maintenance.inventory.updated', array(
+            '   item' => $record
+            ));
+
+            return $record;
+        } else{
+            return false;
+        }
+        
+    }
+    
+    /*
+     * Archives an item record
+     */
+    public function destroy($id) {
+        $record = $this->find($id);
+        
+        $record->delete();
         
         /*
-         * Item record not found, return false
+         * Fire archived event
          */
-        return false;
+        $this->fireEvent('maintenance.inventory.archived', array(
+            'item' => $record
+        ));
+        
+        return true;
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Asset extends BaseModel {
+    
 	use SoftDeletingTrait;
         
 	protected $table = 'assets';
@@ -52,18 +53,27 @@ class Asset extends BaseModel {
             return $this->belongsToMany('Stevebauman\Maintenance\Models\Event', 'asset_events', 'asset_id', 'event_id')->withTimestamps();
         }
         
+        /*
+         * Filters query by the inputted asset name
+         */
         public function scopeName($query, $name = NULL){
             if($name){
                 return $query->where('name', 'LIKE', '%'.$name.'%');
             }
         }
         
+        /*
+         * Filters query by the inputted asset condition
+         */
         public function scopeCondition($query, $condition = NULL){
             if($condition){
                 return $query->where('condition', 'LIKE', '%'.$condition.'%');
             }
         }
         
+        /*
+         * Filters query by the inputted asset category
+         */
         public function scopeCategory($query, $category = NULL){
             if($category){
                 $query->whereHas('category', function($query) use($category){
@@ -72,6 +82,9 @@ class Asset extends BaseModel {
             }
         }
         
+        /*
+         * Filters query by the inputted asset location
+         */
         public function scopeLocation($query, $location = NULL){
             if($location){
                 $query->whereHas('location', function($query) use($location){
@@ -80,10 +93,17 @@ class Asset extends BaseModel {
             }
         }
         
+        /*
+         * Mutator for conversion of integer condition, to text condition through
+         * translator
+         */
 	public function getConditionAttribute($attr){
             return trans(sprintf('maintenance::assets.conditions.%s',$attr));
 	}
         
+        /*
+         * Mutator for displaying a pretty link label for display in work orders
+         */
         public function getLabelAttribute(){
             return sprintf('<a href="%s" class="label label-primary">%s</span></a>', route('maintenance.assets.show', array($this->attributes['id'])), $this->attributes['name']);
         }

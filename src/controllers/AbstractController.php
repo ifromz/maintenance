@@ -43,7 +43,8 @@ abstract class AbstractController extends Controller {
     /**
      * Returns a view object. This will render the view to pure HTML if the request is ajax.
      */
-    public function view($view, $args = NULL){
+    public function view($view, $args = NULL)
+    {
         if($this->isAjax()){
             return $this->responseJson(View::make($view, $args)->render());
         } else{
@@ -57,7 +58,8 @@ abstract class AbstractController extends Controller {
      * @param type $entry
      * @return type
      */
-    public function config($entry){
+    public function config($entry)
+    {
         return Config::get($entry);
     }
 
@@ -66,7 +68,8 @@ abstract class AbstractController extends Controller {
      *
      * @return Request
      */
-    public function isAjax(){
+    public function isAjax()
+    {
             return Request::ajax();
     }
 
@@ -76,7 +79,8 @@ abstract class AbstractController extends Controller {
      *
      * @return Response
      */
-    public function response(){            
+    public function response()
+    {            
         if($this->isAjax()){
             if($this->errors){
                 return $this->responseJson(array(
@@ -109,7 +113,8 @@ abstract class AbstractController extends Controller {
      * @param type $data
      * @return type
      */
-    public function responseJson($data){
+    public function responseJson($data)
+    {
         return Response::json($data);
     }
         
@@ -121,7 +126,8 @@ abstract class AbstractController extends Controller {
      * @param type $clean
      * @return null OR Input
      */
-    protected function input($input, $clean = FALSE){
+    protected function input($input, $clean = FALSE)
+    {
         if(Input::has($input)){
             if($clean){
                 return $this->clean(Input::get($input));
@@ -138,7 +144,8 @@ abstract class AbstractController extends Controller {
      * 
      * @return type Array
      */
-    protected function inputAll(){
+    protected function inputAll()
+    {
         return Input::all();
     }
 	

@@ -18,7 +18,9 @@
             </a>
             <div class="navbar-right">
                 <ul class="nav navbar-nav">
-
+                    
+                    <li id="loading" class="hidden"><img width="40" src="{{ asset('packages/stevebauman/maintenance/img/loading.gif') }}" /></li>
+                    
                     @include('maintenance::layouts.main.notifications')
 
                     <!-- User Account: style can be found in dropdown.less -->
@@ -98,12 +100,12 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>
-                                <a href="{{ route('maintenance.work-orders.index') }}" style="margin-left: 10px;">
+                                <a href="{{ route('maintenance.admin.archive.work-orders.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-book"></i> Work Orders
                                 </a>
                             </li>
                             <li>
-                                <a href="#" style="margin-left: 10px;">
+                                <a href="{{ route('maintenance.admin.archive.inventory.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-dropbox"></i> Inventory
                                 </a>
                             </li>

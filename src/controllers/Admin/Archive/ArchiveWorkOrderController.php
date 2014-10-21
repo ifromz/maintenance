@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Controllers\Admin;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\AbstractController;
 
-class ArchiveAssetController extends AbstractController {
+class ArchiveWorkOrderController extends AbstractController {
     
     public function __construct(WorkOrderService $workOrder)
     {
@@ -14,45 +14,45 @@ class ArchiveAssetController extends AbstractController {
     
     public function index()
     {
-        $assets = $this->workOrder->getByPageWithFilter($archived = true);
+        $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter($archived = true);
         
-        return $this->view('maintenance::admin.archive.assets.index', array(
-            'title' => 'Archived Assets',
-            'assets'=> $assets
+        return $this->view('maintenance::admin.archive.work-orders.index', array(
+            'title' => 'Archived Work Orders',
+            'workOrders'=> $workOrders
         ));
     }
     
     public function show($id)
     {
-        $asset = $this->asset->findArchived($id);
+        $workOrder = $this->workOrder->findArchived($id);
         
-        return $this->view('maintenance::admin.archive.assets.show', array(
-            'title' => 'Viewing Archived Asset: '.$asset->name,
-            'asset' => $asset
+        return $this->view('maintenance::admin.archive.work-orders.show', array(
+            'title' => 'Viewing Archived Work Order: '.$workOrder->subject,
+            'workOrder' => $workOrder
         ));
     }
     
     public function destroy($id)
     {
-        $this->asset->destroyArchived($id);
+        $this->workOrder->destroyArchived($id);
        
-        $this->message = 'Successfully deleted asset';
+        $this->message = 'Successfully deleted work order';
         $this->messageType = 'success';
-        $this->redirect = route('maintenance.admin.archive.assets.index');
+        $this->redirect = route('maintenance.admin.archive.work-orders.index');
         
         return $this->response();
     }
     
     public function restore($id)
     {
-        if($this->asset->restoreArchived($id)){
-            $this->message = sprintf('Successfully restored asset. %s', link_to_route('maintenance.assets.show', 'Show', $id));
+        if($this->workOrder->restoreArchived($id)){
+            $this->message = sprintf('Successfully restored work order. %s', link_to_route('maintenance.work-orders.show', 'Show', $id));
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.admin.archive.assets.index');
+            $this->redirect = route('maintenance.admin.archive.work-orders.index');
         } else{
-            $this->message = 'There was an error trying to restore this asset, please try again';
+            $this->message = 'There was an error trying to restore this work order, please try again';
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.admin.archive.assets.index');
+            $this->redirect = route('maintenance.admin.archive.work-orders.index');
         }
         
         return $this->response();

@@ -3,7 +3,7 @@
 /*
  * Maintenance Application Routes
  */
-Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
+Route::group(array('prefix'=>Config::get('maintenance::prefix'), 'namespace'=>'Stevebauman\Maintenance'), function(){
         
         /*
          * Authentication Routes
@@ -28,7 +28,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
          * Auth         - Only Allows logged in users
          * Permission   - Only Allows users with correct permissions
          */
-	Route::group(array('namespace'=>'Stevebauman\Maintenance\Controllers', 'before'=>'maintenance.auth|maintenance.permission'), function(){
+	Route::group(array('namespace'=>'Controllers', 'before'=>'maintenance.auth|maintenance.permission'), function(){
                 
                 /*
                  * Dashboard Routes
@@ -82,7 +82,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix')), function(){
         /*
          * API Route Group
          */
-	Route::group(array('prefix'=>'api', 'namespace'=>'Stevebauman\Maintenance\Apis'), function(){
+	Route::group(array('prefix'=>'api', 'namespace'=>'Apis'), function(){
             
             /*
              * API Routes

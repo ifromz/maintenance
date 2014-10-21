@@ -111,6 +111,11 @@ class AssetService extends AbstractModelService {
                  * Create the record and return it upon success
                  */
 		if($record = $this->model->create($insert)){
+                    
+                        $this->fireEvent('maintenance.assets.created', array(
+                            'asset' => $record
+                        ));
+
 			return $record;
 		} 
                 
@@ -136,7 +141,7 @@ class AssetService extends AbstractModelService {
                 /*
                  * Set update data
                  */
-                $edit = array(
+                $insert = array(
                         'location_id'       => $this->getInput('location_id', $record->location_id),
                         'category_id'       => $this->getInput('category_id', $record->category_id),
                         'name'              => $this->getInput('name', $record->name, true),
@@ -153,7 +158,12 @@ class AssetService extends AbstractModelService {
                 /*
                  * Update the record and return it upon success
                  */
-                if($record->update($edit)){
+                if($record->update($insert)){
+                    
+                    $this->fireEvent('maintenance.assets.created', array(
+                        'asset' => $record
+                    ));
+                    
                     return $record;
                 } 
                 
@@ -163,5 +173,18 @@ class AssetService extends AbstractModelService {
                 return false;
 		
 	}
+        
+        public function destroy($id)
+        {
+            $record = $this->find($id);
+            
+            $record->delete();
+            
+            $this->fireEvent('maintenance.assets.archived', array(
+                'asset' => $record
+            ));
+            
+            return true;
+        }
         
 }

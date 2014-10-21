@@ -19,8 +19,11 @@ class CreateNotificationsTable extends Migration {
                         $table->integer('notifiable_id');
                         $table->string('notifiable_type');
                         $table->string('message');
+                        $table->string('before')->nullable();
+                        $table->string('after')->nullable();
                         $table->tinyInteger('read')->default(0);
                         $table->string('link');
+                        
                         $table->foreign('user_id')->references('id')->on('users')
 						->onUpdate('restrict')
 						->onDelete('cascade');

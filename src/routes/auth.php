@@ -4,7 +4,7 @@
  * Authentication Routes
  */
     
-Route::group(array('prefix'=>'login', 'namespace'=>'Stevebauman\Maintenance\Controllers', 'before'=>'maintenance.notauth'), function(){
+Route::group(array('prefix'=>'login', 'namespace'=>'Controllers', 'before'=>'maintenance.notauth'), function(){
 
         Route::get('', array(
                 'as' => 'maintenance.login',
@@ -18,7 +18,7 @@ Route::group(array('prefix'=>'login', 'namespace'=>'Stevebauman\Maintenance\Cont
 
 });
 
-Route::group(array('namespace'=>'Stevebauman\Maintenance\Controllers', 'before'=>'maintenance.auth'), function(){
+Route::group(array('namespace'=>'Controllers', 'before'=>'maintenance.auth'), function(){
 
     Route::get('logout', array(
             'as' => 'maintenance.logout',

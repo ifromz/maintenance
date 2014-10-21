@@ -41,10 +41,11 @@
     {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.css') }}
     {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.print.css', array('media'=>'print')) }}
     
-    
     <!-- jQuery 1.10.2 -->
     {{ HTML::script('packages/stevebauman/maintenance/adminlte/js/jquery-1.11.1.min.js') }}
     
     <!-- jQuery UI 1.10.3 -->
     {{ HTML::script('packages/stevebauman/maintenance/js/vendor/jquery-ui-1.10.3.min.js') }}
+    
+    
 <!-- End Styles -->

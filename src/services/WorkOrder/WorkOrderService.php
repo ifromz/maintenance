@@ -63,7 +63,11 @@ class WorkOrderService extends AbstractModelService {
                     if($assets = $this->getInput('assets')){
                         $record->assets()->attach($assets);
                     }
-		
+                    
+                    $this->fireEvent('maintenance.work-orders.created', array(
+                        'workOrder' => $record
+                    ));
+                    
                     return $record;
 		} return false;
 	}
@@ -89,11 +93,27 @@ class WorkOrderService extends AbstractModelService {
                                 $record->assets()->sync($assets);
                             }
                             
+                            $this->fireEvent('maintenance.work-orders.updated', array(
+                                'workOrder' => $record
+                            ));
+                            
                             return $record;
 			} return false;
 		}
                 
 	}
+        
+        public function destroy($id) {
+            $record = $this->find($id);
+            
+            $record->delete();
+            
+            $this->fireEvent('maintenance.work-orders.created', array(
+                'workOrder' => $record
+            ));
+            
+            return true;
+        }
 	
 	
 	

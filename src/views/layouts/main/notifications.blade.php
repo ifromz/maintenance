@@ -23,8 +23,6 @@
                             <li>
                                 <a class="notification" data-read-url="{{ route('maintenance.api.notifications.update', $notification->id) }}" href="{{ $notification->link }}">
                                     <i class="{{ $notification->icon }}"></i> {{ $notification->message }}
-                                    
-                                    
                                 </a>
                             </li>
                         @endif

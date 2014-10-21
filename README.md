@@ -8,6 +8,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Dynamic Ajax Uploads for Attachments & Images with [Plupload](https://github.com/jildertmiedema/laravel-plupload)
 * LDAP Authentication with [Corp](https://github.com/stevebauman/Corp) Combined with [Sentry](https://github.com/cartalyst/sentry)
 * Work Order / Inventory / Asset Management (with Maintenance Scheduling using [FullCalendar](https://github.com/arshaw/fullcalendar))
+* Administration Panel for managing users, permissions, groups, and data restoration (archive)
 * And more...
 
 ###TO DO
@@ -24,6 +25,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Ability to assign users to events
 * <del>Clean up routes</del> - Oct 21st 2014
 * <del>Add soft deletes for some tables for recoverable data</del> - Oct 21st 2014 (Work Orders, Assets & Inventory)
+* Implement [Revisionable](https://github.com/VentureCraft/revisionable) for viewing edit history on records
 * Tests
 
 ###Screenshots

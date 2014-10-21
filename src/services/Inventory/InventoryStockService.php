@@ -63,6 +63,14 @@ class InventoryStockService extends AbstractModelService {
              * Otherwise delete it.
              */
             if($this->inventoryStockMovement->setInput($movement)->create()){
+                
+                /*
+                 * Fire stock created event
+                 */
+                $this->fireEvent('maintenance.inventory.stock.created', array(
+                    'stock' => $record
+                ));
+                
                 return $record;
             } else{
                 $record->delete();
@@ -116,6 +124,13 @@ class InventoryStockService extends AbstractModelService {
                      * Commit the changes
                      */
                     $this->db->commit();
+                    
+                    /*
+                     * Fire stock updated event
+                     */
+                    $this->fireEvent('maintenance.inventory.stock.updated', array(
+                        'stock' => $record
+                    ));
                     
                     /*
                      * Return updated stock record
@@ -178,6 +193,13 @@ class InventoryStockService extends AbstractModelService {
             $this->createUpdateMovement($record);
             
             /*
+             * Fire stock taken event
+             */
+            $this->fireEvent('maintenance.inventory.stock.taken', array(
+                'stock' => $record
+            ));
+            
+            /*
              * Return the  record
              */
             return $record;
@@ -218,6 +240,13 @@ class InventoryStockService extends AbstractModelService {
              * Create the movement
              */
             $this->createUpdateMovement($record);
+            
+            /*
+             * Fire stock put event
+             */
+            $this->fireEvent('maintenance.inventory.stock.put', array(
+                'stock' => $record
+            ));
             
             /*
              * Return the record

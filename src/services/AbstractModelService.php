@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\App;
 use Mews\Purifier\Facades\Purifier;
 
@@ -263,6 +264,17 @@ abstract class AbstractModelService {
         }
     }
     
+    /**
+     * Alias for firing events easily that extend from this class
+     * 
+     * @param string $name
+     * @param array $args
+     * @return type
+     */
+    protected function fireEvent($name, $args = array())
+    {
+        return Event::fire((string) $name, (array) $args);
+    }
     
     /**
      * Formats javascript plugin 'Pickadate' and 'Pickatime' date strings into PHP dates
@@ -277,5 +289,4 @@ abstract class AbstractModelService {
         } return NULL;
     }
 
-	
 }

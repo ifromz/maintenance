@@ -1,4 +1,4 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.admin')
 
 @section('header')
 	<h1>{{ $title }}</h1>
@@ -6,26 +6,26 @@
 
 @section('breadcrumb')
 <li>
-    <a href="{{ route('maintenance.inventory.index') }}">
-        <i class="fa fa-dropbox"></i> 
-        Inventory
+    <a href="{{ route('maintenance.admin.archive.index') }}">
+        <i class="fa fa-archive"></i>
+        Archive
     </a>
+</li>
+<li class="active">
+        <i class="fa fa-dropbox"></i>
+        Inventory
 </li>
 @stop
 
 @section('content')
 
         @include('maintenance::inventory.modals.search', array(
-            'url' => route('maintenance.inventory.index', Input::only('field', 'sort'))
+            'url' => route(currentRouteName(), Input::only('field', 'sort'))
         ))
 
 	<div class="panel panel-default">
             <div class="panel-heading">
                 <div class="btn-toolbar">
-                    <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Add new Item to inventory">
-                        <i class="fa fa-plus"></i>
-                        New Item
-                    </a>
                     <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
                         <i class="fa fa-search"></i>
                         Search
@@ -64,21 +64,24 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ route('maintenance.inventory.show', array($item->id)) }}">
-                                                <i class="fa fa-search"></i> View Item
+                                            <a href="{{ route('maintenance.admin.archive.inventory.restore', array($item->id)) }}"
+                                               data-method="POST"
+                                               data-message="Are you sure you want to restore this inventory item?">
+                                                <i class="fa fa-refresh"></i> Restore
                                             </a>
                                         </li>
+                                        <li class="divider"></li>
                                         <li>
-                                            <a href="{{ route('maintenance.inventory.edit', array($item->id)) }}">
-                                                <i class="fa fa-edit"></i> Edit Item
+                                            <a href="{{ route('maintenance.admin.archive.inventory.show', array($item->id)) }}">
+                                                <i class="fa fa-search"></i> View
                                             </a>
                                         </li>
                                         <li>
                                             <a 
-                                                href="{{ route('maintenance.inventory.destroy', array($item->id)) }}" 
+                                                href="{{ route('maintenance.admin.archive.inventory.destroy', array($item->id)) }}" 
                                                 data-method="delete" 
-                                                data-message="Are you sure you want to delete this item? It will be archived.">
-                                                <i class="fa fa-trash-o"></i> Delete Item
+                                                data-message="Are you sure you want to delete this item?">
+                                                <i class="fa fa-trash-o"></i> Delete (Permanent)
                                             </a>
                                         </li>
                                     </ul>
@@ -97,6 +100,5 @@
                 @endif
             </div>
         </div>
-
 
 @stop

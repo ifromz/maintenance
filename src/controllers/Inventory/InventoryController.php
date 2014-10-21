@@ -19,7 +19,7 @@ class InventoryController extends AbstractController {
 	 * @return Response
 	 */
 	public function index(){
-            
+
             $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
             
             return $this->view('maintenance::inventory.index', array(
@@ -47,6 +47,7 @@ class InventoryController extends AbstractController {
 	 * @return Response
 	 */
 	public function store(){
+
             $validator = new $this->inventoryValidator;
             
             if($validator->passes()){
@@ -55,6 +56,7 @@ class InventoryController extends AbstractController {
                     $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', array($record->id)));
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.inventory.index');
+
                 } else{
                     $this->message = 'There was an error adding this item to the inventory. Please try again.';
                     $this->messageType = 'danger';
@@ -117,6 +119,7 @@ class InventoryController extends AbstractController {
                     $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', array($item->id)));
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.inventory.show', array($item->id));
+                    
                 } else{
                     $this->message = 'There was an error trying to update this item. Please try again.';
                     $this->messageType = 'danger';

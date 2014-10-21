@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Config;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class WorkOrder extends BaseModel {
-	
+        use SoftDeletingTrait;
+    
 	protected $table = 'work_orders';
 	
 	protected $fillable = array(

@@ -84,7 +84,7 @@
                                     <li>
                                         <a href="{{ route('maintenance.assets.destroy', array($asset->id)) }}" 
                                            data-method="delete" 
-                                           data-message="Are you sure you want to delete this asset? This asset will be archived.">
+                                           data-message="Are you sure you want to delete this asset? It will be archived.">
                                             <i class="fa fa-trash-o"></i> Delete Asset
                                         </a>
                                     </li>

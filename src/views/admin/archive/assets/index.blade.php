@@ -6,10 +6,14 @@
 
 @section('breadcrumb')
 <li>
-    <a href="{{ route('maintenance.assets.index') }}">
-        <i class="fa fa-truck"></i> 
-        Assets
+    <a href="{{ route('maintenance.admin.archive.index') }}">
+        <i class="fa fa-archive"></i>
+        Archive
     </a>
+</li>
+<li class="active">
+        <i class="fa fa-truck"></i>
+        Assets
 </li>
 @stop
 
@@ -74,20 +78,20 @@
                                         <a href="{{ route('maintenance.admin.archive.assets.restore', array($asset->id)) }}"
                                            data-method="POST"
                                            data-message="Are you sure you want to restore this asset?">
-                                            <i class="fa fa-refresh"></i> Restore Asset
+                                            <i class="fa fa-refresh"></i> Restore
                                         </a>
                                     </li>
                                     <li class="divider"></li>
                                     <li>
                                         <a href="{{ route('maintenance.admin.archive.assets.show', array($asset->id)) }}">
-                                            <i class="fa fa-search"></i> View Asset
+                                            <i class="fa fa-search"></i> View
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ route('maintenance.admin.archive.assets.destroy', array($asset->id)) }}" 
                                            data-method="delete" 
                                            data-message="Are you sure you want to permanently delete this asset? You will not be able to recover this data.">
-                                            <i class="fa fa-trash-o"></i> Delete Asset (Permanent)
+                                            <i class="fa fa-trash-o"></i> Delete (Permanent)
                                         </a>
                                     </li>
                                 </ul>

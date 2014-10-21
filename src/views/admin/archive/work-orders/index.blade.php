@@ -6,26 +6,26 @@
 
 @section('breadcrumb')
 <li>
-    <a href="{{ route('maintenance.assets.index') }}">
-        <i class="fa fa-truck"></i> 
-        Assets
+    <a href="{{ route('maintenance.admin.archive.index') }}">
+        <i class="fa fa-archive"></i>
+        Archive
     </a>
+</li>
+<li class="active">
+    <i class="fa fa-wrench"></i>
+    Work Orders
 </li>
 @stop
 
 @section('content')
     
- @include('maintenance::work-orders.modals.search', array(
-        'url'=>route('maintenance.work-orders.index')
+    @include('maintenance::work-orders.modals.search', array(
+        'url'=>route(currentRouteName())
     ))
 
     <div class="panel panel-default">
     	<div class="panel-heading">
             <div class="btn-toolbar">
-                <a href="{{ route('maintenance.work-orders.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Create a new Work Order">
-                    <i class="fa fa-plus"></i>
-                    New Work Order
-                </a>
                 <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
                     <i class="fa fa-search"></i>
                     Search
@@ -38,14 +38,14 @@
                 <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th>{{ link_to_sort('maintenance.work-orders.index', 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Status', array('field'=>'status', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Priority', array('field'=>'priority', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Subject', array('field'=>'subject', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Description', array('field'=>'description', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Category', array('field'=>'category_id', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Created By', array('field'=>'user', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.work-orders.index', 'Created At', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Status', array('field'=>'status', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Priority', array('field'=>'priority', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Subject', array('field'=>'subject', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Description', array('field'=>'description', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Category', array('field'=>'category_id', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Created By', array('field'=>'user', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Created At', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -72,18 +72,23 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="{{ route('maintenance.work-orders.show', array($workOrder->id)) }}">
-                                                <i class="fa fa-search"></i> View Work Order
+                                            <a href="{{ route('maintenance.admin.archive.work-orders.restore', array($workOrder->id)) }}"
+                                               data-method="POST"
+                                               data-message="Are you sure you want to restore this asset?">
+                                                <i class="fa fa-refresh"></i> Restore
+                                            </a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a href="{{ route('maintenance.admin.archive.work-orders.show', array($workOrder->id)) }}">
+                                                <i class="fa fa-search"></i> View
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('maintenance.work-orders.edit', array($workOrder->id)) }}">
-                                                <i class="fa fa-edit"></i> Edit Work Order
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('maintenance.work-orders.destroy', array($workOrder->id)) }}" data-method="delete" data-message="Are you sure you want to delete this work order?">
-                                                <i class="fa fa-trash-o"></i> Delete Work Order
+                                            <a href="{{ route('maintenance.admin.archive.work-orders.destroy', array($workOrder->id)) }}" 
+                                               data-method="delete" 
+                                               data-message="Are you sure you want to permanently delete this work order? You will not be able to recover this data.">
+                                                <i class="fa fa-trash-o"></i> Delete (Permanent)
                                             </a>
                                         </li>
                                     </ul>

@@ -82,7 +82,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('maintenance.work-orders.destroy', array($workOrder->id)) }}" data-method="delete" data-message="Are you sure you want to delete this work order?">
+                                            <a href="{{ route('maintenance.work-orders.destroy', array($workOrder->id)) }}" data-method="delete" data-message="Are you sure you want to delete this work order? It will be archived.">
                                                 <i class="fa fa-trash-o"></i> Delete Work Order
                                             </a>
                                         </li>

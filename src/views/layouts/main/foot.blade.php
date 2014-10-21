@@ -39,6 +39,8 @@
     
     {{ HTML::script('packages/stevebauman/maintenance/js/base.js') }}
     
+    
+    
     <!-- End Scripts -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
