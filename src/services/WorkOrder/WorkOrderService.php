@@ -14,7 +14,7 @@ class WorkOrderService extends AbstractModelService {
                 $this->notFoundException = $notFoundException;
         }
         
-	public function getByPageWithFilter(){
+	public function getByPageWithFilter($archived = NULL){
             
 		return $this->model
 			->with(array(
@@ -28,6 +28,7 @@ class WorkOrderService extends AbstractModelService {
                         ->status($this->getInput('status'))
                         ->category($this->getInput('work_order_category_id'))
                         ->assets($this->getInput('assets'))
+                        ->archived($archived)
                         ->sort($this->getInput('field'), $this->getInput('sort'))
 			->paginate(25);
 	}

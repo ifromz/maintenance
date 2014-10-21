@@ -1,4 +1,4 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.admin')
 
 @section('header')
 	<h1>{{ $title }}</h1>
@@ -6,16 +6,16 @@
 
 @section('breadcrumb')
 <li>
-    <a href="{{ route('maintenance.work-orders.index') }}">
-        <i class="fa fa-book"></i> 
-        Work Orders
+    <a href="{{ route('maintenance.assets.index') }}">
+        <i class="fa fa-truck"></i> 
+        Assets
     </a>
 </li>
 @stop
 
 @section('content')
     
-    @include('maintenance::work-orders.modals.search', array(
+ @include('maintenance::work-orders.modals.search', array(
         'url'=>route('maintenance.work-orders.index')
     ))
 
@@ -100,4 +100,5 @@
             <div class="text-center">{{ $workOrders->appends(Input::except('page'))->links() }}</div>
         </div>
     </div>
+
 @stop

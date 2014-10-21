@@ -6,6 +6,7 @@
             <th>Subject</th>
             <th>Created At</th>
             <th>Attached On</th>
+            <th>Attachments</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -16,6 +17,7 @@
             <td>{{ $workOrder->subject }}</td>
             <td>{{ $workOrder->created_at }}</td>
             <td>{{ $workOrder->pivot->created_at }}</td>
+            <td>{{ $workOrder->attachments->count() }}</td>
             <td>
                  <div class="btn-group">
                     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">

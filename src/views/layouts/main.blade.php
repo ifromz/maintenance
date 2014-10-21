@@ -186,6 +186,19 @@
 
                         </ul>
                     </li>
+                    
+                    <li>
+                        <a href="{{ route('maintenance.locations.index') }}">
+                            <i class="fa fa-location-arrow"></i> Locations
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="{{ route('maintenance.categories.index') }}">
+                            <i class="fa fa-sitemap"></i> 
+                            Asset / Inventory Categories
+                        </a>
+                    </li>
 
                 </ul>
             </section>

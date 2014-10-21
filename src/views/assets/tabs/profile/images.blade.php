@@ -32,13 +32,6 @@
                     </div>
                 </div>
                 @endforeach
-
-                @else
-                <div class="item active">
-                    <a href="{{ route('maintenance.assets.images.create', array($asset->id)) }}">
-                        <img src="http://placehold.it/300x200&text=Click+To+Add+Pictures" alt="Placeholder">
-                    </a>
-                </div>
             @endif
         </div>
         @if($asset->images->count() > 1)

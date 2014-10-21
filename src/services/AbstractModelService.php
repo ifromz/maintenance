@@ -235,6 +235,12 @@ abstract class AbstractModelService {
         return $record->forceDelete();
     }
     
+    /**
+     * Restore a soft deleted record by ID
+     * 
+     * @param type $id
+     * @return NULL
+     */
     public function restoreArchived($id){
         $record = $this->findArchived($id);
         

@@ -2,19 +2,19 @@
 
 namespace Stevebauman\Maintenance\Controllers\Admin;
 
+use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\AbstractController;
-use Stevebauman\Maintenance\Services\AssetService;
 
 class ArchiveAssetController extends AbstractController {
     
-    public function __construct(AssetService $asset)
+    public function __construct(WorkOrderService $workOrder)
     {
-        $this->asset = $asset;
+        $this->workOrder = $workOrder;
     }
     
     public function index()
     {
-        $assets = $this->asset->getByPageWithFilter(true);
+        $assets = $this->workOrder->getByPageWithFilter($archived = true);
         
         return $this->view('maintenance::admin.archive.assets.index', array(
             'title' => 'Archived Assets',
@@ -26,7 +26,7 @@ class ArchiveAssetController extends AbstractController {
     {
         $asset = $this->asset->findArchived($id);
         
-        return $this->view('maintenance::assets.show', array(
+        return $this->view('maintenance::admin.archive.assets.show', array(
             'title' => 'Viewing Archived Asset: '.$asset->name,
             'asset' => $asset
         ));

@@ -98,6 +98,16 @@
                         </a>
                         <ul class="treeview-menu">
                             <li>
+                                <a href="{{ route('maintenance.work-orders.index') }}" style="margin-left: 10px;">
+                                    <i class="fa fa-book"></i> Work Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" style="margin-left: 10px;">
+                                    <i class="fa fa-dropbox"></i> Inventory
+                                </a>
+                            </li>
+                            <li>
                                 <a href="{{ route('maintenance.admin.archive.assets.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-truck"></i> Assets
                                 </a>

@@ -16,7 +16,7 @@
             
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Select a Category</h4>
+                <h4 class="modal-title">Select a Category</h4>
             </div>
             
             <div class="modal-body">
@@ -40,13 +40,13 @@ $(document).ready(function(e) {
 		json_category_tree = data;
 	}).done(function(){
 		if(json_category_tree != null){
-			$('#category-tree').on('changed.jstree', function (e, data) {
+			$('#category-tree').on('select_node.jstree', function (e, data) {
 				
 				$('#category-select').attr('disabled', false);
 				
 				for(i = 0, j = data.selected.length; i < j; i++) {
-					$('input[name="category_id"]').attr('value', data.instance.get_node(data.selected[i]).id);
-					$('input[name="category"]').attr('value', $.trim(data.instance.get_node(data.selected[i]).text));
+                                    $('input[name="category_id"]').attr('value', data.instance.get_node(data.selected[i]).id);
+                                    $('input[name="category"]').attr('value', $.trim(data.instance.get_node(data.selected[i]).text));
 				}
 			  }).jstree({ 
 				"plugins" : [ "core", "json_data", "themes", "ui" ],

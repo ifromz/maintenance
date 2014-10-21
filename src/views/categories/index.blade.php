@@ -15,14 +15,14 @@
 @section('content')
 
     <div class="btn-toolbar">
-        <a href="{{ action(currentControllerAction('create')) }}" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Create a new Category">
+        <a href="{{ action(currentControllerAction('create')) }}" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Create a new {{ $resource }}">
             <i class="fa fa-plus"></i>
             New {{ $resource }}
         </a>
         
         <a id="edit-category" 
             data-toggle="tooltip" title="" 
-            data-original-title="Edit Selected Category" 
+            data-original-title="Edit Selected {{ $resource }}" 
             class="btn btn-warning" 
             style="display:none;" href="">
                 <i class="fa fa-pencil"></i>
@@ -31,7 +31,7 @@
         
         <a id="create-sub-category" 
             data-toggle="tooltip" title="" 
-            data-original-title="Create a new Sub Category" 
+            data-original-title="Create a new Sub {{ $resource }}" 
             class="btn btn-success" 
             style="display:none;" href="">
                 <i class="fa fa-plus"></i>
@@ -50,7 +50,7 @@
                 id="delete-sub-category"
                 data-toggle="tooltip" 
                 title=""
-                data-original-title="Delete selected category" 
+                data-original-title="Delete selected {{ $resource }}" 
                 class="btn btn-danger" 
                 style="display:none;"
             >

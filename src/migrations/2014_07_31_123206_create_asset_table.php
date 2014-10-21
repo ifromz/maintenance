@@ -17,6 +17,7 @@ class CreateAssetTable extends Migration {
 			$table->timestamps();
                         $table->softDeletes();
 			$table->datetime('aquired_at')->nullable();
+                        $table->datetime('end_of_life')->nullable();
 			$table->integer('user_id')->unsigned();
 			$table->integer('location_id')->unsigned()->nullable();
 			$table->integer('category_id')->unsigned();

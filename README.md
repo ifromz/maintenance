@@ -22,8 +22,8 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Finish administration panel for managing permissions/users/groups
 * Add date for end of life for assets
 * Ability to assign users to events
-* Clean up routes
-* Add soft deletes for some tables for recoverable data
+* <del>Clean up routes</del> - Oct 21st 2014
+* <del>Add soft deletes for some tables for recoverable data</del> - Oct 21st 2014 (Work Orders, Assets & Inventory)
 * Tests
 
 ###Screenshots
