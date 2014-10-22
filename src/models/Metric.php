@@ -17,6 +17,16 @@ class Metric extends BaseModel {
         'name' => 'Name',
     );
     
+    /**
+     * Allows revisionable to show the metric name instead of ID
+     * 
+     * @return string
+     */
+    public function identifiableName()
+    {
+        return $this->name;
+    }
+    
     public function user()
         {
 		return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');

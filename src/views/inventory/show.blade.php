@@ -31,7 +31,7 @@
             
             <div class="tab-pane" id="tab_history">
                 @include('maintenance::partials.history-table', array(
-                    'history'=>$item->revisionHistory
+                    'record'=>$item
                 ))
             </div>
         </div>

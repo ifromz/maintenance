@@ -19,30 +19,41 @@
 @section('content')
 
     <div class="nav-tabs-custom">
+        
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_1" data-toggle="tab">Profile</a></li>
-            <li class=""><a href="#tab_2" data-toggle="tab">Details</a></li>
-            <li class=""><a href="#tab_3" data-toggle="tab">Parts / Supplies</a></li>
-            <li class=""><a href="#tab_4" data-toggle="tab">History</a></li>
-            <li class=""><a href="#tab_5" data-toggle="tab">Attachments</a></li>
+            <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
+            <li class=""><a href="#tab_details" data-toggle="tab">Details</a></li>
+            <li class=""><a href="#tab_history" data-toggle="tab">History</a></li>
+            <li class=""><a href="#tab_parts" data-toggle="tab">Parts / Supplies</a></li>
+            <li class=""><a href="#tab_attachments" data-toggle="tab">Attachments</a></li>
         </ul>
+        
         <div class="tab-content">
-            <div class="tab-pane active" id="tab_1">
+            
+            <div class="tab-pane active" id="tab_profile">
                 @include('maintenance::work-orders.tabs.profile', array('workOrder'=>$workOrder))
-            </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_2">
+            </div>
+            
+            <div class="tab-pane" id="tab_details">
+                @include('maintenance::work-orders.tabs.sessions', array('workOrder'=>$workOrder))
+
                 @include('maintenance::work-orders.tabs.details', array('workOrder'=>$workOrder))
-            </div><!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_3">
+            </div>
+            
+            <div class="tab-pane" id="tab_history">
+                @include('maintenance::partials.history-table', array('record'=>$workOrder))
+            </div>
+            
+            <div class="tab-pane" id="tab_parts">
                 @include('maintenance::work-orders.tabs.parts', array('workOrder'=>$workOrder))
             </div>
-            <div class="tab-pane" id="tab_4">
-                @include('maintenance::work-orders.tabs.sessions', array('workOrder'=>$workOrder))
-            </div>
-            <div class="tab-pane" id="tab_5">
+            
+            <div class="tab-pane" id="tab_attachments">
                 @include('maintenance::work-orders.tabs.attachments', array('workOrder'=>$workOrder))
             </div>
-        </div><!-- /.tab-content -->
+            
+        </div>
+        
     </div>
     
     <div class="clearfix"></div>
