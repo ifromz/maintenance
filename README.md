@@ -9,6 +9,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * LDAP Authentication with [Corp](https://github.com/stevebauman/Corp) Combined with [Sentry](https://github.com/cartalyst/sentry)
 * Work Order / Inventory / Asset Management (with Maintenance Scheduling using [FullCalendar](https://github.com/arshaw/fullcalendar))
 * Administration Panel for managing users, permissions, groups, and data restoration (archive)
+* [Revisionable](https://github.com/VentureCraft/revisionable) is built in for easy history viewing on changes
 * And more...
 
 ###TO DO
