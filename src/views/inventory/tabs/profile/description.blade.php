@@ -16,6 +16,11 @@
 
     <p></p>
     
+    <dt>Metric:</dt>
+    <dd>{{ $item->metric->name }}</dd>
+
+    <p></p>
+    
     <dt>Description:</dt>
     <dd class="pad bg-gray">
         @if($item->description)
@@ -29,11 +34,6 @@
     
     <dt>Category:</dt>
     <dd>{{ renderNode($item->category) }}</dd>
-
-    <p></p>
-    
-    <dt>Measured By:</dt>
-    <dd>{{ $item->metric->name }}</dd>
 
     <p></p>
 </dl>

@@ -5,7 +5,7 @@
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th width='30'>Quantity</th>
+                    <th>Quantity</th>
                     <th>Location</th>
                     <th>Last Change</th>
                     <th>Last Change By</th>
@@ -15,7 +15,7 @@
             <tbody>
                 @foreach($item->stocks as $stock)
                 <tr>
-                    <td>{{ $stock->quantity }}</td>
+                    <td>{{ $stock->quantity }} {{ $item->metric->name }}</td>
                     <td>{{ renderNode($stock->location)}}</td>
                     <td>{{ $stock->lastMovement }}</td>
                     <td>{{ $stock->lastMovementBy }}</td>
