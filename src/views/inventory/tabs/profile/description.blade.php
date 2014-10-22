@@ -31,4 +31,9 @@
     <dd>{{ renderNode($item->category) }}</dd>
 
     <p></p>
+    
+    <dt>Measured By:</dt>
+    <dd>{{ $item->metric->name }}</dd>
+
+    <p></p>
 </dl>

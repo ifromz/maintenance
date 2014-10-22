@@ -1,6 +1,6 @@
 <div class="input-group">
     
-    {{ Form::text('category', (isset($category_name) ? $category_name : NULL), array('readonly', 'class'=>'form-control')) }}
+    {{ Form::text('category', (isset($category_name) ? $category_name : NULL), array('readonly', 'class'=>'form-control', 'placeholder'=>"Click 'Select'")) }}
     {{ Form::hidden('category_id', (isset($category_id) ? $category_id : NULL)) }}
     
     <span class="input-group-btn">

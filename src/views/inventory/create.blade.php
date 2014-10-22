@@ -20,6 +20,8 @@
 @section('content')
 <div class="col-md-12">
         
+        @include('maintenance::metrics.modals.create')
+        
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Add an Item</h3>
@@ -36,6 +38,13 @@
                     <label class="col-sm-2 control-label">Category</label>
                     <div class="col-md-4">
                         @include('maintenance::select.category')
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Metric</label>
+                    <div class="col-md-4">
+                        @include('maintenance::select.metric')
                     </div>
                 </div>
                 

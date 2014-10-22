@@ -66,6 +66,11 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix'), 'namespace'=>'S
                 include('routes/category.php');
 		
                 /*
+                 * Metric Routes
+                 */
+                include('routes/metric.php');
+                
+                /*
                  * Administration Route Group
                  */
                 Route::group(array('prefix'=>'admin', 'namespace'=>'Admin'), function(){

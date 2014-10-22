@@ -201,6 +201,13 @@
                             Asset / Inventory Categories
                         </a>
                     </li>
+                    
+                    <li>
+                        <a href="{{ route('maintenance.metrics.index') }}">
+                            <i class="fa fa-anchor"></i> 
+                            Metrics
+                        </a>
+                    </li>
 
                 </ul>
             </section>

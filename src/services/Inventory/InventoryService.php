@@ -60,6 +60,7 @@ class InventoryService extends AbstractModelService {
         $insert = array(
             'category_id' => $this->getInput('category_id'),
             'user_id' => $this->sentry->getCurrentUserId(),
+            'metric_id' => $this->getInput('metric'),
             'name' => $this->getInput('name', NULL, true),
             'description' => $this->getInput('description', NULL, true),
         );
@@ -100,6 +101,7 @@ class InventoryService extends AbstractModelService {
          */
         $insert = array(
             'category_id' => $this->getInput('category_id'),
+            'metric_id' => $this->getInput('metric'),
             'name' => $this->getInput('name', $record->name, true),
             'description' => $this->getInput('description', $record->description, true),
         );

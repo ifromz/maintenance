@@ -19,14 +19,19 @@ class CreateInventoryTables extends Migration {
                 $table->softDeletes();
                 $table->integer('category_id')->unsigned()->nullable();
                 $table->integer('user_id')->unsigned()->nullable();
+                $table->integer('metric_id')->unsigned()->nullable();
                 $table->string('name');
                 $table->text('description')->nullable();
+ 
+                $table->foreign('category_id')->references('id')->on('categories')
+                    ->onUpdate('restrict')
+                    ->onDelete('set null');
                 
                 $table->foreign('user_id')->references('id')->on('users')
                     ->onUpdate('restrict')
                     ->onDelete('set null');
                 
-                $table->foreign('category_id')->references('id')->on('categories')
+                $table->foreign('metric_id')->references('id')->on('metrics')
                     ->onUpdate('restrict')
                     ->onDelete('set null');
             });

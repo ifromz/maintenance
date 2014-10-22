@@ -78,6 +78,7 @@ class InventoryController extends AbstractController {
 	 * @return Response
 	 */
 	public function show($id){
+            
             $item = $this->inventory->find($id);
 
             return $this->view('maintenance::inventory.show', array(

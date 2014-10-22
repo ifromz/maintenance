@@ -1,5 +1,5 @@
 <div class="input-group">
-    {{ Form::text('work_order_category', (isset($category_name) ? $category_name : NULL), array('readonly', 'class'=>'form-control')) }}
+    {{ Form::text('work_order_category', (isset($category_name) ? $category_name : NULL), array('readonly', 'class'=>'form-control', 'placeholder'=>"Click 'Select'")) }}
     {{ Form::hidden('work_order_category_id', (isset($category_id) ? $category_id : NULL)) }}
     <span class="input-group-btn">
     	<button class="btn btn-primary" data-toggle="modal" data-target="#workOrderCategoryModal" type="button">Select</button>

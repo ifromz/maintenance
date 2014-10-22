@@ -9,24 +9,33 @@ class Inventory extends BaseModel {
         
 	protected $table = 'inventories';
 	
-        protected $fillable = array('user_id', 'category_id', 'name', 'description');
+        protected $fillable = array('user_id', 'metric_id', 'category_id', 'name', 'description');
         
-        public function stocks(){
+        public function metric()
+        {
+            return $this->hasOne('Stevebauman\Maintenance\Models\Metric', 'id', 'metric_id');
+        }
+        
+        public function stocks()
+        {
             return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStock', 'inventory_id')->orderBy('quantity', 'DESC');
         }
         
-        public function user(){
+        public function user()
+        {
 		return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
 	}
         
-        public function category(){
+        public function category()
+        {
 		return $this->hasOne('Stevebauman\Maintenance\Models\Category', 'id', 'category_id');
 	}
         
         /*
          * Filters query by the inputted inventory item name
          */
-        public function scopeName($query, $name = NULL){
+        public function scopeName($query, $name = NULL)
+        {
             if($name){
                 return $query->where('name', 'LIKE', '%'.$name.'%');
             }
@@ -35,7 +44,8 @@ class Inventory extends BaseModel {
         /*
          * Filters query by the inputted inventory item description
          */
-        public function scopeDescription($query, $description = NULL){
+        public function scopeDescription($query, $description = NULL)
+        {
             if($description){
                 return $query->where('description', 'LIKE', '%'.$description.'%');
             }
@@ -44,7 +54,8 @@ class Inventory extends BaseModel {
         /*
          * Filters query by the inputted inventory item stock quantity
          */
-        public function scopeStock($query, $operator = NULL, $stock = NULL){
+        public function scopeStock($query, $operator = NULL, $stock = NULL)
+        {
             if($operator && $stock){
                 //dd($operator);
                 return $query->whereHas('stocks', function($query) use ($operator, $stock){
@@ -63,7 +74,8 @@ class Inventory extends BaseModel {
         /*
          * Filters query by the inputted inventory item category
          */
-        public function scopeCategory($query, $category = NULL){
+        public function scopeCategory($query, $category = NULL)
+        {
             if($category){
                 $query->whereHas('category', function($query) use($category){
                     return $query->where('name', 'LIKE', '%'.$category.'%');
@@ -74,7 +86,8 @@ class Inventory extends BaseModel {
         /*
          * Filters query by the inputted inventory item location
          */
-        public function scopeLocation($query, $location = NULL){
+        public function scopeLocation($query, $location = NULL)
+        {
             if($location){
                 $query->whereHas('location', function($query) use($location){
                     return $query->where('name', 'LIKE', '%'.$location.'%');
@@ -85,14 +98,16 @@ class Inventory extends BaseModel {
         /*
          * Mutator for showing a limited description for display in tables
          */
-        public function getDescriptionShortAttribute(){
+        public function getDescriptionShortAttribute()
+        {
             return str_limit(strip_tags($this->attributes['description']), 30);
         }
         
         /*
          * Mutator for showing the total current stock of the inventory item
          */
-        public function getCurrentStockAttribute(){
+        public function getCurrentStockAttribute()
+        {
             if($this->stocks->count() > 0){
                 return $this->stocks->sum('quantity');
             } return 0;

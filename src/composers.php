@@ -17,8 +17,14 @@ View::composer('maintenance::admin.dashboard.index', 'Stevebauman\Maintenance\Co
  */
 View::composer('maintenance::layouts.main.notifications', 'Stevebauman\Maintenance\Composers\MainNotificationComposer');
 
+/*
+ * Public Layout Composer
+ */
 View::composer('maintenance::layouts.public', 'Stevebauman\Maintenance\Composers\PublicLayoutComposer');
 
+/*
+ * Select Composers
+ */
 View::composer('maintenance::select.assets', 'Stevebauman\Maintenance\Composers\AssetSelectComposer');
 
 View::composer('maintenance::select.status', 'Stevebauman\Maintenance\Composers\StatusSelectComposer');
@@ -26,3 +32,5 @@ View::composer('maintenance::select.status', 'Stevebauman\Maintenance\Composers\
 View::composer('maintenance::select.users', 'Stevebauman\Maintenance\Composers\UserSelectComposer');
 
 View::composer('maintenance::select.routes', 'Stevebauman\Maintenance\Composers\RouteSelectComposer');
+
+View::composer('maintenance::select.metric', 'Stevebauman\Maintenance\Composers\MetricSelectComposer');

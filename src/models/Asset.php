@@ -23,6 +23,7 @@ class Asset extends BaseModel {
 		'serial',
 		'price',
                 'aquired_at',
+                'end_of_life',
 	);
         
         public function user(){

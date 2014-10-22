@@ -32,7 +32,7 @@
     
     <div class="panel-body">
         
-        <a href="{{ route('maintenance.admin.archive.assets.restore', array($workOrder->id)) }}" 
+        <a href="{{ route('maintenance.admin.archive.work-orders.restore', array($workOrder->id)) }}" 
             data-method="post"
             data-title="Restore Work Order?"
             data-message="Are you sure you want to restore this work order?" 

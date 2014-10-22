@@ -53,7 +53,7 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ renderNode($item->category) }}</td>
-                            <td>{{ $item->current_stock }}</td>
+                            <td>{{ $item->current_stock }} {{ $item->metric->name }}</td>
                             <td>{{ $item->description_short }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>

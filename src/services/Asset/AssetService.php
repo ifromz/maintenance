@@ -105,6 +105,7 @@ class AssetService extends AbstractModelService {
 			'weight'            => $this->getInput('weight', NULL, true),
 			'serial'            => $this->getInput('serial', NULL, true),
 			'aquired_at'        => $this->formatDateWithTime($this->getInput('aquired_at')),
+                        'end_of_life'       => $this->formatDateWithTime($this->getInput('end_of_life')),
 		);
 		
                 /*
@@ -153,6 +154,7 @@ class AssetService extends AbstractModelService {
                         'weight'            => $this->getInput('weight', $record->weight, true),
                         'serial'            => $this->getInput('serial', $record->serial, true),
                         'aquired_at'        => ($this->formatDateWithTime($this->getInput('aquired_at')) ?: $record->aquired_at),
+                        'end_of_life'       => ($this->formatDateWithTime($this->getInput('end_of_life')) ?: $record->end_of_life),
                 );
                 
                 /*

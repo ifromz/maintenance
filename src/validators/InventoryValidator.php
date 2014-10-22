@@ -9,6 +9,7 @@ class InventoryValidator extends AbstractValidator {
             'description' => '',
             'category' => 'required',
             'category_id' => 'integer',
+            'metric' => 'integer'
 	);
     
 }
