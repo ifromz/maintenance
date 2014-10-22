@@ -26,6 +26,22 @@ class Asset extends BaseModel {
                 'end_of_life',
 	);
         
+        protected $revisionFormattedFieldNames = array(
+            'location_id'   => 'Location',
+            'category_id'   => 'Category',
+            'name'          => 'Name',
+            'condition'     => 'Condition',
+            'size'          => 'Size',
+            'weight'        => 'Weight',
+            'vendor'        => 'Vendor',
+            'make'          => 'Make',
+            'model'         => 'Model',
+            'serial'        => 'Serial',
+            'price'         => 'Price',
+            'aquired_at'    => 'Aquired At',
+            'end_of_life'   => 'End of Life',
+        );
+        
         public function user(){
             return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
         }

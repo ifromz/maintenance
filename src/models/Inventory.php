@@ -9,7 +9,23 @@ class Inventory extends BaseModel {
         
 	protected $table = 'inventories';
 	
-        protected $fillable = array('user_id', 'metric_id', 'category_id', 'name', 'description');
+        protected $fillable = array(
+            'user_id', 
+            'metric_id', 
+            'category_id', 
+            'name', 
+            'description'
+        );
+        
+        protected $revisionFormattedFieldNames = array(
+            'metric_id'     => 'Metric',
+            'name'          => 'Name',
+        );
+        
+        public function identifiableName()
+        {
+            return 'test';
+        }
         
         public function metric()
         {

@@ -6,7 +6,11 @@ class WorkOrderAssignment extends BaseModel {
 	
 	protected $table = 'work_order_assignments';
 	
-        protected $fillable = array('work_order_id', 'by_user_id', 'to_user_id');
+        protected $fillable = array(
+            'work_order_id', 
+            'by_user_id', 
+            'to_user_id'
+        );
         
         public function workOrder(){
             return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrder', 'id', 'work_order_id');

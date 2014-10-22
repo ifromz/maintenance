@@ -13,6 +13,10 @@ class Metric extends BaseModel {
         'name'
     );
     
+    protected $revisionFormattedFieldNames = array(
+        'name' => 'Name',
+    );
+    
     public function user()
         {
 		return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');

@@ -6,7 +6,13 @@ class WorkOrderSession extends BaseModel {
 	
         protected $table = 'work_order_sessions';
         
-        protected $fillable = array('user_id', 'work_order_id', 'in', 'out', 'hours');
+        protected $fillable = array(
+            'user_id',
+            'work_order_id',
+            'in',
+            'out',
+            'hours'
+        );
         
         public function workOrder(){
             return $this->hasOne('Stevebauman\Maintenanace\Models\WorkOrder', 'work_order_id');

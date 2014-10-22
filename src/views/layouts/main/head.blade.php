@@ -22,8 +22,8 @@
     <!-- Theme style -->
     {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/adminlte.css') }}
 
-    <!-- Tags style -->
-    {{ HTML::style('packages/stevebauman/maintenance/css/tags.css') }}
+    <!-- Custom style -->
+    {{ HTML::style('packages/stevebauman/maintenance/css/custom.css') }}
 
     <!-- JS Tree Style -->
     {{ HTML::style('packages/stevebauman/maintenance/jsTree/dist/themes/default/style.min.css') }}

@@ -21,11 +21,11 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * <del>Better category management</del> - Oct 15th 2014
 * Better breadcrumb management
 * Finish administration panel for managing permissions/users/groups
-* Add date for end of life for assets
+* <del>Add date for end of life for assets</del> - Oct 22nd 2014
 * Ability to assign users to events
 * <del>Clean up routes</del> - Oct 21st 2014
 * <del>Add soft deletes for some tables for recoverable data</del> - Oct 21st 2014 (Work Orders, Assets & Inventory)
-* Implement [Revisionable](https://github.com/VentureCraft/revisionable) for viewing edit history on records
+* <del>Implement [Revisionable](https://github.com/VentureCraft/revisionable) for viewing edit history on records</del> - Oct 22nd 2014
 * <del>Implement selectable inventory metrics (LB, Litres, Tonnes etc)</del> - Oct 22nd 2014
 * Implement Print view for QR codes as well as all other data
 * Tests

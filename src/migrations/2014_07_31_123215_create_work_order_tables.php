@@ -26,7 +26,6 @@ class CreateWorkOrderTables extends Migration {
 			$table->dateTime('completed_at')->nullable();
 			$table->string('subject');
 			$table->text('description')->nullable();
-			$table->decimal('hours', 5, 2)->nullable();
 			
 			$table->foreign('user_id')->references('id')->on('users')
 						->onUpdate('restrict')

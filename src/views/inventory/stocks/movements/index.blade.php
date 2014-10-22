@@ -56,7 +56,7 @@
                         <td>{{ $movement->user->full_name }}</td>
                         <td>{{ $movement->before }}</td>
                         <td>{{ $movement->after }}</td>
-                        <td>{{ $movement->change }}</td>
+                        <td>{{ $movement->change }} {{ $item->metric->name }}</td>
                         <td>{{ $movement->cost }}</td>
                         <td>{{ $movement->reason }}</td>
                         <td>{{ $movement->created_at }}</td>

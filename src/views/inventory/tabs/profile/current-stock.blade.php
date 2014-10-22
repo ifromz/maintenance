@@ -9,7 +9,7 @@
                     <th>Location</th>
                     <th>Last Change</th>
                     <th>Last Change By</th>
-                    <th>Action</th>
+                    <th class="no-print">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,7 +19,7 @@
                     <td>{{ renderNode($stock->location)}}</td>
                     <td>{{ $stock->lastMovement }}</td>
                     <td>{{ $stock->lastMovementBy }}</td>
-                    <td>
+                    <td class="no-print">
                         <div class="btn-group">
                             <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
                                 Action

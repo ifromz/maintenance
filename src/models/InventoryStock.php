@@ -6,7 +6,16 @@ class InventoryStock extends BaseModel {
 	
 	protected $table = 'inventory_stocks';
 	
-        protected $fillable = array('inventory_id', 'location_id', 'quantity');
+        protected $fillable = array(
+            'inventory_id', 
+            'location_id', 
+            'quantity'
+        );
+        
+        protected $revisionFormattedFieldNames = array(
+            'location_id'   => 'Location',
+            'quantity'      => 'Quantity',
+        );
         
         public function item(){
             return $this->belongsTo('Stevebauman\Maintenance\Models\Inventory', 'inventory_id', 'id');

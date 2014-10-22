@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class BaseModel extends Eloquent {
     
+    /*
+     * Revisionable Trait for storing revisions on all models that extend
+     * from this class
+     * 
+     */
+    use \Venturecraft\Revisionable\RevisionableTrait;
+    
     /**
      * Formats the created_at timestamp
      * 

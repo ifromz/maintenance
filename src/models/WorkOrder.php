@@ -19,8 +19,18 @@ class WorkOrder extends BaseModel {
             'subject', 
             'description', 
             'started_at', 
-            'completed_at', 
-            'sessions',
+            'completed_at',
+        );
+        
+        protected $revisionFormattedFieldNames = array(
+            'location_id'               => 'Location',
+            'work_order_category_id'    => 'Work Order Category',
+            'status'                    => 'Status',
+            'priority'                  => 'Priority',
+            'subject'                   => 'Subject', 
+            'description'               => 'Description', 
+            'started_at'                => 'Started At', 
+            'completed_at'              => 'Completed At',
         );
 	
 	public function customerUpdates(){

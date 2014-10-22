@@ -144,19 +144,12 @@
                                 </a>
                             </li>
 
-                            @if($siteCategoryRoots)
-
-                                @foreach($siteCategoryRoots as $category)
-
-                                <li>
-                                    <a href="{{ route('maintenance.inventory.index', array('category_id'=>$category->id)) }}" style="margin-left: 10px;">
-                                        {{ $category->name }}
-                                    </a>
-                                </li>
-
-                                @endforeach
-
-                            @endif
+                            <li>
+                                <a href="{{ route('maintenance.metrics.index') }}" style="margin-left: 10px;">
+                                    <i class="fa fa-anchor"></i> 
+                                    Metrics
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -171,21 +164,6 @@
                                     <i class="fa fa-book"></i> All Assets
                                 </a>
                             </li>
-
-                            @if($siteCategoryRoots)
-
-                                @foreach($siteCategoryRoots as $category)
-
-                                <li>
-                                    <a href="{{ route('maintenance.assets.index', array('category_id'=>$category->id)) }}" style="margin-left: 10px;">
-                                        {{ $category->name }}
-                                    </a>
-                                </li>
-
-                                @endforeach
-
-                            @endif
-
                         </ul>
                     </li>
                     
@@ -202,13 +180,6 @@
                         </a>
                     </li>
                     
-                    <li>
-                        <a href="{{ route('maintenance.metrics.index') }}">
-                            <i class="fa fa-anchor"></i> 
-                            Metrics
-                        </a>
-                    </li>
-
                 </ul>
             </section>
             <!-- /.sidebar -->
