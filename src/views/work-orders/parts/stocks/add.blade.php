@@ -54,7 +54,7 @@
 
                     <p></p>
 
-                    <dt>Quanty In this Location:</dt>
+                    <dt>Current Stock:</dt>
                     <dd id="quantity-refresh">{{ renderNode($stock->quantity) }}</dd>
 
                     <p></p>

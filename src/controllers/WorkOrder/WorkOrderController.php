@@ -92,7 +92,7 @@ class WorkOrderController extends AbstractController {
 
             $workOrder = $this->workOrder->with('category')->find($id);
 
-            $dateFormat = 'Y/m/d';
+            $dateFormat = 'd F, Y';
             $timeFormat = 'H:i A';
 
             $dates = array(

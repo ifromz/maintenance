@@ -285,7 +285,12 @@ abstract class AbstractModelService {
      */
     protected function formatDateWithTime($date, $time = NULL){
         if($date){
-                return date('Y-m-d H:i:s', strtotime($date. ' ' .$time));
+            if($time){
+                return date('Y-m-d H:i:s', strtotime($date. ' ' . $time));
+            } else{
+                return date('Y-m-d H:i:s', strtotime($date));
+            }
+                
         } return NULL;
     }
 

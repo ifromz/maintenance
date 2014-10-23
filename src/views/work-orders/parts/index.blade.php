@@ -103,8 +103,8 @@
                 <tr>
                     <th>Name</th>
                     <th>Category</th>
-                    <th>Stock</th>
-                    <th>Add</th>
+                    <th>Current Stock</th>
+                    <th>Select</th>
                 </tr>
             </thead>
             <tbody>
@@ -112,8 +112,8 @@
                 <tr>
                     <td>{{ $item->name }}</td>
                     <td>{{ renderNode($item->category) }}</td>
-                    <td>{{ $item->current_stock }}</td>
-                    <td><a href="{{ route('maintenance.work-orders.parts.stocks.index', array($workOrder->id, $item->id)) }}" class="btn btn-primary">Add</a></td>
+                    <td>{{ $item->current_stock }} {{ $item->metric->name }}</td>
+                    <td><a href="{{ route('maintenance.work-orders.parts.stocks.index', array($workOrder->id, $item->id)) }}" class="btn btn-primary">Select</a></td>
                 </tr>
                 @endforeach
             </tbody>

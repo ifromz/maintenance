@@ -54,16 +54,16 @@
                     <tr>
                         <th>Location</th>
                         <th>Quantity</th>
-                        <th>Add</th>
+                        <th>Add to Work Order</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($item->stocks as $stock)
                     <tr>
                         <td>{{ renderNode($stock->location) }}</td>
-                        <td>{{ $stock->quantity }}</td>
+                        <td>{{ $stock->quantity }} {{ $item->metric->name }}</td>
                         <td>
-                            <a class="btn btn-primary" href="{{ route('maintenance.work-orders.parts.stocks.add', array($workOrder->id, $item->id, $stock->id)) }}">Add</a>
+                            <a class="btn btn-primary" href="{{ route('maintenance.work-orders.parts.stocks.add', array($workOrder->id, $item->id, $stock->id)) }}">Add to Work Order</a>
                         </td>
                     </tr>
                     @endforeach
