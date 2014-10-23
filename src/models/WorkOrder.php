@@ -171,7 +171,7 @@ class WorkOrder extends BaseModel {
          * @return boolean
          */
         public function isComplete(){
-            if($this->status === Config::get('maintenance::status.complete')){
+            if($this->status->control === Config::get('maintenance::controls.complete')){
                 return true;
             } return false;
         }
@@ -182,7 +182,7 @@ class WorkOrder extends BaseModel {
          * @return boolean
          */
         public function isNotComplete(){
-            if($this->status != Config::get('maintenance::status.complete')){
+            if($this->status->control != Config::get('maintenance::controls.complete')){
                 return true;
             } return false;
         }

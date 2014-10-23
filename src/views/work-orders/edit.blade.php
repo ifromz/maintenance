@@ -61,14 +61,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Status</label>
                     <div class="col-md-4">
-                    	@include('maintenance::select.status', array('status'=>$workOrder->status))
+                    	@include('maintenance::select.status', array('status'=>$workOrder->status->id))
                    	</div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Priority</label>
                     <div class="col-md-4">
-                    	@include('maintenance::select.priority', array('priority'=>$workOrder->priority))
+                    	@include('maintenance::select.priority', array('priority'=>$workOrder->priority->id))
                    	</div>
                 </div>
                 

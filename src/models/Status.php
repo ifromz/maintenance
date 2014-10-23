@@ -20,17 +20,12 @@ class Status extends BaseModel {
         return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
     }
     
-    public function getControlAttribute($control)
-    {
-        return Config::get(sprintf('maintenance::controls.%s', $control));
-    }
-    
     public function getLabelAttribute()
     {
         return sprintf(
                 '<span class="label label-%s">%s</span>', 
                     $this->attributes['color'], 
-                    $this->getControlAttribute($this->attributes['control'])
+                    Config::get(sprintf('maintenance::controls.%s', $this->attributes['control']))
             );
     }
     
