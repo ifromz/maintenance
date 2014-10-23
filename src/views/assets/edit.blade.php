@@ -90,6 +90,13 @@
                 </div>
                 
                 <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">Serial</label>
+                    <div class="col-md-4">
+                    	{{ Form::text('serial', $asset->serial, array('class'=>'form-control', 'placeholder'=>'ex. 153423-13432432-2342423')) }}
+                    </div>
+                </div>
+                
+                <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Size</label>
                     <div class="col-md-4">
                     	{{ Form::text('size', $asset->size, array('class'=>'form-control', 'placeholder'=>'ex. 1905 x 2463')) }}
@@ -100,13 +107,6 @@
                     <label class="col-sm-2 control-label" for="name">Weight</label>
                     <div class="col-md-4">
                     	{{ Form::text('weight', $asset->weight, array('class'=>'form-control', 'placeholder'=>'ex. 1 ton')) }}
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="name">Serial</label>
-                    <div class="col-md-4">
-                    	{{ Form::text('serial', $asset->serial, array('class'=>'form-control', 'placeholder'=>'ex. 153423-13432432-2342423')) }}
                     </div>
                 </div>
                 

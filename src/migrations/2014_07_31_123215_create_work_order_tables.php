@@ -20,8 +20,8 @@ class CreateWorkOrderTables extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->integer('work_order_category_id')->unsigned()->nullable();
                         $table->integer('location_id')->unsigned()->nullable();
-			$table->integer('status')->nullable();
-			$table->integer('priority')->nullable();
+			$table->integer('status_id')->unsigned();
+			$table->integer('priority_id')->unsigned();
 			$table->dateTime('started_at')->nullable();
 			$table->dateTime('completed_at')->nullable();
 			$table->string('subject');
@@ -38,6 +38,14 @@ class CreateWorkOrderTables extends Migration {
 			$table->foreign('work_order_category_id')->references('id')->on('work_order_categories')
 						->onUpdate('restrict')
 						->onDelete('set null');
+                        
+                        $table->foreign('status_id')->references('id')->on('statuses')
+						->onUpdate('restrict')
+						->onDelete('cascade');
+                        
+                        $table->foreign('priority_id')->references('id')->on('priorities')
+						->onUpdate('restrict')
+						->onDelete('cascade');
 		});
                 
                 Schema::create('work_order_reports', function(Blueprint $table) {

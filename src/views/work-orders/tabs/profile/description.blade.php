@@ -9,16 +9,14 @@
     @endif
     
     <dt>Status:</dt>
-    <dd>{{ $workOrder->status_label }}</dd>
+    <dd>{{ $workOrder->status->label }}</dd>
 
     <p></p>
     
-    @if($workOrder->priority)
     <dt>Priority:</dt>
-    <dd>{{ $workOrder->priority_label }}</dd>
+    <dd>{{ $workOrder->priority->label }}</dd>
 
     <p></p>
-    @endif
     
     <dt>Created By:</dt>
     <dd>{{ $workOrder->user->full_name }}</dd>

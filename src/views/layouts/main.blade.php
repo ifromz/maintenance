@@ -123,7 +123,19 @@
                                     <i class="fa fa-refresh"></i> Scheduled Maintenance
                                 </a>
                             </li>
-
+                            
+                            <li>
+                                <a href="{{ route('maintenance.work-orders.statuses.index') }}" style="margin-left: 10px;">
+                                    <i class="fa fa-info"></i> Statuses
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="{{ route('maintenance.work-orders.priorities.index') }}" style="margin-left: 10px;">
+                                    <i class="fa fa-exclamation-circle"></i> Priorities
+                                </a>
+                            </li>
+                            
                             <li>
                                 <a href="{{ route('maintenance.work-orders.categories.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-folder"></i> Categories

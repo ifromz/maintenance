@@ -22,11 +22,6 @@ class Inventory extends BaseModel {
             'name'          => 'Name',
         );
         
-        public function identifiableName()
-        {
-            return 'test';
-        }
-        
         public function metric()
         {
             return $this->hasOne('Stevebauman\Maintenance\Models\Metric', 'id', 'metric_id');

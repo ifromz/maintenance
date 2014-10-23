@@ -4,6 +4,46 @@
  * Work Order Routes
  */
 
+Route::resource('work-orders/priorities', 'PriorityController', array(
+    'only' => array(
+        'index',
+        'create',
+        'store',
+        'edit',
+        'update',
+        'destroy',
+    ),
+    'names'=> array(
+        'index'         => 'maintenance.work-orders.priorities.index',
+        'create'  	=> 'maintenance.work-orders.priorities.create',
+        'store'   	=> 'maintenance.work-orders.priorities.store',
+        'show'    	=> 'maintenance.work-orders.priorities.show',
+        'edit'    	=> 'maintenance.work-orders.priorities.edit',
+        'update'  	=> 'maintenance.work-orders.priorities.update',
+        'destroy' 	=> 'maintenance.work-orders.priorities.destroy',
+    ),
+));
+
+Route::resource('work-orders/statuses', 'StatusController', array(
+    'only' => array(
+        'index',
+        'create',
+        'store',
+        'edit',
+        'update',
+        'destroy',
+    ),
+    'names'=> array(
+        'index'         => 'maintenance.work-orders.statuses.index',
+        'create'  	=> 'maintenance.work-orders.statuses.create',
+        'store'   	=> 'maintenance.work-orders.statuses.store',
+        'show'    	=> 'maintenance.work-orders.statuses.show',
+        'edit'    	=> 'maintenance.work-orders.statuses.edit',
+        'update'  	=> 'maintenance.work-orders.statuses.update',
+        'destroy' 	=> 'maintenance.work-orders.statuses.destroy',
+    ),
+));
+
 Route::get('work-orders/categories/json', array(
                 'as' => 'maintenance.work-orders.categories.json',
                 'uses' => 'WorkOrderCategoryController@getJson',

@@ -33,7 +33,7 @@
             </div>
         </div>
         
-        <div class="panel-body">
+        <div id="resource-paginate" class="panel-body">
             @if($assets->count() > 0)
             <table class="table table-striped">
                 <thead>

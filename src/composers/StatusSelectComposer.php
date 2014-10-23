@@ -2,12 +2,23 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Illuminate\Support\Facades\Config;
+use Stevebauman\Maintenance\Services\StatusService;
 
 class StatusSelectComposer {
     
-    public function compose($view){
-        $statuses = Config::get('maintenance::status.options');
+    public function __construct(StatusService $status)
+    {
+        $this->status = $status;
+    }
+    
+    public function compose($view)
+    {
+        $statuses = $this->status->get()->lists('name', 'id');
+        
+        /*
+         * Default selected None value
+         */
+        $statuses[NULL] = 'None';
         
         return $view->with('statuses', $statuses);
     }

@@ -14,8 +14,8 @@ class WorkOrder extends BaseModel {
             'user_id', 
             'location_id', 
             'work_order_category_id', 
-            'status', 
-            'priority', 
+            'status_id', 
+            'priority_id', 
             'subject', 
             'description', 
             'started_at', 
@@ -25,8 +25,8 @@ class WorkOrder extends BaseModel {
         protected $revisionFormattedFieldNames = array(
             'location_id'               => 'Location',
             'work_order_category_id'    => 'Work Order Category',
-            'status'                    => 'Status',
-            'priority'                  => 'Priority',
+            'status_id'                 => 'Status',
+            'priority_id'               => 'Priority',
             'subject'                   => 'Subject', 
             'description'               => 'Description', 
             'started_at'                => 'Started At', 
@@ -52,6 +52,14 @@ class WorkOrder extends BaseModel {
 	public function user(){
 		return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
 	}
+        
+        public function status(){
+            return $this->hasOne('Stevebauman\Maintenance\Models\Status', 'id', 'status_id');
+        }
+        
+        public function priority(){
+            return $this->hasOne('Stevebauman\Maintenance\Models\Priority', 'id', 'priority_id');
+        }
         
         public function assets(){
             return $this->belongsToMany('Stevebauman\Maintenance\Models\Asset', 'work_order_assets', 'work_order_id', 'asset_id')->withTimestamps();
@@ -216,37 +224,6 @@ class WorkOrder extends BaseModel {
             $record = $this->sessions()->where('user_id', Sentry::getUser()->id)->first();
             
             return $record;
-        }
-        
-        /**
-         * Returns pretty label of the work order status
-         * 
-         * @return string
-         */
-        public function getStatusLabelAttribute(){
-            if(array_key_exists('status', $this->attributes)){
-                return sprintf(
-                    '<span class="label label-%s">%s</span>', 
-                    Config::get('maintenance::status.colors.'.$this->attributes['status']),
-                    trans('maintenance::statuses.'.$this->attributes['status'])
-                );
-            }
-        }
-        
-        /**
-         * Returns a pretty label of the work order priority
-         * 
-         * @return string
-         */
-        public function getPriorityLabelAttribute(){
-            if(array_key_exists('priority', $this->attributes)){
-                return sprintf(
-                    '<span class="label label-%s">%s</span>' , 
-                    Config::get('maintenance::priority.colors.'.$this->attributes['priority']),
-                    trans('maintenance::priorities.'.$this->attributes['priority'])
-                );
-            }
-            
         }
         
         /**

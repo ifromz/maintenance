@@ -12,6 +12,8 @@ class WorkOrderValidator extends AbstractValidator {
                 'location_id' => 'integer',
             
 		'status' => 'required|integer',
+                'priority' => 'required|integer',
+            
 		'subject' => 'required|min:5|max:250',
 		'description'=> 'min:5',
 		

@@ -53,9 +53,9 @@
                         @foreach($workOrders as $workOrder)
                         <tr>
                             <td>{{ $workOrder->id }}</td>
-                            <td>{{ $workOrder->status_label }}</td>
+                            <td>{{ $workOrder->status->label }}</td>
                             <td>
-                                {{ $workOrder->priority_label }}
+                                {{ $workOrder->priority->label }}
                             </td>
                             <td>{{ $workOrder->subject }}</td>
                             <td>{{ str_limit($workOrder->description) }}</td>

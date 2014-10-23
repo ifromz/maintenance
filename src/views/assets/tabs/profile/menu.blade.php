@@ -1,4 +1,4 @@
-<a class="btn btn-app" data-toggle="modal" data-target="#qr-modal">
+<a class="btn btn-app no-print" data-toggle="modal" data-target="#qr-modal">
     <i class="fa fa-qrcode"></i> QR Code
 </a>
 
@@ -8,19 +8,19 @@
     'content' => route('maintenance.assets.show', array($asset->id)))
 )
 
-<a href="{{ route('maintenance.assets.events.index', array($asset->id)) }}" class="btn btn-app">
+<a href="{{ route('maintenance.assets.events.index', array($asset->id)) }}" class="btn btn-app no-print">
     <i class="fa fa-calendar"></i> Events
 </a>
 
-<a href="{{ route('maintenance.assets.images.create', array($asset->id)) }}" class="btn btn-app">
+<a href="{{ route('maintenance.assets.images.create', array($asset->id)) }}" class="btn btn-app no-print">
     <i class="fa fa-plus-circle"></i> Add Images
 </a>
 
-<a href="{{ route('maintenance.assets.images.index', array($asset->id)) }}" class="btn btn-app">
+<a href="{{ route('maintenance.assets.images.index', array($asset->id)) }}" class="btn btn-app no-print">
     <i class="fa fa-search"></i> View Images
 </a>
 
-<a href="{{ route('maintenance.assets.edit', array($asset->id)) }}" class="btn btn-app">
+<a href="{{ route('maintenance.assets.edit', array($asset->id)) }}" class="btn btn-app no-print">
     <i class="fa fa-edit"></i> Edit
 </a>
 
@@ -29,6 +29,6 @@
     data-title="Delete asset?"
     data-message="Are you sure you want to delete this asset? This asset will archived. No data will be lost, however you will not be able to restore it without manager/supervisor
     permission." 
-    class="btn btn-app">
+    class="btn btn-app no-print">
      <i class="fa fa-trash-o"></i> Delete
  </a>

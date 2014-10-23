@@ -9,6 +9,7 @@ return array(
 		'2' => 'Fair',
 		'1' => 'Damaged',
 		'0' => 'Broken',
+                NULL => 'None',
 	),
 
 );

@@ -94,7 +94,7 @@ class Asset extends BaseModel {
         public function scopeCategory($query, $category = NULL){
             if($category){
                 $query->whereHas('category', function($query) use($category){
-                    return $query->where('name', 'LIKE', '%'.$category.'%');
+                    return $query->where('id', $category);
                 });
             }
         }

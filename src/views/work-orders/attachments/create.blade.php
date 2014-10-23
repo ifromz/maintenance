@@ -33,7 +33,7 @@
             'url'=>route('maintenance.work-orders.attachments.store', array($workOrder->id)),
             'id'=>'upload-form',
             'data-upload-url'=>route('maintenance.work-orders.attachments.uploads.store'),
-            'data-upload-ext'=>'doc,docx,xls,xlsx,ppt,txt,jpg,png,gif'
+            'data-upload-ext'=>'doc,docx,xls,xlsx,ppt,txt,jpg,png,gif,pdf'
         ))
 }}
 
