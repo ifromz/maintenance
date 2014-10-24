@@ -1,7 +1,7 @@
 Maintenance
 ===========
 ![Maintenance Banner]
-(https://github.com/stevebauman/maintenance/blob/master/maintenance.jpg)
+(https://github.com/stevebauman/maintenance/blob/master/maintenance-banner.jpg)
 
 A Preventative Maintenance Application (CMMS) for Laravel
 
