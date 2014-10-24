@@ -1,5 +1,3 @@
-Maintenance
-===========
 ![Maintenance Banner]
 (https://github.com/stevebauman/maintenance/blob/master/maintenance-banner.jpg)
 
