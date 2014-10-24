@@ -8,13 +8,18 @@ use Stevebauman\Maintenance\Services\SentryService;
 
 class WorkOrderService extends AbstractModelService {
 	
-	public function __construct(WorkOrder $workOrder, SentryService $sentry, WorkOrderNotFoundException $notFoundException){
+	public function __construct(
+                WorkOrder $workOrder, 
+                SentryService $sentry, 
+                WorkOrderNotFoundException $notFoundException)
+        {
 		$this->model = $workOrder;
 		$this->sentry = $sentry;
                 $this->notFoundException = $notFoundException;
         }
         
-	public function getByPageWithFilter($archived = NULL){
+	public function getByPageWithFilter($archived = NULL)
+        {
             
 		return $this->model
 			->with(array(
@@ -32,22 +37,23 @@ class WorkOrderService extends AbstractModelService {
                         ->sort($this->getInput('field'), $this->getInput('sort'))
 			->paginate(25);
 	}
-	
-	public function getByPageWithCategoryId($category_id){
-		return $this->model
-			->with(array(
+        
+        public function getUserAssignedWorkOrders()
+        {
+            return $this->model
+                    ->with(array(
 				'status',
-				'updates',
 				'category',
 				'user',
 			))
-			->where('work_order_category_id', $category_id)
-			->paginate(25);
-	}
+                        ->assignedUser($this->sentry->getCurrentUserId())
+                        ->paginate(25);
+        }
         
-	public function create(){
+	public function create()
+        {
 		$insert = array(
-			'user_id'                   => $this->sentry->getCurrentUser()->id,
+			'user_id'                   => $this->sentry->getCurrentUserId(),
 			'work_order_category_id'    => $this->getInput('work_order_category_id'),
                         'location_id'               => $this->getInput('location_id'),
 			'status_id'                    => $this->getInput('status'),
@@ -72,35 +78,37 @@ class WorkOrderService extends AbstractModelService {
 		} return false;
 	}
 	
-	public function update($id){
+	public function update($id)
+        {
 
-		if($record = $this->find($id)){
+            $record = $this->find($id);
    
-			$insert = array(
-                            'work_order_category_id'    => $this->getInput('work_order_category_id', $record->work_order_category_id),
-                            'location_id'               => $this->getInput('location_id', $record->location_id),
-                            'status_id'                    => $this->getInput('status', $record->status),
-                            'priority_id'                  => $this->getInput('priority', $record->priority),
-                            'subject'                   => $this->getInput('subject', $record->subject, true),
-                            'description'               => $this->getInput('description', $record->description, true),
-                            'started_at'                => $this->formatDateWithTime($this->getInput('started_at_date'), $this->getInput('started_at_time')),
-                            'completed_at'              => $this->formatDateWithTime($this->getInput('completed_at_date'), $this->getInput('completed_at_time')),
-                        );
-			
-			if($record->update($insert)){
-                            
-                            if($assets = $this->getInput('assets')){
-                                $record->assets()->sync($assets);
-                            }
-                            
-                            $this->fireEvent('maintenance.work-orders.updated', array(
-                                'workOrder' => $record
-                            ));
-                            
-                            return $record;
-			} return false;
-		}
-                
+            $insert = array(
+                'work_order_category_id'    => $this->getInput('work_order_category_id', $record->work_order_category_id),
+                'location_id'               => $this->getInput('location_id', $record->location_id),
+                'status_id'                 => $this->getInput('status', $record->status),
+                'priority_id'               => $this->getInput('priority', $record->priority),
+                'subject'                   => $this->getInput('subject', $record->subject, true),
+                'description'               => $this->getInput('description', $record->description, true),
+                'started_at'                => $this->formatDateWithTime($this->getInput('started_at_date'), $this->getInput('started_at_time')),
+                'completed_at'              => $this->formatDateWithTime($this->getInput('completed_at_date'), $this->getInput('completed_at_time')),
+            );
+
+            if($record->update($insert)){
+
+                if($assets = $this->getInput('assets')){
+                    $record->assets()->sync($assets);
+                }
+
+                $this->fireEvent('maintenance.work-orders.updated', array(
+                    'workOrder' => $record
+                ));
+
+                return $record;
+            } else{
+                return false;
+            } 
+            
 	}
         
         public function destroy($id) {
@@ -114,7 +122,5 @@ class WorkOrderService extends AbstractModelService {
             
             return true;
         }
-	
-	
 	
 }

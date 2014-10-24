@@ -5,6 +5,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 
 ###TO DO
 * Robust notifications
+* Robust reporting
 * Finish asset events with event reporting / other additions
 * <del>Asset manual attachments</del> - Oct 15th 2014
 * Customizable user dashboard

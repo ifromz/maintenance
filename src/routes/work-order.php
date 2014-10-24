@@ -4,6 +4,11 @@
  * Work Order Routes
  */
 
+Route::get('work-orders/assigned', array(
+    'as' => 'maintenance.work-orders.assigned.index',
+    'uses' => 'WorkOrderAssignedController@index'
+));
+
 Route::resource('work-orders/priorities', 'PriorityController', array(
     'only' => array(
         'index',

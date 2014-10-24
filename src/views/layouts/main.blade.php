@@ -99,7 +99,7 @@
                             </li>
 
                             <li>
-                                <a href="#" style="margin-left: 10px;">
+                                <a href="{{ route('maintenance.work-orders.assigned.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-book"></i> Assigned Work Orders
                                 </a>
                             </li>

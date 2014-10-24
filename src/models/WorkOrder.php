@@ -165,6 +165,15 @@ class WorkOrder extends BaseModel {
             }
         }
         
+        public function scopeAssignedUser($query, $user_id)
+        {
+            if($user_id){
+                return $query->whereHas('assignments', function($query) use ($user_id){
+                    $query->where('to_user_id', $user_id);
+                });
+            }
+        }
+        
         /**
          * Checks if the current work order is complete
          * 
