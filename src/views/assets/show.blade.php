@@ -21,6 +21,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab_asset" data-toggle="tab">Profile</a></li>
             <li class=""><a href="#tab_history" data-toggle="tab">History</a></li>
+            <li class=""><a href="#tab_meters" data-toggle="tab">Meters & Readings</a></li>
             <li class=""><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
             <li class=""><a href="#tab_work_orders" data-toggle="tab">Work Orders</a></li>
             <li class=""><a href="#tab_manuals" data-toggle="tab">Manuals</a></li>
@@ -28,6 +29,10 @@
         <div class="tab-content">
             <div class="tab-pane active" id="tab_asset">
                 @include('maintenance::assets.tabs.profile', array('asset'=>$asset))
+            </div>
+            
+            <div class="tab-pane" id="tab_meters">
+                @include('maintenance::assets.tabs.meters', array('asset'=>$asset))
             </div>
             
             <div class="tab-pane" id="tab_history">

@@ -1,3 +1,5 @@
+
+@if($asset->images->count() > 0)
 <style>
     .slider-size {
         height: 200px;
@@ -44,3 +46,5 @@
         @endif
     </div>
 </div>
+
+@endif

@@ -15,7 +15,6 @@
                 <h3 class="panel-title">Update Stock</h3>
             </div>
             <div class="panel-body">
-                <div id="update-form">
                 
                 {{ Form::open(array(
                             'url'=>route('maintenance.inventory.stocks.update', array($item->id, $stock->id)),
@@ -50,7 +49,6 @@
                 </div>
                 
                 {{ Form::close() }}
-                </div>
             </div>
         </div>
 @stop

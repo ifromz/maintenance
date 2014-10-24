@@ -16,7 +16,8 @@ class Status extends BaseModel {
         'control'
     );
     
-    public function user(){
+    public function user()
+    {
         return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
     }
     

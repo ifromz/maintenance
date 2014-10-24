@@ -70,6 +70,10 @@ class Asset extends BaseModel {
             return $this->belongsToMany('Stevebauman\Maintenance\Models\Event', 'asset_events', 'asset_id', 'event_id')->withTimestamps();
         }
         
+        public function meters(){
+            return $this->belongsToMany('Stevebauman\Maintenance\Models\Meter', 'asset_meters', 'asset_id', 'meter_id')->withTimestamps();
+        }
+        
         /*
          * Filters query by the inputted asset name
          */

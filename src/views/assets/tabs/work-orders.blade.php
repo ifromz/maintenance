@@ -1,3 +1,5 @@
+<legend>Work Orders</legend>
+
 @if($asset->workOrders->count() > 0) 
 <table class="table table-striped">
     <thead>
@@ -38,5 +40,5 @@
     </tbody>
 </table>
 @else
-
+<h5>There are currently no work orders attached to this asset.</h5>
 @endif
