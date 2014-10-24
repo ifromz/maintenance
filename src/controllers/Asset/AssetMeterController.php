@@ -2,29 +2,35 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Validators\MeterReadingValidator;
 use Stevebauman\Maintenance\Validators\MeterValidator;
 use Stevebauman\Maintenance\Services\MeterReadingService;
 use Stevebauman\Maintenance\Services\MeterService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Controllers\AbstractController;
 
+/*
+ * Handles asset meter creation and updating
+ */
 class AssetMeterController extends AbstractController {
     
     public function __construct(
             AssetService $asset,
             MeterService $meter, 
             MeterReadingService $meterReading, 
-            MeterValidator $meterValidator, 
-            MeterReadingValidator $meterReadingValidator)
+            MeterValidator $meterValidator)
     {
         $this->asset = $asset;
         $this->meter = $meter;
         $this->meterReading = $meterReading;
         $this->meterValidator = $meterValidator;
-        $this->meterReadingValidator = $meterReadingValidator;
     }
     
+    /**
+     * Creates a meter and attaches it to the asset
+     * 
+     * @param integer $asset_id
+     * @return response
+     */
     public function store($asset_id)
     {
         $validator = new $this->meterValidator;
@@ -63,12 +69,12 @@ class AssetMeterController extends AbstractController {
                 
                 $this->message = 'Successfully created meter reading';
                 $this->messageType = 'success';
-                $this->redirect = '';
+                $this->redirect = route('maintenance.assets.show', array($asset->id));
                 
             } else{
                 $this->message = 'There was an error trying to create a meter for this asset. Please try again';
                 $this->messageType = 'danger';
-                $this->redirect = '';
+                $this->redirect = route('maintenance.assets.show', array($asset->id));
             }
             
         } else{
@@ -78,31 +84,42 @@ class AssetMeterController extends AbstractController {
         return $this->response();
     }
     
+    /**
+     * Displays the specified meter and it's readings
+     * 
+     * @param integer $asset_id
+     * @param integer $meter_id
+     */
+    public function show($asset_id, $meter_id)
+    {
+        $asset = $this->asset->find($asset_id);
+        
+        $meter = $this->meter->find($meter_id);
+        
+        return $this->view('maintenance::assets.meters.show', array(
+            'title' => 'Viewing Asset Meter: '.$meter->name,
+            'asset' => $asset,
+            'meter' => $meter,
+        ));
+    }
+    
+    public function edit($asset_id, $meter_id)
+    {
+        
+    }
+    
     public function update($asset_id, $meter_id)
     {
-        $validator = new $this->meterReadingValidator;
         
-        if($validator->passes()){
-            
-            $asset = $this->asset->find($asset_id);
-            
-            $meter = $this->meter->find($meter_id);
-            
-            $data = $this->inputAll();
-            $data['meter_id'] = $meter->id;
-            
-            if($this->meterReading->setInput($data)->create()){
-                $this->message = 'Successfully updated reading';
-                $this->messageType = 'success';
-                $this->redirect = 'test';
-            } else{
-                $this->message = 'There was an error trying to update this meter. Please try again';
-                $this->messageType = 'danger';
-            }
-            
-        } else{
-            $this->errors = $validator->getErrors();
-        }
+    }
+    
+    public function destroy($asset_id, $meter_id)
+    {
+        $this->meter->destroy($meter_id);
+        
+        $this->message = 'Successfully deleted meter';
+        $this->messageType = 'success';
+        $this->redirect = route('maintenance.assets.show', array($asset_id));
         
         return $this->response();
     }

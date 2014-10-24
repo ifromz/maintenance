@@ -24,9 +24,14 @@
 <div class="form-group">
     <label class="col-sm-2 control-label">Quantity</label>
     <div class="col-md-10">
-        {{ Form::text('quantity', $stock->quantity, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
+        <div class="input-group">
+            {{ Form::text('quantity', $stock->quantity, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
+            <span class="input-group-addon">{{ $item->metric->symbol }}</span>
+        </div>
     </div>
 </div>
+
+
 
 <div class="form-group">
     <label class="col-sm-2 control-label">Reason</label>

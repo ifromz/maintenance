@@ -188,7 +188,7 @@
                     <li>
                         <a href="{{ route('maintenance.categories.index') }}">
                             <i class="fa fa-sitemap"></i> 
-                            Asset / Inventory Categories
+                            Categories <small>(Asset / Inventory)</small>
                         </a>
                     </li>
                     

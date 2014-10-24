@@ -34,7 +34,14 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Name</label>
             <div class="col-md-4">
-                {{ Form::text('name', $metric->name, array('class'=>'form-control', 'placeholder'=>'ex. LB, Tonne, Litre, ML')) }}
+                {{ Form::text('name', $metric->name, array('class'=>'form-control', 'placeholder'=>'ex. Kilometers')) }}
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Symbol</label>
+            <div class="col-md-4">
+                {{ Form::text('symbol', $metric->symbol, array('class'=>'form-control', 'placeholder'=>'Kms')) }}
             </div>
         </div>
                 

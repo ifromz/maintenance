@@ -15,14 +15,28 @@ Route::post('assets/images/uploads/destroy', array(
 ));
 
 Route::resource('assets.meters', 'AssetMeterController', array(
+    'only' => array(
+        'store',
+        'show',
+        'edit',
+        'update',
+        'destroy',
+    ),
     'names' => array(
-        'index'		=> 'maintenance.assets.meters.index',
-        'create'  	=> 'maintenance.assets.meters.create',
         'store'   	=> 'maintenance.assets.meters.store',
         'show'    	=> 'maintenance.assets.meters.show',
         'edit'    	=> 'maintenance.assets.meters.edit',
         'update'  	=> 'maintenance.assets.meters.update',
         'destroy' 	=> 'maintenance.assets.meters.destroy',
+    )
+));
+
+Route::resource('assets.meters.readings', 'AssetMeterReadingController', array(
+    'only' => array(
+        'store'
+    ),
+    'names' => array(
+        'store'   	=> 'maintenance.assets.meters.readings.store',
     )
 ));
 

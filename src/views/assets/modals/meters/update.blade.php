@@ -9,9 +9,8 @@
             </div>
             
             {{ Form::open(array(
-                        'url'=>route('maintenance.assets.meters.update', array($asset->id, $meter->id)), 
-                        'class'=>'form-horizontal ajax-form-post clear-form',
-                        'method'=>'PATCH',
+                        'url'=>route('maintenance.assets.meters.readings.store', array($asset->id, $meter->id)), 
+                        'class'=>'form-horizontal ajax-form-post',
                         'data-status-target' => '#update-reading-modal-status-'.$meter->id,
                         'data-refresh-target' => '#asset-meters-table',
                     ))
@@ -24,7 +23,7 @@
                     <label class="col-sm-2 control-label">Reading</label>
                     <div class="col-md-10">
                         <div class="input-group">
-                            {{ Form::text('reading', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
+                            {{ Form::text('reading', $meter->last_reading, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
                             <span class="input-group-addon">{{ $meter->metric->name }}</span>
                         </div>
                     </div>

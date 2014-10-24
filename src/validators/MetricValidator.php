@@ -7,7 +7,8 @@ use Stevebauman\Maintenance\Validators\AbstractValidator;
 class MetricValidator extends AbstractValidator {
     
     protected $rules = array(
-        'name' => 'required|max:250'
+        'name' => 'required|max:250',
+        'symbol' => 'required|max:5'
     );
     
 }

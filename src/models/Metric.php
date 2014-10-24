@@ -10,11 +10,13 @@ class Metric extends BaseModel {
     
     protected $fillable = array(
         'user_id',
-        'name'
+        'name',
+        'symbol'
     );
     
     protected $revisionFormattedFieldNames = array(
         'name' => 'Name',
+        'symbol' => 'Symbol',
     );
     
     /**

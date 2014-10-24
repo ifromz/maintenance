@@ -8,6 +8,8 @@
     <i class="fa fa-dashboard"></i> Add a Meter
 </a>
 
+<hr>
+
 <div id="asset-meters-table">
     @if($asset->meters->count() > 0)
 
@@ -53,9 +55,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('maintenance.assets.meters.destroy', array($meter->id)) }}" 
+                                    <a href="{{ route('maintenance.assets.meters.destroy', array($asset->id, $meter->id)) }}" 
                                        data-method="delete" 
-                                       data-message="Are you sure you want to delete this asset? It will be archived.">
+                                       data-message="Are you sure you want to delete this meter? All readings will be lost.">
                                         <i class="fa fa-trash-o"></i> Delete Meter
                                     </a>
                                 </li>

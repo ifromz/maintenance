@@ -20,7 +20,8 @@ class MetricService extends AbstractModelService {
     {
         $insert = array(
             'user_id' => $this->sentry->getCurrentUserId(),
-            'name' => str_plural($this->getInput('name'))
+            'name' => $this->getInput('name'),
+            'symbol' => $this->getInput('symbol')
         );
         
         if($record = $this->model->create($insert)){
@@ -33,7 +34,8 @@ class MetricService extends AbstractModelService {
     public function update($id)
     {
         $insert = array(
-            'name' => str_plural($this->getInput('name'))
+            'name' => $this->getInput('name'),
+            'symbol' => $this->getInput('symbol')
         );
         
         $record = $this->find($id);

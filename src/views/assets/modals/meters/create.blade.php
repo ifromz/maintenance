@@ -22,13 +22,6 @@
                     <div id="asset-meter-status"></div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Metric</label>
-                        <div class="col-md-10">
-                            @include('maintenance::select.metric')
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-md-10">
                             {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Dash Kilometers')) }}
@@ -41,7 +34,16 @@
                             {{ Form::text('reading', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 64500')) }}
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Metric</label>
+                        <div class="col-md-10">
+                            @include('maintenance::select.metric')
+                        </div>
+                    </div>
+                    
             </div>
+            
             <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>

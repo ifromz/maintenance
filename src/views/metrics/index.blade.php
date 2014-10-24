@@ -32,6 +32,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Symbol</th>
                     <th>Created By</th>
                     <th>Created At</th>
                     <th>Action</th>
@@ -41,6 +42,7 @@
                 @foreach($metrics as $metric)
                 <tr>
                     <td>{{ $metric->name }}</td>
+                    <td>{{ $metric->symbol }}</td>
                     <td>{{ $metric->user->full_name }}</td>
                     <td>{{ $metric->created_at }}</td>
                     <td>

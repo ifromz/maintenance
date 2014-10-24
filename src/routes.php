@@ -44,7 +44,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix'), 'namespace'=>'S
                  * Asset Routes
                  */
                 include('routes/asset.php');
-		
+                
                 /*
                  * Inventory Routes
                  */
