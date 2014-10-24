@@ -1,5 +1,7 @@
 Maintenance
 ===========
+![Maintenance Banner]
+(https://github.com/stevebauman/maintenance/blob/master/maintenance.jpg)
 
 A Preventative Maintenance Application (CMMS) for Laravel
 
@@ -32,5 +34,3 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Administration Panel for managing users, permissions, groups, and data restoration (archive)
 * [Revisionable](https://github.com/VentureCraft/revisionable) is built in for easy history viewing on changes made
 * And more...
-
-(https://github.com/stevebauman/maintenance/blob/master/maintenance.jpg)
