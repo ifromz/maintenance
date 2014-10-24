@@ -17,10 +17,10 @@ class MetricSelectComposer {
     public function compose($view){
        $allMetrics = $this->metric->get()->lists('name', 'id');
        
-       $allMetrics['0'] = 'Select a Metric';
+       $allMetrics[NULL] = 'Select a Metric';
        
        return $view->with('allMetrics', $allMetrics);
-        
+       
     }
     
 }

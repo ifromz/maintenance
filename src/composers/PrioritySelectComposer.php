@@ -18,7 +18,7 @@ class PrioritySelectComposer {
         /*
          * Default selected None value
          */
-        $priorities[NULL] = 'None';
+        $priorities[NULL] = 'Select a Priority';
         
         return $view->with('priorities', $priorities);
     }

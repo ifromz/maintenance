@@ -28,7 +28,7 @@
                 @foreach($asset->meters as $meter)
                 <tr>
                     <td>{{ $meter->name }}</td>
-                    <td>{{ $meter->last_reading }} {{ $meter->metric->name }}</td>
+                    <td>{{ $meter->last_reading }} {{ $meter->metric->symbol }}</td>
                     <td>{{ $meter->user->full_name }}</td>
                     <td>
                         <div class="btn-group">
