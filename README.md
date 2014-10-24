@@ -30,7 +30,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * <del>Implement selectable inventory metrics (LB, Litres, Tonnes etc)</del> - Oct 22nd 2014
 * Implement Print view for QR codes as well as all other data
 * <del>Implement Status and Priority DB tables and functionality</del> - Oct 23rd 2014
-* Add meter readings to assets
+* <del>Add meter readings to assets</del> - Oct 24th 2014
 * Tests
 
 ###Screenshots
