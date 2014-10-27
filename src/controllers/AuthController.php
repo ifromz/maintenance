@@ -90,7 +90,7 @@ class AuthController extends AbstractController {
         }
         
         /**
-	 * Show the form for creating a new resource.
+	 * Show the form for registering
 	 *
 	 * @return Response
 	 */
@@ -99,7 +99,7 @@ class AuthController extends AbstractController {
                 'title' => 'Register an Account',
             ));
 	}
-
+        
         public function postRegister(){
             $validator = new $this->registerValidator;
             

@@ -112,7 +112,8 @@ class BaseModel extends Eloquent {
         
     }
     
-    public function scopeArchived($query, $archived = NULL){
+    public function scopeArchived($query, $archived = NULL)
+    {
         if($archived){
             return $query->onlyTrashed();
         }

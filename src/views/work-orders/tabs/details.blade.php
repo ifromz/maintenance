@@ -14,7 +14,7 @@
     
     <p></p>
     
-    <dt>Report</dt>
+    <dt>Report:</dt>
     <dd>{{ $workOrder->report->description }}</dd>
 </dl>
 

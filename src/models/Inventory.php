@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Models\Category;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
@@ -34,12 +35,12 @@ class Inventory extends BaseModel {
         
         public function user()
         {
-		return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
+            return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
 	}
         
         public function category()
         {
-		return $this->hasOne('Stevebauman\Maintenance\Models\Category', 'id', 'category_id');
+            return $this->hasOne('Stevebauman\Maintenance\Models\Category', 'id', 'category_id');
 	}
         
         /*
@@ -74,6 +75,7 @@ class Inventory extends BaseModel {
                     if($output = $this->getOperator($operator)){
                         
                         return $query->where('quantity', $output[0], $stock); 
+                        
                     } else{
                         return $query;
                     }
@@ -82,29 +84,38 @@ class Inventory extends BaseModel {
             }
         }
         
-        /*
-         * Filters query by the inputted inventory item category
+        /**
+         * Filters inventory results by specified category
+         * 
+         * @return object
          */
-        public function scopeCategory($query, $category = NULL)
-        {
-            if($category){
-                $query->whereHas('category', function($query) use($category){
-                    return $query->where('name', 'LIKE', '%'.$category.'%');
+        public function scopeCategory($query, $category_id = NULL){
+            
+            if($category_id){
+                
+                /*
+                 * Get descendants and self inventory category nodes
+                 */
+                $categories = Category::find($category_id)->getDescendantsAndSelf();
+                
+                /*
+                 * Perform a subquery on main query
+                 */
+                $query->where(function ($query) use ($categories) {
+                    
+                    /*
+                     * For each category, apply a orWhere query to the subquery
+                     */
+                    foreach($categories as $category){
+                        $query->orWhere('category_id', $category->id);
+                    }
+                    
+                    return $query;
+                    
                 });
+                
             }
-        }
-        
-        /*
-         * Filters query by the inputted inventory item location
-         */
-        public function scopeLocation($query, $location = NULL)
-        {
-            if($location){
-                $query->whereHas('location', function($query) use($location){
-                    return $query->where('name', 'LIKE', '%'.$location.'%');
-                });
-            }
-        }
+	}
         
         /*
          * Mutator for showing a limited description for display in tables

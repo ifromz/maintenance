@@ -55,7 +55,7 @@ class InventoryStockService extends AbstractModelService {
                 'before' => 0,
                 'after' => $record->quantity,
                 'reason' => 'First Item Record; Stock Increase',
-                'cost' => NULL,
+                'cost' => $this->getInput('cost'),
             );
             
             /*

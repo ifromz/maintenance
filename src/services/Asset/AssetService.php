@@ -29,6 +29,7 @@ class AssetService extends AbstractModelService {
 	public function getByPageWithFilter($archived = NULL){
 
 		return $this->model
+                        ->id($this->getInput('id'))
                         ->name($this->getInput('name'))
                         ->condition($this->getInput('condition'))
                         ->category($this->getInput('category_id'))

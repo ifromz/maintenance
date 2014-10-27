@@ -10,6 +10,18 @@
             <div class="modal-body">
                 
                 <div class="form-group">
+                    <label class="col-sm-2 control-label">ID</label>
+                    <div class="col-md-10">
+                        {{ Form::text(
+                                    'id', 
+                                    (Input::has('id') ? Input::get('id') : NULL),  
+                                    array('class'=>'form-control', 'placeholder'=>'Enter Item ID')
+                                ) 
+                        }}
+                    </div>
+                </div>
+                
+                <div class="form-group">
                     <label class="col-sm-2 control-label">Name</label>
                     <div class="col-md-10">
                         {{ Form::text(
@@ -55,16 +67,6 @@
                         @include('maintenance::select.category', array(
                             'category' => (Input::has('category_name') ? Input::get('category_name') : NULL),
                             'category_id' => (Input::has('category_id') ? Input::get('category_id') : NULL)
-                        ))
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Location</label>
-                    <div class="col-md-10">
-                        @include('maintenance::select.location', array(
-                            'location_name' => (Input::has('location_name') ? Input::get('location_name') : NULL),
-                            'location_id' => (Input::has('location_id') ? Input::get('location_id') : NULL)
                         ))
                     </div>
                 </div>

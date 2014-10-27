@@ -27,6 +27,7 @@ class WorkOrderService extends AbstractModelService {
 				'user',
                                 'sessions',
 			))
+                        ->id($this->getInput('id'))
                         ->priority($this->getInput('priority'))
                         ->subject($this->getInput('subject'))
                         ->description($this->getInput('description'))

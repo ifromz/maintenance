@@ -10,6 +10,18 @@
             <div class="modal-body">
                 
                 <div class="form-group">
+                    <label class="col-sm-2 control-label">ID</label>
+                    <div class="col-md-10">
+                        {{ Form::text(
+                                    'id', 
+                                    (Input::has('id') ? Input::get('id') : NULL),  
+                                    array('class'=>'form-control', 'placeholder'=>'Enter Asset ID')
+                                ) 
+                        }}
+                    </div>
+                </div>
+                
+                <div class="form-group">
                     <label class="col-sm-2 control-label">Name</label>
                     <div class="col-md-10">
                         {{ Form::text(

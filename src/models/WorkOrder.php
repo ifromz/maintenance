@@ -137,14 +137,14 @@ class WorkOrder extends BaseModel {
          * 
          * @return object
          */
-        public function scopeCategory($query, $category = NULL){
+        public function scopeCategory($query, $category_id = NULL){
             
-            if($category){
+            if($category_id){
                 
                 /*
                  * Get descendants and self work order category nodes
                  */
-                $categories = WorkOrderCategory::find($category)->getDescendantsAndSelf();
+                $categories = WorkOrderCategory::find($category_id)->getDescendantsAndSelf();
                 
                 /*
                  * Perform a subquery on main query
@@ -173,7 +173,7 @@ class WorkOrder extends BaseModel {
         public function scopeAssets($query, $assets = NULL){
             if($assets){
                 return $query->whereHas('assets', function($query) use($assets){
-                        $query->whereIn('asset_id', $assets);
+                    $query->whereIn('asset_id', $assets);
                 });
             }
         }

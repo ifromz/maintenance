@@ -34,10 +34,10 @@ class InventoryService extends AbstractModelService {
                             'user',
                             'stocks',
                     ))
+                    ->id($this->getInput('id'))
                     ->name($this->getInput('name'))
                     ->description($this->getInput('description'))
-                    ->category($this->getInput('category'))
-                    ->location($this->getInput('location'))
+                    ->category($this->getInput('category_id'))
                     ->stock(
                             $this->getInput('operator'),
                             $this->getInput('quantity')

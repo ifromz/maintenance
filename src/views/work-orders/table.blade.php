@@ -1,14 +1,14 @@
 <table class="table table-striped">
         <thead>
         <tr>
-            <th>{{ link_to_sort('maintenance.work-orders.index', 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
-            <th>{{ link_to_sort('maintenance.work-orders.index', 'Status', array('field'=>'status', 'sort'=>'asc')) }}</th>
-            <th>{{ link_to_sort('maintenance.work-orders.index', 'Priority', array('field'=>'priority', 'sort'=>'asc')) }}</th>
-            <th>{{ link_to_sort('maintenance.work-orders.index', 'Subject', array('field'=>'subject', 'sort'=>'asc')) }}</th>
-            <th>{{ link_to_sort('maintenance.work-orders.index', 'Description', array('field'=>'description', 'sort'=>'asc')) }}</th>
-            <th>{{ link_to_sort('maintenance.work-orders.index', 'Category', array('field'=>'category_id', 'sort'=>'asc')) }}</th>
-            <th>{{ link_to_sort('maintenance.work-orders.index', 'Created By', array('field'=>'user', 'sort'=>'asc')) }}</th>
-            <th>{{ link_to_sort('maintenance.work-orders.index', 'Created At', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
+            <th>{{ link_to_sort(currentRouteName(), 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
+            <th>{{ link_to_sort(currentRouteName(), 'Status', array('field'=>'status_id', 'sort'=>'asc')) }}</th>
+            <th>{{ link_to_sort(currentRouteName(), 'Priority', array('field'=>'priority_id', 'sort'=>'asc')) }}</th>
+            <th>{{ link_to_sort(currentRouteName(), 'Subject', array('field'=>'subject', 'sort'=>'asc')) }}</th>
+            <th>{{ link_to_sort(currentRouteName(), 'Description', array('field'=>'description', 'sort'=>'asc')) }}</th>
+            <th>{{ link_to_sort(currentRouteName(), 'Category', array('field'=>'work_order_category_id', 'sort'=>'asc')) }}</th>
+            <th>{{ link_to_sort(currentRouteName(), 'Created By', array('field'=>'user', 'sort'=>'asc')) }}</th>
+            <th>{{ link_to_sort(currentRouteName(), 'Created At', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
             <th>Action</th>
         </tr>
     </thead>
