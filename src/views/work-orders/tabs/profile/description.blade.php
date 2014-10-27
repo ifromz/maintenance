@@ -1,12 +1,5 @@
 
 <dl class="dl-horizontal">
-
-    @if($workOrder->isComplete() && !$workOrder->report)
-        <div class="alert alert-warning">
-            <b>Heads Up!</b> This work order is closed, but no report has been submitted detailing it's completion. 
-            You should probably fill one out by clicking the <b>Complete</b> button above.
-        </div>
-    @endif
     
     <dt>Status:</dt>
     <dd>{{ $workOrder->status->label }}</dd>
@@ -28,6 +21,11 @@
 
     <p></p>
     
+    <dt>Category:</dt>
+    <dd>{{ renderNode($workOrder->category) }}</dd>
+
+    <p></p>
+    
     @if($workOrder->description)
         <dt>Description:</dt>
         <dd>{{ $workOrder->description }}</dd>
@@ -45,4 +43,5 @@
 
         <p></p>
     @endif
+    
 </dl>

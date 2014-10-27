@@ -35,9 +35,9 @@
             </div>
             
             <div class="tab-pane" id="tab_details">
-                @include('maintenance::work-orders.tabs.sessions', array('workOrder'=>$workOrder))
-
                 @include('maintenance::work-orders.tabs.details', array('workOrder'=>$workOrder))
+                
+                @include('maintenance::work-orders.tabs.sessions', array('workOrder'=>$workOrder))
             </div>
             
             <div class="tab-pane" id="tab_history">

@@ -1,11 +1,12 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-use Illuminate\Support\Facades\Config;
+use Stevebauman\Maintenance\Models\WorkOrderCategory;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class WorkOrder extends BaseModel {
+    
         use SoftDeletingTrait;
     
 	protected $table = 'work_orders';
@@ -34,11 +35,11 @@ class WorkOrder extends BaseModel {
         );
 	
 	public function customerUpdates(){
-		return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_customer_updates', 'work_order_id', 'update_id')->withTimestamps();
+            return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_customer_updates', 'work_order_id', 'update_id')->withTimestamps();
 	}
         
         public function technicianUpdates(){
-		return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_technician_updates', 'work_order_id', 'update_id')->withTimestamps();
+            return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_technician_updates', 'work_order_id', 'update_id')->withTimestamps();
 	}
         
         public function location(){
@@ -46,11 +47,11 @@ class WorkOrder extends BaseModel {
         }
 
 	public function category(){
-		return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrderCategory', 'id', 'work_order_category_id');
+            return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrderCategory', 'id', 'work_order_category_id');
 	}
 	
 	public function user(){
-		return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
+            return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
 	}
         
         public function status(){
@@ -78,7 +79,7 @@ class WorkOrder extends BaseModel {
         }
         
         public function attachments(){
-		return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'work_order_attachments', 'work_order_id', 'attachment_id')->withTimestamps();
+            return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'work_order_attachments', 'work_order_id', 'attachment_id')->withTimestamps();
 	}
         
         public function parts(){
@@ -92,8 +93,8 @@ class WorkOrder extends BaseModel {
          */
         public function scopePriority($query, $priority = NULL){
             
-            if(isset($priority) && $priority != '0'){
-                return $query->where('priority', $priority);
+            if($priority){
+                return $query->where('priority_id', $priority);
             }
 	}
         
@@ -126,8 +127,8 @@ class WorkOrder extends BaseModel {
          * @return object
          */
         public function scopeStatus($query, $status = NULL){
-            if(isset($status) && $status != 0){
-                return $query->where('status', $status);
+            if($status){
+                return $query->where('status_id', $status);
             }
 	}
         
@@ -137,10 +138,30 @@ class WorkOrder extends BaseModel {
          * @return object
          */
         public function scopeCategory($query, $category = NULL){
+            
             if($category){
-                return $query->whereHas('category', function($query) use($category){
-                        $query->where('id', $category);
+                
+                /*
+                 * Get descendants and self work order category nodes
+                 */
+                $categories = WorkOrderCategory::find($category)->getDescendantsAndSelf();
+                
+                /*
+                 * Perform a subquery on main query
+                 */
+                $query->where(function ($query) use ($categories) {
+                    
+                    /*
+                     * For each category, apply a orWhere query to the subquery
+                     */
+                    foreach($categories as $category){
+                        $query->orWhere('work_order_category_id', $category->id);
+                    }
+                    
+                    return $query;
+                    
                 });
+                
             }
 	}
         
@@ -175,23 +196,13 @@ class WorkOrder extends BaseModel {
         }
         
         /**
-         * Checks if the current work order is complete
+         * Checks if the current work order is complete by checking if a report
+         * has been filled out
          * 
          * @return boolean
          */
         public function isComplete(){
-            if($this->status->control === Config::get('maintenance::controls.complete')){
-                return true;
-            } return false;
-        }
-        
-        /**
-         * Checks if the current work order is not complete
-         * 
-         * @return boolean
-         */
-        public function isNotComplete(){
-            if($this->status->control != Config::get('maintenance::controls.complete')){
+            if($this->report){
                 return true;
             } return false;
         }

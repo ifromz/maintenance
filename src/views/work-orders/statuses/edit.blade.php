@@ -32,7 +32,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Create a new Status</h3>
+                <h3 class="panel-title">Edit Status</h3>
             </div>
             <div class="panel-body">
             {{ Form::open(array(
@@ -55,15 +55,6 @@
                     <div class="col-md-4">
                     	@include('maintenance::select.color', array(
                             'color' => $status->color
-                        ))
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">What does this status mean?</label>
-                    <div class="col-md-4">
-                    	@include('maintenance::select.control', array(
-                            'control' => $status->control
                         ))
                     </div>
                 </div>

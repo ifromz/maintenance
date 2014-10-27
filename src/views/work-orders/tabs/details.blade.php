@@ -1,5 +1,7 @@
-@if($workOrder->report)
+
 <legend>Completion Report</legend>
+
+@if($workOrder->report)
 
 <dl class="dl-horizontal">
     <dt>Created By:</dt>
@@ -15,4 +17,9 @@
     <dt>Report</dt>
     <dd>{{ $workOrder->report->description }}</dd>
 </dl>
+
+@else
+
+<h5>No report has been created for this work order.</h5>
+
 @endif

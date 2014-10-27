@@ -49,13 +49,6 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">What does this status mean?</label>
-                    <div class="col-md-4">
-                    	@include('maintenance::select.control')
-                    </div>
-                </div>
-                
-                <div class="form-group">
                 	<div class="col-sm-offset-2 col-sm-10">
                     	{{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
                     </div>

@@ -23,9 +23,4 @@ class WorkOrderReportUniqueValidator {
         } return false;
         
      }
-     
-     protected function replaceUniqueReport($message, $attribute, $rule, $parameters){
-        return 'This location already has a stock entry for this item.';
-    }
-    
 }

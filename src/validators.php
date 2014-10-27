@@ -50,7 +50,11 @@ Validator::replacer('positive', function($message, $attribute, $rule, $parameter
     return sprintf('The %s must contain a positive number', $attribute);
 });
 
+/**
+ * Validates the submitted value if it is greater than the validation parameter
+ */
 Validator::extend('greater_than', 'Stevebauman\Maintenance\Validators\GreaterThanNumberValidator@validateGreaterThan');
 Validator::replacer('greater_than', function($message, $attribute, $rule, $parameters){
     return sprintf('The %s must be greater than %s', $attribute, $parameters[0]);
 });
+

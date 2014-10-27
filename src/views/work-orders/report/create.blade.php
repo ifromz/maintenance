@@ -40,6 +40,15 @@
         <legend>Enter Details</legend>
         
         <div class="form-group">
+            <label class="col-sm-2 control-label" for="location_name">Change Status To</label>
+            <div class="col-md-8">
+                @include('maintenance::select.status', array(
+                    'status'=>$workOrder->status->id
+                ))
+            </div>
+        </div>
+        
+        <div class="form-group">
             <label class="col-sm-2 control-label" for="location_name">Description</label>
             <div class="col-md-8">
                 {{ Form::textarea('description', NULL, array('class'=>'form-control')) }}

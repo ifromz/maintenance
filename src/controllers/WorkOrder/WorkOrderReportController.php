@@ -1,6 +1,5 @@
 <?php  namespace Stevebauman\Maintenance\Controllers;
 
-use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Validators\WorkOrderReportValidator;
 use Stevebauman\Maintenance\Services\WorkOrderReportService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
@@ -14,6 +13,13 @@ class WorkOrderReportController extends AbstractController {
             $this->reportValidator = $reportValidator;
         }
         
+        /**
+         * Displays the form to create a work order report attached to the specified
+         * work order
+         * 
+         * @param int $workOrder_id
+         * @return response
+         */
         public function create($workOrder_id){
             
             $workOrder = $this->workOrder->find($workOrder_id);
@@ -24,12 +30,13 @@ class WorkOrderReportController extends AbstractController {
             ));
             
         }
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+        
+        /**
+         * Creates a new work order report attached to the specified work order
+         * 
+         * @param int $workOrder_id
+         * @return response
+         */
 	public function store($workOrder_id){
             $validator = new $this->reportValidator;
             
@@ -40,11 +47,9 @@ class WorkOrderReportController extends AbstractController {
                 $data = $this->inputAll();
                 $data['work_order_id'] = $workOrder->id;
                 
-                if($record = $this->report->setInput($data)->create()){
-
-                    $workOrder->update(array(
-                        'status' => Config::get('maintenance::status.complete')
-                    ));
+                if($this->report->setInput($data)->create()){
+                    
+                    $this->workOrder->setInput($data)->update($workOrder->id);
 
                     $this->message = 'Successfully created work order report';
                     $this->messageType = 'success';

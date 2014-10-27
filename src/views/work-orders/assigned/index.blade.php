@@ -26,7 +26,9 @@
     
     <div class="panel-body">
         @if($workOrders->count() > 0)
-        
+            @include('maintenance::work-orders.table', array(
+                'workOrders'=>$workOrders
+            ))
         @else
         <h5>You are not assigned to any work orders.</h5>
         @endif

@@ -37,8 +37,6 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Color</th>
-                    <th>Control</th>
                     <th>Displayed As</th>
                     <th>Created By</th>
                     <th>Created At</th>
@@ -49,8 +47,6 @@
                 @foreach($statuses as $status)
                 <tr>
                     <td>{{ $status->name }}</td>
-                    <td>{{ $status->color }}</td>
-                    <td>{{ $status->control }}</td>
                     <td>{{ $status->label }}</td>
                     <td>{{ $status->user->full_name }}</td>
                     <td>{{ $status->created_at }}</td>

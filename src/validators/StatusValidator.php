@@ -6,7 +6,7 @@ class StatusValidator extends AbstractValidator {
 	
 	protected $rules = array(
                 'name' => 'required|max:250',
-                'control' => 'required|integer'
+                'color' => 'required|max:20'
 	);
 
 }

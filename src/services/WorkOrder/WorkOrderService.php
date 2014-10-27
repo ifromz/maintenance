@@ -32,8 +32,6 @@ class WorkOrderService extends AbstractModelService {
                         ->description($this->getInput('description'))
                         ->status($this->getInput('status'))
                         ->category($this->getInput('work_order_category_id'))
-                        ->assets($this->getInput('assets'))
-                        ->archived($archived)
                         ->sort($this->getInput('field'), $this->getInput('sort'))
 			->paginate(25);
 	}
@@ -86,8 +84,8 @@ class WorkOrderService extends AbstractModelService {
             $insert = array(
                 'work_order_category_id'    => $this->getInput('work_order_category_id', $record->work_order_category_id),
                 'location_id'               => $this->getInput('location_id', $record->location_id),
-                'status_id'                 => $this->getInput('status', $record->status),
-                'priority_id'               => $this->getInput('priority', $record->priority),
+                'status_id'                 => $this->getInput('status', $record->status->id),
+                'priority_id'               => $this->getInput('priority', $record->priority->id),
                 'subject'                   => $this->getInput('subject', $record->subject, true),
                 'description'               => $this->getInput('description', $record->description, true),
                 'started_at'                => $this->formatDateWithTime($this->getInput('started_at_date'), $this->getInput('started_at_time')),

@@ -19,8 +19,7 @@ class StatusService extends AbstractModelService {
         $insert = array(
             'user_id' => $this->sentry->getCurrentUserId(),
             'name' => $this->getInput('name'),
-            'color' => $this->getInput('color'),
-            'control' => $this->getInput('control')
+            'color' => $this->getInput('color')
         );
         
         return $this->model->create($insert);
@@ -30,8 +29,7 @@ class StatusService extends AbstractModelService {
     {
         $insert = array(
             'name' => $this->getInput('name'),
-            'color' => $this->getInput('color'),
-            'control' => $this->getInput('control')
+            'color' => $this->getInput('color')
         );
         
         $record = $this->find($id);

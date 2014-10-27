@@ -12,8 +12,7 @@ class Status extends BaseModel {
     protected $fillable = array(
         'user_id',
         'name',
-        'color',
-        'control'
+        'color'
     );
     
     public function user()
@@ -26,7 +25,7 @@ class Status extends BaseModel {
         return sprintf(
                 '<span class="label label-%s">%s</span>', 
                     $this->attributes['color'], 
-                    Config::get(sprintf('maintenance::controls.%s', $this->attributes['control']))
+                    $this->attributes['name']
             );
     }
     
