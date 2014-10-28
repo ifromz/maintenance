@@ -27,6 +27,15 @@
     </div>
     
     <div class="panel-body">
+        
+        <a class="btn btn-app"
+            data-target="#notification-modal"
+            data-toggle="modal"
+           >
+            <i class="fa fa-warning"></i>
+            Notifications
+        </a>
+        
         <a href="{{ route('maintenance.work-requests.edit', array($workOrder->id)) }}" class="btn btn-app">
             <i class="fa fa-edit"></i>
             Edit

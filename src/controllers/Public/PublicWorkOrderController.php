@@ -3,12 +3,15 @@
 namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\PublicWorkOrderValidator;
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrderPublicService;
 use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class PublicWorkOrderController extends AbstractController {
     
-    public function __construct(WorkOrderService $workOrder, PublicWorkOrderValidator $workOrderValidator)
+    public function __construct(
+            WorkOrderPublicService $workOrder, 
+            PublicWorkOrderValidator $workOrderValidator
+        )
     {
         $this->workOrder = $workOrder;
         $this->workOrderValidator = $workOrderValidator;
@@ -37,7 +40,7 @@ class PublicWorkOrderController extends AbstractController {
         
         if($validator->passes()){
             
-            $record = $this->workOrder->setInput($this->inputAll())->createRequest();
+            $record = $this->workOrder->setInput($this->inputAll())->create();
             
             $this->message = sprintf('Successfully submitted work order request. %s', link_to_route('maintenance.work-requests.show', 'Show', array($record->id)));
             $this->messageType = 'success';
@@ -77,7 +80,7 @@ class PublicWorkOrderController extends AbstractController {
         
         if($validator->passes()){
             
-            $record = $this->workOrder->setInput($this->inputAll())->updateRequest($id);
+            $record = $this->workOrder->setInput($this->inputAll())->update($id);
             
             $this->message = sprintf('Successfully edited work order request. %s', link_to_route('maintenance.work-requests.show', 'Show', array($record->id)));
             $this->messageType = 'success';
@@ -93,7 +96,7 @@ class PublicWorkOrderController extends AbstractController {
     
     public function destroy($id)
     {
-        if($this->workOrder->destroyRequest($id)){
+        if($this->workOrder->destroy($id)){
             $this->message = 'Successfully deleted work request';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-requests.index');

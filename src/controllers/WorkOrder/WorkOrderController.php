@@ -91,10 +91,16 @@ class WorkOrderController extends AbstractController {
 	public function edit($id){
 
             $workOrder = $this->workOrder->with('category')->find($id);
-
+            
+            /*
+             * Set date/time format fields (in sync with javascript setup)
+             */
             $dateFormat = 'd F, Y';
             $timeFormat = 'H:i A';
-
+            
+            /*
+             * Convert record dates for editing pickatime/pickadate fields
+             */
             $dates = array(
                     'started'=>array(
                             'date'=>($workOrder->started_at ? date($dateFormat, strtotime($workOrder->started_at)) : NULL),

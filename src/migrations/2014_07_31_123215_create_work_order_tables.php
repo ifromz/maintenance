@@ -48,6 +48,26 @@ class CreateWorkOrderTables extends Migration {
 						->onDelete('cascade');
 		});
                 
+                Schema::create('work_order_notifications', function(Blueprint $table){
+                    $table->increments('id');
+                    $table->timestamps();
+                    $table->integer('user_id')->unsigned();
+                    $table->integer('work_order_id')->unsigned();
+                    $table->tinyInteger('status')->default(0);
+                    $table->tinyInteger('priority')->default(0);
+                    $table->tinyInteger('customer_updates')->default(0);
+                    $table->tinyInteger('technician_updates')->default(0);
+                    
+                    
+                    $table->foreign('user_id')->references('id')->on('users')
+						->onUpdate('restrict')
+						->onDelete('cascade');
+                    
+                    $table->foreign('work_order_id')->references('id')->on('work_orders')
+						->onUpdate('restrict')
+						->onDelete('cascade');
+                });
+                
                 Schema::create('work_order_reports', function(Blueprint $table) {
                     $table->increments('id');
                     $table->timestamps();

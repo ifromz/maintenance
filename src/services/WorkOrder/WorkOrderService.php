@@ -3,9 +3,6 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Exceptions\WorkOrderNotFoundException;
-use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\PriorityService;
-use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Models\WorkOrder;
 
 class WorkOrderService extends AbstractModelService {
@@ -13,15 +10,11 @@ class WorkOrderService extends AbstractModelService {
 	public function __construct(
                 WorkOrder $workOrder, 
                 SentryService $sentry,
-                StatusService $status,
-                PriorityService $priority,
                 WorkOrderNotFoundException $notFoundException
             )
         {
 		$this->model = $workOrder;
 		$this->sentry = $sentry;
-                $this->status = $status;
-                $this->priority = $priority;
                 $this->notFoundException = $notFoundException;
         }
         
@@ -50,16 +43,6 @@ class WorkOrderService extends AbstractModelService {
                         ->archived($archived)
 			->paginate(25);
 	}
-        
-        /**
-         * Returns an eloquent collection of the current logged in users
-         * work orders
-         */
-        public function getByPageByUser()
-        {
-            return $this->model->where('user_id', $this->sentry->getCurrentUserId())->paginate(25);
-        }
-            
         
         public function getUserAssignedWorkOrders()
         {
@@ -135,63 +118,6 @@ class WorkOrderService extends AbstractModelService {
             } 
             
 	}
-        
-        public function createRequest()
-        {
-            $status = $this->status->firstOrCreateRequest();
-            $priority = $this->priority->firstOrCreateRequest();
-            
-            $insert = array(
-                'status_id'     => $status->id,
-                'priority_id'   => $priority->id,
-                'user_id'       => $this->sentry->getCurrentUserId(),
-                'subject'       => $this->getInput('subject', NULL, true),
-                'description'   => $this->getInput('description', NULL, true),
-            );
-            
-            $record = $this->model->create($insert);
-            
-            return $record;
-        }
-        
-        public function updateRequest($id)
-        {
-            $record = $this->find($id);
-            
-            $insert = array(
-                'subject'       => $this->getInput('subject', $record->subject, true),
-                'description'   => $this->getInput('description', $record->description, true)
-            );
-            
-            if($record->update($insert)){
-                return $record;
-            } else{
-                return false;
-            }
-        }
-        
-        /**
-         * Only allow users to delete their own requests
-         * 
-         * @param integer $id
-         */
-        public function destroyRequest($id)
-        {
-            $record = $this->find($id);
-            
-            /*
-             * Make sure the current logged in User ID equals the work order
-             * user id
-             */
-            if($record->user_id === $this->sentry->getCurrentUserId()){
-                $record->delete();
-                
-                return true;
-                
-            } else{
-                return false;
-            }
-        }
         
         public function destroy($id) {
             $record = $this->find($id);
