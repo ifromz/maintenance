@@ -10,7 +10,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * <del>Asset manual attachments</del> - Oct 15th 2014
 * Customizable user dashboard
 * User profile with assigned work orders view
-* User registration with public work order creation
+* <del>User registration with public work order creation</del> - Oct 28th 2014
 * <del>Better category management</del> - Oct 15th 2014
 * Better breadcrumb management
 * Finish administration panel for managing permissions/users/groups
