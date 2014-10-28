@@ -23,6 +23,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Implement Print view for QR codes as well as all other data
 * <del>Implement Status and Priority DB tables and functionality</del> - Oct 23rd 2014
 * <del>Add meter readings to assets</del> - Oct 24th 2014
+* Lots of optimization and tweaks in views, services, controllers etc
 * Tests
 
 ###Features
