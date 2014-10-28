@@ -21,6 +21,11 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix'), 'namespace'=>'S
         include('routes/permission.php');
         
         /*
+         * Public Work Order Management Routes
+         */
+        include('routes/public.php');
+        
+        /*
          * Main Application Controller Group
          * 
          * Filters:

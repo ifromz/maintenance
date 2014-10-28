@@ -23,7 +23,6 @@
                     
                     @include('maintenance::layouts.main.notifications')
                     
-                    <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="glyphicon glyphicon-user"></i>
@@ -46,7 +45,7 @@
                                     <a href="" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{{route('maintenance.logout')}}" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{{ route('maintenance.logout') }}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -78,8 +77,9 @@
                     </div>
                 </div>
 
-                <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu">
+                    
+                    @if(Sentry::hasAccess('maintenance.dashboard.index'))
                     <li class="{{ (Route::currentRouteName() == 'maintenance.dashboard.index' ? 'active' : NULL) }} treeview">
                         <a href="{{ route('maintenance.dashboard.index') }}">
                             <i class="fa fa-dashboard"></i> Dashboard
@@ -105,66 +105,84 @@
                             </li>
                         </ul>
                     </li>
-
+                    @endif
+                    
+                    @if(Sentry::hasAccess('maintenance.work-orders.index'))
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-wrench"></i> Maintenance
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
+                            @if(Sentry::hasAccess('maintenance.work-orders.index'))
                             <li>
                                 <a href="{{ route('maintenance.work-orders.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-book"></i> Work Orders
                                 </a>
                             </li>
-
+                            @endif
+                            
                             <li>
                                 <a href="#" style="margin-left: 10px;">
                                     <i class="fa fa-refresh"></i> Scheduled Maintenance
                                 </a>
                             </li>
                             
+                            @if(Sentry::hasAccess('maintenance.work-orders.statuses.index'))
                             <li>
                                 <a href="{{ route('maintenance.work-orders.statuses.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-info"></i> Statuses
                                 </a>
                             </li>
+                            @endif
                             
+                            @if(Sentry::hasAccess('maintenance.work-orders.priorities.index'))
                             <li>
                                 <a href="{{ route('maintenance.work-orders.priorities.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-exclamation-circle"></i> Priorities
                                 </a>
                             </li>
+                            @endif
                             
+                            @if(Sentry::hasAccess('maintenance.work-orders.categories.index'))
                             <li>
                                 <a href="{{ route('maintenance.work-orders.categories.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-folder"></i> Categories
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </li>
-
+                    @endif
+                    
+                    @if(Sentry::hasAccess('maintenance.inventory.index'))
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-dropbox"></i> Inventory
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
+                            @if(Sentry::hasAccess('maintenance.inventory.index'))
                             <li>
                                 <a href="{{ route('maintenance.inventory.index') }}" style="margin-left: 10px;">
                                             <i class="fa fa-gears"></i> All Items
                                 </a>
                             </li>
-
+                            @endif
+                            
+                            @if(Sentry::hasAccess('maintenance.metrics.index'))
                             <li>
                                 <a href="{{ route('maintenance.metrics.index') }}" style="margin-left: 10px;">
                                     <i class="fa fa-anchor"></i> 
                                     Metrics
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </li>
-
+                    @endif
+                    
+                    @if(Sentry::hasAccess('maintenance.assets.index'))
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-truck"></i> Assets
@@ -178,20 +196,33 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
                     
+                    @if(Sentry::hasAccess('maintenance.locations.index'))
                     <li>
                         <a href="{{ route('maintenance.locations.index') }}">
                             <i class="fa fa-location-arrow"></i> Locations
                         </a>
                     </li>
+                    @endif
                     
+                    @if(Sentry::hasAccess('maintenance.categories.index'))
                     <li>
                         <a href="{{ route('maintenance.categories.index') }}">
                             <i class="fa fa-sitemap"></i> 
                             Categories <small>(Asset / Inventory)</small>
                         </a>
                     </li>
+                    @endif
                     
+                    @if(!Sentry::hasAccess('maintenance.dashboard.index'))
+                    <li>
+                        <a href="{{ route('maintenance.work-requests.index') }}">
+                            <i class="fa fa-book"></i>
+                            My Work Requests
+                        </a>
+                    </li>
+                    @endif
                 </ul>
             </section>
             <!-- /.sidebar -->

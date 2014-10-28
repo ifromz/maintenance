@@ -19,7 +19,6 @@ class CreateStatusTable extends Migration {
                 $table->integer('user_id')->unsigned()->nullable();
                 $table->string('name');
                 $table->string('color');
-                $table->integer('control')->default(0);
                 
                 $table->foreign('user_id')->references('id')->on('users')
                     ->onUpdate('restrict')

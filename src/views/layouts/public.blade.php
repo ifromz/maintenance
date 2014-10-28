@@ -29,6 +29,7 @@
 <body class="bg-black">
     
     @yield('content')
-
+ 
+    @include('maintenance::layouts.main.foot')
 </body>
 </html>

@@ -38,4 +38,15 @@ class PriorityService extends AbstractModelService {
         
     }
     
+    public function firstOrCreateRequest()
+    {
+        $insert = array(
+            'name' => 'Requested',
+            'color' => 'default'
+        );
+        
+        return $this->model->firstOrCreate($insert);
+    }
+    
+    
 }

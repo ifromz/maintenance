@@ -11,9 +11,14 @@
         My Work Requests
     </a>
 </li>
+<li>
+    <a href="{{ route('maintenance.work-requests.show', array($workOrder->id)) }}">
+        {{ $workOrder->subject }}
+    </a>
+</li>
 <li class="active">
-    <i class="fa fa-plus-circle"></i>
-    Submit
+    <i class="fa fa-edit"></i>
+    Edit
 </li>
 @stop
 
@@ -21,27 +26,28 @@
  <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Submit a new Work Request</h3>
+                <h3 class="panel-title">Edit Work Request: {{ $workOrder->subject }}</h3>
             </div>
             <div class="panel-body">
                 
                 {{ Form::open(array(
-                            'url'=>route('maintenance.work-requests.store'), 
-                            'class'=>'form-horizontal ajax-form-post clear-form'
-                        )) 
+                            'url'=>route('maintenance.work-requests.update', array($workOrder->id)),
+                            'method'=>'PATCH',
+                            'class'=>'form-horizontal ajax-form-post'
+                        ))
                 }}
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Subject</label>
                     <div class="col-md-4">
-                    	{{ Form::text('subject', NULL, array('class'=>'form-control', 'placeholder'=>'Enter Subject')) }}
+                    	{{ Form::text('subject', $workOrder->subject, array('class'=>'form-control', 'placeholder'=>'Enter Subject')) }}
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Description / Details</label>
                     <div class="col-md-4">
-                    	{{ Form::textarea('description', NULL, array('class'=>'form-control', 'style'=>'min-width:100%', 'placeholder'=>'ex. Added components')) }}
+                    	{{ Form::textarea('description', htmlspecialchars($workOrder->description), array('class'=>'form-control', 'style'=>'min-width:100%')) }}
                     </div>
                 </div>
                 

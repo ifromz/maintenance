@@ -9,7 +9,8 @@ class AuthRegisterValidator extends AbstractValidator {
                 'last_name' => 'required|max:100',
 		'email' => 'required|email|max:250',
                 'password' => 'required|confirmed|max:250',
-                'password_confirmation' => 'required|max:250'
+                'password_confirmation' => 'required|max:250',
+                'captcha' => 'required|captcha',
 	);
 	
 }

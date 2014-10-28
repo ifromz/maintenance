@@ -1,12 +1,12 @@
 @extends('maintenance::layouts.public')
 
 @section('content')
-{{ HTML::script('packages/stevebauman/maintenance/js/auth/register.js') }}
+
 <div class="form-box" id="login-box">
     
     <div class="header">{{ $title }}</div>
     
-    {{ Form::open(array('url'=>route('maintenance.register'), 'id'=>'maintenance-register')) }}
+    {{ Form::open(array('url'=>route('maintenance.register'), 'class'=>'ajax-form-post clear-form', 'data-status-target'=>'#maintenance-register-status')) }}
     
         <div class="body bg-gray">
             @if (Session::has('message'))
@@ -34,6 +34,21 @@
             <div class="form-group">
                 {{ Form::password('password_confirmation', array('class'=>'form-control', 'placeholder'=>'Confirm Password')) }}
             </div>
+            
+            <div class="alert alert-info">
+                <p>For the Captcha field, enter the letters you see in the picture below.</p>
+            </div>
+            
+            <div class="form-group col-md-6">
+                <img class="responsive" src="{{ Captcha::img() }}">
+            </div>
+            
+            <div class="form-group col-md-6">
+                {{ Form::text('captcha', NULL, array('class'=>'form-control', 'placeholder'=>'Captcha')) }}
+            </div>
+            
+            <div class="clearfix"></div>
+            
         </div>
     
         <div class="footer">                    

@@ -37,4 +37,14 @@ class StatusService extends AbstractModelService {
         return $record->update($insert);
     }
     
+    public function firstOrCreateRequest()
+    {
+        $insert = array(
+            'name' => 'Requested',
+            'color' => 'default'
+        );
+        
+        return $this->model->firstOrCreate($insert);
+    }
+    
 }
