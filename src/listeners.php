@@ -6,4 +6,9 @@
  * and open the template in the editor.
  */
 
-Event::listen('revisionable.saved', 'Stevebauman\Maintenance\Listeners\RevisionListener');
+/*
+ * Handle Revision Events
+ */
+Event::subscribe('Stevebauman\Maintenance\Listeners\RevisionListener');
+
+Event::subscribe('Stevebauman\Maintenance\Listeners\WorkOrderListener');

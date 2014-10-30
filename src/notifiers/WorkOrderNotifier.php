@@ -12,7 +12,7 @@ class WorkOrderNotifier implements NotifierInterface {
         $this->workOrder = $workOrder;
     }
     
-    public function handle($revision)
+    public function handleRevision($revision)
     {
         
         /*
@@ -76,7 +76,6 @@ class WorkOrderNotifier implements NotifierInterface {
     
     public function notifyStatusChange($workOrder, $notify)
     {
-        
         $workOrder->notifications()->create(array(
             'user_id' => $notify->user_id,
             'message' => 'Status has been changed',
@@ -89,6 +88,42 @@ class WorkOrderNotifier implements NotifierInterface {
         $workOrder->notifications()->create(array(
             'user_id' => $notify->user_id,
             'message' => 'Priority has been changed',
+            'link' => 'test',
+        ));
+    }
+    
+    public function notifyPartsAdded($workOrder, $notify)
+    {
+        $workOrder->notifications()->create(array(
+            'user_id' => $notify->user_id,
+            'message' => 'Parts have been added to work order',
+            'link' => 'test',
+        ));
+    }
+    
+    public function notiftyReportCreated($workOrder, $notify)
+    {
+        $workOrder->notifications()->create(array(
+            'user_id' => $notify->user_id,
+            'message' => 'A completion report has been created',
+            'link' => 'test',
+        ));
+    }
+    
+    public function notiftyTechUpdatesAdded($workOrder, $notify)
+    {
+        $workOrder->notifications()->create(array(
+            'user_id' => $notify->user_id,
+            'message' => 'A new technician update was added',
+            'link' => 'test',
+        ));
+    }
+    
+    public function notiftyCustUpdatesAdded($workOrder, $notify)
+    {
+        $workOrder->notifications()->create(array(
+            'user_id' => $notify->user_id,
+            'message' => 'A new customer updated was added',
             'link' => 'test',
         ));
     }

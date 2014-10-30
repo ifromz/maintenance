@@ -11,7 +11,7 @@ class RevisionListener {
         $this->workOrder = $workOrder;
     }
     
-    public function handle($revisions)
+    public function onSavedRevisions($revisions)
     {
         foreach($revisions as $revision){
             
@@ -26,9 +26,14 @@ class RevisionListener {
             }
             
             if(is_object($notifier)){
-                $notifier->handle($revision);
+                $notifier->handleRevision($revision);
             }
         }
+    }
+    
+    public function subscribe($events)
+    {
+        $events->listen('revisionable.saved', 'Stevebauman\Maintenance\Listeners\RevisionListener@onSavedRevisions');
     }
     
 }

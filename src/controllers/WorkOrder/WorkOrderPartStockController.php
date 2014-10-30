@@ -107,6 +107,7 @@ class WorkOrderPartStockController extends AbstractController {
                         link_to_route('maintenance.work-orders.parts.index', 'Add More', array($workOrder->id)),
                         link_to_route('maintenance.work-orders.show', 'View Work Order', array($workOrder->id))
                     );
+            
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.parts.index', array($workOrder->id));
             

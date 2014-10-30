@@ -21,9 +21,13 @@ class WorkOrderReportService extends AbstractModelService {
             'description' => $this->getInput('description', NULL, true),
         );
         
-        if($record = $this->model->create($insert)){
-            return $record;
-        } return false;
+        $record = $this->model->create($insert);
+
+        $this->fireEvent('maintenance.work-orders.reports.created', array(
+            'report'=>$record
+        ));
+            
+        return $record;
     }
     
 }

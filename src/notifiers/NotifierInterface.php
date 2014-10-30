@@ -4,6 +4,6 @@ namespace Stevebauman\Maintenance\Notifiers;
 
 interface NotifierInterface {
     
-    public function handle($revision);
+    public function handleRevision($revision);
     
 }
