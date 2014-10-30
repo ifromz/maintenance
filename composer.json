@@ -24,7 +24,8 @@
             "src/validators",
             "src/exceptions",
             "src/seeders",
-            "src/observers"
+            "src/listeners",
+            "src/notifiers"
         ],
         "psr-0": {
             "Stevebauman\\Maintenance\\": "src/"

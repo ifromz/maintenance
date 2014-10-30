@@ -70,18 +70,19 @@ class WorkOrderService extends AbstractModelService {
 			'completed_at'              => $this->formatDateWithTime($this->getInput('completed_at_date'), $this->getInput('completed_at_time')),
 		);
 		
-		if($record = $this->model->create($insert)){
+                $record = $this->model->create($insert);
                     
-                    if($assets = $this->getInput('assets')){
-                        $record->assets()->attach($assets);
-                    }
-                    
-                    $this->fireEvent('maintenance.work-orders.created', array(
-                        'workOrder' => $record
-                    ));
-                    
-                    return $record;
-		} return false;
+                $assets = $this->getInput('assets');
+                
+                if($assets){
+                    $record->assets()->attach($assets);
+                }
+
+                $this->fireEvent('maintenance.work-orders.created', array(
+                    'workOrder' => $record
+                ));
+
+                return $record;
 	}
 	
 	public function update($id)

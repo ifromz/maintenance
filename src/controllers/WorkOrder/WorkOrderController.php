@@ -19,6 +19,7 @@ class WorkOrderController extends AbstractController {
 	 * @return Response
 	 */
 	public function index(){
+
             $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
             
             return $this->view('maintenance::work-orders.index', array(
@@ -71,14 +72,13 @@ class WorkOrderController extends AbstractController {
 	 * @return Response
 	 */
 	public function show($id){
+            
             $workOrder = $this->workOrder->find($id);
 
-            return $this->view('maintenance::work-orders.show', 
-                array(
+            return $this->view('maintenance::work-orders.show', array(
                     'title' => 'Viewing Work Order: '.$workOrder->subject,
                     'workOrder' => $workOrder
-                )
-            );
+            ));
 	}
 
 

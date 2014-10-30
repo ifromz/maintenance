@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class BaseModel extends Eloquent {
     
     /*
+     * Tell revisionable to not keep a revision of deleted_at columns
+     */
+    protected $dontKeepRevisionOf = array('deleted_at');
+    
+    /*
      * Revisionable Trait for storing revisions on all models that extend
      * from this class
      * 
@@ -30,7 +35,7 @@ class BaseModel extends Eloquent {
      * @return string
      */
     public function getDeletedAtAttribute($deleted_at){
-        return Carbon::parse($deleted_at)->format('M dS Y - h:ia'); 
+        return Carbon::parse($deleted_at)->format('M dS Y - h:ia');
     }
     
     /**

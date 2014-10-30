@@ -55,9 +55,10 @@ class CreateWorkOrderTables extends Migration {
                     $table->integer('work_order_id')->unsigned();
                     $table->tinyInteger('status')->default(0);
                     $table->tinyInteger('priority')->default(0);
+                    $table->tinyInteger('parts')->default(0);
                     $table->tinyInteger('customer_updates')->default(0);
                     $table->tinyInteger('technician_updates')->default(0);
-                    
+                    $table->tinyInteger('completion_report')->default(0);
                     
                     $table->foreign('user_id')->references('id')->on('users')
 						->onUpdate('restrict')
@@ -215,6 +216,7 @@ class CreateWorkOrderTables extends Migration {
                 Schema::drop('work_order_customer_updates');
                 Schema::drop('work_order_technician_updates');
                 Schema::drop('work_order_reports');
+                Schema::drop('work_order_notifications');
 		Schema::drop('work_orders');
 	}
 

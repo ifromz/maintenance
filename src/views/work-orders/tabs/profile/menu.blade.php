@@ -29,6 +29,12 @@
     <i class="fa fa-users"></i> Workers
 </a>
 
+<a data-target="#work-order-notifications-modal"
+    data-toggle="modal"
+    class="btn btn-app">
+    <i class="fa fa-warning"></i> Notifications
+</a>
+
 @if(!$workOrder->report)
 
     <a href="{{ route('maintenance.work-orders.report.create', array($workOrder->id)) }}"

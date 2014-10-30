@@ -14,4 +14,22 @@ return array(
         
     ),
     
+    'work-orders' => array(
+        
+        /*
+         * Set enabled to true if you want to prevent a lot of work order updates 
+         * (technician or customer) from being created. Set the minutes apart
+         * they must be submitted by.
+         * 
+         * Ex. If a technician posts an update, he cannot create another update for
+         * 5 minutes.
+         * 
+         */
+        'prevent_spam_updates' => array(
+            'enabled' => 'true',
+            'minutes_apart' => '5'
+        )
+        
+    )
+    
 );

@@ -16,8 +16,6 @@
     'workOrder'=>$workOrder
 ))
 
-@include('maintenance::work-orders.modals.complete', array(
+@include('maintenance::work-orders.modals.notifications', array(
     'workOrder'=>$workOrder
 ))
-
-                    

@@ -35,6 +35,7 @@ class AuthController extends AbstractController {
 	 * @return Response
 	 */
 	public function getLogin(){
+            
             return $this->view('maintenance::login', array(
                 'title' => 'Sign In',
             ));

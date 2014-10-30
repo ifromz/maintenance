@@ -34,7 +34,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix'), 'namespace'=>'S
          * Permission   - Only Allows users with correct permissions
          */
 	Route::group(array('namespace'=>'Controllers', 'before'=>'maintenance.auth|maintenance.permission'), function(){
-                
+            
                 /*
                  * Dashboard Routes
                  */

@@ -246,3 +246,14 @@ Route::resource('work-orders.attachments', 'WorkOrderAttachmentController', arra
         'destroy' 	=> 'maintenance.work-orders.attachments.destroy',
     )
 ));
+
+Route::resource('work-orders.notifications', 'WorkOrderNotificationController', array(
+    'only' => array(
+        'store',
+        'update'
+    ),
+    'names' => array(
+        'store' => 'maintenance.work-orders.notifications.store',
+        'update' => 'maintenance.work-orders.notifications.update'
+    )
+));

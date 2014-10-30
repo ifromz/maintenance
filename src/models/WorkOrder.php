@@ -74,6 +74,10 @@ class WorkOrder extends BaseModel {
             return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrderReport', 'work_order_id');
         }
         
+        public function notifiableUsers(){
+            return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderNotification', 'work_order_id', 'id');
+        }
+        
         public function assignments(){
             return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderAssignment', 'work_order_id', 'id');
         }
@@ -236,6 +240,18 @@ class WorkOrder extends BaseModel {
         }
         
         /**
+         * Returns the current users work order notifications
+         * 
+         * @return object
+         */
+        public function getUserNotifications()
+        {
+            $record = $this->notifiableUsers()->where('user_id', Sentry::getUser()->id)->first();
+            
+            return $record; 
+        }
+        
+        /**
          * Returns the current users work order session record
          * 
          * @return object
@@ -247,6 +263,15 @@ class WorkOrder extends BaseModel {
         }
         
         /**
+         * Alias for getUserNotificiations()
+         * 
+         * @return object
+         */
+        public function getNotifyAttribute(){
+            return $this->getUserNotifications();
+        }
+        
+        /**
          * Set the default work order category id to null if the given value is empty
          * 
          * @param type $value
@@ -254,7 +279,6 @@ class WorkOrder extends BaseModel {
         public function setWorkOrderCategoryIdAttribute($value){
             $this->attributes['work_order_category_id'] = $value ? $value : NULL;
         }
-        
         
         /**
          * Set the default location id to null if the given value is empty
