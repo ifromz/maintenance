@@ -2,16 +2,24 @@
 
 namespace Stevebauman\Maintenance\Notifiers;
 
+use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Notifiers\NotifierInterface;
 
 class WorkOrderNotifier implements NotifierInterface {
     
-    public function __construct(WorkOrderService $workOrder)
+    public function __construct(WorkOrderService $workOrder, SentryService $sentry)
     {
         $this->workOrder = $workOrder;
+        $this->sentry = $sentry;
     }
     
+    /**
+     * Handles revisions to a work order and sends a notification to users
+     * depending on the change
+     * 
+     * @param array $revision
+     */
     public function handleRevision($revision)
     {
         
@@ -79,7 +87,7 @@ class WorkOrderNotifier implements NotifierInterface {
         $workOrder->notifications()->create(array(
             'user_id' => $notify->user_id,
             'message' => 'Status has been changed',
-            'link' => 'test',
+            'link' => route('maintenance.work-orders.show', array($workOrder->id)),
         ));
     }
     

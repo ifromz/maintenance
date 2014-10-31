@@ -45,12 +45,12 @@
                 <div class="clearfix"></div>
                 
                 <div class="form-group">
-                    <label class="col-md-6 control-label">Parts are Added</label>
+                    <label class="col-md-6 control-label">Parts Added</label>
                     <div class="col-md-6">
                         {{ Form::checkbox('parts', '1', ($workOrder->notify ? $workOrder->notify->parts : NULL)) }}
                     </div>
                 </div>
-                
+               
                 <div class="clearfix"></div>
                 
                 <div class="form-group">

@@ -7,7 +7,14 @@ class Notification extends BaseModel {
     
     protected $table = 'notifications';
     
-    protected $fillable = array('user_id', 'notifiable_id', 'notifiable_type', 'message', 'link', 'read');
+    protected $fillable = array(
+        'user_id', 
+        'notifiable_id', 
+        'notifiable_type', 
+        'message', 
+        'link', 
+        'read'
+    );
     
     public function notifiable()
     {

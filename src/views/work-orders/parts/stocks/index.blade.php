@@ -44,9 +44,6 @@
         
         <hr>
         
-        {{ HTML::script('public/packages/stevebauman/maintenance/js/work-orders/parts/create.js') }}
-       
-        
         <div id="inventory-stocks-table">
             @if($item->stocks->count() > 0)
             <table class="table table-striped">

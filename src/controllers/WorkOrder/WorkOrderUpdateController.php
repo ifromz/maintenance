@@ -13,26 +13,6 @@ class WorkOrderUpdateController extends AbstractController {
 		$this->update = $update;
 		$this->updateValidator = $updateValidator;
 	}
-	
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index($workOrder_id){
-		
-	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create($workOrder_id){
-		
-	}
-
 
 	/**
 	 * Store a newly created resource in storage.
@@ -49,7 +29,7 @@ class WorkOrderUpdateController extends AbstractController {
 			
                 $update = $this->update->setInput($this->inputAll())->create();
 
-                $workOrder->customerUpdates()->save($update);
+                $this->workOrder->saveCustomerUpdate($workOrder, $update);
 
                 $this->message = 'Successfully added update';
                 $this->messageType = 'success';
@@ -62,31 +42,6 @@ class WorkOrderUpdateController extends AbstractController {
             
             return $this->response();
 	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
 
 	/**
 	 * Update the specified resource in storage.

@@ -120,7 +120,8 @@ class WorkOrderService extends AbstractModelService {
             
 	}
         
-        public function destroy($id) {
+        public function destroy($id) 
+        {
             $record = $this->find($id);
             
             $record->delete();
@@ -130,6 +131,96 @@ class WorkOrderService extends AbstractModelService {
             ));
             
             return true;
+        }
+        
+        /**
+         * Attaches a stock item to a work order as a 'part'
+         * 
+         * @param object $workOrder
+         * @param object $stock
+         * @return boolean
+         */
+        public function savePart($workOrder, $stock)
+        {
+            /*
+             * Find if the stock ('part') is already attached to the work order
+             */
+            $part = $workOrder->parts->find($stock->id);
+            
+            /*
+             * If record exists
+             */
+            if($part){
+                
+                /*
+                 * Add on the quantity inputted to the existing record quantity
+                 */
+                $newQuantity = $part->pivot->quantity + $this->getInput('quantity');
+                
+                /*
+                 * Update the existing pivot record
+                 */
+                $workOrder->parts()->updateExistingPivot($part->id, array('quantity'=>$newQuantity));
+                
+            } else{
+                
+                /*
+                 * Part Record does not exist, attach a new record with quantity inputted
+                 */
+                $workOrder->parts()->attach($stock->id, array('quantity'=>$this->getInput('quantity')));
+            }
+            
+            
+            $this->fireEvent('maintenance.work-orders.parts.created', array(
+                'workOrder' => $workOrder,
+                'stock' => $stock,
+            ));
+            
+            return true;
+        }
+        
+        /**
+         * Attaches a customer update to the work order pivot table
+         * 
+         * @param object $workOrder
+         * @param object $update
+         * @return boolean
+         */
+        public function saveCustomerUpdate($workOrder, $update)
+        {
+            if($workOrder->customerUpdates()->save($update)){
+                
+                $this->fireEvent('maintenance.work-orders.updates.customer.created', array(
+                    'workOrder' => $workOrder,
+                    'update' => $update
+                ));
+                
+                return true;
+            } else{
+                return false;
+            }
+        }
+        
+        /**
+         * Attaches a technician update to the work order pivot table
+         * 
+         * @param object $workOrder
+         * @param object $update
+         * @return boolean
+         */
+        public function saveTechnicianUpdate($workOrder, $update)
+        {
+            if($workOrder->technicianUpdates()->save($update)){
+                
+                $this->fireEvent('maintenance.work-orders.updates.technician.created', array(
+                    'workOrder' => $workOrder,
+                    'update' => $update
+                ));
+                
+                return true;
+            } else{
+                return false;
+            }
         }
 	
 }

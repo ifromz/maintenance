@@ -85,21 +85,28 @@ class WorkOrderPartStockController extends AbstractController {
             $stock = $this->inventoryStock->find($stock_id);
             
             /*
-             * If stock record already exists
+             * Grab all input data
              */
-            if($record = $workOrder->parts->find($stock->id)){
-                $newQuantity = $record->pivot->quantity + $this->input('quantity');
-                
-                $workOrder->parts()->updateExistingPivot($record->id, array('quantity'=>$newQuantity));
-            } else{
-                $workOrder->parts()->attach($stock->id, array('quantity'=>$this->input('quantity')));
-            }
-            
             $data = $this->inputAll();
+            
+            /*
+             * Add Part to work order (passing in the work order and the stock)
+             */
+            $this->workOrder->setInput($data)->savePart($workOrder, $stock);
+ 
+            /*
+             * Set the extra input data for the inventory stock change reason
+             */
             $data['reason'] = sprintf('Used for <a href="%s">Work Order</a>', route('maintenance.work-orders.show', array($workOrder->id)));
-
+            
+            /*
+             * Perform a take from the stock
+             */
             $this->inventoryStock->setInput($data)->take($stock->id);
             
+            /*
+             * Set the return messages
+             */
             $this->message = sprintf(
                     'Successfully added %s of %s to work order. %s or %s', 
                         $this->input('quantity'), 
@@ -133,6 +140,7 @@ class WorkOrderPartStockController extends AbstractController {
      * @return type Response
      */
     public function postDestroy($workOrder_id, $inventory_id, $stock_id){
+        
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
         $stock = $this->inventoryStock->find($stock_id);
