@@ -25,6 +25,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * <del>Add meter readings to assets</del> - Oct 24th 2014
 * Add 'Put Back Some' option for work order parts/supplies
 * Lots of optimization and tweaks in views, services, controllers etc
+* Implement DB transactions for every service method
 * Tests
 
 ###Features

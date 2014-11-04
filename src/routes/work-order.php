@@ -185,36 +185,36 @@ Route::resource('work-orders.assignments', 'WorkOrderAssignmentController', arra
 | Maintenance Work Order Part / Supply Routes
 |--------------------------------------------------------------------------
 */
-Route::resource('work-orders.parts', 'WorkOrderPartController', array(
-    'only' => array(
-        'index',
-        'destroy',
-    ),
-    'names' => array(
-        'index' => 'maintenance.work-orders.parts.index',
-        'destroy' => 'maintenance.work-orders.parts.destroy'
-    ),
+
+Route::get('work-orders/{work_orders}/parts', array(
+    'uses' => 'WorkOrderPartController@index',
+    'as' => 'maintenance.work-orders.parts.index'
 ));
 
 Route::get('work-orders/{work_orders}/parts/{inventory}/stocks', array(
     'as' => 'maintenance.work-orders.parts.stocks.index',
-    'uses' => 'WorkOrderPartStockController@getIndex'
+    'uses' => 'WorkOrderPartStockController@index'
 ));
 
 
 Route::get('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/add', array(
-    'as' => 'maintenance.work-orders.parts.stocks.add',
-    'uses' => 'WorkOrderPartStockController@getAdd'
+    'as' => 'maintenance.work-orders.parts.stocks.create',
+    'uses' => 'WorkOrderPartStockController@create'
 ));
 
 Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}', array(
     'as' => 'maintenance.work-orders.parts.stocks.store',
-    'uses' => 'WorkOrderPartStockController@postStore'
+    'uses' => 'WorkOrderPartStockController@store'
 ));
 
-Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/remove', array(
-    'as' => 'maintenance.work-orders.parts.stocks.destroy',
-    'uses' => 'WorkOrderPartStockController@postDestroy'
+Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/put-back', array(
+    'as' => 'maintenance.work-orders.parts.stocks.put-back',
+    'uses' => 'WorkOrderPartStockController@postPutBack'
+));
+
+Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/put-back-some', array(
+    'as' => 'maintenance.work-orders.parts.stocks.put-back-some',
+    'uses' => 'WorkOrderPartStockController@postPutBackSome'
 ));
 
 /*

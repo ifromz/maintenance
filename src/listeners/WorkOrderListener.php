@@ -3,18 +3,19 @@
 namespace Stevebauman\Maintenance\Listeners;
 
 use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Services\WorkOrderNotificationService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Listeners\AbstractListener;
 
 class WorkOrderListener extends AbstractListener {
     
     public function __construct(
-            WorkOrderNotifier $notifier, 
             WorkOrderService $workOrder,
+            WorkOrderNotificationService $workOrderNotification,
             SentryService $sentry)
     {
-        $this->notifier = $notifier;
         $this->workOrder = $workOrder;
+        $this->workOrderNotification = $workOrderNotification;
         $this->sentry = $sentry;
     }
     
@@ -29,7 +30,7 @@ class WorkOrderListener extends AbstractListener {
     public function onPartsAdded($workOrder, $stock)
     {
         $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
-        
+
         if($notifiableUsers->count() > 0){
         
             foreach($notifiableUsers as $notify){

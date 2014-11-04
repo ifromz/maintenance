@@ -2,7 +2,8 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Validators\WorkOrderPartValidator;
+use Stevebauman\Maintenance\Validators\WorkOrderPartPutBackValidator;
+use Stevebauman\Maintenance\Validators\WorkOrderPartTakeValidator;
 use Stevebauman\Maintenance\Services\InventoryStockMovementService;
 use Stevebauman\Maintenance\Services\InventoryStockService;
 use Stevebauman\Maintenance\Services\InventoryService;
@@ -16,12 +17,14 @@ class WorkOrderPartStockController extends AbstractController {
             InventoryService $inventory, 
             InventoryStockService $inventoryStock,
             InventoryStockMovementService $inventoryStockMovement,
-            WorkOrderPartValidator $workOrderPartValidator){
+            WorkOrderPartTakeValidator $workOrderPartTakeValidator,
+            WorkOrderPartPutBackValidator $workOrderPartPutBackValidator){
         $this->workOrder = $workOrder;
         $this->inventory = $inventory;
         $this->inventoryStock = $inventoryStock;
         $this->inventoryStockMovement = $inventoryStockMovement;
-        $this->workOrderPartValidator = $workOrderPartValidator;
+        $this->workOrderPartTakeValidator = $workOrderPartTakeValidator;
+        $this->workOrderPartPutBackValidator = $workOrderPartPutBackValidator;
     }
     
     /**
@@ -32,7 +35,7 @@ class WorkOrderPartStockController extends AbstractController {
      * @param type $inventory_id
      * @return type Response
      */
-    public function getIndex($workOrder_id, $inventory_id){
+    public function index($workOrder_id, $inventory_id){
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
         
@@ -52,13 +55,13 @@ class WorkOrderPartStockController extends AbstractController {
      * @param type $stock_id
      * @return type Response
      */
-    public function getAdd($workOrder_id, $inventory_id, $stock_id){
+    public function create($workOrder_id, $inventory_id, $stock_id){
         
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
         $stock = $this->inventoryStock->find($stock_id);
         
-        return $this->view('maintenance::work-orders.parts.stocks.add', array(
+        return $this->view('maintenance::work-orders.parts.stocks.create', array(
             'title' => "Enter Quantity Used",
             'workOrder' => $workOrder,
             'item' => $item,
@@ -75,8 +78,8 @@ class WorkOrderPartStockController extends AbstractController {
      * @param type $stock_id
      * @return type Response
      */
-    public function postStore($workOrder_id, $inventory_id, $stock_id){
-        $validator = new $this->workOrderPartValidator;
+    public function store($workOrder_id, $inventory_id, $stock_id){
+        $validator = new $this->workOrderPartTakeValidator;
         
         if($validator->passes()){
             
@@ -121,7 +124,7 @@ class WorkOrderPartStockController extends AbstractController {
         } else{
             
             $this->errors = $validator->getErrors();
-            $this->redirect = route('maintenance.work-orders.parts.stocks.add', array(
+            $this->redirect = route('maintenance.work-orders.parts.stocks.create', array(
                 $workOrder_id, $inventory_id, $stock_id
             ));
         }
@@ -139,7 +142,7 @@ class WorkOrderPartStockController extends AbstractController {
      * @param type $stock_id
      * @return type Response
      */
-    public function postDestroy($workOrder_id, $inventory_id, $stock_id){
+    public function postPutBack($workOrder_id, $inventory_id, $stock_id){
         
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
@@ -171,6 +174,60 @@ class WorkOrderPartStockController extends AbstractController {
         $this->message = sprintf('Successfully put back %s into the inventory', $item->name);
         $this->messageType = 'success';
         $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+        
+        return $this->response();
+    }
+    
+    public function postPutBackSome($workOrder_id, $inventory_id, $stock_id)
+    {
+        $workOrder = $this->workOrder->find($workOrder_id);
+        $item = $this->inventory->find($inventory_id);
+        $stock = $this->inventoryStock->find($stock_id);
+
+        $validator = new $this->workOrderPartPutBackValidator;
+        
+        $validator->addRule('quantity', 'less_than:'.$stock->quantity);
+        
+        if($validator->passes()){
+
+            /*
+             * Find the specific work order part record from the stock id
+             */
+            $record = $workOrder->parts->find($stock->id);
+
+            /*
+             * Set the reason and quantity of why the putting back is taking place
+             */
+            $data = array(
+                'reason' => sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', array($workOrder->id))),
+                'quantity' => $this->input('quantity')
+            );
+
+            /*
+             * Update the inventory stock record
+             */
+            $this->inventoryStock->setInput($data)->put($stock->id);
+
+            /*
+             * Set the new pivot quantity
+             */
+            $newQuantity = $record->pivot->quantity - $this->input('quantity');
+
+            /*
+             * Updat the existing pivot record
+             */
+            $workOrder->parts()->updateExistingPivot($stock->id, array('quantity'=>$newQuantity));
+
+            $this->message = sprintf('Successfully put back %s into the inventory', $item->name);
+            $this->messageType = 'success';
+            $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+
+        } else {
+
+            $this->errors = $validator->getErrors();
+            $this->redirect = route('maintenance.work-orders.parts.stocks.index', array($workOrder_id, $inventory_id));
+
+        }
         
         return $this->response();
     }

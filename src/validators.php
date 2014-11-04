@@ -58,3 +58,7 @@ Validator::replacer('greater_than', function($message, $attribute, $rule, $param
     return sprintf('The %s must be greater than %s', $attribute, $parameters[0]);
 });
 
+Validator::extend('less_than', 'Stevebauman\Maintenance\Validators\LessThanNumberValidator@validateLessThan');
+Validator::replacer('less_than', function($message, $attribute, $rule, $parameters){
+    return sprintf('The %s must be less than %s', $attribute, $parameters[0]);
+});

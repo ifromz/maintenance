@@ -71,7 +71,10 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Quantity Taken</label>
                     <div class="col-md-4">
-                        {{ Form::text('quantity', NULL, array('class'=>'form-control', 'placeholder'=>'0.00')) }}
+                        <div class="input-group">
+                            {{ Form::text('quantity', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
+                            <span class="input-group-addon">{{ $item->metric->symbol }}</span>
+                        </div>
                     </div>
                 </div>
                 

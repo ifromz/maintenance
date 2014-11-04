@@ -34,7 +34,7 @@
             {{ Form::open(array(
                         'url'=>route('maintenance.work-orders.priorities.update', array($priority->id)),
                         'method'=>'PATCH',
-                        'class'=>'form-horizontal ajax-form-post clear-form'
+                        'class'=>'form-horizontal ajax-form-post'
                     )) 
             }}
             	<legend class="margin-top-10">Priority Information</legend>

@@ -42,6 +42,15 @@ abstract class AbstractValidator {
             $this->rules[$field] .= sprintf('|unique:%s,%s,%s', $table, $column, $ignore);
         }
         
-        
+        public function addRule($field, $rule)
+        {
+            if(array_key_exists($field, $this->rules)){
+                
+                $this->rules[$field] .= sprintf('|%s',$rule);
+                
+            } else{
+                $this->rules[$field] = $rule;
+            }
+        }
 	
 }

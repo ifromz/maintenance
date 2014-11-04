@@ -60,7 +60,7 @@
                         <td>{{ renderNode($stock->location) }}</td>
                         <td>{{ $stock->quantity }} {{ $item->metric->name }}</td>
                         <td>
-                            <a class="btn btn-primary" href="{{ route('maintenance.work-orders.parts.stocks.add', array($workOrder->id, $item->id, $stock->id)) }}">Add to Work Order</a>
+                            <a class="btn btn-primary" href="{{ route('maintenance.work-orders.parts.stocks.create', array($workOrder->id, $item->id, $stock->id)) }}">Add to Work Order</a>
                         </td>
                     </tr>
                     @endforeach

@@ -7,7 +7,6 @@
  */
 
 /*
- * Handle Revision Events
+ * Event listeners for generation notifications
  */
-
-//Event::subscribe('Stevebauman\Maintenance\Listeners\WorkOrderListener');
+Event::subscribe('Stevebauman\Maintenance\Listeners\WorkOrderListener');

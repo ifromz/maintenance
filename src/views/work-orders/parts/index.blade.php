@@ -49,12 +49,12 @@
                 <tr>
                     <td>{{ $stock->item->id }}</td>
                     <td>{{ $stock->item->name }}</td>
-                    <td>{{ $stock->pivot->quantity }}</td>
+                    <td>{{ $stock->pivot->quantity }} {{ $stock->item->metric->symbol }}</td>
                     <td>{{ renderNode($stock->location) }}</td>
                     <td>{{ $stock->pivot->created_at }}</td>
                     <td>
                         {{ Form::open(array(
-                                    'url'=>route('maintenance.work-orders.parts.stocks.destroy', array($workOrder->id, $stock->item->id, $stock->id)), 
+                                    'url'=>route('maintenance.work-orders.parts.stocks.put-back', array($workOrder->id, $stock->item->id, $stock->id)), 
                                     'class'=>'ajax-form-post',
                                     'data-refresh-target'=>'#content'
                                 ))
@@ -112,7 +112,7 @@
                 <tr>
                     <td>{{ $item->name }}</td>
                     <td>{{ renderNode($item->category) }}</td>
-                    <td>{{ $item->current_stock }} {{ $item->metric->name }}</td>
+                    <td>{{ $item->current_stock }} {{ $item->metric->symbol }}</td>
                     <td><a href="{{ route('maintenance.work-orders.parts.stocks.index', array($workOrder->id, $item->id)) }}" class="btn btn-primary">Select</a></td>
                 </tr>
                 @endforeach

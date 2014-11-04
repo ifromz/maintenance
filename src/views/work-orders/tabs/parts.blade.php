@@ -27,22 +27,26 @@
             <td>{{ renderNode($stock->location) }}</td>
             <td>{{ $stock->pivot->created_at }}</td>
             <td>
-                {{ Form::open(array(
-                            'url'=>route('maintenance.work-orders.parts.stocks.destroy', array($workOrder->id, $stock->item->id, $stock->id)), 
-                            'class'=>'ajax-form-post',
-                            'data-refresh-target'=>'#parts-table'
-                        ))
-                }}
                 
-                <button
-                    type="submit" 
-                    class="btn btn-primary confirm"
-                    data-confirm-message="Are you sure you want to put back {{ $stock->pivot->quantity }} of {{ $stock->item->name }}?"
-                    >
-                    <i class="fa fa-reply"></i> Put Back
-                </button>
+                <a class="btn btn-primary" data-toggle="modal" data-target="#put-back-items-modal-{{ $stock->item->id }}-{{ $stock->id }}">
+                    <i class="fa fa-reply"></i> All
+                </a>
                 
-                {{ Form::close() }}
+                <a class="btn btn-primary" data-toggle="modal" data-target="#put-back-some-items-modal-{{ $stock->item->id }}-{{ $stock->id }}">
+                    <i class="fa fa-reply"></i> Some
+                </a>
+                
+                @include('maintenance::work-orders.modals.parts.put-back', array(
+                    'workOrder' => $workOrder,
+                    'item' => $stock->item,
+                    'stock' => $stock
+                ))
+                
+                @include('maintenance::work-orders.modals.parts.put-back-some', array(
+                    'workOrder' => $workOrder,
+                    'item' => $stock->item,
+                    'stock' => $stock
+                ))
             </td>
         </tr>
 
