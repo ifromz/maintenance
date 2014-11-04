@@ -18,6 +18,14 @@ class WorkOrderListener extends AbstractListener {
         $this->sentry = $sentry;
     }
     
+    public function subscribe($events)
+    {
+        $events->listen('maintenance.work-orders.updates.technician.created',   'Stevebauman\Maintenance\Listeners\WorkOrderListener@onTechnicianUpdatesAdded');
+        $events->listen('maintenance.work-orders.updates.customer.created',     'Stevebauman\Maintenance\Listeners\WorkOrderListener@onCustomerUpdatesAdded');
+        $events->listen('maintenance.work-orders.parts.created',                'Stevebauman\Maintenance\Listeners\WorkOrderListener@onPartsAdded');
+        $events->listen('maintenance.work-orders.reports.created',              'Stevebauman\Maintenance\Listeners\WorkOrderListener@onReportCreated');
+    }
+    
     public function onPartsAdded($workOrder, $stock)
     {
         $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
@@ -39,12 +47,40 @@ class WorkOrderListener extends AbstractListener {
     
     public function onCustomerUpdatesAdded($workOrder)
     {
+        $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
         
+        if($notifiableUsers->count() > 0){
+        
+            foreach($notifiableUsers as $notify){
+                
+                if($notify->customer_updates){
+                    $this->createNotification(
+                            $workOrder, 
+                            'Customer updates have been added to work order', 
+                            route('maintenance.work-orders.show', array($workOrder->id))
+                    );
+                }
+            }
+        }
     }
     
     public function onTechnicianUpdatesAdded($workOrder)
     {
+        $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
         
+        if($notifiableUsers->count() > 0){
+        
+            foreach($notifiableUsers as $notify){
+                
+                if($notify->technician_updates){
+                    $this->createNotification(
+                            $workOrder, 
+                            'Technician updates have been added to work order', 
+                            route('maintenance.work-orders.show', array($workOrder->id))
+                    );
+                }
+            }
+        }
     }
     
     public function onReportCreated($report)
@@ -67,13 +103,6 @@ class WorkOrderListener extends AbstractListener {
             }
         }
         
-    }
-    
-    public function subscribe($events)
-    {
-        
-        $events->listen('maintenance.work-orders.parts.created', 'Stevebauman\Maintenance\Listeners\WorkOrderListener@onPartsAdded');
-        $events->listen('maintenance.work-orders.reports.created', 'Stevebauman\Maintenance\Listeners\WorkOrderListener@onReportCreated');
     }
     
     private function getNotifiableUsers($workOrder_id)
