@@ -9,6 +9,5 @@
 /*
  * Handle Revision Events
  */
-//Event::subscribe('Stevebauman\Maintenance\Listeners\RevisionListener');
 
 //Event::subscribe('Stevebauman\Maintenance\Listeners\WorkOrderListener');

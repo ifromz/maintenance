@@ -1,0 +1,14 @@
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+
+body {
+    
+    font-family: Arial
+    
+}

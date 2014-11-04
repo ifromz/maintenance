@@ -1,7 +1,24 @@
 // JavaScript Document
 
+/*
+ * Set ajax cache to false to prevent back button from
+ * spewing json responses
+ */
+$.ajaxSetup({ cache: false });
+
+/*
+ * Show loading GIF of ajax start and stop
+ */
+$(document).ajaxStart(function(){
+    $('#loading').removeClass('hidden');
+});
+
+$(document).ajaxStop(function(){
+    $('#loading').addClass('hidden');
+});
+
 $(document).ready(function() {
-	
+        
         /*
          * Replace all text area instances with CKeditor
          */
@@ -43,7 +60,7 @@ $(document).ready(function() {
             e.preventDefault();
             
             var refreshTarget = $(this).data('refresh-target');
-            
+ 
             if(typeof refreshTarget !== 'undefined'){
                 $(this).ajaxSubmit({
                     success: function(response, status, xhr, $form){
@@ -52,9 +69,11 @@ $(document).ready(function() {
                     }
                 });
             } else {
+                
                 $(this).ajaxSubmit({
                     success: showFormResponse
                 });
+                
             }
         });
         
@@ -215,6 +234,31 @@ $(document).ready(function() {
         
     });
     
+    /*
+     * Shows bootbox form from returned HTML to dynamically update meter readings
+     */
+    $(document).on('click', '.update-reading', function(e){
+        
+        e.preventDefault();
+        
+        var link = $(this);
+        
+        $.get(link.attr('href'), function(data){
+            bootbox.dialog({
+                message: data.html,
+                buttons: {}
+            });
+        });
+        
+    });
+    
+    if($.isFunction($().select2)){
+        $('.select2-color').select2({
+            formatResult: formatColor,
+            formatSelection: formatColor
+        });
+    }
+    
 });
 
 /**
@@ -292,23 +336,39 @@ var showStatusMessage = function(message, type, container)
  * @returns {undefined}
  */
 var showFormResponse = function(response, status, xhr, $form){
-    if(typeof response.messageType !== 'undefined'){ //Check if a message exists
+    /*
+     * Check if a message exists
+     */
+    if(typeof response.messageType !== 'undefined'){
         
+        /*
+         * Get the status target
+         */
         var statusContainer = $form.data('status-target');
         
+        /*
+         * If no status target is found, use the default
+         */
         if(typeof statusContainer !== 'undefined'){
             showStatusMessage(response.message, response.messageType, statusContainer);
         } else{
             showStatusMessage(response.message, response.messageType);
         }
         
+        /*
+         * If the form has the class 'clear-form', clear the form with malsup's form helper
+         */
         if($form.hasClass('clear-form')){
-            $form.clearForm();
+            $form.resetForm();
         }
+        
     } else if(typeof response.errors !== 'undefined') {
+        /*
+         * If the response contains errors, show them
+         */
         showFormErrors(response.errors);
     } else{
-        
+
     }
 }
 

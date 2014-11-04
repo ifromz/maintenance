@@ -102,7 +102,7 @@ class WorkOrderService extends AbstractModelService {
             );
 
             if($record->update($insert)){
-
+                
                 $assets = $this->getInput('assets');
                 
                 if($assets){
