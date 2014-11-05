@@ -15,12 +15,12 @@ use Stevebauman\Maintenance\Services\AbstractModelService;
 
 class InventoryStockService extends AbstractModelService {
     
-    public function __construct(InventoryStock $inventoryStock, InventoryStockMovementService $inventoryStockMovement, InventoryStockNotFoundException $notFoundException){
-        /*
-         * Construct Parent for $this->db
-         */
-        parent::__construct();
-        
+    public function __construct(
+            InventoryStock $inventoryStock, 
+            InventoryStockMovementService $inventoryStockMovement, 
+            InventoryStockNotFoundException $notFoundException
+            )
+    {
         $this->model = $inventoryStock;
         $this->inventoryStockMovement = $inventoryStockMovement;
         $this->notFoundException = $notFoundException;
@@ -31,56 +31,72 @@ class InventoryStockService extends AbstractModelService {
      * 
      * @return boolean OR object
      */
-    public function create(){
+    public function create()
+    {
         
-        /*
-         * Set insert data
-         */
-        $insert = array(
-            'inventory_id' => $this->getInput('inventory_id'),
-            'location_id' => $this->getInput('location_id'),
-            'quantity' => $this->getInput('quantity')
-        );
+        $this->dbStartTransaction();
         
-        /*
-         * Create the stock record
-         */
-        if($record = $this->model->create($insert)){
-            
+        try {
+        
             /*
-             * Set first movement data
+             * Set insert data
              */
-            $movement = array(
-                'stock_id' => $record->id,
-                'before' => 0,
-                'after' => $record->quantity,
-                'reason' => 'First Item Record; Stock Increase',
-                'cost' => $this->getInput('cost'),
+            $insert = array(
+                'inventory_id' => $this->getInput('inventory_id'),
+                'location_id' => $this->getInput('location_id'),
+                'quantity' => $this->getInput('quantity')
             );
-            
+
             /*
-             * If the inventory movement has been successfully created, return the record. 
-             * Otherwise delete it.
+             * Create the stock record
              */
-            if($this->inventoryStockMovement->setInput($movement)->create()){
+            $record = $this->model->create($insert);
+                
+            if($record) {
                 
                 /*
-                 * Fire stock created event
+                 * Set first movement data
                  */
-                $this->fireEvent('maintenance.inventory.stock.created', array(
-                    'stock' => $record
-                ));
-                
-                return $record;
-            } else{
-                $record->delete();
+                $movement = array(
+                    'stock_id' => $record->id,
+                    'before' => 0,
+                    'after' => $record->quantity,
+                    'reason' => 'First Item Record; Stock Increase',
+                    'cost' => $this->getInput('cost'),
+                );
+
+                /*
+                 * If the inventory movement has been successfully created, return the record. 
+                 * Otherwise delete it.
+                 */
+                if($this->inventoryStockMovement->setInput($movement)->create()){
+
+                    /*
+                     * Fire stock created event
+                     */
+                    $this->fireEvent('maintenance.inventory.stock.created', array(
+                        'stock' => $record
+                    ));
+
+                    $this->dbCommitTransaction();
+
+                    return $record;
+                    
+                }
             }
-        } 
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+            
         
-        /*
-         * Error creating record
-         */
-        return false;
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+            
+        }
     }
     
     /**
@@ -90,13 +106,15 @@ class InventoryStockService extends AbstractModelService {
      * @param type $id
      * @return boolean OR object
      */
-    public function update($id){
+    public function update($id)
+    {
         
-        /*
-         * Find the stock record
-         */
-        if($record = $this->find($id)){
+        $this->dbStartTransaction();
+        
+        try {
             
+            $record = $this->find($id);
+
             /*
              * Set update data
              */
@@ -104,61 +122,48 @@ class InventoryStockService extends AbstractModelService {
                 'location_id' => $this->getInput('location_id', $record->location_id),
                 'quantity' => $this->getInput('quantity', $record->quantity),
             );
-            
-            /*
-             * Start a database transaction so it can be rolled back upon failure
-             */
-            $this->db->beginTransaction();
-            
+
             /*
              * Update the stock record
              */
             if($record->update($insert)){
-                
+
                 /*
                  * Create the movement
                  */
                 if($this->createUpdateMovement($record)){
-                    
-                    /*
-                     * Commit the changes
-                     */
-                    $this->db->commit();
-                    
+
                     /*
                      * Fire stock updated event
                      */
                     $this->fireEvent('maintenance.inventory.stock.updated', array(
                         'stock' => $record
                     ));
-                    
+
+                    $this->dbCommitTransaction();
+
                     /*
                      * Return updated stock record
                      */
                     return $record;
-                    
-                } else{
-                    
-                    /*
-                     * Rollback changes
-                     */
-                    $this->db->rollback();
-                    
+
                 }
                 
-            } else{
-                /*
-                 * Rollback changes
-                 */
-                $this->db->rollback();
             }
+                
+            /*
+             * Rollback on failure to update the stock record
+             */
+            $this->dbRollbackTransaction();
+
+            return false;
+
+        } catch (Exception $e) {
             
-        } 
-        
-        /*
-         * Stock record not found
-         */
-        return false;
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
     }
     
     /**
@@ -168,47 +173,61 @@ class InventoryStockService extends AbstractModelService {
      * @param type $id
      * @return boolean OR object
      */
-    public function take($id){
+    public function take($id)
+    {
         
-        /*
-         * Find the stock record
-         */
-        if($record = $this->find($id)){
-            
+        $this->dbStartTransaction();
+        
+        try {
+            /*
+             * Find the stock record
+             */
+            $record = $this->find($id);
+
             /*
              * Set update data
              */
             $insert = array(
                 'quantity' => $record->quantity - $this->getInput('quantity'),
             );
-            
+
             /*
              * Update stock record
              */
-            $record->update($insert);
-            
+            if($record->update($insert)) {
+
+                /*
+                 * Create the movement
+                 */
+                if($this->createUpdateMovement($record)) {
+                    
+                    /*
+                     * Fire stock taken event
+                     */
+                   $this->fireEvent('maintenance.inventory.stock.taken', array(
+                       'stock' => $record
+                   ));
+
+                   return $record;
+
+                }
+                
+            }
+                
             /*
-             * Create the movement
+             * Rollback on failure to update the record
              */
-            $this->createUpdateMovement($record);
+            $this->dbRollbackTransaction();
+
+            return false;
             
-            /*
-             * Fire stock taken event
-             */
-            $this->fireEvent('maintenance.inventory.stock.taken', array(
-                'stock' => $record
-            ));
+        } catch (Exception $e) {
             
-            /*
-             * Return the  record
-             */
-            return $record;
+            $this->dbRollbackTransaction();
             
-        } 
-        /*
-         * Stock record not found
-         */
-        return false;
+            return false;
+        }
+
     }
     
     /**
@@ -219,10 +238,15 @@ class InventoryStockService extends AbstractModelService {
      * @return boolean OR object
      */
     public function put($id){
-        /*
-         * Find the stock record
-         */
-        if($record = $this->find($id)){
+        
+        $this->dbStartTransaction();
+        
+        try {
+            
+            /*
+             * Find the stock record
+             */
+            $record = $this->find($id);
             
             /*
              * Set update data
@@ -234,26 +258,41 @@ class InventoryStockService extends AbstractModelService {
             /*
              * Update the record
              */
-            $record->update($insert);
+            if($record->update($insert)) {
             
-            /*
-             * Create the movement
-             */
-            $this->createUpdateMovement($record);
+                /*
+                 * Create the movement
+                 */
+                if($this->createUpdateMovement($record)) {
+
+                    /*
+                     * Fire stock put event
+                     */
+                    $this->fireEvent('maintenance.inventory.stock.put', array(
+                        'stock' => $record
+                    ));
+
+                    $this->dbCommitTransaction();
+
+                    /*
+                     * Return the record
+                     */
+                    return $record;
+                
+                }
             
-            /*
-             * Fire stock put event
-             */
-            $this->fireEvent('maintenance.inventory.stock.put', array(
-                'stock' => $record
-            ));
+            }
+                
+            $this->dbRollbackTransaction();
+
+            return false;
             
-            /*
-             * Return the record
-             */
-            return $record;
+        } catch (Exception $e) {
             
-        } 
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
         
         /*
          * Stock record not found
@@ -269,23 +308,36 @@ class InventoryStockService extends AbstractModelService {
      */
     private function createUpdateMovement($record){
         
-        /*
-         * Set movement insert data
-         */
-        $movement = array(
-            'stock_id' => $record->id,
-            'before' => $record->movements->first()->after,
-            'after' => $record->quantity,
-            'reason' => $this->getInput('reason', NULL, true),
-            'cost' => $this->getInput('cost'),
-        );
+        $this->dbStartTransaction();
         
-        /*
-         * Create the stock movement
-         */
-        $this->inventoryStockMovement->setInput($movement)->create();
+        try {
 
-        return true;
+            /*
+             * Set movement insert data
+             */
+            $movement = array(
+                'stock_id' => $record->id,
+                'before' => $record->movements->first()->after,
+                'after' => $record->quantity,
+                'reason' => $this->getInput('reason', NULL, true),
+                'cost' => $this->getInput('cost'),
+            );
+
+            /*
+             * Create the stock movement
+             */
+            $this->inventoryStockMovement->setInput($movement)->create();
+            
+            $this->dbCommitTransaction();
+            
+            return true;
+        
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
     }
     
 }

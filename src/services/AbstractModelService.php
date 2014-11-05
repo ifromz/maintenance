@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Exception;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\DB;
 use Mews\Purifier\Facades\Purifier;
@@ -29,7 +30,8 @@ abstract class AbstractModelService {
      * 
      * @param type $input
      */
-    public function setInput($input = array()){
+    public function setInput($input = array())
+    {
         $this->input = $input;
         
         return $this;
@@ -43,7 +45,8 @@ abstract class AbstractModelService {
      * @param type $clean - Clean the input before returning
      * @return null
      */
-    public function getInput($field,  $default = NULL, $clean = FALSE){
+    public function getInput($field,  $default = NULL, $clean = FALSE)
+    {
         
         /*
          * If the field exists in the input array
@@ -90,7 +93,8 @@ abstract class AbstractModelService {
      *
      * @return object
      */
-    public function get($select = array('*')){
+    public function get($select = array('*'))
+    {
         
         return $this->model->select($select)->get();
         
@@ -103,7 +107,8 @@ abstract class AbstractModelService {
      *
      * @return object
      */
-    public function distinct(){
+    public function distinct()
+    {
         
         return $this->model->distinct();
         
@@ -116,7 +121,8 @@ abstract class AbstractModelService {
      *
      * @return object
      */
-    public function with($with = array()){
+    public function with($with = array())
+    {
         
         return $this->model->with($with);
         
@@ -131,7 +137,8 @@ abstract class AbstractModelService {
      *
      * @return object
      */
-    public function where($column, $operator, $value = NULL){
+    public function where($column, $operator, $value = NULL)
+    {
         
         if(is_null($value)){
             
@@ -150,19 +157,24 @@ abstract class AbstractModelService {
      * 
      * @return boolean OR object
      */
-    public function create(){
+    public function create()
+    {
         
         $this->startTransaction();
         
-        try{
+        try {
             
             $record = $this->model->create($this->input);
-
+            
+            $this->dbCommitTransaction();
+            
             return $record;
             
         } catch(Exception $e) {
             
             $this->rollbackTransaction();
+            
+            return false;
         }
     }
     
@@ -172,7 +184,8 @@ abstract class AbstractModelService {
      * @param type $id
      * @return boolean OR object
      */
-    public function update($id){
+    public function update($id)
+    {
         
         $this->startTransaction();
         
@@ -182,11 +195,15 @@ abstract class AbstractModelService {
 
             if($record->update($this->input)){
                 
+                $this->dbCommitTransaction();
+                
                 return $record;
                 
-            } else{
-                return false;
             }
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
         
         } catch(Exception $e) {
             
@@ -203,7 +220,8 @@ abstract class AbstractModelService {
      *
      * @return object
      */
-    public function orderBy($column, $direction = NULL){
+    public function orderBy($column, $direction = NULL)
+    {
         
         return $this->model->orderBy($column, $direction);
         
@@ -215,7 +233,8 @@ abstract class AbstractModelService {
      * @param type $column
      * @return type
      */
-    public function groupBy($column){
+    public function groupBy($column)
+    {
         
         return $this->model->groupBy($column);
         
@@ -229,8 +248,8 @@ abstract class AbstractModelService {
      * @param $id (int/string)
      * @return object
      */
-    public function find($id){
-        
+    public function find($id)
+    {
         $record = $this->model->find($id);
         
         if($record){
@@ -238,7 +257,6 @@ abstract class AbstractModelService {
         } else{
             throw new $this->notFoundException;
         }
-        
     }
     
     /**
@@ -248,7 +266,8 @@ abstract class AbstractModelService {
      * @return type
      * @throws type
      */
-    public function findArchived($id){
+    public function findArchived($id)
+    {
         $record = $this->model->withTrashed()->find($id);
         
         if($record){
@@ -266,7 +285,8 @@ abstract class AbstractModelService {
      * @param $id (int/string)
      * @return boolean
      */
-    public function destroy($id){
+    public function destroy($id)
+    {
         if($this->model->destroy($id)){
             return true;
         }
@@ -279,7 +299,8 @@ abstract class AbstractModelService {
      * 
      * @param type $id
      */
-    public function destroyArchived($id){
+    public function destroyArchived($id)
+    {
         $record = $this->findArchived($id);
 
         return $record->forceDelete();
@@ -291,7 +312,8 @@ abstract class AbstractModelService {
      * @param type $id
      * @return NULL
      */
-    public function restoreArchived($id){
+    public function restoreArchived($id)
+    {
         $record = $this->findArchived($id);
         
         return $record->restore();
@@ -328,12 +350,24 @@ abstract class AbstractModelService {
     }
     
     /**
+     * Returns a laravel config entry
+     * 
+     * @param string $item
+     * @return string OR array
+     */
+    protected function getConfig($item)
+    {
+        return Config::get($item);
+    }
+    
+    /**
      * Cleans input from data removing invalid HTML tags such as scripts
      * 
      * @param type $input
      * @return type
      */
-    protected function clean($input){
+    protected function clean($input)
+    {
         if($input){
             $cleaned = Purifier::clean($input);
             
@@ -362,17 +396,20 @@ abstract class AbstractModelService {
      * @param type $time
      * @return null OR date
      */
-    protected function formatDateWithTime($date, $time = NULL){
+    protected function formatDateWithTime($date, $time = NULL)
+    {
         
         if($date){
             
             if($time){
+                
                 return date('Y-m-d H:i:s', strtotime($date. ' ' . $time));
-            } else{
-                return date('Y-m-d H:i:s', strtotime($date));
+                
             }
                 
-        } 
+            return date('Y-m-d H:i:s', strtotime($date));
+                
+        }
         
         return NULL;
     }

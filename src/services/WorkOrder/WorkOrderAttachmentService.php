@@ -29,69 +29,96 @@ class WorkOrderAttachmentService extends AbstractModelService {
          * 
          * @return boolean OR object
          */
-        public function create(){
+        public function create()
+        {
             
-            /*
-             * Find the asset
-             */
-            $asset = $this->workOrder->find($this->getInput('work_order_id'));
+            $this->dbStartTransaction();
             
-            /*
-             * Check if any files have been uploaded
-             */
-            if($files = $this->getInput('files')){
-                
+            try {
+            
                 /*
-                 * For each file, create the attachment record, and sync asset image pivot table
+                 * Find the asset
                  */
-                foreach($files as $file){
-                    
-                    $attributes = explode('|', $file);
+                $asset = $this->workOrder->find($this->getInput('work_order_id'));
 
-                    $fileName = $attributes[0];
-                    $fileOriginalName = $attributes[1];
+                /*
+                 * Check if any files have been uploaded
+                 */
+                $files = $this->getInput('files');
 
-                    /*
-                     * Ex. files/assets/images/1/example.png
-                     */
-                    $movedFilePath = Config::get('maintenance::site.paths.work-orders.attachments').sprintf('%s/', $asset->id);
+                if($files){
 
-                    /*
-                     * Move the file
-                     */
-                    Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
+                    $records = array();
 
                     /*
-                     * Set insert data
+                     * For each file, create the attachment record, and sync asset image pivot table
                      */
-                    $insert = array(
-                        'name' => $fileOriginalName,
-                        'file_name' => $fileName,
-                        'file_path' => $movedFilePath,
-                        'user_id' => $this->sentry->getCurrentUserId()
-                    );
-                    
-                    /*
-                     * Create the attachment record
-                     */
-                    if($record = $this->attachment->setInput($insert)->create()){
-                        
+                    foreach($files as $file){
+
+                        $attributes = explode('|', $file);
+
+                        $fileName = $attributes[0];
+                        $fileOriginalName = $attributes[1];
+
                         /*
-                         * Attach the attachment record to the asset images
+                         * Ex. files/assets/images/1/example.png
                          */
-                        $asset->attachments()->attach($record);
+                        $movedFilePath = Config::get('maintenance::site.paths.work-orders.attachments').sprintf('%s/', $asset->id);
+
+                        /*
+                         * Move the file
+                         */
+                        Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
+
+                        /*
+                         * Set insert data
+                         */
+                        $insert = array(
+                            'name' => $fileOriginalName,
+                            'file_name' => $fileName,
+                            'file_path' => $movedFilePath,
+                            'user_id' => $this->sentry->getCurrentUserId()
+                        );
+
+                        /*
+                         * Create the attachment record
+                         */
+                        $record = $this->attachment->setInput($insert)->create();
+
+                        if($record){
+
+                            /*
+                             * Attach the attachment record to the asset images
+                             */
+                            $asset->attachments()->attach($record);
+
+                            $records[] = $record;
+
+                        } else {
+
+                            $this->dbRollbackTransaction();
+
+                        }
                     }
+
+                   $this->dbCommitTransaction();
+
+                    /*
+                     *  Return attachment records on success
+                     */
+                    return $records;
+
                 }
                 
                 /*
-                 *  Return attachment record on success
-                 */
-                return $record;
-                
-            } else{
-                /*
                  * No Files were detected to be uploaded, return false
                  */
+                return false;
+            
+            } catch (Exception $e) {
+                
+                $this->dbRollbackTransaction();
+                
                 return false;
             }
             

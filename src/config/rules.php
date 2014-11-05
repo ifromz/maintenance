@@ -7,8 +7,7 @@ return array(
         /*
          * Set this to true if you want to prevent a new reading from being created
          * if they equal the same number. This can be handy if you only want new
-         * records when the reading actually changes. 
-         * 
+         * records when the reading actually changes.
          */
         'prevent_duplicate_entries' => true,
         
@@ -29,6 +28,17 @@ return array(
             'enabled' => 'true',
             'minutes_apart' => '5'
         )
+        
+    ),
+    
+    'inventory' => array(
+        
+        /*
+         * Set this to true if you want to prevent inventory movements from being
+         * created if the quantity inputted by the user is the same as the
+         * current quantity.
+         */
+        'prevent_duplicate_movements' => true,
         
     )
     

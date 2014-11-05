@@ -91,41 +91,61 @@ class AssetService extends AbstractModelService {
          */
 	public function create(){
                 
-                /*
-                 * Set insert data
-                 */
-		$insert = array(
-			'user_id'           => $this->sentry->getCurrentUserId(),
-                        'category_id'       => $this->getInput('category_id'),
-			'location_id'       => $this->getInput('location_id'),
-			'name'              => $this->getInput('name', NULL, true),
-			'condition'         => $this->getInput('condition'),
-			'vendor'            => $this->getInput('vendor', NULL, true),
-			'make'              => $this->getInput('make', NULL, true),
-			'model'             => $this->getInput('model', NULL, true),
-			'size'              => $this->getInput('size', NULL, true),
-			'weight'            => $this->getInput('weight', NULL, true),
-			'serial'            => $this->getInput('serial', NULL, true),
-			'aquired_at'        => $this->formatDateWithTime($this->getInput('aquired_at')),
-                        'end_of_life'       => $this->formatDateWithTime($this->getInput('end_of_life')),
-		);
-		
-                /*
-                 * Create the record and return it upon success
-                 */
-		if($record = $this->model->create($insert)){
-                    
+                $this->dbStartTransaction();
+                
+                try{
+
+                    /*
+                     * Set insert data
+                     */
+                    $insert = array(
+                            'user_id'           => $this->sentry->getCurrentUserId(),
+                            'category_id'       => $this->getInput('category_id'),
+                            'location_id'       => $this->getInput('location_id'),
+                            'name'              => $this->getInput('name', NULL, true),
+                            'condition'         => $this->getInput('condition'),
+                            'vendor'            => $this->getInput('vendor', NULL, true),
+                            'make'              => $this->getInput('make', NULL, true),
+                            'model'             => $this->getInput('model', NULL, true),
+                            'size'              => $this->getInput('size', NULL, true),
+                            'weight'            => $this->getInput('weight', NULL, true),
+                            'serial'            => $this->getInput('serial', NULL, true),
+                            'aquired_at'        => $this->formatDateWithTime($this->getInput('aquired_at')),
+                            'end_of_life'       => $this->formatDateWithTime($this->getInput('end_of_life')),
+                    );
+
+                    /*
+                     * Create the record and return it upon success
+                     */
+                    $record = $this->model->create($insert);
+
+                    if($record){
+
                         $this->fireEvent('maintenance.assets.created', array(
                             'asset' => $record
                         ));
+                        
+                        $this->dbCommitTransaction();
+                        
+                        return $record;
 
-			return $record;
-		} 
+                    }
+                    
+                    $this->dbRollbackTransaction();
+                    
+                    /*
+                     * Failed to create record, return false
+                     */
+                    return false;
+              
                 
-                /*
-                 * Failed to create record, return false
-                 */
-                return false;
+                } catch(Exception $e) {
+                    
+                    $this->dbRollbackTransaction();
+                    
+                    return false;
+                    
+                }
 	}
 	
         /**
@@ -135,6 +155,10 @@ class AssetService extends AbstractModelService {
          * @return boolean OR object
          */
 	public function update($id){
+                
+            $this->dbStartTransaction();
+            
+            try{
             
                 /*
                  * Find the asset record
@@ -168,13 +192,24 @@ class AssetService extends AbstractModelService {
                         'asset' => $record
                     ));
                     
+                    $this->dbCommitTransaction();
+                    
                     return $record;
                 } 
+                
+                $this->dbRollbackTransaction();
                 
                 /*
                  * Failed to update record, return false;
                  */
                 return false;
+                
+            } catch(Exception $e) {
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
+            }
 		
 	}
         

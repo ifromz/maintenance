@@ -54,31 +54,49 @@ class InventoryService extends AbstractModelService {
      */
     public function create(){
         
-        /*
-         * Set input data
-         */
-        $insert = array(
-            'category_id' => $this->getInput('category_id'),
-            'user_id' => $this->sentry->getCurrentUserId(),
-            'metric_id' => $this->getInput('metric'),
-            'name' => $this->getInput('name', NULL, true),
-            'description' => $this->getInput('description', NULL, true),
-        );
+        $this->dbStartTransaction();
         
-        /*
-         * If the record is created, return it, otherwise return false
-         */
-        if($record = $this->model->create($insert)){
-            
+        try {
+        
             /*
-             * Fire created event
+             * Set input data
              */
-            $this->fireEvent('maintenance.inventory.created', array(
-                'item' => $record
-            ));
+            $insert = array(
+                'category_id' => $this->getInput('category_id'),
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'metric_id' => $this->getInput('metric'),
+                'name' => $this->getInput('name', NULL, true),
+                'description' => $this->getInput('description', NULL, true),
+            );
+
+            /*
+             * If the record is created, return it, otherwise return false
+             */
+            $record = $this->model->create($insert);
             
-            return $record;
-        } else{
+            if($record) {
+                
+                /*
+                 * Fire created event
+                 */
+                $this->fireEvent('maintenance.inventory.created', array(
+                    'item' => $record
+                ));
+                
+                $this->dbCommitTransaction();
+                
+                return $record;
+                
+            } 
+                
+            $this->dbRollbackTransaction();
+            
+            return false;    
+            
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
             return false;
         }
         
@@ -91,35 +109,52 @@ class InventoryService extends AbstractModelService {
      * @return boolean
      */
     public function update($id){
-        /*
-         * Find the item record
-         */
-        $record = $this->find($id);
+        
+        $this->dbStartTransaction();
+        
+        try {
             
-        /*
-         * Set update data
-         */
-        $insert = array(
-            'category_id' => $this->getInput('category_id'),
-            'metric_id' => $this->getInput('metric'),
-            'name' => $this->getInput('name', $record->name, true),
-            'description' => $this->getInput('description', $record->description, true),
-        );
-
-        /*
-         * Update the record, return it upon success
-         */
-        if($record->update($insert)){
+            /*
+             * Find the item record
+             */
+            $record = $this->find($id);
 
             /*
-             * Fire updated event
+             * Set update data
              */
-            $this->fireEvent('maintenance.inventory.updated', array(
-            '   item' => $record
-            ));
+            $insert = array(
+                'category_id' => $this->getInput('category_id'),
+                'metric_id' => $this->getInput('metric'),
+                'name' => $this->getInput('name', $record->name, true),
+                'description' => $this->getInput('description', $record->description, true),
+            );
 
-            return $record;
-        } else{
+            /*
+             * Update the record, return it upon success
+             */
+            if($record->update($insert)){
+
+                /*
+                 * Fire updated event
+                 */
+                $this->fireEvent('maintenance.inventory.updated', array(
+                    'item' => $record
+                ));
+
+                $this->dbCommitTransaction();
+
+                return $record;
+                
+            }
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        
+        } catch(Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
             return false;
         }
         
@@ -129,6 +164,7 @@ class InventoryService extends AbstractModelService {
      * Archives an item record
      */
     public function destroy($id) {
+        
         $record = $this->find($id);
         
         $record->delete();

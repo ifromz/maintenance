@@ -13,21 +13,35 @@ class WorkOrderReportService extends AbstractModelService {
         $this->sentry = $sentry;
     }
     
-    public function create(){
+    public function create()
+    {
         
-        $insert = array(
-            'user_id' => $this->sentry->getCurrentUserId(),
-            'work_order_id' => $this->getInput('work_order_id'),
-            'description' => $this->getInput('description', NULL, true),
-        );
+        $this->dbStartTransaction();
         
-        $record = $this->model->create($insert);
-
-        $this->fireEvent('maintenance.work-orders.reports.created', array(
-            'report'=>$record
-        ));
+        try {
             
-        return $record;
+            $insert = array(
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'work_order_id' => $this->getInput('work_order_id'),
+                'description' => $this->getInput('description', NULL, true),
+            );
+
+            $record = $this->model->create($insert);
+
+            $this->fireEvent('maintenance.work-orders.reports.created', array(
+                'report'=>$record
+            ));
+
+            $this->dbCommitTransaction();
+            
+            return $record;
+        
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
     }
     
 }

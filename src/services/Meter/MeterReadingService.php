@@ -16,26 +16,58 @@ class MeterReadingService extends AbstractModelService {
     
     public function create()
     {
-        $insert = array(
-            'user_id' => $this->sentry->getCurrentUserId(),
-            'meter_id' => $this->getInput('meter_id'),
-            'reading' => $this->getInput('reading')
-        );
+        $this->dbStartTransaction();
         
-        return $this->model->create($insert);
+        try {
+        
+            $insert = array(
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'meter_id' => $this->getInput('meter_id'),
+                'reading' => $this->getInput('reading')
+            );
+            
+            $record = $this->model->create($insert);
+            
+            $this->dbCommitTransaction();
+            
+            return $record;
+        
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
     }
     
     public function update($id)
     {
-        $record = $this->find($id);
+        $this->dbStartTransaction();
         
-        $insert = array(
-            'reading' => $this->getInput('reading')
-        );
+        try {
+            
+            $record = $this->find($id);
+
+            $insert = array(
+                'reading' => $this->getInput('reading')
+            );
+
+            if($record->update($insert)){
+
+                $this->dbCommitTransaction();
+                
+                return $record;
+
+            }
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
         
-        if($record->update($insert)){
-            return $record;
-        } else{
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
             return false;
         }
     }

@@ -30,26 +30,41 @@ class GroupService extends AbstractModelService {
      */
     public function create(){
         
-        $insert = array(
-            'name' => $this->getInput('name'),
-            'permissions' => ($this->getInput('permissions') ? json_encode($this->getInput('permissions')) : NULL)
-        );
+        $this->dbStartTransaction();
         
-        $record = $this->model->create($insert);
+        try {
         
-        if($record){
-            
-            $users = $this->getInput('users');
-            
-            if($users){
-                $record->users()->sync($this->getInput('users'));
-            }
-            
-            return $record;
-            
-        } 
+            $insert = array(
+                'name' => $this->getInput('name'),
+                'permissions' => ($this->getInput('permissions') ? json_encode($this->getInput('permissions')) : NULL)
+            );
+
+            $record = $this->model->create($insert);
+
+            if($record){
+
+                $users = $this->getInput('users');
+
+                if($users){
+                    $record->users()->sync($this->getInput('users'));
+                }
+                
+                $this->dbCommitTransaction();
+                
+                return $record;
+
+            } 
+
+            $this->dbRollbackTransaction();
+
+            return false;
         
-        return false;
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
     }
     
     /**
@@ -60,26 +75,42 @@ class GroupService extends AbstractModelService {
      * @param integer $id
      * @return boolean OR object
      */
-    public function update($id) {
-        $record = $this->model->find($id);
+    public function update($id) 
+    {
+        $this->dbStartTransaction();
         
-        $insert = array(
-            'name' => $this->getInput('name'),
-            'permissions' => ($this->getInput('permissions') ? json_encode($this->getInput('permissions')) : NULL)
-        );
+        try {
         
-        if($record->update($insert)){
-            
-            $users = $this->getInput('users');
-            
-            if($users){
-                $record->users()->sync($this->getInput('users'));
+            $record = $this->model->find($id);
+
+            $insert = array(
+                'name' => $this->getInput('name'),
+                'permissions' => ($this->getInput('permissions') ? json_encode($this->getInput('permissions')) : NULL)
+            );
+
+            if($record->update($insert)){
+
+                $users = $this->getInput('users');
+
+                if($users){
+                    $record->users()->sync($this->getInput('users'));
+                }
+                
+                $this->dbCommitTransaction();
+                
+                return $record;
             }
+
+            $this->dbRollbackTransaction();
             
-            return $record;
-        }
+            return false;
         
-        return false;
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
     }
     
 }

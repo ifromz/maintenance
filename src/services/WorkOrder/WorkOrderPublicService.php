@@ -34,11 +34,15 @@ class WorkOrderPublicService extends AbstractModelService {
         return $this->model->where('user_id', $this->sentry->getCurrentUserId())->paginate(25);
     }
     
-     public function create()
-        {
+    public function create()
+    {
+        $this->dbStartTransaction();
+        
+        try {
+            
             $status = $this->status->firstOrCreateRequest();
             $priority = $this->priority->firstOrCreateRequest();
-            
+
             $insert = array(
                 'status_id'     => $status->id,
                 'priority_id'   => $priority->id,
@@ -46,49 +50,76 @@ class WorkOrderPublicService extends AbstractModelService {
                 'subject'       => $this->getInput('subject', NULL, true),
                 'description'   => $this->getInput('description', NULL, true),
             );
-            
+
             $record = $this->model->create($insert);
             
-            return $record;
-        }
-        
-        public function update($id)
-        {
-            $record = $this->find($id);
+            $this->dbCommitTransaction();
             
+            return $record;
+        
+        } catch (Exception $e) {
+             
+            $this->dbRollbackTransaction();
+             
+            return false;
+         }
+    }
+        
+    public function update($id)
+    {
+        $this->dbStartTransaction();
+        
+        try {
+        
+            $record = $this->find($id);
+
             $insert = array(
                 'subject'       => $this->getInput('subject', $record->subject, true),
                 'description'   => $this->getInput('description', $record->description, true)
             );
-            
+
             if($record->update($insert)){
+                
+                $this->dbCommitTransaction();
+                
                 return $record;
-            } else{
-                return false;
             }
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
+    }
+
+    /**
+     * Only allow users to delete their own requests
+     * 
+     * @param integer $id
+     */
+    public function destroy($id)
+    {
+        $record = $this->find($id);
+
+        /*
+         * Make sure the current logged in User ID equals the work order
+         * user id
+         */
+        if($record->user_id === $this->sentry->getCurrentUserId()){
+            
+            $record->delete();
+
+            return true;
+
         }
         
-        /**
-         * Only allow users to delete their own requests
-         * 
-         * @param integer $id
-         */
-        public function destroy($id)
-        {
-            $record = $this->find($id);
-            
-            /*
-             * Make sure the current logged in User ID equals the work order
-             * user id
-             */
-            if($record->user_id === $this->sentry->getCurrentUserId()){
-                $record->delete();
-                
-                return true;
-                
-            } else{
-                return false;
-            }
-        }
+        return false;
+        
+    }
 
 }

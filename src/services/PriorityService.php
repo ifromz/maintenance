@@ -16,36 +16,89 @@ class PriorityService extends AbstractModelService {
     
     public function create()
     {
-        $insert = array(
-            'user_id' => $this->sentry->getCurrentUserId(),
-            'name' => $this->getInput('name'),
-            'color' => $this->getInput('color')
-        );
+        $this->dbStartTransaction();
         
-        return $this->model->create($insert);
+        try {
+            
+            $insert = array(
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'name' => $this->getInput('name'),
+                'color' => $this->getInput('color')
+            );
+            
+            $record = $this->model->create($insert);
+            
+            $this->dbCommitTransaction();
+            
+            return $record;
+            
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
+        
+     
     }
     
     public function update($id)
     {
-        $insert = array(
-            'name' => $this->getInput('name'),
-            'color' => $this->getInput('color')
-        );
         
-        $record = $this->find($id);
+        $this->dbStartTransaction();
         
-        return $record->update($insert);
+        try {
+            
+            $record = $this->find($id);
+            
+            $insert = array(
+                'name' => $this->getInput('name'),
+                'color' => $this->getInput('color')
+            );
+            
+            if($record->update($insert)) {
+                
+                $this->dbCommitTransaction();
+                
+                return false;
+            }
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
         
     }
     
     public function firstOrCreateRequest()
     {
-        $insert = array(
-            'name' => 'Requested',
-            'color' => 'default'
-        );
+        $this->dbStartTransaction();
         
-        return $this->model->firstOrCreate($insert);
+        try {
+            
+            $insert = array(
+                'name' => 'Requested',
+                'color' => 'default'
+            );
+            
+            $record = $this->model->firstOrCreate($insert);
+            
+            $this->dbCommitTransaction();
+            
+            return $record;
+        
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
     }
     
     

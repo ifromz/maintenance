@@ -14,28 +14,59 @@ class WorkOrderSessionService extends AbstractModelService {
 	}
         
         public function create(){
-            $insert = array(
-                'user_id' => $this->sentry->getCurrentUser()->id,
-                'work_order_id' => $this->getInput('work_order_id'),
-                'in' => Carbon::now()->toDateTimeString(),
-            );
             
-            if($record = $this->model->create($insert)){
+            $this->dbStartTransaction();
+            
+            try {
+
+                $insert = array(
+                    'user_id' => $this->sentry->getCurrentUser()->id,
+                    'work_order_id' => $this->getInput('work_order_id'),
+                    'in' => Carbon::now()->toDateTimeString(),
+                );
+                
+                $record = $this->model->create($insert);
+                
+                $this->dbCommitTransaction();
+                
                 return $record;
-            } return false;
+            
+            } catch (Exception $e) {
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
+            }
         }
         
         public function update($id){
-            if($record = $this->model->find($id)){
-                
+            
+            $this->dbStartTransaction();
+            
+            try {
+            
+                $record = $this->model->find($id);
+
                 $insert = array(
                     'out' => Carbon::now()->toDateTimeString(),
                 );
-                
+
                 if($record->update($insert)){
+                    
+                    $this->dbCommitTransaction();
+                    
                     return $record;
                 }
                 
-            } return false;
+                $this->dbRollbackTransaction();
+                
+                return false;
+            
+            } catch (Exception $e) {
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
+            }
         }
 }

@@ -34,6 +34,7 @@ class AssetImageService extends AbstractModelService {
             $this->dbStartTransaction();
             
             try {
+                
                 /*
                  * Find the asset
                  */
@@ -42,7 +43,9 @@ class AssetImageService extends AbstractModelService {
                 /*
                  * Check if any files have been uploaded
                  */
-                if($files = $this->getInput('files')){
+                $files = $this->getInput('files');
+                
+                if($files) {
 
                     /*
                      * For each file, create the attachment record, and sync asset image pivot table
@@ -77,13 +80,13 @@ class AssetImageService extends AbstractModelService {
                         /*
                          * Create the attachment record
                          */
-                        if($record = $this->attachment->setInput($insert)->create()){
+                        $record = $this->attachment->setInput($insert)->create();
 
-                            /*
-                             * Attach the attachment record to the asset images
-                             */
-                            $asset->images()->attach($record);
-                        }
+                        /*
+                         * Attach the attachment record to the asset images
+                         */
+                        $asset->images()->attach($record);
+                            
                     }
 
                     $this->dbCommitTransaction();
@@ -93,12 +96,15 @@ class AssetImageService extends AbstractModelService {
                      */
                     return $record;
 
-                } else{
-                    /*
-                     * No Files were detected to be uploaded, return false
-                     */
-                    return false;
                 }
+                
+                $this->dbRollbackTransaction();
+                
+                /*
+                 * No Files were detected to be uploaded, return false
+                 */
+                return false;
+
                 
             } catch(Exception $e) {
                 

@@ -133,11 +133,12 @@ class WorkOrderService extends AbstractModelService {
                     
                     return $record;
                     
-                } else{
-                    
-                    return false;
-                    
                 }
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
+                
             } catch(Exception $e) {
                 $this->dbRollbackTransaction();
                 
@@ -213,7 +214,9 @@ class WorkOrderService extends AbstractModelService {
                     $workOrder->parts()->attach($stock->id, array('quantity'=>$this->getInput('quantity')));
                 }
 
-
+                /*
+                 * Fire the event for notifications
+                 */
                 $this->fireEvent('maintenance.work-orders.parts.created', array(
                     'workOrder' => $workOrder,
                     'stock' => $stock,
@@ -255,9 +258,11 @@ class WorkOrderService extends AbstractModelService {
                     
                     return true;
                     
-                } else{
-                    return false;
                 }
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
                 
             } catch(Exception $e) {
                 
@@ -290,9 +295,11 @@ class WorkOrderService extends AbstractModelService {
                     $this->dbCommitTransaction();
                     
                     return true;
-                } else{
-                    return false;
                 }
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
             
             } catch(Exception $e) {
                 

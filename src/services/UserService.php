@@ -10,13 +10,15 @@ use Stevebauman\Maintenance\Services\AbstractModelService;
 
 class UserService extends AbstractModelService {
 	
-	public function __construct(User $user, SentryService $sentry, LdapService $ldap){
+	public function __construct(User $user, SentryService $sentry, LdapService $ldap)
+        {
                 $this->model = $user;
 		$this->sentry = $sentry;
 		$this->ldap = $ldap;
 	}
         
-        public function getByPageWithFilter(){
+        public function getByPageWithFilter()
+        {
             return $this->model->paginate(25);
         }
 	
@@ -28,15 +30,22 @@ class UserService extends AbstractModelService {
         * @param $credentials
         * @return void
         */
-	public function createOrUpdateUser($credentials){
+	public function createOrUpdateUser($credentials)
+        {
             $login_attribute = Config::get('cartalyst/sentry::users.login_attribute');
+            
             $username = $credentials[$login_attribute];
             $password = $credentials['password'];
             
             // If a user is found, update their password to match active-directory
-            if($user = $this->model->where('username', $username)->first()){
+            $user = $this->model->where('username', $username)->first();
+            
+            if($user) {
+                
                 $this->sentry->updatePasswordById($user->id, $password);
-            } else{
+                
+            } else {
+                
                 // If a user is not found, create their web account
                 $ldapUser = $this->ldap->user($username);
                 

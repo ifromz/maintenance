@@ -16,27 +16,57 @@ class MeterService extends AbstractModelService {
     
     public function create()
     {
-        $insert = array(
-            'user_id' => $this->sentry->getCurrentUserId(),
-            'metric_id' => $this->getInput('metric'),
-            'name' => $this->getInput('name')
-        );
+        $this->dbStartTransaction();
         
-        return $this->model->create($insert);
+        try {
+        
+            $insert = array(
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'metric_id' => $this->getInput('metric'),
+                'name' => $this->getInput('name')
+            );
+            
+            $record = $this->model->create($insert);
+            
+            $this->dbCommitTransaction();
+            
+            return $record;
+        
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
     }
     
     public function update($id)
     {
-        $record = $this->find($id);
+        $this->dbStartTransaction();
         
-        $insert = array(
-            'metric_id' => $this->getInput('metric'),
-            'name' => $this->getInput('name')
-        );
+        try {
+            
+            $record = $this->find($id);
+
+            $insert = array(
+                'metric_id' => $this->getInput('metric'),
+                'name' => $this->getInput('name')
+            );
+
+            if($record->update($insert)){
+                $this->dbCommitTransaction();
+
+                return $record;
+            }
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
         
-        if($record->update($insert)){
-            return $record;
-        } else{
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
             return false;
         }
     }

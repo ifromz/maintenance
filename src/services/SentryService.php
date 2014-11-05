@@ -22,32 +22,37 @@ class SentryService {
 	 * @param $credentials, $remember
      * @return Array
      */
-	public function authenticate($credentials, $remember = NULL){
-		$response = array(
-			'authenticated' => false,
-			'message' => '',
-		);
-		
-		// Try to log in the user with sentry
-		try{
-                    Sentry::authenticate($credentials, $remember);
-                    $response['authenticated'] = true;
-                    // Log in was goood, return authenticated response
-                    return $response;
-		} catch(WrongPasswordException $e){
-                    $response['message'] = 'Username or Password is incorrect.';
-		} catch(UserNotActivatedException $e){
-                    $response['message'] = 'User has not been activated';
-		} catch(UserSuspendedException $e){
-                    $response['message'] = 'Your account has been suspended. Please try again later.';
-		} catch(UserBannedException $e){
-                    $response['message'] = 'Your account has been permanetly banned';
-		} catch(UserExistsException $e){
-                    $response['message'] = 'Username or Password is incorrect.';
-                } catch (UserNotFoundException $e){
-                    $response['message'] = 'Username or Password is incorrect.';
-                }
-		return $response;
+	public function authenticate($credentials, $remember = NULL)
+        {
+            $response = array(
+                    'authenticated' => false,
+                    'message' => '',
+            );
+
+            // Try to log in the user with sentry
+            try{
+
+                Sentry::authenticate($credentials, $remember);
+                $response['authenticated'] = true;
+
+                // Log in was goood, return authenticated response
+                return $response;
+
+            } catch(WrongPasswordException $e){
+                $response['message'] = 'Username or Password is incorrect.';
+            } catch(UserNotActivatedException $e){
+                $response['message'] = 'User has not been activated';
+            } catch(UserSuspendedException $e){
+                $response['message'] = 'Your account has been suspended. Please try again later.';
+            } catch(UserBannedException $e){
+                $response['message'] = 'Your account has been permanetly banned';
+            } catch(UserExistsException $e){
+                $response['message'] = 'Username or Password is incorrect.';
+            } catch (UserNotFoundException $e){
+                $response['message'] = 'Username or Password is incorrect.';
+            }
+            
+            return $response;
 	}
 	
 	/**
@@ -57,8 +62,9 @@ class SentryService {
      *
      * @return void
      */
-	public function logout(){
-		Sentry::logout();
+	public function logout()
+        {
+            Sentry::logout();
 	}
 	
 	/**
@@ -69,8 +75,10 @@ class SentryService {
      * @param $data
      * @return void
      */
-	public function createUser($data, $groups = NULL){
+	public function createUser($data, $groups = NULL)
+        {
             try{
+                
 		$user = Sentry::getUserProvider()->create(array(
 			'email'    => $data['email'],
 			'password' => $data['password'],
@@ -83,6 +91,7 @@ class SentryService {
 		$user->attemptActivation($activationCode);
                 
                 if(isset($groups)){
+                    
                     foreach($groups as $group){
                         
                         try{
@@ -95,6 +104,7 @@ class SentryService {
                             
                         }
                     }
+                    
                 }
                 
                 
@@ -119,7 +129,8 @@ class SentryService {
          * @param array $permissions The permissions to assign the group.
          * If the array is empty it will leave the current permissions intact.
          */
-        public function createOrUpdateGroup($name, $permissions = array()){
+        public function createOrUpdateGroup($name, $permissions = array())
+        {
             
             try{
                 
@@ -143,76 +154,88 @@ class SentryService {
         }
 	
 	/**
-        * Find a user through Sentry
+         * Find a user through Sentry
+         *
+         * @author Steve Bauman
+         *
+         * @param $id
+         * @return object or boolean
+         */
+	public function findUserById($id)
+        {
+            try {
+                
+                $user = Sentry::findUserById($id);
+                
+                return $user;
+                
+            } catch(UserNotFoundException $e){
+                return false;
+            }
+	}
+	
+	/**
+         * Update a user password through sentry
+         *
+         * @author Steve Bauman
+         *
+	 * @param $id, $password
+         * @return boolean
+         */
+	public function updatePasswordById($id, $password)
+        {
+            $user = $this->findUserById($id);
+            
+            $user->password = $password;
+            
+            if($user->save()){
+                return true;
+            } 
+            
+            return false;
+	}
+	
+	/**
+        * Returns current authenticated user
         *
         * @author Steve Bauman
         *
-        * @param $id
-        * @return object or boolean
+        * @return object
         */
-	public function findUserById($id){
-		try{
-			$user = Sentry::findUserById($id);
-			return $user;
-		} catch(UserNotFoundException $e){
-			return false;
-		}
-	}
-	
-	/**
-     * Update a user password through sentry
-     *
-     * @author Steve Bauman
-     *
-	 * @param $id, $password
-     * @return boolean
-     */
-	public function updatePasswordById($id, $password){
-		$user = $this->findUserById($id);
-		$user->password = $password;
-		if($user->save()){
-			return true;
-		} return false;
-	}
-	
-	/**
-     * Returns current authenticated user
-     *
-     * @author Steve Bauman
-     *
-     * @return object
-     */
-	public function getCurrentUser(){
-		return Sentry::getUser();
+	public function getCurrentUser()
+        {
+            return Sentry::getUser();
 	}
 	
 	
 	/**
-     * Returns current authenticated users full name
-     *
-     * @author Steve Bauman
-     *
-     * @return string
-     */
-	public function getCurrentUserFullName(){
-		$user = Sentry::getUser();
-		
-		$fullName = sprintf('%s %s', $user->first_name, $user->last_name);
-		
-		return $fullName;
+        * Returns current authenticated users full name
+        *
+        * @author Steve Bauman
+        *
+        * @return string
+        */
+	public function getCurrentUserFullName()
+        {
+            $user = Sentry::getUser();
+
+            $fullName = sprintf('%s %s', $user->first_name, $user->last_name);
+
+            return $fullName;
 	}
 	
 	/**
-     * Returns current authenticated user ID
-     *
-     * @author Steve Bauman
-     *
-     * @return integer
-     */
-	public function getCurrentUserId(){
-		$user = Sentry::getUser();
-		
-		return $user->id;
+        * Returns current authenticated user ID
+        *
+        * @author Steve Bauman
+        *
+        * @return integer
+        */
+	public function getCurrentUserId()
+        {
+            $user = Sentry::getUser();
+
+            return $user->id;
 	}
 	
 }

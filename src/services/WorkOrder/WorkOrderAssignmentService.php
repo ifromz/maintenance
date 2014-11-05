@@ -15,28 +15,44 @@ class WorkOrderAssignmentService extends AbstractModelService {
                 $this->notFoundException = $notFoundException;
 	}
         
-        public function create(){
-            if($users = $this->getInput('users')){
+        public function create()
+        {
+            
+            $this->dbStartTransaction();
+            
+            try {
                 
-                $records = array();
-                
-                foreach($users as $user){
-                    
-                    $insert = array(
-                        'work_order_id' => $this->getInput('work_order_id'),
-                        'by_user_id' => $this->sentry->getCurrentUserId(),
-                        'to_user_id' => $user
-                    );
-                    
-                    if($records[] = $this->model->create($insert)){
+                $users = $this->getInput('users');
+
+                if($users) {
+
+                    $records = array();
+
+                    foreach($users as $user){
+
+                        $insert = array(
+                            'work_order_id' => $this->getInput('work_order_id'),
+                            'by_user_id' => $this->sentry->getCurrentUserId(),
+                            'to_user_id' => $user
+                        );
+
+                        $records[] = $this->model->create($insert);
                         
-                    } else{
-                        return false;
                     }
+                    
+                    $this->dbCommitTransaction();
+                    
+                    return $records;
+
                 }
+
+                return false;
+            
+            } catch (Exception $e) {
                 
-                return $records;
+                $this->dbRollbackTransaction();
                 
+                return false;
             }
             
         }

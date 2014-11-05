@@ -14,80 +14,137 @@ class EventService extends AbstractModelService {
 		$this->sentry = $sentry;
         }
         
-        public function create(){
+        public function create()
+        {
+            
+            $this->dbStartTransaction();
+            
+            try {
+            
+                $insert = array(
+                    'user_id'               => $this->sentry->getCurrentUserId(),
+                    'title'                 => $this->getInput('title', true),
+                    'description'           => $this->getInput('description', true),
+                    'start'                 => $this->formatDateWithTime($this->getInput('start_date'), $this->getInput('start_time')),
+                    'end'                   => $this->formatDateWithTime($this->getInput('end_date'), $this->getInput('end_time')),
+                    'allDay'                => $this->getInput('all_day', 0),
+                    'color'                 => $this->getInput('color'),
+                    'background_color'      => $this->getInput('background_color'),
+                    'recur_frequency'       => $this->getInput('recur_frequency'),
+                    'recur_count'           => $this->getInput('recur_limit'),
+                    'recur_filter_days'     => $this->getInput('recur_days'),
+                    'recur_filter_months'   => $this->getInput('recur_months')
+                );
 
-            $insert = array(
-                'user_id'               => $this->sentry->getCurrentUserId(),
-                'title'                 => $this->getInput('title', true),
-                'description'           => $this->getInput('description', true),
-                'start'                 => $this->formatDateWithTime($this->getInput('start_date'), $this->getInput('start_time')),
-                'end'                   => $this->formatDateWithTime($this->getInput('end_date'), $this->getInput('end_time')),
-                'allDay'                => $this->getInput('all_day', 0),
-                'color'                 => $this->getInput('color'),
-                'background_color'      => $this->getInput('background_color'),
-                'recur_frequency'       => $this->getInput('recur_frequency'),
-                'recur_count'           => $this->getInput('recur_limit'),
-                'recur_filter_days'     => $this->getInput('recur_days'),
-                'recur_filter_months'   => $this->getInput('recur_months')
-            );
-            
-            if($record = $this->model->create($insert)){
+                $record = $this->model->create($insert);
+
+                $this->dbCommitTransaction();
+
                 return $record;
-            } return false;
+               
+            
+            } catch (Exception $e) {
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
+            }
             
         }
         
-        public function update($id){
-            $record = $this->model->find($id);
+        public function update($id)
+        {
             
-            $insert = array(
-                'title'                 => $this->getInput('title', $record->title, true),
-                'description'           => $this->getInput('description', $record->description, true),
-                'start'                 => ($this->formatDateWithTime($this->getInput('start_date'), $this->getInput('start_time')) ?: $record->start),
-                'end'                   => ($this->formatDateWithTime($this->getInput('end_date'), $this->getInput('end_time')) ?: $record->end),
-                'allDay'                => $this->getInput('all_day', $record->allDay),
-                'color'                 => $this->getInput('color', $record->color),
-                'background_color'      => $this->getInput('background_color', $record->background_color),
-                'recur_frequency'       => $this->getInput('recur_frequency', $record->recur_frequency),
-                'recur_count'           => $this->getInput('recur_limit', $record->recur_count),
-                'recur_filter_days'     => $this->getInput('recur_days', $record->recur_filter_days),
-                'recur_filter_months'   => $this->getInput('recur_months', $record->recur_filter_months)
-            );
+            $this->dbStartTransaction();
             
-            if($record->update($insert)){
-                return $record;
-            } return false;
+            try {
+
+                $record = $this->model->find($id);
+
+                $insert = array(
+                    'title'                 => $this->getInput('title', $record->title, true),
+                    'description'           => $this->getInput('description', $record->description, true),
+                    'start'                 => ($this->formatDateWithTime($this->getInput('start_date'), $this->getInput('start_time')) ?: $record->start),
+                    'end'                   => ($this->formatDateWithTime($this->getInput('end_date'), $this->getInput('end_time')) ?: $record->end),
+                    'allDay'                => $this->getInput('all_day', $record->allDay),
+                    'color'                 => $this->getInput('color', $record->color),
+                    'background_color'      => $this->getInput('background_color', $record->background_color),
+                    'recur_frequency'       => $this->getInput('recur_frequency', $record->recur_frequency),
+                    'recur_count'           => $this->getInput('recur_limit', $record->recur_count),
+                    'recur_filter_days'     => $this->getInput('recur_days', $record->recur_filter_days),
+                    'recur_filter_months'   => $this->getInput('recur_months', $record->recur_filter_months)
+                );
+
+                if($record->update($insert)){
+
+                    $this->dbCommitTransaction();
+
+                    return $record;
+                }
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
+            
+            } catch (Exception $e) {
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
+            }
         }
         
-        public function updateDates($id){
-            $record = $this->model->find($id);
+        public function updateDates($id)
+        {
             
-            $insert = array(
-                'start' => $this->getInput('start'),
-                'end'   => $this->getInput('end'),
-                'allDay' => $this->getInput('all_day')
-            );
+            $this->dbStartTransaction();
             
-            if($record->update($insert)){
-                return $record;
-            } return false;
+            try {
+            
+                $record = $this->model->find($id);
+
+                $insert = array(
+                    'start' => $this->getInput('start'),
+                    'end'   => $this->getInput('end'),
+                    'allDay' => $this->getInput('all_day')
+                );
+
+                if($record->update($insert)){
+                    
+                    $this->dbCommitTransaction();
+                    
+                    return $record;
+                }
+                
+                $this->dbCommitTransaction();
+                
+                return false;
+            
+            } catch (Exception $e) {
+                
+                $this->dbRollbackTransaction();
+                
+                return false;
+            }
         }
         
-        
-        
-        public function setRecurFilterDaysAttribute($value){
+        public function setRecurFilterDaysAttribute($value)
+        {
             return $this->implodeArrayForRule($value);
         }
         
-        public function setRecurFilterMonthsAttribute($value){
+        public function setRecurFilterMonthsAttribute($value)
+        {
             return $this->implodeArrayForRule($value);
         }
         
-        public function setRecurFilterYearsAttribute($value){
+        public function setRecurFilterYearsAttribute($value)
+        {
             return $this->implodeArrayForRule($value);
         }
         
-        public function parseEvents($events, $data){
+        public function parseEvents($events, $data)
+        {
 
             foreach($events as $event){
                 
@@ -161,10 +218,14 @@ class EventService extends AbstractModelService {
             return $events;
         }
         
-        private function implodeArrayForRule($value){
+        private function implodeArrayForRule($value)
+        {
+            
             if(isset($value) && is_array($value)){
                 return implode(",", $value);
-            } return NULL;
+            } 
+            
+            return NULL;
         }
         
 }

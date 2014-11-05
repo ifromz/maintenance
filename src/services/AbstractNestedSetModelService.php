@@ -6,14 +6,29 @@ use Stevebauman\Maintenance\Services\AbstractModelService;
 
 abstract class AbstractNestedSetModelService extends AbstractModelService {
     
-    public function create(){
-        $insert = array(
-            'name' => $this->getInput('name')
-        );
+    public function create()
+    {
+        
+        $this->dbStartTransaction();
+        
+        try {
+            
+            $insert = array(
+                'name' => $this->getInput('name')
+            );
 
-        if($record = $this->model->create($insert)){
+            $record = $this->model->create($insert);
+
+            $this->dbCommitTransaction();
+
             return $record;
-        } return false;
+        
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
     }
     
 }

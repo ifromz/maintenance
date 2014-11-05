@@ -25,23 +25,64 @@ class InventoryStockMovementService extends AbstractModelService {
     
     public function create(){
         
-        $insert = array(
-            'user_id' => $this->sentry->getCurrentUserId(),
-            'stock_id' => $this->getInput('stock_id'),
-            'before' => $this->getInput('before'),
-            'after' => $this->getInput('after'),
-            'cost' => $this->getInput('cost'),
-            'reason' => $this->getInput('reason', 'Stock Adjustment', true)
-        );
+        $this->dbStartTransaction();
+        
+        try {
+        
+            $insert = array(
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'stock_id' => $this->getInput('stock_id'),
+                'before' => $this->getInput('before'),
+                'after' => $this->getInput('after'),
+                'cost' => $this->getInput('cost'),
+                'reason' => $this->getInput('reason', 'Stock Adjustment', true)
+            );
+            
+            /*
+             * Only create a record if the before and after quantity differ
+             * if enabled in config
+             */
+            if($this->getConfig('maintenance::rules.inventory.prevent_duplicate_movements')) {
+            
+                if($insert['before'] != $insert['after']){
 
-        //Only create a record if the before and after quantity differ
-        if($insert['before'] != $insert['after']){
-            if($record = $this->model->create($insert)){
+                    $record = $this->model->create($insert);
+
+                    $this->dbCommitTransaction();
+
+                    return $record;
+                    
+                } else {
+
+                    /*
+                     * Return true if before and after quantity are the same
+                     * and prevent duplicate movements is enabled
+                     */
+                    return true;
+                }
+                
+            } else {
+                
+                /*
+                 * Prevent duplicate movements is disabled, create the record
+                 */
+                $record = $this->model->create($insert);
+                
+                $this->dbCommitTransaction();
+
                 return $record;
-            } else{
-                return false;
             }
-        } return true;
+
+            $this->dbRollbackTransaction();
+            
+            return false;
+        
+        } catch (Exception $e) {
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
+        }
         
     }
     
