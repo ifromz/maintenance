@@ -65,14 +65,8 @@ Route::post('assets/images/uploads/destroy', array(
  * Asset Meter Routes
  */
 Route::resource('assets.meters', 'AssetMeterController', array(
-    'only' => array(
-        'store',
-        'show',
-        'edit',
-        'update',
-        'destroy',
-    ),
     'names' => array(
+        'index'         => 'maintenance.assets.meters.index',
         'store'   	=> 'maintenance.assets.meters.store',
         'show'    	=> 'maintenance.assets.meters.show',
         'edit'    	=> 'maintenance.assets.meters.edit',
