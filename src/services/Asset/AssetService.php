@@ -100,7 +100,7 @@ class AssetService extends AbstractModelService {
                      */
                     $insert = array(
                             'user_id'           => $this->sentry->getCurrentUserId(),
-                            'category_id'       => $this->getInput('category_id'),
+                            'asset_category_id' => $this->getInput('asset_category_id'),
                             'location_id'       => $this->getInput('location_id'),
                             'name'              => $this->getInput('name', NULL, true),
                             'condition'         => $this->getInput('condition'),
@@ -170,7 +170,7 @@ class AssetService extends AbstractModelService {
                  */
                 $insert = array(
                         'location_id'       => $this->getInput('location_id', $record->location_id),
-                        'category_id'       => $this->getInput('category_id', $record->category_id),
+                        'asset_category_id' => $this->getInput('asset_category_id', $record->asset_category_id),
                         'name'              => $this->getInput('name', $record->name, true),
                         'condition'         => $this->getInput('condition', $record->condition),
                         'vendor'            => $this->getInput('vendor', $record->vendor, true),

@@ -50,7 +50,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Category</label>
                     <div class="col-md-4">
-                    	@include('maintenance::select.category', array(
+                    	@include('maintenance::select.asset-category', array(
                             'category_name'=>$asset->category->name,
                             'category_id'=>$asset->category->id
                         ))

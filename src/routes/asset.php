@@ -4,6 +4,50 @@
  * Asset Routes
  */
 
+/*
+ * Category Routes
+ */
+Route::get('assets/categories/json', array(
+                'as' => 'maintenance.assets.categories.json',
+                'uses' => 'AssetCategoryController@getJson',
+        )
+);
+
+Route::get('assets/categories/create/{categories?}', array(
+                'as' => 'maintenance.assets.categories.nodes.create',
+                'uses' => 'AssetCategoryController@create',
+        )
+);
+
+Route::post('assets/categories/move/{categories?}', array(
+        'as' => 'maintenance.assets.categories.nodes.move',
+        'uses'=> 'AssetCategoryController@postMoveCategory'
+));
+
+Route::post('assets/categories/create/{categories?}', array(
+                'as' => 'maintenance.assets.categories.nodes.store',
+                'uses' => 'AssetCategoryController@store',
+        )
+);
+
+Route::resource('assets/categories', 'AssetCategoryController', array(
+        'names'=> array(
+                'index'		=> 'maintenance.assets.categories.index',
+                'create'  	=> 'maintenance.assets.categories.create',
+                'store'   	=> 'maintenance.assets.categories.store',
+                'show'    	=> 'maintenance.assets.categories.show',
+                'edit'    	=> 'maintenance.assets.categories.edit',
+                'update'  	=> 'maintenance.assets.categories.update',
+                'destroy' 	=> 'maintenance.assets.categories.destroy',
+        ),
+));
+/*
+ * End Category Routes
+ */
+
+/*
+ * Upload Routes
+ */
 Route::post('assets/images/uploads', array(
         'as' => 'maintenance.assets.images.uploads.store',
         'uses' => 'AssetImageUploadController@store'
@@ -13,7 +57,13 @@ Route::post('assets/images/uploads/destroy', array(
         'as' => 'maintenance.assets.images.uploads.destroy',
         'uses' => 'AssetImageUploadController@destroy'
 ));
+/*
+ * End Upload Routes
+ */
 
+/*
+ * Asset Meter Routes
+ */
 Route::resource('assets.meters', 'AssetMeterController', array(
     'only' => array(
         'store',
@@ -39,7 +89,13 @@ Route::resource('assets.meters.readings', 'AssetMeterReadingController', array(
         'store'   	=> 'maintenance.assets.meters.readings.store',
     )
 ));
+/*
+ * End Asset Meter Routes
+ */
 
+/*
+ * Asset Image Routes
+ */
 Route::resource('assets.images', 'AssetImageController', array(
         'only' => array(
             'index',	
@@ -56,8 +112,14 @@ Route::resource('assets.images', 'AssetImageController', array(
                 'destroy' 	=> 'maintenance.assets.images.destroy',
         ),
 ));
+/*
+ * End Asset Image Routes
+ */
 
 
+/*
+ * Asset Manual Upload Routes
+ */
 Route::post('assets/manuals/uploads', array(
         'as' => 'maintenance.assets.manuals.uploads.store',
         'uses' => 'AssetManualUploadController@store'

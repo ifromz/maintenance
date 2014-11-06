@@ -7,8 +7,8 @@ class AssetValidator extends AbstractValidator {
 	protected $rules = array(
 		'name' => 'required|min:3|max:250',
 		'condition' => 'required|integer',
-		'category' => 'required',
-		'category_id' => 'integer',
+		'asset_category' => 'required',
+		'asset_category_id' => 'integer',
                 'location' => 'required',
                 'location_id' => 'integer'
 	);

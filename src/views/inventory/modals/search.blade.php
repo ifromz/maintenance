@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Category</label>
                     <div class="col-md-10">
-                        @include('maintenance::select.category', array(
+                        @include('maintenance::select.inventory-category', array(
                             'category' => (Input::has('category_name') ? Input::get('category_name') : NULL),
                             'category_id' => (Input::has('category_id') ? Input::get('category_id') : NULL)
                         ))

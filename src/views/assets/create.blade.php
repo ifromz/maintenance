@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Category</label>
                     <div class="col-md-4">
-                    	@include('maintenance::select.category')
+                    	@include('maintenance::select.asset-category')
                     </div>
                 </div>
                 

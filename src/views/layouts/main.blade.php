@@ -178,6 +178,14 @@
                                 </a>
                             </li>
                             @endif
+                            
+                            @if(Sentry::hasAccess('maintenance.inventory.categories.index'))
+                            <li>
+                                <a href="{{ route('maintenance.inventory.categories.index') }}" style="margin-left: 10px;">
+                                    <i class="fa fa-folder"></i> Categories
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                     </li>
                     @endif
@@ -194,6 +202,13 @@
                                     <i class="fa fa-book"></i> All Assets
                                 </a>
                             </li>
+                            @if(Sentry::hasAccess('maintenance.assets.categories.index'))
+                            <li>
+                                <a href="{{ route('maintenance.assets.categories.index') }}" style="margin-left: 10px;">
+                                    <i class="fa fa-folder"></i> Categories
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                     </li>
                     @endif
@@ -202,15 +217,6 @@
                     <li>
                         <a href="{{ route('maintenance.locations.index') }}">
                             <i class="fa fa-location-arrow"></i> Locations
-                        </a>
-                    </li>
-                    @endif
-                    
-                    @if(Sentry::hasAccess('maintenance.categories.index'))
-                    <li>
-                        <a href="{{ route('maintenance.categories.index') }}">
-                            <i class="fa fa-sitemap"></i> 
-                            Categories <small>(Asset / Inventory)</small>
                         </a>
                     </li>
                     @endif

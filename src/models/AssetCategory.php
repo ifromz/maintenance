@@ -2,9 +2,9 @@
 
 use Baum\Node;
 
-class Category extends Node {
+class AssetCategory extends Node {
 
-    protected $table = 'categories';
+    protected $table = 'asset_categories';
     
     /**
      * Compatibility with Revisionable

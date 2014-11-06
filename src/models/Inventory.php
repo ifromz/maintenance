@@ -13,12 +13,13 @@ class Inventory extends BaseModel {
         protected $fillable = array(
             'user_id', 
             'metric_id', 
-            'category_id', 
+            'inventory_category_id', 
             'name', 
             'description'
         );
         
         protected $revisionFormattedFieldNames = array(
+            'asset_category_id' => 'Category',
             'metric_id'     => 'Metric',
             'name'          => 'Name',
         );
@@ -40,7 +41,7 @@ class Inventory extends BaseModel {
         
         public function category()
         {
-            return $this->hasOne('Stevebauman\Maintenance\Models\Category', 'id', 'category_id');
+            return $this->hasOne('Stevebauman\Maintenance\Models\InventoryCategory', 'id', 'inventory_category_id');
 	}
         
         /*

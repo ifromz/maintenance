@@ -66,11 +66,6 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix'), 'namespace'=>'S
                 include('routes/location.php');
 		
                 /*
-                 * Category Routes
-                 */
-                include('routes/category.php');
-		
-                /*
                  * Metric Routes
                  */
                 include('routes/metric.php');

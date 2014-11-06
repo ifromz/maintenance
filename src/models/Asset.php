@@ -12,7 +12,7 @@ class Asset extends BaseModel {
 	protected $fillable = array(
 		'user_id',
 		'location_id', 
-		'category_id', 
+		'asset_category_id', 
 		'name',
 		'condition',
 		'size',
@@ -28,7 +28,7 @@ class Asset extends BaseModel {
         
         protected $revisionFormattedFieldNames = array(
             'location_id'   => 'Location',
-            'category_id'   => 'Category',
+            'asset_category_id'   => 'Category',
             'name'          => 'Name',
             'condition'     => 'Condition',
             'size'          => 'Size',
@@ -51,7 +51,7 @@ class Asset extends BaseModel {
         }
 	
 	public function category(){
-		return $this->hasOne('Stevebauman\Maintenance\Models\Category', 'id', 'category_id');
+		return $this->hasOne('Stevebauman\Maintenance\Models\AssetCategory', 'id', 'asset_category_id');
 	}
 	
 	public function images(){

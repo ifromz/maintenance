@@ -20,7 +20,7 @@ class CreateAssetTable extends Migration {
                         $table->datetime('end_of_life')->nullable();
 			$table->integer('user_id')->unsigned();
 			$table->integer('location_id')->unsigned()->nullable();
-			$table->integer('category_id')->unsigned();
+			$table->integer('asset_category_id')->unsigned();
 			$table->string('name');
 			$table->integer('condition')->nullable();
 			$table->string('size')->nullable();
@@ -39,7 +39,7 @@ class CreateAssetTable extends Migration {
 						->onUpdate('restrict')
 						->onDelete('set null');
 						
-			$table->foreign('category_id')->references('id')->on('categories')
+			$table->foreign('asset_category_id')->references('id')->on('asset_categories')
 						->onUpdate('restrict')
 						->onDelete('cascade');
 		});

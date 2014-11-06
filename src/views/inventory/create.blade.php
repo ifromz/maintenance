@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Category</label>
                     <div class="col-md-4">
-                        @include('maintenance::select.category')
+                        @include('maintenance::select.inventory-category')
                     </div>
                 </div>
                 

@@ -7,8 +7,8 @@ class InventoryValidator extends AbstractValidator {
     protected $rules = array(
             'name' => 'required|max:250',
             'description' => '',
-            'category' => 'required',
-            'category_id' => 'integer',
+            'inventory_category' => 'required',
+            'inventory_category_id' => 'integer',
             'metric' => 'integer'
 	);
     

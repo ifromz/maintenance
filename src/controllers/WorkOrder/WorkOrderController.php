@@ -8,7 +8,8 @@ use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class WorkOrderController extends AbstractController {
         
-        public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator){
+        public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator)
+        {
             $this->workOrder = $workOrder;
             $this->workOrderValidator = $workOrderValidator;
         }
@@ -18,8 +19,9 @@ class WorkOrderController extends AbstractController {
 	 *
 	 * @return Response
 	 */
-	public function index(){
-
+	public function index()
+        {
+            
             $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
             
             return $this->view('maintenance::work-orders.index', array(
@@ -34,7 +36,8 @@ class WorkOrderController extends AbstractController {
 	 *
 	 * @return Response
 	 */
-	public function create(){
+	public function create()
+        {
             
             return $this->view('maintenance::work-orders.create', array(
                 'title' => 'Create a Work Order'
@@ -47,7 +50,8 @@ class WorkOrderController extends AbstractController {
 	 *
 	 * @return Response
 	 */
-	public function store(){
+	public function store()
+        {
             $validator = new $this->workOrderValidator;
             
             if($validator->passes()){
@@ -71,7 +75,8 @@ class WorkOrderController extends AbstractController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id){
+	public function show($id)
+        {
             
             $workOrder = $this->workOrder->find($id);
 
@@ -88,7 +93,8 @@ class WorkOrderController extends AbstractController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id){
+	public function edit($id)
+        {
 
             $workOrder = $this->workOrder->with('category')->find($id);
             
@@ -126,7 +132,8 @@ class WorkOrderController extends AbstractController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id){
+	public function update($id)
+        {
             
             $validator = new $this->workOrderValidator;
 		
@@ -152,7 +159,8 @@ class WorkOrderController extends AbstractController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id){
+	public function destroy($id)
+        {
 
             if($this->workOrder->destroy($id)){
                 $this->message = 'Successfully deleted work order';

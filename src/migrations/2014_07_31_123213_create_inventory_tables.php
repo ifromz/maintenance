@@ -17,13 +17,13 @@ class CreateInventoryTables extends Migration {
                 $table->increments('id');
                 $table->timestamps();
                 $table->softDeletes();
-                $table->integer('category_id')->unsigned()->nullable();
+                $table->integer('inventory_category_id')->unsigned()->nullable();
                 $table->integer('user_id')->unsigned()->nullable();
                 $table->integer('metric_id')->unsigned()->nullable();
                 $table->string('name');
                 $table->text('description')->nullable();
  
-                $table->foreign('category_id')->references('id')->on('categories')
+                $table->foreign('inventory_category_id')->references('id')->on('inventory_categories')
                     ->onUpdate('restrict')
                     ->onDelete('set null');
                 
