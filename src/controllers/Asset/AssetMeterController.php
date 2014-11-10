@@ -96,30 +96,65 @@ class AssetMeterController extends AbstractController {
         
         $meter = $this->meter->find($meter_id);
         
+        $readings = $this->meterReading->getByMeterByPageWithFilter($meter->id);
+        
         return $this->view('maintenance::assets.meters.show', array(
             'title' => 'Viewing Asset Meter: '.$meter->name,
             'asset' => $asset,
             'meter' => $meter,
+            'readings'=> $readings
         ));
     }
     
     public function edit($asset_id, $meter_id)
     {
+        $asset = $this->asset->find($asset_id);
         
+        $meter = $this->meter->find($meter_id);
+        
+        return $this->view('maintenance::assets.meters.edit', array(
+            'title' => 'Editing Asset Meter: '.$meter->name,
+            'asset' => $asset,
+            'meter' => $meter
+        ));
     }
     
     public function update($asset_id, $meter_id)
     {
+        $validator = new $this->meterValidator;
         
+        if($validator->passes()){
+            
+            $asset = $this->asset->find($asset_id);
+            
+            $data = $this->inputAll();
+            $data['asset_id'] = $asset->id;
+            
+            $this->meter->setInput($this->inputAll())->update($meter_id);
+            
+            $this->message = 'Successfully updated meter';
+            $this->messageType = 'success';
+            $this->redirect = route('maintenance.assets.show', array($asset_id));
+            
+        } else {
+            
+            $this->errors = $validator->getErrors();
+            $this->redirect = route('maintenance.assets.meters.edit', array($asset_id, $meter_id));
+            
+        }
+        
+        return $this->response();
     }
     
     public function destroy($asset_id, $meter_id)
     {
+        $asset = $this->asset->find($asset_id);
+        
         $this->meter->destroy($meter_id);
         
         $this->message = 'Successfully deleted meter';
         $this->messageType = 'success';
-        $this->redirect = route('maintenance.assets.show', array($asset_id));
+        $this->redirect = route('maintenance.assets.show', array($asset->id));
         
         return $this->response();
     }

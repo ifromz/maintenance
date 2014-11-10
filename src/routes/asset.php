@@ -77,10 +77,12 @@ Route::resource('assets.meters', 'AssetMeterController', array(
 
 Route::resource('assets.meters.readings', 'AssetMeterReadingController', array(
     'only' => array(
-        'store'
+        'store',
+        'destroy',
     ),
     'names' => array(
         'store'   	=> 'maintenance.assets.meters.readings.store',
+        'destroy'       => 'maintenance.assets.meters.readings.destroy'
     )
 ));
 /*

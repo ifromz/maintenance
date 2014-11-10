@@ -14,6 +14,13 @@ class MeterReadingService extends AbstractModelService {
         $this->sentry = $sentry;
     }
     
+    public function getByMeterByPageWithFilter($meter_id)
+    {
+        return $this->model
+                ->where('meter_id', $meter_id)
+                ->paginate(25);
+    }
+    
     public function create()
     {
         $this->dbStartTransaction();

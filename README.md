@@ -26,6 +26,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * <del>Add 'Put Back Some' option for work order parts/supplies</del> Nov 4th 2014
 * Lots of optimization and tweaks in views, services, controllers etc
 * <del>Implement DB transactions for every service method</del> - Nov 5th 2014
+* Optimize views for tablet/mobile
 * Tests
 
 ###Features

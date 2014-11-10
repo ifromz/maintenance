@@ -6,10 +6,10 @@ class InventoryValidator extends AbstractValidator {
     
     protected $rules = array(
             'name' => 'required|max:250',
-            'description' => '',
+            'description' => 'max:1000',
             'inventory_category' => 'required',
             'inventory_category_id' => 'integer',
-            'metric' => 'integer'
+            'metric' => 'required|integer'
 	);
     
 }

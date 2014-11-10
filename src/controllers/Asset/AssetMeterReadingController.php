@@ -75,4 +75,19 @@ class AssetMeterReadingController extends AbstractController {
         return $this->response();
     }
     
+    public function destroy($asset_id, $meter_id, $reading_id)
+    {
+        $asset = $this->asset->find($asset_id);
+        
+        $meter = $this->meter->find($meter_id);
+        
+        $this->meterReading->destroy($reading_id);
+        
+        $this->message = 'Successfully deleted reading';
+        $this->messageType = 'success';
+        $this->redirect = route('maintenance.assets.meters.show', array($asset->id, $meter->id));
+        
+        return $this->response();
+    }
+    
 }

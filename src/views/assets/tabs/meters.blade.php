@@ -12,7 +12,7 @@
 
 <div id="asset-meters-table">
     @if($asset->meters->count() > 0)
-
+    
     <table class="table table-striped">
 
             <thead>
@@ -45,12 +45,12 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="{{ route('maintenance.assets.meters.show', array($meter->id)) }}">
+                                    <a href="{{ route('maintenance.assets.meters.show', array($asset->id, $meter->id)) }}">
                                         <i class="fa fa-search"></i> View Meter Readings
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('maintenance.assets.meters.edit', array($meter->id)) }}">
+                                    <a href="{{ route('maintenance.assets.meters.edit', array($asset->id, $meter->id)) }}">
                                         <i class="fa fa-edit"></i> Edit Meter
                                     </a>
                                 </li>
