@@ -170,15 +170,6 @@
                             </li>
                             @endif
                             
-                            @if(Sentry::hasAccess('maintenance.metrics.index'))
-                            <li>
-                                <a href="{{ route('maintenance.metrics.index') }}" style="margin-left: 10px;">
-                                    <i class="fa fa-anchor"></i> 
-                                    Metrics
-                                </a>
-                            </li>
-                            @endif
-                            
                             @if(Sentry::hasAccess('maintenance.inventory.categories.index'))
                             <li>
                                 <a href="{{ route('maintenance.inventory.categories.index') }}" style="margin-left: 10px;">
@@ -226,6 +217,15 @@
                         <a href="{{ route('maintenance.work-requests.index') }}">
                             <i class="fa fa-book"></i>
                             My Work Requests
+                        </a>
+                    </li>
+                    @endif
+                    
+                    @if(Sentry::hasAccess('maintenance.metrics.index'))
+                    <li>
+                        <a href="{{ route('maintenance.metrics.index') }}">
+                            <i class="fa fa-anchor"></i> 
+                            Metrics
                         </a>
                     </li>
                     @endif

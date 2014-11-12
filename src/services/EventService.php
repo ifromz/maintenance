@@ -3,15 +3,23 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Recurr;
-use Illuminate\Support\Facades\Config;
+use Stevebauman\Maintenance\Exceptions\AssetEventNotFoundException;
 use Stevebauman\Maintenance\Models\Event;
 use Stevebauman\Maintenance\Services\SentryService;
 
 class EventService extends AbstractModelService {
 	
-	public function __construct(Event $event, SentryService $sentry){
+	public function __construct(Event $event, SentryService $sentry, AssetEventNotFoundException $notFoundException){
 		$this->model = $event;
 		$this->sentry = $sentry;
+                $this->notFoundException = $notFoundException;
+        }
+        
+        public function getRecurrencesByPage($parent_id)
+        {
+            return $this->model
+                    ->where('parent_id', $parent_id)
+                    ->paginate(25);
         }
         
         public function create()
@@ -22,18 +30,18 @@ class EventService extends AbstractModelService {
             try {
             
                 $insert = array(
+                    'parent_id'             => $this->getInput('parent_id', NULL),
                     'user_id'               => $this->sentry->getCurrentUserId(),
-                    'title'                 => $this->getInput('title', true),
-                    'description'           => $this->getInput('description', true),
+                    'title'                 => $this->getInput('title', NULL, true),
+                    'description'           => $this->getInput('description', NULL, true),
                     'start'                 => $this->formatDateWithTime($this->getInput('start_date'), $this->getInput('start_time')),
                     'end'                   => $this->formatDateWithTime($this->getInput('end_date'), $this->getInput('end_time')),
                     'allDay'                => $this->getInput('all_day', 0),
                     'color'                 => $this->getInput('color'),
                     'background_color'      => $this->getInput('background_color'),
-                    'recur_frequency'       => $this->getInput('recur_frequency'),
-                    'recur_count'           => $this->getInput('recur_limit'),
-                    'recur_filter_days'     => $this->getInput('recur_days'),
-                    'recur_filter_months'   => $this->getInput('recur_months')
+                    'recur_frequency'       => $this->getInput('recur_frequency', NULL),
+                    'recur_filter_days'     => $this->implodeArrayForRule($this->getInput('recur_days', NULL)),
+                    'recur_filter_months'   => $this->implodeArrayForRule($this->getInput('recur_months', NULL))
                 );
 
                 $record = $this->model->create($insert);
@@ -70,7 +78,6 @@ class EventService extends AbstractModelService {
                     'color'                 => $this->getInput('color', $record->color),
                     'background_color'      => $this->getInput('background_color', $record->background_color),
                     'recur_frequency'       => $this->getInput('recur_frequency', $record->recur_frequency),
-                    'recur_count'           => $this->getInput('recur_limit', $record->recur_count),
                     'recur_filter_days'     => $this->getInput('recur_days', $record->recur_filter_days),
                     'recur_filter_months'   => $this->getInput('recur_months', $record->recur_filter_months)
                 );
@@ -116,7 +123,7 @@ class EventService extends AbstractModelService {
                     return $record;
                 }
                 
-                $this->dbCommitTransaction();
+                $this->dbRollbackTransaction();
                 
                 return false;
             
@@ -149,41 +156,26 @@ class EventService extends AbstractModelService {
             foreach($events as $event){
                 
                 if($event->isRecurring()){
-
-                    /*
-                     * Check if the recurring ends by looking at the recur_count variable. 
-                     * If it does, set the rule count for Recurr.
-                     * 
-                     * If the reucrring does not end, set the limit accordingly to 
-                     * the recur_frequency so recurring events are limited and queries are faster.
-                     */
-                    if($event->recurringEnds()){
-                        
-                       $ruleStr = sprintf('FREQ=%s;COUNT=%s;', $event->recur_frequency, $event->recur_count);
-                       $limit = NULL;
-                       
-                    } else{
-                        $ruleStr = sprintf('FREQ=%s;', $event->recur_frequency);
-                       
-                    }
+                  
+                    $ruleStr = sprintf('FREQ=%s;', $event->recur_frequency);
                     
                     /*
                      * Check Filters on events. Ex. If the scheduled event avoids weekends or certain days/holidays.
                      * Add each filter onto rule if set.
                      */
                     if(isset($event->recur_filter_days)){
-                        $ruleStr .= sprintf('BYDAY=%s;',$event->recur_filter_days);
+                        $ruleStr .= sprintf('BYDAY=%s;', $event->recur_filter_days);
                     }
                     
                     if(isset($event->recur_filter_months)){
-                        $ruleStr .= sprintf('BYMONTH=%s;',$event->recur_filter_months);
+                        $ruleStr .= sprintf('BYMONTH=%s;', $event->recur_filter_months);
                     }
                     
                     if(isset($event->recur_filter_years)){
-                        $ruleStr .= sprintf('BYYEAR=%s;',$event->recur_filter_years);
+                        $ruleStr .= sprintf('BYYEAR=%s;', $event->recur_filter_years);
                     }
                     
-                    $timezone    = Config::get('app.timezone'); // Set default timezone
+                    $timezone    = $this->getConfig('app.timezone'); // Set default timezone
                     
                     $startDate   = new \DateTime($event->recur_start, new \DateTimeZone($timezone));
                     $endDate     = new \DateTime($event->recur_end, new \DateTimeZone($timezone));
@@ -195,20 +187,42 @@ class EventService extends AbstractModelService {
                     $transformer = new Recurr\Transformer\ArrayTransformer();
                     $constraint = new Recurr\Transformer\Constraint\BetweenConstraint($inputStart, $inputEnd);
                     
-                    $recurrances = $transformer->transform($rule, $event->recur_limit, $constraint);
+                    $recurrances = $transformer->transform($rule, NULL, $constraint);
                     
                     foreach($recurrances as $recurrance){
                         
-                        $events[] = array(
-                            'id' => $event->id,
-                            'title' => $event->title,
-                            'description' => $event->description,
-                            'start' => $recurrance->getStart()->format('Y-m-d H:i:s'),
-                            'end' => $recurrance->getEnd()->format('Y-m-d H:i:s'),
-                            'allDay' => $event->allDay,
-                            'color' => $event->color,
-                            'backgroundColor' => $event->backgroundColor,
-                        );
+                        /*
+                         * Get the existing occurance for this event
+                         */
+                        $existingOccurance = $this->where('parent_id', $event->id)
+                                ->where('start', 'LIKE', '%'.$recurrance->getStart()->format('Y-m-d').'%')
+                                ->where('end', 'LIKE', '%'.$recurrance->getEnd()->format('Y-m-d').'%')
+                                ->get()
+                                ->first();
+                        
+                        
+                        /*
+                         * If an occurance doesn't exist, create one
+                         */
+                        if(!$existingOccurance) {
+                            
+                            $data = array(
+                                'parent_id' => $event->id,
+                                'user_id' => $event->user_id,
+                                'title' => $event->title,
+                                'description' => $event->description,
+                                'start' => $recurrance->getStart()->format('Y-m-d H:i:s'),
+                                'end' => $recurrance->getEnd()->format('Y-m-d H:i:s'),
+                                'allDay' => $event->allDay,
+                                'color' => $event->color,
+                                'backgroundColor' => $event->backgroundColor,
+                            );
+                            
+                            $record = $this->model->create($data);
+                            
+                            $events[] = $record;
+                            
+                        }
                         
                     }
                     

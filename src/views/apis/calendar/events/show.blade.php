@@ -8,7 +8,6 @@
 
 <p></p>
 
-@if($event->assets->count() > 0)
 
 <legend>Assets Included</legend>
 
@@ -24,21 +23,38 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($event->assets as $asset)
-        <tr>
-            <td>
-                {{ $asset->name }}
-            </td>
-            <td>
-                <a class="btn btn-primary" href="{{ route('maintenance.assets.show', array($asset->id)) }}">
-                    <i class="fa fa-search"></i> View Asset
-                </a>
-            </td>
-        </tr>
-        @endforeach
+        @if($event->isRecurrence())
+            
+            @foreach($event->getParent()->assets as $asset)
+            <tr>
+                <td>
+                    {{ $asset->name }}
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="{{ route('maintenance.assets.show', array($asset->id)) }}">
+                        <i class="fa fa-search"></i> View Asset
+                    </a>
+                </td>
+            </tr>
+            @endforeach
+        
+        @else
+        
+            @foreach($event->assets as $asset)
+            <tr>
+                <td>
+                    {{ $asset->name }}
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="{{ route('maintenance.assets.show', array($asset->id)) }}">
+                        <i class="fa fa-search"></i> View Asset
+                    </a>
+                </td>
+            </tr>
+            @endforeach
+        
+        @endif
+        
+        
     </tbody>
 </table>
-
-@else
-
-@endif

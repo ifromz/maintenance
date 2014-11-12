@@ -8,6 +8,7 @@ class Event extends BaseModel {
     protected $table = 'events';
     
     protected $fillable = array(
+        'parent_id',
         'user_id', 
         'title', 
         'description', 
@@ -17,17 +18,18 @@ class Event extends BaseModel {
         'color',
         'background_color',
         'recur_frequency',
-        'recur_count',
         'recur_filter_days',
         'recur_filter_months',
         'recur_filter_years',
     );
     
-    public function user(){
+    public function user()
+    {
         return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
     }
     
-    public function assets(){
+    public function assets()
+    {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Asset', 'asset_events', 'event_id', 'asset_id')->withTimestamps();
     }
     
@@ -36,7 +38,8 @@ class Event extends BaseModel {
      * 
      * @return boolean
      */
-    public function isAllDay(){
+    public function isAllDay()
+    {
         if($this->allDay){
             return true;
         } return false;
@@ -47,19 +50,16 @@ class Event extends BaseModel {
      * 
      * @return boolean
      */
-    public function isRecurring(){
-        if(isset($this->recur_frequency)){
+    public function isRecurring()
+    {
+        if(isset($this->recur_frequency) && !empty($this->recur_frequency)){
             return true;
         } return false;
     }
     
-    /**
-     * Checks if the event recurring ends
-     * 
-     * @return boolean
-     */
-    public function recurringEnds(){
-        if(isset($this->recur_count)){
+    public function isRecurrence()
+    {
+        if(isset($this->parent_id) && !empty($this->parent_id)) {
             return true;
         } return false;
     }
@@ -70,7 +70,8 @@ class Event extends BaseModel {
      * @param type $created_at
      * @return type
      */
-    public function getCreatedAtAttribute($created_at) {
+    public function getCreatedAtAttribute($created_at)
+    {
         return $created_at;
     }
     
@@ -79,15 +80,16 @@ class Event extends BaseModel {
      * depending on the recur_frequency attribute, we'll add the appropriate time 
      * onto the event start date using Carbon and then process recurrences from there.
      * 
-     * @return null
+     * @return null OR string
      */
-    public function getRecurStartAttribute(){
+    public function getRecurStartAttribute()
+    {
         $recurStart = Carbon::parse($this->attributes['start']);
         
         if(isset($this->attributes['recur_frequency'])){
             
             switch($this->attributes['recur_frequency']){
-                 case 'DAILY':
+                case 'DAILY':
                      return $recurStart->addDay();
                 case 'WEEKLY':
                     return $recurStart->addWeek();
@@ -97,7 +99,9 @@ class Event extends BaseModel {
                     return $recurStart->addYear();
             }
             
-        } return NULL;
+        } 
+        
+        return NULL;
         
     }
     
@@ -105,9 +109,10 @@ class Event extends BaseModel {
      * Offers same functionality as @getRecurStartAttribute, but instead add's time
      * onto the event end date instead of the start date.
      * 
-     * @return null
+     * @return null OR string
      */
-    public function getRecurEndAttribute(){
+    public function getRecurEndAttribute()
+    {
         $recurStart = Carbon::parse($this->attributes['end']);
         
         if(isset($this->attributes['recur_frequency'])){
@@ -123,7 +128,9 @@ class Event extends BaseModel {
                     return $recurStart->addYear();
             }
             
-        } return NULL;
+        } 
+        
+        return NULL;
     }
     
     /**
@@ -133,7 +140,8 @@ class Event extends BaseModel {
      * 
      * @return int
      */
-    public function getRecurLimitAttribute(){
+    public function getRecurLimitAttribute()
+    {
         
         switch($this->attributes['recur_frequency']){
             case 'DAILY':
@@ -156,20 +164,21 @@ class Event extends BaseModel {
                return 2;
            default:
                /*
-                * Default is 1 since no recurring frequency is set (or doesn't
-                * equal a switch case), therefore this
-                * event is not recurring.
+                * Default is 1 since either no recurring frequency is set, doesn't
+                * equal a switch case, or the frequency is yearly
                 */
                return 1;
        }
         
     }
     
-    public function getStartFormattedAttribute(){
+    public function getStartFormattedAttribute()
+    {
         return Carbon::parse($this->attributes['start'])->format('M dS Y - h:ia'); 
     }
     
-    public function getEndFormattedAttribute($end){
+    public function getEndFormattedAttribute($end)
+    {
         return Carbon::parse($this->attributes['end'])->format('M dS Y - h:ia'); 
     }
     
@@ -178,7 +187,8 @@ class Event extends BaseModel {
      * 
      * @return type
      */
-    public function getStartDateAttribute(){
+    public function getStartDateAttribute()
+    {
         return Carbon::parse($this->attributes['start'])->format('j F, Y'); 
     }
     
@@ -187,7 +197,8 @@ class Event extends BaseModel {
      * 
      * @return type
      */
-    public function getStartTimeAttribute(){
+    public function getStartTimeAttribute()
+    {
         return Carbon::parse($this->attributes['start'])->format('h:i A'); 
     }
     
@@ -196,7 +207,8 @@ class Event extends BaseModel {
      * 
      * @return type
      */
-    public function getEndDateAttribute(){
+    public function getEndDateAttribute()
+    {
         return Carbon::parse($this->attributes['end'])->format('j F, Y');
     }
     
@@ -205,7 +217,8 @@ class Event extends BaseModel {
      * 
      * @return type
      */
-    public function getEndTimeAttribute(){
+    public function getEndTimeAttribute()
+    {
         return Carbon::parse($this->attributes['end'])->format('h:i A'); 
     }
     
@@ -214,7 +227,8 @@ class Event extends BaseModel {
      * 
      * @return type
      */
-    public function getAlldayLabelAttribute(){
+    public function getAlldayLabelAttribute()
+    {
         $all_day = $this->attributes['allDay'];
         
         $label = '<span class="label label-%s">%s</span>';
@@ -224,6 +238,13 @@ class Event extends BaseModel {
                 return sprintf($label, 'danger', 'No');
             case 1:
                 return sprintf($label, 'success', 'Yes');
+        }
+    }
+    
+    public function getParent()
+    {
+        if($this->isRecurrence()){
+            return $this->find($this->parent_id);
         }
     }
     

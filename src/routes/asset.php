@@ -144,6 +144,15 @@ Route::resource('assets.manuals', 'AssetManualController', array(
  * End Asset Manual Upload Routes
  */
 
+
+/*
+ * Asset Event Routes
+ */
+Route::delete('assets/{assets}/events/{events}/recurrence/{recurrence}', array(
+    'as' => 'maintenance.assets.events.destroy-recurrence',
+    'uses' => 'AssetEventController@destroyRecurrence'
+));
+
 Route::resource('assets.events', 'AssetEventController', array(
     'names' => array(
                 'index'		=> 'maintenance.assets.events.index',
@@ -155,6 +164,9 @@ Route::resource('assets.events', 'AssetEventController', array(
                 'destroy' 	=> 'maintenance.assets.events.destroy',
     )
 ));
+/*
+ * End Asset Event Routes
+ */
 
 /*
  * Asset Routes

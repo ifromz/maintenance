@@ -114,15 +114,6 @@
                         
                         <p></p>
                         
-                        <dt>Limit</dt>
-                        <dd>
-                            The limit input accepts a number which will limit the amount of recurrences of the event. 
-                            For example: If you create a maintenance event that needs to happen every week, but only needs to be done 5 times. 
-                            You would enter the number '5' in this case. If you're not sure how long this event needs to occur for, leave this blank.
-                        </dd>
-                        
-                        <p></p>
-                        
                         <dt>Specific Days</dt>
                         <dd>
                             The specific days you want the recurring event to be restricted to. 
@@ -146,13 +137,6 @@
                         @include('maintenance::select.recur_frequency', array(
                             'frequency' => $event->recur_frequency
                         ))
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="name">Limit</label>
-                    <div class="col-md-4">
-                        {{ Form::text('recur_limit', $event->recur_count, array('class'=>'form-control')) }}
                     </div>
                 </div>
                 

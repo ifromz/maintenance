@@ -77,7 +77,7 @@
                                             href="{{ route('maintenance.assets.events.destroy', array($asset->id, $event->id)) }}" 
                                             data-method="delete"
                                             data-title="Are you sure?"
-                                            data-message="Are you sure you want to delete this event? Deleting this event will also remove all recurrances."
+                                            data-message="Are you sure you want to delete this event? Deleting this event will also remove all recurrences."
                                             >
                                             <i class="fa fa-trash-o"></i> Delete Event
                                         </a>

@@ -16,7 +16,8 @@ class CreateCalendarTables extends Migration {
             {
                 $table->increments('id');
                 $table->timestamps();
-                $table->integer('user_id')->unsigned()->nullable();
+                $table->integer('parent_id')->nullable();
+                $table->integer('user_id')->unsigned();
                 $table->string('title');
                 $table->text('description')->nullable();
                 $table->timestamp('start');
@@ -25,14 +26,30 @@ class CreateCalendarTables extends Migration {
                 $table->string('color')->nullable();
                 $table->string('background_color')->nullable();
                 $table->string('recur_frequency')->nullable();
-                $table->integer('recur_count')->nullable()->default(NULL);
                 $table->string('recur_filter_days')->nullable();
                 $table->string('recur_filter_months')->nullable();
                 $table->string('recur_filter_years')->nullable();
                 
-                $table->foreign('user_id')
-                    ->references('id')->on('users')
-                    ->onDelete('set null');
+                $table->foreign('user_id')->references('id')->on('users')
+                                                ->onUpdate('restrict')
+                                                ->onDelete('cascade');
+            });
+            
+            Schema::create('event_reports', function(Blueprint $table)
+            {
+                $table->increments('id');
+                $table->timestamps();
+                $table->integer('user_id')->unsigned();
+                $table->integer('event_id')->unsigned();
+                $table->text('description');
+                
+                $table->foreign('user_id')->references('id')->on('users')
+                                                ->onUpdate('restrict')
+                                                ->onDelete('cascade');
+                
+                 $table->foreign('event_id')->references('id')->on('events')
+                                                ->onUpdate('restrict')
+                                                ->onDelete('cascade');
             });
             
             Schema::create('asset_events', function(Blueprint $table)
@@ -65,6 +82,7 @@ class CreateCalendarTables extends Migration {
 	public function down()
 	{
             Schema::drop('asset_events');
+            Schema::drop('event_reports');
             Schema::drop('events');
 	}
 
