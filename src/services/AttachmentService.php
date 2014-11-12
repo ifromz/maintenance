@@ -20,7 +20,9 @@ class AttachmentService extends AbstractModelService {
             try {
             
                 $record = $this->model->create($this->input);
-
+                
+                $this->dbCommitTransaction();
+                
                 return $record;
             
             } catch (Exception $e) {

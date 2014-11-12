@@ -91,7 +91,7 @@ class WorkOrderAttachmentService extends AbstractModelService {
                              * Attach the attachment record to the asset images
                              */
                             $asset->attachments()->attach($record);
-
+                            
                             $records[] = $record;
 
                         } else {
