@@ -4,6 +4,21 @@
 	<h1>{{ $title }}</h1>
 @stop
 
+@section('breadcrumb')
+<li>
+    <a href="{{ action(currentControllerAction('index')) }}">
+        {{ str_plural($resource) }}
+    </a>
+</li>
+<li>
+    {{ $category->name }}
+</li>
+<li class="active">
+    <i class="fa fa-plus-circle"></i>
+    Create Sub-{{ $resource }}
+</li>
+@stop
+
 @section('content')
 <script type="text/javascript" src="{{ asset('packages/stevebauman/maintenance/js/categories/create.js') }}"></script>
 	<div class="col-md-12">

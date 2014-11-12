@@ -10,6 +10,9 @@
         {{ str_plural($resource) }}
     </a>
 </li>
+<li>
+    {{ $category->name }}
+</li>
 <li class="active">
     <i class="fa fa-edit"></i>
     Edit

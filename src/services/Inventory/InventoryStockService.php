@@ -177,7 +177,7 @@ class InventoryStockService extends AbstractModelService {
     {
         
         $this->dbStartTransaction();
-        
+
         try {
             /*
              * Find the stock record
@@ -207,7 +207,9 @@ class InventoryStockService extends AbstractModelService {
                    $this->fireEvent('maintenance.inventory.stock.taken', array(
                        'stock' => $record
                    ));
-
+                   
+                   $this->dbCommitTransaction();
+                   
                    return $record;
 
                 }

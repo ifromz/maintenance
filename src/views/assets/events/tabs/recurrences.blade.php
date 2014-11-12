@@ -43,11 +43,23 @@
     
     @else
     
-    <h5>There are no recurrences that have been generated yet for this event.</h5>
+    <h5>There are no recurrences that have been generated for this event.</h5>
     
     @endif
     
     <div class="btn-toolbar text-center">
         {{ $recurrences->appends(Input::except('page'))->links() }}
     </div>
+    
+    
 </div>
+
+{{ Form::open(array(
+                'url' => route('maintenance.api.calendar.events.assets.show', array($asset->id, 'start'=>strtotime('today'), 'end'=>strtotime('+ 365 day'))),
+                'method' => 'GET',
+                'class' => 'ajax-form-get',
+                'data-refresh-target' =>'#resource-paginate',
+        )) 
+    }}
+    {{ Form::submit('Generate Some', array('class'=>'btn btn-primary')) }}
+{{ Form::close() }}

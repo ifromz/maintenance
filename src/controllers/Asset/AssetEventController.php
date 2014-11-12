@@ -46,7 +46,7 @@ class AssetEventController extends AbstractController {
                 
                 $record->assets()->attach($asset);
 
-                $this->message = 'Successfully created schedule';
+                $this->message = 'Successfully created schedule. '.  link_to_route('maintenance.assets.events.show', 'Show', array($asset->id, $record->id));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.assets.events.show', array($asset->id));
 

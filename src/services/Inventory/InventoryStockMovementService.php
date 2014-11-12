@@ -28,7 +28,7 @@ class InventoryStockMovementService extends AbstractModelService {
         $this->dbStartTransaction();
         
         try {
-        
+
             $insert = array(
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'stock_id' => $this->getInput('stock_id'),

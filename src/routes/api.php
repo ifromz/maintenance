@@ -77,7 +77,7 @@ Route::group(array('prefix'=>'notifications'), function(){
 
         Route::resource('events', 'EventApi', array(
             'names'=> array(
-                    'index'		=> 'maintenance.api.calendar.events.index',
+                    'index'	=> 'maintenance.api.calendar.events.index',
                     'create'  	=> 'maintenance.api.calendar.events.create',
                     'store'   	=> 'maintenance.api.calendar.events.store',
                     'show'    	=> 'maintenance.api.calendar.events.show',

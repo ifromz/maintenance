@@ -91,7 +91,7 @@ class WorkOrderPartStockController extends AbstractController {
              * Grab all input data
              */
             $data = $this->inputAll();
-            
+
             /*
              * Add Part to work order (passing in the work order and the stock)
              */
@@ -101,7 +101,7 @@ class WorkOrderPartStockController extends AbstractController {
              * Set the extra input data for the inventory stock change reason
              */
             $data['reason'] = sprintf('Used for <a href="%s">Work Order</a>', route('maintenance.work-orders.show', array($workOrder->id)));
-            
+
             /*
              * Perform a take from the stock
              */
