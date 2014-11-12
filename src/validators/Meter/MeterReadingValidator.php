@@ -7,7 +7,8 @@ use Stevebauman\Maintenance\Validators\AbstractValidator;
 class MeterReadingValidator extends AbstractValidator {
     
     protected $rules = array(
-        'reading' => 'required'
+        'reading' => 'required',
+        'comment' => 'max:250'
     );
     
 }

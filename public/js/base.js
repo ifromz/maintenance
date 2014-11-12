@@ -20,6 +20,22 @@ $(document).ajaxStop(function(){
 $(document).ready(function() {
         
         /*
+         * Tab Pane Hash Fix - Automatically opens a tab in a tab-panel if the 
+         * hash id matches the id of a panel
+         */
+        $(function(){
+            var hash = window.location.hash;
+            hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+            $('.nav-tabs a').click(function (e) {
+              $(this).tab('show');
+              var scrollmem = $('body').scrollTop();
+              window.location.hash = this.hash;
+              $('html,body').scrollTop(scrollmem);
+            });
+        });
+        
+        /*
          * Replace all text area instances with CKeditor
          */
         CKEDITOR.replaceAll();
@@ -234,24 +250,6 @@ $(document).ready(function() {
         
     });
     
-    /*
-     * Shows bootbox form from returned HTML to dynamically update meter readings
-     */
-    $(document).on('click', '.update-reading', function(e){
-        
-        e.preventDefault();
-        
-        var link = $(this);
-        
-        $.get(link.attr('href'), function(data){
-            bootbox.dialog({
-                message: data.html,
-                buttons: {}
-            });
-        });
-        
-    });
-    
     if($.isFunction($().select2)){
         $('.select2-color').select2({
             formatResult: formatColor,
@@ -441,18 +439,13 @@ function updateEvent(calendar, event){
  * @returns {undefined}
  */
 function refreshContent(target, data){
-    
-    if(typeof data !== 'undefined'){
+
+    var url = window.location;
+
+    $.get(url, function(data){
         html = $(data).find(target);
         $(target).replaceWith(html);
-    } else {
-        var url = window.location;
-
-        $.get(url, function(data){
-            html = $(data).find(target);
-            $(target).replaceWith(html);
-        });
-    }
+    });
 }
 
 /**

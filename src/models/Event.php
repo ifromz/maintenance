@@ -40,7 +40,7 @@ class Event extends BaseModel {
      */
     public function isAllDay()
     {
-        if($this->allDay){
+        if(isset($this->allDay) && !empty($this->allDay)){
             return true;
         } return false;
     }

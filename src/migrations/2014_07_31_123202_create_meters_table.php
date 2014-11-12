@@ -34,6 +34,7 @@ class CreateMetersTable extends Migration {
                 $table->integer('user_id')->unsigned();
                 $table->integer('meter_id')->unsigned();
                 $table->decimal('reading', 8, 2)->default(0);
+                $table->string('comment')->nullable();
                 
                 $table->foreign('meter_id')->references('id')->on('meters')
                                         ->onUpdate('restrict')

@@ -29,30 +29,17 @@
     <p></p>
     
     <dt>All Day</dt>
-    <dd>{{ $event->allDay_label }}</dd>
+    <dd>{{ $event->all_day_label }}</dd>
     
     <p></p>
     
     
     @if($event->isRecurring())
-    <dt>Recurring Frequency</dt>
-    <dd>{{ $event->recur_frequency }}</dd>
-    
-    <p></p>
-    
-    <dt>Recurring Limit</dt>
-    <dd>
-        @if($event->recur_count)
-            {{ $event->recur_count }}
-        @else
-            <em>No Limit</em>
-        @endif
-    </dd>
-    
-    <p></p>
     
     <dt>Recurring Frequency</dt>
     <dd>{{ $event->recur_frequency }}</dd>
+
+    <p></p>
     
     @endif
     

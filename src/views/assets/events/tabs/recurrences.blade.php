@@ -16,7 +16,9 @@
             @foreach($recurrences as $recurrence)
             <tr>
                 <td>{{ $recurrence->start_formatted }}</td>
-                <td>{{ $recurrence->end_formatted }}</td>
+                <td>
+                    {{ $recurrence->end_formatted }}
+                </td>
                 <td>{{ $recurrence->all_day_label }}</td>
                 <td>
                     <div class="btn-group">
@@ -29,7 +31,8 @@
                                 <a 
                                     href="{{ route('maintenance.assets.events.destroy-recurrence', array($asset->id, $event->id, $recurrence->id)) }}" 
                                     data-method="delete"
-                                    data-message="Are you sure you want to delete this recurrence?">
+                                    data-message="Are you sure you want to delete this recurrence? 
+                                    This recurrence may be automatically re-generated if the main event has not been changed.">
                                     <i class="fa fa-trash-o"></i> Delete Recurrence
                                 </a>
                             </li>
@@ -61,5 +64,7 @@
                 'data-refresh-target' =>'#resource-paginate',
         )) 
     }}
-    {{ Form::submit('Generate Some', array('class'=>'btn btn-primary')) }}
+    
+    {{ Form::submit('Generate Some For This Year', array('class'=>'btn btn-primary')) }}
+    
 {{ Form::close() }}

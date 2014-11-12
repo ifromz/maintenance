@@ -18,6 +18,7 @@ class MeterReadingService extends AbstractModelService {
     {
         return $this->model
                 ->where('meter_id', $meter_id)
+                ->orderBy('created_at', 'DESC')
                 ->paginate(25);
     }
     
@@ -30,7 +31,8 @@ class MeterReadingService extends AbstractModelService {
             $insert = array(
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'meter_id' => $this->getInput('meter_id'),
-                'reading' => $this->getInput('reading')
+                'reading' => $this->getInput('reading'),
+                'comment' => $this->getInput('comment'),
             );
             
             $record = $this->model->create($insert);
@@ -56,7 +58,8 @@ class MeterReadingService extends AbstractModelService {
             $record = $this->find($id);
 
             $insert = array(
-                'reading' => $this->getInput('reading')
+                'reading' => $this->getInput('reading'),
+                'comment' => $this->getInput('comment'),
             );
 
             if($record->update($insert)){

@@ -24,14 +24,21 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-md-10">
-                            {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Dash Kilometers')) }}
+                            {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'Enter a Name')) }}
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Reading</label>
                         <div class="col-md-10">
-                            {{ Form::text('reading', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 64500')) }}
+                            {{ Form::text('reading', NULL, array('class'=>'form-control', 'placeholder'=>'Enter the Current Reading')) }}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Comment</label>
+                        <div class="col-md-10">
+                            {{ Form::text('comment', NULL, array('class'=>'form-control', 'placeholder'=> 'Enter a Comment')) }}
                         </div>
                     </div>
                     

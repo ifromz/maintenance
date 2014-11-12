@@ -11,7 +11,8 @@ class MeterReading extends BaseModel {
     protected $fillable = array(
         'user_id',
         'meter_id',
-        'reading'
+        'reading',
+        'comment',
     );
     
     public function user()
