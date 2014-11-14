@@ -42,9 +42,8 @@ class AuthController extends AbstractController {
 	}
         
         public function postLogin(){
-            $validator = new $this->loginValidator;
             
-            if($validator->passes()){
+            if($this->loginValidator->passes()){
 
                 $data = $this->inputAll();
                 
@@ -84,7 +83,8 @@ class AuthController extends AbstractController {
                 }
                   
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->loginValidator->getErrors();
+                $this->redirect = route('maintenance.login');
             }
             
             return $this->response();
@@ -102,9 +102,8 @@ class AuthController extends AbstractController {
 	}
         
         public function postRegister(){
-            $validator = new $this->registerValidator;
             
-            if($validator->passes()){
+            if($this->registerValidator->passes()){
                 
                 $data = $this->inputAll();
                 $data['username'] = uniqid(); //Randomize username since username is only for LDAP logins
@@ -114,8 +113,9 @@ class AuthController extends AbstractController {
                 $this->message = 'Successfully created account. You can now login.';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.login');
-            } else{
-                $this->errors = $validator->getErrors();
+            } else {
+                $this->errors = $this->registerValidator->getErrors();
+                $this->redirect = route('maintenance.register');
             }
             
             return $this->response();
