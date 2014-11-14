@@ -41,27 +41,28 @@ class WorkOrderAssignmentController extends AbstractController {
 	 * @return Response
 	 */
 	public function store($workOrder_id){
-            $validator = new $this->assignmentValidator;
             
-            if($validator->passes()){
+            if($this->assignmentValidator->passes()){
                     
                 $workOrder = $this->workOrder->find($workOrder_id);
                 
                 $data = $this->inputAll();
                 $data['work_order_id'] = $workOrder->id;
                 
-                if($records = $this->assignment->setInput($data)->create()){
+                $records = $this->assignment->setInput($data)->create();
+                
+                if($records) {
                     $this->message = 'Successfully assigned worker(s)';
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
-                } else{
+                } else {
                     $this->message = 'There was an error trying to assign workers to this work order. Please try again.';
                     $this->messageType = 'danger';
                     $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
                 }
                     
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->assignmentValidator->getErrors();
                 $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
             }
             

@@ -33,18 +33,16 @@ class MetricController extends AbstractController {
     
     public function store()
     {
-        $validator = new $this->metricValidator;
-        
-        if($validator->passes()) {
+        if($this->metricValidator->passes()) {
             
-            $record = $this->metric->setInput($this->inputAll())->create();
+            $metric = $this->metric->setInput($this->inputAll())->create();
             
-            $this->message = 'Successfully created metric';
+            $this->message = 'Successfully created metric. '.  link_to_route('maintenance.metrics.show', 'Show', array($metric->id));
             $this->messageType = 'success';
             $this->redirect = route('maintenance.metrics.index');
             
         } else {
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->metricValidator->getErrors();
             $this->redirect = route('maintenance.metrics.create');
         }
         
@@ -63,18 +61,16 @@ class MetricController extends AbstractController {
     
     public function update($id)
     {
-        $validator = new $this->metricValidator;
-        
-        if($validator->passes()) {
+        if($this->metricValidator->passes()) {
             
-            $record = $this->metric->setInput($this->inputAll())->update($id);
+            $metric = $this->metric->setInput($this->inputAll())->update($id);
             
-            $this->message = 'Successfully updated metric';
+            $this->message = 'Successfully updated metric. '.  link_to_route('maintenance.metrics.show', 'Show', array($metric->id));
             $this->messageType = 'success';
             $this->redirect = route('maintenance.metrics.index');
             
         } else {
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->metricValidator->getErrors();
             $this->redirect = route('maintenance.metrics.edit');
         }
         

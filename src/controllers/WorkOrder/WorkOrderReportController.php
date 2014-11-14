@@ -38,9 +38,8 @@ class WorkOrderReportController extends AbstractController {
          * @return response
          */
 	public function store($workOrder_id){
-            $validator = new $this->reportValidator;
             
-            if($validator->passes()){
+            if($this->reportValidator->passes()){
 
                 $workOrder = $this->workOrder->find($workOrder_id);
                 
@@ -63,7 +62,7 @@ class WorkOrderReportController extends AbstractController {
 
                 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->reportValidator->getErrors();
                 $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
             }
             

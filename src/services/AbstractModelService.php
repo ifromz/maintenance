@@ -187,7 +187,7 @@ abstract class AbstractModelService {
     public function update($id)
     {
         
-        $this->startTransaction();
+        $this->dbStartTransaction();
         
         try{
             
@@ -207,7 +207,7 @@ abstract class AbstractModelService {
         
         } catch(Exception $e) {
             
-            $this->rollbackTransaction();
+            $this->dbRollbackTransaction();
             
         }
     }

@@ -52,16 +52,17 @@ class InventoryStockController extends AbstractController {
 	 * @return Response
 	 */
 	public function store($inventory_id){
-            $validator = new $this->inventoryStockValidator;
             
-            if($validator->passes()){
+            if($this->inventoryStockValidator->passes()){
                 
                 $item = $this->inventory->find($inventory_id);
                 
                 $data = $this->inputAll();
                 $data['inventory_id'] = $item->id;
                 
-                if($record = $this->inventoryStock->setInput($data)->create()){
+                $record = $this->inventoryStock->setInput($data)->create();
+                
+                if($record){
                     $this->message = 'Successfully added stock to this item';
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.inventory.show', array($item->id));
@@ -75,7 +76,7 @@ class InventoryStockController extends AbstractController {
                 }
                 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->inventoryStockValidator->getErrors();
             }
             
             return $this->response();
@@ -130,13 +131,14 @@ class InventoryStockController extends AbstractController {
 	 * @return Response
 	 */
 	public function update($inventory_id, $stock_id){
-            $validator = new $this->inventoryStockValidator;
             
-            if($validator->passes()){
+            if($this->inventoryStockValidator->passes()){
                 
                     $item = $this->inventory->find($inventory_id);
                     
-                    if($record = $this->inventoryStock->setInput($this->inputAll())->update($stock_id)){
+                    $stock = $this->inventoryStock->setInput($this->inputAll())->update($stock_id);
+                    
+                    if($stock){
                         $this->message = 'Successfully updated stock for item: '.$item->name;
                         $this->messageType = 'success';
                         $this->redirect = route('maintenance.inventory.show', array($item->id));
@@ -147,7 +149,8 @@ class InventoryStockController extends AbstractController {
                     }
                 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->redirect = route('maintenance.inventory.stock.edit', array($inventory_id, $stock_id));
+                $this->errors = $this->inventoryStockValidator->getErrors();
             }
             
             return $this->response();

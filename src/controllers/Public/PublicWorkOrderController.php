@@ -36,9 +36,7 @@ class PublicWorkOrderController extends AbstractController {
     
     public function store()
     {
-        $validator = new $this->workOrderValidator;
-        
-        if($validator->passes()){
+        if($this->workOrderValidator->passes()){
             
             $record = $this->workOrder->setInput($this->inputAll())->create();
             
@@ -47,7 +45,7 @@ class PublicWorkOrderController extends AbstractController {
             $this->redirect = route('maintenance.work-requests.index');
             
         } else{
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->workOrderValidator->getErrors();
             $this->redirect = route('maintenance.work-requests.create');
         }
         
@@ -76,9 +74,7 @@ class PublicWorkOrderController extends AbstractController {
     
     public function update($id)
     {
-        $validator = new $this->workOrderValidator;
-        
-        if($validator->passes()){
+        if($this->workOrderValidator->passes()){
             
             $record = $this->workOrder->setInput($this->inputAll())->update($id);
             
@@ -87,7 +83,7 @@ class PublicWorkOrderController extends AbstractController {
             $this->redirect = route('maintenance.work-requests.index');
             
         } else{
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->workOrderValidator->getErrors();
             $this->redirect = route('maintenance.work-requests.edit');
         }
         

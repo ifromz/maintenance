@@ -33,9 +33,7 @@ class AssetMeterController extends AbstractController {
      */
     public function store($asset_id)
     {
-        $validator = new $this->meterValidator;
-        
-        if($validator->passes()){
+        if($this->meterValidator->passes()){
             
             /*
              * Find the asset
@@ -74,11 +72,12 @@ class AssetMeterController extends AbstractController {
             } else{
                 $this->message = 'There was an error trying to create a meter for this asset. Please try again';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.assets.show', array($asset->id));
+                $this->redirect = route('maintenance.assets.meters.create', array($asset->id));
             }
             
         } else{
-            $this->errors = $validator->getErrors();
+            $this->redirect = route('maintenance.assets.meters.create', array($asset_id));
+            $this->errors = $this->meterValidator->getErrors();
         }
         
         return $this->response();
@@ -120,10 +119,8 @@ class AssetMeterController extends AbstractController {
     }
     
     public function update($asset_id, $meter_id)
-    {
-        $validator = new $this->meterValidator;
-        
-        if($validator->passes()){
+    {   
+        if($this->meterValidator->passes()){
             
             $asset = $this->asset->find($asset_id);
             
@@ -138,7 +135,7 @@ class AssetMeterController extends AbstractController {
             
         } else {
             
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->meterValidator->getErrors();
             $this->redirect = route('maintenance.assets.meters.edit', array($asset_id, $meter_id));
             
         }

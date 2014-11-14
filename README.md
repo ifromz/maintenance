@@ -6,7 +6,8 @@ A Preventative Maintenance Application (CMMS) for Laravel
 ###TO DO
 * Robust notifications
 * Robust reporting
-* Finish asset events with event reporting / other additions
+* Finish asset events with event reporting / other additions - IN PROGRESS
+* Multiple calendar functionality - IN PROGRESS
 * <del>Asset manual attachments</del> - Oct 15th 2014
 * Customizable user dashboard
 * User profile with assigned work orders view
@@ -36,4 +37,5 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Work Order / Inventory / Asset Management (with Maintenance Scheduling using [FullCalendar](https://github.com/arshaw/fullcalendar))
 * Administration Panel for managing users, permissions, groups, and data restoration (archive)
 * [Revisionable](https://github.com/VentureCraft/revisionable) is built in for easy history viewing on changes made
+* User input purification by [Purifier](https://github.com/mewebstudio/Purifier)
 * And more...

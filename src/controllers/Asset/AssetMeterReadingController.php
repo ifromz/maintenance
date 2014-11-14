@@ -24,9 +24,7 @@ class AssetMeterReadingController extends AbstractController {
     
     public function store($asset_id, $meter_id)
     {
-         $validator = new $this->meterReadingValidator;
-        
-        if($validator->passes()){
+        if($this->meterReadingValidator->passes()){
             
             $asset = $this->asset->find($asset_id);
             
@@ -51,7 +49,7 @@ class AssetMeterReadingController extends AbstractController {
                      */
                     $this->message = 'Please enter a reading different from the last reading';
                     $this->messageType = 'warning';
-                    $this->redirect = route('maintenance.assets.show', array($asset->id));
+                    $this->redirect = route('maintenance.assets.meters.show', array($asset->id, $meter->id));
                     
                     return $this->response();
                 }
@@ -69,7 +67,7 @@ class AssetMeterReadingController extends AbstractController {
             }
             
         } else{
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->meterReadingValidator->getErrors();
         }
         
         return $this->response();

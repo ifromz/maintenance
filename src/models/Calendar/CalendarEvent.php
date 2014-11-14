@@ -3,9 +3,9 @@
 use Carbon\Carbon;
 use Stevebauman\Maintenance\Models\BaseModel;
 
-class Event extends BaseModel {
+class CalendarEvent extends BaseModel {
 
-    protected $table = 'events';
+    protected $table = 'calendar_events';
     
     protected $fillable = array(
         'parent_id',
@@ -26,6 +26,11 @@ class Event extends BaseModel {
     public function user()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
+    }
+    
+    public function calendar()
+    {
+        return $this->hasOne('Stevebauman\Maintenance\Models\Calendar', 'id', 'calendar_id');
     }
     
     public function assets()
@@ -57,6 +62,11 @@ class Event extends BaseModel {
         } return false;
     }
     
+    /**
+     * Checks if the current event is a recurrence or not by checking if the parent_id is set
+     * 
+     * @return boolean
+     */
     public function isRecurrence()
     {
         if(isset($this->parent_id) && !empty($this->parent_id)) {
@@ -138,7 +148,7 @@ class Event extends BaseModel {
      * Depending on the recurring frequency, we'll limit the maximum amount of recurrences
      * the user could possibly see in a one month calendar view.
      * 
-     * @return int
+     * @return integer
      */
     public function getRecurLimitAttribute()
     {
@@ -172,12 +182,22 @@ class Event extends BaseModel {
         
     }
     
+    /**
+     * Returns the start attribute formatted to an easier to read date/time
+     * 
+     * @return string
+     */
     public function getStartFormattedAttribute()
     {
         return Carbon::parse($this->attributes['start'])->format('M dS Y - h:ia'); 
     }
     
-    public function getEndFormattedAttribute($end)
+    /**
+     * Returns the end attribute formatted to an easier to read date/time
+     * 
+     * @return string
+     */
+    public function getEndFormattedAttribute()
     {
         return Carbon::parse($this->attributes['end'])->format('M dS Y - h:ia'); 
     }
@@ -241,6 +261,11 @@ class Event extends BaseModel {
         }
     }
     
+    /**
+     * Returns the parent event of a recurrence
+     * 
+     * @return object
+     */
     public function getParent()
     {
         if($this->isRecurrence()){

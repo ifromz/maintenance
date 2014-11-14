@@ -50,9 +50,7 @@ class PriorityController extends AbstractController {
 	 */
 	public function store()
 	{
-            $validator = new $this->priorityValidator;
-            
-            if($validator->passes()){
+            if($this->priorityValidator->passes()){
                 
                 if($this->priority->setInput($this->inputAll())->create()){
                     $this->message = 'Successfully created priority';
@@ -65,7 +63,7 @@ class PriorityController extends AbstractController {
                 }
                 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->priorityValidator->getErrors();
                 $this->redirect = route('maintenance.work-orders.priorities.create');
             }
             
@@ -97,9 +95,7 @@ class PriorityController extends AbstractController {
 	 */
 	public function update($id)
 	{
-            $validator = new $this->priorityValidator;
-            
-            if($validator->passes()){
+            if($this->priorityValidator->passes()){
                 
                 if($this->priority->setInput($this->inputAll())->update($id)){
                     $this->message = 'Successfully updated priority';
@@ -112,7 +108,7 @@ class PriorityController extends AbstractController {
                 }
                 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->priorityValidator->getErrors();
                 $this->redirect = route('maintenance.work-orders.priorities.edit', array($id));
             }
             

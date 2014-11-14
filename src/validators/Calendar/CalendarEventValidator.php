@@ -2,7 +2,7 @@
 
 use Stevebauman\Maintenance\Validators\AbstractValidator;
 
-class AssetEventValidator extends AbstractValidator {
+class CalendarEventValidator extends AbstractValidator {
     
     protected $rules = array(
         'title' => 'required|max:250',

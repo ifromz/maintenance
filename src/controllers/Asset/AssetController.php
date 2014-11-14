@@ -2,14 +2,14 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Services\EventService;
+use Stevebauman\Maintenance\Services\AssetEventService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Validators\AssetValidator;
 use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class AssetController extends AbstractController {
 	
-	public function __construct(AssetService $asset, AssetValidator $assetValidator, EventService $event){
+	public function __construct(AssetService $asset, AssetValidator $assetValidator, AssetEventService $event){
 		$this->asset = $asset;
                 $this->event = $event;
 		$this->assetValidator = $assetValidator;
@@ -48,20 +48,27 @@ class AssetController extends AbstractController {
 	 */
 	public function store(){
 		
-		$validator = new $this->assetValidator;
-		
-		if($validator->passes()){
-			
-                    if($record = $this->asset->setInput($this->inputAll())->create()){
+		if($this->assetValidator->passes()){
+                    
+                    $record = $this->asset->setInput($this->inputAll())->create();
+                    
+                    if($record){
 
                         $this->redirect = route('maintenance.assets.index');
                         $this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
                         $this->messageType = 'success';
 
+                    } else {
+                        
+                        $this->redirect = route('maintenance.asset.create');
+                        $this->message = 'There was an error trying to create an asset. Please try again';
+                        $this->messageType = 'danger';
+                        
                     }
+                    
 		} else{
                     $this->redirect = route('maintenance.assets.create');
-                    $this->errors = $validator->getErrors();
+                    $this->errors = $this->assetValidator->getErrors();
 		}
 		
 		return $this->response();

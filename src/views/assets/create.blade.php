@@ -1,7 +1,7 @@
 @extends('maintenance::layouts.main')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')

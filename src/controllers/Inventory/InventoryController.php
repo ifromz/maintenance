@@ -47,12 +47,12 @@ class InventoryController extends AbstractController {
 	 * @return Response
 	 */
 	public function store(){
-
-            $validator = new $this->inventoryValidator;
             
-            if($validator->passes()){
+            if($this->inventoryValidator->passes()){
                 
-                if($record = $this->inventory->setInput($this->inputAll())->create()){
+                $record = $this->inventory->setInput($this->inputAll())->create();
+                
+                if($record){
                     $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', array($record->id)));
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.inventory.index');
@@ -64,7 +64,7 @@ class InventoryController extends AbstractController {
                 }
                 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->inventoryValidator->getErrors();
             }
             
             return $this->response();
@@ -111,12 +111,11 @@ class InventoryController extends AbstractController {
 	 * @return Response
 	 */
 	public function update($id){
-            $validator = new $this->inventoryValidator;
-            
-            if($validator->passes()){
-
-                if($item = $this->inventory->setInput($this->inputAll())->update($id)){
-
+            if($this->inventoryValidator->passes()){
+                
+                $item = $this->inventory->setInput($this->inputAll())->update($id);
+                
+                if($item){
                     $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', array($item->id)));
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.inventory.show', array($item->id));
@@ -128,7 +127,7 @@ class InventoryController extends AbstractController {
                 }
 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->inventoryValidator->getErrors();
             }
             
             return $this->response();

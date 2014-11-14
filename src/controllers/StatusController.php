@@ -49,9 +49,7 @@ class StatusController extends AbstractController {
 	 */
 	public function store()
 	{
-            $validator = new $this->statusValidator;
-            
-            if($validator->passes()){
+            if($this->statusValidator->passes()){
                 
                 if($this->status->setInput($this->inputAll())->create()){
                     $this->message = 'Successfully created status';
@@ -64,7 +62,7 @@ class StatusController extends AbstractController {
                 }
                 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->statusValidator->getErrors();
                 $this->redirect = route('maintenance.work-orders.statuses.create');
             }
             
@@ -95,10 +93,8 @@ class StatusController extends AbstractController {
 	 * @return Response
 	 */
 	public function update($id)
-	{
-            $validator = new $this->statusValidator;
-            
-            if($validator->passes()){
+	{   
+            if($$this->statusValidator->passes()){
                 
                 if($this->status->setInput($this->inputAll())->update($id)){
                     $this->message = 'Successfully updated status';
@@ -111,7 +107,7 @@ class StatusController extends AbstractController {
                 }
                 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->statusValidator->getErrors();
                 $this->redirect = route('maintenance.work-orders.statuses.edit', array($id));
             }
             

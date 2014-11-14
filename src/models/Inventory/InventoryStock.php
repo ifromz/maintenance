@@ -17,43 +17,60 @@ class InventoryStock extends BaseModel {
             'quantity'      => 'Quantity',
         );
         
-        public function item(){
+        public function item()
+        {
             return $this->belongsTo('Stevebauman\Maintenance\Models\Inventory', 'inventory_id', 'id');
         }
         
-        public function location(){
+        public function location()
+        {
             return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');
         }
         
-        public function movements(){
+        public function movements()
+        {
             return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStockMovement', 'stock_id')->orderBy('created_at', 'DESC');
         }
         
-        public function getLastMovementAttribute(){
+        public function getLastMovementAttribute()
+        {
             if($this->movements->count() > 0){
                 
                 $movement = $this->movements->first();
                 
-                if($movement->after > $movement->before){
+                if($movement->after > $movement->before) {
+                    
                     return sprintf('<b>%s</b> (Stock was added - %s) - <b>Reason:</b> %s', $movement->change, $movement->created_at, $movement->reason);
-                } else{
+                    
+                } else {
+                    
                     return sprintf('<b>%s</b> (Stock was removed - %s) - <b>Reason:</b> %s', $movement->change, $movement->created_at, $movement->reason);
+                    
                 }
                 
-            } return NULL;
+            } 
+            
+            return NULL;
         }
         
-        public function getLastMovementByAttribute(){
+        public function getLastMovementByAttribute()
+        {
             if($this->movements->count() > 0){
                 
                 $movement = $this->movements->first();
                 
                 if($movement->user){
+                    
                    return $movement->user->full_name; 
+                   
                 } else{
+                    
                     return NULL;
+                    
                 }
                 
-            } return NULL;
+            } 
+            
+            return NULL;
         }
 }

@@ -52,9 +52,8 @@ class WorkOrderController extends AbstractController {
 	 */
 	public function store()
         {
-            $validator = new $this->workOrderValidator;
             
-            if($validator->passes()){
+            if($this->workOrderValidator->passes()){
                 $workOrder = $this->workOrder->setInput($this->inputAll())->create();
 
                 $this->redirect = route('maintenance.work-orders.index');
@@ -62,7 +61,7 @@ class WorkOrderController extends AbstractController {
                 $this->messageType = 'success';
             } else{
                 $this->redirect = route('maintenance.work-orders.create');
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->workOrderValidator->getErrors();
             }
             
             return $this->response();
@@ -134,23 +133,20 @@ class WorkOrderController extends AbstractController {
 	 */
 	public function update($id)
         {
-            
-            $validator = new $this->workOrderValidator;
-		
-		if($validator->passes()){
+            if($this->workOrderValidator->passes()){
 
-                    $record = $this->workOrder->setInput($this->inputAll())->update($id);
+                $record = $this->workOrder->setInput($this->inputAll())->update($id);
 
-                    $this->redirect = route('maintenance.work-orders.show', array($id));
-                    $this->message = sprintf('Successfully edited work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($record->id)));
-                    $this->messageType = 'success';
-                        
+                $this->redirect = route('maintenance.work-orders.show', array($id));
+                $this->message = sprintf('Successfully edited work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($record->id)));
+                $this->messageType = 'success';
 
-		} else{
-                    $this->errors = $validator->getErrors();
-		}
-                
-                return $this->response();
+
+            } else{
+                $this->errors = $this->workOrderValidator->getErrors();
+            }
+
+            return $this->response();
 	}
 
 	/**

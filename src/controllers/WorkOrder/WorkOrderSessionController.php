@@ -14,7 +14,9 @@ class WorkOrderSessionController extends AbstractController {
             $data = $this->inputAll();
             $data['work_order_id'] = $workOrder_id;
             
-            if($record = $this->session->setInput($data)->create()){
+            $record = $this->session->setInput($data)->create();
+            
+            if($record){
                 $this->message = "You have been checked into this work order. Don't forget to checkout";
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.work-orders.show', array($record->work_order_id));
@@ -32,7 +34,9 @@ class WorkOrderSessionController extends AbstractController {
             $data = $this->inputAll();
             $data['work_order_id'] = $workOrder_id;
             
-            if($record = $this->session->setInput($data)->update($session_id)){
+            $record = $this->session->setInput($data)->update($session_id);
+            
+            if($record){
                 $this->message = "You have been checked out of this work order. Your hours have been logged.";
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.work-orders.show', array($record->work_order_id));

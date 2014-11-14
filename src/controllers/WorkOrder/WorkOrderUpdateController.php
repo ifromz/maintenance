@@ -21,9 +21,7 @@ class WorkOrderUpdateController extends AbstractController {
 	 */
 	public function store($workOrder_id){
             
-            $validator = new $this->updateValidator;
-            
-            if($validator->passes()){
+            if($this->updateValidator->passes()){
 		
                 $workOrder = $this->workOrder->find($workOrder_id);
 			
@@ -36,7 +34,7 @@ class WorkOrderUpdateController extends AbstractController {
                 $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
                 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->updateValidator->getErrors();
                 $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
             }
             

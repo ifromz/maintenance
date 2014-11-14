@@ -4,12 +4,15 @@ namespace Stevebauman\Maintenance\Services;
 
 use Recurr;
 use Stevebauman\Maintenance\Exceptions\AssetEventNotFoundException;
-use Stevebauman\Maintenance\Models\Event;
+use Stevebauman\Maintenance\Models\CalendarEvent;
 use Stevebauman\Maintenance\Services\SentryService;
 
-class EventService extends AbstractModelService {
+class CalendarEventService extends AbstractModelService {
 	
-	public function __construct(Event $event, SentryService $sentry, AssetEventNotFoundException $notFoundException){
+        /*
+         * AssetEventNotFoundException to be changed
+         */
+	public function __construct(CalendarEvent $event, SentryService $sentry, AssetEventNotFoundException $notFoundException){
 		$this->model = $event;
 		$this->sentry = $sentry;
                 $this->notFoundException = $notFoundException;
@@ -101,6 +104,13 @@ class EventService extends AbstractModelService {
             }
         }
         
+        /**
+         * Updates the dates of the event specifically for FullCalendar modifications
+         * (resisizing and moving events around)
+         * 
+         * @param integer $id
+         * @return boolean OR object
+         */
         public function updateDates($id)
         {
             
@@ -135,21 +145,51 @@ class EventService extends AbstractModelService {
             }
         }
         
+        /**
+         * Run the inputted days array through the implode to convert 
+         * it to comma seperated string
+         * 
+         * @param array $value
+         * @return string
+         */
         public function setRecurFilterDaysAttribute($value)
         {
             return $this->implodeArrayForRule($value);
         }
         
+        /**
+         * Run the inputted months array through the implode to convert 
+         * it to comma seperated string
+         * 
+         * @param array $value
+         * @return string
+         */
         public function setRecurFilterMonthsAttribute($value)
         {
             return $this->implodeArrayForRule($value);
         }
         
+        /**
+         * Run the inputted years array through the implode to convert 
+         * it to comma seperated string
+         * 
+         * @param array $value
+         * @return string
+         */
         public function setRecurFilterYearsAttribute($value)
         {
             return $this->implodeArrayForRule($value);
         }
         
+        /**
+         * Accepts an eloquent collection of events as well as a data array for the input start and end date.
+         * It will then check each event if it is recurring, and if it is, it will 
+         * generate recurrances between the input start and end date.
+         * 
+         * @param collection $events
+         * @param array $data
+         * @return type
+         */
         public function parseEvents($events, $data)
         {
 
@@ -175,18 +215,33 @@ class EventService extends AbstractModelService {
                         $ruleStr .= sprintf('BYYEAR=%s;', $event->recur_filter_years);
                     }
                     
+                    /*
+                     * Get the laravel timezone from the config
+                     */
                     $timezone    = $this->getConfig('app.timezone'); // Set default timezone
                     
+                    /*
+                     * Create a new DateTime object for the events start and end date
+                     */
                     $startDate   = new \DateTime($event->recur_start, new \DateTimeZone($timezone));
                     $endDate     = new \DateTime($event->recur_end, new \DateTimeZone($timezone));
                     
+                    /*
+                     * Create a new DateTime object for the input start and end date
+                     */
                     $inputStart = new \DateTime($data['start'], new \DateTimeZone($timezone)) ;
                     $inputEnd = new \DateTime($data['end'], new \DateTimeZone($timezone)) ;
                     
+                    /*
+                     * Create rule object and apply constraint with input start and end DateTime objects
+                     */
                     $rule        = new Recurr\Rule($ruleStr, $startDate, $endDate, $timezone);
                     $transformer = new Recurr\Transformer\ArrayTransformer();
                     $constraint = new Recurr\Transformer\Constraint\BetweenConstraint($inputStart, $inputEnd);
                     
+                    /*
+                     * Generate recurrances applying the rule and the constraint
+                     */
                     $recurrances = $transformer->transform($rule, NULL, $constraint);
                     
                     foreach($recurrances as $recurrance){
@@ -232,6 +287,13 @@ class EventService extends AbstractModelService {
             return $events;
         }
         
+        /**
+         * Converts an array from the multi-select inputs to a comma seperated list
+         * for use in the Recurr rule object
+         * 
+         * @param array $value
+         * @return null OR string
+         */
         private function implodeArrayForRule($value)
         {
             

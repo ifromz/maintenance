@@ -2,14 +2,12 @@
 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
-use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
-use Stevebauman\Maintenance\Services\EventService;
+use Stevebauman\Maintenance\Services\AssetEventService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
 
 class AssetEventApi extends BaseApiController {
 
-    public function __construct(EventService $event){
+    public function __construct(AssetEventService $event){
             $this->event = $event;
     }
     

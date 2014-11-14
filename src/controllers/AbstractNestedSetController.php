@@ -47,7 +47,10 @@ abstract class AbstractNestedSetController extends AbstractController {
 	 */
 	public function create($id = NULL){
 		if($id){
-                    if($category = $this->service->find($id)){
+                    
+                    $category = $this->service->find($id);
+                    
+                    if($category){
                         return $this->view('maintenance::categories.nodes.create', array(
                             'title' => sprintf('Create a %s under %s', $this->resource, $category->name),
                             'category' => $category,
@@ -69,9 +72,8 @@ abstract class AbstractNestedSetController extends AbstractController {
 	 * @return Response
 	 */
 	public function store($id = NULL){
-		$validator = new $this->serviceValidator;
 		
-		if($validator->passes()){
+		if($this->serviceValidator->passes()){
 			
                     $category = $this->service->setInput($this->inputAll())->create();
 
@@ -84,7 +86,7 @@ abstract class AbstractNestedSetController extends AbstractController {
                     $this->messageType = 'success';
 			
 		} else{
-                    $this->errors = $validator->getErrors();
+                    $this->errors = $this->serviceValidator->getErrors();
 		}
                 
                 return $this->response();
@@ -126,9 +128,8 @@ abstract class AbstractNestedSetController extends AbstractController {
 	 * @return Response
 	 */
 	public function update($id){
-            $validator = new $this->serviceValidator;
 
-            if($validator->passes()){
+            if($this->serviceValidator->passes()){
 
                     $this->service->setInput($this->inputAll())->update($id);
                     
@@ -136,7 +137,7 @@ abstract class AbstractNestedSetController extends AbstractController {
                     $this->messageType = 'success';
 
             } else{
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->serviceValidator->getErrors();
             }
             
             return $this->response();
@@ -159,22 +160,33 @@ abstract class AbstractNestedSetController extends AbstractController {
 	}
 	
 	public function postMoveCategory($id){
-            if($category = $this->service->find($id)){
+            
+            $category = $this->service->find($id);
+            
+            if($category) {
+                
                 $parent = $this->input('parent_id');
 
                 if($parent == '#'){
+                    
                     $category->makeRoot();
 
                     return Response::json(array(
                             'categoryMoved' => true,
                     ));
-                } else{
-                    if($parent_category = $this->service->find($parent)){
-                            $category->makeChildOf($parent_category);
+                    
+                } else {
+                    
+                    $parent_category = $this->service->find($parent);
+                    
+                    if($parent_category){
+                        
+                        $category->makeChildOf($parent_category);
 
-                            return Response::json(array(
-                                    'categoryMoved' => true,
-                            ));
+                        return Response::json(array(
+                                'categoryMoved' => true,
+                        ));
+                        
                     }
                 }
             }
@@ -186,7 +198,9 @@ abstract class AbstractNestedSetController extends AbstractController {
 	 * @return Response
 	 */
 	public function getJson(){
-            if(Request::ajax()){
+            
+            if(Request::ajax()) {
+                
                 $categories = $this->service->orderBy('name', 'ASC')->get();
 
                 if($categories->count() > 0){
@@ -209,10 +223,11 @@ abstract class AbstractNestedSetController extends AbstractController {
                     
                     return Response::json($json_categories);
                     
-                } else{
+                } else {
                     return NULL;
                 }
             }
+            
 	}
 	
 	

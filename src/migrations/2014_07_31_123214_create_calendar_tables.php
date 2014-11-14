@@ -12,10 +12,21 @@ class CreateCalendarTables extends Migration {
 	 */
 	public function up()
 	{
-            Schema::create('events', function(Blueprint $table)
+            Schema::create('calendars', function(Blueprint $table)
             {
                 $table->increments('id');
                 $table->timestamps();
+                $table->integer('calendarable_id');
+                $table->string('calendarable_type');
+                $table->string('name');
+                $table->text('description')->nullable();
+            });
+            
+            Schema::create('calendar_events', function(Blueprint $table)
+            {
+                $table->increments('id');
+                $table->timestamps();
+                $table->integer('calendar_id')->unsigned();
                 $table->integer('parent_id')->nullable();
                 $table->integer('user_id')->unsigned();
                 $table->string('title');
@@ -30,12 +41,17 @@ class CreateCalendarTables extends Migration {
                 $table->string('recur_filter_months')->nullable();
                 $table->string('recur_filter_years')->nullable();
                 
+                $table->foreign('calendar_id')->references('id')->on('calendars')
+                                                ->onUpdate('restrict')
+                                                ->onDelete('cascade');
+                
                 $table->foreign('user_id')->references('id')->on('users')
                                                 ->onUpdate('restrict')
                                                 ->onDelete('cascade');
+                
             });
             
-            Schema::create('event_reports', function(Blueprint $table)
+            Schema::create('calendar_event_reports', function(Blueprint $table)
             {
                 $table->increments('id');
                 $table->timestamps();
@@ -47,7 +63,7 @@ class CreateCalendarTables extends Migration {
                                                 ->onUpdate('restrict')
                                                 ->onDelete('cascade');
                 
-                 $table->foreign('event_id')->references('id')->on('events')
+                 $table->foreign('event_id')->references('id')->on('calendar_events')
                                                 ->onUpdate('restrict')
                                                 ->onDelete('cascade');
             });
@@ -68,7 +84,7 @@ class CreateCalendarTables extends Migration {
 						->onUpdate('restrict')
 						->onDelete('cascade');
                 
-                $table->foreign('event_id')->references('id')->on('events')
+                $table->foreign('event_id')->references('id')->on('calendar_events')
 						->onUpdate('restrict')
 						->onDelete('cascade');
             });
@@ -82,8 +98,9 @@ class CreateCalendarTables extends Migration {
 	public function down()
 	{
             Schema::drop('asset_events');
-            Schema::drop('event_reports');
-            Schema::drop('events');
+            Schema::drop('calendar_event_reports');
+            Schema::drop('calendar_events');
+            Schema::drop('calendars');
 	}
 
 }

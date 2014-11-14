@@ -79,9 +79,8 @@ class WorkOrderPartStockController extends AbstractController {
      * @return type Response
      */
     public function store($workOrder_id, $inventory_id, $stock_id){
-        $validator = new $this->workOrderPartTakeValidator;
         
-        if($validator->passes()){
+        if($this->workOrderPartTakeValidator->passes()){
             
             $workOrder = $this->workOrder->find($workOrder_id);
             $item = $this->inventory->find($inventory_id);
@@ -123,7 +122,7 @@ class WorkOrderPartStockController extends AbstractController {
             
         } else{
             
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->workOrderPartTakeValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.parts.stocks.create', array(
                 $workOrder_id, $inventory_id, $stock_id
             ));
@@ -183,12 +182,10 @@ class WorkOrderPartStockController extends AbstractController {
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
         $stock = $this->inventoryStock->find($stock_id);
-
-        $validator = new $this->workOrderPartPutBackValidator;
         
-        $validator->addRule('quantity', 'less_than:'.$stock->quantity);
+        $this->workOrderPartPutBackValidator->addRule('quantity', 'less_than:'.$stock->quantity);
         
-        if($validator->passes()){
+        if($this->workOrderPartPutBackValidator->passes()){
 
             /*
              * Find the specific work order part record from the stock id
@@ -224,7 +221,7 @@ class WorkOrderPartStockController extends AbstractController {
 
         } else {
 
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->workOrderPartPutBackValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.parts.stocks.index', array($workOrder_id, $inventory_id));
 
         }

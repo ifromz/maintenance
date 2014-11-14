@@ -19,6 +19,11 @@ class WorkOrderListener extends AbstractListener {
         $this->sentry = $sentry;
     }
     
+    /**
+     * Subscribes to work order events for notifications
+     * 
+     * @param object $events
+     */
     public function subscribe($events)
     {
         $events->listen('maintenance.work-orders.updates.technician.created',   'Stevebauman\Maintenance\Listeners\WorkOrderListener@onTechnicianUpdatesAdded');
@@ -27,6 +32,12 @@ class WorkOrderListener extends AbstractListener {
         $events->listen('maintenance.work-orders.reports.created',              'Stevebauman\Maintenance\Listeners\WorkOrderListener@onReportCreated');
     }
     
+    /**
+     * Notify's users if a part is added to a work order if they have it enabled
+     * 
+     * @param object $workOrder
+     * @param object $stock
+     */
     public function onPartsAdded($workOrder, $stock)
     {
         $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
@@ -46,6 +57,12 @@ class WorkOrderListener extends AbstractListener {
         }
     }
     
+    /**
+     * Notify's users if a customer update 
+     * is added to a work order if they have it enabled
+     * 
+     * @param object $workOrder
+     */
     public function onCustomerUpdatesAdded($workOrder)
     {
         $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
@@ -65,6 +82,12 @@ class WorkOrderListener extends AbstractListener {
         }
     }
     
+    /**
+     * Notify's users if a technician update 
+     * is added to a work order if they have it enabled
+     * 
+     * @param object $workOrder
+     */
     public function onTechnicianUpdatesAdded($workOrder)
     {
         $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
@@ -84,6 +107,12 @@ class WorkOrderListener extends AbstractListener {
         }
     }
     
+    /**
+     * Notify's users if a work order report
+     * is created if they have it enabled
+     * 
+     * @param object $report
+     */
     public function onReportCreated($report)
     {   
         $notifiableUsers = $this->getNotifiableUsers($report->workOrder->id);
@@ -106,6 +135,11 @@ class WorkOrderListener extends AbstractListener {
         
     }
     
+    /**
+     * Returns an eloquent collection of notifiable users
+     * 
+     * @param integer $workOrder_id
+     */
     private function getNotifiableUsers($workOrder_id)
     {
         /*
