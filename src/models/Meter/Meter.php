@@ -32,7 +32,9 @@ class Meter extends BaseModel {
     public function getLastReadingAttribute()
     {
         if($this->readings->count() > 0){
-            return $this->readings->first()->reading;
+            
+            return $this->readings->first()->reading;;
+            
         }
     }
     

@@ -177,7 +177,7 @@ class WorkOrder extends BaseModel {
         public function scopeAssets($query, $assets = NULL){
             if($assets){
                 return $query->whereHas('assets', function($query) use($assets){
-                    $query->whereIn('asset_id', $assets);
+                    return $query->whereIn('asset_id', $assets);
                 });
             }
         }
@@ -185,7 +185,7 @@ class WorkOrder extends BaseModel {
         public function scopeUserHours($query, $user){
             if($user){
                 return $query->whereHas('sessions', function($query) use ($user){
-                    $query->where('user_id', $user->id);
+                    return $query->where('user_id', $user->id);
                 });
             }
         }
@@ -194,7 +194,7 @@ class WorkOrder extends BaseModel {
         {
             if($user_id){
                 return $query->whereHas('assignments', function($query) use ($user_id){
-                    $query->where('to_user_id', $user_id);
+                    return $query->where('to_user_id', $user_id);
                 });
             }
         }

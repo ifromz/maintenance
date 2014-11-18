@@ -6,7 +6,8 @@
          * @param type $node
          * @return type
          */
-	function renderNode($node){
+	function renderNode($node)
+        {
 		$html = '';
                 
                 if(is_object($node)){
@@ -35,7 +36,8 @@
          * @param type $method
          * @return type
          */
-	function currentControllerAction($method){
+	function currentControllerAction($method)
+        {
 		$class =  explode('@', \Route::currentRouteAction());
 		
 		return sprintf('%s@%s',$class[0], $method);
@@ -46,7 +48,8 @@
          * 
          * @return string
          */
-        function currentRouteName(){
+        function currentRouteName()
+        {
             return Route::currentRouteName();
         }
         
@@ -59,7 +62,8 @@
          * @param type $icon
          * @return type
          */
-        function link_to_sort($name, $title, $parameters){
+        function link_to_sort($name, $title, $parameters)
+        {
             $field = Input::get('field');
             $sort = Input::get('sort');
             
@@ -77,3 +81,50 @@
             
             return sprintf('<a href="%s">%s <i class="%s"></i></a>', route($name, $parameters), $title, $icon);
         }
+        
+        /**
+         * Helper for config facade. Checks if config helper function already exists
+         * for Laravel 5 support
+         * 
+         * @param string $key
+         * @param string $default
+         * @return mixed (array or string)
+         */
+        if(!function_exists('config'))
+        {
+            function config($key, $default = NULL)
+            {
+                return Config::get($key, $default);
+            }
+        }
+        
+        /**
+         * Helper for view facade. Checks if view helper function already exists
+         * for Laravel 5 support
+         * 
+         * @param string $view
+         * @param array $data
+         * @param array $mergeData
+         * @return mixed
+         */
+        if(!function_exists('view'))
+        {
+            function view($view, $data = array(), $mergeData = array())
+            {
+                return View::make($view, $data, $mergeData);
+            }
+        }
+        
+        /**
+         * Helper for redirect facade. Checks if redirect helper function already exists
+         * for Laravel 5 support 
+         */
+        if(!function_exists('redirect'))
+        {
+            function redirect($to)
+            {
+                return Redirect::to($to);
+            }
+        }
+        
+        

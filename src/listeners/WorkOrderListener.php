@@ -48,7 +48,8 @@ class WorkOrderListener extends AbstractListener {
                 
                 if($notify->parts){
                     $this->createNotification(
-                            $workOrder, 
+                            $notify->user_id,
+                            $workOrder,
                             'Parts have been added work order', 
                             route('maintenance.work-orders.show', array($workOrder->id))
                     );
@@ -73,6 +74,7 @@ class WorkOrderListener extends AbstractListener {
                 
                 if($notify->customer_updates){
                     $this->createNotification(
+                            $notify->user_id,
                             $workOrder, 
                             'Customer updates have been added to work order', 
                             route('maintenance.work-orders.show', array($workOrder->id))
@@ -98,6 +100,7 @@ class WorkOrderListener extends AbstractListener {
                 
                 if($notify->technician_updates){
                     $this->createNotification(
+                            $notify->user_id,
                             $workOrder, 
                             'Technician updates have been added to work order', 
                             route('maintenance.work-orders.show', array($workOrder->id))
@@ -124,6 +127,7 @@ class WorkOrderListener extends AbstractListener {
                 if($notify->completion_report){
                     
                     $this->createNotification(
+                            $notify->user_id,
                             $report->workOrder, 
                             'Parts have been added work order', 
                             route('maintenance.work-orders.show', array($report->workOrder->id))
@@ -142,14 +146,21 @@ class WorkOrderListener extends AbstractListener {
      */
     private function getNotifiableUsers($workOrder_id)
     {
-        /*
-         * Returns notifiable users but removes the current user since
-         * they are the ones who made the change
-         */
-        return $this->workOrderNotification
-                ->where('work_order_id', $workOrder_id)
-                ->where('user_id', '!=', $this->sentry->getCurrentUserId())
-                ->get();
+        
+        $query = $this->workOrderNotification->where('work_order_id', $workOrder_id);
+        
+        if(config('maintenance::rules.notifications.prevent_sending_to_source')){
+            
+            /*
+            * Returns notifiable users but removes the current user since
+            * they are the ones who made the change
+            */
+            $query->where('user_id', '!=', $this->sentry->getCurrentUserId());
+            
+        }
+        
+        return $query->get();
+        
     }
     
 }

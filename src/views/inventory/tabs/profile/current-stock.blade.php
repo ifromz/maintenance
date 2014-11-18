@@ -15,7 +15,13 @@
             <tbody>
                 @foreach($item->stocks as $stock)
                 <tr>
-                    <td>{{ $stock->quantity }} {{ $item->metric->symbol }}</td>
+                    <td>
+                        {{ $stock->quantity }}
+                        
+                        @if($item->metric)
+                            {{ $item->metric->symbol }}
+                        @endif
+                    </td>
                     <td>{{ renderNode($stock->location)}}</td>
                     <td>{{ $stock->lastMovement }}</td>
                     <td>{{ $stock->lastMovementBy }}</td>

@@ -51,7 +51,6 @@ return array(
                 
             ),
         ),
-        
     
 	// Paths for file storage. All paths have to end with trailing slash
 	'paths' => array(

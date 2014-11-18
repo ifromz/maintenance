@@ -1,7 +1,7 @@
 @extends('maintenance::layouts.main')
 
 @section('header')
-<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
@@ -17,17 +17,12 @@
     </a>
 </li>
 <li>
-    <i class="fa fa-dashboard"></i>
-    Meters
-</li>
-<li>
-    <a href="{{ route('maintenance.assets.meters.show', array($asset->id, $meter->id)) }}">
-        {{ $meter->name }}
-    </a>
+    <i class="fa fa-calendar"></i>
+    Calendars
 </li>
 <li class="active">
-    <i class="fa fa-edit"></i>
-    Edit
+    <i class="fa fa-plus-circle"></i>
+    Create
 </li>
 @stop
 
@@ -35,36 +30,33 @@
 
 <div class="panel panel-default">
     
-    @include('maintenance::assets.modals.meters.create')
-    
     <div class="panel-heading">
-        <h3 class="panel-title">Edit Meter</h3>
+        <h3 class="panel-title">Create Calendar</h3>
     </div>
     
     <div class="panel-body">
+        
         {{ Form::open(array(
-                    'url' => route('maintenance.assets.meters.update', array($asset->id, $meter->id)),
-                    'method' => 'PATCH',
-                    'class' => 'form-horizontal ajax-form-post'
-            )) 
+                    'url'=>route('maintenance.assets.calendars.store', array($asset->id)), 
+                    'class'=>'form-horizontal ajax-form-post clear-form')
+                ) 
         }}
         
+        <legend class="margin-top-10">Required Information</legend>
+
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">Name</label>
             <div class="col-md-4">
-                {{ Form::text('name', $meter->name, array('class'=>'form-control')) }}
+                {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Maintenance Schedule')) }}
             </div>
         </div>
         
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="name">Metric</label>
+            <label class="col-sm-2 control-label" for="name">Description</label>
             <div class="col-md-4">
-                @include('maintenance::select.metric', array(
-                    'metric' => $meter->metric->id
-                ))
+                {{ Form::textarea('description', NULL, array('class'=>'form-control')) }}
             </div>
         </div>
-                
         
         <div class="form-group">
             <div class="col-md-4 col-md-offset-2">
@@ -73,6 +65,7 @@
         </div>
         
         {{ Form::close() }}
+        
     </div>
     
 </div>

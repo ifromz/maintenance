@@ -3,14 +3,16 @@
 namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\CalendarValidator;
+use Stevebauman\Maintenance\Services\CalendarService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Controllers\AbstractController;
 
 class AssetCalendarController extends AbstractController {
     
-    public function __construct(AssetService $asset, CalendarValidator $calendarValidator)
+    public function __construct(AssetService $asset, CalendarService $calendar, CalendarValidator $calendarValidator)
     {
         $this->asset = $asset;
+        $this->calendar = $calendar;
         $this->calendarValidator = $calendarValidator;
     }
     
@@ -38,7 +40,26 @@ class AssetCalendarController extends AbstractController {
     {
         if($this->calendarValidator->passes()) {
             
+            $asset = $this->asset->find($asset_id);
             
+            $data = $this->inputAll();
+            $data['object'] = $asset;
+            
+            $calendar = $this->calendar->setInput($data)->create();
+            
+            if($calendar) {
+                
+                $this->message = 'Successfully created calendar';
+                $this->messageType = 'success';
+                $this->redirect = route('maintenance.assets.calendars.index', array($asset->id));
+                
+            } else {
+                
+                $this->message = 'There was an error trying to create a calendar. Please try again';
+                $this->messageType = 'danger';
+                $this->redirect = route('maintenance.assets.calendars.create', array($asset->id));
+                
+            }
             
         } else {
             

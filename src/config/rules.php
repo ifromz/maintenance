@@ -2,6 +2,16 @@
 
 return array(
     
+    'notifications' => array(
+        
+        /*
+         * Set this to true if you would like to send a notification to the user
+         * who caused the notification to be generated
+         */
+        'prevent_sending_to_source' => true,
+        
+    ),
+    
     'meters' => array(
         
         /*

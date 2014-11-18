@@ -16,7 +16,7 @@ class CreateMetersTable extends Migration {
                 $table->increments('id');
                 $table->timestamps();
                 $table->integer('user_id')->unsigned();
-                $table->integer('metric_id')->unsigned()->nullable();
+                $table->integer('metric_id')->unsigned();
                 $table->string('name');
                 
                 $table->foreign('user_id')->references('id')->on('users')
@@ -25,7 +25,7 @@ class CreateMetersTable extends Migration {
 
                 $table->foreign('metric_id')->references('id')->on('metrics')
                                         ->onUpdate('restrict')
-                                        ->onDelete('set null');
+                                        ->onDelete('cascade');
             });
             
             Schema::create('meter_readings', function(Blueprint $table) {

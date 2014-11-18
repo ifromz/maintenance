@@ -49,7 +49,7 @@
                 <tr>
                     <td>{{ $stock->item->id }}</td>
                     <td>{{ $stock->item->name }}</td>
-                    <td>{{ $stock->pivot->quantity }} {{ $stock->item->metric->symbol }}</td>
+                    <td>{{ $stock->pivot->quantity }}</td>
                     <td>{{ renderNode($stock->location) }}</td>
                     <td>{{ $stock->pivot->created_at }}</td>
                     <td>
@@ -112,7 +112,7 @@
                 <tr>
                     <td>{{ $item->name }}</td>
                     <td>{{ renderNode($item->category) }}</td>
-                    <td>{{ $item->current_stock }} {{ $item->metric->symbol }}</td>
+                    <td>{{ $item->current_stock }}</td>
                     <td><a href="{{ route('maintenance.work-orders.parts.stocks.index', array($workOrder->id, $item->id)) }}" class="btn btn-primary">Select</a></td>
                 </tr>
                 @endforeach

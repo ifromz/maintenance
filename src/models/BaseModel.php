@@ -88,11 +88,12 @@ class BaseModel extends Eloquent {
          * Make sure both the field and sort variables are present
          */
         if($field && $sort){
+            
             /*
              * Retrieve all column names for the current model table
              */
             $columns = Schema::getColumnListing($this->table);
-
+            
             /*
              * Make sure the field inputted is available on the current table
              */

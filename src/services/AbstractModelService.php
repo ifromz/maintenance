@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Exception;
+use Illuminate\Support\Facades\Paginator;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\DB;
@@ -166,13 +167,19 @@ abstract class AbstractModelService {
             
             $record = $this->model->create($this->input);
             
-            $this->dbCommitTransaction();
+            if($record) {
+                $this->dbCommitTransaction();
             
-            return $record;
+                return $record;
+            }
+            
+            $this->dbRollbackTransaction();
+            
+            return false;
             
         } catch(Exception $e) {
             
-            $this->rollbackTransaction();
+            $this->dbRollbackTransaction();
             
             return false;
         }
@@ -317,6 +324,20 @@ abstract class AbstractModelService {
         $record = $this->findArchived($id);
         
         return $record->restore();
+    }
+    
+    /**
+     * Sets the GET variable in the URL for the paginator. This allows
+     * for multiple paginators on the same page.
+     * 
+     * @param string $name
+     * @return \Stevebauman\Maintenance\Services\AbstractModelService
+     */
+    public function setPaginatedName($name)
+    {
+        Paginator::setPageName($name);
+        
+        return $this;
     }
     
     /**

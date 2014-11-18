@@ -53,7 +53,7 @@
                     <label class="col-sm-2 control-label">Metric</label>
                     <div class="col-md-4">
                         @include('maintenance::select.metric', array(
-                            'metric' => $item->metric->id
+                            'metric' => (($item->metric) ? $item->metric->id : NULL)
                         ))
                     </div>
                 </div>

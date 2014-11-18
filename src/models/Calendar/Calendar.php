@@ -9,6 +9,8 @@ class Calendar extends BaseModel {
     protected $table = 'calendars';
     
     protected $fillable = array(
+        'calendarable_id',
+        'calendarable_type',
         'name',
         'description',
     );

@@ -41,7 +41,7 @@
                             <th>{{ link_to_sort('maintenance.inventory.index', 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
                             <th>{{ link_to_sort('maintenance.inventory.index', 'Name', array('field'=>'name', 'sort'=>'asc')) }}</th>
                             <th>{{ link_to_sort('maintenance.inventory.index', 'Category', array('field'=>'category_id', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.inventory.index', 'Current Stock', array('field'=>'stocks.quantity', 'sort'=>'asc')) }}</th>
+                            <th>Current Stock</th>
                             <th>{{ link_to_sort('maintenance.inventory.index', 'Description', array('field'=>'description', 'sort'=>'asc')) }}</th>
                             <th>{{ link_to_sort('maintenance.inventory.index', 'Added', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
                             <th>Action</th>
@@ -53,7 +53,7 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ renderNode($item->category) }}</td>
-                            <td>{{ $item->current_stock }} {{ $item->metric->symbol }}</td>
+                            <td>{{ $item->current_stock }}</td>
                             <td>{{ $item->description_short }}</td>
                             <td>{{ $item->created_at }}</td>
                             <td>

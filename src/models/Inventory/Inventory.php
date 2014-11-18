@@ -70,7 +70,7 @@ class Inventory extends BaseModel {
         public function scopeStock($query, $operator = NULL, $stock = NULL)
         {
             if($operator && $stock){
-                //dd($operator);
+                
                 return $query->whereHas('stocks', function($query) use ($operator, $stock){
                     
                     if($output = $this->getOperator($operator)){
@@ -132,7 +132,24 @@ class Inventory extends BaseModel {
         public function getCurrentStockAttribute()
         {
             if($this->stocks->count() > 0){
-                return $this->stocks->sum('quantity');
+                
+                $stock = $this->stocks->sum('quantity');
+                
+                if($this->metric_symbol){
+                    return sprintf('%s %s', $stock, $this->metric_symbol);
+                } 
+                
+                return $stock;
+                
             } return 0;
+        }
+        
+        public function getMetricSymbolAttribute()
+        {
+            if($this->metric){
+                return $this->metric->symbol;
+            }
+            
+            return NULL;
         }
 }

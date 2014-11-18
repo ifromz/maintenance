@@ -144,6 +144,20 @@ Route::resource('assets.manuals', 'AssetManualController', array(
  * End Asset Manual Upload Routes
  */
 
+/*
+ * Asset Calendar Routes
+ */
+Route::resource('assets.calendars', 'AssetCalendarController', array(
+    'names' => array(
+            'index'	=> 'maintenance.assets.calendars.index',
+            'create'  	=> 'maintenance.assets.calendars.create',
+            'store'   	=> 'maintenance.assets.calendars.store',
+            'show'    	=> 'maintenance.assets.calendars.show',
+            'edit'    	=> 'maintenance.assets.calendars.edit',
+            'update'  	=> 'maintenance.assets.calendars.update',
+            'destroy' 	=> 'maintenance.assets.calendars.destroy',
+    )
+));
 
 /*
  * Asset Event Routes

@@ -28,6 +28,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Lots of optimization and tweaks in views, services, controllers etc
 * <del>Implement DB transactions for every service method</del> - Nov 5th 2014
 * Optimize views for tablet/mobile
+* Upgrade to Laravel 5.0
 * Tests
 
 ###Features

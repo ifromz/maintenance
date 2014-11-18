@@ -5,7 +5,7 @@ use Stevebauman\Maintenance\Validators\AbstractValidator;
 class StatusValidator extends AbstractValidator { 
 	
 	protected $rules = array(
-                'name' => 'required|max:250',
+                'name' => 'required|max:250|unique:statuses,name',
                 'color' => 'required|max:20'
 	);
 

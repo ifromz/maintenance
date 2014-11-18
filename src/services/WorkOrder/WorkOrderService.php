@@ -27,8 +27,9 @@ class WorkOrderService extends AbstractModelService {
          */
 	public function getByPageWithFilter($archived = NULL)
         {
-            
-		return $this->model
+		return $this
+                        ->setPaginatedName('work-order-page')
+                        ->model
 			->with(array(
 				'category',
 				'user',

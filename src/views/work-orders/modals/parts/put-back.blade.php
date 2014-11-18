@@ -19,7 +19,13 @@
             <div class="modal-body">
                 <div id="put-back-items-modal-status-{{ $item->id }}-{{ $stock->id }}"></div>
                 
-                <p>Are you sure you want to put back {{ $stock->pivot->quantity }} of {{ $stock->item->name }}?</p>
+                <p>
+                    Are you sure you want to put back {{ $stock->pivot->quantity }} 
+                    
+                    @if($item->metric) {{ $item->metric->symbol }} @endif 
+                    
+                    of {{ $stock->item->name }}?
+                </p>
 
             </div>
             

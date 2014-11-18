@@ -19,7 +19,7 @@ class CreateInventoryTables extends Migration {
                 $table->softDeletes();
                 $table->integer('inventory_category_id')->unsigned()->nullable();
                 $table->integer('user_id')->unsigned()->nullable();
-                $table->integer('metric_id')->unsigned()->nullable();
+                $table->integer('metric_id')->unsigned();
                 $table->string('name');
                 $table->text('description')->nullable();
  
@@ -33,7 +33,7 @@ class CreateInventoryTables extends Migration {
                 
                 $table->foreign('metric_id')->references('id')->on('metrics')
                     ->onUpdate('restrict')
-                    ->onDelete('set null');
+                    ->onDelete('cascade');
             });
             
             Schema::create('inventory_stocks', function(Blueprint $table)

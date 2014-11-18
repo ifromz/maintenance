@@ -37,7 +37,7 @@ class MetricController extends AbstractController {
             
             $metric = $this->metric->setInput($this->inputAll())->create();
             
-            $this->message = 'Successfully created metric. '.  link_to_route('maintenance.metrics.show', 'Show', array($metric->id));
+            $this->message = 'Successfully created metric.';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.metrics.index');
             
@@ -65,7 +65,7 @@ class MetricController extends AbstractController {
             
             $metric = $this->metric->setInput($this->inputAll())->update($id);
             
-            $this->message = 'Successfully updated metric. '.  link_to_route('maintenance.metrics.show', 'Show', array($metric->id));
+            $this->message = 'Successfully updated metric.';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.metrics.index');
             

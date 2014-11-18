@@ -24,7 +24,8 @@
                     <div class="col-md-10">
                         <div class="input-group">
                             {{ Form::text('reading', $meter->last_reading, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
-                            <span class="input-group-addon">{{ $meter->metric->name }}</span>
+                            
+                            <span class="input-group-addon">{{ $meter->metric->symbol }}</span>
                         </div>
                     </div>
                 </div>

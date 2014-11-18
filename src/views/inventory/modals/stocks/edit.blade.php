@@ -26,7 +26,10 @@
     <div class="col-md-10">
         <div class="input-group">
             {{ Form::text('quantity', $stock->quantity, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
-            <span class="input-group-addon">{{ $item->metric->symbol }}</span>
+            
+            @if($item->metric)
+                <span class="input-group-addon">{{ $item->metric->symbol }}</span>
+            @endif
         </div>
     </div>
 </div>

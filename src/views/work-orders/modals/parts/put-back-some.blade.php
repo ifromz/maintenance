@@ -23,7 +23,10 @@
                     <label class="col-sm-2 control-label">Quantity</label>
                     <div class="input-group">
                         {{ Form::text('quantity', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
-                        <span class="input-group-addon">{{ $item->metric->symbol }}</span>
+                        
+                        @if($item->metric)
+                            <span class="input-group-addon">{{ $item->metric->symbol }}</span>
+                        @endif
                     </div>
                 </div>
 

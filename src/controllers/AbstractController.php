@@ -4,11 +4,8 @@ namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Config;
 
 abstract class AbstractController extends Controller {
 	
@@ -46,9 +43,9 @@ abstract class AbstractController extends Controller {
     public function view($view, $args = NULL)
     {
         if($this->isAjax()){
-            return $this->responseJson(View::make($view, $args)->render());
+            return $this->responseJson(view($view, $args)->render());
         } else{
-            return View::make($view, $args);
+            return view($view, $args);
         }
     }
     
@@ -60,7 +57,7 @@ abstract class AbstractController extends Controller {
      */
     public function config($entry)
     {
-        return Config::get($entry);
+        return config($entry);
     }
 
     /**
@@ -95,11 +92,11 @@ abstract class AbstractController extends Controller {
             }
         } else {
             if($this->errors){
-                return Redirect::to($this->redirect)
+                return redirect($this->redirect)
                         ->withInput()
                         ->withErrors($this->errors);
             } else{
-                return Redirect::to($this->redirect)
+                return redirect($this->redirect)
                         ->withInput()
                         ->with('message', $this->message)
                         ->with('messageType', $this->messageType);

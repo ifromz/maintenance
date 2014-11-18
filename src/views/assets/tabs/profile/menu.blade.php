@@ -8,8 +8,8 @@
     'content' => route('maintenance.assets.show', array($asset->id)))
 )
 
-<a href="{{ route('maintenance.assets.events.index', array($asset->id)) }}" class="btn btn-app no-print">
-    <i class="fa fa-calendar"></i> Events
+<a href="{{ route('maintenance.assets.calendars.index', array($asset->id)) }}" class="btn btn-app no-print">
+    <i class="fa fa-calendar"></i> Calendars
 </a>
 
 <a href="{{ route('maintenance.assets.images.create', array($asset->id)) }}" class="btn btn-app no-print">
