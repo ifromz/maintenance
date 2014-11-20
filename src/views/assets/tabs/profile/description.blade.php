@@ -21,12 +21,12 @@
     <p></p>
     <dt>Location:</dt>
     <dd>
-        {{ renderNode($asset->location) }}
+        {{ $asset->location->trail }}
     </dd>
     @endif
 
     <p></p>
 
     <dt>Category:</dt>
-    <dd>{{ renderNode($asset->category) }}</dd>
+    <dd>{{ $asset->category->trail }}</dd>
 </dl>

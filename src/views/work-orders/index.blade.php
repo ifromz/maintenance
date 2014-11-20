@@ -34,6 +34,7 @@
         </div>
         
         <div id="resource-paginate" class="panel-body">
+            
             @if($workOrders->count() > 0)
                 @include('maintenance::work-orders.table', array(
                     'workOrders'=>$workOrders

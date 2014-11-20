@@ -33,7 +33,6 @@ class MaintenanceServiceProvider extends ServiceProvider {
 		include __DIR__ .'/../../validators.php';
 		include __DIR__ .'/../../helpers.php';
                 include __DIR__ .'/../../listeners.php';
-                
 	}
 
 	/**
@@ -49,7 +48,7 @@ class MaintenanceServiceProvider extends ServiceProvider {
 		});
                 
                 $this->app->missing(function($e){
-                    return \View::make('maintenance::404', array(
+                    return view('maintenance::404', array(
                         'title' => '404 - Not Found'
                     ));
                 });

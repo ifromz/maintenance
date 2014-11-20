@@ -17,7 +17,7 @@
     </a>
 </li>
 <li>
-    {{ renderNode($stock->location) }}
+    {{ $stock->location->trail }}
 </li>
 <li>
     Movements

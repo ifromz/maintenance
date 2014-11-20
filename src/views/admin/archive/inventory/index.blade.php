@@ -52,7 +52,7 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ renderNode($item->category) }}</td>
+                            <td>{{ $item->category->trail }}</td>
                             <td>{{ $item->current_stock }}</td>
                             <td>{{ $item->description_short }}</td>
                             <td>{{ $item->created_at }}</td>

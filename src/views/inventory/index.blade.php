@@ -18,7 +18,7 @@
         @include('maintenance::inventory.modals.search', array(
             'url' => route('maintenance.inventory.index', Input::only('field', 'sort'))
         ))
-
+        
 	<div class="panel panel-default">
             <div class="panel-heading">
                 <div class="btn-toolbar">
@@ -38,12 +38,12 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>{{ link_to_sort('maintenance.inventory.index', 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.inventory.index', 'Name', array('field'=>'name', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Name', array('field'=>'name', 'sort'=>'asc')) }}</th>
                             <th>{{ link_to_sort('maintenance.inventory.index', 'Category', array('field'=>'category_id', 'sort'=>'asc')) }}</th>
                             <th>Current Stock</th>
-                            <th>{{ link_to_sort('maintenance.inventory.index', 'Description', array('field'=>'description', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.inventory.index', 'Added', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Description', array('field'=>'description', 'sort'=>'asc')) }}</th>
+                            <th>{{ link_to_sort(currentRouteName(), 'Added', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -52,7 +52,7 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ renderNode($item->category) }}</td>
+                            <td>{{ $item->category->trail }}</td>
                             <td>{{ $item->current_stock }}</td>
                             <td>{{ $item->description_short }}</td>
                             <td>{{ $item->created_at }}</td>

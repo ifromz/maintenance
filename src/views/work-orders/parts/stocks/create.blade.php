@@ -50,12 +50,12 @@
                     <p></p>
 
                     <dt>Location:</dt>
-                    <dd>{{ renderNode($stock->location) }}</dd>
+                    <dd>{{ $stock->location->trail }}</dd>
 
                     <p></p>
 
                     <dt>Current Stock:</dt>
-                    <dd id="quantity-refresh">{{ renderNode($stock->quantity) }}</dd>
+                    <dd id="quantity-refresh">{{ $stock->quantity }}</dd>
 
                     <p></p>
                 </dl>

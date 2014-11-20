@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class BaseModel extends Eloquent {
     
     /*
-     * Tell revisionable to not keep a revision of deleted_at columns
-     */
-    protected $dontKeepRevisionOf = array('deleted_at');
-    
-    /*
      * Revisionable Trait for storing revisions on all models that extend
      * from this class
      * 
      */
     use \Venturecraft\Revisionable\RevisionableTrait;
+    
+    /*
+     * Tell revisionable to not keep a revision of deleted_at columns
+     */
+    protected $dontKeepRevisionOf = array('deleted_at');
     
     /**
      * Formats the created_at timestamp
@@ -26,6 +26,7 @@ class BaseModel extends Eloquent {
      */
     public function getCreatedAtAttribute($created_at){
         return Carbon::parse($created_at)->format('M dS Y - h:ia'); 
+        
     }
     
     /**
@@ -73,6 +74,22 @@ class BaseModel extends Eloquent {
         }
     }
     
+    public function scopeArchived($query, $archived = NULL)
+    {
+        if($archived){
+            return $query->onlyTrashed();
+        }
+    }
+    
+    /**
+     * Allows all models extending from BaseModel to have notifications
+     * 
+     * @return object
+     */
+    public function notifications(){
+        return $this->morphMany('Stevebauman\Maintenance\Models\Notification', 'notifiable');
+    }
+    
     /**
      * Allows all columns on the current database table to be sorted through
      * query scope
@@ -116,21 +133,5 @@ class BaseModel extends Eloquent {
          */
         return $query->orderBy('created_at', 'desc');
         
-    }
-    
-    public function scopeArchived($query, $archived = NULL)
-    {
-        if($archived){
-            return $query->onlyTrashed();
-        }
-    }
-    
-    /**
-     * Allows all models extending from BaseModel to have notifications
-     * 
-     * @return object
-     */
-    public function notifications(){
-        return $this->morphMany('Stevebauman\Maintenance\Models\Notification', 'notifiable');
     }
 }

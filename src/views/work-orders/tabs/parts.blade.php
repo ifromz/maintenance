@@ -24,7 +24,7 @@
             <td>{{ $stock->item->id }}</td>
             <td>{{ $stock->item->name }}</td>
             <td>{{ $stock->pivot->quantity }}</td>
-            <td>{{ renderNode($stock->location) }}</td>
+            <td>{{ $stock->location->trail }}</td>
             <td>{{ $stock->pivot->created_at }}</td>
             <td>
                 

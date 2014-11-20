@@ -66,7 +66,7 @@
                 @if($item->stocks->count() > 0)
                 <ul class="list-unstyled">
                     @foreach($item->stocks as $stock)
-                    <li>{{ renderNode($stock->location) }} : {{ $stock->quantity }}</li>
+                    <li>{{ $stock->location->trail }} : {{ $stock->quantity }}</li>
                     @endforeach
                 </ul>
                 @else

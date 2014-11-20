@@ -22,7 +22,7 @@
                             {{ $item->metric->symbol }}
                         @endif
                     </td>
-                    <td>{{ renderNode($stock->location)}}</td>
+                    <td>{{ $stock->location->trail }}</td>
                     <td>{{ $stock->lastMovement }}</td>
                     <td>{{ $stock->lastMovementBy }}</td>
                     <td class="no-print">

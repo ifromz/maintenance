@@ -34,7 +34,7 @@
                <tbody>
                    @foreach($item->stocks as $stock)
                    <tr>
-                       <td>{{ renderNode($stock->location) }}</td>
+                       <td>{{ $stock->location->trail }}</td>
                        <td>{{ $stock->quantity }}</td>
                        <td>{{ $stock->created_at }}</td>
                        <td>

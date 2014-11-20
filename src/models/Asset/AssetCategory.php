@@ -1,19 +1,9 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-use Baum\Node;
+use Stevebauman\Maintenance\Models\BaseCategoryModel;
 
-class AssetCategory extends Node {
+class AssetCategory extends BaseCategoryModel {
 
     protected $table = 'asset_categories';
-    
-    /**
-     * Compatibility with Revisionable
-     * 
-     * @return string
-     */
-    public function identifiableName()
-    {
-        return renderNode($this);
-    }
     
 }

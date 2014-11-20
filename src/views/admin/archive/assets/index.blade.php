@@ -56,13 +56,13 @@
                         <td>{{ $asset->name }}</td>
                         <td>
                             @if($asset->location)
-                            {{ renderNode($asset->location) }}
+                            {{ $asset->location->trail }}
                             @else
                             <em>None</em>
                             @endif
                         </td>
                         <td class="hidden-xs">
-                            {{ renderNode($asset->category) }}
+                            {{ $asset->category->trail }}
                         </td>
                         <td>{{ $asset->condition }}</td>
                         <td>{{ $asset->deleted_at }}</td>

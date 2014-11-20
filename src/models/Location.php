@@ -1,19 +1,9 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-use Baum\Node;
+use Stevebauman\Maintenance\Models\BaseCategoryModel;
 
-class Location extends Node {
+class Location extends BaseCategoryModel {
 
     protected $table = 'locations';
-    
-    /**
-     * Compatibility with Revisionable
-     * 
-     * @return string
-     */
-    public function identifiableName()
-    {
-        return renderNode($this);
-    }
     
 }

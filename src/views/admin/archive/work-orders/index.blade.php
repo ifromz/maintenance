@@ -60,7 +60,7 @@
                             <td>{{ $workOrder->subject }}</td>
                             <td>{{ str_limit($workOrder->description) }}</td>
                             <td>
-                                {{ renderNode($workOrder->category) }}
+                                {{ $workOrder->category->trail }}
                             </td>
                             <td>{{ $workOrder->user->full_name }}</td>
                             <td>{{ $workOrder->created_at }}</td>

@@ -22,7 +22,7 @@
     <p></p>
     
     <dt>Category:</dt>
-    <dd>{{ renderNode($workOrder->category) }}</dd>
+    <dd>{{ $workOrder->category->trail }}</dd>
 
     <p></p>
     
