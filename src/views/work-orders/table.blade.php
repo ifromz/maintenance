@@ -20,7 +20,11 @@
             <td>{{ $workOrder->priority->label }}</td>
             <td>{{ $workOrder->subject }}</td>
             <td>{{ str_limit($workOrder->description) }}</td>
-            <td>{{ $workOrder->category->trail }}</td>
+            <td>
+                @if($workOrder->category)
+                    {{ $workOrder->category->trail }}
+                @endif
+            </td>
             <td>{{ $workOrder->user->full_name }}</td>
             <td>{{ $workOrder->created_at }}</td>
             <td>
@@ -52,5 +56,3 @@
         @endforeach
     </tbody>
 </table>
-
-<div class="text-center">{{ $workOrders->appends(Input::except('page'))->links() }}</div>

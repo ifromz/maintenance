@@ -21,10 +21,19 @@
 
     <p></p>
     
-    <dt>Category:</dt>
-    <dd>{{ $workOrder->category->trail }}</dd>
+    @if($workOrder->category)
+        <dt>Category:</dt>
+        <dd>{{ $workOrder->category->trail }}</dd>
 
-    <p></p>
+        <p></p>
+    @endif
+    
+    @if($workOrder->location)
+        <dt>Location:</dt>
+        <dd>{{ $workOrder->location->trail }}</dd>
+
+        <p></p>
+    @endif
     
     @if($workOrder->description)
         <dt>Description:</dt>

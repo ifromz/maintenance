@@ -103,6 +103,7 @@ $(document).ready(function() {
             
             $(this).ajaxSubmit({
                 success: function(response, status, xhr, $form){
+                    
                     refreshContent(refreshTarget, response);
                     
                 }
@@ -441,11 +442,22 @@ function updateEvent(calendar, event){
 function refreshContent(target, data){
 
     var url = window.location;
-
-    $.get(url, function(data){
-        html = $(data).find(target);
+    
+    if(data !== 'undefined'){
+        
+        var html = $(data).find(target);
         $(target).replaceWith(html);
-    });
+        
+    } else {
+        
+        $.get(url, function(data){
+            var html = $(data).find(target);
+            $(target).replaceWith(html);
+        });
+        
+    }
+    
+    
 }
 
 /**

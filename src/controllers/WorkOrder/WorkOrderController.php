@@ -21,9 +21,8 @@ class WorkOrderController extends AbstractController {
 	 */
 	public function index()
         {
-            
             $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
-            
+
             return $this->view('maintenance::work-orders.index', array(
                 'title' => 'Work Orders',
                 'workOrders' => $workOrders
@@ -38,7 +37,6 @@ class WorkOrderController extends AbstractController {
 	 */
 	public function create()
         {
-            
             return $this->view('maintenance::work-orders.create', array(
                 'title' => 'Create a Work Order'
             ));
@@ -52,7 +50,6 @@ class WorkOrderController extends AbstractController {
 	 */
 	public function store()
         {
-            
             if($this->workOrderValidator->passes()){
                 $workOrder = $this->workOrder->setInput($this->inputAll())->create();
 
@@ -76,7 +73,6 @@ class WorkOrderController extends AbstractController {
 	 */
 	public function show($id)
         {
-            
             $workOrder = $this->workOrder->find($id);
 
             return $this->view('maintenance::work-orders.show', array(
@@ -94,7 +90,6 @@ class WorkOrderController extends AbstractController {
 	 */
 	public function edit($id)
         {
-
             $workOrder = $this->workOrder->with('category')->find($id);
             
             /*
@@ -157,7 +152,6 @@ class WorkOrderController extends AbstractController {
 	 */
 	public function destroy($id)
         {
-
             if($this->workOrder->destroy($id)){
                 $this->message = 'Successfully deleted work order';
                 $this->messageType = 'success';

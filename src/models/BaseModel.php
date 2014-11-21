@@ -9,7 +9,6 @@ class BaseModel extends Eloquent {
     /*
      * Revisionable Trait for storing revisions on all models that extend
      * from this class
-     * 
      */
     use \Venturecraft\Revisionable\RevisionableTrait;
     
@@ -74,7 +73,14 @@ class BaseModel extends Eloquent {
         }
     }
     
-    public function scopeArchived($query, $archived = NULL)
+    /**
+     * Scopes a query to show only soft deleted records
+     * 
+     * @param object $query
+     * @param boolean $archived
+     * @return object
+     */
+    public function scopeArchived($query, $archived = false)
     {
         if($archived){
             return $query->onlyTrashed();

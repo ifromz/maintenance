@@ -36,13 +36,21 @@
         <div id="resource-paginate" class="panel-body">
             
             @if($workOrders->count() > 0)
+            
                 @include('maintenance::work-orders.table', array(
                     'workOrders'=>$workOrders
                 ))
+                
             @else
+            
                 <h5>There are no work orders to display.</h5>
+                
             @endif
+            
+            <div class="text-center">{{ $workOrders->appends(Input::except('page'))->links() }}</div>
+            
         </div>
+        
     </div>
     
 @stop

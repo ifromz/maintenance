@@ -20,7 +20,8 @@ class WorkOrderService extends AbstractModelService {
         }
         
         /**
-         * Returns an eloquent collection of all work orders
+         * Returns an eloquent collection of all work orders with query scopes
+         * for search functionality
          * 
          * @param boolean $archived
          * @return eloquent collection
