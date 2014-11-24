@@ -27,24 +27,71 @@
             <li class=""><a href="#tab_manuals" data-toggle="tab">Manuals</a></li>
         </ul>
         <div class="tab-content">
+            
             <div class="tab-pane active" id="tab_asset">
-                @include('maintenance::assets.tabs.profile', array('asset'=>$asset))
+                
+                {{ $asset->viewer()->btnQrCode }}
+                
+                {{ $asset->viewer()->btnCalendars }}
+                
+                {{ $asset->viewer()->btnAddImages }}
+                
+                {{ $asset->viewer()->btnViewImages }}
+                
+                {{ $asset->viewer()->btnEdit }}
+                
+                {{ $asset->viewer()->btnDelete }}
+                
+                <hr>
+                
+                <div class="col-md-9">
+                    {{ $asset->viewer()->profile }}
+                </div>
+                
+                <div class="col-md-3">
+                    {{ $asset->viewer()->slideshow }}
+                </div>
+                
+                <div class="clearfix"></div>
+                
             </div>
             
             <div class="tab-pane" id="tab_meters">
-                @include('maintenance::assets.tabs.meters', array('asset'=>$asset))
+                
+                <legend>Meters & Readings</legend>
+                
+                {{ $asset->viewer()->btnAddMeter }}
+                
+                <hr>
+                
+                {{ $asset->viewer()->meters }}
+                
             </div>
             
             <div class="tab-pane" id="tab_history">
-                @include('maintenance::partials.history-table', array('record'=>$asset))
+                {{ $asset->viewer()->history }}
             </div>
 
             <div class="tab-pane" id="tab_calendar">
-                @include('maintenance::assets.tabs.calendar', array('asset'=>$asset))
+                {{ $asset->viewer()->calendar }}
             </div>
 
             <div class="tab-pane" id="tab_work_orders">
-                @include('maintenance::assets.tabs.work-orders', array('asset'=>$asset))
+                {{ $workOrders->columns(array(
+                            'id' => 'ID',
+                            'status' => 'Status',
+                            'priority' => 'Priority',
+                            'subject' => 'Subject',
+                            'description' => 'Description',
+                        ))
+                        ->means('status', 'status.label')
+                        ->means('priority', 'priority.label')
+                        ->actions('btnActions')
+                        ->sortable(array(
+                            'id'
+                        ))
+                        ->showPages()
+                        ->render() }}
             </div>
 
             <div class="tab-pane" id="tab_manuals">

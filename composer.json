@@ -14,17 +14,7 @@
     },
     "autoload": {
         "classmap": [
-            "src/migrations",
-            "src/apis",
-            "src/commands",
-            "src/composers",
-            "src/controllers",
-            "src/models",
-            "src/services",
-            "src/validators",
-            "src/exceptions",
-            "src/seeders",
-            "src/listeners"
+            "src"
         ],
         "psr-0": {
             "Stevebauman\\Maintenance\\": "src/"

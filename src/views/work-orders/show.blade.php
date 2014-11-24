@@ -1,7 +1,7 @@
 @extends('maintenance::layouts.main')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
@@ -12,7 +12,7 @@
     </a>
 </li>
 <li class="active">
-        {{ $workOrder->subject }}
+    {{ $workOrder->subject }}
 </li>
 @stop
 
@@ -31,25 +31,64 @@
         <div class="tab-content">
             
             <div class="tab-pane active" id="tab_profile">
-                @include('maintenance::work-orders.tabs.profile', array('workOrder'=>$workOrder))
+                
+                <legend>Profile</legend>
+
+                {{ $workOrder->viewer()->btnCheckIn }}
+
+                {{ $workOrder->viewer()->btnWorkers }}
+
+                {{ $workOrder->viewer()->btnNotifications }}
+
+                {{ $workOrder->viewer()->btnComplete }}
+
+                {{ $workOrder->viewer()->btnEdit }}
+
+                {{ $workOrder->viewer()->btnDelete }}
+
+                <div class="clearfix"></div>
+
+                <hr>
+
+                {{ $workOrder->viewer()->profile }}
+                
             </div>
             
             <div class="tab-pane" id="tab_details">
-                @include('maintenance::work-orders.tabs.details', array('workOrder'=>$workOrder))
                 
-                @include('maintenance::work-orders.tabs.sessions', array('workOrder'=>$workOrder))
+                {{ $workOrder->viewer()->report }}
+                
+                {{ $workOrder->viewer()->sessions }}
+                
             </div>
             
             <div class="tab-pane" id="tab_history">
-                @include('maintenance::partials.history-table', array('record'=>$workOrder))
+                
+                {{ $workOrder->viewer()->history }}
+                
             </div>
             
             <div class="tab-pane" id="tab_parts">
-                @include('maintenance::work-orders.tabs.parts', array('workOrder'=>$workOrder))
+                
+                <legend>Parts / Supplies</legend>
+                
+                {{ $workOrder->viewer()->btnAddParts }}
+                
+                <hr>
+                
+                {{ $workOrder->viewer()->parts }}
+                
             </div>
             
             <div class="tab-pane" id="tab_attachments">
-                @include('maintenance::work-orders.tabs.attachments', array('workOrder'=>$workOrder))
+                
+                <legend>Attachments</legend>
+                
+                {{ $workOrder->viewer()->btnAddAttachments }}
+                
+                <hr>
+                
+                {{ $workOrder->viewer()->attachments }}
             </div>
             
         </div>
@@ -58,6 +97,6 @@
     
     <div class="clearfix"></div>
     
-    @include('maintenance::work-orders.partials.update-box', array('workOrder'=>$workOrder))
+    {{ $workOrder->viewer()->customerUpdates }}
 
 @stop

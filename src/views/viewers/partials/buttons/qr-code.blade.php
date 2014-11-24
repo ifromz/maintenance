@@ -1,3 +1,7 @@
+<a class="btn btn-app no-print" data-toggle="modal" data-target="#qr-modal">
+    <i class="fa fa-qrcode"></i> QR Code
+</a>
+
 <div class="modal fade" id="{{ $id }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

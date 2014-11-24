@@ -24,15 +24,23 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tab_profile">
-                @include('maintenance::inventory.tabs.profile', array(
-                    'item'=>$item
-                ))
+                
+                {{ $item->viewer()->btnQrCode }}
+                
+                {{ $item->viewer()->btnAddStock }}
+                
+                {{ $item->viewer()->btnEdit }}
+                
+                {{ $item->viewer()->btnDelete }}
+                
+                <hr>
+                
+                {{ $item->viewer()->stock }}
+                
             </div>
             
             <div class="tab-pane" id="tab_history">
-                @include('maintenance::partials.history-table', array(
-                    'record'=>$item
-                ))
+                {{ $item->viewer()->history }}
             </div>
         </div>
     </div>

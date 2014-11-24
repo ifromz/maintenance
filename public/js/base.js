@@ -281,12 +281,16 @@ var showFormErrors = function(errors)
         {
             input.closest('.form-group').addClass('has-error');
             
-            if(input.closest('.input-group').length > 0){
+            if(input.closest('.input-group').length > 0) {
+                
                 var group = input.closest('.input-group');
 
                 group.after('<span class="label label-danger errors error-'+errorType+'">'+errors[errorType][i]+'</span>');
-            } else{
+                
+            } else {
+                
                 input.after('<span class="label label-danger errors error-'+errorType+'">'+errors[errorType][i]+'</span>');
+                
             }
         }
     }
@@ -313,13 +317,13 @@ var showStatusMessage = function(message, type, container)
                             '+message+'\n\
                         </div>\n\
                     </div>\n\
-            </div>';
+                </div>';
     
     var fadeTime = 200;
     
     if(typeof container === "undefined") {
         $(html).prependTo('#alert-container').hide().fadeIn(fadeTime);
-    } else{
+    } else {
         $(html).prependTo(container).hide().fadeIn(fadeTime);
     }
 	
@@ -443,7 +447,7 @@ function refreshContent(target, data){
 
     var url = window.location;
     
-    if(data !== 'undefined'){
+    if(data === 'undefined'){
         
         var html = $(data).find(target);
         $(target).replaceWith(html);

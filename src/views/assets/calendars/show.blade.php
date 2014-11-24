@@ -1,8 +1,20 @@
-<?php
+@extends('maintenance::layouts.main')
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+@section('header')
+<h1>{{ $title }}</h1>
+@stop
 
+@section('breadcrumb')
+
+@stop
+
+@section('content')
+
+<div class="panel panel-default">
+    
+    
+    
+    
+</div>
+
+@stop

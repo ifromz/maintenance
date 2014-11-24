@@ -40,7 +40,7 @@
         {
 		$class =  explode('@', \Route::currentRouteAction());
 		
-		return sprintf('%s@%s',$class[0], $method);
+		return sprintf('%s@%s', $class[0], $method);
 	}
         
         /**
@@ -51,6 +51,16 @@
         function currentRouteName()
         {
             return Route::currentRouteName();
+        }
+        
+        /**
+         * A helper alias for returning the current request url
+         * 
+         * @return string
+         */
+        function currentUrl()
+        {
+            return Request::url();
         }
         
         /**
@@ -80,6 +90,7 @@
             }
             
             return sprintf('<a href="%s">%s <i class="%s"></i></a>', route($name, $parameters), $title, $icon);
+  
         }
         
         /**
