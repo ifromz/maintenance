@@ -65,4 +65,9 @@ class AssetViewer extends BaseViewer {
         ));
     }
     
+    public function btnActions()
+    {
+        return view('maintenance::viewers.asset.buttons.actions', array('asset'=>$this->entity));
+    }
+    
 }

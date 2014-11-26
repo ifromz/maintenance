@@ -41,6 +41,20 @@ $(document).ready(function() {
         CKEDITOR.replaceAll();
         
         /*
+         * Sorts a table listing by ajax
+         */
+        $(document).on('click', '.link-sort', function(e){
+            e.preventDefault();
+            
+            var link = $(this).attr('href');
+            
+            $.get(link, function(data){
+                refreshContent('#resource-paginate', data);
+            });
+            
+        });
+        
+        /*
          * Confirms a form submission
          */
         $(document).on('click', '.confirm', function(e){
@@ -76,18 +90,20 @@ $(document).ready(function() {
             e.preventDefault();
             
             var refreshTarget = $(this).data('refresh-target');
- 
-            if(typeof refreshTarget !== 'undefined'){
+
+            if(typeof refreshTarget === 'undefined'){
+
+                $(this).ajaxSubmit({
+                    success: showFormResponse
+                });
+                
+            } else {
+                
                 $(this).ajaxSubmit({
                     success: function(response, status, xhr, $form){
                         showFormResponse(response, status, xhr, $form);
                         refreshContent(refreshTarget);
                     }
-                });
-            } else {
-                
-                $(this).ajaxSubmit({
-                    success: showFormResponse
                 });
                 
             }
@@ -446,21 +462,21 @@ function updateEvent(calendar, event){
 function refreshContent(target, data){
 
     var url = window.location;
-    
-    if(data === 'undefined'){
-        
-        var html = $(data).find(target);
-        $(target).replaceWith(html);
-        
-    } else {
-        
+
+    if(typeof data === 'undefined'){
+
         $.get(url, function(data){
             var html = $(data).find(target);
             $(target).replaceWith(html);
         });
         
+    } else {
+        
+        var html = $(data).find(target);
+        
+        $(target).replaceWith(html);
+        
     }
-    
     
 }
 

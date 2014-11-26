@@ -1,4 +1,4 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.tabbed')
 
 @section('header')
     <h1>{{ $title }}</h1>
@@ -16,87 +16,93 @@
 </li>
 @stop
 
-@section('content')
+@section('tab.head.content')
 
-    <div class="nav-tabs-custom">
+    <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab_details" data-toggle="tab">Details</a></li>
+    <li><a href="#tab_history" data-toggle="tab">History</a></li>
+    <li><a href="#tab_parts" data-toggle="tab">Parts / Supplies</a></li>
+    <li><a href="#tab_attachments" data-toggle="tab">Attachments</a></li>
+    <li><a href="#tab_customer_updates" data-toggle="tab">Customer Updates</a></li>
+    <li><a href="#tab_technician_updates" data-toggle="tab">Technician Updates</a></li>
+    
+@stop
         
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
-            <li class=""><a href="#tab_details" data-toggle="tab">Details</a></li>
-            <li class=""><a href="#tab_history" data-toggle="tab">History</a></li>
-            <li class=""><a href="#tab_parts" data-toggle="tab">Parts / Supplies</a></li>
-            <li class=""><a href="#tab_attachments" data-toggle="tab">Attachments</a></li>
-        </ul>
-        
-        <div class="tab-content">
+@section('tab.body.content')
             
-            <div class="tab-pane active" id="tab_profile">
-                
-                <legend>Profile</legend>
+    <div class="tab-pane active" id="tab_profile">
 
-                {{ $workOrder->viewer()->btnCheckIn }}
+        <legend>Profile</legend>
 
-                {{ $workOrder->viewer()->btnWorkers }}
+        {{ $workOrder->viewer()->btnCheckIn }}
 
-                {{ $workOrder->viewer()->btnNotifications }}
+        {{ $workOrder->viewer()->btnWorkers }}
 
-                {{ $workOrder->viewer()->btnComplete }}
+        {{ $workOrder->viewer()->btnNotifications }}
 
-                {{ $workOrder->viewer()->btnEdit }}
+        {{ $workOrder->viewer()->btnComplete }}
 
-                {{ $workOrder->viewer()->btnDelete }}
+        {{ $workOrder->viewer()->btnEdit }}
 
-                <div class="clearfix"></div>
+        {{ $workOrder->viewer()->btnDelete }}
 
-                <hr>
+        <div class="clearfix"></div>
 
-                {{ $workOrder->viewer()->profile }}
-                
-            </div>
-            
-            <div class="tab-pane" id="tab_details">
-                
-                {{ $workOrder->viewer()->report }}
-                
-                {{ $workOrder->viewer()->sessions }}
-                
-            </div>
-            
-            <div class="tab-pane" id="tab_history">
-                
-                {{ $workOrder->viewer()->history }}
-                
-            </div>
-            
-            <div class="tab-pane" id="tab_parts">
-                
-                <legend>Parts / Supplies</legend>
-                
-                {{ $workOrder->viewer()->btnAddParts }}
-                
-                <hr>
-                
-                {{ $workOrder->viewer()->parts }}
-                
-            </div>
-            
-            <div class="tab-pane" id="tab_attachments">
-                
-                <legend>Attachments</legend>
-                
-                {{ $workOrder->viewer()->btnAddAttachments }}
-                
-                <hr>
-                
-                {{ $workOrder->viewer()->attachments }}
-            </div>
-            
-        </div>
-        
+        <hr>
+
+        {{ $workOrder->viewer()->profile }}
+
+    </div>
+
+    <div class="tab-pane" id="tab_details">
+
+        {{ $workOrder->viewer()->report }}
+
+        {{ $workOrder->viewer()->sessions }}
+
+    </div>
+
+    <div class="tab-pane" id="tab_history">
+
+        {{ $workOrder->viewer()->history }}
+
+    </div>
+
+    <div class="tab-pane" id="tab_parts">
+
+        <legend>Parts / Supplies</legend>
+
+        {{ $workOrder->viewer()->btnAddParts }}
+
+        <hr>
+
+        {{ $workOrder->viewer()->parts }}
+
+    </div>
+
+    <div class="tab-pane" id="tab_attachments">
+
+        <legend>Attachments</legend>
+
+        {{ $workOrder->viewer()->btnAddAttachments }}
+
+        <hr>
+
+        {{ $workOrder->viewer()->attachments }}
     </div>
     
-    <div class="clearfix"></div>
+    <div class="tab-pane" id="tab_customer_updates">
+        {{ $workOrder->viewer()->customerUpdates }}
+    </div>
+
+    <div class="tab-pane" id="tab_technician_updates">
+        
+    </div>
+
+@stop    
     
-    {{ $workOrder->viewer()->customerUpdates }}
+@section('tab.extra.bottom')
+
+    
 
 @stop

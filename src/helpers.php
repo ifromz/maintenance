@@ -89,7 +89,7 @@
                 $icon = sprintf('fa %s', 'fa-sort');
             }
             
-            return sprintf('<a href="%s">%s <i class="%s"></i></a>', route($name, $parameters), $title, $icon);
+            return sprintf('<a class="link-sort" href="%s">%s <i class="%s"></i></a>', route($name, $parameters), $title, $icon);
   
         }
         

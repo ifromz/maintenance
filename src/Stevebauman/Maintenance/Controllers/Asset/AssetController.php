@@ -89,7 +89,10 @@ class AssetController extends AbstractController {
 	public function show($id) {
                 $asset = $this->asset->find($id);
                 
-                $workOrders = $this->workOrder->setInput(array('assets'=>array($asset->id)))->getByPageWithFilter();
+                $data = $this->inputAll();
+                $data['assets'] = array($asset->id);
+                
+                $workOrders = $this->workOrder->setInput($data)->getByPageWithFilter();
                 
                 return $this->view('maintenance::assets.show',array(
                     'title' =>'Viewing Asset: '.$asset->name,

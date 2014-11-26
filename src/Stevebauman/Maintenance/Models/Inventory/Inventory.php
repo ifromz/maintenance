@@ -121,14 +121,6 @@ class Inventory extends BaseModel {
 	}
         
         /*
-         * Mutator for showing a limited description for display in tables
-         */
-        public function getDescriptionShortAttribute()
-        {
-            return str_limit(strip_tags($this->attributes['description']), 30);
-        }
-        
-        /*
          * Mutator for showing the total current stock of the inventory item
          */
         public function getCurrentStockAttribute()

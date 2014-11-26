@@ -1,4 +1,4 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
 	<h1>{{ $title }}</h1>
@@ -13,90 +13,59 @@
 </li>
 @stop
 
-@section('content')
+@section('panel.extra.top')
 
-        @include('maintenance::inventory.modals.search', array(
+    @include('maintenance::inventory.modals.search', array(
             'url' => route('maintenance.inventory.index', Input::only('field', 'sort'))
         ))
-        
-	<div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="btn-toolbar">
-                    <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Add new Item to inventory">
-                        <i class="fa fa-plus"></i>
-                        New Item
-                    </a>
-                    <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
-                        <i class="fa fa-search"></i>
-                        Search
-                    </a>
-                </div>
-            </div>
-        
-            <div id="resource-paginate" class="panel-body">
-                @if($items->count() > 0)
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>{{ link_to_sort(currentRouteName(), 'ID', array('field'=>'id', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort(currentRouteName(), 'Name', array('field'=>'name', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort('maintenance.inventory.index', 'Category', array('field'=>'category_id', 'sort'=>'asc')) }}</th>
-                            <th>Current Stock</th>
-                            <th>{{ link_to_sort(currentRouteName(), 'Description', array('field'=>'description', 'sort'=>'asc')) }}</th>
-                            <th>{{ link_to_sort(currentRouteName(), 'Added', array('field'=>'created_at', 'sort'=>'asc')) }}</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($items as $item)
-                        <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->category->trail }}</td>
-                            <td>{{ $item->current_stock }}</td>
-                            <td>{{ $item->description_short }}</td>
-                            <td>{{ $item->created_at }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                                        Action
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="{{ route('maintenance.inventory.show', array($item->id)) }}">
-                                                <i class="fa fa-search"></i> View Item
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('maintenance.inventory.edit', array($item->id)) }}">
-                                                <i class="fa fa-edit"></i> Edit Item
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a 
-                                                href="{{ route('maintenance.inventory.destroy', array($item->id)) }}" 
-                                                data-method="delete" 
-                                                data-message="Are you sure you want to delete this item? It will be archived.">
-                                                <i class="fa fa-trash-o"></i> Delete Item
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                        
-                        <div class="btn-toolbar text-center">
-                            {{ $items->appends(Input::except('page'))->links() }}
-                        </div>
-                    </tbody>
-                </table>
-                @else
-                <h5>There are no inventory items to list.</h5>
-                @endif
-            </div>
-        </div>
 
+@stop
+
+@section('panel.head.content')
+    <div class="btn-toolbar">
+        <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Add new Item to inventory">
+            <i class="fa fa-plus"></i>
+            New Item
+        </a>
+        <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
+            <i class="fa fa-search"></i>
+            Search
+        </a>
+    </div>
+@stop
+
+@section('panel.body.content')
+
+    @if($items->count() > 0)
+        
+        {{ $items->columns(array(
+                    'id' => 'ID',
+                    'name' => 'Name',
+                    'category' => 'Category',
+                    'current_stock' => 'Current Stock',
+                    'description' => 'Description',
+                    'added_on' => 'Added On',
+                    'action'  => 'Action'
+                ))
+                ->means('category', 'category.trail')
+                ->means('added_on', 'created_at')
+                ->modify('action', function($item){
+                    return $item->viewer()->btnActions;
+                })
+                ->sortable(array(
+                    'id',
+                    'name',
+                    'category' => 'category_id',
+                    'added_on' => 'created_at',
+                ))
+                ->showPages()
+                ->render()
+        }}
+    
+    @else
+    
+    <h5>There are no inventory items to list.</h5>
+    
+    @endif
 
 @stop

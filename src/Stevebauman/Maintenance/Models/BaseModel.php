@@ -43,6 +43,25 @@ class BaseModel extends Eloquent {
     }
     
     /**
+     * Accessor for retrieving a limited description for display on tables
+     * 
+     * @return mixed
+     */
+    public function getLimitedDescriptionAttribute()
+    {
+        if(array_key_exists('description', $this->attributes)) {
+            
+            /*
+             * Strip tags due to HTML formatting that may be inside the discription
+             * that could ruin the display of the table
+             */
+            return str_limit(strip_tags($this->attributes['description']), 30);
+        }
+        
+        return NULL;
+    }
+    
+    /**
      * 
      * 
      * @param string $string

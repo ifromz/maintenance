@@ -1,6 +1,7 @@
 <div class="btn-group">
+
     <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-        Action
+        Action 
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">

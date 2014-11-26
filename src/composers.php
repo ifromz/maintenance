@@ -15,7 +15,7 @@ View::composer('maintenance::admin.dashboard.index', 'Stevebauman\Maintenance\Co
 /*
  * Notifications Composer
  */
-View::composer('maintenance::layouts.main.notifications', 'Stevebauman\Maintenance\Composers\MainNotificationComposer');
+View::composer('maintenance::layouts.partials.notifications', 'Stevebauman\Maintenance\Composers\MainNotificationComposer');
 
 /*
  * Public Layout Composer

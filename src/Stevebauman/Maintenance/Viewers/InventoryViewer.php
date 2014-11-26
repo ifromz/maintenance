@@ -40,5 +40,10 @@ class InventoryViewer extends BaseViewer {
         return view('maintenance::viewers.inventory.buttons.delete', array('item'=>$this->entity));
     }
     
+    public function btnActions()
+    {
+        return view('maintenance::viewers.inventory.buttons.actions', array('item'=>$this->entity));
+    }
+    
 }
 
