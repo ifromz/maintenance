@@ -32,49 +32,26 @@
     <div class="panel-body">
         @if($workOrder->parts->count() > 0)
         
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Item ID</th>
-                    <th>Item</th>
-                    <th>Quantity Taken</th>
-                    <th>Location Taken From</th>
-                    <th>Date Added</th>
-                    <th>Put Back</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($workOrder->parts as $stock)
-                
-                <tr>
-                    <td>{{ $stock->item->id }}</td>
-                    <td>{{ $stock->item->name }}</td>
-                    <td>{{ $stock->pivot->quantity }}</td>
-                    <td>{{ $stock->location->trail }}</td>
-                    <td>{{ $stock->pivot->created_at }}</td>
-                    <td>
-                        {{ Form::open(array(
-                                    'url'=>route('maintenance.work-orders.parts.stocks.put-back', array($workOrder->id, $stock->item->id, $stock->id)), 
-                                    'class'=>'ajax-form-post',
-                                    'data-refresh-target'=>'#content'
-                                ))
-                        }}
-
-                        <button
-                            type="submit" 
-                            class="btn btn-primary confirm"
-                            data-confirm-message="Are you sure you want to put back {{ $stock->pivot->quantity }} of {{ $stock->item->name }}?"
-                            >
-                            <i class="fa fa-reply"></i> Put Back
-                        </button>
-
-                        {{ Form::close() }}
-                    </td>
-                </tr>
-                
-                @endforeach
-            </tbody>
-        </table>
+            {{ $workOrder->parts
+                    ->columns(array(
+                        'item_id' => 'Item ID',
+                        'item' => 'Item',
+                        'quantity_taken' => 'Quantity Taken',
+                        'taken_from' => 'Taken From',
+                        'date_added' => 'Date Added',
+                        'put_back' => 'Put Back'
+                     ))
+                     ->means('item_id', 'item.id')
+                     ->means('item', 'item.name')
+                     ->means('quantity_taken', 'pivot.quantity')
+                     ->means('taken_from', 'location.trail')
+                     ->means('date_added', 'pivot.created_at')
+                     ->modify('put_back', function($stock) use($workOrder) {
+                         return $stock->viewer()->btnActionsForWorkOrder($workOrder);
+                     })
+                     ->render()
+            }}
+            
         @else
         
         <h5>There are currently no parts/supplies attached to this work order.</h5>
@@ -98,28 +75,20 @@
         
         @if($items->count() > 0)
             
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Current Stock</th>
-                    <th>Select</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($items as $item)
-                <tr>
-                    <td>{{ $item->name }}</td>
-                    <td>{{ $item->category->trail }}</td>
-                    <td>{{ $item->current_stock }}</td>
-                    <td><a href="{{ route('maintenance.work-orders.parts.stocks.index', array($workOrder->id, $item->id)) }}" class="btn btn-primary">Select</a></td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        
-        <center>{{ $items->appends(Input::except('page'))->links() }}</center>
+            {{ $items->columns(array(
+                        'name' => 'Name',
+                        'category' => 'Category',
+                        'current_stock' => 'Current Stock',
+                        'select' => 'Select',
+                    ))
+                    ->means('category', 'category.trail')
+                    ->modify('select', function($item) use ($workOrder) {
+                        return $item->viewer()->btnSelectForWorkOrder($workOrder);
+                    })
+                    ->showPages()
+                    ->render()
+            }}
+            
         @else
         <h5>There are no inventory items to display.</h5>
         @endif

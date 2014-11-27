@@ -16,7 +16,7 @@ class UserController extends AbstractController {
     {
         $users = $this->user->setInput($this->inputAll())->getByPageWithFilter();
         
-        return $this->view('maintenance::admin.users.index', array(
+        return view('maintenance::admin.users.index', array(
             'title' => 'All Users',
             'users' => $users
         ));
@@ -38,7 +38,7 @@ class UserController extends AbstractController {
     {
         $user = $this->user->find($id);
         
-        return $this->view('maintenance::admin.users.show', array(
+        return view('maintenance::admin.users.show', array(
             'title'=>'Viewing User',
             'user'=>$user
         ));
@@ -49,7 +49,7 @@ class UserController extends AbstractController {
         
         $user = $this->user->find($id);
         
-        return $this->view('maintenance::admin.users.edit', array(
+        return view('maintenance::admin.users.edit', array(
             'title'=>'Editing User',
             'user'=>$user
         ));

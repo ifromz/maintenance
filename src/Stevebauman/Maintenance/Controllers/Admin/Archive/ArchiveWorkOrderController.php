@@ -16,7 +16,7 @@ class ArchiveWorkOrderController extends AbstractController {
     {
         $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter($archived = true);
         
-        return $this->view('maintenance::admin.archive.work-orders.index', array(
+        return view('maintenance::admin.archive.work-orders.index', array(
             'title' => 'Archived Work Orders',
             'workOrders'=> $workOrders
         ));
@@ -26,7 +26,7 @@ class ArchiveWorkOrderController extends AbstractController {
     {
         $workOrder = $this->workOrder->findArchived($id);
         
-        return $this->view('maintenance::admin.archive.work-orders.show', array(
+        return view('maintenance::admin.archive.work-orders.show', array(
             'title' => 'Viewing Archived Work Order: '.$workOrder->subject,
             'workOrder' => $workOrder
         ));

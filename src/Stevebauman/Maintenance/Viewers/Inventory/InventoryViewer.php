@@ -45,5 +45,13 @@ class InventoryViewer extends BaseViewer {
         return view('maintenance::viewers.inventory.buttons.actions', array('item'=>$this->entity));
     }
     
+    public function btnSelectForWorkOrder($workOrder)
+    {
+        return view('maintenance::viewers.inventory.buttons.select-work-order', array(
+            'workOrder' => $workOrder,
+            'item' => $this->entity
+        ));
+    }
+    
 }
 

@@ -16,7 +16,7 @@ class ArchiveAssetController extends AbstractController {
     {
         $assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter(true);
         
-        return $this->view('maintenance::admin.archive.assets.index', array(
+        return view('maintenance::admin.archive.assets.index', array(
             'title' => 'Archived Assets',
             'assets'=> $assets
         ));
@@ -26,7 +26,7 @@ class ArchiveAssetController extends AbstractController {
     {
         $asset = $this->asset->findArchived($id);
         
-        return $this->view('maintenance::admin.archive.assets.show', array(
+        return view('maintenance::admin.archive.assets.show', array(
             'title' => 'Viewing Archived Asset: '.$asset->name,
             'asset' => $asset
         ));

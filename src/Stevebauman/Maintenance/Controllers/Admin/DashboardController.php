@@ -8,7 +8,7 @@ class DashboardController extends AbstractController {
     
     public function getIndex()
     {
-        return $this->view('maintenance::admin.dashboard.index', array(
+        return view('maintenance::admin.dashboard.index', array(
             'title' => 'Administrator Dashboard'
         ));
     }

@@ -7,6 +7,8 @@ class CalendarEvent extends BaseModel {
 
     protected $table = 'calendar_events';
     
+    protected $viewer = 'Stevebauman\Maintenance\Viewers\CalendarEventViewer';
+    
     protected $fillable = array(
         'parent_id',
         'user_id', 

@@ -72,11 +72,11 @@ class AssetMeterController extends AbstractController {
             } else{
                 $this->message = 'There was an error trying to create a meter for this asset. Please try again';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.assets.meters.create', array($asset->id));
+                $this->redirect = route('maintenance.assets.show', array($asset->id));
             }
             
         } else{
-            $this->redirect = route('maintenance.assets.meters.create', array($asset_id));
+            $this->redirect = route('maintenance.assets.meters.show', array($asset_id));
             $this->errors = $this->meterValidator->getErrors();
         }
         

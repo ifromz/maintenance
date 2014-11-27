@@ -32,8 +32,8 @@
                     'allDay_label' => 'All Day',
                     'action' => 'Action',
                 ))
-                ->modify('action', function($event){
-                    
+                ->modify('action', function($event) use($asset, $calendar){
+                    return $event->viewer()->btnActionsForAssetCalendar($asset, $calendar);
                 })
                 ->render() 
     }}

@@ -1,4 +1,4 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
 	<h1>{{ $title }}</h1>
@@ -27,55 +27,34 @@
 </li>
 @stop
 
-@section('content')
+@section('panel.head.content')
+    <h3 class="panel-title">Choose a Stock Location for Item: {{ $item->name }}</h3>
+@stop
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Choose a Stock Location for Item: {{ $item->name }}</h3>
+@section('panel.body.content')
+
+    {{ $item->viewer()->btnAddStock() }}
+    
+    <hr>
+
+    @if($item->stocks->count() > 0)
+    
+    <div id="inventory-stocks-table">
+        {{ $item->stocks->columns(array(
+                        'location' => 'Location',
+                        'quantity_metric' => 'Quantity',
+                        'add' => 'Add to Work Order',
+                    ))
+                    ->means('location', 'location.trail')
+                    ->modify('add', function($stock) use ($workOrder) {
+                        return $stock->viewer()->btnAddForWorkOrder($workOrder);
+                    })
+                    ->render()
+        }}
     </div>
     
-    <div class="panel-body">
-        <a href=""
-            data-target="#create-stock-modal"
-            data-toggle="modal"
-            class="btn btn-app">
-                <i class="fa fa-plus-circle"></i> Add Stock
-        </a>
-        
-        <hr>
-        
-        <div id="inventory-stocks-table">
-            @if($item->stocks->count() > 0)
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Location</th>
-                        <th>Quantity</th>
-                        <th>Add to Work Order</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($item->stocks as $stock)
-                    <tr>
-                        <td>{{ $stock->location->trail }}</td>
-                        <td>{{ $stock->quantity }} {{ $item->metric->name }}</td>
-                        <td>
-                            <a class="btn btn-primary" href="{{ route('maintenance.work-orders.parts.stocks.create', array($workOrder->id, $item->id, $stock->id)) }}">Add to Work Order</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @else
-            <h5>There is no stock for this item.</h5>
-            @endif
-        </div>
-    </div>
-    
-</div>
-
-@include('maintenance::inventory.modals.stocks.create', array(
-    ''
-))
+    @else
+    <h5>There is no stock for this item.</h5>
+    @endif
 
 @stop

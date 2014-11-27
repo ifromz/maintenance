@@ -6,6 +6,8 @@ class InventoryStock extends BaseModel {
 	
 	protected $table = 'inventory_stocks';
 	
+        protected $viewer = 'Stevebauman\Maintenance\Viewers\InventoryStockViewer';
+        
         protected $fillable = array(
             'inventory_id', 
             'location_id', 
@@ -32,6 +34,11 @@ class InventoryStock extends BaseModel {
             return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStockMovement', 'stock_id')->orderBy('created_at', 'DESC');
         }
         
+        /**
+         * Accessor for viewing the last movement of the stock
+         * 
+         * @return string
+         */
         public function getLastMovementAttribute()
         {
             if($this->movements->count() > 0){
@@ -53,6 +60,12 @@ class InventoryStock extends BaseModel {
             return NULL;
         }
         
+        /**
+         * Accessor for viewing the user responsible for the last
+         * movement
+         * 
+         * @return string
+         */
         public function getLastMovementByAttribute()
         {
             if($this->movements->count() > 0){
@@ -72,5 +85,15 @@ class InventoryStock extends BaseModel {
             } 
             
             return NULL;
+        }
+        
+        /**
+         * Accessor for viewing the quantity combined with the item metric
+         * 
+         * @return string
+         */
+        public function getQuantityMetricAttribute()
+        {
+            return $this->attributes['quantity'] . ' ' . $this->item->metric->name;
         }
 }

@@ -8,7 +8,7 @@ class ArchiveController extends AbstractController {
     
     public function getIndex()
     {
-        return $this->view('maintenance::admin.archive.index', array(
+        return view('maintenance::admin.archive.index', array(
             'title' => 'Archive'
         ));
     }

@@ -16,7 +16,7 @@ class ArchiveInventoryController extends AbstractController {
     {
         $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter($archived = true);
         
-        return $this->view('maintenance::admin.archive.inventory.index', array(
+        return view('maintenance::admin.archive.inventory.index', array(
             'title' => 'Archived Inventory Items',
             'items'=> $items
         ));
@@ -26,7 +26,7 @@ class ArchiveInventoryController extends AbstractController {
     {
         $item = $this->inventory->findArchived($id);
         
-        return $this->view('maintenance::admin.archive.inventory.show', array(
+        return view('maintenance::admin.archive.inventory.show', array(
             'title' => 'Viewing Archived Inventory Item: '.$item->name,
             'item' => $item
         ));

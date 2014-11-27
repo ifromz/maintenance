@@ -18,7 +18,7 @@ class GroupController extends AbstractController {
     {
         $groups = $this->group->get();
 
-        return $this->view('maintenance::admin.groups.index', array(
+        return view('maintenance::admin.groups.index', array(
             'title' => 'All Groups',
             'groups' => $groups
         ));
@@ -26,7 +26,7 @@ class GroupController extends AbstractController {
     
     public function create()
     {
-        return $this->view('maintenance::admin.groups.create', array(
+        return view('maintenance::admin.groups.create', array(
             'title' => 'Create a User'
         ));
     }
@@ -63,7 +63,7 @@ class GroupController extends AbstractController {
     {
         $group = $this->group->find($id);
         
-        return $this->view('maintenance::admin.groups.show', array(
+        return view('maintenance::admin.groups.show', array(
             'title'=>'Viewing Group',
             'group'=>$group
         ));
@@ -73,7 +73,7 @@ class GroupController extends AbstractController {
     {
         $group = $this->group->find($id);
         
-        return $this->view('maintenance::admin.groups.edit', array(
+        return view('maintenance::admin.groups.edit', array(
             'title'=>'Editing Group',
             'group'=>$group
         ));
