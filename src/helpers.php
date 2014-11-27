@@ -138,4 +138,26 @@
             }
         }
         
+        if (!function_exists('routeBack'))
+        {
+                /**
+                 * Generate a URL to a named route or returns a url to the users
+                 * previous URL if it exists.
+                 *
+                 * @param  string  $name
+                 * @param  array   $parameters
+                 * @param  bool  $absolute
+                 * @param  \Illuminate\Routing\Route $route
+                 * @return string
+                 */
+                function routeBack($name, $parameters = array(), $absolute = true, $route = null)
+                {
+                    if(Request::header('referer')) {
+                        return URL::previous();
+                    } else {
+                        return route($name, $parameters, $absolute, $route);
+                    }
+                }
+        }
+        
         

@@ -8,7 +8,7 @@ class WorkOrderCategoryNotFoundException extends AbstractException {
     public function __construct(){
         $this->message = trans('maintenance::errors.not-found', array('resource'=>'Work Order Category'));
         $this->messageType = 'danger';
-        $this->redirect = route('maintenance.work-orders.categories.index');
+        $this->redirect = routeBack('maintenance.work-orders.categories.index');
     }
     
 }

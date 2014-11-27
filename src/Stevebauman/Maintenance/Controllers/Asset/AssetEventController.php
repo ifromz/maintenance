@@ -34,9 +34,8 @@ class AssetEventController extends AbstractController {
     }
     
     public function store($asset_id){
-        $validator = new $this->eventValidator;
         
-        if($validator->passes()){
+        if($this->eventValidator->passes()){
             
             $asset = $this->asset->find($asset_id);
             
@@ -58,7 +57,7 @@ class AssetEventController extends AbstractController {
             }
             
         } else {
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->eventValidator->getErrors();
             $this->redirect = route('maintenance.assets.events.create', array($asset_id));
         }
         

@@ -18,17 +18,19 @@
     
 @section('tab.head.content')
         <li class="active"><a href="#tab_asset" data-toggle="tab">Profile</a></li>
-        <li class=""><a href="#tab_history" data-toggle="tab">History</a></li>
-        <li class=""><a href="#tab_meters" data-toggle="tab">Meters & Readings</a></li>
-        <li class=""><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
-        <li class=""><a href="#tab_work_orders" data-toggle="tab">Work Orders</a></li>
-        <li class=""><a href="#tab_manuals" data-toggle="tab">Manuals</a></li>
+        <li><a href="#tab_history" data-toggle="tab">History</a></li>
+        <li><a href="#tab_meters" data-toggle="tab">Meters & Readings</a></li>
+        <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
+        <li><a href="#tab_work_orders" data-toggle="tab">Work Orders</a></li>
+        <li><a href="#tab_manuals" data-toggle="tab">Manuals</a></li>
 @stop
 
 @section('tab.body.content')
 
         <div class="tab-pane active" id="tab_asset">
-
+            
+            <legend>Profile</legend>
+            
             {{ $asset->viewer()->btnQrCode }}
 
             {{ $asset->viewer()->btnCalendars }}
@@ -72,34 +74,28 @@
         </div>
 
         <div class="tab-pane" id="tab_calendar">
+            <legend>Calendar</legend>
+            
             {{ $asset->viewer()->calendar }}
         </div>
 
         <div class="tab-pane" id="tab_work_orders">
             
-            <div id="resource-paginate">
-                {{ $workOrders->columns(array(
-                            'id' => 'ID',
-                            'status' => 'Status',
-                            'priority' => 'Priority',
-                            'subject' => 'Subject',
-                            'description' => 'Description',
-                            'action' => 'Action'
-                        ))
-                        ->means('status', 'status.label')
-                        ->means('priority', 'priority.label')
-                        ->means('description', 'limited_description')
-                        ->modify('action', function($workOrder){
-                            return $workOrder->viewer()->btnActions;
-                        })
-                        ->showPages()
-                        ->render()
-                }}
-            </div>
+            <legend>Work Orders</legend>
+            
+            {{ $asset->viewer()->workOrders($workOrders) }}
+
         </div>
 
         <div class="tab-pane" id="tab_manuals">
-            @include('maintenance::assets.tabs.manuals', array('asset'=>$asset))
+            <legend>Manuals</legend>
+            
+            {{ $asset->viewer()->btnAddManuals }}
+            
+            <hr>
+            
+            {{ $asset->viewer()->manuals }}
+            
         </div>
 
 @stop

@@ -63,6 +63,7 @@
                 'condition',
                 'added_on' => 'created_at',
             ))
+            ->showPages()
             ->render()
         }}
         
@@ -70,8 +71,5 @@
         <h5>There are no assets to display.</h5>
     @endif
     
-    <div class="btn-toolbar text-center">
-        {{ $assets->appends(Input::except('page'))->links() }}
-    </div>
     
 @stop

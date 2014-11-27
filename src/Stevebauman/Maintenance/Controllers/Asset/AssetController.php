@@ -122,9 +122,8 @@ class AssetController extends AbstractController {
 	 * @return $this->response (object or json response)
 	 */
 	public function update($id){
-            $validator = new $this->assetValidator;
 
-            if($validator->passes()){
+            if($this->assetValidator->passes()){
 
                 $record = $this->asset->setInput($this->inputAll())->update($id);
 
@@ -134,7 +133,7 @@ class AssetController extends AbstractController {
 
             } else{
                 $this->redirect = route('maintenance.assets.edit', array($id));
-                $this->errors = $validator->getErrors();
+                $this->errors = $this->assetValidator->getErrors();
             }
 
             return $this->response();

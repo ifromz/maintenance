@@ -33,9 +33,7 @@ class GroupController extends AbstractController {
     
     public function store()
     {
-        $validator = new $this->groupValidator;
-        
-        if($validator->passes()){
+        if($this->groupValidator->passes()){
             
             $data = $this->inputAll();
             $data['permissions'] = $this->routesToPermissions($this->input('routes'));
@@ -55,7 +53,7 @@ class GroupController extends AbstractController {
             return $this->response();
             
         } else{
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->groupValidator->getErrors();
         }
         
         return $this->response();
@@ -83,15 +81,15 @@ class GroupController extends AbstractController {
     
     public function update($id)
     {
-        $validator = new $this->groupValidator;
-        
-        if($validator->passes()){
+        if($this->groupValidator->passes()){
             
 
             $data = $this->inputAll();
             $data['permissions'] = $this->routesToPermissions($this->input('routes'));
-
-            if($record = $this->group->setInput($data)->update($id)){
+            
+            $record = $this->group->setInput($data)->update($id);
+            
+            if($record){
                 $this->message = sprintf('Successfully updated group. %s', link_to_route('maintenance.admin.groups.show', 'Show', array($record->id)));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.admin.groups.index');
@@ -102,7 +100,7 @@ class GroupController extends AbstractController {
             }
             
         } else{
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->groupValidator->getErrors();
         }
         
         return $this->response();

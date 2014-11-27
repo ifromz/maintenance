@@ -15,9 +15,7 @@ class AccessController extends AbstractController {
     
     public function postCheck($id){
         
-        $validator = new $this->accessValidator;
-        
-        if($validator->passes()){
+        if($this->accessValidator->passes()){
         
             $user = $this->user->find($id);
             
@@ -34,7 +32,7 @@ class AccessController extends AbstractController {
             }
             
         } else{
-            $this->errors = $validator->getErrors();
+            $this->errors = $this->accessValidator->getErrors();
         }
         
         return $this->response();

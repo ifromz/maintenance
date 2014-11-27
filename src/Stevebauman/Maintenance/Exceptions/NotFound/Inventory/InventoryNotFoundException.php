@@ -8,7 +8,7 @@ class InventoryNotFoundException extends AbstractException {
     public function __construct(){
         $this->message = trans('maintenance::errors.not-found', array('resource'=>'Inventory Item'));
         $this->messageType = 'danger';
-        $this->redirect = route('maintenance.inventory.index');
+        $this->redirect = routeBack('maintenance.inventory.index');
     }
     
 }

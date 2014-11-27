@@ -26,6 +26,16 @@ class AssetViewer extends BaseViewer {
         return view('maintenance::viewers.asset.calendar', array('asset'=>$this->entity));
     }
     
+    public function manuals()
+    {
+        return view('maintenance::viewers.asset.manuals', array('asset'=>$this->entity));
+    }
+    
+    public function workOrders($workOrders)
+    {
+        return view('maintenance::viewers.asset.work-orders', array('workOrders'=>$workOrders));
+    }
+    
     public function btnCalendars()
     {
         return view('maintenance::viewers.asset.buttons.calendars', array('asset'=>$this->entity));
@@ -39,6 +49,11 @@ class AssetViewer extends BaseViewer {
     public function btnViewImages()
     {
         return view('maintenance::viewers.asset.buttons.view-images', array('asset'=>$this->entity));
+    }
+    
+    public function btnAddManuals()
+    {
+        return view('maintenance::viewers.asset.buttons.add-manuals', array('asset'=>$this->entity));
     }
     
     public function btnAddMeter()

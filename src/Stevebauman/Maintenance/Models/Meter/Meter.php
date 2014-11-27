@@ -8,6 +8,8 @@ class Meter extends BaseModel {
     
     protected $table = 'meters';
     
+    protected $viewer = 'Stevebauman\Maintenance\Viewers\MeterViewer';
+    
     protected $fillable = array(
         'user_id',
         'metric_id',

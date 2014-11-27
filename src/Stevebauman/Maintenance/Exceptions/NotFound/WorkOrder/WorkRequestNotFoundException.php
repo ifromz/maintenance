@@ -8,7 +8,7 @@ class WorkRequestNotFoundException extends AbstractException{
     public function __construct(){
         $this->message = trans('maintenance::errors.not-found', array('resource'=>'Work Request'));
         $this->messageType = 'danger';
-        $this->redirect = route('maintenance.work-requests.index');
+        $this->redirect = routeBack('maintenance.work-requests.index');
     }
     
 }

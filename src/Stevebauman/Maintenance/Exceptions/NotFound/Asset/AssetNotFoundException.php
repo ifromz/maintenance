@@ -8,7 +8,7 @@ class AssetNotFoundException extends AbstractException {
     public function __construct(){
         $this->message = trans('maintenance::errors.not-found', array('resource'=>'Asset'));
         $this->messageType = 'danger';
-        $this->redirect = route('maintenance.assets.index');
+        $this->redirect = routeBack('maintenance.assets.index');
     }
     
 }

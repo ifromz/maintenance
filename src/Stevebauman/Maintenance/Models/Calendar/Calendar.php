@@ -8,6 +8,8 @@ class Calendar extends BaseModel {
     
     protected $table = 'calendars';
     
+    protected $viewer = 'Stevebauman\Maintenance\Viewers\CalendarViewer';
+    
     protected $fillable = array(
         'calendarable_id',
         'calendarable_type',

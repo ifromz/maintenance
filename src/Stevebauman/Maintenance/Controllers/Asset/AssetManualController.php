@@ -3,7 +3,6 @@
 namespace Stevebauman\Maintenance\Controllers;
 
 use Dmyers\Storage\Storage;
-use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\AssetManualService;
 use Stevebauman\Maintenance\Services\AssetService;
@@ -89,12 +88,12 @@ class AssetManualController extends AbstractController {
             if(Storage::delete($attachment->file_path.$attachment->file_name)){
                 $attachment->delete();
 
-                $this->redirect = route('maintenance.assets.manuals.index', array($asset->id));
+                $this->redirect = routeBack('maintenance.assets.manuals.index', array($asset->id));
                 $this->message = 'Successfully deleted manual';
                 $this->messageType = 'success';
 
             } else{
-                $this->redirect = route('maintenance.assets.manuals.index', array($asset->id));
+                $this->redirect = routeBack('maintenance.assets.manuals.index', array($asset->id));
                 $this->message = 'There was an error deleting the manual file, please try again';
                 $this->messageType = 'danger';
             }

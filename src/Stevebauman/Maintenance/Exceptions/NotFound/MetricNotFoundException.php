@@ -8,7 +8,7 @@ class MetricNotFoundException extends AbstractException {
     public function __construct(){
         $this->message = trans('maintenance::errors.not-found', array('resource'=>'Metric'));
         $this->messageType = 'danger';
-        $this->redirect = '';
+        $this->redirect = routeBack('maintenance.metrics.index');
     }
     
 }
