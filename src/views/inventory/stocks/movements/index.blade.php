@@ -37,7 +37,8 @@
 
     @if($movements->count() > 0)
 
-        {{ $movements->columns(array(
+        {{ 
+            $movements->columns(array(
                         'user' => 'User',
                         'before' => 'Before Quantity',
                         'after' => 'After Quantity',
@@ -59,7 +60,8 @@
                         'created_at',
                     ))
                     ->showPages()
-                    ->render() }}
+                    ->render() 
+        }}
 
     @else
         <h5>There are currently no stock movements for this item</h5>

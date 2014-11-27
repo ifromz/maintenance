@@ -38,7 +38,7 @@
         </a>
         <ul class="treeview-menu">
             @if(Sentry::hasAccess('maintenance.work-orders.index'))
-            <li>
+            <li class="{{ activeMenuLink('maintenance.work-orders.index') }}">
                 <a href="{{ route('maintenance.work-orders.index') }}" style="margin-left: 10px;">
                     <i class="fa fa-book"></i> Work Orders
                 </a>
@@ -52,7 +52,7 @@
             </li>
 
             @if(Sentry::hasAccess('maintenance.work-orders.statuses.index'))
-            <li>
+            <li class="{{ activeMenuLink('maintenance.work-orders.statuses') }}">
                 <a href="{{ route('maintenance.work-orders.statuses.index') }}" style="margin-left: 10px;">
                     <i class="fa fa-info"></i> Statuses
                 </a>
@@ -60,7 +60,7 @@
             @endif
 
             @if(Sentry::hasAccess('maintenance.work-orders.priorities.index'))
-            <li>
+            <li class="{{ activeMenuLink('maintenance.work-orders.priorities') }}">
                 <a href="{{ route('maintenance.work-orders.priorities.index') }}" style="margin-left: 10px;">
                     <i class="fa fa-exclamation-circle"></i> Priorities
                 </a>
@@ -68,7 +68,7 @@
             @endif
 
             @if(Sentry::hasAccess('maintenance.work-orders.categories.index'))
-            <li>
+            <li class="{{ activeMenuLink('maintenance.work-orders.categories') }}">
                 <a href="{{ route('maintenance.work-orders.categories.index') }}" style="margin-left: 10px;">
                     <i class="fa fa-folder"></i> Categories
                 </a>
@@ -86,15 +86,15 @@
         </a>
         <ul class="treeview-menu">
             @if(Sentry::hasAccess('maintenance.inventory.index'))
-            <li>
+            <li class="{{ activeMenuLink('maintenance.inventory.index') }}">
                 <a href="{{ route('maintenance.inventory.index') }}" style="margin-left: 10px;">
-                            <i class="fa fa-gears"></i> All Items
+                    <i class="fa fa-gears"></i> All Items
                 </a>
             </li>
             @endif
 
             @if(Sentry::hasAccess('maintenance.inventory.categories.index'))
-            <li>
+            <li class="{{ activeMenuLink('maintenance.inventory.categories') }}">
                 <a href="{{ route('maintenance.inventory.categories.index') }}" style="margin-left: 10px;">
                     <i class="fa fa-folder"></i> Categories
                 </a>
@@ -111,13 +111,13 @@
             <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li>
+            <li class="{{ activeMenuLink('maintenance.assets.index') }}">
                 <a href="{{ route('maintenance.assets.index') }}" style="margin-left: 10px;">
                     <i class="fa fa-book"></i> All Assets
                 </a>
             </li>
             @if(Sentry::hasAccess('maintenance.assets.categories.index'))
-            <li>
+            <li class="{{ activeMenuLink('maintenance.assets.categories') }}">
                 <a href="{{ route('maintenance.assets.categories.index') }}" style="margin-left: 10px;">
                     <i class="fa fa-folder"></i> Categories
                 </a>
@@ -128,7 +128,7 @@
     @endif
 
     @if(Sentry::hasAccess('maintenance.locations.index'))
-    <li>
+    <li class="{{ activeMenuLink('maintenance.locations') }}">
         <a href="{{ route('maintenance.locations.index') }}">
             <i class="fa fa-location-arrow"></i> Locations
         </a>
@@ -136,7 +136,7 @@
     @endif
 
     @if(!Sentry::hasAccess('maintenance.dashboard.index'))
-    <li>
+    <li class="{{ activeMenuLink('maintenance.work-requests') }}">
         <a href="{{ route('maintenance.work-requests.index') }}">
             <i class="fa fa-book"></i>
             My Work Requests
@@ -145,7 +145,7 @@
     @endif
 
     @if(Sentry::hasAccess('maintenance.metrics.index'))
-    <li>
+    <li class="{{ activeMenuLink('maintenance.metrics') }}">
         <a href="{{ route('maintenance.metrics.index') }}">
             <i class="fa fa-anchor"></i> 
             Metrics
