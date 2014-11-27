@@ -49,6 +49,11 @@ class StatusController extends AbstractController {
 	 */
 	public function store()
 	{
+            /*
+             * Make sure the inputted status name is unique
+             */
+            $this->statusValidator->unique('name', 'statuses', 'name');
+            
             if($this->statusValidator->passes()){
                 
                 if($this->status->setInput($this->inputAll())->create()){
@@ -94,7 +99,13 @@ class StatusController extends AbstractController {
 	 */
 	public function update($id)
 	{   
-            if($$this->statusValidator->passes()){
+            /*
+             * Ignores the current status ID but makes sure the name is still
+             * uniques
+             */
+            $this->statusValidator->ignore('name', 'statuses', 'name', $id);
+            
+            if($this->statusValidator->passes()){
                 
                 if($this->status->setInput($this->inputAll())->update($id)){
                     $this->message = 'Successfully updated status';

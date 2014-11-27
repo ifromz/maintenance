@@ -1,4 +1,4 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
 	<h1>{{ $title }}</h1>
@@ -24,53 +24,45 @@
 </li>
 @stop
 
-@section('content')
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="btn-toolbar">
-                <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
-                    <i class="fa fa-search"></i>
-                    Search
-                </a>
-            </div>
-        </div>
-            
-        <div class="panel-body">
-            @if($movements->count() > 0)
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Before Quantity</th>
-                        <th>After Quantity</th>
-                        <th>Change</th>
-                        <th>Cost</th>
-                        <th>Reason</th>
-                        <th>Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($movements as $movement)
-                    <tr>
-                        <td>{{ $movement->user->full_name }}</td>
-                        <td>{{ $movement->before }}</td>
-                        <td>{{ $movement->after }}</td>
-                        <td>{{ $movement->change }} {{ $item->metric->name }}</td>
-                        <td>{{ $movement->cost }}</td>
-                        <td>{{ $movement->reason }}</td>
-                        <td>{{ $movement->created_at }}</td>
-                    </tr>
-                    @endforeach
-                    
-                    <div class="btn-toolbar text-center">
-                        {{ $movements->appends(Input::except('page'))->links() }}
-                    </div>
-                </tbody>
-            </table>
-            @else
-                <h5>There are currently no stock movements for this item</h5>
-            @endif
-        </div>
+@section('panel.head.content')
+    <div class="btn-toolbar">
+        <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
+            <i class="fa fa-search"></i>
+            Search
+        </a>
     </div>
+@stop
+
+@section('panel.body.content')
+
+    @if($movements->count() > 0)
+
+        {{ $movements->columns(array(
+                        'user' => 'User',
+                        'before' => 'Before Quantity',
+                        'after' => 'After Quantity',
+                        'change' => 'Change',
+                        'cost' => 'Cost',
+                        'reason' => 'Reason',
+                        'created_at' => 'Date',
+                    ))
+                    ->means('user', 'user.full_name')
+                    ->modify('change', function($movement) use($item) {
+                        return $movement->change . ' ' . $item->metric->name;
+                    })
+                    ->hidden(array('before', 'after', 'reason'))
+                    ->sortable(array(
+                        'user' => 'user_id',
+                        'before',
+                        'after',
+                        'cost',
+                        'created_at',
+                    ))
+                    ->showPages()
+                    ->render() }}
+
+    @else
+        <h5>There are currently no stock movements for this item</h5>
+    @endif
+
 @stop

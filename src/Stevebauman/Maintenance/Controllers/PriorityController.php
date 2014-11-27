@@ -50,6 +50,8 @@ class PriorityController extends AbstractController {
 	 */
 	public function store()
 	{
+            $this->priorityValidator->unique('name', $this->priority->getTableName(), 'name');
+            
             if($this->priorityValidator->passes()){
                 
                 if($this->priority->setInput($this->inputAll())->create()){
@@ -95,7 +97,9 @@ class PriorityController extends AbstractController {
 	 */
 	public function update($id)
 	{
-            if($this->priorityValidator->passes()){
+            $this->priorityValidator->ignore('name', $this->priority->getTableName(), 'name', $id);
+            
+            if($this->priorityValidator->passes()) {
                 
                 if($this->priority->setInput($this->inputAll())->update($id)){
                     $this->message = 'Successfully updated priority';

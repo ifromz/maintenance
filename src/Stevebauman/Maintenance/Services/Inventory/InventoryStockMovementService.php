@@ -19,11 +19,16 @@ class InventoryStockMovementService extends AbstractModelService {
         $this->sentry = $sentry;
     }
     
-    public function getByPageWithFilter(){
-        return $this->model->where('stock_id', $this->getInput('stock_id'))->paginate(25);
+    public function getByPageWithFilter()
+    {
+        return $this->model
+                ->sort($this->getInput('field'), $this->getInput('sort'))
+                ->where('stock_id', $this->getInput('stock_id'))
+                ->paginate(25);
     }
     
-    public function create(){
+    public function create()
+    {
         
         $this->dbStartTransaction();
         

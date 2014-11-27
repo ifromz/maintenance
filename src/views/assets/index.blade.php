@@ -63,6 +63,7 @@
                 'condition',
                 'added_on' => 'created_at',
             ))
+            ->hidden(array('id', 'location', 'condition'))
             ->showPages()
             ->render()
         }}

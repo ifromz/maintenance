@@ -58,6 +58,7 @@
                     'category' => 'category_id',
                     'added_on' => 'created_at',
                 ))
+                ->hidden(array('id', 'added_on', 'description'))
                 ->showPages()
                 ->render()
         }}

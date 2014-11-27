@@ -1,4 +1,4 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
 	<h1>{{ $title }}</h1>
@@ -17,71 +17,37 @@
 </li>
 @stop
 
-@section('content')
-
-<div class="panel panel-default">
-    
-    <div class="panel-heading">
+@section('panel.head.content')
         <div class="btn-toolbar">
             <a href="{{ route('maintenance.work-orders.priorities.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Create a new Priority">
                 <i class="fa fa-plus"></i>
                 New Priority
             </a>
         </div>
-    </div>
-    
-    <div class="panel-body">
+@stop
+
+@section('panel.body.content')
         
-        @if($priorities->count() > 0)
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Color</th>
-                    <th>Displayed As</th>
-                    <th>Created By</th>
-                    <th>Created At</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($priorities as $priority)
-                <tr>
-                    <td>{{ $priority->name }}</td>
-                    <td>{{ $priority->color }}</td>
-                    <td>{{ $priority->label }}</td>
-                    <td>{{ $priority->user->full_name }}</td>
-                    <td>{{ $priority->created_at }}</td>
-                    <td>
-                        <div class="btn-group">
-                            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                                Action
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{{ route('maintenance.work-orders.priorities.edit', array($priority->id)) }}">
-                                        <i class="fa fa-edit"></i> Edit Priority
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('maintenance.work-orders.priorities.destroy', array($priority->id)) }}" data-method="delete" data-message="Are you sure you want to delete this priority?">
-                                        <i class="fa fa-trash-o"></i> Delete Priority
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        @else
-        <h5>There are no priorities to display.</h5>
-        @endif
-        
-    </div>
+    @if($priorities->count() > 0)
     
-</div>
+        {{ $priorities->columns(array(
+                        'name' => 'Name',
+                        'color' => 'Color',
+                        'label' => 'Displayed As',
+                        'created_by' => 'Created By',
+                        'created_at' => 'Created At',
+                        'action' => 'Action',
+                    ))
+                    ->means('created_by', 'user.full_name')
+                    ->modify('action', function($priority) {
+                        return $priority->viewer()->btnActions;
+                    })
+                    ->hidden(array('color', 'created_by', 'created_at', 'name'))
+                    ->render()
+        }}
+
+    @else
+    <h5>There are no priorities to display.</h5>
+    @endif
 
 @stop

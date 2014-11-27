@@ -60,7 +60,7 @@ class PriorityService extends AbstractModelService {
                 
                 $this->dbCommitTransaction();
                 
-                return false;
+                return true;
             }
             
             $this->dbRollbackTransaction();

@@ -341,6 +341,16 @@ abstract class AbstractModelService {
     }
     
     /**
+     * Returns the current models database table name
+     * 
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->model->getCurrentTable();
+    }
+    
+    /**
      * Starts a database transaction
      * 
      * @return void

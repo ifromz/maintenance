@@ -8,6 +8,8 @@ class Priority extends BaseModel {
     
     protected $table = 'priorities';
     
+    protected $viewer = 'Stevebauman\Maintenance\Viewers\PriorityViewer';
+    
     protected $fillable = array(
         'user_id',
         'name',

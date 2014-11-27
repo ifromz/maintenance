@@ -66,6 +66,7 @@
                             'subject',
                             'created_at'
                         ))
+                        ->hidden(array('id', 'description', 'category', 'created_by', 'created_at'))
                         ->showPages()
                         ->render()
                 }}

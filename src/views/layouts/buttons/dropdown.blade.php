@@ -7,7 +7,7 @@
             <span class="caret"></span>
         @show
     </a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu dropdown-menu-right">
         @yield('dropdown.body.content')
     </ul>
 </div>

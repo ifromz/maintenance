@@ -12,7 +12,8 @@ abstract class AbstractValidator {
 	
         protected $rules;
         
- 	public function __construct($input = NULL){
+ 	public function __construct($input = NULL)
+        {
             $this->input = $input ?: Input::all();
 	}
         
@@ -21,7 +22,8 @@ abstract class AbstractValidator {
          * 
          * @return boolean
          */
-	public function passes(){
+	public function passes()
+        {
             $validation = Validator::make($this->input, $this->rules);
  
             if($validation->passes()) {
@@ -39,7 +41,8 @@ abstract class AbstractValidator {
          * 
          * @return mixed
          */
- 	public function getErrors(){
+ 	public function getErrors()
+        {
             if(Request::ajax()){
                     return $this->errors->getMessages();
             } else{
@@ -52,7 +55,8 @@ abstract class AbstractValidator {
          * 
          * @param array $rules
          */
-        public function setRules($rules = array()){
+        public function setRules($rules = array())
+        {
             $this->rules = $rules;
         }
         
@@ -65,8 +69,21 @@ abstract class AbstractValidator {
          * @param string $column
          * @param string $ignore
          */
-        public function ignore($field, $table, $column, $ignore = 'NULL'){
+        public function ignore($field, $table, $column, $ignore = 'NULL')
+        {
             $this->rules[$field] .= sprintf('|unique:%s,%s,%s', $table, $column, $ignore);
+        }
+        
+        /**
+         * Adds a unique validation to the specified field
+         * 
+         * @param string $field
+         * @param string $table
+         * @param string $column
+         */
+        public function unique($field, $table, $column)
+        {
+            $this->rules[$field] .= sprintf('|unique:%s,%s', $table, $column);
         }
         
         /**

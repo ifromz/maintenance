@@ -4,11 +4,11 @@ namespace Stevebauman\Maintenance\Viewers;
 
 use Stevebauman\Maintenance\Viewers\BaseViewer;
 
-class MetricViewer extends BaseViewer {
+class PriorityViewer extends BaseViewer {
     
     public function btnActions()
     {
-        return view('maintenance::viewers.metric.buttons.actions', array('metric'=>$this->entity));
+        return view('maintenance::viewers.priority.buttons.actions', array('priority'=>$this->entity));
     }
     
 }

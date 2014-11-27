@@ -3,7 +3,7 @@
 @section('nav.left')
                     
     @if(Sentry::hasAccess('maintenance.dashboard.index'))
-    <li class="{{ (Route::currentRouteName() == 'maintenance.dashboard.index' ? 'active' : NULL) }} treeview">
+    <li class="{{ activeMenuLink('maintenance.dashboard') }} treeview">
         <a href="{{ route('maintenance.dashboard.index') }}">
             <i class="fa fa-dashboard"></i> Dashboard
             <i class="fa fa-angle-left pull-right"></i>
@@ -31,7 +31,7 @@
     @endif
 
     @if(Sentry::hasAccess('maintenance.work-orders.index'))
-    <li class="treeview">
+    <li class="{{ activeMenuLink('maintenance.work-orders') }} treeview">
         <a href="#">
             <i class="fa fa-wrench"></i> Maintenance
             <i class="fa fa-angle-left pull-right"></i>
@@ -79,7 +79,7 @@
     @endif
 
     @if(Sentry::hasAccess('maintenance.inventory.index'))
-    <li class="treeview">
+    <li class="{{ activeMenuLink('maintenance.inventory') }} treeview">
         <a href="#">
             <i class="fa fa-dropbox"></i> Inventory
             <i class="fa fa-angle-left pull-right"></i>
@@ -105,7 +105,7 @@
     @endif
 
     @if(Sentry::hasAccess('maintenance.assets.index'))
-    <li class="treeview">
+    <li class="{{ activeMenuLink('maintenance.assets') }} treeview">
         <a href="#">
             <i class="fa fa-truck"></i> Assets
             <i class="fa fa-angle-left pull-right"></i>

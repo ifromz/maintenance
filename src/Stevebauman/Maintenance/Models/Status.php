@@ -2,12 +2,13 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Status extends BaseModel {
     
     protected $table = 'statuses';
+    
+    protected $viewer = 'Stevebauman\Maintenance\Viewers\StatusViewer';
     
     protected $fillable = array(
         'user_id',

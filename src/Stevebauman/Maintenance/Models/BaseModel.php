@@ -6,8 +6,14 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class BaseModel extends Eloquent {
     
+    /*
+     * Provides easy table generation
+     */
     use \Stevebauman\EloquentTable\TableTrait;
     
+    /*
+     * Provides reusable views when an object is returned
+     */
     use \Stevebauman\Viewer\ViewableTrait;
     
     /*
@@ -27,9 +33,9 @@ class BaseModel extends Eloquent {
      * @param string $created_at
      * @return string
      */
-    public function getCreatedAtAttribute($created_at){
+    public function getCreatedAtAttribute($created_at)
+    {
         return Carbon::parse($created_at)->format('M dS Y - h:ia'); 
-        
     }
     
     /**
@@ -38,7 +44,8 @@ class BaseModel extends Eloquent {
      * @param string $deleted_at
      * @return string
      */
-    public function getDeletedAtAttribute($deleted_at){
+    public function getDeletedAtAttribute($deleted_at)
+    {
         return Carbon::parse($deleted_at)->format('M dS Y - h:ia');
     }
     
@@ -67,7 +74,8 @@ class BaseModel extends Eloquent {
      * @param string $string
      * @return boolean OR array
      */
-    protected function getOperator($string){
+    protected function getOperator($string)
+    {
         $allowed_operators = array('>', '<', '=', '>=', '<=');
         $output = preg_split("/[\[\]]/", $string);
 
@@ -90,7 +98,8 @@ class BaseModel extends Eloquent {
      * @param integer/string $id
      * @return object
      */
-    public function scopeId($query, $id = NULL){
+    public function scopeId($query, $id = NULL)
+    {
         if($id){
             return $query->where('id', $id);
         }
@@ -115,7 +124,8 @@ class BaseModel extends Eloquent {
      * 
      * @return object
      */
-    public function notifications(){
+    public function notifications()
+    {
         return $this->morphMany('Stevebauman\Maintenance\Models\Notification', 'notifiable');
     }
     
@@ -162,5 +172,15 @@ class BaseModel extends Eloquent {
          */
         return $query->orderBy('created_at', 'desc');
         
+    }
+    
+    /**
+     * Returns the current models database table
+     * 
+     * @return string
+     */
+    public function getCurrentTable()
+    {
+        return $this->table;
     }
 }
