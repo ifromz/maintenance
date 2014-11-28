@@ -16,4 +16,4 @@
         <i class="fa fa-trash-o"></i> Delete Calendar
     </a>
 </li>
-@stop
+@overwrite

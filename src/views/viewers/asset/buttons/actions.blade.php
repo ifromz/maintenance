@@ -18,4 +18,4 @@
         <i class="fa fa-trash-o"></i> Delete Asset
     </a>
 </li>
-@stop
+@overwrite

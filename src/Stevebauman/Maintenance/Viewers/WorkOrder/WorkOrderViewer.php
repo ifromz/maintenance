@@ -36,6 +36,11 @@ class WorkOrderViewer extends BaseViewer {
         return view('maintenance::viewers.work-order.customer-updates', array('workOrder'=>$this->entity));
     }
     
+    public function technicianUpdates()
+    {
+        return view('maintenance::viewers.work-order.technician-updates', array('workOrder'=>$this->entity));
+    }
+    
     public function btnEdit()
     {
         return view('maintenance::viewers.work-order.buttons.edit', array('workOrder'=>$this->entity));

@@ -6,9 +6,12 @@ class Update extends BaseModel {
 	
 	protected $table = 'updates';
 	
+        protected $viewer = 'Stevebauman\Maintenance\Viewers\UpdateViewer';
+        
 	protected $fillable = array('user_id', 'content');
         
-        public function user(){
-		return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
+        public function user()
+        {
+            return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
 	}
 }

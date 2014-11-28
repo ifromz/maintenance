@@ -147,18 +147,31 @@ Route::resource('work-orders', 'WorkOrderController', array(
 |--------------------------------------------------------------------------
 | Maintenance Work Order Update Routes
 |--------------------------------------------------------------------------
-*/	
-Route::resource('work-orders.updates', 'WorkOrderUpdateController', array(
-        'names'=> array(
-                'index'		=> 'maintenance.work-orders.updates.index',
-                'create'  	=> 'maintenance.work-orders.updates.create',
-                'store'   	=> 'maintenance.work-orders.updates.store',
-                'show'    	=> 'maintenance.work-orders.updates.show',
-                'edit'    	=> 'maintenance.work-orders.updates.edit',
-                'update'  	=> 'maintenance.work-orders.updates.update',
-                'destroy' 	=> 'maintenance.work-orders.updates.destroy',
-        ),
-));
+*/
+
+Route::group(array('namespace'=>'WorkOrder\Update'), function(){
+    
+    Route::post('work-orders/{work_orders}/updates/customer', array(
+        'uses' => 'CustomerUpdateController@store',
+        'as' => 'maintenance.work-orders.updates.customer.store',
+    ));
+
+    Route::delete('work-orders/{work_orders}/updates/{updates}/customer', array(
+        'uses' => 'CustomerUpdateController@destroy',
+        'as' => 'maintenance.work-orders.updates.customer.destroy',
+    ));
+
+    Route::post('work-orders/{work_orders}/updates/technician', array(
+        'uses' => 'TechnicianUpdateController@store',
+        'as' => 'maintenance.work-orders.updates.technician.store',
+    ));
+
+    Route::delete('work-orders/{work_orders}/updates/{updates}/technician', array(
+        'uses' => 'TechnicianUpdateController@destroy',
+        'as' => 'maintenance.work-orders.updates.technician.destroy',
+    ));
+    
+});
 
 /*
 |--------------------------------------------------------------------------

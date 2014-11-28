@@ -92,11 +92,17 @@
     </div>
     
     <div class="tab-pane" id="tab_customer_updates">
+        
+        <legend>Customer Updates</legend>
+        
         {{ $workOrder->viewer()->customerUpdates }}
     </div>
 
     <div class="tab-pane" id="tab_technician_updates">
         
+        <legend>Technician Updates</legend>
+        
+        {{ $workOrder->viewer()->technicianUpdates }}
     </div>
 
 @stop    

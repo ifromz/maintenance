@@ -25,7 +25,7 @@
         <i class="fa fa-trash-o"></i> Delete Meter
     </a>
 </li>
-@stop
+@overwrite
 
 @section('dropdown.extra.bottom')
 
@@ -34,4 +34,4 @@
         'meter'=>$meter
     ))
 
-@stop
+@overwrite

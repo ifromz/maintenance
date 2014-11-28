@@ -20,7 +20,7 @@ class AssetCalendarController extends AbstractController {
     {
         $asset = $this->asset->find($asset_id);
         
-        return $this->view('maintenance::assets.calendars.index', array(
+        return view('maintenance::assets.calendars.index', array(
             'title' => 'Viewing Calendars for Asset: '.$asset->name,
             'asset' => $asset
         ));
@@ -30,7 +30,7 @@ class AssetCalendarController extends AbstractController {
     {
         $asset = $this->asset->find($asset_id);
         
-        return $this->view('maintenance::assets.calendars.create', array(
+        return view('maintenance::assets.calendars.create', array(
             'title' => 'Creating a Calendar for Asset: '.$asset->name,
             'asset' => $asset
         ));

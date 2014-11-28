@@ -11,4 +11,4 @@
         <i class="fa fa-trash-o"></i> Delete Image
     </a>
 </li>
-@stop
+@overwrite

@@ -19,4 +19,4 @@
         <i class="fa fa-trash-o"></i> Delete Item
     </a>
 </li>
-@stop
+@overwrite

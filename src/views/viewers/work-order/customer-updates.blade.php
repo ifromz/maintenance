@@ -1,20 +1,19 @@
-<!-- Chat box -->
+@extends('maintenance::layouts.blocks.chat')
 
-<legend>Customer Updates</legend>
+@section('chat.body.attributes') id="customer-updates-box" @overwrite
 
-<div class="box box-solid">
-    <div class="box-body chat" id="chat-box">
-        <!-- chat item -->
-        @foreach($workOrder->customerUpdates as $update)
-                @include('maintenance::partials.update', array('workOrder'=>$workOrder, 'update'=>$update))
-        @endforeach
-    </div><!-- /.chat -->
-    
-    <div class="box-footer">
+@section('chat.body.content')
+    @foreach($workOrder->customerUpdates as $update)
+        {{ $update->viewer()->workOrderCustomer($workOrder) }}
+    @endforeach
+@overwrite
+
+@section('chat.foot.content')
+
         {{ Form::open(array(
-                    'url'=>route('maintenance.work-orders.updates.store', array($workOrder->id)), 
+                    'url'=>route('maintenance.work-orders.updates.customer.store', array($workOrder->id)), 
                     'class'=>'ajax-form-post clear-form', 
-                    'data-refresh-target'=>'#chat-box'
+                    'data-refresh-target'=>'#customer-updates-box'
                 ))
         }}
         <div class="input-group">
@@ -23,6 +22,7 @@
                 <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i></button>
             </div>    
         </div>
+
         {{ Form::close() }}
-    </div>
-</div>
+
+@overwrite

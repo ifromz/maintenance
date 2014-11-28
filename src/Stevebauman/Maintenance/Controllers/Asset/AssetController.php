@@ -30,7 +30,7 @@ class AssetController extends AbstractController {
 	public function index(){
 		$assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter();
 		
-		return $this->view('maintenance::assets.index', array(
+		return view('maintenance::assets.index', array(
                     'title' => 'All Assets', 
                     'assets' => $assets
                 ));
@@ -42,7 +42,7 @@ class AssetController extends AbstractController {
 	 * @return View
 	 */
 	public function create(){
-            return $this->view('maintenance::assets.create', array(
+            return view('maintenance::assets.create', array(
                 'title' => 'Create an Asset'
             ));
 	}
@@ -94,7 +94,7 @@ class AssetController extends AbstractController {
                 
                 $workOrders = $this->workOrder->setInput($data)->getByPageWithFilter();
                 
-                return $this->view('maintenance::assets.show',array(
+                return view('maintenance::assets.show',array(
                     'title' =>'Viewing Asset: '.$asset->name,
                     'asset' => $asset,
                     'workOrders' => $workOrders
@@ -110,7 +110,7 @@ class AssetController extends AbstractController {
 	public function edit($id){
             $asset = $this->asset->find($id);
 
-            return $this->view('maintenance::assets.edit', array(
+            return view('maintenance::assets.edit', array(
                     'title' => 'Editing asset: '.$asset->name,
                     'asset' => $asset,
             ));

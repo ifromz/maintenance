@@ -11,4 +11,4 @@
         <i class="fa fa-trash-o"></i> Delete Priority
     </a>
 </li>
-@stop
+@overwrite

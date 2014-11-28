@@ -1,6 +1,5 @@
 <?php namespace Stevebauman\Maintenance\Controllers;
 
-use Illuminate\Support\Facades\Response;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Validators\UpdateValidator;
