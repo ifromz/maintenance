@@ -39,7 +39,7 @@ class WorkOrderPartStockController extends AbstractController {
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
         
-        return $this->view('maintenance::work-orders.parts.stocks.index', array(
+        return view('maintenance::work-orders.parts.stocks.index', array(
             'title' => 'Choose a Stock Location',
             'workOrder' => $workOrder,
             'item' => $item
@@ -61,7 +61,7 @@ class WorkOrderPartStockController extends AbstractController {
         $item = $this->inventory->find($inventory_id);
         $stock = $this->inventoryStock->find($stock_id);
         
-        return $this->view('maintenance::work-orders.parts.stocks.create', array(
+        return view('maintenance::work-orders.parts.stocks.create', array(
             'title' => "Enter Quantity Used",
             'workOrder' => $workOrder,
             'item' => $item,
@@ -183,15 +183,19 @@ class WorkOrderPartStockController extends AbstractController {
         $item = $this->inventory->find($inventory_id);
         $stock = $this->inventoryStock->find($stock_id);
         
-        $this->workOrderPartPutBackValidator->addRule('quantity', 'less_than:'.$stock->quantity);
+        /*
+         * Find the specific work order part record from the stock id
+         */
+        $part = $workOrder->parts->find($stock->id);
+        
+        /*
+         * Add less than rule so users must enter a number below the quantity that
+         * was taken for the work order
+         */
+        $this->workOrderPartPutBackValidator->addRule('quantity', 'less_than:'.$part->pivot->quantity);
         
         if($this->workOrderPartPutBackValidator->passes()){
-
-            /*
-             * Find the specific work order part record from the stock id
-             */
-            $record = $workOrder->parts->find($stock->id);
-
+            
             /*
              * Set the reason and quantity of why the putting back is taking place
              */
@@ -208,10 +212,10 @@ class WorkOrderPartStockController extends AbstractController {
             /*
              * Set the new pivot quantity
              */
-            $newQuantity = $record->pivot->quantity - $this->input('quantity');
+            $newQuantity = $part->pivot->quantity - $this->input('quantity');
 
             /*
-             * Updat the existing pivot record
+             * Update the existing pivot record
              */
             $workOrder->parts()->updateExistingPivot($stock->id, array('quantity'=>$newQuantity));
 

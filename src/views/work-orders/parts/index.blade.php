@@ -31,26 +31,8 @@
     </div>
     <div class="panel-body">
         @if($workOrder->parts->count() > 0)
-        
-            {{ $workOrder->parts
-                    ->columns(array(
-                        'item_id' => 'Item ID',
-                        'item' => 'Item',
-                        'quantity_taken' => 'Quantity Taken',
-                        'taken_from' => 'Taken From',
-                        'date_added' => 'Date Added',
-                        'put_back' => 'Put Back'
-                     ))
-                     ->means('item_id', 'item.id')
-                     ->means('item', 'item.name')
-                     ->means('quantity_taken', 'pivot.quantity')
-                     ->means('taken_from', 'location.trail')
-                     ->means('date_added', 'pivot.created_at')
-                     ->modify('put_back', function($stock) use($workOrder) {
-                         return $stock->viewer()->btnActionsForWorkOrder($workOrder);
-                     })
-                     ->render()
-            }}
+            
+            {{ $workOrder->viewer()->parts }}
             
         @else
         
@@ -76,6 +58,7 @@
         @if($items->count() > 0)
             
             {{ $items->columns(array(
+                        'id' => 'ID',
                         'name' => 'Name',
                         'category' => 'Category',
                         'current_stock' => 'Current Stock',
