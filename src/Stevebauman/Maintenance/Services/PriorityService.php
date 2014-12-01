@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Priority;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class PriorityService extends AbstractModelService {
+class PriorityService extends BaseModelService {
     
     public function __construct(Priority $priority, SentryService $sentry)
     {

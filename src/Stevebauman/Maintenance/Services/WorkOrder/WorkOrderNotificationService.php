@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\WorkOrderNotification;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class WorkOrderNotificationService extends AbstractModelService {
+class WorkOrderNotificationService extends BaseModelService {
     
     public function __construct(WorkOrderNotification $model, SentryService $sentry)
     {

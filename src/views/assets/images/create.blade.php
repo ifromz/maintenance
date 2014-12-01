@@ -1,86 +1,91 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
 	<h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.assets.index') }}">
-        <i class="fa fa-truck"></i> 
-        Assets
-    </a>
-</li>
-<li>
-    <a href="{{ route('maintenance.assets.show', array($asset->id)) }}">
-        {{ $asset->name }}
-    </a>
-</li>
-<li>
-    <a href="{{ route('maintenance.assets.images.index', array($asset->id)) }}">
-        <i class="fa fa-picture-o"></i>
-        Images
-    </a>
-</li>
-<li class="active">
-    <i class="fa fa-plus-circle"></i>
-    Upload
-</li>
+    <li>
+        <a href="{{ route('maintenance.assets.index') }}">
+            <i class="fa fa-truck"></i> 
+            Assets
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('maintenance.assets.show', array($asset->id)) }}">
+            {{ $asset->name }}
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('maintenance.assets.images.index', array($asset->id)) }}">
+            <i class="fa fa-picture-o"></i>
+            Images
+        </a>
+    </li>
+    <li class="active">
+        <i class="fa fa-plus-circle"></i>
+        Upload
+    </li>
 @stop
 
-@section('content')
+@section('panel.head.content')
+    <div class="btn-toolbar">
+        {{ Form::button('Choose Files...', array('class'=>'btn btn-primary', 'id'=>'current-browse-button')) }}
+        {{ Form::button('Upload Added Files', array('class'=>'btn btn-success', 'id'=>'current-start-upload')) }}
+    </div>
+@stop
 
-{{ Form::open(array(
-            'url'=>route('maintenance.assets.images.store', array($asset->id)),
-            'id'=>'upload-form',
-            'data-upload-url'=>route('maintenance.assets.images.uploads.store'),
-            'data-upload-ext'=>'jpg,png,gif',
-        )) 
-}}
+@section('panel.body.content')
 
-<div id="current-container" class="form-group">
-    {{ Form::button('Choose Files...', array('class'=>'btn btn-primary', 'id'=>'current-browse-button')) }}
-    {{ Form::button('Upload Added Files', array('class'=>'btn btn-success', 'id'=>'current-start-upload')) }}
-</div>
+<div id="current-container">
 
-<div class="form-group">
-    {{ Form::label('Files Added') }}
-    <table id="added-table" class="table table-condensed table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>File Name</th>
-                <th>File Size</th>
-                <th>Progress</th>
-                <th>Remove</th>
-            </tr>
-        </thead>
-        <tbody id="added-list"></tbody>
-    </table>
+    {{ Form::open(array(
+                'url'=>route('maintenance.assets.images.store', array($asset->id)),
+                'id'=>'upload-form',
+                'data-upload-url'=>route('maintenance.assets.images.uploads.store'),
+                'data-upload-ext'=>'jpg,png,gif',
+            )) 
+    }}
+
+    <div class="form-group">
+        {{ Form::label('Files Added') }}
+        <table id="added-table" class="table table-condensed table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>File Size</th>
+                    <th>Progress</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="added-list"></tbody>
+        </table>
+
+        {{ Form::label('Files Uploaded') }}
+        <table id="uploaded-table" class="table table-condensed table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="uploaded-list">
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="form-group"><hr /></div>
+
+    <div class="form-group">
+        {{ Form::submit('Save', array('class'=>'btn btn-success')) }}
+    </div>
     
-    {{ Form::label('Files Uploaded') }}
-    <table id="uploaded-table" class="table table-condensed table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>File Name</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody id="uploaded-list">
-        
-        </tbody>
-    </table>
-    
 </div>
+@stop
 
-<div class="form-group"><hr /></div>
-
-<div class="form-group">
-    {{ Form::submit('Save', array('class'=>'btn btn-success')) }}
-</div>
-    
+@section('panel.extra.bottom')
     {{ HTML::script('packages/jildertmiedema/laravel-plupload/assets/js/plupload.full.min.js') }}
     {{ HTML::script('packages/stevebauman/maintenance/js/upload.js') }}
-    
-</div>
-
 @stop

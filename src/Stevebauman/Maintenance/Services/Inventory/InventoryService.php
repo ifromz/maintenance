@@ -11,9 +11,9 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Exceptions\InventoryNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class InventoryService extends AbstractModelService {
+class InventoryService extends BaseModelService {
     
     public function __construct(Inventory $inventory, SentryService $sentry, InventoryNotFoundException $notFoundException){
         $this->model = $inventory;

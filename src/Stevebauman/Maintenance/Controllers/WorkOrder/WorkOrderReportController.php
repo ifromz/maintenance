@@ -3,9 +3,9 @@
 use Stevebauman\Maintenance\Validators\WorkOrderReportValidator;
 use Stevebauman\Maintenance\Services\WorkOrderReportService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderReportController extends AbstractController {
+class WorkOrderReportController extends BaseController {
         
         public function __construct(WorkOrderService $workOrder, WorkOrderReportService $report, WorkOrderReportValidator $reportValidator){
             $this->workOrder = $workOrder;

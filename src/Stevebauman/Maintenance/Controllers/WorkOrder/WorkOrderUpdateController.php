@@ -3,9 +3,9 @@
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Validators\UpdateValidator;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderUpdateController extends AbstractController {
+class WorkOrderUpdateController extends BaseController {
 	
 	public function __construct(WorkOrderService $workOrder, UpdateService $update, UpdateValidator $updateValidator){
 		$this->workOrder = $workOrder;

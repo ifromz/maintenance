@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\LdapService;
 use Stevebauman\Maintenance\Models\User;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class UserService extends AbstractModelService {
+class UserService extends BaseModelService {
 	
 	public function __construct(User $user, SentryService $sentry, LdapService $ldap)
         {

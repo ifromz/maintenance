@@ -6,9 +6,9 @@ use Stevebauman\Maintenance\Validators\MeterReadingValidator;
 use Stevebauman\Maintenance\Services\MeterReadingService;
 use Stevebauman\Maintenance\Services\MeterService;
 use Stevebauman\Maintenance\Services\AssetService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class AssetMeterReadingController extends AbstractController {
+class AssetMeterReadingController extends BaseController {
     
     public function __construct(
             AssetService $asset, 

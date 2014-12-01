@@ -11,9 +11,9 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Exceptions\InventoryStockNotFoundException;
 use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Services\InventoryStockMovementService;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class InventoryStockService extends AbstractModelService {
+class InventoryStockService extends BaseModelService {
     
     public function __construct(
             InventoryStock $inventoryStock, 

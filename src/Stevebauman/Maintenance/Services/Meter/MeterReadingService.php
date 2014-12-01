@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\MeterReading;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class MeterReadingService extends AbstractModelService {
+class MeterReadingService extends BaseModelService {
     
     public function __construct(MeterReading $meterReading, SentryService $sentry)
     {

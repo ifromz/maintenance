@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class WorkOrderAttachmentService extends AbstractModelService {
+class WorkOrderAttachmentService extends BaseModelService {
 	
 	public function __construct(WorkOrderService $workOrder, AttachmentService $attachment, SentryService $sentry){
 		$this->workOrder = $workOrder;

@@ -2,9 +2,9 @@
 
 use Stevebauman\Maintenance\Services\AssetCategoryService;
 use Stevebauman\Maintenance\Validators\CategoryValidator;
-use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Controllers\BaseNestedSetController;
 
-class AssetCategoryController extends AbstractNestedSetController {
+class AssetCategoryController extends BaseNestedSetController {
 	
 	public function __construct(
                 AssetCategoryService $assetCategory, CategoryValidator $categoryValidator){

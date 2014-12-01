@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\InventoryCategory;
-use Stevebauman\Maintenance\Services\AbstractNestedSetModelService;
+use Stevebauman\Maintenance\Services\BaseNestedSetModelService;
 
-class InventoryCategoryService extends AbstractNestedSetModelService {
+class InventoryCategoryService extends BaseNestedSetModelService {
     
     public function __construct(InventoryCategory $inventoryCategory)
     {

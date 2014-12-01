@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class PrintQrController extends AbstractController {
+class PrintQrController extends BaseController {
     
     public function generate()
     {

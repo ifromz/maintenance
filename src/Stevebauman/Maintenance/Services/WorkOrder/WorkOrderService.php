@@ -6,7 +6,7 @@ use Stevebauman\Maintenance\Exceptions\WorkOrderNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\WorkOrder;
 
-class WorkOrderService extends AbstractModelService {
+class WorkOrderService extends BaseModelService {
 	
 	public function __construct(
                 WorkOrder $workOrder, 

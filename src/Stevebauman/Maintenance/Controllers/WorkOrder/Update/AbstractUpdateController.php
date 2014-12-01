@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Controllers\WorkOrder\Update;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Validators\UpdateValidator;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-abstract class AbstractUpdateController extends AbstractController {
+abstract class AbstractUpdateController extends BaseController {
     
     public function __construct(WorkOrderService $workOrder, UpdateService $update, UpdateValidator $updateValidator)
     {

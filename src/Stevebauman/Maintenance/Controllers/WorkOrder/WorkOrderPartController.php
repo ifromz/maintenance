@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Services\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderPartController extends AbstractController {
+class WorkOrderPartController extends BaseController {
         
         public function __construct(WorkOrderService $workOrder, InventoryService $inventory){
             $this->workOrder = $workOrder;

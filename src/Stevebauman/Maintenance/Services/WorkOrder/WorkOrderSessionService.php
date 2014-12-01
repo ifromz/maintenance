@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Stevebauman\Maintenance\Models\WorkOrderSession;
 use Stevebauman\Maintenance\Services\SentryService;
 
-class WorkOrderSessionService extends AbstractModelService {
+class WorkOrderSessionService extends BaseModelService {
 	
 	public function __construct(WorkOrderSession $session, SentryService $sentry){
 		$this->model = $session;

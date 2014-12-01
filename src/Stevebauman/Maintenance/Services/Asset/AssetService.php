@@ -11,9 +11,9 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Exceptions\AssetNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Asset;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class AssetService extends AbstractModelService {
+class AssetService extends BaseModelService {
 	
 	public function __construct(Asset $asset, SentryService $sentry, AssetNotFoundException $notFoundException){
 		$this->model = $asset;

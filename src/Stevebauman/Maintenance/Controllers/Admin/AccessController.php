@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Controllers\Admin;
 
 use Stevebauman\Maintenance\Validators\AccessCheckValidator;
 use Stevebauman\Maintenance\Services\UserService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class AccessController extends AbstractController {
+class AccessController extends BaseController {
     
     public function __construct(UserService $user, AccessCheckValidator $accessValidator){
         $this->user = $user;

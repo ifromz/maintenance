@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Controllers;
 use Stevebauman\Maintenance\Validators\WorkOrderNotificationValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrderNotificationService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderNotificationController extends AbstractController {
+class WorkOrderNotificationController extends BaseController {
     
     public function __construct(
             WorkOrderService $workOrder, 

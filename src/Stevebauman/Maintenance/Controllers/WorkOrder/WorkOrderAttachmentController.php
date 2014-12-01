@@ -6,9 +6,9 @@ use Dmyers\Storage\Storage;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrderAttachmentService;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderAttachmentController extends AbstractController {
+class WorkOrderAttachmentController extends BaseController {
 	
 	public function __construct(WorkOrderService $workOrder, WorkOrderAttachmentService $workOrderAttachment, AttachmentService $attachment){
 		$this->workOrder = $workOrder;

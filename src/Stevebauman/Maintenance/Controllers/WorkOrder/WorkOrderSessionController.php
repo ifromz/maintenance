@@ -1,9 +1,9 @@
 <?php namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Services\WorkOrderSessionService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderSessionController extends AbstractController {
+class WorkOrderSessionController extends BaseController {
         
         public function __construct(WorkOrderSessionService $session) {
             $this->session = $session;

@@ -7,9 +7,9 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\PriorityService;
 use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Models\WorkOrder;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class WorkOrderPublicService extends AbstractModelService {
+class WorkOrderPublicService extends BaseModelService {
     
     public function __construct(
             WorkOrder $workOrder, 

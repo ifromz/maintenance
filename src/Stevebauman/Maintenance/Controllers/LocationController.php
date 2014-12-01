@@ -2,9 +2,9 @@
 
 use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\Maintenance\Validators\LocationValidator;
-use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Controllers\BaseNestedSetController;
 
-class LocationController extends AbstractNestedSetController {
+class LocationController extends BaseNestedSetController {
 	
 	public function __construct(LocationService $location, LocationValidator $locationValidator){
 		$this->service = $location;

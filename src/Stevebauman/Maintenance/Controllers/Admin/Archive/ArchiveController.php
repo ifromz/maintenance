@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Controllers\Admin;
 
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class ArchiveController extends AbstractController {
+class ArchiveController extends BaseController {
     
     public function getIndex()
     {

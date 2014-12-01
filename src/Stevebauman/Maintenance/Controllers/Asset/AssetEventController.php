@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Controllers;
 use Stevebauman\Maintenance\Validators\AssetEventValidator;
 use Stevebauman\Maintenance\Services\AssetEventService;
 use Stevebauman\Maintenance\Services\AssetService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class AssetEventController extends AbstractController {
+class AssetEventController extends BaseController {
     
     public function __construct(AssetService $asset, AssetEventService $event, AssetEventValidator $eventValidator) {
         $this->asset = $asset;

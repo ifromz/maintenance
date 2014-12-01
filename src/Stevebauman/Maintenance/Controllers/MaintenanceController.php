@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class MaintenanceController extends AbstractController {
+class MaintenanceController extends BaseController {
         
 	public function getIndex()
         {

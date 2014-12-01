@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\AssetCategory;
-use Stevebauman\Maintenance\Services\AbstractNestedSetModelService;
+use Stevebauman\Maintenance\Services\BaseNestedSetModelService;
 
-class AssetCategoryService extends AbstractNestedSetModelService {
+class AssetCategoryService extends BaseNestedSetModelService {
     
     public function __construct(AssetCategory $assetCategory)
     {

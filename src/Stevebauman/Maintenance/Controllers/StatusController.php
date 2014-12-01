@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\StatusValidator;
 use Stevebauman\Maintenance\Services\StatusService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class StatusController extends AbstractController {
+class StatusController extends BaseController {
         
         public function __construct(StatusService $status, StatusValidator $statusValidator)
         {

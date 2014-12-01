@@ -6,9 +6,9 @@ use Dmyers\Storage\Storage;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Services\AssetImageService;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class AssetImageController extends AbstractController {
+class AssetImageController extends BaseController {
 	
 	public function __construct(AssetService $asset, AssetImageService $assetImage, AttachmentService $attachment){
 		$this->asset = $asset;

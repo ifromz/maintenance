@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\WorkOrderReport;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class WorkOrderReportService extends AbstractModelService {
+class WorkOrderReportService extends BaseModelService {
     
     public function __construct(WorkOrderReport $report, SentryService $sentry){
         $this->model = $report;

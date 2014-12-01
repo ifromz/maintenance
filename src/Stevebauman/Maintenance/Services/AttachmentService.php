@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Models\Attachment;
 
-class AttachmentService extends AbstractModelService {
+class AttachmentService extends BaseModelService {
 	
 	public function __construct(Attachment $attachment)
         {

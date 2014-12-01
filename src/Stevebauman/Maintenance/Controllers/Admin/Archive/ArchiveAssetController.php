@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Controllers\Admin;
 
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 use Stevebauman\Maintenance\Services\AssetService;
 
-class ArchiveAssetController extends AbstractController {
+class ArchiveAssetController extends BaseController {
     
     public function __construct(AssetService $asset)
     {

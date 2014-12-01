@@ -47,21 +47,26 @@ var current_uploader = new plupload.Uploader({
 current_uploader.init();
 
 current_uploader.bind('FileUploaded', function(up, file, object) {
-    var myData;
+    var response;
+    
     try {
-        myData = eval(object.response);
+        response = eval(object.response);
     } catch(err) {
-        myData = eval('(' + object.response + ')');
+        response = eval('(' + object.response + ')');
     }
-    $('#uploaded-list').append(myData.result.html);
-                $('#'+file.id).remove();
+    
+    $('#uploaded-list').append(response.result.html);
+    $('#'+file.id).hide();
+    
 });
 
 current_uploader.bind('UploadProgress', function(up, file) {
     $('#'+file.id).find('.progress-bar').css('width',file.percent+'%')
 });
 
-$(document).on('click', '.delete-file-uploaded', function(){
+$(document).on('click', '.delete-file-uploaded', function(e){
+    e.preventDefault();
+    
     var tr = $(this).parents().eq(1);
     var file_path = $(this).data('file-path');
     var file_folder = $(this).data('file-folder');
@@ -88,5 +93,5 @@ $(document).on('click', '.delete-file-uploaded', function(){
             showRegisterFormAjaxErrors(result.errorMessages);
         }
     });
-    return false;
+
 });

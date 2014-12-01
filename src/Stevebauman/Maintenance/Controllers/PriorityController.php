@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\PriorityValidator;
 use Stevebauman\Maintenance\Services\PriorityService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class PriorityController extends AbstractController {
+class PriorityController extends BaseController {
         
         public function __construct(PriorityService $priority, PriorityValidator $priorityValidator)
         {

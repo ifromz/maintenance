@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\MetricValidator;
 use Stevebauman\Maintenance\Services\MetricService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class MetricController extends AbstractController {
+class MetricController extends BaseController {
     
     public function __construct(MetricService $metric, MetricValidator $metricValidator)
     {

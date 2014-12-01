@@ -8,9 +8,9 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\UserService;
 use Stevebauman\Maintenance\Services\LdapService;
 use Stevebauman\Maintenance\Services\AuthService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class AuthController extends AbstractController {
+class AuthController extends BaseController {
         
         public function __construct(
                 AuthLoginValidator $loginValidator, 

@@ -10,9 +10,9 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\InventoryStockMovement;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class InventoryStockMovementService extends AbstractModelService {
+class InventoryStockMovementService extends BaseModelService {
     
     public function __construct(InventoryStockMovement $inventoryStockMovement, SentryService $sentry){
         $this->model = $inventoryStockMovement;

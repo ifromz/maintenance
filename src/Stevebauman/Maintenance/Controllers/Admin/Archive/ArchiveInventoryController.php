@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Controllers\Admin;
 
 use Stevebauman\Maintenance\Services\InventoryService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class ArchiveInventoryController extends AbstractController {
+class ArchiveInventoryController extends BaseController {
     
     public function __construct(InventoryService $inventory)
     {

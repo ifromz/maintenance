@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Controllers\Admin;
 
 use Stevebauman\Maintenance\Validators\GroupValidator;
 use Stevebauman\Maintenance\Services\GroupService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class GroupController extends AbstractController {
+class GroupController extends BaseController {
     
     public function __construct(GroupService $group, GroupValidator $groupValidator)
     {

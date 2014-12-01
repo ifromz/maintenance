@@ -6,9 +6,9 @@ use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\AssetEventService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Validators\AssetValidator;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class AssetController extends AbstractController {
+class AssetController extends BaseController {
 	
 	public function __construct(
                 AssetService $asset, 

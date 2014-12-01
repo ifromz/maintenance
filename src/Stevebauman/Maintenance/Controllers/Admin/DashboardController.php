@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Controllers\Admin;
 
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class DashboardController extends AbstractController {
+class DashboardController extends BaseController {
     
     public function getIndex()
     {

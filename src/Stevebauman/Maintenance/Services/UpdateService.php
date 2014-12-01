@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Models\Update;
 use Stevebauman\Maintenance\Services\SentryService;
 
-class UpdateService extends AbstractModelService {
+class UpdateService extends BaseModelService {
 	
 	public function __construct(Update $update, SentryService $sentry)
         {

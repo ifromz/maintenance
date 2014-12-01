@@ -6,12 +6,12 @@ use Stevebauman\Maintenance\Validators\MeterValidator;
 use Stevebauman\Maintenance\Services\MeterReadingService;
 use Stevebauman\Maintenance\Services\MeterService;
 use Stevebauman\Maintenance\Services\AssetService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
 /*
  * Handles asset meter creation and updating
  */
-class AssetMeterController extends AbstractController {
+class AssetMeterController extends BaseController {
     
     public function __construct(
             AssetService $asset,

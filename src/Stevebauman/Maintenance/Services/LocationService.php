@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Location;
-use Stevebauman\Maintenance\Services\AbstractNestedSetModelService;
+use Stevebauman\Maintenance\Services\BaseNestedSetModelService;
 
-class LocationService extends AbstractNestedSetModelService {
+class LocationService extends BaseNestedSetModelService {
 	
 	public function __construct(Location $location)
         {

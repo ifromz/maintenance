@@ -2,9 +2,9 @@
 
 use Stevebauman\Maintenance\Services\InventoryCategoryService;
 use Stevebauman\Maintenance\Validators\CategoryValidator;
-use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Controllers\BaseNestedSetController;
 
-class InventoryCategoryController extends AbstractNestedSetController {
+class InventoryCategoryController extends BaseNestedSetController {
 	
 	public function __construct(
                 InventoryCategoryService $inventoryCategory, CategoryValidator $categoryValidator){

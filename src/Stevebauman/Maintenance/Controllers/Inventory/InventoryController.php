@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\InventoryValidator;
 use Stevebauman\Maintenance\Services\InventoryService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class InventoryController extends AbstractController {
+class InventoryController extends BaseController {
         
         public function __construct(InventoryService $inventory, InventoryValidator $inventoryValidator) {
             $this->inventory = $inventory;

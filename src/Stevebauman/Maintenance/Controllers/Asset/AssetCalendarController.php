@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Controllers;
 use Stevebauman\Maintenance\Validators\CalendarValidator;
 use Stevebauman\Maintenance\Services\CalendarService;
 use Stevebauman\Maintenance\Services\AssetService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class AssetCalendarController extends AbstractController {
+class AssetCalendarController extends BaseController {
     
     public function __construct(AssetService $asset, CalendarService $calendar, CalendarValidator $calendarValidator)
     {

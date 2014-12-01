@@ -8,9 +8,9 @@ use Stevebauman\Maintenance\Services\InventoryStockMovementService;
 use Stevebauman\Maintenance\Services\InventoryStockService;
 use Stevebauman\Maintenance\Services\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderPartStockController extends AbstractController {
+class WorkOrderPartStockController extends BaseController {
     
     public function __construct(
             WorkOrderService $workOrder, 

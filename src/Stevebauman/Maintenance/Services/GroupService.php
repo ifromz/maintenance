@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Group;
 use Stevebauman\Maintenance\Services\SentryGroupService;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class GroupService extends AbstractModelService {
+class GroupService extends BaseModelService {
     
     public function __construct(Group $group, SentryGroupService $sentryGroup){
         $this->model = $group;

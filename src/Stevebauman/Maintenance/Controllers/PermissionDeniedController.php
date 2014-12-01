@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Support\Facades\Session;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class PermissionDeniedController extends AbstractController {
+class PermissionDeniedController extends BaseController {
     
     public function getIndex(){
         if(Session::get('message')) {

@@ -7,7 +7,7 @@ use Stevebauman\Maintenance\Exceptions\AssetEventNotFoundException;
 use Stevebauman\Maintenance\Models\CalendarEvent;
 use Stevebauman\Maintenance\Services\SentryService;
 
-class CalendarEventService extends AbstractModelService {
+class CalendarEventService extends BaseModelService {
 	
         /*
          * AssetEventNotFoundException to be changed

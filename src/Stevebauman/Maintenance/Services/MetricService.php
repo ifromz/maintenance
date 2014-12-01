@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Exceptions\MetricNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Metric;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class MetricService extends AbstractModelService {
+class MetricService extends BaseModelService {
     
     public function __construct(Metric $metric, SentryService $sentry, MetricNotFoundException $notFoundException)
     {

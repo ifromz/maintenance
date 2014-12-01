@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class AssetManualService extends AbstractModelService {
+class AssetManualService extends BaseModelService {
 	
 	public function __construct(AssetService $asset, AttachmentService $attachment, SentryService $sentry){
 		$this->asset = $asset;

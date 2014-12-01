@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Status;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class StatusService extends AbstractModelService {
+class StatusService extends BaseModelService {
     
     public function __construct(Status $status, SentryService $sentry)
     {

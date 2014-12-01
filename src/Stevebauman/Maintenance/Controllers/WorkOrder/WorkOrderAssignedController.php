@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderAssignedController extends AbstractController {
+class WorkOrderAssignedController extends BaseController {
     
     public function __construct(WorkOrderService $workOrder)
     {

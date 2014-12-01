@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Calendar;
-use Stevebauman\Maintenance\Services\AbstractModelService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class CalendarService extends AbstractModelService {
+class CalendarService extends BaseModelService {
     
     public function __construct(Calendar $calendar)
     {
