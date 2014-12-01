@@ -8,6 +8,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Robust reporting
 * Finish asset events with event reporting / other additions - IN PROGRESS
 * Multiple calendar functionality - IN PROGRESS
+* Namespace and directory tweaks / modifications - IN PROGRESS
 * <del>Asset manual attachments</del> - Oct 15th 2014
 * Customizable user dashboard
 * User profile with assigned work orders view

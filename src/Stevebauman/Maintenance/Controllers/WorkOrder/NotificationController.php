@@ -1,13 +1,13 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\WorkOrderNotificationValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrderNotificationService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderNotificationController extends BaseController {
+class NotificationController extends BaseController {
     
     public function __construct(
             WorkOrderService $workOrder, 

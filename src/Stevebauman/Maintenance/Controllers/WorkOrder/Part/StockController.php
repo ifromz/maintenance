@@ -1,6 +1,6 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\WorkOrder\Part;
 
 use Stevebauman\Maintenance\Validators\WorkOrderPartPutBackValidator;
 use Stevebauman\Maintenance\Validators\WorkOrderPartTakeValidator;
@@ -10,7 +10,7 @@ use Stevebauman\Maintenance\Services\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderPartStockController extends BaseController {
+class StockController extends BaseController {
     
     public function __construct(
             WorkOrderService $workOrder, 
@@ -35,7 +35,8 @@ class WorkOrderPartStockController extends BaseController {
      * @param type $inventory_id
      * @return type Response
      */
-    public function index($workOrder_id, $inventory_id){
+    public function index($workOrder_id, $inventory_id)
+    {
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
         
@@ -55,7 +56,8 @@ class WorkOrderPartStockController extends BaseController {
      * @param type $stock_id
      * @return type Response
      */
-    public function create($workOrder_id, $inventory_id, $stock_id){
+    public function create($workOrder_id, $inventory_id, $stock_id)
+    {
         
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
@@ -78,7 +80,8 @@ class WorkOrderPartStockController extends BaseController {
      * @param type $stock_id
      * @return type Response
      */
-    public function store($workOrder_id, $inventory_id, $stock_id){
+    public function store($workOrder_id, $inventory_id, $stock_id)
+    {
         
         if($this->workOrderPartTakeValidator->passes()){
             
@@ -141,7 +144,8 @@ class WorkOrderPartStockController extends BaseController {
      * @param type $stock_id
      * @return type Response
      */
-    public function postPutBack($workOrder_id, $inventory_id, $stock_id){
+    public function postPutBack($workOrder_id, $inventory_id, $stock_id)
+    {
         
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);

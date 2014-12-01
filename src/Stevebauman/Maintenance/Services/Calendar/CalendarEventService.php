@@ -218,7 +218,7 @@ class CalendarEventService extends BaseModelService {
                     /*
                      * Get the laravel timezone from the config
                      */
-                    $timezone    = $this->getConfig('app.timezone'); // Set default timezone
+                    $timezone    = config('app.timezone'); // Set default timezone
                     
                     /*
                      * Create a new DateTime object for the events start and end date

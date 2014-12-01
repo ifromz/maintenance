@@ -1,11 +1,11 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin;
+namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
 
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class ArchiveWorkOrderController extends BaseController {
+class WorkOrderController extends BaseController {
     
     public function __construct(WorkOrderService $workOrder)
     {

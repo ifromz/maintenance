@@ -75,3 +75,4 @@ Route::filter('maintenance.permission', function($route, $request){
  * @author Steve Bauman
  */
 Route::filter('maintenance.valid.work-order', 'Stevebauman\Maintenance\Filters\WorkOrderFilter');
+

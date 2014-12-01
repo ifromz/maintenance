@@ -1,10 +1,10 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php namespace Stevebauman\Maintenance\Controllers\Inventory;
 
 use Stevebauman\Maintenance\Services\InventoryCategoryService;
 use Stevebauman\Maintenance\Validators\CategoryValidator;
 use Stevebauman\Maintenance\Controllers\BaseNestedSetController;
 
-class InventoryCategoryController extends BaseNestedSetController {
+class CategoryController extends BaseNestedSetController {
 	
 	public function __construct(
                 InventoryCategoryService $inventoryCategory, CategoryValidator $categoryValidator){

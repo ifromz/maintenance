@@ -1,6 +1,6 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;

@@ -47,70 +47,75 @@ Route::resource('groups', 'GroupController', array(
 /*
  * Archive Routes
  */
-Route::get('archive', array(
-    'as'    => 'maintenance.admin.archive.index',
-    'uses'  => 'ArchiveController@getIndex'
-));
+Route::group(array('namespace'=>'Archive'), function(){
+    
+    Route::get('archive', array(
+        'as'    => 'maintenance.admin.archive.index',
+        'uses'  => 'ArchiveController@getIndex'
+    ));
 
-/*
- * Asset Archive Routes
- */
-Route::post('archive/assets/{assets}/restore', array(
-    'as'    => 'maintenance.admin.archive.assets.restore',
-    'uses'  => 'ArchiveAssetController@restore'
-));
+    /*
+     * Asset Archive Routes
+     */
+    Route::post('archive/assets/{assets}/restore', array(
+        'as'    => 'maintenance.admin.archive.assets.restore',
+        'uses'  => 'ArchiveAssetController@restore'
+    ));
 
-Route::resource('archive/assets', 'ArchiveAssetController',  array(
-    'only' => array(
-        'index',
-        'show',
-        'destroy',
-    ),
-    'names' => array(
-        'index'     => 'maintenance.admin.archive.assets.index',
-        'show'      => 'maintenance.admin.archive.assets.show',
-        'destroy'   => 'maintenance.admin.archive.assets.destroy',
-    ),
-));
+    Route::resource('archive/assets', 'ArchiveAssetController',  array(
+        'only' => array(
+            'index',
+            'show',
+            'destroy',
+        ),
+        'names' => array(
+            'index'     => 'maintenance.admin.archive.assets.index',
+            'show'      => 'maintenance.admin.archive.assets.show',
+            'destroy'   => 'maintenance.admin.archive.assets.destroy',
+        ),
+    ));
 
-/*
- * Work Order Archive Routes
- */
-Route::post('archive/work-orders/{work_orders}/restore', array(
-    'as'    => 'maintenance.admin.archive.work-orders.restore',
-    'uses'  => 'ArchiveWorkOrderController@restore'
-));
+    /*
+     * Work Order Archive Routes
+     */
+    Route::post('archive/work-orders/{work_orders}/restore', array(
+        'as'    => 'maintenance.admin.archive.work-orders.restore',
+        'uses'  => 'ArchiveWorkOrderController@restore'
+    ));
 
-Route::resource('archive/work-orders', 'ArchiveWorkOrderController',  array(
-    'only' => array(
-        'index',
-        'show',
-        'destroy',
-    ),
-    'names' => array(
-        'index'     => 'maintenance.admin.archive.work-orders.index',
-        'show'      => 'maintenance.admin.archive.work-orders.show',
-        'destroy'   => 'maintenance.admin.archive.work-orders.destroy',
-    ),
-));
+    Route::resource('archive/work-orders', 'ArchiveWorkOrderController',  array(
+        'only' => array(
+            'index',
+            'show',
+            'destroy',
+        ),
+        'names' => array(
+            'index'     => 'maintenance.admin.archive.work-orders.index',
+            'show'      => 'maintenance.admin.archive.work-orders.show',
+            'destroy'   => 'maintenance.admin.archive.work-orders.destroy',
+        ),
+    ));
 
-/*
- * Inventory Archive Routes
- */
-Route::post('archive/inventory/{inventory}/restore', array(
-    'as'    => 'maintenance.admin.archive.inventory.restore',
-    'uses'  => 'ArchiveInventoryController@restore'
-));
+    /*
+     * Inventory Archive Routes
+     */
+    Route::post('archive/inventory/{inventory}/restore', array(
+        'as'    => 'maintenance.admin.archive.inventory.restore',
+        'uses'  => 'ArchiveInventoryController@restore'
+    ));
 
-Route::resource('archive/inventory', 'ArchiveInventoryController',  array(
-    'only' => array(
-        'index',
-        'show',
-        'destroy',
-    ),
-    'names' => array(
-        'index'     => 'maintenance.admin.archive.inventory.index',
-        'show'      => 'maintenance.admin.archive.inventory.show',
-        'destroy'   => 'maintenance.admin.archive.inventory.destroy',
-    ),
-));
+    Route::resource('archive/inventory', 'ArchiveInventoryController',  array(
+        'only' => array(
+            'index',
+            'show',
+            'destroy',
+        ),
+        'names' => array(
+            'index'     => 'maintenance.admin.archive.inventory.index',
+            'show'      => 'maintenance.admin.archive.inventory.show',
+            'destroy'   => 'maintenance.admin.archive.inventory.destroy',
+        ),
+    ));
+    
+});
+

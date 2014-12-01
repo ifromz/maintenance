@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin;
+namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
 
 use Stevebauman\Maintenance\Controllers\BaseController;
 

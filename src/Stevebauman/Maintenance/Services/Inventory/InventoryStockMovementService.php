@@ -47,7 +47,7 @@ class InventoryStockMovementService extends BaseModelService {
              * Only create a record if the before and after quantity differ
              * if enabled in config
              */
-            if($this->getConfig('maintenance::rules.inventory.prevent_duplicate_movements')) {
+            if(config('maintenance::rules.inventory.prevent_duplicate_movements')) {
             
                 if($insert['before'] != $insert['after']){
 

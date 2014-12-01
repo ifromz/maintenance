@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\WorkOrder\Attachment;
 
 use Dmyers\Storage\Storage;
 use Stevebauman\Maintenance\Services\WorkOrderService;
@@ -8,7 +8,7 @@ use Stevebauman\Maintenance\Services\WorkOrderAttachmentService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderAttachmentController extends BaseController {
+class AttachmentController extends BaseController {
 	
 	public function __construct(WorkOrderService $workOrder, WorkOrderAttachmentService $workOrderAttachment, AttachmentService $attachment){
 		$this->workOrder = $workOrder;

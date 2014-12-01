@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\Asset\Meter;
 
 use Stevebauman\Maintenance\Validators\MeterValidator;
 use Stevebauman\Maintenance\Services\MeterReadingService;
@@ -11,7 +11,7 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 /*
  * Handles asset meter creation and updating
  */
-class AssetMeterController extends BaseController {
+class MeterController extends BaseController {
     
     public function __construct(
             AssetService $asset,

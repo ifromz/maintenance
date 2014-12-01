@@ -1,6 +1,6 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\Asset;
 
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\AssetEventService;

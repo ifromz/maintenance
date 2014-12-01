@@ -1,11 +1,11 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin;
+namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
 
 use Stevebauman\Maintenance\Services\InventoryService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class ArchiveInventoryController extends BaseController {
+class InventoryController extends BaseController {
     
     public function __construct(InventoryService $inventory)
     {

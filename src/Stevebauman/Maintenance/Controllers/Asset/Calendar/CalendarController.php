@@ -1,13 +1,13 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\Asset\Calendar;
 
 use Stevebauman\Maintenance\Validators\CalendarValidator;
 use Stevebauman\Maintenance\Services\CalendarService;
 use Stevebauman\Maintenance\Services\AssetService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class AssetCalendarController extends BaseController {
+class CalendarController extends BaseController {
     
     public function __construct(AssetService $asset, CalendarService $calendar, CalendarValidator $calendarValidator)
     {

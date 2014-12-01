@@ -11,7 +11,7 @@
 @section('panel.head.content')
 
 <div class="btn-toolbar">
-    <a href="{{ route('maintenance.assets.events.create', array($asset->id)) }}" class="btn btn-primary pull-left" data-toggle="tooltip" title="Create a new Event">
+    <a href="{{ route('maintenance.assets.calendars.events.create', array($asset->id, $calendar->id)) }}" class="btn btn-primary pull-left" data-toggle="tooltip" title="Create a new Event">
         <i class="fa fa-plus"></i>
         New Event
     </a>

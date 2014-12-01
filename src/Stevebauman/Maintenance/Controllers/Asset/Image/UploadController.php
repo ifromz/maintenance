@@ -1,6 +1,6 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\Asset\Image;
 
 use Stevebauman\Maintenance\Controllers\BaseUploadController;
 
@@ -9,12 +9,12 @@ use Stevebauman\Maintenance\Controllers\BaseUploadController;
  * A json view response is definable here you can customize the layout of the dynamic uploads. 
  *
  */
-class WorkOrderAttachmentUploadController extends BaseUploadController {
+class UploadController extends BaseUploadController {
 	
 	public function __construct(){
             parent::__construct();
 			
-            $this->responseView = 'maintenance::partials.work-order-upload';
+            $this->responseView = 'maintenance::partials.asset-upload';
 	}
 	
 }

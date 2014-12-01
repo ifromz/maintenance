@@ -1,13 +1,13 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\AssignmentValidator;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrderAssignmentService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderAssignmentController extends BaseController {
+class AssignmentController extends BaseController {
         
         public function __construct(WorkOrderAssignmentService $assignment, WorkOrderService $workOrder, AssignmentValidator $assignmentValidator){
             $this->assignment = $assignment;

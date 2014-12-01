@@ -1,12 +1,12 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\WorkOrder\Part;
 
 use Stevebauman\Maintenance\Services\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderPartController extends BaseController {
+class PartController extends BaseController {
         
         public function __construct(WorkOrderService $workOrder, InventoryService $inventory){
             $this->workOrder = $workOrder;
