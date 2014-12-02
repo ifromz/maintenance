@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Validator;
-use Stevebauman\Maintenance\Services\WorkOrderAssignmentService;
+use Stevebauman\Maintenance\Services\WorkOrder\AssignmentService;
 
 class UserAssignmentValidator extends Validator {
     
     protected $invalidUsers = array();
     
-    public function __construct($translator, $data, $rules, $messages, WorkOrderAssignmentService $assignment) {
+    public function __construct($translator, $data, $rules, $messages, AssignmentService $assignment) {
         $this->translator = $translator;
         $this->data = $data;
         $this->rules = $this->explodeRules($rules);

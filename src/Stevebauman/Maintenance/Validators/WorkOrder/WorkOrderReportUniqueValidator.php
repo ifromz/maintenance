@@ -1,6 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Illuminate\Support\Facades\Route;
 
 class WorkOrderReportUniqueValidator {

@@ -3,15 +3,15 @@
 namespace Stevebauman\Maintenance\Listeners;
 
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\WorkOrderNotificationService;
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrder\NotificationService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Listeners\AbstractListener;
 
 class WorkOrderListener extends AbstractListener {
     
     public function __construct(
             WorkOrderService $workOrder,
-            WorkOrderNotificationService $workOrderNotification,
+            NotificationService $workOrderNotification,
             SentryService $sentry)
     {
         $this->workOrder = $workOrder;

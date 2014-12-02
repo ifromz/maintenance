@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder\Part;
 
-use Stevebauman\Maintenance\Services\InventoryService;
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\Inventory\InventoryService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class PartController extends BaseController {

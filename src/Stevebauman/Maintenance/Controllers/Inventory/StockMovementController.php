@@ -2,14 +2,14 @@
 
 namespace Stevebauman\Maintenance\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Services\InventoryService;
-use Stevebauman\Maintenance\Services\InventoryStockService;
-use Stevebauman\Maintenance\Services\InventoryStockMovementService;
+use Stevebauman\Maintenance\Services\Inventory\InventoryService;
+use Stevebauman\Maintenance\Services\Inventory\StockService;
+use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class StockMovementController extends BaseController {
         
-        public function __construct(InventoryService $inventory, InventoryStockService $inventoryStock, InventoryStockMovementService $inventoryStockMovement){
+        public function __construct(InventoryService $inventory, StockService $inventoryStock, StockMovementService $inventoryStockMovement){
             $this->inventory = $inventory;
             $this->inventoryStock = $inventoryStock;
             $this->inventoryStockMovement = $inventoryStockMovement;

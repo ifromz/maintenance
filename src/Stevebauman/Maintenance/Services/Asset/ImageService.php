@@ -1,21 +1,21 @@
 <?php 
 
 /**
- * Handles Asset Manual Uploads
+ * Handles Asset Image uploads
  * 
  * @author Steve Bauman <sbauman@bwbc.gc.ca>
  */
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Asset;
 
 use Dmyers\Storage\Storage;
 use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class AssetManualService extends BaseModelService {
+class ImageService extends BaseModelService {
 	
 	public function __construct(AssetService $asset, AttachmentService $attachment, SentryService $sentry){
 		$this->asset = $asset;
@@ -33,8 +33,8 @@ class AssetManualService extends BaseModelService {
             
             $this->dbStartTransaction();
             
-            try{
-            
+            try {
+                
                 /*
                  * Find the asset
                  */
@@ -45,7 +45,7 @@ class AssetManualService extends BaseModelService {
                  */
                 $files = $this->getInput('files');
                 
-                if($files){
+                if($files) {
 
                     /*
                      * For each file, create the attachment record, and sync asset image pivot table
@@ -60,7 +60,7 @@ class AssetManualService extends BaseModelService {
                         /*
                          * Ex. files/assets/images/1/example.png
                          */
-                        $movedFilePath = Config::get('maintenance::site.paths.assets.manuals').sprintf('%s/', $asset->id);
+                        $movedFilePath = Config::get('maintenance::site.paths.assets.images').sprintf('%s/', $asset->id);
 
                         /*
                          * Move the file
@@ -85,7 +85,8 @@ class AssetManualService extends BaseModelService {
                         /*
                          * Attach the attachment record to the asset images
                          */
-                        $asset->manuals()->attach($record);
+                        $asset->images()->attach($record);
+                            
                     }
 
                     $this->dbCommitTransaction();
@@ -103,15 +104,14 @@ class AssetManualService extends BaseModelService {
                  * No Files were detected to be uploaded, return false
                  */
                 return false;
-           
 
+                
             } catch(Exception $e) {
                 
                 $this->dbRollbackTransaction();
                 
                 return false;
             }
-            
         }
             
 }

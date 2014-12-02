@@ -4,13 +4,13 @@ namespace Stevebauman\Maintenance\Controllers\Asset\Manual;
 
 use Dmyers\Storage\Storage;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Services\AssetManualService;
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Asset\ManualService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class ManualController extends BaseController {
         
-        public function __construct(AssetService $asset, AssetManualService $assetManual, AttachmentService $attachment){
+        public function __construct(AssetService $asset, ManualService $assetManual, AttachmentService $attachment){
             $this->asset = $asset;
             $this->assetManual = $assetManual;
             $this->attachment = $attachment;

@@ -1,11 +1,11 @@
 <?php
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Models\InventoryCategory;
 use Stevebauman\Maintenance\Services\BaseNestedSetModelService;
 
-class InventoryCategoryService extends BaseNestedSetModelService {
+class CategoryService extends BaseNestedSetModelService {
     
     public function __construct(InventoryCategory $inventoryCategory)
     {

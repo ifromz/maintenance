@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
 
-use Stevebauman\Maintenance\Services\InventoryService;
+use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class InventoryController extends BaseController {

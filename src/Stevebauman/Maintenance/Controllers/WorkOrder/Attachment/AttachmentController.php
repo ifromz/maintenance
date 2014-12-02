@@ -3,8 +3,8 @@
 namespace Stevebauman\Maintenance\Controllers\WorkOrder\Attachment;
 
 use Dmyers\Storage\Storage;
-use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Services\WorkOrderAttachmentService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrder\AttachmentService as WorkOrderAttachmentService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 

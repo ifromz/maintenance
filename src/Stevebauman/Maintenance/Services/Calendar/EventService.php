@@ -1,13 +1,14 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Calendar;
 
 use Recurr;
 use Stevebauman\Maintenance\Exceptions\AssetEventNotFoundException;
 use Stevebauman\Maintenance\Models\CalendarEvent;
 use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class CalendarEventService extends BaseModelService {
+class EventService extends BaseModelService {
 	
         /*
          * AssetEventNotFoundException to be changed

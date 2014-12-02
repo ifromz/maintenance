@@ -1,12 +1,12 @@
 <?php
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\WorkOrderNotification;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class WorkOrderNotificationService extends BaseModelService {
+class NotificationService extends BaseModelService {
     
     public function __construct(WorkOrderNotification $model, SentryService $sentry)
     {

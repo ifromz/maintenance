@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Controllers\Inventory;
 
 use Stevebauman\Maintenance\Validators\InventoryValidator;
-use Stevebauman\Maintenance\Services\InventoryService;
+use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class InventoryController extends BaseController {

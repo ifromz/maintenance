@@ -3,8 +3,8 @@
 namespace Stevebauman\Maintenance\Controllers\Asset\Calendar;
 
 use Stevebauman\Maintenance\Validators\CalendarValidator;
-use Stevebauman\Maintenance\Services\CalendarService;
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Calendar\CalendarService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class CalendarController extends BaseController {

@@ -1,11 +1,11 @@
 <?php namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Services\InventoryStockService;
+use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Illuminate\Support\Facades\Route;
 
 class InventoryStockLocationValidator {
     
-    public function __construct(InventoryStockService $inventoryStock) {
+    public function __construct(StockService $inventoryStock) {
         $this->inventoryStock = $inventoryStock;
     }
     

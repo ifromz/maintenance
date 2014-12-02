@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class WorkOrderController extends BaseController {

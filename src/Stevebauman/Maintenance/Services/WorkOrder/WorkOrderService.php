@@ -1,10 +1,11 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Stevebauman\Maintenance\Exceptions\WorkOrderNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\WorkOrder;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
 class WorkOrderService extends BaseModelService {
 	

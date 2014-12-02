@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
 
 class AssetApi extends BaseApiController {

@@ -1,12 +1,13 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Carbon\Carbon;
 use Stevebauman\Maintenance\Models\WorkOrderSession;
 use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
-class WorkOrderSessionService extends BaseModelService {
+class SessionService extends BaseModelService {
 	
 	public function __construct(WorkOrderSession $session, SentryService $sentry){
 		$this->model = $session;

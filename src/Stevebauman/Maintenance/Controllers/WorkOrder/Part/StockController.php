@@ -4,10 +4,10 @@ namespace Stevebauman\Maintenance\Controllers\WorkOrder\Part;
 
 use Stevebauman\Maintenance\Validators\WorkOrderPartPutBackValidator;
 use Stevebauman\Maintenance\Validators\WorkOrderPartTakeValidator;
-use Stevebauman\Maintenance\Services\InventoryStockMovementService;
-use Stevebauman\Maintenance\Services\InventoryStockService;
-use Stevebauman\Maintenance\Services\InventoryService;
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
+use Stevebauman\Maintenance\Services\Inventory\StockService;
+use Stevebauman\Maintenance\Services\Inventory\InventoryService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class StockController extends BaseController {
@@ -15,8 +15,8 @@ class StockController extends BaseController {
     public function __construct(
             WorkOrderService $workOrder, 
             InventoryService $inventory, 
-            InventoryStockService $inventoryStock,
-            InventoryStockMovementService $inventoryStockMovement,
+            StockService $inventoryStock,
+            StockMovementService $inventoryStockMovement,
             WorkOrderPartTakeValidator $workOrderPartTakeValidator,
             WorkOrderPartPutBackValidator $workOrderPartPutBackValidator){
         $this->workOrder = $workOrder;

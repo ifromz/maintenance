@@ -1,13 +1,13 @@
 <?php  namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\WorkOrderReportValidator;
-use Stevebauman\Maintenance\Services\WorkOrderReportService;
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrder\ReportService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class ReportController extends BaseController {
         
-        public function __construct(WorkOrderService $workOrder, WorkOrderReportService $report, WorkOrderReportValidator $reportValidator){
+        public function __construct(WorkOrderService $workOrder, ReportService $report, WorkOrderReportValidator $reportValidator){
             $this->workOrder = $workOrder;
             $this->report = $report;
             $this->reportValidator = $reportValidator;

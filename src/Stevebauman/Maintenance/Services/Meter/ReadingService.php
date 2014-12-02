@@ -1,12 +1,12 @@
 <?php
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Meter;
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\MeterReading;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class MeterReadingService extends BaseModelService {
+class ReadingService extends BaseModelService {
     
     public function __construct(MeterReading $meterReading, SentryService $sentry)
     {

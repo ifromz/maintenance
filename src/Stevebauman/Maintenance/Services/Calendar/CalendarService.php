@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Calendar;
 
 use Stevebauman\Maintenance\Models\Calendar;
 use Stevebauman\Maintenance\Services\BaseModelService;

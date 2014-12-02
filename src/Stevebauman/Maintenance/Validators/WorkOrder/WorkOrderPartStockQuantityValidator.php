@@ -3,11 +3,11 @@
 namespace Stevebauman\Maintenance\Validators;
 
 use Illuminate\Support\Facades\Route;
-use Stevebauman\Maintenance\Services\InventoryStockService;
+use Stevebauman\Maintenance\Services\Inventory\StockService;
 
 class WorkOrderPartStockQuantityValidator {
     
-    public function __construct(InventoryStockService $inventoryStock){
+    public function __construct(StockService $inventoryStock){
         $this->inventoryStock = $inventoryStock;
     }
     

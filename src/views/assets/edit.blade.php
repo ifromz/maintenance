@@ -42,8 +42,9 @@
                 
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">Condition</label>
+
                     <div class="col-md-4">
-                    	{{ Form::select('condition', trans('maintenance::assets.conditions'), $asset->condition, array('class'=>'form-control select2')) }}
+                    	{{ Form::select('condition', trans('maintenance::assets.conditions'), $asset->condition_number, array('class'=>'form-control select2')) }}
                     </div>
                 </div>
                 

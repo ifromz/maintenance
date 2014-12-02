@@ -1,11 +1,11 @@
 <?php
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Asset;
 
 use Stevebauman\Maintenance\Models\AssetCategory;
 use Stevebauman\Maintenance\Services\BaseNestedSetModelService;
 
-class AssetCategoryService extends BaseNestedSetModelService {
+class CategoryService extends BaseNestedSetModelService {
     
     public function __construct(AssetCategory $assetCategory)
     {

@@ -4,6 +4,7 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Update;
 use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Services\BaseModelService;
 
 class UpdateService extends BaseModelService {
 	

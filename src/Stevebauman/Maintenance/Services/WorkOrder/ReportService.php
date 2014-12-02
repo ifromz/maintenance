@@ -1,12 +1,12 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Stevebauman\Maintenance\Models\WorkOrderReport;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class WorkOrderReportService extends BaseModelService {
+class ReportService extends BaseModelService {
     
     public function __construct(WorkOrderReport $report, SentryService $sentry){
         $this->model = $report;

@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
 
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class WorkOrderController extends BaseController {

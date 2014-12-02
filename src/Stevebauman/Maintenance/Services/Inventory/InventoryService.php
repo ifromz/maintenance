@@ -6,7 +6,7 @@
  * @author Steve Bauman <sbauman@bwbc.gc.ca>
  */
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Exceptions\InventoryNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;

@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Apis\v1;
 
-use Stevebauman\Maintenance\Controllers\AbstractController;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
-class BaseApi extends AbstractController {
+class BaseApi extends BaseController {
     
     
     

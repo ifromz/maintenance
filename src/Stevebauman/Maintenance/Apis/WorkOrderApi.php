@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
 
 class WorkOrderApi extends BaseApiController {

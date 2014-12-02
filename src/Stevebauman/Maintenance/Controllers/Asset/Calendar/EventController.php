@@ -3,13 +3,13 @@
 namespace Stevebauman\Maintenance\Controllers\Asset\Calendar;
 
 use Stevebauman\Maintenance\Validators\AssetEventValidator;
-use Stevebauman\Maintenance\Services\AssetEventService;
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Asset\EventService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class EventController extends BaseController {
     
-    public function __construct(AssetService $asset, AssetEventService $event, AssetEventValidator $eventValidator) {
+    public function __construct(AssetService $asset, EventService $event, AssetEventValidator $eventValidator) {
         $this->asset = $asset;
         $this->event = $event;
         $this->eventValidator = $eventValidator;

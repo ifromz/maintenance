@@ -6,13 +6,13 @@
  * @author Steve Bauman <sbauman@bwbc.gc.ca>
  */
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Models\InventoryStockMovement;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class InventoryStockMovementService extends BaseModelService {
+class StockMovementService extends BaseModelService {
     
     public function __construct(InventoryStockMovement $inventoryStockMovement, SentryService $sentry){
         $this->model = $inventoryStockMovement;

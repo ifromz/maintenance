@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Stevebauman\Maintenance\Exceptions\WorkRequestNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -9,7 +9,7 @@ use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class WorkOrderPublicService extends BaseModelService {
+class PublicService extends BaseModelService {
     
     public function __construct(
             WorkOrder $workOrder, 

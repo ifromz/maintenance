@@ -6,18 +6,18 @@
  * @author Steve Bauman <sbauman@bwbc.gc.ca>
  */
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Exceptions\InventoryStockNotFoundException;
 use Stevebauman\Maintenance\Models\InventoryStock;
-use Stevebauman\Maintenance\Services\InventoryStockMovementService;
+use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class InventoryStockService extends BaseModelService {
+class StockService extends BaseModelService {
     
     public function __construct(
             InventoryStock $inventoryStock, 
-            InventoryStockMovementService $inventoryStockMovement, 
+            StockMovementService $inventoryStockMovement, 
             InventoryStockNotFoundException $notFoundException
             )
     {

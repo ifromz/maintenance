@@ -6,7 +6,7 @@
  * @author Steve Bauman <sbauman@bwbc.gc.ca>
  */
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Asset;
 
 use Stevebauman\Maintenance\Exceptions\AssetNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;

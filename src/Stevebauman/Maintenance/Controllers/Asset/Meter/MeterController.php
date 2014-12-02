@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Controllers\Asset\Meter;
 
 use Stevebauman\Maintenance\Validators\MeterValidator;
-use Stevebauman\Maintenance\Services\MeterReadingService;
-use Stevebauman\Maintenance\Services\MeterService;
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Meter\ReadingService;
+use Stevebauman\Maintenance\Services\Meter\MeterService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /*
@@ -16,7 +16,7 @@ class MeterController extends BaseController {
     public function __construct(
             AssetService $asset,
             MeterService $meter, 
-            MeterReadingService $meterReading, 
+            ReadingService $meterReading, 
             MeterValidator $meterValidator)
     {
         $this->asset = $asset;

@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Apis\v1;
 
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Apis\v1\BaseApi;
 
 class AssetApi extends BaseApi {

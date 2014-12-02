@@ -2,12 +2,12 @@
 
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
-use Stevebauman\Maintenance\Services\AssetEventService;
+use Stevebauman\Maintenance\Services\Asset\EventService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
 
 class AssetEventApi extends BaseApiController {
 
-    public function __construct(AssetEventService $event){
+    public function __construct(EventService $event){
             $this->event = $event;
     }
     

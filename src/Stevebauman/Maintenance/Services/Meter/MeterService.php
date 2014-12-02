@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\Meter;
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Meter;

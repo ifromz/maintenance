@@ -6,18 +6,17 @@
  * @author Steve Bauman <sbauman@bwbc.gc.ca>
  */
 
-namespace Stevebauman\Maintenance\Services;
+namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Dmyers\Storage\Storage;
-use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\WorkOrderService;
-use Stevebauman\Maintenance\Services\AttachmentService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
+use Stevebauman\Maintenance\Services\AttachmentService as BaseAttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class WorkOrderAttachmentService extends BaseModelService {
+class AttachmentService extends BaseModelService {
 	
-	public function __construct(WorkOrderService $workOrder, AttachmentService $attachment, SentryService $sentry){
+	public function __construct(WorkOrderService $workOrder, BaseAttachmentService $attachment, SentryService $sentry){
 		$this->workOrder = $workOrder;
 		$this->attachment = $attachment;
                 $this->sentry = $sentry;
@@ -63,12 +62,12 @@ class WorkOrderAttachmentService extends BaseModelService {
                         /*
                          * Ex. files/assets/images/1/example.png
                          */
-                        $movedFilePath = Config::get('maintenance::site.paths.work-orders.attachments').sprintf('%s/', $asset->id);
+                        $movedFilePath = config('maintenance::site.paths.work-orders.attachments').sprintf('%s/', $asset->id);
 
                         /*
                          * Move the file
                          */
-                        Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
+                        Storage::move(config('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
 
                         /*
                          * Set insert data

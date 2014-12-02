@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 
 class AssetSelectComposer {
     

@@ -136,6 +136,11 @@ class Asset extends BaseModel {
             return trans(sprintf('maintenance::assets.conditions.%s',$attr));
 	}
         
+        public function getConditionNumberAttribute()
+        {
+            return $this->attributes['condition'];
+        }
+        
         /*
          * Mutator for displaying a pretty link label for display in work orders
          */

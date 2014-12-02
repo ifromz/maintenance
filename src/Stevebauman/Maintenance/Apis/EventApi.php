@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
-use Stevebauman\Maintenance\Services\CalendarEventService;
+use Stevebauman\Maintenance\Services\Calendar\EventService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
 
 class EventApi extends BaseApiController {
 	
-	public function __construct(CalendarEventService $event){
+	public function __construct(EventService $event){
 		$this->event = $event;
 	}
         

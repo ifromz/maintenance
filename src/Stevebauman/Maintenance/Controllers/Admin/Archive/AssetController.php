@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
 
 use Stevebauman\Maintenance\Controllers\BaseController;
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 
 class AssetController extends BaseController {
     

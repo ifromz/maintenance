@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder\Update;
 
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Validators\UpdateValidator;
 use Stevebauman\Maintenance\Controllers\BaseController;

@@ -3,14 +3,14 @@
 namespace Stevebauman\Maintenance\Controllers\Asset\Image;
 
 use Dmyers\Storage\Storage;
-use Stevebauman\Maintenance\Services\AssetService;
-use Stevebauman\Maintenance\Services\AssetImageService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
+use Stevebauman\Maintenance\Services\Asset\ImageService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class ImageController extends BaseController {
 	
-	public function __construct(AssetService $asset, AssetImageService $assetImage, AttachmentService $attachment){
+	public function __construct(AssetService $asset, ImageService $assetImage, AttachmentService $attachment){
 		$this->asset = $asset;
 		$this->assetImage = $assetImage;
                 $this->attachment = $attachment;

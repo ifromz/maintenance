@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Composers;
 
 use Stevebauman\Maintenance\Services\UserService;
-use Stevebauman\Maintenance\Services\AssetService;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\InventoryService;
-use Stevebauman\Maintenance\Services\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 
 class AdminDashboardComposer {
     

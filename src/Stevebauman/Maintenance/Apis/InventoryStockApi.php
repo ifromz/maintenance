@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
-use Stevebauman\Maintenance\Services\InventoryStockService;
-use Stevebauman\Maintenance\Services\InventoryService;
+use Stevebauman\Maintenance\Services\Inventory\StockService;
+use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
 
 class InventoryStockApi extends BaseApiController {
     
-    public function __construct(InventoryService $inventory, InventoryStockService $inventoryStock) {
+    public function __construct(InventoryService $inventory, StockService $inventoryStock) {
         $this->inventory = $inventory;
         $this->inventoryStock = $inventoryStock;
     }

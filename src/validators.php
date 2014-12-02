@@ -9,7 +9,7 @@
  */
 Validator::resolver(function($translator, $data, $rules, $messages){
     
-    $assignment = App::make('Stevebauman\Maintenance\Services\WorkOrderAssignmentService');
+    $assignment = App::make('Stevebauman\Maintenance\Services\WorkOrder\AssignmentService');
     
     return new Stevebauman\Maintenance\Validators\UserAssignmentValidator($translator, $data, $rules, $messages, $assignment);
 });

@@ -3,13 +3,13 @@
 namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\PublicWorkOrderValidator;
-use Stevebauman\Maintenance\Services\WorkOrderPublicService;
+use Stevebauman\Maintenance\Services\WorkOrder\PublicService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class PublicWorkOrderController extends BaseController {
     
     public function __construct(
-            WorkOrderPublicService $workOrder, 
+            PublicService $workOrder, 
             PublicWorkOrderValidator $workOrderValidator
         )
     {
