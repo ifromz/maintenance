@@ -23,13 +23,6 @@ class WorkOrderController extends BaseController {
 	 */
 	public function index()
         {
-            $data = array(
-                'title' => 'Testing Create',
-                'description' => 'Testing this',
-                'start' => '2014-12-10 10:15am',
-                'end' => '2014-12-11 10:15am'
-            );
-            
             $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
 
             return view('maintenance::work-orders.index', array(
