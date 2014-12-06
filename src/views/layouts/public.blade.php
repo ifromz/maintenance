@@ -30,6 +30,6 @@
     
     @yield('content')
  
-    @include('maintenance::layouts.main.foot')
+    @include('maintenance::layouts.partials.foot')
 </body>
 </html>

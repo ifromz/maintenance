@@ -24,7 +24,7 @@ class StockController extends BaseController {
         public function index($inventory_id){
             $item = $this->inventory->find($inventory_id);
 
-            return $this->view('maintenance::inventory.stocks.index', array(
+            return view('maintenance::inventory.stocks.index', array(
                 'title' => 'Current Stocks for Item: '.$item->name,
                 'item' => $item,
             ));
@@ -38,7 +38,7 @@ class StockController extends BaseController {
 	public function create($inventory_id){
             $item = $this->inventory->find($inventory_id);
 
-            return $this->view('maintenance::inventory.stocks.create', array(
+            return view('maintenance::inventory.stocks.create', array(
                 'title' => 'Add Stock Location to: '.$item->name,
                 'item' => $item,
             ));
@@ -95,7 +95,7 @@ class StockController extends BaseController {
 
             $stock = $this->inventoryStock->find($stock_id);
 
-            return $this->view('maintenance::inventory.stocks.show', array(
+            return view('maintenance::inventory.stocks.show', array(
                 'title' => sprintf('Viewing Stock for item: %s inside Location: %s', $item->name, renderNode($stock->location)),
                 'item' => $item,
                 'stock' => $stock,
@@ -116,7 +116,7 @@ class StockController extends BaseController {
             
             $stock = $this->inventoryStock->find($stock_id);
 
-            return $this->view('maintenance::inventory.stocks.edit', array(
+            return view('maintenance::inventory.stocks.edit', array(
                 'title' => sprintf('Update Stock for item: %s inside %s', $item->name, $stock->location->name),
                 'stock' => $stock,
                 'item'=>$item

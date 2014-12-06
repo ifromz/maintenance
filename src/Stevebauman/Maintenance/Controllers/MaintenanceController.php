@@ -6,7 +6,7 @@ class MaintenanceController extends BaseController {
         
 	public function getIndex()
         {
-            return $this->view('maintenance::dashboard.index', array(
+            return view('maintenance::dashboard.index', array(
                 'title' => 'Dashboard'
             ));
 	}

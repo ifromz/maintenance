@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\AbstractValidator;
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class PublicWorkOrderValidator extends AbstractValidator {
+class PublicWorkOrderValidator extends BaseValidator {
     
     protected $rules = array(
         'subject' => 'required|min:5|max:250',

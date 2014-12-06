@@ -2,16 +2,18 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
+use Stevebauman\Maintenance\Services\Google\EventService;
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class WorkOrderController extends BaseController {
         
-        public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator)
+        public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator, EventService $event)
         {
             $this->workOrder = $workOrder;
             $this->workOrderValidator = $workOrderValidator;
+            $this->event = $event;
         }
         
 	/**
@@ -21,9 +23,16 @@ class WorkOrderController extends BaseController {
 	 */
 	public function index()
         {
+            $data = array(
+                'title' => 'Testing Create',
+                'description' => 'Testing this',
+                'start' => '2014-12-10 10:15am',
+                'end' => '2014-12-11 10:15am'
+            );
+            
             $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
 
-            return $this->view('maintenance::work-orders.index', array(
+            return view('maintenance::work-orders.index', array(
                 'title' => 'Work Orders',
                 'workOrders' => $workOrders
             ));
@@ -37,7 +46,7 @@ class WorkOrderController extends BaseController {
 	 */
 	public function create()
         {
-            return $this->view('maintenance::work-orders.create', array(
+            return view('maintenance::work-orders.create', array(
                 'title' => 'Create a Work Order'
             ));
 	}
@@ -75,7 +84,7 @@ class WorkOrderController extends BaseController {
         {
             $workOrder = $this->workOrder->find($id);
 
-            return $this->view('maintenance::work-orders.show', array(
+            return view('maintenance::work-orders.show', array(
                     'title' => 'Viewing Work Order: '.$workOrder->subject,
                     'workOrder' => $workOrder
             ));
@@ -112,7 +121,7 @@ class WorkOrderController extends BaseController {
                     ),
             );
 
-            return $this->view('maintenance::work-orders.edit', array(
+            return view('maintenance::work-orders.edit', array(
                 'title' => 'Editing Work Order: '.$workOrder->subject,
                 'workOrder' => $workOrder,
                 'dates' => $dates,

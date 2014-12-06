@@ -22,6 +22,17 @@ class LdapService {
 
             return false;
 	}
+        
+        /**
+         * Returns Corp user object
+         * 
+         * @param string $username
+         * @return object
+         */
+        public function user($username)
+        {
+            return Corp::user($username);
+        }
 	
 	/**
         * Return an LDAP user email address

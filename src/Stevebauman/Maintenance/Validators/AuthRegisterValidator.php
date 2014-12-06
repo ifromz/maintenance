@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\AbstractValidator;
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class AuthRegisterValidator extends AbstractValidator {
+class AuthRegisterValidator extends BaseValidator {
 	
 	protected $rules = array(
                 'first_name' => 'required|max:100',

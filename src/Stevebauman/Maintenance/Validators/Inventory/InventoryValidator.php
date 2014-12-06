@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\AbstractValidator;
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class InventoryValidator extends AbstractValidator {
+class InventoryValidator extends BaseValidator {
     
     protected $rules = array(
             'name' => 'required|max:250|unique:inventories,name',

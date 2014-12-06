@@ -12,6 +12,6 @@
                     
 @else
 
-<h5>There are no manuals to list</h5>
+<h5>There are no manuals attached to this asset.</h5>
 
 @endif

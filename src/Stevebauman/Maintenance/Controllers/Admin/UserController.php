@@ -24,7 +24,7 @@ class UserController extends BaseController {
     
     public function create()
     {
-        return $this->view('maintenance::admin.users.create', array(
+        return view('maintenance::admin.users.create', array(
             'title' => 'Create a User'
         ));
     }

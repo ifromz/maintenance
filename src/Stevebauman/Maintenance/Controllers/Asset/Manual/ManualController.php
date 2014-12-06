@@ -24,7 +24,7 @@ class ManualController extends BaseController {
 	public function index($asset_id){
             $asset = $this->asset->find($asset_id);
 
-            return $this->view('maintenance::assets.manuals.index', array(
+            return view('maintenance::assets.manuals.index', array(
                     'title' => 'Viewing Asset Manuals for: '.$asset->name,
                     'asset' => $asset,
             ));
@@ -39,7 +39,7 @@ class ManualController extends BaseController {
 	public function create($asset_id){
             $asset = $this->asset->find($asset_id);
 
-            return $this->view('maintenance::assets.manuals.create', array(
+            return view('maintenance::assets.manuals.create', array(
                     'title' => 'Upload Asset Manuals for: '.$asset->name,
                     'asset' => $asset,
             ));

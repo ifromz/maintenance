@@ -12,7 +12,7 @@ class PrintQrController extends BaseController {
         
         if($qr){
             
-            return $this->view('maintenance::qr.generate', array(
+            return view('maintenance::qr.generate', array(
                 'qr' => $qr
             ));
             

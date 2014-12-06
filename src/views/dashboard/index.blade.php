@@ -15,7 +15,6 @@
             
             <div id="calendar" data-event-url="{{ route('maintenance.api.calendar.events.index') }}" class="fc fc-ltr"></div>
 
-            
         </div>
     </div>
     </div>

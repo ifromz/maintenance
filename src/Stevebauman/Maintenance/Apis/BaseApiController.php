@@ -1,6 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Apis;
 
-class BaseApiController extends \Controller {
+use Stevebauman\CoreHelper\Controllers\AbstractController;
+
+class BaseApiController extends AbstractController {
     
     
     

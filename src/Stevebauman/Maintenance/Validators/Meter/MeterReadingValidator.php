@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\AbstractValidator;
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class MeterReadingValidator extends AbstractValidator {
+class MeterReadingValidator extends BaseValidator {
     
     protected $rules = array(
         'reading' => 'required|positive',

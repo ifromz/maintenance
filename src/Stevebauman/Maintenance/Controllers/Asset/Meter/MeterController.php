@@ -97,7 +97,7 @@ class MeterController extends BaseController {
         
         $readings = $this->meterReading->getByMeterByPageWithFilter($meter->id);
         
-        return $this->view('maintenance::assets.meters.show', array(
+        return view('maintenance::assets.meters.show', array(
             'title' => 'Viewing Asset Meter: '.$meter->name,
             'asset' => $asset,
             'meter' => $meter,
@@ -111,7 +111,7 @@ class MeterController extends BaseController {
         
         $meter = $this->meter->find($meter_id);
         
-        return $this->view('maintenance::assets.meters.edit', array(
+        return view('maintenance::assets.meters.edit', array(
             'title' => 'Editing Asset Meter: '.$meter->name,
             'asset' => $asset,
             'meter' => $meter

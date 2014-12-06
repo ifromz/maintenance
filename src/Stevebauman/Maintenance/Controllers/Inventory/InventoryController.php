@@ -22,7 +22,7 @@ class InventoryController extends BaseController {
 
             $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
             
-            return $this->view('maintenance::inventory.index', array(
+            return view('maintenance::inventory.index', array(
                 'title' => 'Inventory',
                 'items' => $items,
             ));
@@ -35,7 +35,7 @@ class InventoryController extends BaseController {
 	 * @return Response
 	 */
 	public function create(){
-            return $this->view('maintenance::inventory.create', array(
+            return view('maintenance::inventory.create', array(
                 'title' => 'Add an Item to the Inventory',
             ));
 	}
@@ -81,7 +81,7 @@ class InventoryController extends BaseController {
             
             $item = $this->inventory->find($id);
 
-            return $this->view('maintenance::inventory.show', array(
+            return view('maintenance::inventory.show', array(
                 'title' => 'Viewing Inventory Item: '.$item->name,
                 'item' => $item,
             ));
@@ -97,7 +97,7 @@ class InventoryController extends BaseController {
 	public function edit($id){
             $item = $this->inventory->find($id);
 
-            return $this->view('maintenance::inventory.edit', array(
+            return view('maintenance::inventory.edit', array(
                 'title' => 'Editing Inventory Item: '.$item->name,
                 'item' => $item,
             ));

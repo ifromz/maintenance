@@ -151,40 +151,19 @@ Route::group(array('namespace'=>'Asset'), function(){
     */
 
    /*
-    * Asset Calendar Event Routes
+    * Asset Event Routes
     */
-    Route::group(array('namespace'=>'Calendar'), function(){
-        
-        Route::delete('assets/{assets}/calendars/{calendars}/events/{events}/recurrence/{recurrence}', array(
-            'as' => 'maintenance.assets.events.destroy-recurrence',
-            'uses' => 'CalendarEventController@destroyRecurrence'
-        ));
-
-        Route::resource('assets.calendars.events', 'EventController', array(
-            'names' => array(
-                        'index'	=> 'maintenance.assets.calendars.events.index',
-                        'create'  	=> 'maintenance.assets.calendars.events.create',
-                        'store'   	=> 'maintenance.assets.calendars.events.store',
-                        'show'    	=> 'maintenance.assets.calendars.events.show',
-                        'edit'    	=> 'maintenance.assets.calendars.events.edit',
-                        'update'  	=> 'maintenance.assets.calendars.events.update',
-                        'destroy' 	=> 'maintenance.assets.calendars.events.destroy',
-            )
-        ));
-        
-        Route::resource('assets.calendars', 'CalendarController', array(
-            'names' => array(
-                    'index'	=> 'maintenance.assets.calendars.index',
-                    'create'  	=> 'maintenance.assets.calendars.create',
-                    'store'   	=> 'maintenance.assets.calendars.store',
-                    'show'    	=> 'maintenance.assets.calendars.show',
-                    'edit'    	=> 'maintenance.assets.calendars.edit',
-                    'update'  	=> 'maintenance.assets.calendars.update',
-                    'destroy' 	=> 'maintenance.assets.calendars.destroy',
-            )
-        ));
-        
-    });
+    Route::resource('assets.events', 'EventController', array(
+        'names' => array(
+                'index'	=> 'maintenance.assets.calendars.index',
+                'create'  	=> 'maintenance.assets.events.create',
+                'store'   	=> 'maintenance.assets.events.store',
+                'show'    	=> 'maintenance.assets.events.show',
+                'edit'    	=> 'maintenance.assets.events.edit',
+                'update'  	=> 'maintenance.assets.events.update',
+                'destroy' 	=> 'maintenance.assets.events.destroy',
+        )
+    ));
 
    /*
     * Asset Routes

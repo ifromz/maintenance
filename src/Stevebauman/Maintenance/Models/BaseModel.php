@@ -130,6 +130,16 @@ class BaseModel extends Eloquent {
     }
     
     /**
+     * Allows all models extending from BaseModel to have evens
+     * 
+     * @return object
+     */
+    public function events()
+    {
+        return $this->morphMany('Stevebauman\Maintenance\Models\Event', 'eventable');
+    }
+    
+    /**
      * Allows all columns on the current database table to be sorted through
      * query scope
      * 

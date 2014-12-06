@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Exceptions;
 
-use Stevebauman\Maintenance\Exceptions\AbstractException;
+use Stevebauman\Maintenance\Exceptions\BaseException;
 
-class InventoryStockMovementNotFoundException extends AbstractException {
+class InventoryStockMovementNotFoundException extends BaseException {
     
     public function __construct(){
         $this->message = trans('maintenance::errors.not-found', array('resource'=>'Inventory Stock Movement'));

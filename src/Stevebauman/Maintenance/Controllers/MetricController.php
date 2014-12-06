@@ -18,7 +18,7 @@ class MetricController extends BaseController {
     {
         $metrics = $this->metric->get();
         
-        return $this->view('maintenance::metrics.index', array(
+        return view('maintenance::metrics.index', array(
             'title' => 'All Metrics',
             'metrics' => $metrics
         ));
@@ -26,7 +26,7 @@ class MetricController extends BaseController {
     
     public function create()
     {
-        return $this->view('maintenance::metrics.create', array(
+        return view('maintenance::metrics.create', array(
             'title' => 'Create a Metric',
         ));
     }
@@ -53,7 +53,7 @@ class MetricController extends BaseController {
     {
         $metric = $this->metric->find($id);
         
-        return $this->view('maintenance::metrics.edit', array(
+        return view('maintenance::metrics.edit', array(
             'title' => 'Edit Metric: '.$metric->name,
             'metric' => $metric
         ));

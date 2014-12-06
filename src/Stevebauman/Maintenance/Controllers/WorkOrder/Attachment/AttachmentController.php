@@ -18,7 +18,7 @@ class AttachmentController extends BaseController {
         public function index($workOrder_id){
             $workOrder = $this->workOrder->find($workOrder_id);
             
-            return $this->view('maintenance::work-orders.attachments.index', array(
+            return view('maintenance::work-orders.attachments.index', array(
                 'title'=>'Work Order Attachments',
                 'workOrder'=>$workOrder
             ));
@@ -28,7 +28,7 @@ class AttachmentController extends BaseController {
         public function create($workOrder_id){
             $workOrder = $this->workOrder->find($workOrder_id);
             
-            return $this->view('maintenance::work-orders.attachments.create', array(
+            return view('maintenance::work-orders.attachments.create', array(
                 'title'=>'Add Attachments to Work Order',
                 'workOrder'=>$workOrder
             ));

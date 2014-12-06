@@ -33,7 +33,7 @@ class StockMovementController extends BaseController {
             
             $movements = $this->inventoryStockMovement->setInput($data)->getByPageWithFilter();
 
-            return $this->view('maintenance::inventory.stocks.movements.index', array(
+            return view('maintenance::inventory.stocks.movements.index', array(
                 'title' => "Viewing Stock Movements for Item: $item->name in Location: ".renderNode($stock->location),
                 'item' => $item,
                 'stock' => $stock,

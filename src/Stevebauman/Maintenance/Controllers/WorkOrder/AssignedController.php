@@ -16,7 +16,7 @@ class AssignedController extends BaseController {
     {
         $workOrders  = $this->workOrder->getUserAssignedWorkOrders();
          
-        return $this->view('maintenance::work-orders.assigned.index', array(
+        return view('maintenance::work-orders.assigned.index', array(
             'title' => 'Assigned Work Orders',
             'workOrders' => $workOrders
         ));

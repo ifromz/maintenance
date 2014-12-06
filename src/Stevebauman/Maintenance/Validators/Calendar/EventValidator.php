@@ -1,8 +1,10 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php 
 
-use Stevebauman\Maintenance\Validators\AbstractValidator;
+namespace Stevebauman\Maintenance\Validators\Calendar;
 
-class CalendarEventValidator extends AbstractValidator {
+use Stevebauman\Maintenance\Validators\BaseValidator;
+
+class EventValidator extends BaseValidator {
     
     protected $rules = array(
         'title' => 'required|max:250',

@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\AbstractValidator;
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class CalendarValidator extends AbstractValidator {
+class CalendarValidator extends BaseValidator {
     
     protected $rules = array(
         'name' => 'required|max:50',

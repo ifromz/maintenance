@@ -21,7 +21,7 @@ class PublicWorkOrderController extends BaseController {
     {
         $workOrders = $this->workOrder->getByPageByUser();
         
-        return $this->view('maintenance::public.work-orders.index', array(
+        return view('maintenance::public.work-orders.index', array(
             'title' => 'My Work Requests',
             'workOrders' => $workOrders
         ));
@@ -29,7 +29,7 @@ class PublicWorkOrderController extends BaseController {
     
     public function create()
     {
-        return $this->view('maintenance::public.work-orders.create', array(
+        return view('maintenance::public.work-orders.create', array(
             'title' => 'Submit a Work Request'
         ));
     }
@@ -56,7 +56,7 @@ class PublicWorkOrderController extends BaseController {
     {
         $workOrder = $this->workOrder->find($id);
         
-        return $this->view('maintenance::public.work-orders.show', array(
+        return view('maintenance::public.work-orders.show', array(
             'title' => 'Viewing Work Request',
             'workOrder' => $workOrder
         ));
@@ -66,7 +66,7 @@ class PublicWorkOrderController extends BaseController {
     {
         $workOrder = $this->workOrder->find($id);
         
-        return $this->view('maintenance::public.work-orders.edit', array(
+        return view('maintenance::public.work-orders.edit', array(
             'title' => 'Editing Work Request',
             'workOrder' => $workOrder
         ));

@@ -23,7 +23,7 @@ class PriorityController extends BaseController {
 	{
             $priorities = $this->priority->get();
             
-            return $this->view('maintenance::work-orders.priorities.index', array(
+            return view('maintenance::work-orders.priorities.index', array(
                 'title' => 'All Priorities',
                 'priorities' => $priorities
             ));
@@ -37,7 +37,7 @@ class PriorityController extends BaseController {
 	 */
 	public function create()
 	{
-            return $this->view('maintenance::work-orders.priorities.create', array(
+            return view('maintenance::work-orders.priorities.create', array(
                 'title' => 'Create a Priority'
             ));
 	}
@@ -82,7 +82,7 @@ class PriorityController extends BaseController {
 	{
             $priority = $this->priority->find($id);
             
-            return $this->view('maintenance::work-orders.priorities.edit', array(
+            return view('maintenance::work-orders.priorities.edit', array(
                 'title' => 'Editing Priority: '.$priority->name,
                 'priority' => $priority
             ));

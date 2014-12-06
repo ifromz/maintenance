@@ -25,7 +25,7 @@ class ImageController extends BaseController {
 
             $asset = $this->asset->find($asset_id);
 
-            return $this->view('maintenance::assets.images.index', array(
+            return view('maintenance::assets.images.index', array(
                 'title' => 'Viewing Asset Images for: '.$asset->name,
                 'asset' => $asset,
             ));
@@ -40,7 +40,7 @@ class ImageController extends BaseController {
 	public function create($asset_id){
             $asset = $this->asset->find($asset_id);
 
-            return $this->view('maintenance::assets.images.create', array(
+            return view('maintenance::assets.images.create', array(
                     'title' => 'Adding Asset Images for: '.$asset->name,
                     'asset' => $asset,
             ));
@@ -83,7 +83,7 @@ class ImageController extends BaseController {
 
             $attachment = $this->attachment->find($attachment_id);
 
-            return $this->view('maintenance::assets.images.show', array(
+            return view('maintenance::assets.images.show', array(
                 'title' => 'Viewing Asset Image',
                 'asset' => $asset,
                 'image' => $attachment,

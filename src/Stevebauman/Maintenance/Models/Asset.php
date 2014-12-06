@@ -78,11 +78,6 @@ class Asset extends BaseModel {
             return $this->belongsToMany('Stevebauman\Maintenance\Models\Meter', 'asset_meters', 'asset_id', 'meter_id')->withTimestamps();
         }
         
-        public function calendars()
-        {
-            return $this->morphMany('Stevebauman\Maintenance\Models\Calendar', 'calendarable');
-        }
-        
         /*
          * Filters query by the inputted asset name
          */

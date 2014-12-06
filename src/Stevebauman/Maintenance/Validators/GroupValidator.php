@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\AbstractValidator;
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class GroupValidator extends AbstractValidator {
+class GroupValidator extends BaseValidator {
 	
 	protected $rules = array(
 		'name' => 'required|min:3|max:250'

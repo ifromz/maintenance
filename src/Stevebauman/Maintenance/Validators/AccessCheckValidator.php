@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\AbstractValidator;
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class AccessCheckValidator extends AbstractValidator {
+class AccessCheckValidator extends BaseValidator {
     
     protected $rules = array(
         'permission' => 'required'

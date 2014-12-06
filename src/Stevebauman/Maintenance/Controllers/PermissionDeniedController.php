@@ -18,7 +18,7 @@ class PermissionDeniedController extends BaseController {
                 
             } else{
             
-                return $this->view('maintenance::permission-denied', array(
+                return view('maintenance::permission-denied', array(
                     'title'=>'Permission Denied'
                 ));
             }

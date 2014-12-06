@@ -23,7 +23,7 @@ class StatusController extends BaseController {
 	{
             $statuses = $this->status->get();
             
-            return $this->view('maintenance::work-orders.statuses.index', array(
+            return view('maintenance::work-orders.statuses.index', array(
                 'title' => 'All Statuses',
                 'statuses' => $statuses
             ));
@@ -36,7 +36,7 @@ class StatusController extends BaseController {
 	 */
 	public function create()
 	{
-            return $this->view('maintenance::work-orders.statuses.create', array(
+            return view('maintenance::work-orders.statuses.create', array(
                 'title' => 'Create a Status'
             ));
 	}
@@ -84,7 +84,7 @@ class StatusController extends BaseController {
 	{
             $status = $this->status->find($id);
             
-            return $this->view('maintenance::work-orders.statuses.edit', array(
+            return view('maintenance::work-orders.statuses.edit', array(
                 'title' => 'Editing Status: '.$status->name,
                 'status' => $status
             ));

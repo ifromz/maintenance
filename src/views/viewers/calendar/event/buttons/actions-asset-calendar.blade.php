@@ -3,18 +3,18 @@
 @section('dropdown.body.content')
 
 <li>
-    <a href="{{ route('maintenance.assets.events.show', array($asset->id, $event->id)) }}">
+    <a href="{{ route('maintenance.assets.calendars.events.show', array($asset->id, $calendar->id, $event->id)) }}">
         <i class="fa fa-search"></i> View Event
     </a>
 </li>
 <li>
-    <a href="{{ route('maintenance.assets.events.edit', array($asset->id, $event->id)) }}">
+    <a href="{{ route('maintenance.assets.calendars.events.edit', array($asset->id, $calendar->id, $event->id)) }}">
         <i class="fa fa-edit"></i> Edit Event
     </a>
 </li>
 <li>
     <a 
-        href="{{ route('maintenance.assets.events.destroy', array($asset->id, $event->id)) }}" 
+        href="{{ route('maintenance.assets.calendars.events.destroy', array($asset->id, $calendar->id, $event->id)) }}" 
         data-method="delete"
         data-title="Are you sure?"
         data-message="Are you sure you want to delete this event? Deleting this event will also remove all recurrences."

@@ -1,9 +1,9 @@
 <?php namespace Stevebauman\Maintenance\Exceptions;
 
 use Illuminate\Support\Facades\App;
-use Stevebauman\Maintenance\Exceptions\AbstractException;
+use Stevebauman\Maintenance\Exceptions\BaseException;
 
-class AssetEventNotFoundException extends AbstractException {
+class AssetEventNotFoundException extends BaseException {
     
     public function __construct(){
         $this->message = trans('maintenance::errors.not-found', array('resource'=>'Asset Event'));

@@ -1,9 +1,9 @@
 <?php namespace Stevebauman\Maintenance\Exceptions;
 
 use Illuminate\Support\Facades\App;
-use Stevebauman\Maintenance\Exceptions\AbstractException;
+use Stevebauman\Maintenance\Exceptions\BaseException;
 
-class WorkOrderNotFoundException extends AbstractException {
+class WorkOrderNotFoundException extends BaseException {
     
     public function __construct(){
         $this->message = trans('maintenance::errors.not-found', array('resource'=>'Work Order'));

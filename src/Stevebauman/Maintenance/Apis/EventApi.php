@@ -4,29 +4,40 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
-use Stevebauman\Maintenance\Services\Calendar\EventService;
+use Stevebauman\Maintenance\Services\Google\EventService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
 
+/**
+ * API for FullCalendar interactions
+ */
 class EventApi extends BaseApiController {
 	
-	public function __construct(EventService $event){
+	public function __construct(EventService $event)
+        {
 		$this->event = $event;
 	}
         
-        public function index(){
-            $format = 'Y-m-d H:i:s';
+        public function index()
+        {
+
+            $timeMin = new \DateTime();
+            $timeMin->setTimestamp(Input::get('start'));
+            
+            $timeMax = new \DateTime();
+            $timeMax->setTimestamp(Input::get('end'));
             
             $data = array(
-                'start' => date($format, Input::get('start')),
-                'end' => date($format, Input::get('end')),
+                'timeMin' => $timeMin->format(\DateTime::RFC3339),
+                'timeMax' => $timeMax->format(\DateTime::RFC3339),
             );
             
-            $events = $this->event->parseEvents($this->event->get(), $data);
+            $events = $this->event->parseEvents($this->event->setInput($data)->get());
             
             return Response::json($events);
         }
         
-        public function create(){
+        public function create()
+        {
             return Response::json(
                 View::make('maintenance::apis.calendar.events.create')->render()
             );
@@ -36,7 +47,8 @@ class EventApi extends BaseApiController {
             
         }
         
-        public function show($id){
+        public function show($id)
+        {
             try{
                 
                 $event = $this->event->find($id);
@@ -50,14 +62,16 @@ class EventApi extends BaseApiController {
             }
         }
         
-        public function edit($id){
+        public function edit($id)
+        {
             
         }
         
-        public function update($id){
+        public function update($id)
+        {
             try{
                
-                $this->event->updateDates($id);
+                $this->event->setInput($this->inputAll())->updateDates($id);
                 
                 return Response::json(array(
                     'message' => 'Successfully updated event',
@@ -69,7 +83,8 @@ class EventApi extends BaseApiController {
             }
         }
         
-        public function destroy($id){
+        public function destroy($id)
+        {
             
         }
         

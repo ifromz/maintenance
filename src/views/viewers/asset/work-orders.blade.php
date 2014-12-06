@@ -1,3 +1,5 @@
+@if($workOrders->count() > 0)
+
 <div id="resource-paginate">
     {{ $workOrders->columns(array(
                 'id' => 'ID',
@@ -17,3 +19,7 @@
             ->render()
     }}
 </div>
+
+@else
+<h5>There are no work orders attached to this asset.</h5>
+@endif

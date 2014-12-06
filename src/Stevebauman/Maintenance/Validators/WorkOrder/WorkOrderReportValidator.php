@@ -1,8 +1,8 @@
 <?php namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\AbstractValidator;
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class WorkOrderReportValidator extends AbstractValidator { 
+class WorkOrderReportValidator extends BaseValidator { 
 	
 	protected $rules = array(
                 'status' => 'required|integer',

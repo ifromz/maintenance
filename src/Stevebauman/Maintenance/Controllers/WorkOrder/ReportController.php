@@ -24,7 +24,7 @@ class ReportController extends BaseController {
             
             $workOrder = $this->workOrder->find($workOrder_id);
             
-            return $this->view('maintenance::work-orders.report.create', array(
+            return view('maintenance::work-orders.report.create', array(
                 'title' => 'Create a Work Order Report',
                 'workOrder' => $workOrder
             ));

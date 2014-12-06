@@ -36,7 +36,7 @@ class AuthController extends BaseController {
 	 */
 	public function getLogin(){
             
-            return $this->view('maintenance::login', array(
+            return view('maintenance::login', array(
                 'title' => 'Sign In',
             ));
 	}
@@ -96,7 +96,7 @@ class AuthController extends BaseController {
 	 * @return Response
 	 */
 	public function getRegister(){
-            return $this->view('maintenance::register', array(
+            return view('maintenance::register', array(
                 'title' => 'Register an Account',
             ));
 	}

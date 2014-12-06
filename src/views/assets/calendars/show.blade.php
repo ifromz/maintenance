@@ -1,4 +1,4 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.pages.main.tabbed')
 
 @section('header')
 <h1>{{ $title }}</h1>
@@ -19,28 +19,42 @@
 
 @stop
 
-@section('panel.body.content')
+@section('tab.head.content')
+    <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
+@stop
     
-    @if($calendar->events->count() > 0)
+@section('tab.body.content')
     
-    {{ $calendar->events
-                ->columns(array(
-                    'id' => 'ID',
-                    'title' => 'Title',
-                    'start_formatted' => 'Start',
-                    'end_formatted' => 'End',
-                    'allDay_label' => 'All Day',
-                    'action' => 'Action',
-                ))
-                ->modify('action', function($event) use($asset, $calendar){
-                    return $event->viewer()->btnActionsForAssetCalendar($asset, $calendar);
-                })
-                ->render() 
-    }}
-    
-    @else
-    
-    <h5>There are no events to display.</h5>
-    
-    @endif
+    <div class="tab-pane active" id="tab_profile">
+        
+        {{ $calendar->viewer()->profile }}
+        
+        <legend>Events for this Calendar</legend>
+        
+        @if($calendar->events->count() > 0)
+
+        {{ $calendar->events
+                    ->columns(array(
+                        'id' => 'ID',
+                        'title' => 'Title',
+                        'start_formatted' => 'Start',
+                        'end_formatted' => 'End',
+                        'allDay_label' => 'All Day',
+                        'action' => 'Action',
+                    ))
+                    ->modify('action', function($event) use($asset, $calendar){
+                        return $event->viewer()->btnActionsForAssetCalendar($asset, $calendar);
+                    })
+                    ->render() 
+        }}
+
+        @else
+
+        <h5>There are no events to display.</h5>
+
+        @endif
+    </div>
+
+    <div class="tab-pane" id="tab_calendar"></div>
 @stop
