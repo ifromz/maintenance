@@ -155,7 +155,7 @@ Route::group(array('namespace'=>'Asset'), function(){
     */
     Route::resource('assets.events', 'EventController', array(
         'names' => array(
-                'index'	=> 'maintenance.assets.calendars.index',
+                'index'         => 'maintenance.assets.events.index',
                 'create'  	=> 'maintenance.assets.events.create',
                 'store'   	=> 'maintenance.assets.events.store',
                 'show'    	=> 'maintenance.assets.events.show',

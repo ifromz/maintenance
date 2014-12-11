@@ -47,5 +47,25 @@
     <!-- jQuery UI 1.10.3 -->
     {{ HTML::script('packages/stevebauman/maintenance/js/vendor/jquery-ui-1.10.3.min.js') }}
     
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.core.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.widget.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.scroller.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.util.datetime.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.datetimebase.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.datetime.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.select.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.listbase.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.image.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.treelist.js') }}
     
+    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.animation.css') }}
+    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.icons.css') }}
+    
+    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.widget.css') }}
+    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.widget.ios-classic.css') }}
+    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.widget.ios.css') }}
+    
+    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.scroller.css') }}
+    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.scroller.ios-classic.css') }}
+    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.scroller.ios.css') }}
 <!-- End Styles -->

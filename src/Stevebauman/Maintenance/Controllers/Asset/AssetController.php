@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Controllers\Asset;
 
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Services\Asset\EventService;
+use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Validators\AssetValidator;
 use Stevebauman\Maintenance\Controllers\BaseController;

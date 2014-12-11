@@ -15,9 +15,11 @@ class Event extends BaseModel {
         'api_id',
     );
     
+    public $apiEvent;
+
     public function report()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\EventReport', 'event_id');
     }
-    
+
 }

@@ -1,7 +1,7 @@
 
 @if(isset($record))
     <legend>History</legend>
-
+    
     @if($record->revisionHistory->count() > 0)
     
         <table class="table table-striped">

@@ -33,8 +33,6 @@
             
             {{ $asset->viewer()->btnQrCode }}
 
-            {{ $asset->viewer()->btnCalendars }}
-
             {{ $asset->viewer()->btnAddImages }}
 
             {{ $asset->viewer()->btnViewImages }}
