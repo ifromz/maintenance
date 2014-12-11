@@ -18,7 +18,7 @@ class EventController extends BaseController {
        /*
         * Validate if the end date is before the start date only if all day is not checked
         */
-        $this->eventValidator->validator()->sometimes('end_date', 'before:start_date', function($input){
+        $this->eventValidator->validator()->sometimes('start_date', 'before:end_date', function($input){
             if($input->all_day) {
                 return false;
             }
@@ -142,7 +142,7 @@ class EventController extends BaseController {
     
     public function destroy($asset_id, $api_id)
     {
-        if($this->event->destroy($api_id)) {
+        if($this->event->destroyByApiId($api_id)) {
             
             $this->message = 'Successfully deleted event';
             $this->messageType = 'success';

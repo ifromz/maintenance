@@ -15,7 +15,7 @@
 @section('panel.body.content')
 
     {{ Form::open(array(
-                'url'=>route('maintenance.assets.events.update', array($asset->id, $event->getId())),
+                'url'=>route('maintenance.assets.events.update', array($asset->id, $event->id)),
                 'method' => 'PATCH',
                 'class'=>'form-horizontal ajax-form-post'
             )) 
@@ -24,41 +24,42 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">Title / Summary</label>
             <div class="col-md-4">
-                {{ Form::text('title', $event->getSummary(), array('class'=>'form-control', 'placeholder'=>'Enter Title')) }}
+                {{ Form::text('title', $event->title, array('class'=>'form-control', 'placeholder'=>'Enter Title')) }}
             </div>
         </div>
     
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">Description</label>
             <div class="col-md-4">
-                {{ Form::text('description', $event->getDescription(), array('class'=>'form-control', 'placeholder'=>'Enter Description')) }}
+                {{ Form::text('description', $event->description, array('class'=>'form-control', 'placeholder'=>'Enter Description')) }}
             </div>
         </div>
         
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">Start Date & Time</label>
             <div class="col-md-2">
-                {{ Form::text('start_date', NULL, array('class'=>'form-control pickadate', 'placeholder'=>'Date')) }}
+                {{ Form::text('start_date', $event->viewer()->startDateFormatted, array('class'=>'form-control pickadate', 'placeholder'=>'Date')) }}
             </div>
             <div class="col-md-2">
-                {{ Form::text('start_time', NULL, array('class'=>'form-control pickatime', 'placeholder'=>'Time')) }}
+                {{ Form::text('start_time', $event->viewer()->startTimeFormatted, array('class'=>'form-control pickatime', 'placeholder'=>'Time')) }}
             </div>
         </div>
     
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">End Date & Time</label>
             <div class="col-md-2">
-                {{ Form::text('end_date', NULL, array('class'=>'form-control pickadate', 'placeholder'=>'Date')) }}
+                {{ Form::text('end_date', $event->viewer()->endDateFormatted, array('class'=>'form-control pickadate', 'placeholder'=>'Date')) }}
             </div>
             <div class="col-md-2">
-                {{ Form::text('end_time', NULL, array('class'=>'form-control pickatime', 'placeholder'=>'Time')) }}
+                {{ Form::text('end_time', $event->viewer()->endTimeFormatted, array('class'=>'form-control pickatime', 'placeholder'=>'Time')) }}
             </div>
         </div>
     
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">All Day</label>
             <div class="col-md-4">
-                {{ Form::checkbox('all_day', 'true', NULL, array('class'=>'form-control')) }}
+                {{ Form::checkbox('all_day', 'true', $event->all_day, array('class'=>'form-control')) }}
+                <br>
             </div>
         </div>
     

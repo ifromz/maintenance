@@ -25,10 +25,20 @@
         $events->columns(array(
                 'title' => 'Title / Summary',
                 'description' => 'Description',
+                'all_day' => 'All Day',
                 'start' => 'Start',
                 'end' => 'End',
                 'actions' => 'Actions',
             ))
+            ->modify('start', function($record) {
+                return $record->viewer()->startFormatted;
+            })
+            ->modify('end', function($record){
+                return $record->viewer()->endFormatted;
+            })
+            ->modify('all_day', function($record) {
+                return $record->viewer()->lblAllDay;
+            })
             ->modify('actions', function($record) use($asset) {
                 return $record->viewer()->btnActionsForAsset($asset);
             })

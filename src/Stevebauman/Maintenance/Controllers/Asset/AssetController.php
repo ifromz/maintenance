@@ -29,7 +29,7 @@ class AssetController extends BaseController {
 	 */
 	public function index(){
 		$assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter();
-		
+
 		return view('maintenance::assets.index', array(
                     'title' => 'All Assets', 
                     'assets' => $assets

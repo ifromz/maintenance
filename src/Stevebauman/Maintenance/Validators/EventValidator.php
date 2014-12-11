@@ -17,7 +17,7 @@ class EventValidator extends BaseValidator {
         'recur_limit' => 'integer|max:2000',
         'recur_days' => '',
         'recur_months' => '',
-        'all_day' => 'required_without_all:start_time,end_time',
+        'all_day' => '',
     );
     
 }

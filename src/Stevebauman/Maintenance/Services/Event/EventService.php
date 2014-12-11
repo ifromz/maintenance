@@ -19,6 +19,12 @@ class EventService extends BaseModelService {
         $this->sentry = $sentry;
     }
     
+    /**
+     * Finds and returns an event by it's API ID
+     * 
+     * @param string $api_id
+     * @return object
+     */
     public function findByApiId($api_id)
     {
         $entry = $this->eventApiService->find($api_id);
@@ -27,7 +33,7 @@ class EventService extends BaseModelService {
     }
     
     /**
-     * Returns an objects google events
+     * Retrieves events attached to the specified object
      * 
      * @param object $object
      * @return object
@@ -45,9 +51,14 @@ class EventService extends BaseModelService {
         /*
          * Grab the service records
          */
-        $entries = $this->eventApiService->getOnly($records->lists('api_id'));
+        $events = $this->eventApiService->getOnly($records->lists('api_id'));
         
-        return $entries;
+        /*
+         * Removed deleted events from the local database
+         */
+        $this->sync($events);
+        
+        return $events;
     }
     
     /**
@@ -94,16 +105,48 @@ class EventService extends BaseModelService {
         return false;
     }
     
+    /**
+     * Updates an event by the specified API ID
+     * 
+     * @param string $api_id
+     * @return type
+     */
     public function updateByApiId($api_id)
     {
         return $this->eventApiService->setInput($this->input)->update($api_id);
     }
     
-    public function destroy($id)
+    /**
+     * Removes event from the local database calendar and then removes it from
+     * the API calendar
+     * 
+     * @param string $api_id
+     * @return boolean
+     */
+    public function destroyByApiId($api_id)
     {
-        $this->model->where('api_id', $id)->destroy();
+        $this->model->where('api_id', $api_id)->delete();
         
-        return $this->eventApiService->destroy($id);
+        return $this->eventApiService->destroy($api_id);
+    }
+    
+    /**
+     * Removes local events from the database if the status is cancelled
+     * 
+     * @param array $events
+     * @return void
+     */
+    public function sync($events)
+    {
+        foreach($events as $event) {
+            
+            if($event->status === 'cancelled') {
+                
+                $this->model->where('api_id', $event->id)->delete();
+                
+            }
+            
+        }
     }
     
 }

@@ -19,12 +19,17 @@
     <p></p>
     @endif
     
+    <dt>All Day:</dt>
+    <dd>{{ $event->viewer()->lblAllDay }}</dd>
+    
+    <p></p>
+    
     <dt>Starts:</dt>
-    <dd>{{ $event->start }}</dd>
+    <dd>{{ $event->viewer()->startFormatted }}</dd>
     
     <p></p>
     
     <dt>Ends:</dt>
-    <dd>{{ $event->end }}</dd>
+    <dd>{{ $event->viewer()->endFormatted }}</dd>
     
 </dl>
