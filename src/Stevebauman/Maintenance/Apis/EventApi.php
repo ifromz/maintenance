@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
-use Stevebauman\Maintenance\Services\Google\EventService;
+use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
 
 /**
@@ -14,7 +14,7 @@ class EventApi extends BaseApiController {
 	
 	public function __construct(EventService $event)
         {
-		$this->event = $event;
+            $this->event = $event;
 	}
         
         public function index()
@@ -31,7 +31,7 @@ class EventApi extends BaseApiController {
                 'timeMax' => $timeMax->format(\DateTime::RFC3339),
             );
             
-            $events = $this->event->parseEvents($this->event->setInput($data)->get());
+            $events = $this->event->parseEvents($this->event->setInput($data)->getApiEvents());
             
             return Response::json($events);
         }
@@ -49,8 +49,7 @@ class EventApi extends BaseApiController {
         
         public function show($id)
         {
-            try{
-                
+            try {
                 $event = $this->event->find($id);
                 
                 return Response::json(

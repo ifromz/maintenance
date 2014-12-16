@@ -19,6 +19,13 @@ class EventService extends BaseModelService {
         $this->sentry = $sentry;
     }
     
+    public function getApiEvents()
+    {
+        $events = $this->eventApiService->setInput($this->input)->get();
+        
+        return $events;
+    }
+    
     /**
      * Finds and returns an event by it's API ID
      * 
@@ -30,6 +37,19 @@ class EventService extends BaseModelService {
         $entry = $this->eventApiService->find($api_id);
         
         return $entry;
+    }
+    
+    /**
+     * Returns recurrences from the specified API ID
+     * 
+     * @param string $api_id
+     * @return object
+     */
+    public function getRecurrencesByApiId($api_id)
+    {
+        $recurrences = $this->eventApiService->setInput($this->input)->getRecurrences($api_id);
+        
+        return $recurrences;
     }
     
     /**
@@ -109,11 +129,22 @@ class EventService extends BaseModelService {
      * Updates an event by the specified API ID
      * 
      * @param string $api_id
-     * @return type
+     * @return \Stevebauman\CalendarHelper\Objects\Event
      */
     public function updateByApiId($api_id)
     {
         return $this->eventApiService->setInput($this->input)->update($api_id);
+    }
+    
+    /**
+     * Updates the specified event dates
+     * 
+     * @param string $api_id
+     * @return \Stevebauman\CalendarHelper\Objects\Event
+     */
+    public function updateDates($api_id)
+    {
+        return $this->eventApiService->setInput($this->input)->updateDates($api_id);
     }
     
     /**
@@ -147,6 +178,47 @@ class EventService extends BaseModelService {
             }
             
         }
+    }
+    
+    /**
+     * Parses a google collection of events into an array of events compatible
+     * with FullCalendar
+     * 
+     * @param collection $events
+     * @return type
+     */
+    public function parseEvents($events)
+    {   
+        $arrayEvents = array();
+        
+        foreach($events as $event) {
+            
+            $startDate = new \DateTime($event->start);
+            $endDate = new \DateTime($event->end);
+            
+            if($event->all_day) {
+                
+                /*
+                 * Subtract one day fix for FullCalendar
+                 */
+                $endDate->sub(new \DateInterval('P1D'));
+                
+            }
+            
+            /*
+             * Add the event into a FullCalendar compatible array
+             */
+            $arrayEvents[] = array(
+                'id' => $event->id,
+                'title' => $event->title,
+                'description' => $event->location,
+                'start' => $startDate->format('Y-m-d H:i:s'),
+                'end' => $endDate->format('Y-m-d H:i:s'),
+                'allDay' => $event->all_day,
+            );
+        }
+        
+        return $arrayEvents;
     }
     
 }

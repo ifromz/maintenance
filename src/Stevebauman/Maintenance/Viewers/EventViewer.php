@@ -11,8 +11,30 @@ class EventViewer extends BaseViewer {
      */
     public function profile()
     {
-        return view('maintenance::viewers.events.profile', array(
+        return view('maintenance::viewers.event.profile', array(
             'event' => $this->entity,
+        ));
+    }
+    
+    public function recurrences($recurrences)
+    {
+        return view('maintenance::viewers.event.recurrences', array(
+            'event' => $this->entity,
+            'recurrences' => $recurrences
+        ));
+    }
+    
+    public function report()
+    {
+        return view('maintenance::viewers.event.report', array(
+            'event' => $this->entity
+        ));
+    }
+    
+    public function attendees()
+    {
+        return view('maintenance::viewers.event.attendees', array(
+            'event' => $this->entity
         ));
     }
     
@@ -112,6 +134,36 @@ class EventViewer extends BaseViewer {
         }
     }
     
+    public function recurFrequencyFormatted()
+    {
+        return ucfirst(strtolower($this->recurFrequency()));
+    }
+    
+    public function recurFrequency()
+    {
+        if($this->entity->rruleArray && array_key_exists('FREQ', $this->entity->rruleArray)) {
+            
+            $freq = $this->entity->rruleArray['FREQ'];
+            
+            return $freq;
+        }
+    }
+    
+    public function recurDays()
+    {
+        if($this->entity->rruleArray && array_key_exists('BYDAY', $this->entity->rruleArray)) {
+            
+            $freq = $this->entity->rruleArray['BYDAY'];
+            
+            return $freq;
+        }
+    }
+    
+    public function lblRecurring()
+    {
+        return view('maintenance::viewers.event.labels.recurring', array('event'=>$this->entity));
+    }
+    
     /**
      * Returns a view of the all day label
      * 
@@ -119,21 +171,21 @@ class EventViewer extends BaseViewer {
      */
     public function lblAllDay()
     {
-        return view('maintenance::viewers.events.labels.all-day', array('event'=>$this->entity));
+        return view('maintenance::viewers.event.labels.all-day', array('event'=>$this->entity));
     }
     
     /**
      * Returns a view of the action buttons for display on the index of all events
      * attached to an asset
      * 
-     * @param object $asset
+     * @param object $eventable
      * @return view
      */
-    public function btnActionsForAsset($asset)
+    public function btnActionsForEventable($eventable)
     {
-        return view('maintenance::viewers.events.buttons.actions-for-asset', array(
+        return view('maintenance::viewers.event.buttons.actions-for-eventable', array(
             'event' => $this->entity,
-            'asset' => $asset,
+            'eventable' => $eventable,
         ));
     }
     

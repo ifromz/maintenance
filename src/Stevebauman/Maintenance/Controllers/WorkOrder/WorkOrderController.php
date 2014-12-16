@@ -2,18 +2,16 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Services\Google\EventService;
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class WorkOrderController extends BaseController {
         
-        public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator, EventService $event)
+        public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator)
         {
             $this->workOrder = $workOrder;
             $this->workOrderValidator = $workOrderValidator;
-            $this->event = $event;
         }
         
 	/**
@@ -24,7 +22,7 @@ class WorkOrderController extends BaseController {
 	public function index()
         {
             $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
-
+            
             return view('maintenance::work-orders.index', array(
                 'title' => 'Work Orders',
                 'workOrders' => $workOrders

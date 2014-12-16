@@ -21,7 +21,7 @@ class PublicWorkOrderController extends BaseController {
     {
         $workOrders = $this->workOrder->getByPageByUser();
         
-        return view('maintenance::public.work-orders.index', array(
+        return view('maintenance::public.work-requests.index', array(
             'title' => 'My Work Requests',
             'workOrders' => $workOrders
         ));

@@ -37,7 +37,7 @@
 @section('panel.body.content')
 
     @if($workOrders->count() > 0)
-    
+
         {{ $workOrders->columns(array(
                             'id' => 'ID',
                             'status' => 'Status',

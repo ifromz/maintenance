@@ -9,12 +9,12 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "php": ">=5.4.0"
     },
     "autoload": {
         "classmap": [
-            "src"
+            "src",
+            "tests"
         ],
         "psr-0": {
             "Stevebauman\\Maintenance\\": "src/"

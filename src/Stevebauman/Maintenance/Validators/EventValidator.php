@@ -20,4 +20,18 @@ class EventValidator extends BaseValidator {
         'all_day' => '',
     );
     
+    public function passes() {
+        /*
+        * Validate if the end date is before the start date only if all day is not checked
+        */
+        $this->validator()->sometimes('start_date', 'before:end_date', function($input){
+            if($input->all_day) {
+                return false;
+            }
+            return true;
+        });
+        
+        return parent::passes();
+    }
+    
 }

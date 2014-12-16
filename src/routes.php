@@ -4,7 +4,7 @@
  * Maintenance Application Routes
  */
 Route::group(array('prefix'=>Config::get('maintenance::prefix'), 'namespace'=>'Stevebauman\Maintenance'), function(){
-        
+
         /*
          * Authentication Routes
          */
@@ -39,7 +39,7 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix'), 'namespace'=>'S
                  * Dashboard Routes
                  */
                  include('routes/dashboard.php');
-            
+                 
                 /*
                  * Work Order Routes
                  */

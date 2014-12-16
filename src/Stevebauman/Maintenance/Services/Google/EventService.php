@@ -41,6 +41,22 @@ class EventService extends AbstractService {
         return new TableCollection($this->calendar->events($filter));
     }
     
+    public function getRecurrences($id)
+    {
+        $filter = array(
+            'alwaysIncludeEmail'    => $this->getInput('alwaysIncludeEmail', false),
+            'maxAttendees'          => $this->getInput('maxAttendees'),
+            'maxResults'            => $this->getInput('maxResults'),
+            'originalStart'         => $this->getInput('originalStart'),
+            'pageToken'             => $this->getInput('pageToken'),
+            'showDeleted'           => $this->getInput('showDeleted', false),
+            'timeMin'               => $this->getInput('timeMin'),
+            'timeMax'               => $this->getInput('timeMax'),
+        );
+        
+        return new TableCollection($this->calendar->recurrences($id, $filter));
+    }
+    
     /**
      * Creates a google batch request for specific event ID's
      * 
@@ -49,7 +65,16 @@ class EventService extends AbstractService {
      */
     public function getOnly($ids = array())
     {
-        return new TableCollection($this->calendar->specificEvents($ids));
+        
+        $events = $this->calendar->specificEvents($ids);
+        
+        foreach($events as &$event) {
+            
+            $event->attendees = new TableCollection($event->attendees);
+            
+        }
+        
+        return new TableCollection($events);
     }
     
     /**
@@ -60,7 +85,11 @@ class EventService extends AbstractService {
      */
     public function find($id)
     {
-        return $this->calendar->event($id);
+        $event = $this->calendar->event($id);
+        
+        $event->attendees = new TableCollection($event->attendees);
+        
+        return $event;
     }
     
     /**
@@ -70,8 +99,6 @@ class EventService extends AbstractService {
      */
     public function create()
     {
-        $event = new Event();
-        
         /*
          * If recur until is specified, make sure to convert it to RFC2445 format
          * 
@@ -81,7 +108,7 @@ class EventService extends AbstractService {
             'FREQ'      => $this->getInput('recur_frequency'),
             'BYDAY'      => ($this->getInput('recur_days') ? $this->implodeArrayForRule($this->getInput('recur_days')) : NULL),
             'BYMONTH'    => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
-            'UNTIL'     => ($this->getInput('recur_until') ? $this->strToRfc2445($this->getInput('recur_until')) : NULL),
+            'UNTIL'     => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
         );
         
         /*
@@ -95,14 +122,20 @@ class EventService extends AbstractService {
         $start = $this->getInput('start_date'). ' ' . $this->getInput('start_time');
         $end = $this->getInput('end_date'). ' ' . $this->getInput('end_time');
         
-        $allDay = $this->getInput('all_day');
-        
-        $event->rrule = $rrule;
-        $event->title = $this->getInput('title');
-        $event->location = $this->getInput('location');
-        $event->start = $this->strToRfc3339($start, $allDay);
-        $event->end = $this->strToRfc3339($end, $allDay, true);
-        $event->allDay = $allDay;
+        if($this->getInput('all_day') === 'true') {
+            $allDay = true;
+        } else {
+            $allDay = false;
+        }
+
+        $event = new Event(array(
+            'title' => $this->getInput('title'),
+            'location' => $this->getInput('location'),
+            'start' => strToRfc3339($start, $allDay),
+            'end' => strToRfc3339($end, $allDay, true),
+            'all_day' => $allDay,
+            'rrule' => $rrule
+        ));
         
         return $this->calendar->createEvent($event);
     }
@@ -128,7 +161,7 @@ class EventService extends AbstractService {
                 'FREQ'      => $this->getInput('recur_frequency'),
                 'BYDAY'      => ($this->getInput('recur_days') ? $this->implodeArrayForRule($this->getInput('recur_days')) : NULL),
                 'BYMONTH'    => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
-                'UNTIL'     => ($this->getInput('recur_until') ? $this->strToRfc2445($this->getInput('recur_until')) : NULL),
+                'UNTIL'     => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
             );
 
            /*
@@ -150,8 +183,8 @@ class EventService extends AbstractService {
             $event->title = $this->getInput('title', $event->apiObject->getSummary());
             $event->description = $this->getInput('description', $event->apiObject->getDescription());
             $event->location = $this->getInput('location', $event->apiObject->getLocation());
-            $event->start = $this->strToRfc3339($start, $allDay);
-            $event->end = $this->strToRfc3339($end, $allDay, true);
+            $event->start = strToRfc3339($start, $allDay);
+            $event->end = strToRfc3339($end, $allDay, true);
             $event->allDay = $allDay;
             $event->rrule = $rrule;
             
@@ -244,60 +277,6 @@ class EventService extends AbstractService {
     }
     
     /**
-     * Converts a date string into RFC3339 format for google calendar api.
-     * This is used for start/end dates for the creation/modification of events.
-     * 
-     * If $allDay and $isEnd are true, a day is added onto the date 
-     * since the Google calendar thinks an all day event that spans
-     * multiple days ends on the day before rather than consuming the day it
-     * ends on.
-     * 
-     * Example: For an all day event that starts January 1st and ends January 3rd,
-     * Google will end the event on the 2nd since the idea here is that the event
-     * is 'till' the 3rd.
-     * 
-     * @param string $dateStr
-     * @param boolean $allDay
-     * @param boolean $isEnd
-     * @return string
-     */
-    private function strToRfc3339($dateStr, $allDay = false, $isEnd = false)
-    {
-        $date = new \DateTime();
-        
-        $date->setTimestamp(strtotime($dateStr));
-        
-        /*
-         * If the event is all day, google only accepts Y-m-d formats instead
-         * of RFC3339
-         */
-        if($allDay) {
-            
-            if($isEnd) {
-                $date->add(new \DateInterval('P1D'));
-            }
-            
-            return $date->format('Y-m-d');
-        } else {
-            return $date->format(\DateTime::RFC3339);
-        }
-        
-    }
-    
-    /**
-     * Converts a date string into RFC2445 format for google calendar api.
-     * This is used for recurrance rule dates
-     */
-    private function strToRfc2445($dateStr)
-    {
-        $date = new \DateTime();
-        
-        $date->setTimestamp(strtotime($dateStr));
-        
-        return $date->format('Ymd\THis\Z');
-    }
-    
-    /**
      * Converts an array of recurring event rules to an RRULE string
      * 
      * @param array $rules
@@ -360,47 +339,5 @@ class EventService extends AbstractService {
 
         return NULL;
     }
-    
-    /**
-     * Parses a google collection of events into an array of events compatible
-     * with FullCalendar
-     * 
-     * @param collection $events
-     * @return type
-     */
-    public function parseEvents($events)
-    {   
-        $arrayEvents = array();
-        
-        foreach($events as $event) {
-            
-            $startDate = new \DateTime($event->start);
-            $endDate = new \DateTime($event->end);
-            
-            if($event->allDay) {
-                
-                /*
-                 * Subtract one day fix for FullCalendar
-                 */
-                $endDate->sub(new \DateInterval('P1D'));
-                
-            }
-            
-            /*
-             * Add the event into a FullCalendar compatible array
-             */
-            $arrayEvents[] = array(
-                'id' => $event->id,
-                'title' => $event->title,
-                'description' => $event->location,
-                'start' => $startDate->format('Y-m-d H:i:s'),
-                'end' => $endDate->format('Y-m-d H:i:s'),
-                'allDay' => $event->allDay,
-            );
-        }
-        
-        return $arrayEvents;
-    }
-    
     
 }

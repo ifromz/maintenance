@@ -36,9 +36,9 @@ class AssetViewer extends BaseViewer {
         return view('maintenance::viewers.asset.work-orders', array('workOrders'=>$workOrders));
     }
     
-    public function btnCalendars()
+    public function btnEvents()
     {
-        return view('maintenance::viewers.asset.buttons.calendars', array('asset'=>$this->entity));
+        return view('maintenance::viewers.asset.buttons.events', array('asset'=>$this->entity));
     }
     
     public function btnAddImages()

@@ -32,7 +32,9 @@
             <legend>Profile</legend>
             
             {{ $asset->viewer()->btnQrCode }}
-
+            
+            {{ $asset->viewer()->btnEvents }}
+            
             {{ $asset->viewer()->btnAddImages }}
 
             {{ $asset->viewer()->btnViewImages }}

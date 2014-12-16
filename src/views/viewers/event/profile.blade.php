@@ -32,4 +32,14 @@
     <dt>Ends:</dt>
     <dd>{{ $event->viewer()->endFormatted }}</dd>
     
+    <p></p>
+    
+    <dt>Recurring:</dt>
+    <dd>{{ $event->viewer()->lblRecurring }}</dd>
+    
+    <p></p>
+    
+    <dt>Frequency:</dt>
+    <dd>{{ $event->viewer()->recurFrequencyFormatted }}</dd>
+    
 </dl>
