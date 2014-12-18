@@ -93,31 +93,6 @@
                     </div>
                 </div>
                 
-                <legend class="margin-top-10">Other Information</legend>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Start Date</label>
-                    <div class="col-md-4">
-                    	<div class="col-md-6">
-                        	{{ Form::text('started_at_date', $dates['started']['date'], array('class'=>'form-control pickadate', 'placeholder'=>'Choose Date')) }}
-                      	</div>
-                        <div class="col-md-6">
-                        	{{ Form::text('started_at_time', $dates['started']['time'], array('class'=>'form-control pickatime', 'placeholder'=>'Choose Time')) }}
-                       	</div>
-                   	</div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Completion Date</label>
-                    <div class="col-md-4">
-                    	<div class="col-md-6">
-                    		{{ Form::text('completed_at_date', $dates['completed']['date'], array('class'=>'form-control pickadate', 'placeholder'=>'Choose Date')) }}
-                      	</div>
-                        
-                        <div class="col-md-6">
-                        	{{ Form::text('completed_at_time', $dates['completed']['time'], array('class'=>'form-control pickatime', 'placeholder'=>'Choose Time')) }}
-                       	</div>
-                   	</div>
-                </div>
                 
                 <div class="form-group">
                 	<div class="col-sm-offset-2 col-sm-10">

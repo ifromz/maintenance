@@ -41,6 +41,29 @@ class WorkOrderViewer extends BaseViewer {
         return view('maintenance::viewers.work-order.technician-updates', array('workOrder'=>$this->entity));
     }
     
+    public function startedAtFormatted()
+    {
+        if($this->entity->started_at)
+        {
+            $date = new \DateTime();
+            
+            $date->setTimestamp(strtotime($this->entity->started_at));
+            
+            return $date->format('M dS Y - h:ia');
+        }
+    }
+    
+    public function completedAtFormatted()
+    {
+        if($this->entity->completed_at)
+        {
+            $date = new \DateTime();
+            
+            $date->setTimestamp(strtotime($this->entity->completed_at));
+            
+            return $date->format('M dS Y - h:ia');
+        }
+    }
     public function btnEdit()
     {
         return view('maintenance::viewers.work-order.buttons.edit', array('workOrder'=>$this->entity));
@@ -84,6 +107,16 @@ class WorkOrderViewer extends BaseViewer {
     public function btnActions()
     {
         return view('maintenance::viewers.work-order.buttons.actions', array('workOrder'=>$this->entity));
+    }
+    
+    public function lblStartedAt()
+    {
+        return view('maintenance::viewers.work-order.labels.started-at', array('workOrder'=>$this->entity));
+    }
+    
+    public function lblCompletedAt()
+    {
+        return view('maintenance::viewers.work-order.labels.completed-at', array('workOrder'=>$this->entity));
     }
     
 }

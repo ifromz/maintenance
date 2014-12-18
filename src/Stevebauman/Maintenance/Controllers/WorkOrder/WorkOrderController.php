@@ -90,32 +90,11 @@ class WorkOrderController extends BaseController {
 	 */
 	public function edit($id)
         {
-            $workOrder = $this->workOrder->with('category')->find($id);
-            
-            /*
-             * Set date/time format fields (in sync with javascript setup)
-             */
-            $dateFormat = 'd F, Y';
-            $timeFormat = 'H:i A';
-            
-            /*
-             * Convert record dates for editing pickatime/pickadate fields
-             */
-            $dates = array(
-                    'started'=>array(
-                            'date'=>($workOrder->started_at ? date($dateFormat, strtotime($workOrder->started_at)) : NULL),
-                            'time'=>($workOrder->started_at ? date($timeFormat, strtotime($workOrder->started_at)) : NULL),
-                    ),
-                    'completed'=>array(
-                            'date'=>($workOrder->completed_at ? date($dateFormat, strtotime($workOrder->completed_at)) : NULL),
-                            'time'=>($workOrder->completed_at ? date($timeFormat, strtotime($workOrder->completed_at)) : NULL),
-                    ),
-            );
+            $workOrder = $this->workOrder->find($id);
 
             return view('maintenance::work-orders.edit', array(
                 'title' => 'Editing Work Order: '.$workOrder->subject,
                 'workOrder' => $workOrder,
-                'dates' => $dates,
             ));
                 
 	}
@@ -128,7 +107,7 @@ class WorkOrderController extends BaseController {
 	 */
 	public function update($id)
         {
-            if($this->workOrderValidator->passes()){
+            if($this->workOrderValidator->passes()) {
 
                 $record = $this->workOrder->setInput($this->inputAll())->update($id);
 
@@ -137,7 +116,8 @@ class WorkOrderController extends BaseController {
                 $this->messageType = 'success';
 
 
-            } else{
+            } else {
+                $this->redirect = route('maintenance.work-orders.edit', array($id));
                 $this->errors = $this->workOrderValidator->getErrors();
             }
 

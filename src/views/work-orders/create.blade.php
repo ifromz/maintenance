@@ -77,32 +77,6 @@
                    	</div>
                 </div>
                 
-                <legend class="margin-top-10">Other Information</legend>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Start Date</label>
-                    <div class="col-md-4">
-                    	<div class="col-md-6">
-                        	{{ Form::text('started_at_date', NULL, array('class'=>'form-control pickadate', 'placeholder'=>'Choose Date')) }}
-                      	</div>
-                        <div class="col-md-6">
-                        	{{ Form::text('started_at_time', NULL, array('class'=>'form-control pickatime', 'placeholder'=>'Choose Time')) }}
-                       	</div>
-                   	</div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Completion Date</label>
-                    <div class="col-md-4">
-                    	<div class="col-md-6">
-                    		{{ Form::text('completed_at_date', NULL, array('class'=>'form-control pickadate', 'placeholder'=>'Choose Date')) }}
-                      	</div>
-                        
-                        <div class="col-md-6">
-                        	{{ Form::text('completed_at_time', NULL, array('class'=>'form-control pickatime', 'placeholder'=>'Choose Time')) }}
-                       	</div>
-                   	</div>
-                </div>
-                
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                     	{{ Form::submit('Save', array('class'=>'btn btn-primary')) }}

@@ -75,8 +75,8 @@ class WorkOrderService extends BaseModelService {
                             'priority_id'               => $this->getInput('priority'),
                             'subject'                   => $this->getInput('subject', NULL, true),
                             'description'               => $this->getInput('description', NULL, true),
-                            'started_at'                => $this->formatDateWithTime($this->getInput('started_at_date'), $this->getInput('started_at_time')),
-                            'completed_at'              => $this->formatDateWithTime($this->getInput('completed_at_date'), $this->getInput('completed_at_time')),
+                            'started_at'                => $this->getInput('started_at'),
+                            'completed_at'                => $this->getInput('completed_at'),
                     );
 
                     $record = $this->model->create($insert);
@@ -117,8 +117,8 @@ class WorkOrderService extends BaseModelService {
                     'priority_id'               => $this->getInput('priority', $record->priority->id),
                     'subject'                   => $this->getInput('subject', $record->subject, true),
                     'description'               => $this->getInput('description', $record->description, true),
-                    'started_at'                => $this->formatDateWithTime($this->getInput('started_at_date'), $this->getInput('started_at_time')),
-                    'completed_at'              => $this->formatDateWithTime($this->getInput('completed_at_date'), $this->getInput('completed_at_time')),
+                    'started_at'                => $this->getInput('started_at', $record->started_at),
+                    'completed_at'              => $this->getInput('completed_at', $record->completed_at),
                 );
 
                 if($record->update($insert)){

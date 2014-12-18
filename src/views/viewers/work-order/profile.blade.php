@@ -52,4 +52,14 @@
         <p></p>
     @endif
     
+    <dt>Started At:</dt>
+    <dd>{{ $workOrder->viewer()->lblStartedAt }}</dd>
+
+    <p></p>
+    
+    <dt>Completed At:</dt>
+    <dd>{{ $workOrder->viewer()->lblCompletedAt }}</dd>
+
+    <p></p>
+    
 </dl>
