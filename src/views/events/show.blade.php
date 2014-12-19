@@ -17,6 +17,13 @@
 @section('tab.body.content')
 
     <div class="tab-pane active" id="tab_profile">
+        
+        {{ $event->viewer()->btnEditForEventable($eventable) }}
+        
+        {{ $event->viewer()->btnDeleteForEventable($eventable) }}
+        
+        <hr>
+        
         {{ $event->viewer()->profile }}
     </div>
 

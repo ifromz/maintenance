@@ -189,4 +189,20 @@ class EventViewer extends BaseViewer {
         ));
     }
     
+    public function btnEditForEventable($eventable)
+    {
+        return view('maintenance::viewers.event.buttons.edit-for-eventable', array(
+            'event' => $this->entity,
+            'eventable' => $eventable,
+        ));
+    }
+    
+    public function btnDeleteForEventable($eventable)
+    {
+        return view('maintenance::viewers.event.buttons.delete-for-eventable', array(
+            'event' => $this->entity,
+            'eventable' => $eventable,
+        ));
+    }
+    
 }

@@ -14,9 +14,10 @@ class EventService extends AbstractService {
     
     use \Stevebauman\EloquentTable\TableTrait;
     
-    public function __construct(CalendarHelper $calendar)
+    public function __construct(CalendarHelper $calendar, TableCollection $collection)
     {
         $this->calendar = $calendar->google();
+        $this->collection = $collection;
     }
     
     /**
@@ -38,7 +39,7 @@ class EventService extends AbstractService {
             'timeMax'               => $this->getInput('timeMax'),
         );
         
-        return new TableCollection($this->calendar->events($filter));
+        return new $this->collection($this->calendar->events($filter));
     }
     
     public function getRecurrences($id)
@@ -54,7 +55,7 @@ class EventService extends AbstractService {
             'timeMax'               => $this->getInput('timeMax'),
         );
         
-        return new TableCollection($this->calendar->recurrences($id, $filter));
+        return new $this->collection($this->calendar->recurrences($id, $filter));
     }
     
     /**
@@ -70,11 +71,11 @@ class EventService extends AbstractService {
         
         foreach($events as &$event) {
             
-            $event->attendees = new TableCollection($event->attendees);
+            $event->attendees = new $this->collection($event->attendees);
             
         }
         
-        return new TableCollection($events);
+        return new $this->collection($events);
     }
     
     /**
@@ -87,7 +88,7 @@ class EventService extends AbstractService {
     {
         $event = $this->calendar->event($id);
         
-        $event->attendees = new TableCollection($event->attendees);
+        $event->attendees = new $this->collection($event->attendees);
         
         return $event;
     }
