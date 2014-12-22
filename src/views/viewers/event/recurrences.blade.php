@@ -14,7 +14,7 @@
             ->modify('end', function($event){
                 return $event->viewer()->endFormatted;
             })
-            ->modify('action', function($event){
+            ->modify('action', function($event) {
                 return $event->viewer()->btnActions;
             })
             ->render()

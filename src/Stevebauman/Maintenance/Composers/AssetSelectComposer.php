@@ -10,7 +10,8 @@ class AssetSelectComposer {
         $this->asset = $asset;
     }
     
-    public function compose($view){
+    public function compose($view)
+    {
         $allAssets = $this->asset->get()->lists('name', 'id');
         
         return $view->with('allAssets', $allAssets);

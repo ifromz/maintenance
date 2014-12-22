@@ -19,11 +19,31 @@ class EventService extends BaseModelService {
         $this->sentry = $sentry;
     }
     
+    public function get($select = array())
+    {
+        /*
+         * Make sure we group by API ID since there could be multiple objects
+         * attached to one API event
+         */
+        $records = $this->model->groupBy('api_id')->get();
+        
+        $events = $this->eventApiService->getOnly($records->lists('api_id'));
+        
+        return $events;
+    }
+    
     public function getApiEvents()
     {
         $events = $this->eventApiService->setInput($this->input)->get();
         
         return $events;
+    }
+    
+    public function getTags($api_id)
+    {
+        $records = $this->model->where('api_id', $api_id)->get();
+        
+        return $records;
     }
     
     /**
@@ -100,29 +120,52 @@ class EventService extends BaseModelService {
             
             $this->dbStartTransaction();
             
-            $eventableObject = $this->getInput('object');
+            $objects = $this->getInput('objects');
             
-            $insert = array(
-                'eventable_id' => $eventableObject->id,
-                'eventable_type' => get_class($eventableObject),
-                'user_id' => $this->sentry->getCurrentUserId(),
-                'api_id' => $event->id,
-            );
-            
-            $record = $this->model->create($insert);
-            
-            if($record) {
+            foreach($objects as $object) {
+
+                $insert = array(
+                    'eventable_id' => $object->id,
+                    'eventable_type' => get_class($object),
+                    'user_id' => $this->sentry->getCurrentUserId(),
+                    'api_id' => $event->id,
+                );
+
+                $record = $this->model->create($insert);
                 
-                $this->dbCommitTransaction();
+                if($record) {
                 
-                return $record;
+                    $this->dbCommitTransaction();
+                    
+                } else {
+
+                    $this->dbRollbackTransaction();
+
+                }
+                
             }
             
-            $this->dbRollbackTransaction();
+            return true;
             
         }
         
         return false;
+    }
+    
+    public function update($api_id)
+    {
+        $exists = $this->model
+                ->where('eventable_id', $object->id)
+                ->where('eventable_type', $object->id)
+                ->get();
+        
+        /*
+         * Make sure the record doesn't already exist, if it does, skip
+         * current iteration
+         */
+        if($exists->count() > 0) {
+            
+        }
     }
     
     /**
@@ -188,7 +231,7 @@ class EventService extends BaseModelService {
      * @return type
      */
     public function parseEvents($events)
-    {   
+    {
         $arrayEvents = array();
         
         foreach($events as $event) {

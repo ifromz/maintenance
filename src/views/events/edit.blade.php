@@ -15,12 +15,14 @@
 @section('panel.body.content')
 
     {{ Form::open(array(
-                'url'=>action(currentControllerAction('update'), array($eventable->id, $event->id)),
+                'url'=>route('maintenance.events.update', array($event->id)),
                 'method' => 'PATCH',
                 'class'=>'form-horizontal ajax-form-post'
             )) 
     }}
-        
+    
+    {{ $event->viewer()->recurrenceWarning }}
+    
     <div class="form-group">
         <label class="col-sm-2 control-label" for="name">Title / Summary</label>
         <div class="col-md-4">
@@ -38,20 +40,32 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" for="name">Start Date & Time</label>
         <div class="col-md-2">
-            {{ Form::text('start_date', $event->viewer()->startDateFormatted, array('class'=>'form-control pickadate', 'placeholder'=>'Date')) }}
+            @include('maintenance::select.date', array(
+                'name' => 'start_date',
+                'value' => $event->viewer()->startDateFormatted,
+            ))
         </div>
         <div class="col-md-2">
-            {{ Form::text('start_time', $event->viewer()->startTimeFormatted, array('class'=>'form-control pickatime', 'placeholder'=>'Time')) }}
+            @include('maintenance::select.time', array(
+                'name' => 'start_time',
+                'value' => $event->viewer()->startTimeFormatted,
+            ))
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-2 control-label" for="name">End Date & Time</label>
         <div class="col-md-2">
-            {{ Form::text('end_date', $event->viewer()->endDateFormatted, array('class'=>'form-control pickadate', 'placeholder'=>'Date')) }}
+            @include('maintenance::select.date', array(
+                'name' => 'end_date',
+                'value' => $event->viewer()->endDateFormatted,
+            ))
         </div>
         <div class="col-md-2">
-            {{ Form::text('end_time', $event->viewer()->endTimeFormatted, array('class'=>'form-control pickatime', 'placeholder'=>'Time')) }}
+            @include('maintenance::select.time', array(
+                'name' => 'end_time',
+                'value' => $event->viewer()->endTimeFormatted,
+            ))
         </div>
     </div>
 
@@ -63,7 +77,7 @@
         </div>
     </div>
         
-    
+    @if(!$event->isRecurrence)
     <div class="alert alert-warning">
         <p>Caution: Setting a new frequency will change all events in the series</p>
     </div>
@@ -92,7 +106,8 @@
             @include('maintenance::select.recur_months')
         </div>
     </div>
-
+    @endif
+    
     <div class="form-group">
         <div class="col-md-4 col-md-offset-2">
             {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}

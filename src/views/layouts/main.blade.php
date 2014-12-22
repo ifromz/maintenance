@@ -29,7 +29,15 @@
         </ul>
     </li>
     @endif
-
+    
+    @if(Sentry::hasAccess('maintenance.events.index'))
+    <li class="{{ activeMenuLink('maintenance.events') }}">
+        <a href="{{ route('maintenance.events.index') }}">
+            <i class="fa fa-calendar"></i> Events
+        </a>
+    </li>
+    @endif
+    
     @if(Sentry::hasAccess('maintenance.work-orders.index'))
     <li class="{{ activeMenuLink('maintenance.work-orders') }} treeview">
         <a href="#">

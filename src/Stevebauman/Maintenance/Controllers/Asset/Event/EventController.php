@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Asset;
+namespace Stevebauman\Maintenance\Controllers\Asset\Event;
 
 use Stevebauman\Maintenance\Validators\EventValidator;
 use Stevebauman\Maintenance\Services\Event\EventService;

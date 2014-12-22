@@ -119,4 +119,11 @@ class WorkOrderViewer extends BaseViewer {
         return view('maintenance::viewers.work-order.labels.completed-at', array('workOrder'=>$this->entity));
     }
     
+    public function btnEventTag()
+    {
+        return view('maintenance::viewers.work-order.buttons.event-tag', array(
+            'workOrder' => $this->entity,
+        ));
+    }
+    
 }

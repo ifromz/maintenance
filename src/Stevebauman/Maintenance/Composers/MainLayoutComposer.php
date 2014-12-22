@@ -6,10 +6,11 @@ use Illuminate\Support\Facades\Config;
 
 class MainLayoutComposer {
     
-	public function compose($view){
-            $siteTitle = Config::get('maintenance::site.title.main');
+    public function compose($view)
+    {
+        $siteTitle = Config::get('maintenance::site.title.main');
 
-            $view->with('siteTitle', $siteTitle);
-	}
+        $view->with('siteTitle', $siteTitle);
+    }
 	
 }

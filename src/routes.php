@@ -41,6 +41,11 @@ Route::group(array('prefix'=>Config::get('maintenance::prefix'), 'namespace'=>'S
                  include('routes/dashboard.php');
                  
                 /*
+                 * Event Routes
+                 */
+                include('routes/event.php');
+                
+                /*
                  * Work Order Routes
                  */
 		include('routes/work-order.php');

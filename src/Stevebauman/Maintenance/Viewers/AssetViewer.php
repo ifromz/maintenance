@@ -85,4 +85,11 @@ class AssetViewer extends BaseViewer {
         return view('maintenance::viewers.asset.buttons.actions', array('asset'=>$this->entity));
     }
     
+    public function btnEventTag()
+    {
+        return view('maintenance::viewers.asset.buttons.event-tag', array(
+            'asset' => $this->entity,
+        ));
+    }
+    
 }

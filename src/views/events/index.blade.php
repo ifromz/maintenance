@@ -11,7 +11,7 @@
 
 @section('panel.head.content')
 <div class="btn-toolbar">
-    <a class="btn btn-primary" href="{{ action(currentControllerAction('create'), array($eventable->id)) }}">
+    <a class="btn btn-primary" href="{{ action(currentControllerAction('create')) }}">
         <i class="fa fa-plus-circle"></i>
         New Event
     </a>
@@ -20,7 +20,7 @@
 
 @section('panel.body.content')
 
-@if($events->count() > 0)
+    @if($events->count() > 0)
 
     {{ 
         $events->columns(array(
@@ -40,8 +40,8 @@
             ->modify('all_day', function($record) {
                 return $record->viewer()->lblAllDay;
             })
-            ->modify('actions', function($record) use($eventable) {
-                return $record->viewer()->btnActionsForEventable($eventable);
+            ->modify('actions', function($record) {
+                return $record->viewer()->btnActions;
             })
             ->render()
     }}

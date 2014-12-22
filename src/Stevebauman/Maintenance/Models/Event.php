@@ -21,5 +21,10 @@ class Event extends BaseModel {
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\EventReport', 'event_id');
     }
+    
+    public function eventable()
+    {
+        return $this->morphTo();
+    }
 
 }

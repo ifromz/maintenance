@@ -1,6 +1,6 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
-@section('title')
+@section('header')
 <h1>{{ $title }}</h1>
 @stop
 
@@ -17,14 +17,15 @@
 @section('tab.body.content')
 
     <div class="tab-pane active" id="tab_profile">
+        {{ $event->viewer()->btnEdit }}
         
-        {{ $event->viewer()->btnEditForEventable($eventable) }}
-        
-        {{ $event->viewer()->btnDeleteForEventable($eventable) }}
+        {{ $event->viewer()->btnDelete }}
         
         <hr>
         
         {{ $event->viewer()->profile }}
+        
+        {{ $event->viewer()->tags($tags) }}
     </div>
 
     <div class="tab-pane" id="tab_report">

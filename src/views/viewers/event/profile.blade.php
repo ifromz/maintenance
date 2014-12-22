@@ -1,5 +1,5 @@
 <dl class="dl-horizontal">
-    
+
     <dt>Title / Summary:</dt>
     <dd>{{ $event->title }}</dd>
     

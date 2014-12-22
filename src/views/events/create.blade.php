@@ -14,8 +14,10 @@
 
 @section('panel.body.content')
     
-    {{ Form::open(array('url'=>action(currentControllerAction('store'), array($eventable->id)), 'class'=>'form-horizontal ajax-form-post clear-form')) }}
+    {{ Form::open(array('url'=>route('maintenance.events.store'), 'class'=>'form-horizontal ajax-form-post clear-form')) }}
         
+        <legend>Event Details</legend>
+    
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">Title / Summary</label>
             <div class="col-md-4">
@@ -73,6 +75,8 @@
                 {{ Form::checkbox('all_day', 'true', NULL, array('class'=>'form-control')) }}
             </div>
         </div>
+        
+        <legend>Recurrence Options</legend>
     
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">Frequency</label>
@@ -94,7 +98,30 @@
                 @include('maintenance::select.recur_months')
             </div>
         </div>
-
+    
+        <legend>Attach Objects / Items</legend>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="name">Assets</label>
+            <div class="col-md-4">
+                @include('maintenance::select.assets')
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="name">Work Orders</label>
+            <div class="col-md-4">
+                @include('maintenance::select.work-orders')
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="name">Inventory</label>
+            <div class="col-md-4">
+                @include('maintenance::select.inventories')
+            </div>
+        </div>
+        
         <div class="form-group">
             <div class="col-md-4 col-md-offset-2">
                 {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}

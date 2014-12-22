@@ -24,16 +24,31 @@ class EventViewer extends BaseViewer {
         ));
     }
     
+    public function tags($tags)
+    {
+        return view('maintenance::viewers.event.tags', array(
+            'event' => $this->entity,
+            'tags' => $tags
+        ));
+    }
+    
     public function report()
     {
         return view('maintenance::viewers.event.report', array(
-            'event' => $this->entity
+            'event' => $this->entity,
         ));
     }
     
     public function attendees()
     {
         return view('maintenance::viewers.event.attendees', array(
+            'event' => $this->entity
+        ));
+    }
+    
+    public function recurrenceWarning()
+    {
+        return view('maintenance::viewers.event.recurrence-warning', array(
             'event' => $this->entity
         ));
     }
@@ -136,7 +151,11 @@ class EventViewer extends BaseViewer {
     
     public function recurFrequencyFormatted()
     {
-        return ucfirst(strtolower($this->recurFrequency()));
+        if($this->recurFrequency()) {
+            return ucfirst(strtolower($this->recurFrequency()));
+        } else {
+            return 'None';
+        }
     }
     
     public function recurFrequency()
@@ -174,35 +193,19 @@ class EventViewer extends BaseViewer {
         return view('maintenance::viewers.event.labels.all-day', array('event'=>$this->entity));
     }
     
-    /**
-     * Returns a view of the action buttons for display on the index of all events
-     * attached to an asset
-     * 
-     * @param object $eventable
-     * @return view
-     */
-    public function btnActionsForEventable($eventable)
+    public function btnActions()
     {
-        return view('maintenance::viewers.event.buttons.actions-for-eventable', array(
-            'event' => $this->entity,
-            'eventable' => $eventable,
-        ));
+        return view('maintenance::viewers.event.buttons.actions', array('event'=>$this->entity));
     }
     
-    public function btnEditForEventable($eventable)
+    public function btnEdit()
     {
-        return view('maintenance::viewers.event.buttons.edit-for-eventable', array(
-            'event' => $this->entity,
-            'eventable' => $eventable,
-        ));
+        return view('maintenance::viewers.event.buttons.edit', array('event' => $this->entity));
     }
     
-    public function btnDeleteForEventable($eventable)
+    public function btnDelete()
     {
-        return view('maintenance::viewers.event.buttons.delete-for-eventable', array(
-            'event' => $this->entity,
-            'eventable' => $eventable,
-        ));
+        return view('maintenance::viewers.event.buttons.delete', array('event' => $this->entity));
     }
     
 }

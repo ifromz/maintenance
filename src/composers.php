@@ -27,6 +27,10 @@ View::composer('maintenance::layouts.public', 'Stevebauman\Maintenance\Composers
  */
 View::composer('maintenance::select.assets', 'Stevebauman\Maintenance\Composers\AssetSelectComposer');
 
+View::composer('maintenance::select.inventories', 'Stevebauman\Maintenance\Composers\InventorySelectComposer');
+
+View::composer('maintenance::select.work-orders', 'Stevebauman\Maintenance\Composers\WorkOrderSelectComposer');
+
 View::composer('maintenance::select.status', 'Stevebauman\Maintenance\Composers\StatusSelectComposer');
 
 View::composer('maintenance::select.priority', 'Stevebauman\Maintenance\Composers\PrioritySelectComposer');

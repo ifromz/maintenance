@@ -53,5 +53,12 @@ class InventoryViewer extends BaseViewer {
         ));
     }
     
+    public function btnEventTag()
+    {
+        return view('maintenance::viewers.inventory.buttons.event-tag', array(
+            'item' => $this->entity,
+        ));
+    }
+    
 }
 

@@ -20,14 +20,11 @@ class AssetEventApi extends BaseApiController {
     
     public function show($asset_id)
     {
-        
         $asset = $this->asset->find($asset_id);
         
         $events = $this->event->parseEvents($this->event->getFromObject($asset));
         
         return Response::json($events);
-        
-        
     }
     
 }
