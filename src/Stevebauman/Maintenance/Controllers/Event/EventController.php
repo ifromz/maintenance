@@ -3,27 +3,15 @@
 namespace Stevebauman\Maintenance\Controllers\Event;
 
 use Stevebauman\Maintenance\Validators\EventValidator;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class EventController extends BaseController {
     
-    public function __construct(
-            EventService $event, 
-            EventValidator $eventValidator, 
-            AssetService $asset, 
-            InventoryService $inventory,
-            WorkOrderService $workOrder)
+    public function __construct(EventService $event, EventValidator $eventValidator)
     {
         $this->event = $event;
         $this->eventValidator = $eventValidator;
-        
-        $this->asset = $asset;
-        $this->inventory = $inventory;
-        $this->workOrder = $workOrder;
     }
     
     public function index()
@@ -47,12 +35,11 @@ class EventController extends BaseController {
     {
         if($this->eventValidator->passes()) {
             
-            $data = $this->inputAll();
-            $data['objects'] = $this->getAttachableObjects();
+            $event = $this->event->setInput($this->inputAll())->create();
             
-            if($this->event->setInput($data)->create()) {
+            if($event) {
                 
-                $this->message = 'Successfully created event';
+                $this->message = sprintf('Successfully created event. %s', link_to_route('maintenance.events.show', 'Show', array($event->id)));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.events.index');
                 
@@ -77,7 +64,7 @@ class EventController extends BaseController {
     {
         $event = $this->event->findByApiId($api_id);
         
-        $tags = $this->event->getTags($api_id);
+        $localEvent = $this->event->findLocalByApiId($api_id);
         
         /*
          * Filter recurrences to display entries one month from now
@@ -92,8 +79,8 @@ class EventController extends BaseController {
         return view('maintenance::events.show', array(
             'title' => 'Viewing Event: '.$event->title,
             'event' => $event,
+            'localEvent' => $localEvent,
             'recurrences' => $recurrences,
-            'tags' => $tags,
         ));
     }
     
@@ -111,24 +98,19 @@ class EventController extends BaseController {
     {
         if($this->eventValidator->passes()) {
             
-            $eventable = $this->eventable->find($eventable_id);
-            
-            $data = $this->inputAll();
-            $data['objects'] = $this->getAttachableObjects();
-            
-            $event = $this->event->setInput($data)->updateByApiId($api_id);
+            $event = $this->event->setInput($this->inputAll())->updateByApiId($api_id);
             
             if($event) {
                 
                 $this->message = 'Successfully updated event';
                 $this->messageType = 'success';
-                $this->redirect = action(currentControllerAction('show'), array($eventable->id, $event->id));
+                $this->redirect = route('maintenance.events.show', array($event->id));
                 
             } else {
                 
                 $this->message = 'There was an error trying to udpdate this event. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = action(currentControllerAction('edit'), array($eventable->id, $event->id));
+                $this->redirect = route('maintenance.events.edit', array($api_id));
                 
             }
             
@@ -142,76 +124,23 @@ class EventController extends BaseController {
         return $this->response();
     }
     
-    public function destroy()
+    public function destroy($api_id)
     {
         if($this->event->destroyByApiId($api_id)) {
             
             $this->message = 'Successfully deleted event';
             $this->messageType = 'success';
-            $this->redirect = routeBack('maintenance.events.index');
+            $this->redirect = route('maintenance.events.index');
             
         } else {
             
             $this->message = 'There was an error trying to delete this event. Please try again.';
             $this->messageType = 'danger';
-            $this->redirect = routeBack('maintenance.events.show', array($api_id));
+            $this->redirect = route('maintenance.events.show', array($api_id));
             
         }
         
         return $this->response();
-    }
-    
-    /**
-     * Returns an array of attachable event objects
-     * 
-     * @return array
-     */
-    private function getAttachableObjects()
-    {
-        $assets = $this->input('assets');
-        $inventories = $this->input('inventories');
-        $workOrders = $this->input('work_orders');
-        
-        $objects = array();
-        
-        if(count($assets) > 0) {
-            foreach($assets as $asset_id) {
-
-                $asset = $this->asset->find($asset_id);
-
-                if($asset) {
-                    $objects[] = $asset;
-                }
-
-            }
-        }
-        
-        if(count($inventories) > 0) {
-            foreach($inventories as $inventory_id) {
-
-                $inventory = $this->inventory->find($inventory_id);
-
-                if($inventory) {
-                    $objects[] = $inventory;
-                }
-
-            }
-        }
-        
-        if(count($workOrders) > 0) {
-            foreach($workOrders as $workOrder_id) {
-
-                $workOrder = $this->workOrder->find($workOrder_id);
-
-                if($workOrder) {
-                    $objects[] = $workOrder;
-                }
-
-            }
-        }
-        
-        return $objects;
-        
     }
     
 }

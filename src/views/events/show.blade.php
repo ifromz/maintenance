@@ -25,11 +25,11 @@
         
         {{ $event->viewer()->profile }}
         
-        {{ $event->viewer()->tags($tags) }}
+        {{ $localEvent->viewer()->tags }}
     </div>
 
     <div class="tab-pane" id="tab_report">
-        {{ $event->viewer()->report }}
+        {{ $localEvent->viewer()->report }}
     </div>
 
     <div class="tab-pane" id="tab_recurrences">

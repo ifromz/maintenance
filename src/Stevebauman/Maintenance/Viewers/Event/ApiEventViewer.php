@@ -1,8 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Viewers;
+namespace Stevebauman\Maintenance\Viewers\Event;
 
-class EventViewer extends BaseViewer {
+use Stevebauman\Maintenance\Viewers\BaseViewer;
+
+class ApiEventViewer extends BaseViewer {
     
     /**
      * Returns a view of the profile of the event
@@ -21,21 +23,6 @@ class EventViewer extends BaseViewer {
         return view('maintenance::viewers.event.recurrences', array(
             'event' => $this->entity,
             'recurrences' => $recurrences
-        ));
-    }
-    
-    public function tags($tags)
-    {
-        return view('maintenance::viewers.event.tags', array(
-            'event' => $this->entity,
-            'tags' => $tags
-        ));
-    }
-    
-    public function report()
-    {
-        return view('maintenance::viewers.event.report', array(
-            'event' => $this->entity,
         ));
     }
     

@@ -14,4 +14,6 @@ Route::group(array('namespace'=>'Event'), function(){
         )
     ));
     
+  
+    
 });

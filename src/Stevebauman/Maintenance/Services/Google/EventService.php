@@ -88,9 +88,15 @@ class EventService extends AbstractService {
     {
         $event = $this->calendar->event($id);
         
-        $event->attendees = new $this->collection($event->attendees);
+        if($event->status !== 'cancelled') {
         
-        return $event;
+            $event->attendees = new $this->collection($event->attendees);
+
+            return $event;
+            
+        }
+        
+        return false;
     }
     
     /**

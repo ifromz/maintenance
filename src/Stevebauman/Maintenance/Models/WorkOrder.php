@@ -2,13 +2,15 @@
 
 use Stevebauman\Maintenance\Models\WorkOrderCategory;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
+use Stevebauman\Maintenance\Traits\EventableTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class WorkOrder extends BaseModel {
     
         use SoftDeletingTrait;
-    
+        use EventableTrait;
+        
 	protected $table = 'work_orders';
 	
         protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrderViewer';

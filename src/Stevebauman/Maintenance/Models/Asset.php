@@ -1,11 +1,13 @@
 <?php namespace  Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Stevebauman\Maintenance\Traits\EventableTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Asset extends BaseModel {
     
 	use SoftDeletingTrait;
+        use EventableTrait;
         
 	protected $table = 'assets';
 	

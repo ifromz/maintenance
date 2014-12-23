@@ -42,4 +42,6 @@
     <dt>Frequency:</dt>
     <dd>{{ $event->viewer()->recurFrequencyFormatted }}</dd>
     
+    <p></p>
+    
 </dl>

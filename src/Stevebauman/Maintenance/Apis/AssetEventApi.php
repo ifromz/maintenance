@@ -22,7 +22,18 @@ class AssetEventApi extends BaseApiController {
     {
         $asset = $this->asset->find($asset_id);
         
-        $events = $this->event->parseEvents($this->event->getFromObject($asset));
+        $apiEvents = array();
+        
+        foreach($asset->events as $event) {
+            
+            /*
+             * TODO - Get recurrances
+             */
+            $apiEvents[] = $this->event->findByApiId($event->api_id);
+            
+        }
+        
+        $events = $this->event->parseEvents($apiEvents);
         
         return Response::json($events);
     }

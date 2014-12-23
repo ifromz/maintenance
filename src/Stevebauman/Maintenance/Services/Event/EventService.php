@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services\Event;
 
+use Stevebauman\Maintenance\Exceptions\EventNotFoundException;
 use Stevebauman\Maintenance\Services\Google\EventService as GoogleEventService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Event;
@@ -12,26 +13,33 @@ use Stevebauman\Maintenance\Services\BaseModelService;
  */
 class EventService extends BaseModelService {
     
-    public function __construct(Event $model, GoogleEventService $google, SentryService $sentry)
+    public function __construct(
+            Event $model, 
+            GoogleEventService $google, 
+            SentryService $sentry,
+            EventNotFoundException $notFoundException)
     {
         $this->model = $model;
         $this->eventApiService = $google;
         $this->sentry = $sentry;
+        
+        $this->notFoundException = $notFoundException;
     }
     
     public function get($select = array())
     {
-        /*
-         * Make sure we group by API ID since there could be multiple objects
-         * attached to one API event
-         */
-        $records = $this->model->groupBy('api_id')->get();
+        $records = $this->model->get();
         
         $events = $this->eventApiService->getOnly($records->lists('api_id'));
         
         return $events;
     }
     
+    /**
+     * Returns a collection of all API events
+     * 
+     * @return collection
+     */
     public function getApiEvents()
     {
         $events = $this->eventApiService->setInput($this->input)->get();
@@ -39,24 +47,45 @@ class EventService extends BaseModelService {
         return $events;
     }
     
-    public function getTags($api_id)
-    {
-        $records = $this->model->where('api_id', $api_id)->get();
-        
-        return $records;
-    }
-    
     /**
-     * Finds and returns an event by it's API ID
+     * Retrieves and returns an API event by it's API ID
      * 
      * @param string $api_id
      * @return object
+     * @throws EventNotFoundException
      */
     public function findByApiId($api_id)
     {
         $entry = $this->eventApiService->find($api_id);
         
-        return $entry;
+        if($entry) {
+            return $entry;
+        } else {
+            throw new $this->notFoundException;
+        }
+        
+    }
+    
+    /**
+     * Retrieves the local database record of the API event
+     * 
+     * @param string $api_id
+     * @return object
+     * @throws EventNotFoundException
+     */
+    public function findLocalByApiId($api_id)
+    {
+        $event = $this->model
+                ->where('api_id', $api_id)
+                ->with('assets', 'inventories', 'workOrders')
+                ->first();
+        
+        if($event) {
+            return $event;
+        } else {
+            throw new $this->notFoundException;
+        }
+        
     }
     
     /**
@@ -116,56 +145,46 @@ class EventService extends BaseModelService {
          */
         $event = $this->eventApiService->setInput($this->input)->create();
         
+        /*
+         * If the event was created successfully, we now have to attach the specified
+         * assets / inventories / work orders to the event
+         */
         if($event) {
             
-            $this->dbStartTransaction();
+            /*
+             * Create the main event
+             */
+            $insert = array(
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'api_id' => $event->id,
+            );
+        
+            $record = $this->model->create($insert);
             
-            $objects = $this->getInput('objects');
+            /*
+             * Attach the assets / inventories / work orders if they are present
+             */
+            $assets = $this->getInput('assets');
+            $inventories = $this->getInput('inventories');
+            $workOrders = $this->getInput('work_orders');
             
-            foreach($objects as $object) {
-
-                $insert = array(
-                    'eventable_id' => $object->id,
-                    'eventable_type' => get_class($object),
-                    'user_id' => $this->sentry->getCurrentUserId(),
-                    'api_id' => $event->id,
-                );
-
-                $record = $this->model->create($insert);
-                
-                if($record) {
-                
-                    $this->dbCommitTransaction();
-                    
-                } else {
-
-                    $this->dbRollbackTransaction();
-
-                }
-                
+            if($assets) {
+                $record->assets()->attach($this->getInput('assets'));
             }
             
-            return true;
+            if($inventories) {
+                $record->inventories()->attach($this->getInput('inventories'));
+            }
+            
+            if($workOrders) {
+                $record->workOrders()->attach($this->getInput('work_orders'));
+            }
+            
+            return $event;
             
         }
         
         return false;
-    }
-    
-    public function update($api_id)
-    {
-        $exists = $this->model
-                ->where('eventable_id', $object->id)
-                ->where('eventable_type', $object->id)
-                ->get();
-        
-        /*
-         * Make sure the record doesn't already exist, if it does, skip
-         * current iteration
-         */
-        if($exists->count() > 0) {
-            
-        }
     }
     
     /**

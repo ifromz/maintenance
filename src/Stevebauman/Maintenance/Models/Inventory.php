@@ -1,12 +1,14 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Models\Category;
+use Stevebauman\Maintenance\Traits\EventableTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Inventory extends BaseModel {
     
 	use SoftDeletingTrait;
+        use EventableTrait;
         
         protected $table = 'inventories';
         

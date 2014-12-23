@@ -18,17 +18,24 @@ class CreateCalendarTables extends Migration {
                 $table->increments('id');
                 $table->timestamps();
                 $table->integer('user_id')->unsigned()->nullable();
-                $table->integer('eventable_id');
-                $table->string('eventable_type');
-                
-                /*
-                 * Google Calendar Event ID
-                 */
                 $table->string('api_id');
                 
                 $table->foreign('user_id')->references('id')->on('users')
 						->onUpdate('restrict')
 						->onDelete('set null');
+            });
+            
+            Schema::create('eventables', function(Blueprint $table)
+            {
+                $table->increments('id');
+                $table->timestamps();
+                $table->integer('event_id')->unsigned();
+                $table->integer('eventable_id');
+                $table->string('eventable_type');
+                
+                $table->foreign('event_id')->references('id')->on('events')
+						->onUpdate('restrict')
+						->onDelete('cascade');
             });
             
             Schema::create('event_reports', function(Blueprint $table)
@@ -58,6 +65,7 @@ class CreateCalendarTables extends Migration {
 	public function down()
 	{
             Schema::drop('event_reports');
+            Schema::drop('eventables');
             Schema::drop('events');
 	}
 

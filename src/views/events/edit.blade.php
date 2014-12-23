@@ -78,8 +78,15 @@
     </div>
         
     @if(!$event->isRecurrence)
-    <div class="alert alert-warning">
-        <p>Caution: Setting a new frequency will change all events in the series</p>
+    <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+            <div class="alert alert-warning">
+                <p>
+                    <b>Heads Up!</b> Setting a new frequency will change the dates and times of all events in the series. 
+                    If you've modified a recurrence, it's not recommended to change the recurrence options.
+                </p>
+            </div>
+        </div>
     </div>
     
     <div class="form-group">
