@@ -41,6 +41,15 @@ Validator::replacer('unique_report', function($message, $attribute, $rule, $para
     return "This work order already has a completion report.";
 });
 
+/*
+ * Validates Event Reports to make sure only one is filled out
+ */
+Validator::extend('unique_event_report', 'Stevebauman\Maintenance\Validators\Event\UniqueReportValidator@validateUniqueReport');
+
+Validator::replacer('unique_event_report', function($message, $attribute, $rule, $parameters){
+    return "This event already has a completion report.";
+});
+
 /**
  * Validates text to make sure it's a positive number
  */

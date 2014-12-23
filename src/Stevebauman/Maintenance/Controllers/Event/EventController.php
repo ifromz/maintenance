@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers\Event;
 
-use Stevebauman\Maintenance\Validators\EventValidator;
+use Stevebauman\Maintenance\Validators\Event\EventValidator;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 

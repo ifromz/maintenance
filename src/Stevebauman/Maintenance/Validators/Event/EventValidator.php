@@ -1,6 +1,6 @@
 <?php 
 
-namespace Stevebauman\Maintenance\Validators;
+namespace Stevebauman\Maintenance\Validators\Event;
 
 use Stevebauman\Maintenance\Validators\BaseValidator;
 

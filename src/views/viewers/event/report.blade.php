@@ -2,10 +2,10 @@
 
 @if($event->report)
     
-    {{{ $event->report->description }}}
+    {{ $event->report->description }}
     
 @else
-    {{ Form::open(array('url'=>route('maintenance.work-orders.store'), 'class'=>'form-horizontal ajax-form-post clear-form')) }}
+    {{ Form::open(array('url'=>route('maintenance.events.report.store', array($event->id)), 'class'=>'form-horizontal ajax-form-post clear-form')) }}
     
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
