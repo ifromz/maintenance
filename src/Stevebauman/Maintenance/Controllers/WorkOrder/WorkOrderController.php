@@ -5,6 +5,7 @@ namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Location\Facades\Location;
 
 class WorkOrderController extends BaseController {
         
@@ -21,6 +22,7 @@ class WorkOrderController extends BaseController {
 	 */
 	public function index()
         {
+            dd(Location::get());
             $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
             
             return view('maintenance::work-orders.index', array(

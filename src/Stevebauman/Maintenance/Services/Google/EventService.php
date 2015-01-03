@@ -44,34 +44,24 @@ class EventService extends AbstractService {
     
     public function getRecurrences($id)
     {
-        $filter = array(
-            'alwaysIncludeEmail'    => $this->getInput('alwaysIncludeEmail', false),
-            'maxAttendees'          => $this->getInput('maxAttendees'),
-            'maxResults'            => $this->getInput('maxResults'),
-            'originalStart'         => $this->getInput('originalStart'),
-            'pageToken'             => $this->getInput('pageToken'),
-            'showDeleted'           => $this->getInput('showDeleted', false),
-            'timeMin'               => $this->getInput('timeMin'),
-            'timeMax'               => $this->getInput('timeMax'),
-        );
-        
-        return new $this->collection($this->calendar->recurrences($id, $filter));
+        return new $this->collection($this->calendar->recurrences($id, $this->getRecurrenceFilter()));
     }
     
     /**
      * Creates a google batch request for specific event ID's
      * 
-     * @param type $ids
+     * @param array $ids
      * @return Stevebauman\EloquentTable\TableCollection\TableCollection
      */
-    public function getOnly($ids = array())
+    public function getOnly($ids = array(), $recurrences = false)
     {
-        
-        $events = $this->calendar->specificEvents($ids);
+        $events = $this->calendar->specificEvents($ids, $recurrences, $this->getRecurrenceFilter());
         
         foreach($events as &$event) {
             
-            $event->attendees = new $this->collection($event->attendees);
+            if($event->attendees) {
+                $event->attendees = new $this->collection($event->attendees);
+            }
             
         }
         
@@ -81,8 +71,8 @@ class EventService extends AbstractService {
     /**
      * Returns the specified google calendar event
      * 
-     * @param type $id
-     * @return type
+     * @param string $id
+     * @return Stevebauman\EloquentTable\TableCollection\TableCollection
      */
     public function find($id)
     {
@@ -345,6 +335,22 @@ class EventService extends AbstractService {
         } 
 
         return NULL;
+    }
+    
+    private function getRecurrenceFilter()
+    {
+        $filter = array(
+            'alwaysIncludeEmail'    => $this->getInput('alwaysIncludeEmail', false),
+            'maxAttendees'          => $this->getInput('maxAttendees'),
+            'maxResults'            => $this->getInput('maxResults'),
+            'originalStart'         => $this->getInput('originalStart'),
+            'pageToken'             => $this->getInput('pageToken'),
+            'showDeleted'           => $this->getInput('showDeleted', false),
+            'timeMin'               => $this->getInput('timeMin'),
+            'timeMax'               => $this->getInput('timeMax'),
+        );
+        
+        return $filter;
     }
     
 }

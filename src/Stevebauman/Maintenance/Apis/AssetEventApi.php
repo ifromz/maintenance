@@ -22,20 +22,20 @@ class AssetEventApi extends BaseApiController {
     {
         $asset = $this->asset->find($asset_id);
         
-        $apiEvents = array();
+        $timeMin = new \DateTime();
+        $timeMin->setTimestamp($this->input('start'));
+
+        $timeMax = new \DateTime();
+        $timeMax->setTimestamp($this->input('end'));
+
+        $data = array(
+            'timeMin' => $timeMin->format(\DateTime::RFC3339),
+            'timeMax' => $timeMax->format(\DateTime::RFC3339),
+        );
         
-        foreach($asset->events as $event) {
-            
-            /*
-             * TODO - Get recurrances
-             */
-            $apiEvents[] = $this->event->findByApiId($event->api_id);
-            
-        }
+        $apiEvents = $this->event->setInput($data)->getApiEvents($asset->events->lists('api_id'), $recurrences = true);
         
-        $events = $this->event->parseEvents($apiEvents);
-        
-        return Response::json($events);
+        return Response::json($this->event->parseEvents($apiEvents));
     }
     
 }

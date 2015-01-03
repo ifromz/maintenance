@@ -1,4 +1,4 @@
-<legend>Upcoming Recurrences</legend>
+<legend>Upcoming Recurrences (within the next month)</legend>
 
 @if(count($recurrences) > 0)
 

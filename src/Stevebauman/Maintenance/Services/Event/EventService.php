@@ -14,7 +14,7 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class EventService extends BaseModelService {
     
     public function __construct(
-            Event $model, 
+            Event $model,
             GoogleEventService $google, 
             SentryService $sentry,
             EventNotFoundException $notFoundException)
@@ -28,7 +28,7 @@ class EventService extends BaseModelService {
     
     public function get($select = array())
     {
-        $records = $this->model->get();
+        $records = $this->model->where('parent_id', NULL)->get();
         
         $events = $this->eventApiService->getOnly($records->lists('api_id'));
         
@@ -38,13 +38,33 @@ class EventService extends BaseModelService {
     /**
      * Returns a collection of all API events
      * 
+     * @param array $apiIds
      * @return collection
      */
-    public function getApiEvents()
+    public function getApiEvents($apiIds = array(), $recurrences = false)
     {
-        $events = $this->eventApiService->setInput($this->input)->get();
+        if(count($apiIds) > 0) {
+            
+            $events = $this->eventApiService->setInput($this->input)->getOnly($apiIds, $recurrences);
+            
+        } else {
+            $events = $this->eventApiService->setInput($this->input)->get();
+        }
         
         return $events;
+    }
+    
+    /**
+     * Returns recurrences from the specified API ID
+     * 
+     * @param string $api_id
+     * @return object
+     */
+    public function getRecurrencesByApiId($api_id)
+    {
+        $recurrences = $this->eventApiService->setInput($this->input)->getRecurrences($api_id);
+        
+        return $recurrences;
     }
     
     /**
@@ -56,10 +76,21 @@ class EventService extends BaseModelService {
      */
     public function findByApiId($api_id)
     {
-        $entry = $this->eventApiService->find($api_id);
+        $event = $this->eventApiService->find($api_id);
         
-        if($entry) {
-            return $entry;
+        if($event) {
+            
+            /*
+             * If the event is a recurrence, we need to create a local
+             * record of it so we can attach reports to it.
+             */
+            if($event->isRecurrence) {
+                
+                $this->createRecurrence($event);
+                
+            }
+            
+            return $event;
         } else {
             throw new $this->notFoundException;
         }
@@ -86,48 +117,6 @@ class EventService extends BaseModelService {
             throw new $this->notFoundException;
         }
         
-    }
-    
-    /**
-     * Returns recurrences from the specified API ID
-     * 
-     * @param string $api_id
-     * @return object
-     */
-    public function getRecurrencesByApiId($api_id)
-    {
-        $recurrences = $this->eventApiService->setInput($this->input)->getRecurrences($api_id);
-        
-        return $recurrences;
-    }
-    
-    /**
-     * Retrieves events attached to the specified object
-     * 
-     * @param object $object
-     * @return object
-     */
-    public function getFromObject($object)
-    {
-        /*
-         * Grab our local records of the event
-         */
-        $records = $this->model
-                ->where('eventable_type', get_class($object))
-                ->where('eventable_id', $object->id)
-                ->get();
-        
-        /*
-         * Grab the service records
-         */
-        $events = $this->eventApiService->getOnly($records->lists('api_id'));
-        
-        /*
-         * Removed deleted events from the local database
-         */
-        $this->sync($events);
-        
-        return $events;
     }
     
     /**
@@ -184,6 +173,43 @@ class EventService extends BaseModelService {
             
         }
         
+        return false;
+    }
+    
+    /**
+     * Creates a local recurrence from the specified parent event
+     */
+    public function createRecurrence($event)
+    {
+        $this->dbStartTransaction();
+            
+        /*
+         * If the API event exists, make sure it exists in the
+         * local database, and the same user ID is used. This is used for
+         * making reports on recuring events
+         */
+        $record = $this->where('api_id', $event->parent_id)->first();
+
+        $insert = array(
+            'api_id' => $event->id,
+            'parent_id' => $record->id,
+            'user_id' => $record->user_id,
+        );
+        
+        /*
+         * Use first or create so we don't create duplicate local recurrence
+         * records
+         */
+        $recurrence = $this->model->firstOrCreate($insert);
+        
+        if($recurrence) {
+            $this->dbCommitTransaction();
+            
+            return $recurrence;
+        }
+        
+        $this->dbRollbackTransaction();
+            
         return false;
     }
     

@@ -10,8 +10,7 @@ class Event extends BaseModel {
     
     protected $fillable = array(
         'user_id',
-        'eventable_id',
-        'eventable_type',
+        'parent_id',
         'api_id',
     );
     
@@ -20,6 +19,11 @@ class Event extends BaseModel {
     public function report()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\EventReport', 'event_id');
+    }
+    
+    public function parentEvent()
+    {
+        return $this->belongsTo('Stevebauman\Maintenance\Models\Event', 'parent_id');
     }
     
     public function assets()

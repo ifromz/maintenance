@@ -18,6 +18,7 @@ class CreateCalendarTables extends Migration {
                 $table->increments('id');
                 $table->timestamps();
                 $table->integer('user_id')->unsigned()->nullable();
+                $table->integer('parent_id')->nullable();
                 $table->string('api_id');
                 
                 $table->foreign('user_id')->references('id')->on('users')
