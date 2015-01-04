@@ -26,11 +26,15 @@
         $events->columns(array(
                 'title' => 'Title / Summary',
                 'description' => 'Description',
+                'reccuring' => 'Is Reccuring',
                 'all_day' => 'All Day',
                 'start' => 'Start',
                 'end' => 'End',
                 'actions' => 'Actions',
             ))
+            ->modify('reccuring', function($record){
+                return $record->viewer()->lblRecurring;
+            })
             ->modify('start', function($record) {
                 return $record->viewer()->startFormatted;
             })

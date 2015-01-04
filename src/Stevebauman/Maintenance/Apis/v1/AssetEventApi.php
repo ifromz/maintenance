@@ -1,4 +1,4 @@
-<?php namespace Stevebauman\Maintenance\Apis;
+<?php namespace Stevebauman\Maintenance\Apis\v1;
 
 use Illuminate\Support\Facades\Response;
 use Stevebauman\Maintenance\Services\Asset\AssetService;

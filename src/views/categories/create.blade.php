@@ -30,7 +30,6 @@
                     ))
                 }}
                 
-                    <legend class="margin-top-10">{{ $resource }} Information</legend>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="name">Name</label>
                         <div class="col-md-4">

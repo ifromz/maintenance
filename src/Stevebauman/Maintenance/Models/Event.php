@@ -15,7 +15,12 @@ class Event extends BaseModel {
     );
     
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Event\EventViewer';
-
+    
+    public function user()
+    {
+        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
+    }
+    
     public function report()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\EventReport', 'event_id');

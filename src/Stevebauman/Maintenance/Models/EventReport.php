@@ -14,4 +14,9 @@ class EventReport extends BaseModel {
         'description',
     );
     
+    public function user()
+    {
+        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
+    }
+    
 }

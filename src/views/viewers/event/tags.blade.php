@@ -2,23 +2,35 @@
 
     <dt>Tagged To:</dt>
     <dd>
-        @foreach($event->assets as $asset)
+        @if(count($event->assets) > 0)
         
-            {{ $asset->viewer()->btnEventTag }}
+            @foreach($event->assets as $asset)
+
+                {{ $asset->viewer()->btnEventTag }}
+
+            @endforeach
         
-        @endforeach
+        @endif
         
-        @foreach($event->inventories as $item)
+        @if(count($event->inventories) > 0)
         
-            {{ $item->viewer()->btnEventTag }}
+            @foreach($event->inventories as $item)
+
+                {{ $item->viewer()->btnEventTag }}
+
+            @endforeach
         
-        @endforeach
+        @endif
         
-        @foreach($event->workOrders as $workOrder)
+        @if(count($event->workOrders) > 0)
         
-            {{ $workOrder->viewer()->btnEventTag }}
+            @foreach($event->workOrders as $workOrder)
+
+                {{ $workOrder->viewer()->btnEventTag }}
+
+            @endforeach
         
-        @endforeach
+        @endif
     </dd>
     
 </dl>

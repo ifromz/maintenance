@@ -27,12 +27,12 @@
                 <h3 class="panel-title">Create a new Sub-{{ $resource }} for {{ $category->name }}</h3>
             </div>
             <div class="panel-body">
-            <legend class="margin-top-10">{{ $resource }} Information</legend>
-            {{ Form::open(array(
-                    'url'=>action(currentControllerAction('store'), array($category->id)), 
-                    'class'=>'form-horizontal ajax-form-post clear-form'
-                )) 
-            }}
+                
+                {{ Form::open(array(
+                        'url'=>action(currentControllerAction('store'), array($category->id)), 
+                        'class'=>'form-horizontal ajax-form-post clear-form'
+                    )) 
+                }}
             
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="location_name">Name</label>

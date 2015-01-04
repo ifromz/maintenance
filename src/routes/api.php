@@ -17,6 +17,17 @@ Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
             'as'=>'maintenance.api.v1.assets.find',
             'uses'=>'AssetApi@find'
         ));
+        
+        Route::resource('events', 'AssetEventApi', array(
+            'only' => array(
+                'index',
+                'show',
+            ),
+            'names'=> array(
+                    'index' => 'maintenance.api.v1.assets.events.index',
+                    'show' => 'maintenance.api.v1.assets.events.show',
+            ),
+        ));
 
     });
 
@@ -84,17 +95,6 @@ Route::group(array('prefix'=>'notifications'), function(){
                     'edit'    	=> 'maintenance.api.calendar.events.edit',
                     'update'  	=> 'maintenance.api.calendar.events.update',
                     'destroy' 	=> 'maintenance.api.calendar.events.destroy',
-            ),
-        ));
-
-        Route::resource('events/assets', 'AssetEventApi', array(
-            'only' => array(
-                'index',
-                'show',
-            ),
-            'names'=> array(
-                    'index' => 'maintenance.api.calendar.events.assets.index',
-                    'show' => 'maintenance.api.calendar.events.assets.show',
             ),
         ));
 

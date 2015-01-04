@@ -1,11 +1,36 @@
 <legend>Event Report</legend>
 
+<div id="event-report">
+
 @if($event->report)
     
-    {{ $event->report->description }}
+    <dl class="dl-horizontal">
+
+    <dt>Created By:</dt>
+    <dd>{{ $event->report->user->fullname }}</dd>
     
+    <p></p>
+    
+    <dt>Created On:</dt>
+    <dd>{{ $event->report->created_at }}</dd>
+    
+    <p></p>
+    
+    <dt>Report:</dt>
+    <dd class="bg-gray">
+        {{ $event->report->description }}
+    </dd>
+    
+    </dl>
+
 @else
-    {{ Form::open(array('url'=>route('maintenance.events.report.store', array($event->id)), 'class'=>'form-horizontal ajax-form-post clear-form')) }}
+    {{
+        Form::open(array(
+                'url'=>route('maintenance.events.report.store', array($event->id)),
+                'data-refresh-target' => '#event-report',
+                'class'=>'form-horizontal ajax-form-post clear-form'
+        ))
+    }}
     
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
@@ -30,3 +55,5 @@
     
     {{ Form::close() }}
 @endif
+
+</div>

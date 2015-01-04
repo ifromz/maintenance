@@ -9,4 +9,4 @@ $(document).ready(function () {
 });
 </script>
 
-<div id="calendar" data-event-url="{{ route('maintenance.api.calendar.events.assets.show', array($asset->id)) }}"></div>
+<div id="calendar" data-event-url="{{ route('maintenance.api.v1.assets.events.show', array($asset->id)) }}"></div>
