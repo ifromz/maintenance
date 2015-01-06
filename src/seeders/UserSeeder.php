@@ -19,7 +19,7 @@ class UserSeeder extends Seeder {
             /*
              * Check configured filters
              */
-            if(Config::get('maintenance::site.ldap.user_sync.filters.enabled') === true){
+            if(Config::get('maintenance::site.ldap.user_sync.filters.enabled') === true) {
                 
                 /*
                  * Get the filters from config
@@ -30,22 +30,22 @@ class UserSeeder extends Seeder {
                 /*
                  * Check the returned values and make sure they are arrays and that they are enabled
                  * 
-                 * Continue through the user array if the user group or type is not found in the set filter
+                 * Skip (continue) the user if the user group or type is not found in the set filter
                  */
-                if($allowedGroups && is_array($allowedGroups)){
+                if($allowedGroups && is_array($allowedGroups)) {
                     if(!in_array($user['group'], $allowedGroups)){
                         continue;
                     }
                 }
                 
-                if($allowedTypes && is_array($allowedTypes)){
+                if($allowedTypes && is_array($allowedTypes)) {
                     if(!in_array($user['type'], $allowedTypes)){
                         continue;
                     }
                 }
             }
             
-            if(array_key_exists('username', $user)){
+            if(array_key_exists('username', $user)) {
                 
                 $email = Corp::userEmail($user['username']);
                 
@@ -58,7 +58,7 @@ class UserSeeder extends Seeder {
                         'last_name' => $user['last_name'],
                         'first_name' => $user['first_name'],
                     );
-
+                    
                     $groups[] = $this->sentry->createOrUpdateGroup($user['group']);
                     $groups[] = $this->sentry->createOrUpdateGroup($user['type']);
 

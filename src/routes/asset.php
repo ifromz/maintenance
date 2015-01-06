@@ -157,40 +157,17 @@ Route::group(array('namespace'=>'Asset'), function(){
    /*
     * Asset Event Routes
     */
-    Route::group(array('namespace'=>'Event'), function(){
-    
-        Route::resource('assets.events', 'EventController', array(
-            'names' => array(
-                    'index'     => 'maintenance.assets.events.index',
-                    'create'  	=> 'maintenance.assets.events.create',
-                    'store'   	=> 'maintenance.assets.events.store',
-                    'show'    	=> 'maintenance.assets.events.show',
-                    'edit'    	=> 'maintenance.assets.events.edit',
-                    'update'  	=> 'maintenance.assets.events.update',
-                    'destroy' 	=> 'maintenance.assets.events.destroy',
-            )
-        ));
-        
-        Route::resource('assets.events.report', 'ReportController', array(
-            'only' => array(
-                'create',
-                'store',
-                'show',
-                'edit',
-                'update',
-                'destroy',
-            ),
-            'names' => array(
-                'create' => 'maintenance.assets.events.report.create',
-                'store' => 'maintenance.assets.events.report.store',
-                'show' => 'maintenance.assets.events.report.show',
-                'edit' => 'maintenance.assets.events.report.edit',
-                'update' => 'maintenance.assets.events.report.update',
-                'destroy' => 'maintenance.assets.events.report.destroy',
-            ),
-        ));
-    
-    });
+    Route::resource('assets.events', 'EventController', array(
+        'names' => array(
+                'index'     => 'maintenance.assets.events.index',
+                'create'  	=> 'maintenance.assets.events.create',
+                'store'   	=> 'maintenance.assets.events.store',
+                'show'    	=> 'maintenance.assets.events.show',
+                'edit'    	=> 'maintenance.assets.events.edit',
+                'update'  	=> 'maintenance.assets.events.update',
+                'destroy' 	=> 'maintenance.assets.events.destroy',
+        )
+    ));
 
    /*
     * Asset Routes

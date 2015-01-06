@@ -18,10 +18,20 @@ class CreateCalendarTables extends Migration {
                 $table->increments('id');
                 $table->timestamps();
                 $table->integer('user_id')->unsigned()->nullable();
-                $table->integer('parent_id')->nullable();
+                $table->integer('location_id')->unsigned()->nullable();
+                $table->integer('parent_id')->unsigned()->nullable();
+                $table->string('api_calendar_id');
                 $table->string('api_id');
                 
                 $table->foreign('user_id')->references('id')->on('users')
+						->onUpdate('restrict')
+						->onDelete('set null');
+                
+                $table->foreign('location_id')->references('id')->on('locations')
+						->onUpdate('restrict')
+						->onDelete('set null');
+                
+                $table->foreign('parent_id')->references('id')->on('events')
 						->onUpdate('restrict')
 						->onDelete('set null');
             });

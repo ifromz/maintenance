@@ -3,12 +3,15 @@
 <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
 <!-- Styles -->
-    <!-- bootstrap 3.1.0 -->
+    <!-- Bootstrap 3.1.0 -->
     {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/bootstrap.min.css') }}
 
-    <!-- bootstrap stackable modals extension -->
+    <!-- Bootstrap stackable modals extension -->
     {{ HTML::style('packages/stevebauman/maintenance/bootstrap-modal/css/bootstrap-modal.css') }}
-
+    
+    <!-- Ladda animated loading buttons -->
+    {{ HTML::style('packages/stevebauman/maintenance/ladda-bootstrap-master/dist/ladda-themeless.min.css') }}
+    
     <!-- Font Awesome -->
     {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/font-awesome.min.css') }}
 
@@ -47,6 +50,11 @@
     <!-- jQuery UI 1.10.3 -->
     {{ HTML::script('packages/stevebauman/maintenance/js/vendor/jquery-ui-1.10.3.min.js') }}
     
+    <!--Ladda animated buttons -->
+    {{ HTML::script('packages/stevebauman/maintenance/ladda-bootstrap-master/dist/spin.min.js') }}
+    {{ HTML::script('packages/stevebauman/maintenance/ladda-bootstrap-master/dist/ladda.min.js') }}
+    
+    <!-- Mobiscroll scripts and styles -->
     {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.core.js') }}
     {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.widget.js') }}
     {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.scroller.js') }}

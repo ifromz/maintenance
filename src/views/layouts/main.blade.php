@@ -33,7 +33,7 @@
     @if(Sentry::hasAccess('maintenance.events.index'))
     <li class="{{ activeMenuLink('maintenance.events') }}">
         <a href="{{ route('maintenance.events.index') }}">
-            <i class="fa fa-calendar"></i> Events
+            <i class="fa fa-calendar"></i> Generic Events
         </a>
     </li>
     @endif

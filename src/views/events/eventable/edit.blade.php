@@ -17,7 +17,7 @@
 @section('panel.body.content')
 
     {{ Form::open(array(
-            'url'=>route('maintenance.events.update', array($event->id)),
+            'url'=>action(currentControllerAction('update'), array($eventable->id, $event->id)),
             'method' => 'PATCH',
             'class'=>'form-horizontal ajax-form-post'
         ))

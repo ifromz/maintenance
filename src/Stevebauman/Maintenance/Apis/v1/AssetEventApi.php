@@ -29,6 +29,7 @@ class AssetEventApi extends BaseApiController {
         $timeMax->setTimestamp($this->input('end'));
 
         $data = array(
+            'calendar_id' => config('maintenance::site.calendars.assets'),
             'timeMin' => $timeMin->format(\DateTime::RFC3339),
             'timeMax' => $timeMax->format(\DateTime::RFC3339),
         );

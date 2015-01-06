@@ -11,87 +11,87 @@ use Stevebauman\CoreHelper\Services\AbstractService;
  * Handles Google Calendar Events much like the typical model services
  */
 class EventService extends AbstractService {
-    
+
     use \Stevebauman\EloquentTable\TableTrait;
-    
+
     public function __construct(CalendarHelper $calendar, TableCollection $collection)
     {
         $this->calendar = $calendar->google();
         $this->collection = $collection;
     }
-    
+
     /**
      * Returns a google collection of all events from the inputted filter
-     * 
-     * @return Stevebauman\EloquentTable\TableCollection\TableCollection
+     *
+     * @return \Stevebauman\EloquentTable\TableCollection
      */
     public function get()
     {
-        $filter = array(
-            'alwaysIncludeEmail'    => $this->getInput('alwaysIncludeEmail', false),
-            'iCalUID'               => $this->getInput('iCalUID'),
-            'maxAttendees'          => $this->getInput('maxAttendees'),
-            'maxResults'            => $this->getInput('maxResults'),
-            'orderBy'               => $this->getInput('orderBy'),
-            'pageToken'             => $this->getInput('pageToken'),
-            'singleEvents'          => $this->getInput('singleEvents', true),
-            'timeMin'               => $this->getInput('timeMin'),
-            'timeMax'               => $this->getInput('timeMax'),
-        );
-        
-        return new $this->collection($this->calendar->events($filter));
+        $events = $this->calendar
+            ->setCalendarId($this->getInput('calendar_id'))
+            ->events($this->getRecurrenceFilter());
+
+        return new $this->collection($events);
     }
-    
+
     public function getRecurrences($id)
     {
-        return new $this->collection($this->calendar->recurrences($id, $this->getRecurrenceFilter()));
+        $events = $this->calendar
+            ->setCalendarId($this->getInput('calendar_id'))
+            ->recurrences($id, $this->getRecurrenceFilter());
+
+        return new $this->collection();
     }
-    
+
     /**
      * Creates a google batch request for specific event ID's
-     * 
+     *
      * @param array $ids
-     * @return Stevebauman\EloquentTable\TableCollection\TableCollection
+     * @return \Stevebauman\EloquentTable\TableCollection
      */
     public function getOnly($ids = array(), $recurrences = false)
     {
-        $events = $this->calendar->specificEvents($ids, $recurrences, $this->getRecurrenceFilter());
-        
+        $events = $this->calendar
+            ->setCalendarId($this->getInput('calendar_id'))
+            ->specificEvents($ids, $recurrences, $this->getRecurrenceFilter());
+
         foreach($events as &$event) {
-            
+
             if($event->attendees) {
                 $event->attendees = new $this->collection($event->attendees);
             }
-            
+
         }
-        
+
         return new $this->collection($events);
     }
-    
+
     /**
      * Returns the specified google calendar event
-     * 
+     *
      * @param string $id
-     * @return Stevebauman\EloquentTable\TableCollection\TableCollection
+     * @return \Stevebauman\EloquentTable\TableCollection
      */
     public function find($id)
     {
-        $event = $this->calendar->event($id);
-        
+        $event = $this->calendar
+            ->setCalendarId($this->getInput('calendar_id'))
+            ->event($id);
+
         if($event->status !== 'cancelled') {
-        
+
             $event->attendees = new $this->collection($event->attendees);
 
             return $event;
-            
+
         }
-        
+
         return false;
     }
-    
+
     /**
      * Creates a new google calendar event
-     * 
+     *
      * @return type
      */
     public function create()
@@ -107,18 +107,18 @@ class EventService extends AbstractService {
             'BYMONTH'    => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
             'UNTIL'     => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
         );
-        
+
         /*
          * Convert the rule array to RRULE string
          */
         $rrule = $this->arrayToRRule($arrayRule);
-        
+
         /*
          * Combine dates with their times
          */
         $start = $this->getInput('start_date'). ' ' . $this->getInput('start_time');
         $end = $this->getInput('end_date'). ' ' . $this->getInput('end_time');
-        
+
         if($this->getInput('all_day') === 'true') {
             $allDay = true;
         } else {
@@ -126,6 +126,7 @@ class EventService extends AbstractService {
         }
 
         $event = new Event(array(
+            'calendar_id' => $this->getInput('calendar_id'),
             'title' => $this->getInput('title'),
             'location' => $this->getInput('location'),
             'start' => strToRfc3339($start, $allDay),
@@ -133,22 +134,22 @@ class EventService extends AbstractService {
             'all_day' => $allDay,
             'rrule' => $rrule
         ));
-        
+
         return $this->calendar->createEvent($event);
     }
-    
+
     /**
      * Updates the specified google calendar event
-     * 
+     *
      * @param string $id
      * @return boolean
      */
     public function update($id)
     {
         $event = $this->find($id);
-        
+
         if($event) {
-            
+
             /*
             * If recur until is specified, make sure to convert it to RFC2445 format
             * 
@@ -161,19 +162,19 @@ class EventService extends AbstractService {
                 'UNTIL'     => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
             );
 
-           /*
-            * Convert the rule array to RRULE string
-            */
+            /*
+             * Convert the rule array to RRULE string
+             */
             $rrule = $this->arrayToRRule($arrayRule);
 
-           /*
-            * Combine dates with their times
-            */
+            /*
+             * Combine dates with their times
+             */
             $start = $this->getInput('start_date'). ' ' . $this->getInput('start_time');
             $end = $this->getInput('end_date'). ' ' . $this->getInput('end_time');
-            
+
             $allDay = $this->getInput('all_day');
-            
+
             /*
              * Values set to events default
              */
@@ -184,35 +185,35 @@ class EventService extends AbstractService {
             $event->end = strToRfc3339($end, $allDay, true);
             $event->allDay = $allDay;
             $event->rrule = $rrule;
-            
+
             return $this->calendar->updateEvent($event);
-            
+
         }
-        
+
         return false;
-        
+
     }
-    
+
     /**
      * Updates the start and end dates of the specified google calendar event
-     * 
+     *
      * @param string $id
      * @return boolean
      */
     public function updateDates($id)
     {
         $event = $this->find($id);
-        
+
         if($event) {
-            
+
             $allDay = false;
-            
+
             if($this->getInput('all_day') === 'true') {
                 $allDay = true;
             }
-            
+
             $startDate = new \DateTime($this->getInput('start'));
-            
+
             /*
              * FullCalendar doesn't post end date if all day event
              * ends on the same day
@@ -222,19 +223,19 @@ class EventService extends AbstractService {
             } else {
                 $endDate = $startDate;
             }
-            
+
             /*
              * If google event is all day, dateTime attribute will be NULL
              */
             if(!$allDay){
-                
+
                 $start = $startDate->format(\DateTime::RFC3339);
                 $end = $endDate->format(\DateTime::RFC3339);
-                
+
             } else {
-                
+
                 $start = $startDate->format('Y-m-d');
-                
+
                 /*
                  * Add one day when POSTing to google for FullCalendar
                  * fix. FullCalendar treats end dates that are all day as a day
@@ -242,29 +243,29 @@ class EventService extends AbstractService {
                  */
                 $endDate->add(new \DateInterval('P1D'));
                 $end = $endDate->format('Y-m-d');
-                
+
             }
-            
+
             /*
              * Set new event attributes
              */
             $event->start = $start;
             $event->end = $end;
             $event->allDay = $allDay;
-            
+
             /*
              * Update and return the new event
              */
             return $this->calendar->updateEvent($event);
-            
+
         }
-        
+
         return false;
     }
-    
+
     /**
      * Deletes the specified google calendar event
-     * 
+     *
      * @param string $id
      * @return type
      */
@@ -272,36 +273,36 @@ class EventService extends AbstractService {
     {
         return $this->calendar->deleteEvent($id);
     }
-    
+
     /**
      * Converts an array of recurring event rules to an RRULE string
-     * 
+     *
      * @param array $rules
      */
     private function arrayToRRule(array $rules = array())
     {
         $ruleString = '';
-        
+
         /*
          * If rules exist in the array
          */
         if(count($rules) > 0) {
-            
+
             foreach($rules as $rule => $value) {
-                
+
                 /*
                  * Make sure the value of the rule isn't empty
                  */
                 if(!empty($value)) {
-                    
+
                     /*
                      * Add the rule onto the string
                      */
                     $ruleString .= strtoupper($rule) . '=' . $value . ';';
-                    
+
                 }
             }
-            
+
             /*
              * Check if there are actually any arguements in the rule string
              * by checking the length. If there are, add the required RRULE prefix
@@ -309,16 +310,16 @@ class EventService extends AbstractService {
             if(strlen($ruleString) > 0) {
                 $ruleString = 'RRULE:'.$ruleString;
             }
-        
+
         }
 
         return $ruleString;
     }
-    
+
     /**
      * Converts an array from the multi-select inputs to a comma seperated list
      * for use in the RRule rule string
-     * 
+     *
      * @param array $values
      * @return null OR string
      */
@@ -332,11 +333,11 @@ class EventService extends AbstractService {
          */
         if(isset($values) && is_array($values)){
             return implode(",", $values);
-        } 
+        }
 
         return NULL;
     }
-    
+
     private function getRecurrenceFilter()
     {
         $filter = array(
@@ -349,8 +350,8 @@ class EventService extends AbstractService {
             'timeMin'               => $this->getInput('timeMin'),
             'timeMax'               => $this->getInput('timeMax'),
         );
-        
+
         return $filter;
     }
-    
+
 }

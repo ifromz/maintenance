@@ -35,7 +35,7 @@ class Meter extends BaseModel {
     {
         if($this->readings->count() > 0){
             
-            return $this->readings->first()->reading;;
+            return $this->readings->first()->reading;
             
         }
     }

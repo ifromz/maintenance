@@ -1,5 +1,5 @@
 <dl class="dl-horizontal">
-
+    
     <dt>Tagged To:</dt>
     <dd>
         @if(count($event->assets) > 0)
@@ -33,4 +33,5 @@
         @endif
     </dd>
     
+    <br>
 </dl>

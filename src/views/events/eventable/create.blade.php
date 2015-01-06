@@ -10,22 +10,20 @@
 
 @section('panel.head.content')
     <h3 class="panel-title">
-        Edit Event
+        Create Event
     </h3>
 @stop
 
 @section('panel.body.content')
 
-    {{ Form::open(array(
-            'url'=>route('maintenance.events.update', array($event->id)),
-            'method' => 'PATCH',
-            'class'=>'form-horizontal ajax-form-post'
+    {{
+        Form::open(array(
+            'url'=>action(currentControllerAction('store'), array($eventable->id)),
+            'class'=>'form-horizontal ajax-form-post clear-form'
         ))
     }}
 
-    @include('maintenance::events.form', array(
-        'event' => $event
-    ))
+    @include('maintenance::events.form')
 
     {{ Form::close() }}
 

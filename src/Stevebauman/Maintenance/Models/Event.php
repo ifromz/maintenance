@@ -2,10 +2,15 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasLocationTrait;
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Event extends BaseModel {
-    
+
+    use HasLocationTrait;
+    use HasUserTrait;
+
     protected $table = 'events';
     
     protected $fillable = array(
@@ -15,11 +20,6 @@ class Event extends BaseModel {
     );
     
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Event\EventViewer';
-    
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
-    }
     
     public function report()
     {

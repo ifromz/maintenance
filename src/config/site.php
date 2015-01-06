@@ -13,6 +13,12 @@ return array(
             'main' => 'Maintenance',
             'admin' => 'Admin Panel'
         ),
+    
+        'calendars' => array(
+            'work-orders' => '',
+            'inventories' => '',
+            'assets' => 'qea8n1h5h0b3btgvsg46dhi3qc@group.calendar.google.com',
+        ),
 	
         /*
          * LDAP Settings

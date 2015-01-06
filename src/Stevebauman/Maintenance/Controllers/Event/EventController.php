@@ -3,17 +3,22 @@
 namespace Stevebauman\Maintenance\Controllers\Event;
 
 use Stevebauman\Maintenance\Validators\Event\EventValidator;
+use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class EventController extends BaseController {
     
-    public function __construct(EventService $event, EventValidator $eventValidator)
+    public function __construct(EventService $event, LocationService $location, EventValidator $eventValidator)
     {
         $this->event = $event;
+        $this->location = $location;
         $this->eventValidator = $eventValidator;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function index()
     {
         $events = $this->event->get();
@@ -23,14 +28,20 @@ class EventController extends BaseController {
             'events' => $events,
         ));
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function create()
     {
         return view('maintenance::events.create', array(
             'title' => 'Create an Event'
         ));
     }
-    
+
+    /**
+     * @return \Illuminate\Support\Facades\Response
+     */
     public function store()
     {
         if($this->eventValidator->passes()) {
@@ -59,7 +70,11 @@ class EventController extends BaseController {
         
         return $this->response();
     }
-    
+
+    /**
+     * @param string $api_id
+     * @return mixed
+     */
     public function show($api_id)
     {
         $event = $this->event->findByApiId($api_id);
@@ -83,17 +98,25 @@ class EventController extends BaseController {
             'recurrences' => $recurrences,
         ));
     }
-    
+
+    /**
+     * @param string $api_id
+     * @return mixed
+     */
     public function edit($api_id)
     {
         $event = $this->event->findByApiId($api_id);
-        
+
         return view('maintenance::events.edit', array(
             'title' => sprintf('Editing event %s', $event->title),
             'event' => $event,
         ));
     }
-    
+
+    /**
+     * @param string $api_id
+     * @return \Illuminate\Support\Facades\Response
+     */
     public function update($api_id)
     {
         if($this->eventValidator->passes()) {
@@ -123,7 +146,11 @@ class EventController extends BaseController {
         
         return $this->response();
     }
-    
+
+    /**
+     * @param string $api_id
+     * @return \Illuminate\Support\Facades\Response
+     */
     public function destroy($api_id)
     {
         if($this->event->destroyByApiId($api_id)) {
