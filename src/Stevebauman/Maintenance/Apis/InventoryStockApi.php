@@ -1,6 +1,5 @@
 <?php namespace Stevebauman\Maintenance\Apis;
 
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Response;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
@@ -20,7 +19,7 @@ class InventoryStockApi extends BaseApiController {
         $stock = $this->inventoryStock->find($stock_id);
 
         return Response::json(array(
-            'html' => View::make('maintenance::inventory.modals.stocks.edit', array(
+            'html' => view('maintenance::inventory.modals.stocks.edit', array(
                     'item' => $item,
                     'stock' => $stock,
                 ))->render(),
@@ -28,7 +27,7 @@ class InventoryStockApi extends BaseApiController {
     }
     
     public function update($inventory_id, $stock_id){
-        $data = \Input::all();
+        $data = $this->inputAll();
         $data['inventory_id'] = $inventory_id;
         
         return $this->inventoryStock->setInput($data)->update($stock_id);

@@ -19,19 +19,10 @@ class MaintenanceServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('stevebauman/maintenance');
-                
-                $this->app->bind('maintenance:install', function($app) {
-                    return new Commands\InstallCommand();
-                });
-                $this->commands(array(
-                    'maintenance:install'
-                ));
-                
-		include __DIR__ .'/../../routes.php';
-		include __DIR__ .'/../../filters.php';
-		include __DIR__ .'/../../composers.php';
-		include __DIR__ .'/../../validators.php';
-                include __DIR__ .'/../../listeners.php';
+
+		$this->bootCommands();
+
+		$this->bootRequiredFiles();
 	}
 
 	/**
@@ -45,13 +36,13 @@ class MaintenanceServiceProvider extends ServiceProvider {
 		{
 			return new Maintenance($app['config']);
 		});
-                
-                $this->app->missing(function($e){
-                    return view('maintenance::404', array(
-                        'title' => '404 - Not Found'
-                    ));
-                });
-                
+
+		$this->app->missing(function($e){
+			return view('maintenance::404', array(
+				'title' => '404 - Not Found'
+			));
+		});
+
 	}
 
 	/**
@@ -62,6 +53,46 @@ class MaintenanceServiceProvider extends ServiceProvider {
 	public function provides()
 	{
 		return array('maintenance');
+	}
+
+	private function bootCommands()
+	{
+		$this->app->bind('maintenance:install', function(){
+					return new Commands\InstallCommand();
+		});
+
+		$this->app->bind('maintenance:run-migrations', function(){
+			return new Commands\RunMigrationsCommand();
+		});
+
+		$this->app->bind('maintenance:run-seeds', function(){
+			return new Commands\RunSeedsCommand();
+		});
+
+		$this->app->bind('maintenance:check-depends', function(){
+			return new Commands\DependencyCheckCommand();
+		});
+
+		$this->app->bind('maintenance:check-schema', function(){
+			return new Commands\SchemaCheckCommand();
+		});
+
+		$this->commands(array(
+			'maintenance:install',
+			'maintenance:run-migrations',
+			'maintenance:run-seeds',
+			'maintenance:check-depends',
+			'maintenance:check-schema',
+		));
+	}
+
+	private function bootRequiredFiles()
+	{
+		include __DIR__ .'/../../routes.php';
+		include __DIR__ .'/../../filters.php';
+		include __DIR__ .'/../../composers.php';
+		include __DIR__ .'/../../validators.php';
+		include __DIR__ .'/../../listeners.php';
 	}
 
 }

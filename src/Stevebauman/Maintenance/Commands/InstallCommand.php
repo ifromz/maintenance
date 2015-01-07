@@ -1,12 +1,13 @@
-<?php namespace Stevebauman\Maintenance\Commands;
+<?php
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
+namespace Stevebauman\Maintenance\Commands;
+
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Illuminate\Console\Command;
 
 class InstallCommand extends Command {
-        
+
 	/**
 	 * The console command name.
 	 *
@@ -19,17 +20,7 @@ class InstallCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'The maintenance install command to process migrations and other installation dependencies.';
-
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+	protected $description = 'Installs the maintenance application';
 
 	/**
 	 * Execute the console command.
@@ -38,17 +29,27 @@ class InstallCommand extends Command {
 	 */
 	public function fire()
 	{
-            
-            $this->info('Checking Dependencies');
-            
-            return $this->info($this->checkDependencies());
+		$this->info('Checking Dependencies');
 
-                $this->info('Dependency check all good');
-                
-                $this->info('Running migrations');
+		$this->call('maintenance:check-depends');
 
-            
-            //Artisan::call('migrate --bench="stevebauman/maintenance"');
+		$this->info('Checking Database Schema');
+
+		$this->call('maintenance:check-schema');
+
+		$this->info('Running migrations');
+
+		$this->call('maintenance:run-migrations');
+
+		$this->info('Maintenance has been successfully installed');
+
+		if($this->confirm('Do you want us to seed the database? [yes|no]', true)) {
+
+			$this->info('Running Seeds');
+
+			$this->call('maintenance:run-seeds');
+
+		}
 	}
 
 }
