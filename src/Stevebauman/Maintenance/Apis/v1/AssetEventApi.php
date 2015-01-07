@@ -11,6 +11,11 @@ class AssetEventApi extends BaseApiController {
     {
         $this->asset = $asset;
         $this->event = $event;
+
+        /*
+         * Set the asset calendar
+         */
+        $this->event->eventApi->setCalendar(config('maintenance::site.calendars.assets'));
     }
     
     public function index()

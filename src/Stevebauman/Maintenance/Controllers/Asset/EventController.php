@@ -15,6 +15,9 @@ class EventController extends AbstractEventableController {
 
         $this->eventableCalendarId = config('maintenance::site.calendars.assets');
 
+        /*
+         * Construct the abstract eventable controller
+         */
         parent::__construct($event, $eventValidator);
     }
 

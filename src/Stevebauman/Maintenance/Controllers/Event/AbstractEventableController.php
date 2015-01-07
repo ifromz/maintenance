@@ -22,6 +22,14 @@ abstract class AbstractEventableController extends BaseController {
     {
         $this->event = $event;
         $this->eventValidator = $eventValidator;
+
+        /*
+         * If the eventableCalendarId is set from the child controller, we'll set the calendar ID for the API
+         * so all operations on the API go to the right calendar
+         */
+        if($this->eventableCalendarId) {
+            $this->event->eventApi->setCalendar($this->eventableCalendarId);
+        }
     }
 
     /**
@@ -32,9 +40,7 @@ abstract class AbstractEventableController extends BaseController {
     {
         $eventable = $this->eventable->find($eventable_id);
 
-        $events = $this->event
-            ->setInput(array('calendar_id'=>$this->eventableCalendarId))
-            ->getApiEvents($eventable->events->lists('api_id'));
+        $events = $this->event->getApiEvents($eventable->events->lists('api_id'));
 
         return view('maintenance::events.eventable.index', array(
             'title' => 'Events',
@@ -67,10 +73,7 @@ abstract class AbstractEventableController extends BaseController {
 
             $eventable = $this->eventable->find($eventable_id);
 
-            $data = $this->inputAll();
-            $data['calendar_id'] = $this->eventableCalendarId;
-
-            $event = $this->event->setInput($data)->create();
+            $event = $this->event->setInput($this->inputAll())->create();
 
             if($event) {
 
@@ -108,9 +111,7 @@ abstract class AbstractEventableController extends BaseController {
     {
         $eventable = $this->eventable->find($eventable_id);
 
-        $event = $this->event
-            ->setInput(array('calendar_id'=>$this->eventableCalendarId))
-            ->findByApiId($api_id);
+        $event = $this->event->findByApiId($api_id);
 
         $localEvent = $this->event->findLocalByApiId($api_id);
 
@@ -118,17 +119,17 @@ abstract class AbstractEventableController extends BaseController {
          * Filter recurrences to display entries one month from now
          */
         $data = array(
-            'calendar_id'=>$this->eventableCalendarId,
             'timeMin' => strToRfc3339(strtotime('now')),
             'timeMax' => strToRfc3339(strtotime('+1 month')),
         );
 
         $recurrences = $this->event->setInput($data)->getRecurrencesByApiId($api_id);
 
-        return view('maintenance::events.show', array(
+        return view('maintenance::events.eventable.show', array(
             'title' => 'Viewing Event: '.$event->title,
             'event' => $event,
             'localEvent' => $localEvent,
+            'eventable' => $eventable,
             'recurrences' => $recurrences,
         ));
     }
@@ -142,9 +143,7 @@ abstract class AbstractEventableController extends BaseController {
     {
         $eventable = $this->eventable->find($eventable_id);
 
-        $event = $this->event
-            ->setInput(array('calendar_id'=>$this->eventableCalendarId))
-            ->findByApiId($api_id);
+        $event = $this->event->findByApiId($api_id);
 
         return view('maintenance::events.eventable.edit', array(
             'title' => sprintf('Editing event %s', $event->title),
@@ -163,10 +162,7 @@ abstract class AbstractEventableController extends BaseController {
 
             $eventable = $this->eventable->find($eventable_id);
 
-            $data = $this->inputAll();
-            $data['calendar_id'] = $this->eventableCalendarId;
-
-            $event = $this->event->setInput($data)->updateByApiId($api_id);
+            $event = $this->event->setInput($this->inputAll())->updateByApiId($api_id);
 
             if($event) {
 
@@ -198,7 +194,7 @@ abstract class AbstractEventableController extends BaseController {
      */
     public function destroy($eventable_id, $api_id)
     {
-        if($this->event->setInput(array('calendar_id'=>$this->eventableCalendarId))->destroyByApiId($api_id)) {
+        if($this->event->destroyByApiId($api_id)) {
 
             $this->message = 'Successfully deleted event';
             $this->messageType = 'success';

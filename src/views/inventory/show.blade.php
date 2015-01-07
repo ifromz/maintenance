@@ -26,6 +26,8 @@
 
         {{ $item->viewer()->btnQrCode }}
 
+        {{ $item->viewer()->btnEvents }}
+
         {{ $item->viewer()->btnAddStock }}
 
         {{ $item->viewer()->btnEdit }}

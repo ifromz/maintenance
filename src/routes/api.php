@@ -5,7 +5,29 @@
  */
 
 Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
-                
+
+    /*
+     * Generic Events API
+     */
+    Route::group(array('prefix'=>'calendar'), function(){
+
+        Route::resource('events', 'EventApi', array(
+            'names'=> array(
+                'index'	=> 'maintenance.api.calendar.events.index',
+                'create'  	=> 'maintenance.api.calendar.events.create',
+                'store'   	=> 'maintenance.api.calendar.events.store',
+                'show'    	=> 'maintenance.api.calendar.events.show',
+                'edit'    	=> 'maintenance.api.calendar.events.edit',
+                'update'  	=> 'maintenance.api.calendar.events.update',
+                'destroy' 	=> 'maintenance.api.calendar.events.destroy',
+            ),
+        ));
+
+    });
+
+    /*
+     * Asset API's
+     */
     Route::group(array('prefix'=>'assets'), function(){
 
         Route::get('', array(
@@ -17,7 +39,10 @@ Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
             'as'=>'maintenance.api.v1.assets.find',
             'uses'=>'AssetApi@find'
         ));
-        
+
+        /*
+         * Asset Event API
+         */
         Route::resource('events', 'AssetEventApi', array(
             'only' => array(
                 'index',
@@ -78,24 +103,3 @@ Route::group(array('prefix'=>'notifications'), function(){
             'update'  	=> 'maintenance.api.inventory.stocks.update',
         ),
     ));
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Calendar Api Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::group(array('prefix'=>'calendar'), function(){
-
-        Route::resource('events', 'EventApi', array(
-            'names'=> array(
-                    'index'	=> 'maintenance.api.calendar.events.index',
-                    'create'  	=> 'maintenance.api.calendar.events.create',
-                    'store'   	=> 'maintenance.api.calendar.events.store',
-                    'show'    	=> 'maintenance.api.calendar.events.show',
-                    'edit'    	=> 'maintenance.api.calendar.events.edit',
-                    'update'  	=> 'maintenance.api.calendar.events.update',
-                    'destroy' 	=> 'maintenance.api.calendar.events.destroy',
-            ),
-        ));
-
-    });

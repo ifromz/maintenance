@@ -73,6 +73,11 @@ class WorkOrderViewer extends BaseViewer {
     {
         return view('maintenance::viewers.work-order.buttons.delete', array('workOrder'=>$this->entity));
     }
+
+    public function btnEvents()
+    {
+        return view('maintenance::viewers.work-order.buttons.events', array('workOrder'=>$this->entity));
+    }
     
     public function btnCheckIn()
     {

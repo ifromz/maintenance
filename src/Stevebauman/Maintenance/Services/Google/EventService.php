@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Services\Google;
 
 use Stevebauman\EloquentTable\TableCollection;
+use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\CalendarHelper\Objects\Event;
 use Stevebauman\CalendarHelper\CalendarHelper;
 use Stevebauman\CoreHelper\Services\AbstractService;
@@ -12,12 +13,23 @@ use Stevebauman\CoreHelper\Services\AbstractService;
  */
 class EventService extends AbstractService {
 
-    use \Stevebauman\EloquentTable\TableTrait;
+    use TableTrait;
 
     public function __construct(CalendarHelper $calendar, TableCollection $collection)
     {
         $this->calendar = $calendar->google();
         $this->collection = $collection;
+    }
+
+    /**
+     * Sets the Google Calendar to perform operations on
+     *
+     * @param string $id
+     * @return $this
+     */
+    public function setCalendar($id)
+    {
+        return $this->calendar->setCalendarId($id);
     }
 
     /**
@@ -27,20 +39,22 @@ class EventService extends AbstractService {
      */
     public function get()
     {
-        $events = $this->calendar
-            ->setCalendarId($this->getInput('calendar_id'))
-            ->events($this->getRecurrenceFilter());
+        $events = $this->calendar->events($this->getEventsFilter());
 
         return new $this->collection($events);
     }
 
+    /**
+     * Returns recurrences of the specified ID
+     *
+     * @param string $id
+     * @return mixed
+     */
     public function getRecurrences($id)
     {
-        $events = $this->calendar
-            ->setCalendarId($this->getInput('calendar_id'))
-            ->recurrences($id, $this->getRecurrenceFilter());
+        $events = $this->calendar->recurrences($id, $this->getRecurringEventsFilter());
 
-        return new $this->collection();
+        return new $this->collection($events);
     }
 
     /**
@@ -51,9 +65,7 @@ class EventService extends AbstractService {
      */
     public function getOnly($ids = array(), $recurrences = false)
     {
-        $events = $this->calendar
-            ->setCalendarId($this->getInput('calendar_id'))
-            ->specificEvents($ids, $recurrences, $this->getRecurrenceFilter());
+        $events = $this->calendar->specificEvents($ids, $recurrences, $this->getRecurringEventsFilter());
 
         foreach($events as &$event) {
 
@@ -74,9 +86,7 @@ class EventService extends AbstractService {
      */
     public function find($id)
     {
-        $event = $this->calendar
-            ->setCalendarId($this->getInput('calendar_id'))
-            ->event($id);
+        $event = $this->calendar->event($id);
 
         if($event->status !== 'cancelled') {
 
@@ -126,7 +136,6 @@ class EventService extends AbstractService {
         }
 
         $event = new Event(array(
-            'calendar_id' => $this->getInput('calendar_id'),
             'title' => $this->getInput('title'),
             'location' => $this->getInput('location'),
             'start' => strToRfc3339($start, $allDay),
@@ -338,7 +347,35 @@ class EventService extends AbstractService {
         return NULL;
     }
 
-    private function getRecurrenceFilter()
+
+    /**
+     * Returns param array for querying google events
+     *
+     * @return array
+     */
+    private function getEventsFilter()
+    {
+        $filter = array(
+            'alwaysIncludeEmail'    => $this->getInput('alwaysIncludeEmail', false),
+            'maxAttendees'          => $this->getInput('maxAttendees'),
+            'maxResults'            => $this->getInput('maxResults'),
+            'singleEvents'          => $this->getInput('singleEvents', true),
+            'orderBy'               => $this->getInput('orderBy'),
+            'pageToken'             => $this->getInput('pageToken'),
+            'showDeleted'           => $this->getInput('showDeleted', false),
+            'timeMin'               => $this->getInput('timeMin'),
+            'timeMax'               => $this->getInput('timeMax'),
+        );
+
+        return $filter;
+    }
+
+    /**
+     * Returns param array for querying google event recurrences
+     *
+     * @return array
+     */
+    private function getRecurringEventsFilter()
     {
         $filter = array(
             'alwaysIncludeEmail'    => $this->getInput('alwaysIncludeEmail', false),

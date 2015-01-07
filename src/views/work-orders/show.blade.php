@@ -36,6 +36,8 @@
 
         {{ $workOrder->viewer()->btnCheckIn }}
 
+        {{ $workOrder->viewer()->btnEvents }}
+
         {{ $workOrder->viewer()->btnWorkers }}
 
         {{ $workOrder->viewer()->btnNotifications }}

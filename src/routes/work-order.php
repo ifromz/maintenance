@@ -280,4 +280,16 @@ Route::group(array('namespace'=>'WorkOrder'), function(){
         )
     ));
 
+    Route::resource('work-orders.events', 'EventController', array(
+        'names' => array(
+            'index'     => 'maintenance.work-orders.events.index',
+            'create'  	=> 'maintenance.work-orders.events.create',
+            'store'   	=> 'maintenance.work-orders.events.store',
+            'show'    	=> 'maintenance.work-orders.events.show',
+            'edit'    	=> 'maintenance.work-orders.events.edit',
+            'update'  	=> 'maintenance.work-orders.events.update',
+            'destroy' 	=> 'maintenance.work-orders.events.destroy',
+        )
+    ));
+
 });

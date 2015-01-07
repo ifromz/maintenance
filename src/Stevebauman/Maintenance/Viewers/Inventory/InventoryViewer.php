@@ -29,7 +29,12 @@ class InventoryViewer extends BaseViewer {
             'content' => route('maintenance.inventory.show', array($this->entity->id))
         ));
     }
-    
+
+    public function btnEvents()
+    {
+        return view('maintenance::viewers.inventory.buttons.events', array('item'=>$this->entity));
+    }
+
     public function btnEdit()
     {
         return view('maintenance::viewers.inventory.buttons.edit', array('item'=>$this->entity));

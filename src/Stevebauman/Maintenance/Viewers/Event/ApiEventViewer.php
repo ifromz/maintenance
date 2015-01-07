@@ -179,7 +179,31 @@ class ApiEventViewer extends BaseViewer {
     {
         return view('maintenance::viewers.event.labels.all-day', array('event'=>$this->entity));
     }
-    
+
+    public function btnEventableActions($eventable)
+    {
+        return view('maintenance::viewers.event.buttons.eventable-actions', array(
+            'event'=>$this->entity,
+            'eventable' => $eventable,
+        ));
+    }
+
+    public function btnEventableEdit($eventable)
+    {
+        return view('maintenance::viewers.event.buttons.eventable-edit', array(
+            'event' => $this->entity,
+            'eventable' => $eventable,
+        ));
+    }
+
+    public function btnEventableDelete($eventable)
+    {
+        return view('maintenance::viewers.event.buttons.eventable-delete', array(
+            'event' => $this->entity,
+            'eventable' => $eventable,
+        ));
+    }
+
     public function btnActions()
     {
         return view('maintenance::viewers.event.buttons.actions', array('event'=>$this->entity));
