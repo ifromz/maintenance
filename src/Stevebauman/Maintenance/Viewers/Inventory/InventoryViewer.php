@@ -10,7 +10,12 @@ class InventoryViewer extends BaseViewer {
     {
         return view('maintenance::viewers.inventory.profile', array('item'=>$this->entity));
     }
-    
+
+    public function calendar()
+    {
+        return view('maintenance::viewers.inventory.calendar', array('item'=>$this->entity));
+    }
+
     public function stock()
     {
         return view('maintenance::viewers.inventory.stock', array('item'=>$this->entity));

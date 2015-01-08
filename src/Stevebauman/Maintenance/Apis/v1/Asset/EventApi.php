@@ -1,11 +1,12 @@
-<?php namespace Stevebauman\Maintenance\Apis\v1;
+<?php
 
-use Illuminate\Support\Facades\Response;
+namespace Stevebauman\Maintenance\Apis\v1\Asset;
+
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
 
-class AssetEventApi extends BaseApiController {
+class EventApi extends BaseApiController {
 
     public function __construct(AssetService $asset, EventService $event) 
     {
@@ -34,14 +35,13 @@ class AssetEventApi extends BaseApiController {
         $timeMax->setTimestamp($this->input('end'));
 
         $data = array(
-            'calendar_id' => config('maintenance::site.calendars.assets'),
             'timeMin' => $timeMin->format(\DateTime::RFC3339),
             'timeMax' => $timeMax->format(\DateTime::RFC3339),
         );
         
         $apiEvents = $this->event->setInput($data)->getApiEvents($asset->events->lists('api_id'), $recurrences = true);
 
-        return Response::json($this->event->parseEvents($apiEvents));
+        return $this->responseJson($this->event->parseEvents($apiEvents));
     }
     
 }

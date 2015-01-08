@@ -27,9 +27,9 @@ Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
     /*
      * Inventory API's
      */
-    Route::group(array('prefix'=>'inventory'), function(){
+    Route::group(array('prefix'=>'inventory', 'namespace' => 'Inventory'), function(){
 
-        Route::resource('inventory.stocks', 'InventoryStockApi', array(
+        Route::resource('inventory.stocks', 'StockApi', array(
             'only' => array(
                 'edit',
                 'update'
@@ -40,12 +40,26 @@ Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
             ),
         ));
 
+        /*
+         * Inventory Event API
+         */
+        Route::resource('events', 'EventApi', array(
+            'only' => array(
+                'index',
+                'show',
+            ),
+            'names'=> array(
+                'index' => 'maintenance.api.v1.inventory.events.index',
+                'show' => 'maintenance.api.v1.inventory.events.show',
+            ),
+        ));
+
     });
 
     /*
      * Asset API's
      */
-    Route::group(array('prefix'=>'assets'), function(){
+    Route::group(array('prefix'=>'assets', 'namespace'=>'Asset'), function(){
 
         Route::get('', array(
             'as'=>'maintenance.api.v1.assets.get',
@@ -60,7 +74,7 @@ Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
         /*
          * Asset Event API
          */
-        Route::resource('events', 'AssetEventApi', array(
+        Route::resource('events', 'EventApi', array(
             'only' => array(
                 'index',
                 'show',

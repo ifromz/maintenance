@@ -18,6 +18,7 @@
 
 @section('tab.head.content')
     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
     <li><a href="#tab_history" data-toggle="tab">History</a></li>
 @stop
 
@@ -42,6 +43,10 @@
 
         {{ $item->viewer()->stock }}
 
+    </div>
+
+    <div class="tab-pane" id="tab_calendar">
+        {{ $item->viewer()->calendar }}
     </div>
 
     <div class="tab-pane" id="tab_history">

@@ -10,7 +10,19 @@
     "license": "MIT",
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*"
+        "illuminate/support": "4.2.*",
+        "stevebauman/corp": "1.0.*",
+        "stevebauman/core-helper": "1.0.*",
+        "stevebauman/eloquenttable": "1.*",
+        "cartalyst/sentry": "2.*",
+        "venturecraft/revisionable": "1.*",
+        "jildertmiedema/laravel-plupload": "0.*",
+        "baum/baum": "~1.0",
+        "simplesoftwareio/simple-qrcode": "1.0.*",
+        "dmyers/laravel-storage": "1.*",
+        "mews/purifier": "1.*",
+        "mews/captcha": "1.*",
+        "google/apiclient": "1.*"
     },
     "require-dev": {
         "codeception/codeception": "2.*"

@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Apis\v1;
 
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\View;
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Apis\BaseApiController;
@@ -22,10 +19,10 @@ class EventApi extends BaseApiController {
     public function index()
     {
         $timeMin = new \DateTime();
-        $timeMin->setTimestamp(Input::get('start'));
+        $timeMin->setTimestamp($this->input('start'));
 
         $timeMax = new \DateTime();
-        $timeMax->setTimestamp(Input::get('end'));
+        $timeMax->setTimestamp($this->input('end'));
 
         $data = array(
             'timeMin' => $timeMin->format(\DateTime::RFC3339),
@@ -34,13 +31,13 @@ class EventApi extends BaseApiController {
 
         $events = $this->event->parseEvents($this->event->setInput($data)->getApiEvents());
 
-        return Response::json($events);
+        return $this->responseJson($events);
     }
 
     public function create()
     {
-        return Response::json(
-            View::make('maintenance::apis.calendar.events.create')->render()
+        return $this->responseJson(
+            view('maintenance::apis.calendar.events.create')->render()
         );
     }
 
@@ -53,8 +50,8 @@ class EventApi extends BaseApiController {
         try {
             $event = $this->event->find($id);
 
-            return Response::json(
-                View::make('maintenance::apis.calendar.events.show', array('event'=>$event))->render()
+            return $this->responseJson(
+                view('maintenance::apis.calendar.events.show', array('event'=>$event))->render()
             );
 
         }catch(RecordNotFoundException $e){
@@ -73,7 +70,7 @@ class EventApi extends BaseApiController {
 
             $this->event->setInput($this->inputAll())->updateDates($id);
 
-            return Response::json(array(
+            return $this->responseJson(array(
                 'message' => 'Successfully updated event',
                 'messageType' => 'success',
             ));
