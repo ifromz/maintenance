@@ -10,7 +10,6 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * User profile with assigned work orders view
 * Better breadcrumb management
 * Finish administration panel for managing permissions/users/groups
-* Ability to assign users to events
 * Implement Print view for QR codes as well as all other data
 * Lots of optimization and tweaks in views, services, controllers etc
 * Optimize views for tablet/mobile
@@ -18,6 +17,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Tests
 
 ##Done
+* Ability to assign users to events - Jan 8th 2014
 * Finish asset events with event reporting / other additions - Jan 8th 2014
 * Namespace and directory tweaks / modifications - Jan 8th 2014
 * Multiple calendar functionality - Jan 8th 2014
