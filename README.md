@@ -4,15 +4,15 @@
 A Preventative Maintenance Application (CMMS) for Laravel
 
 ##TO DO
-* Robust notifications
+* Robust notifications - IN PROGRESS
 * Robust reporting
 * Customizable user dashboard
-* User profile with assigned work orders view
+* User profile with assigned work orders view - IN PROGRESS
 * Better breadcrumb management
 * Finish administration panel for managing permissions/users/groups
 * Implement Print view for QR codes as well as all other data
-* Lots of optimization and tweaks in views, services, controllers etc
-* Optimize views for tablet/mobile
+* Lots of optimization and tweaks in views, services, controllers etc - IN PROGRESS
+* Optimize views for tablet/mobile - IN PROGRESS
 * Upgrade to Laravel 5.0
 * Tests
 
