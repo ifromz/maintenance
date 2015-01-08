@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Comment</label>
                         <div class="col-md-10">
-                            {{ Form::text('comment', NULL, array('class'=>'form-control', 'placeholder'=> 'Enter a Comment')) }}
+                            {{ Form::text('comment', NULL, array('class'=>'form-control', 'placeholder'=> 'Enter a Comment for Reading')) }}
                         </div>
                     </div>
                     

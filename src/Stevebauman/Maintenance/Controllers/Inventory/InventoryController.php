@@ -17,11 +17,10 @@ class InventoryController extends BaseController {
     /**
      * Display all inventory entries (paginated with search functionality)
      *
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function index()
     {
-
         $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
 
         return view('maintenance::inventory.index', array(
@@ -34,7 +33,7 @@ class InventoryController extends BaseController {
     /**
      * Show the form for creating an inventory
      *
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function create()
     {
@@ -47,14 +46,13 @@ class InventoryController extends BaseController {
     /**
      * Store a new inventory
      *
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function store()
     {
-
         $this->inventoryValidator->unique('name', $this->inventory->getTableName(), 'name');
 
-        if($this->inventoryValidator->passes()){
+        if($this->inventoryValidator->passes()) {
 
             $record = $this->inventory->setInput($this->inputAll())->create();
 
@@ -69,7 +67,7 @@ class InventoryController extends BaseController {
                 $this->redirect = route('maintenance.inventory.index');
             }
 
-        } else{
+        } else {
             $this->errors = $this->inventoryValidator->getErrors();
         }
 
@@ -81,11 +79,10 @@ class InventoryController extends BaseController {
      * Display the specified inventory
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function show($id)
     {
-
         $item = $this->inventory->find($id);
 
         return view('maintenance::inventory.show', array(
@@ -99,7 +96,7 @@ class InventoryController extends BaseController {
      * Displays the edit form for the specified inventory
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function edit($id)
     {
@@ -116,14 +113,13 @@ class InventoryController extends BaseController {
      * Updates the specified inventory
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Support\Facades\Response
      */
     public function update($id)
     {
-
         $this->inventoryValidator->ignore('name', $this->inventory->getTableName(), 'name', $id);
 
-        if($this->inventoryValidator->passes()){
+        if($this->inventoryValidator->passes()) {
 
             $item = $this->inventory->setInput($this->inputAll())->update($id);
 
@@ -138,19 +134,18 @@ class InventoryController extends BaseController {
                 $this->redirect = route('maintenance.inventory.edit', array($item->id));
             }
 
-        } else{
+        } else {
             $this->errors = $this->inventoryValidator->getErrors();
         }
 
         return $this->response();
     }
 
-
     /**
      * Removes the specified inventory
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return \Illuminate\Support\Facades\Response
      */
     public function destroy($id)
     {

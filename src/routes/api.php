@@ -3,7 +3,6 @@
 /*
  * API Routes
  */
-
 Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
 
     /*
@@ -20,6 +19,24 @@ Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
                 'edit'    	=> 'maintenance.api.calendar.events.edit',
                 'update'  	=> 'maintenance.api.calendar.events.update',
                 'destroy' 	=> 'maintenance.api.calendar.events.destroy',
+            ),
+        ));
+
+    });
+
+    /*
+     * Inventory API's
+     */
+    Route::group(array('prefix'=>'inventory'), function(){
+
+        Route::resource('inventory.stocks', 'InventoryStockApi', array(
+            'only' => array(
+                'edit',
+                'update'
+            ),
+            'names' => array(
+                'edit'    	=> 'maintenance.api.inventory.stocks.edit',
+                'update'  	=> 'maintenance.api.inventory.stocks.update',
             ),
         ));
 
@@ -57,49 +74,3 @@ Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
     });
 
 });
-
-Route::group(array('prefix'=>'notifications'), function(){
-
-    Route::resource('notifications', 'NotificationApi', array(
-        'only' => array('update'),
-        'names' => array(
-            'update' => 'maintenance.api.notifications.update'
-        ),
-    ));
-
-});
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Api Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::group(array('prefix'=>'work-orders'), function(){
-            Route::get('', array('as'=>'maintenance.api.work-orders.get', 'uses'=>'AssetApi@get'));
-
-            Route::get('{work_orders}', array('as'=>'maintenance.api.work-orders.find', 'uses'=>'AssetApi@find'));
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Asset Api Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::group(array('prefix'=>'assets'), function(){
-            Route::get('', array('as'=>'maintenance.api.assets.get', 'uses'=>'AssetApi@get'));
-            Route::get('q', array('as'=>'maintenance.api.assets.query', 'uses'=>'AssetApi@getByQuery'));
-            Route::get('makes', array('as'=>'maintenance.api.assets.makes', 'uses'=>'AssetApi@getMakes'));
-            Route::get('models', array('as'=>'maintenance.api.assets.models', 'uses'=>'AssetApi@getModels'));
-            Route::get('serials', array('as'=>'maintenance.api.assets.serials', 'uses'=>'AssetApi@getSerials'));
-    });
-
-    Route::resource('inventory.stocks', 'InventoryStockApi', array(
-        'only' => array(
-            'edit',
-            'update'
-        ),
-        'names' => array(
-            'edit'    	=> 'maintenance.api.inventory.stocks.edit',
-            'update'  	=> 'maintenance.api.inventory.stocks.update',
-        ),
-    ));

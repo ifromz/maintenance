@@ -26,7 +26,7 @@
     <div class="col-md-10">
         <div class="input-group">
             {{ Form::text('quantity', $stock->quantity, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
-            
+
             @if($item->metric)
                 <span class="input-group-addon">{{ $item->metric->symbol }}</span>
             @endif
@@ -46,7 +46,7 @@
 <div class="form-group">
     <label class="col-sm-2 control-label">Cost</label>
     <div class="col-md-10">
-        
+
         <div class="input-group">
             <span class="input-group-addon">$</span>
             {{ Form::text('cost', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 15.00')) }}
@@ -55,7 +55,7 @@
 </div>
 
 <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-offset-2 col-sm-10">
         {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
     </div>
 </div>

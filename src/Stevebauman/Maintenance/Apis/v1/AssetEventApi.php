@@ -40,7 +40,7 @@ class AssetEventApi extends BaseApiController {
         );
         
         $apiEvents = $this->event->setInput($data)->getApiEvents($asset->events->lists('api_id'), $recurrences = true);
-        
+
         return Response::json($this->event->parseEvents($apiEvents));
     }
     
