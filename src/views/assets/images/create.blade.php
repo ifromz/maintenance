@@ -1,13 +1,13 @@
 @extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('maintenance.assets.index') }}">
-            <i class="fa fa-truck"></i> 
+            <i class="fa fa-truck"></i>
             Assets
         </a>
     </li>
@@ -37,52 +37,54 @@
 
 @section('panel.body.content')
 
-<div id="current-container">
+    <div id="current-container">
 
-    {{ Form::open(array(
-                'url'=>route('maintenance.assets.images.store', array($asset->id)),
-                'id'=>'upload-form',
-                'data-upload-url'=>route('maintenance.assets.images.uploads.store'),
-                'data-upload-ext'=>'jpg,png,gif',
-            )) 
-    }}
+        {{ Form::open(array(
+                    'url'=>route('maintenance.assets.images.store', array($asset->id)),
+                    'id'=>'upload-form',
+                    'data-upload-url'=>route('maintenance.assets.images.uploads.store'),
+                    'data-upload-ext'=>'jpg,png,gif',
+                ))
+        }}
 
-    <div class="form-group">
-        {{ Form::label('Files Added') }}
-        <table id="added-table" class="table table-condensed table-bordered table-striped">
-            <thead>
+        <div class="form-group">
+            {{ Form::label('Files Added') }}
+            <table id="added-table" class="table table-condensed table-bordered table-striped">
+                <thead>
                 <tr>
                     <th>File Name</th>
                     <th>File Size</th>
                     <th>Progress</th>
                     <th>Remove</th>
                 </tr>
-            </thead>
-            <tbody id="added-list"></tbody>
-        </table>
+                </thead>
+                <tbody id="added-list"></tbody>
+            </table>
 
-        {{ Form::label('Files Uploaded') }}
-        <table id="uploaded-table" class="table table-condensed table-bordered table-striped">
-            <thead>
+            {{ Form::label('Files Uploaded') }}
+            <table id="uploaded-table" class="table table-condensed table-bordered table-striped">
+                <thead>
                 <tr>
                     <th>File Name</th>
                     <th>Delete</th>
                 </tr>
-            </thead>
-            <tbody id="uploaded-list">
+                </thead>
+                <tbody id="uploaded-list">
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="form-group">
+            <hr/>
+        </div>
+
+        <div class="form-group">
+            {{ Form::submit('Save', array('class'=>'btn btn-success')) }}
+        </div>
 
     </div>
-
-    <div class="form-group"><hr /></div>
-
-    <div class="form-group">
-        {{ Form::submit('Save', array('class'=>'btn btn-success')) }}
-    </div>
-    
-</div>
 @stop
 
 @section('panel.extra.bottom')

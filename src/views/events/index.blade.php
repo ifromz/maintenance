@@ -10,12 +10,12 @@
 @stop
 
 @section('panel.head.content')
-<div class="btn-toolbar">
-    <a class="btn btn-primary" href="{{ action(currentControllerAction('create')) }}">
-        <i class="fa fa-plus-circle"></i>
-        New Event
-    </a>
-</div>
+    <div class="btn-toolbar">
+        <a class="btn btn-primary" href="{{ action(currentControllerAction('create')) }}">
+            <i class="fa fa-plus-circle"></i>
+            New Event
+        </a>
+    </div>
 @stop
 
 @section('panel.body.content')
@@ -55,5 +55,5 @@
         <h5>There are no events to display.</h5>
 
     @endif
-    
+
 @stop

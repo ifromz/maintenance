@@ -1,7 +1,7 @@
 @extends('maintenance::layouts.main')
 
 @section('content')
-    
+
     @yield('panel.extra.top')
 
     <div class="panel panel-default">
@@ -27,7 +27,7 @@
         @show
 
     </div>
-    
+
     @yield('panel.extra.bottom')
-    
+
 @stop

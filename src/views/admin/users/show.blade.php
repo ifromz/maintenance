@@ -1,7 +1,7 @@
 @extends('maintenance::layouts.admin')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
@@ -18,7 +18,8 @@
             <div class="tab-pane active" id="tab_1">
                 @include('maintenance::admin.users.tabs.profile', array('user'=>$user))
             </div>
-        </div><!-- /.tab-content -->
+        </div>
+        <!-- /.tab-content -->
     </div>
 
 @stop

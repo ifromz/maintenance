@@ -1,74 +1,76 @@
 @extends('maintenance::layouts.main')
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.inventory.index') }}">
-        <i class="fa fa-dropbox"></i> 
-        Inventory
-    </a>
-</li>
-<li>
-    <a href="{{ route('maintenance.inventory.show', array($item->id)) }}"> 
-        {{ $item->name }}
-    </a>
-</li>
-<li>
-    {{ $stock->location->trail }}
-</li>
-<li>
-    Timeline
-</li>
+    <li>
+        <a href="{{ route('maintenance.inventory.index') }}">
+            <i class="fa fa-dropbox"></i>
+            Inventory
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('maintenance.inventory.show', array($item->id)) }}">
+            {{ $item->name }}
+        </a>
+    </li>
+    <li>
+        {{ $stock->location->trail }}
+    </li>
+    <li>
+        Timeline
+    </li>
 @stop
 
 @section('content')
-    
-<div class="col-md-12">
 
-    @if($stock->movements->count() > 0)
-    <ul class="timeline">
-        @foreach($stock->movements as $movement)
+    <div class="col-md-12">
 
-        <li>
+        @if($stock->movements->count() > 0)
+            <ul class="timeline">
+                @foreach($stock->movements as $movement)
 
-            @if($movement->before > $movement->after)
-                <i class="fa fa-minus bg-red"></i>
-                <div class="timeline-item">
-                    <span class="time"><i class="fa fa-clock-o"></i> {{ $movement->created_at }}</span>
-                    <h3 class="timeline-header"><a href="#">{{ $movement->reason }}</a></h3>
+                    <li>
 
-                    <div class="timeline-body">
-                        <p>{{ $movement->change }} were Removed</p>
+                        @if($movement->before > $movement->after)
+                            <i class="fa fa-minus bg-red"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> {{ $movement->created_at }}</span>
 
-                        <p>Cost: ${{ $movement->cost }}</p>
-                    </div>
-                </div>
-            @else
-                <i class="fa fa-plus bg-green"></i>
-                <div class="timeline-item">
-                    <span class="time"><i class="fa fa-clock-o"></i> {{ $movement->created_at }}</span>
-                    <h3 class="timeline-header"><a href="#">{{ $movement->reason }}</a></h3>
+                                <h3 class="timeline-header"><a href="#">{{ $movement->reason }}</a></h3>
 
-                    <div class="timeline-body">
-                        <p>{{ $movement->change }} were Added</p>
+                                <div class="timeline-body">
+                                    <p>{{ $movement->change }} were Removed</p>
 
-                        <p>Cost: ${{ $movement->cost }}</p>
-                    </div>
-                </div>
-            @endif
+                                    <p>Cost: ${{ $movement->cost }}</p>
+                                </div>
+                            </div>
+                        @else
+                            <i class="fa fa-plus bg-green"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> {{ $movement->created_at }}</span>
 
-        </li>
+                                <h3 class="timeline-header"><a href="#">{{ $movement->reason }}</a></h3>
 
-        @endforeach
+                                <div class="timeline-body">
+                                    <p>{{ $movement->change }} were Added</p>
 
-        <li class="time-label">
+                                    <p>Cost: ${{ $movement->cost }}</p>
+                                </div>
+                            </div>
+                        @endif
+
+                    </li>
+
+                @endforeach
+
+                <li class="time-label">
             <span class="bg-gray">
                 Stock Created: {{ $stock->created_at }}
             </span>
-        </li>
-        <li>
-            <i class="fa fa-clock-o"></i>
-        </li>
-    </ul>
-    @endif
-</div>
+                </li>
+                <li>
+                    <i class="fa fa-clock-o"></i>
+                </li>
+            </ul>
+        @endif
+    </div>
 @stop

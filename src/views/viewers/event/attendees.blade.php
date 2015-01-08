@@ -1,4 +1,3 @@
-
 @if(count($event->attendees) > 0)
 
     {{ 
@@ -20,5 +19,5 @@
     }}
 
 @else
-<h5>There are no attendees to list.</h5>
+    <h5>There are no attendees to list.</h5>
 @endif

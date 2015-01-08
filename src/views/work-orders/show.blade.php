@@ -5,15 +5,15 @@
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.work-orders.index') }}">
-        <i class="fa fa-book"></i> 
-        Work Orders
-    </a>
-</li>
-<li class="active">
-    {{ $workOrder->subject }}
-</li>
+    <li>
+        <a href="{{ route('maintenance.work-orders.index') }}">
+            <i class="fa fa-book"></i>
+            Work Orders
+        </a>
+    </li>
+    <li class="active">
+        {{ $workOrder->subject }}
+    </li>
 @stop
 
 @section('tab.head.content')
@@ -25,11 +25,11 @@
     <li><a href="#tab_attachments" data-toggle="tab">Attachments</a></li>
     <li><a href="#tab_customer_updates" data-toggle="tab">Customer Updates</a></li>
     <li><a href="#tab_technician_updates" data-toggle="tab">Technician Updates</a></li>
-    
+
 @stop
-        
+
 @section('tab.body.content')
-            
+
     <div class="tab-pane active" id="tab_profile">
 
         <legend>Profile</legend>
@@ -92,25 +92,25 @@
 
         {{ $workOrder->viewer()->attachments }}
     </div>
-    
+
     <div class="tab-pane" id="tab_customer_updates">
-        
+
         <legend>Customer Updates</legend>
-        
+
         {{ $workOrder->viewer()->customerUpdates }}
     </div>
 
     <div class="tab-pane" id="tab_technician_updates">
-        
+
         <legend>Technician Updates</legend>
-        
+
         {{ $workOrder->viewer()->technicianUpdates }}
     </div>
 
-@stop    
-    
+@stop
+
 @section('tab.extra.bottom')
 
-    
+
 
 @stop

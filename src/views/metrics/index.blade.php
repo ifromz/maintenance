@@ -1,31 +1,32 @@
 @extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <i class="fa fa-anchor"></i> 
-    Metrics
-</li>
+    <li>
+        <i class="fa fa-anchor"></i>
+        Metrics
+    </li>
 @stop
 
 @section('panel.head.content')
 
 
-        <div class="btn-toolbar">
-            <a href="{{ route('maintenance.metrics.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Create a new Metric">
-                <i class="fa fa-plus"></i>
-                New Metric
-            </a>
-        </div>
+    <div class="btn-toolbar">
+        <a href="{{ route('maintenance.metrics.create') }}" class="btn btn-primary" data-toggle="tooltip"
+           title="Create a new Metric">
+            <i class="fa fa-plus"></i>
+            New Metric
+        </a>
+    </div>
 @stop
 
 @section('panel.body.content')
-        
+
     @if($metrics->count() > 0)
-        
+
         {{ $metrics->columns(array(
                     'name' => 'Name',
                     'symbol' => 'Symbol',
@@ -40,9 +41,9 @@
                 ->hidden(array('created_by', 'created_at'))
                 ->render()
         }}
-        
+
     @else
-    <h5>There are no metrics to display.</h5>
+        <h5>There are no metrics to display.</h5>
     @endif
 
 @stop

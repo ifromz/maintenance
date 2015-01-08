@@ -1,16 +1,16 @@
 @extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.inventory.index') }}">
-        <i class="fa fa-dropbox"></i> 
-        Inventory
-    </a>
-</li>
+    <li>
+        <a href="{{ route('maintenance.inventory.index') }}">
+            <i class="fa fa-dropbox"></i>
+            Inventory
+        </a>
+    </li>
 @stop
 
 @section('panel.extra.top')
@@ -23,7 +23,8 @@
 
 @section('panel.head.content')
     <div class="btn-toolbar">
-        <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Add new Item to inventory">
+        <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip"
+           title="Add new Item to inventory">
             <i class="fa fa-plus"></i>
             New Item
         </a>
@@ -37,7 +38,7 @@
 @section('panel.body.content')
 
     @if($items->count() > 0)
-        
+
         {{ $items->columns(array(
                     'id' => 'ID',
                     'name' => 'Name',
@@ -62,11 +63,11 @@
                 ->showPages()
                 ->render()
         }}
-    
+
     @else
-    
-    <h5>There are no inventory items to list.</h5>
-    
+
+        <h5>There are no inventory items to list.</h5>
+
     @endif
 
 @stop

@@ -1,19 +1,19 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.inventory.index') }}">
-        <i class="fa fa-dropbox"></i> 
-        Inventory
-    </a>
-</li>
-<li class="active">
-    {{ $item->name }}
-</li>
+    <li>
+        <a href="{{ route('maintenance.inventory.index') }}">
+            <i class="fa fa-dropbox"></i>
+            Inventory
+        </a>
+    </li>
+    <li class="active">
+        {{ $item->name }}
+    </li>
 @stop
 
 @section('tab.head.content')

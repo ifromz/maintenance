@@ -1,27 +1,27 @@
 @extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.inventory.index') }}">
-        <i class="fa fa-dropbox"></i> 
-        Inventory
-    </a>
-</li>
-<li>
-    <a href="{{ route('maintenance.inventory.show', array($item->id)) }}"> 
-        {{ $item->name }}
-    </a>
-</li>
-<li>
-    {{ $stock->location->trail }}
-</li>
-<li>
-    Movements
-</li>
+    <li>
+        <a href="{{ route('maintenance.inventory.index') }}">
+            <i class="fa fa-dropbox"></i>
+            Inventory
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('maintenance.inventory.show', array($item->id)) }}">
+            {{ $item->name }}
+        </a>
+    </li>
+    <li>
+        {{ $stock->location->trail }}
+    </li>
+    <li>
+        Movements
+    </li>
 @stop
 
 @section('panel.head.content')

@@ -1,6 +1,6 @@
 <a data-target="#work-order-notifications-modal"
-    data-toggle="modal"
-    class="btn btn-app">
+   data-toggle="modal"
+   class="btn btn-app">
     <i class="fa fa-warning"></i> Notifications
 </a>
 
@@ -8,12 +8,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                            class="sr-only">Close</span></button>
                 <h4 class="modal-title">What would you like to be notified about?</h4>
             </div>
             <div class="modal-body">
                 <div id="notificiation-response"></div>
-                
+
                 @if($workOrder->notify)
                     {{ Form::open(array(
                                'url'=>route('maintenance.work-orders.notifications.update', array($workOrder->id, $workOrder->notify->id)),
@@ -30,60 +31,66 @@
                             ))
                     }}
                 @endif
-                
-                
+
+
                 <div class="form-group">
                     <label class="col-md-6 control-label">Status Changes</label>
+
                     <div class="col-md-6">
                         {{ Form::checkbox('status', '1', ($workOrder->notify ? $workOrder->notify->status : NULL)) }}
                     </div>
                 </div>
-                
+
                 <div class="clearfix"></div>
-                
+
                 <div class="form-group">
                     <label class="col-md-6 control-label">Priority Changes</label>
+
                     <div class="col-md-6">
                         {{ Form::checkbox('priority', '1', ($workOrder->notify ? $workOrder->notify->priority : NULL)) }}
                     </div>
                 </div>
-                
+
                 <div class="clearfix"></div>
-                
+
                 <div class="form-group">
                     <label class="col-md-6 control-label">Parts Added</label>
+
                     <div class="col-md-6">
                         {{ Form::checkbox('parts', '1', ($workOrder->notify ? $workOrder->notify->parts : NULL)) }}
                     </div>
                 </div>
-               
+
                 <div class="clearfix"></div>
-                
+
                 <div class="form-group">
                     <label class="col-md-6 control-label">Customer Updates are Added</label>
+
                     <div class="col-md-6">
                         {{ Form::checkbox('customer_updates', '1', ($workOrder->notify ? $workOrder->notify->customer_updates : NULL)) }}
                     </div>
                 </div>
-                
+
                 <div class="clearfix"></div>
-                
+
                 <div class="form-group">
                     <label class="col-md-6 control-label">Technician Updates are Added</label>
+
                     <div class="col-md-6">
                         {{ Form::checkbox('technician_updates', '1', ($workOrder->notify ? $workOrder->notify->technician_updates : NULL)) }}
                     </div>
                 </div>
-                
+
                 <div class="clearfix"></div>
-                
+
                 <div class="form-group">
                     <label class="col-md-6 control-label">Completion Report is Created</label>
+
                     <div class="col-md-6">
                         {{ Form::checkbox('completion_report', '1', ($workOrder->notify ? $workOrder->notify->completion_report : NULL)) }}
                     </div>
                 </div>
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

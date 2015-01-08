@@ -7,15 +7,17 @@ use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 
-class AdminDashboardComposer {
-    
-    public function __construct(UserService $user, AssetService $asset, InventoryService  $inventory, WorkOrderService $workOrder){
+class AdminDashboardComposer
+{
+
+    public function __construct(UserService $user, AssetService $asset, InventoryService $inventory, WorkOrderService $workOrder)
+    {
         $this->user = $user;
         $this->asset = $asset;
         $this->inventory = $inventory;
         $this->workOrder = $workOrder;
     }
-    
+
     public function compose($view)
     {
         return $view
@@ -24,5 +26,5 @@ class AdminDashboardComposer {
             ->with('inventories', $this->inventory->get()->count())
             ->with('workOrders', $this->workOrder->get()->count());
     }
-    
+
 }

@@ -1,16 +1,16 @@
 @extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.work-orders.index') }}">
-        <i class="fa fa-book"></i> 
-        Work Orders
-    </a>
-</li>
+    <li>
+        <a href="{{ route('maintenance.work-orders.index') }}">
+            <i class="fa fa-book"></i>
+            Work Orders
+        </a>
+    </li>
 @stop
 
 @section('panel.extra.top')
@@ -18,12 +18,13 @@
     @include('maintenance::work-orders.modals.search', array(
         'url'=>route('maintenance.work-orders.index')
     ))
-    
+
 @stop
 
 @section('panel.head.content')
     <div class="btn-toolbar">
-        <a href="{{ route('maintenance.work-orders.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Create a new Work Order">
+        <a href="{{ route('maintenance.work-orders.create') }}" class="btn btn-primary" data-toggle="tooltip"
+           title="Create a new Work Order">
             <i class="fa fa-plus"></i>
             New Work Order
         </a>

@@ -1,16 +1,16 @@
 @extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.assets.index') }}">
-        <i class="fa fa-truck"></i> 
-        Assets
-    </a>
-</li>
+    <li>
+        <a href="{{ route('maintenance.assets.index') }}">
+            <i class="fa fa-truck"></i>
+            Assets
+        </a>
+    </li>
 @stop
 
 @section('panel.extra.top')
@@ -18,13 +18,14 @@
     @include('maintenance::assets.modals.search', array(
         'url' => route('maintenance.assets.index', Input::only('field', 'sort'))
     ))
-    
+
 @stop
 
 @section('panel.head.content')
-    
+
     <div class="btn-toolbar">
-        <a href="{{ route('maintenance.assets.create') }}" class="btn btn-primary pull-left" data-toggle="tooltip" title="Create a new Asset">
+        <a href="{{ route('maintenance.assets.create') }}" class="btn btn-primary pull-left" data-toggle="tooltip"
+           title="Create a new Asset">
             <i class="fa fa-plus"></i>
             New Asset
         </a>
@@ -39,7 +40,7 @@
 @section('panel.body.content')
 
     @if($assets->count() > 0)
-    
+
         {{ $assets->columns(array(
                     'id' => 'ID',
                     'name' => 'Name',
@@ -67,10 +68,10 @@
             ->showPages()
             ->render()
         }}
-        
+
     @else
         <h5>There are no assets to display.</h5>
     @endif
-    
-    
+
+
 @stop

@@ -1,101 +1,101 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.assets.index') }}">
-        <i class="fa fa-truck"></i> 
-        Assets
-    </a>
-</li>
-<li class="active">
-    {{ $asset->name }}
-</li>
+    <li>
+        <a href="{{ route('maintenance.assets.index') }}">
+            <i class="fa fa-truck"></i>
+            Assets
+        </a>
+    </li>
+    <li class="active">
+        {{ $asset->name }}
+    </li>
 @stop
-    
+
 @section('tab.head.content')
-        <li class="active"><a href="#tab_asset" data-toggle="tab">Profile</a></li>
-        <li><a href="#tab_history" data-toggle="tab">History</a></li>
-        <li><a href="#tab_meters" data-toggle="tab">Meters & Readings</a></li>
-        <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
-        <li><a href="#tab_work_orders" data-toggle="tab">Work Orders</a></li>
-        <li><a href="#tab_manuals" data-toggle="tab">Manuals</a></li>
+    <li class="active"><a href="#tab_asset" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab_history" data-toggle="tab">History</a></li>
+    <li><a href="#tab_meters" data-toggle="tab">Meters & Readings</a></li>
+    <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
+    <li><a href="#tab_work_orders" data-toggle="tab">Work Orders</a></li>
+    <li><a href="#tab_manuals" data-toggle="tab">Manuals</a></li>
 @stop
 
 @section('tab.body.content')
 
-        <div class="tab-pane active" id="tab_asset">
-            
-            <legend>Profile</legend>
-            
-            {{ $asset->viewer()->btnQrCode }}
-            
-            {{ $asset->viewer()->btnEvents }}
-            
-            {{ $asset->viewer()->btnAddImages }}
+    <div class="tab-pane active" id="tab_asset">
 
-            {{ $asset->viewer()->btnViewImages }}
+        <legend>Profile</legend>
 
-            {{ $asset->viewer()->btnEdit }}
+        {{ $asset->viewer()->btnQrCode }}
 
-            {{ $asset->viewer()->btnDelete }}
+        {{ $asset->viewer()->btnEvents }}
 
-            <hr>
+        {{ $asset->viewer()->btnAddImages }}
 
-            <div class="col-md-9">
-                {{ $asset->viewer()->profile }}
-            </div>
+        {{ $asset->viewer()->btnViewImages }}
 
-            <div class="col-md-3">
-                {{ $asset->viewer()->slideshow }}
-            </div>
+        {{ $asset->viewer()->btnEdit }}
 
-            <div class="clearfix"></div>
+        {{ $asset->viewer()->btnDelete }}
 
+        <hr>
+
+        <div class="col-md-9">
+            {{ $asset->viewer()->profile }}
         </div>
 
-        <div class="tab-pane" id="tab_meters">
-
-            <legend>Meters & Readings</legend>
-
-            {{ $asset->viewer()->btnAddMeter }}
-
-            <hr>
-
-            {{ $asset->viewer()->meters }}
-
+        <div class="col-md-3">
+            {{ $asset->viewer()->slideshow }}
         </div>
 
-        <div class="tab-pane" id="tab_history">
-            {{ $asset->viewer()->history }}
-        </div>
+        <div class="clearfix"></div>
 
-        <div class="tab-pane" id="tab_calendar">
-            <legend>Calendar</legend>
-            
-            {{ $asset->viewer()->calendar }}
-        </div>
+    </div>
 
-        <div class="tab-pane" id="tab_work_orders">
-            
-            <legend>Work Orders</legend>
-            
-            {{ $asset->viewer()->workOrders($workOrders) }}
+    <div class="tab-pane" id="tab_meters">
 
-        </div>
+        <legend>Meters & Readings</legend>
 
-        <div class="tab-pane" id="tab_manuals">
-            <legend>Manuals</legend>
-            
-            {{ $asset->viewer()->btnAddManuals }}
-            
-            <hr>
-            
-            {{ $asset->viewer()->manuals }}
-            
-        </div>
+        {{ $asset->viewer()->btnAddMeter }}
+
+        <hr>
+
+        {{ $asset->viewer()->meters }}
+
+    </div>
+
+    <div class="tab-pane" id="tab_history">
+        {{ $asset->viewer()->history }}
+    </div>
+
+    <div class="tab-pane" id="tab_calendar">
+        <legend>Calendar</legend>
+
+        {{ $asset->viewer()->calendar }}
+    </div>
+
+    <div class="tab-pane" id="tab_work_orders">
+
+        <legend>Work Orders</legend>
+
+        {{ $asset->viewer()->workOrders($workOrders) }}
+
+    </div>
+
+    <div class="tab-pane" id="tab_manuals">
+        <legend>Manuals</legend>
+
+        {{ $asset->viewer()->btnAddManuals }}
+
+        <hr>
+
+        {{ $asset->viewer()->manuals }}
+
+    </div>
 
 @stop

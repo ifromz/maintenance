@@ -24,6 +24,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </a>
+
         <div class="navbar-right">
             <ul class="nav navbar-nav">
 
@@ -46,7 +47,8 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="{{ asset('packages/stevebauman/maintenance/img/user.jpg') }}" class="img-circle" alt="User Image" />
+                    <img src="{{ asset('packages/stevebauman/maintenance/img/user.jpg') }}" class="img-circle"
+                         alt="User Image"/>
                 </div>
                 <div class="pull-left info">
                     <p>Hello,
@@ -93,8 +95,10 @@
                 @yield('content')
             </div>
         </section>
-    </aside><!-- /.right-side -->
-</div><!-- ./wrapper -->
+    </aside>
+    <!-- /.right-side -->
+</div>
+<!-- ./wrapper -->
 
 @include('maintenance::layouts.partials.foot')
 

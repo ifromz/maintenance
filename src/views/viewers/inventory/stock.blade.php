@@ -1,7 +1,7 @@
 <div id="inventory-stocks-table">
 
     @if($item->stocks->count() > 0)
-    
+
         {{ $item->stocks->columns(array(
                         'quantity_metric' => 'Quantity',
                         'location' => 'Location',
@@ -17,8 +17,8 @@
                     ->render()
         
         }}
-        
+
     @else
-    <h5>There is currently no stock for this item.</h5>
+        <h5>There is currently no stock for this item.</h5>
     @endif
 </div>

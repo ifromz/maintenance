@@ -1,23 +1,23 @@
 @extends('maintenance::layouts.main')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ action(currentControllerAction('index')) }}">
-        {{ str_plural($resource) }}
-    </a>
-</li>
-<li class="active">
-    <i class="fa fa-plus-circle"></i>
-    Create
-</li>
+    <li>
+        <a href="{{ action(currentControllerAction('index')) }}">
+            {{ str_plural($resource) }}
+        </a>
+    </li>
+    <li class="active">
+        <i class="fa fa-plus-circle"></i>
+        Create
+    </li>
 @stop
 
 @section('content')
-    
+
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -29,22 +29,23 @@
                         'class'=>'form-horizontal ajax-form-post clear-form'
                     ))
                 }}
-                
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="name">Name</label>
-                        <div class="col-md-4">
-                            {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Electrical / Lighting')) }}
-                        </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">Name</label>
+
+                    <div class="col-md-4">
+                        {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Electrical / Lighting')) }}
                     </div>
-                    
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
-                        </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
                     </div>
-                
+                </div>
+
                 {{ Form::close() }}
             </div>
         </div>
-  	</div>
+    </div>
 @stop

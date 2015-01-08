@@ -1,13 +1,12 @@
-
 <table class="table table-striped">
     <thead>
-        <th>Status</th>
-        <th>Subject</th>
-        <th>Submitted</th>
-        <th>Action</th>
+    <th>Status</th>
+    <th>Subject</th>
+    <th>Submitted</th>
+    <th>Action</th>
     </thead>
     <tbody>
-        @foreach($workOrders as $workOrder)
+    @foreach($workOrders as $workOrder)
         <tr>
             <td>{{ $workOrder->status->label }}</td>
             <td>{{ $workOrder->subject }}</td>
@@ -30,7 +29,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('maintenance.work-requests.destroy', array($workOrder->id)) }}" data-method="delete" data-message="Are you sure you want to delete this work request?">
+                            <a href="{{ route('maintenance.work-requests.destroy', array($workOrder->id)) }}"
+                               data-method="delete" data-message="Are you sure you want to delete this work request?">
                                 <i class="fa fa-trash-o"></i> Delete
                             </a>
                         </li>
@@ -38,7 +38,7 @@
                 </div>
             </td>
         </tr>
-        @endforeach
+    @endforeach
     </tbody>
 </table>
 

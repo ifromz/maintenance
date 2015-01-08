@@ -1,14 +1,14 @@
-<?php 
+<?php
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Illuminate\Support\Facades\Config;
+class PublicLayoutComposer
+{
 
-class PublicLayoutComposer {
-	
-	public function compose($view){
-            $site_title = Config::get('maintenance::site.title.public', 'Maintenance');
-            $view->with('site_title', $site_title);
-	}
-	
+    public function compose($view)
+    {
+        $siteTitle = config('maintenance::site.title.public', 'Maintenance');
+        $view->with('siteTitle', $siteTitle);
+    }
+
 }

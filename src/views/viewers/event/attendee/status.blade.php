@@ -1,4 +1,3 @@
-
 @if($attendee->status === 'needsAction')
     <span class="label label-info">Needs Action</span>
 @elseif($attendee->status === 'declined')

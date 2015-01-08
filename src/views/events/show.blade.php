@@ -1,7 +1,7 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
 @section('header')
-<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
@@ -18,11 +18,11 @@
 
     <div class="tab-pane active" id="tab_profile">
         {{ $event->viewer()->btnEdit }}
-        
+
         {{ $event->viewer()->btnDelete }}
-        
+
         <hr>
-        
+
         {{ $event->viewer()->profile }}
     </div>
 

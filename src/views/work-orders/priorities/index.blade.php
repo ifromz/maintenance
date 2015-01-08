@@ -1,35 +1,36 @@
 @extends('maintenance::layouts.pages.main.panel')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('maintenance.work-orders.index') }}">
-        <i class="fa fa-book"></i> 
-        Work Orders
-    </a>
-</li>
-<li class="active">
-    <i class="fa fa-exclamation-circle"></i> 
-    Priorities
-</li>
+    <li>
+        <a href="{{ route('maintenance.work-orders.index') }}">
+            <i class="fa fa-book"></i>
+            Work Orders
+        </a>
+    </li>
+    <li class="active">
+        <i class="fa fa-exclamation-circle"></i>
+        Priorities
+    </li>
 @stop
 
 @section('panel.head.content')
-        <div class="btn-toolbar">
-            <a href="{{ route('maintenance.work-orders.priorities.create') }}" class="btn btn-primary" data-toggle="tooltip" title="Create a new Priority">
-                <i class="fa fa-plus"></i>
-                New Priority
-            </a>
-        </div>
+    <div class="btn-toolbar">
+        <a href="{{ route('maintenance.work-orders.priorities.create') }}" class="btn btn-primary" data-toggle="tooltip"
+           title="Create a new Priority">
+            <i class="fa fa-plus"></i>
+            New Priority
+        </a>
+    </div>
 @stop
 
 @section('panel.body.content')
-        
+
     @if($priorities->count() > 0)
-    
+
         {{ $priorities->columns(array(
                         'name' => 'Name',
                         'color' => 'Color',
@@ -47,7 +48,7 @@
         }}
 
     @else
-    <h5>There are no priorities to display.</h5>
+        <h5>There are no priorities to display.</h5>
     @endif
 
 @stop

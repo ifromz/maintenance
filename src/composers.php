@@ -6,6 +6,11 @@
 View::composer('maintenance::layouts.main', 'Stevebauman\Maintenance\Composers\MainLayoutComposer');
 
 /*
+ * Public Layout Composer
+ */
+View::composer('maintenance::layouts.public', 'Stevebauman\Maintenance\Composers\PublicLayoutComposer');
+
+/*
  * Admin Layout Composer
  */
 View::composer('maintenance::layouts.admin', 'Stevebauman\Maintenance\Composers\AdminLayoutComposer');
@@ -16,11 +21,6 @@ View::composer('maintenance::admin.dashboard.index', 'Stevebauman\Maintenance\Co
  * Notifications Composer
  */
 View::composer('maintenance::layouts.partials.notifications', 'Stevebauman\Maintenance\Composers\MainNotificationComposer');
-
-/*
- * Public Layout Composer
- */
-View::composer('maintenance::layouts.public', 'Stevebauman\Maintenance\Composers\PublicLayoutComposer');
 
 /*
  * Select Composers

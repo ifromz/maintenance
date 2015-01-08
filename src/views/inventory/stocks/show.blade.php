@@ -1,7 +1,7 @@
 @extends('maintenance::layouts.main')
 
 @section('header')
-	<h1>{{ $title }}</h1>
+    <h1>{{ $title }}</h1>
 @stop
 
 @section('breadcrumb')
@@ -23,9 +23,9 @@
             </div>
             <div class="tab-pane" id="tab_timeline">
                 <div class="col-md-12">
-                @include('maintenance::inventory.stocks.movements.timeline', array(
-                    'stock' => $stock
-                ))
+                    @include('maintenance::inventory.stocks.movements.timeline', array(
+                        'stock' => $stock
+                    ))
                 </div>
                 <div class="clearfix"></div>
             </div>

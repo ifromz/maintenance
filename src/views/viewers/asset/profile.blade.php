@@ -18,11 +18,11 @@
     <dd>{{ ($asset->aquired_at ? $asset->aquired_at : '<em>None</em>') }}</dd>
 
     @if($asset->location)
-    <p></p>
-    <dt>Location:</dt>
-    <dd>
-        {{ $asset->location->trail }}
-    </dd>
+        <p></p>
+        <dt>Location:</dt>
+        <dd>
+            {{ $asset->location->trail }}
+        </dd>
     @endif
 
     <p></p>

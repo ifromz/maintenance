@@ -6,8 +6,9 @@
     <div @yield('chat.body.attributes') class="box-body chat">
         <!-- chat item -->
         @yield('chat.body.content')
-    </div><!-- /.chat -->
-    
+    </div>
+    <!-- /.chat -->
+
     <div class="box-footer">
         @yield('chat.foot.content')
     </div>

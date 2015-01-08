@@ -19,7 +19,7 @@
             })
             ->render()
     }}
-    
+
 @else
-<h5>There are no upcoming recurrences to list.</h5>
+    <h5>There are no upcoming recurrences to list.</h5>
 @endif
