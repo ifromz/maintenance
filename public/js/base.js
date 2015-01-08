@@ -131,7 +131,7 @@ $(document).ready(function () {
     if ($.isFunction($().mobiscroll)) {
         $('.pickatime').mobiscroll().time({
             theme: 'mobiscroll',
-            display: 'bottom',
+            display: 'modal',
             mode: 'scroller'
         });
     }
@@ -143,7 +143,7 @@ $(document).ready(function () {
     if ($.isFunction($().mobiscroll)) {
         $('.pickadate').mobiscroll().date({
             theme: 'mobiscroll',
-            display: 'bottom',
+            display: 'modal',
             mode: 'scroller'
         });
     }
