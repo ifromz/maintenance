@@ -10,6 +10,11 @@ class WorkOrderViewer extends BaseViewer {
     {
         return view('maintenance::viewers.work-order.profile', array('workOrder'=>$this->entity));
     }
+
+    public function calendar()
+    {
+        return view('maintenance::viewers.work-order.calendar', array('workOrder'=>$this->entity));
+    }
     
     public function report()
     {

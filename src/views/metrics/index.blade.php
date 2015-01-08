@@ -39,6 +39,12 @@
                     return $metric->viewer()->btnActions;
                 })
                 ->hidden(array('created_by', 'created_at'))
+                ->sortable(array(
+                    'name',
+                    'symbol',
+                    'created_by',
+                    'created_at',
+                ))
                 ->render()
         }}
 

@@ -16,7 +16,7 @@ class MetricController extends BaseController {
     
     public function index()
     {
-        $metrics = $this->metric->get();
+        $metrics = $this->metric->setInput($this->inputAll())->get();
         
         return view('maintenance::metrics.index', array(
             'title' => 'All Metrics',

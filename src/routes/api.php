@@ -24,6 +24,25 @@ Route::group(array('prefix'=>'v1', 'namespace'=>'v1'), function(){
 
     });
 
+
+    /*
+     * Work Order API's
+     */
+    Route::group(array('prefix'=>'work-orders', 'namespace'=>'WorkOrder'), function(){
+
+        Route::resource('events', 'EventApi', array(
+            'only' => array(
+                'index',
+                'show',
+            ),
+            'names'=> array(
+                'index' => 'maintenance.api.v1.work-orders.events.index',
+                'show' => 'maintenance.api.v1.work-orders.events.show',
+            ),
+        ));
+
+    });
+
     /*
      * Inventory API's
      */

@@ -20,6 +20,7 @@
 
     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab_details" data-toggle="tab">Details</a></li>
+    <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
     <li><a href="#tab_history" data-toggle="tab">History</a></li>
     <li><a href="#tab_parts" data-toggle="tab">Parts / Supplies</a></li>
     <li><a href="#tab_attachments" data-toggle="tab">Attachments</a></li>
@@ -61,6 +62,12 @@
         {{ $workOrder->viewer()->report }}
 
         {{ $workOrder->viewer()->sessions }}
+
+    </div>
+
+    <div class="tab-pane" id="tab_calendar">
+
+        {{ $workOrder->viewer()->calendar }}
 
     </div>
 

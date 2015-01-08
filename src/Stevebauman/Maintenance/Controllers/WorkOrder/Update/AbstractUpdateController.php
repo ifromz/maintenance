@@ -22,7 +22,7 @@ abstract class AbstractUpdateController extends BaseController {
      * @param int $workOrder_id
      * @return mixed
      */
-    public function delete($workOrder_id, $update_id)
+    public function destroy($workOrder_id, $update_id)
     {
         $workOrder = $this->workOrder->find($workOrder_id);
         $update = $this->update->find($update_id);

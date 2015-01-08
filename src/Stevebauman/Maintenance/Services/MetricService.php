@@ -15,7 +15,12 @@ class MetricService extends BaseModelService {
         $this->sentry = $sentry;
         $this->notFoundException = $notFoundException;
     }
-    
+
+    public function get($select = array())
+    {
+        return $this->model->sort($this->getInput('field'), $this->getInput('sort'))->get();
+    }
+
     public function create()
     {
         $this->dbStartTransaction();
