@@ -19,9 +19,6 @@
 {{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.image.js') }}
 {{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.treelist.js') }}
 
-
-
-
 <!-- Select2 3.4.5-->
 {{ HTML::script('packages/stevebauman/maintenance/bower_resources/select2/select2.min.js') }}
 
