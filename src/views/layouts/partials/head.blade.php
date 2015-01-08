@@ -2,78 +2,58 @@
 <title>{{ $siteTitle }} | {{ $title }}</title>
 <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
+<!-- jQuery -->
+{{ HTML::script('packages/stevebauman/maintenance/bower_resources/jquery/dist/jquery.js') }}
+
+<!-- jQuery UI -->
+{{ HTML::script('packages/stevebauman/maintenance/bower_resources/jquery-ui/jquery-ui.min.js') }}
+
+<!-- Moment JS -->
+{{ HTML::script('packages/stevebauman/maintenance/bower_resources/moment/moment.js') }}
+
+<!-- FullCalendar -->
+{{ HTML::script('packages/stevebauman/maintenance/bower_resources/fullcalendar/dist/fullcalendar.min.js') }}
+
 <!-- Styles -->
-    <!-- Bootstrap 3.1.0 -->
-    {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/bootstrap.min.css') }}
+<!-- Bootstrap 3.1.0 -->
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/admin-lte/css/bootstrap.min.css') }}
 
-    <!-- Bootstrap stackable modals extension -->
-    {{ HTML::style('packages/stevebauman/maintenance/bootstrap-modal/css/bootstrap-modal.css') }}
-    
-    <!-- Ladda animated loading buttons -->
-    {{ HTML::style('packages/stevebauman/maintenance/ladda-bootstrap-master/dist/ladda-themeless.min.css') }}
-    
-    <!-- Font Awesome -->
-    {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/font-awesome.min.css') }}
+<!-- Bootstrap stackable modals extension -->
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/bootstrap-modal/css/bootstrap-modal.css') }}
 
-    <!-- Ionicons -->
-    {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/ionicons.min.css') }}
-    
-    <!-- Select2 3.4.5-->
-    {{ HTML::style('packages/stevebauman/maintenance/adminlte/select2-3.4.5/select2.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/adminlte/select2-3.4.5/select2-bootstrap.css') }}
-    
-    <!-- Theme style -->
-    {{ HTML::style('packages/stevebauman/maintenance/adminlte/css/adminlte.css') }}
+<!-- Font Awesome -->
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/admin-lte/css/font-awesome.min.css') }}
 
-    <!-- Custom style -->
-    {{ HTML::style('packages/stevebauman/maintenance/css/custom.css') }}
+<!-- Ionicons -->
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/admin-lte/css/ionicons.min.css') }}
 
-    <!-- JS Tree Style -->
-    {{ HTML::style('packages/stevebauman/maintenance/jsTree/dist/themes/default/style.min.css') }}
+<!-- Select2 3.4.5-->
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/select2/select2.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/select2/select2-bootstrap.css') }}
 
-    <!-- Pickadate Styles -->
-    {{ HTML::style('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/themes/default.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/themes/default.date.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/pickadate.js-3.5.3/lib/themes/default.time.css') }}
+<!-- Theme style -->
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/admin-lte/css/AdminLTE.css') }}
 
-    <!-- TreeTable -->
-    {{ HTML::style('packages/stevebauman/maintenance/ludo-jquery-treetable/css/jquery.treetable.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/ludo-jquery-treetable/css/jquery.treetable.theme.default.css') }}
+<!-- Custom style -->
+{{ HTML::style('packages/stevebauman/maintenance/css/custom.css') }}
 
-    <!-- FullCalendar -->
-    {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/fullcalendar/fullcalendar.print.css', array('media'=>'print')) }}
-    
-    <!-- jQuery 1.10.2 -->
-    {{ HTML::script('packages/stevebauman/maintenance/adminlte/js/jquery-1.11.1.min.js') }}
-    
-    <!-- jQuery UI 1.10.3 -->
-    {{ HTML::script('packages/stevebauman/maintenance/js/vendor/jquery-ui-1.10.3.min.js') }}
-    
-    <!--Ladda animated buttons -->
-    {{ HTML::script('packages/stevebauman/maintenance/ladda-bootstrap-master/dist/spin.min.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/ladda-bootstrap-master/dist/ladda.min.js') }}
-    
-    <!-- Mobiscroll scripts and styles -->
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.core.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.widget.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.scroller.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.util.datetime.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.datetimebase.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.datetime.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.select.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.listbase.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.image.js') }}
-    {{ HTML::script('packages/stevebauman/maintenance/mobiscroll-master/js/mobiscroll.treelist.js') }}
-    
-    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.animation.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.icons.css') }}
-    
-    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.widget.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.widget.ios-classic.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.widget.ios.css') }}
-    
-    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.scroller.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.scroller.ios-classic.css') }}
-    {{ HTML::style('packages/stevebauman/maintenance/mobiscroll-master/css/mobiscroll.scroller.ios.css') }}
+<!-- JS Tree Style -->
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/jstree/dist/themes/default/style.min.css') }}
+
+<!-- FullCalendar -->
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/fullcalendar/dist/fullcalendar.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/fullcalendar/dist/fullcalendar.print.css', array('media'=>'print')) }}
+
+<!-- Mobiscroll Date/Time Picker -->
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/mobiscroll/css/mobiscroll.animation.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/mobiscroll/css/mobiscroll.icons.css') }}
+
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/mobiscroll/css/mobiscroll.widget.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/mobiscroll/css/mobiscroll.widget.ios-classic.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/mobiscroll/css/mobiscroll.widget.ios.css') }}
+
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/mobiscroll/css/mobiscroll.scroller.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/mobiscroll/css/mobiscroll.scroller.ios-classic.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/bower_resources/mobiscroll/css/mobiscroll.scroller.ios.css') }}
+
 <!-- End Styles -->

@@ -314,15 +314,6 @@ class EventService extends BaseModelService {
             $startDate = new \DateTime($event->start);
             $endDate = new \DateTime($event->end);
             
-            if($event->all_day) {
-                
-                /*
-                 * Subtract one day fix for FullCalendar
-                 */
-                $endDate->sub(new \DateInterval('P1D'));
-                
-            }
-            
             /*
              * Add the event into a FullCalendar compatible array
              */

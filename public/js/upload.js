@@ -61,7 +61,7 @@ current_uploader.bind('FileUploaded', function(up, file, object) {
 });
 
 current_uploader.bind('UploadProgress', function(up, file) {
-    $('#'+file.id).find('.progress-bar').css('width',file.percent+'%')
+    $('#'+file.id).find('.progress-bar').css('width',file.percent+'%');
 });
 
 $(document).on('click', '.delete-file-uploaded', function(e){

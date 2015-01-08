@@ -249,8 +249,11 @@ class EventService extends AbstractService {
                  * Add one day when POSTing to google for FullCalendar
                  * fix. FullCalendar treats end dates that are all day as a day
                  * before Google Calendar.
+                 *
+                 * Jan 8th 2015 - Removed for FullCalendar V2 update
                  */
-                $endDate->add(new \DateInterval('P1D'));
+                //$endDate->add(new \DateInterval('P1D'));
+
                 $end = $endDate->format('Y-m-d');
 
             }

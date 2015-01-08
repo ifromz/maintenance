@@ -5,22 +5,22 @@ $(document).ready(function(){
 
     var url = calendar.data('event-url');
 
-    var dateFormat = 'MMMM dS, yyyy';
-    var timeFormat = 'h:mmtt';
+    var dateFormat = 'MMMM Do, YYYY';
+    var timeFormat = 'h:mm a';
 
     calendar.fullCalendar({
         header: {
-             left: 'prev,next today',
+             left: 'prev,next,today',
              center: 'title',
-             right: 'agendaWeek,agendaDay'
+             right: 'month,agendaWeek,agendaDay'
          },
-         defaultView: 'agendaWeek',
+         defaultView: 'month',
          buttonText: {
-             prev: "<span class='fa fa-caret-left'></span>",
-             next: "<span class='fa fa-caret-right'></span>",
-             today: 'today',
-             week: 'week',
-             day: 'day'
+             prev: "Previous",
+             next: "Next",
+             today: 'Today',
+             week: 'Week',
+             day: 'Day'
          },
          events: {
              url: url,
@@ -32,7 +32,7 @@ $(document).ready(function(){
          eventClick: function(calEvent, jsEvent, view) {
 
              $.ajax({
-                 url: "/api/calendar/events/"+calEvent.id
+                 url: "/api/v1/calendar/events/"+calEvent.id
              })
              .done(function( data ) {
                  bootbox.dialog({

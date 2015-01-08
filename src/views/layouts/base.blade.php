@@ -47,7 +47,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="{{ asset('packages/stevebauman/maintenance/adminlte/img/user.jpg') }}" class="img-circle" alt="User Image" />
+                        <img src="{{ asset('packages/stevebauman/maintenance/img/user.jpg') }}" class="img-circle" alt="User Image" />
                     </div>
                     <div class="pull-left info">
                         <p>Hello, 
@@ -98,11 +98,6 @@
     </div><!-- ./wrapper -->
     
     @include('maintenance::layouts.partials.foot')
-    
-    <!-- Bootbox-->
-    {{ HTML::script('packages/stevebauman/maintenance/adminlte/bootbox/bootbox.min.js') }}
-    <!-- AdminLTE App -->
-    {{ HTML::script('packages/stevebauman/maintenance/adminlte/js/app.js') }}
     
     @yield('foot')
     

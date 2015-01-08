@@ -5,22 +5,22 @@ $(document).ready(function(){
 
     var url = calendar.data('event-url');
 
-    var dateFormat = 'MMMM dS, yyyy';
-    var timeFormat = 'h:mmtt';
+    var dateFormat = 'MMMM Do, YYYY';
+    var timeFormat = 'h:mm a';
 
     calendar.fullCalendar({
         header: {
-             left: 'prev,next today',
+             left: 'prev,next,today',
              center: 'title',
              right: 'month,agendaWeek,agendaDay'
          },
          buttonText: {
-             prev: "<span class='fa fa-caret-left'></span>",
-             next: "<span class='fa fa-caret-right'></span>",
-             today: 'today',
-             month: 'month',
-             week: 'week',
-             day: 'day'
+             prev: "Previous",
+             next: "Next",
+             today: 'Today',
+             month: 'Month',
+             week: 'Week',
+             day: 'Day'
          },
          events: {
              url: url,
@@ -30,11 +30,11 @@ $(document).ready(function(){
              }
          },
          editable: true,
-         eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+         eventDrop: function(event, delta, revertFunc) {
 
              var format = '';
 
-             if(allDay){
+             if(event.allDay){
                  format = dateFormat;
              } else {
                  format = dateFormat+" - "+timeFormat;
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
              bootbox.confirm({
                  title: "Are you sure you want to move this event?",
-                 message: event.title+" will be moved to "+$.fullCalendar.formatDate(event.start, format),
+                 message: event.title+" will be moved to "+moment(event.start).format(format),
                  callback: function(result){
                     if(result){
                         updateEvent(calendar, event);
@@ -56,11 +56,19 @@ $(document).ready(function(){
                  revertFunc();
              }
          },
-         eventResize: function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view){
+         eventResize: function(event, delta, revertFunc, jsEvent, ui, view){
+
+             var format = '';
+
+             if(event.allDay){
+                 format = dateFormat;
+             } else {
+                 format = dateFormat+" - "+timeFormat;
+             }
 
              bootbox.confirm({
                  title: "Are you sure you want to change the time of this event?",
-                 message: event.title+" will now end at "+$.fullCalendar.formatDate(event.end, dateFormat+" - "+timeFormat),
+                 message: event.title+" will now end at "+moment(event.end).format(format),
                  callback: function(result){
                     if(result){
                         updateEvent(calendar, event);

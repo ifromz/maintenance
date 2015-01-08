@@ -34,10 +34,10 @@ class EventApi extends BaseApiController {
         $item = $this->inventory->find($inventory_id);
 
         $timeMin = new \DateTime();
-        $timeMin->setTimestamp($this->input('start'));
+        $timeMin->setTimestamp(strtotime($this->input('start')));
 
         $timeMax = new \DateTime();
-        $timeMax->setTimestamp($this->input('end'));
+        $timeMax->setTimestamp(strtotime($this->input('end')));
 
         $data = array(
             'timeMin' => $timeMin->format(\DateTime::RFC3339),

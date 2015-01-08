@@ -1,0 +1,16 @@
+{
+  "name": "Maintenance",
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "jstree": "~3.0.9",
+    "admin-lte": "~1.2.1",
+    "select2": "~3.5.2",
+    "bootbox": "~4.3.0",
+    "ckeditor": "~4.4.6",
+    "fullcalendar": "~2.2.5",
+    "mobiscroll": "~2.14.4",
+    "bootstrap-modal": "~2.2.5",
+    "jquery-ui": "~1.11.2",
+    "moment": "~2.9.0"
+  }
+}

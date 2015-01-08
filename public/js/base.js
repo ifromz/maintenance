@@ -94,7 +94,8 @@ $(document).ready(function() {
             if(typeof refreshTarget === 'undefined'){
 
                 $(this).ajaxSubmit({
-                    success: showFormResponse
+                    success: showFormResponse,
+                    error: showErrorResponse
                 });
                 
             } else {
@@ -103,7 +104,8 @@ $(document).ready(function() {
                     success: function(response, status, xhr, $form){
                         showFormResponse(response, status, xhr, $form);
                         refreshContent(refreshTarget);
-                    }
+                    },
+                    error: showErrorResponse
                 });
                 
             }
@@ -137,19 +139,24 @@ $(document).ready(function() {
         /*
          * Replace fields with class .pickatime with Pickatime
          */
-	if($.isFunction($().pickatime)){
-		$('.pickatime').pickatime();
+	if($.isFunction($().mobiscroll)){
+		$('.pickatime').mobiscroll().time({
+                    theme: 'mobiscroll',
+                    display: 'bottom',
+                    mode: 'scroller'
+                });  
 	}
 	
         /*
          * Replace fields with class .pickadate with Pickadate,
          * and set the default date format
          */
-	if($.isFunction($().pickadate)){
-		$('.pickadate').pickadate({
-			formatSubmit: 'yyyy/mm/dd',
-			hiddenName: true
-		});
+	if($.isFunction($().mobiscroll)){
+		$('.pickadate').mobiscroll().date({
+                    theme: 'mobiscroll',
+                    display: 'bottom',
+                    mode: 'scroller'
+                });
 	}
 	
 	
@@ -239,8 +246,9 @@ $(document).ready(function() {
 
     });
 
-    $(document).on('click', '.notification', function(){
-
+    $(document).on('click', '.notification', function(e){
+        e.preventDefault();
+        
         var url = $(this).data('read-url');
 
         $.post( url, { _method: "PATCH", read: "1"})
@@ -253,18 +261,18 @@ $(document).ready(function() {
      * Shows bootbox form from returned HTML to dynamically update stock locations
      */
     $(document).on('click', '.update-stock', function(e){
-        
+
         e.preventDefault();
-        
+
         var link = $(this);
-        
+
         $.get(link.attr('href'), function(data){
             bootbox.dialog({
                 message: data.html,
                 buttons: {}
             });
         });
-        
+
     });
     
     if($.isFunction($().select2)){
@@ -273,6 +281,17 @@ $(document).ready(function() {
             formatSelection: formatColor
         });
     }
+    
+    /*
+     * Clears the closest form input field when button/link is clicked
+     */
+    $(document).on('click', '.clear-field', function(e){
+        e.preventDefault();
+        
+        var closest = $(this).closest('.input-group').find('input');
+        
+        closest.val('');
+    });
     
 });
 
@@ -313,6 +332,39 @@ var showFormErrors = function(errors)
 };
 
 /**
+ * Displays an internal server error message into a bootbox modal
+ * 
+ * @param {object} xhr
+ * @param {string} textStatus
+ * @param {string} errorThrown
+ * @returns {undefined}
+ */
+var showErrorResponse = function(xhr, textStatus, errorThrown)
+{
+    console.debug(xhr);
+    
+    var response = $.parseJSON(xhr.responseText);
+    
+    bootbox.dialog({
+        title: response.error.type,
+        message: response.error.message + ' ' + response.error.file,
+        buttons: {
+            main: {
+                    label: "Cancel",
+                    className: "btn-default"
+            },
+            success: {
+                    label: "Send Error to Support",
+                    className: "btn-primary",
+                    callback: function() {
+                        alert('Submitted Error');
+                }
+            }
+        }
+    });
+};
+
+/**
  * Displays the message returned from the server on an ajax request
  * 
  * @param {type} message
@@ -327,12 +379,10 @@ var showStatusMessage = function(message, type, container)
     $('.form-group').removeClass('has-error');
     
     var html = '<div class="status-message">\n\
-                    <div class="col-md-12">\n\
                         <div class="alert alert-'+type+' alert-dismissable">\n\
                                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>\n\
                             '+message+'\n\
                         </div>\n\
-                    </div>\n\
                 </div>';
     
     var fadeTime = 200;
@@ -386,8 +436,9 @@ var showFormResponse = function(response, status, xhr, $form){
          * If the response contains errors, show them
          */
         showFormErrors(response.errors);
-    } else{
-
+        
+    } else {
+        alert(response.error);
     }
 }
 
@@ -433,8 +484,8 @@ function updateEvent(calendar, event){
             url: $(this).attr('action'),
             data: {
                 _method: 'PATCH',
-                start: $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss"),
-                end: $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss"),
+                start: moment(event.start).format('YYYY-MM-DD hh:mm:ss'),
+                end: moment(event.end).format("YYYY-MM-DD hh:mm:ss"),
                 all_day: event.allDay
             },
             dataType: "json"
