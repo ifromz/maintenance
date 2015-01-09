@@ -33,15 +33,9 @@ class EventApi extends BaseApiController {
     {
         $item = $this->inventory->find($inventory_id);
 
-        $timeMin = new \DateTime();
-        $timeMin->setTimestamp(strtotime($this->input('start')));
-
-        $timeMax = new \DateTime();
-        $timeMax->setTimestamp(strtotime($this->input('end')));
-
         $data = array(
-            'timeMin' => $timeMin->format(\DateTime::RFC3339),
-            'timeMax' => $timeMax->format(\DateTime::RFC3339),
+            'timeMin' => strToRfc3339($this->input('start')),
+            'timeMax' => strToRfc3339($this->input('end')),
         );
 
         $inventoryEvents = $item->events->lists('api_id');

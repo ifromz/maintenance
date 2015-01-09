@@ -27,16 +27,10 @@ class EventApi extends BaseApiController {
     public function show($asset_id)
     {
         $asset = $this->asset->find($asset_id);
-        
-        $timeMin = new \DateTime();
-        $timeMin->setTimestamp(strtotime($this->input('start')));
-
-        $timeMax = new \DateTime();
-        $timeMax->setTimestamp(strtotime($this->input('end')));
 
         $data = array(
-            'timeMin' => $timeMin->format(\DateTime::RFC3339),
-            'timeMax' => $timeMax->format(\DateTime::RFC3339),
+            'timeMin' => strToRfc3339($this->input('start')),
+            'timeMax' => strToRfc3339($this->input('end')),
         );
         
         $apiEvents = $this->event->setInput($data)->getApiEvents($asset->events->lists('api_id'), $recurrences = true);

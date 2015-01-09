@@ -1,5 +1,7 @@
 <legend>Sessions & Hours</legend>
+
 @if($workOrder->sessions->count() > 0)
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -21,7 +23,7 @@
         @foreach($workOrder->sessions as $session)
             <tr>
                 <td>
-                    {{ $session->user->first_name }} {{ $session->user->last_name }}
+                    {{ $session->user->fullname }}
                 </td>
                 <td>
                     {{ $session->in }}

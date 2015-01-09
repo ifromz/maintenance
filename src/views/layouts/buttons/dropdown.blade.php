@@ -1,13 +1,13 @@
 @yield('dropdown.extra.top')
 
-<div class="btn-group">
-    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+<div class="btn-group dropdown">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
         @section('dropdown.head.content')
             Action
             <span class="caret"></span>
         @show
-    </a>
-    <ul class="dropdown-menu dropdown-menu-right">
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
         @yield('dropdown.body.content')
     </ul>
 </div>

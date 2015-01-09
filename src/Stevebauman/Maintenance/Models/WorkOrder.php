@@ -4,6 +4,8 @@ namespace Stevebauman\Maintenance\Models;
 
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Stevebauman\Maintenance\Traits\HasNotesTrait;
+use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
 use Stevebauman\Maintenance\Models\WorkOrderCategory;
@@ -12,6 +14,8 @@ use Stevebauman\Maintenance\Models\BaseModel;
 class WorkOrder extends BaseModel {
 
     use SoftDeletingTrait;
+    use HasNotesTrait;
+    use HasLocationTrait;
     use HasUserTrait;
     use HasEventsTrait;
 
@@ -48,10 +52,6 @@ class WorkOrder extends BaseModel {
 
     public function technicianUpdates(){
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_technician_updates', 'work_order_id', 'update_id')->withTimestamps();
-    }
-
-    public function location(){
-        return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');
     }
 
     public function category(){

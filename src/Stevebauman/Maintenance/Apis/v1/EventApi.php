@@ -9,7 +9,8 @@ use Stevebauman\Maintenance\Apis\BaseApiController;
 /**
  * API for FullCalendar interactions
  */
-class EventApi extends BaseApiController {
+class EventApi extends BaseApiController
+{
 
     public function __construct(EventService $event)
     {
@@ -18,15 +19,9 @@ class EventApi extends BaseApiController {
 
     public function index()
     {
-        $timeMin = new \DateTime();
-        $timeMin->setTimestamp(strtotime($this->input('start')));
-
-        $timeMax = new \DateTime();
-        $timeMax->setTimestamp(strtotime($this->input('end')));
-
         $data = array(
-            'timeMin' => $timeMin->format(\DateTime::RFC3339),
-            'timeMax' => $timeMax->format(\DateTime::RFC3339),
+            'timeMin' => strToRfc3339($this->input('start')),
+            'timeMax' => strToRfc3339($this->input('end')),
         );
 
         $events = $this->event->parseEvents($this->event->setInput($data)->getApiEvents());
@@ -41,7 +36,8 @@ class EventApi extends BaseApiController {
         );
     }
 
-    public function store(){
+    public function store()
+    {
 
     }
 
@@ -51,10 +47,10 @@ class EventApi extends BaseApiController {
             $event = $this->event->find($id);
 
             return $this->responseJson(
-                view('maintenance::apis.calendar.events.show', array('event'=>$event))->render()
+                view('maintenance::apis.calendar.events.show', array('event' => $event))->render()
             );
 
-        }catch(RecordNotFoundException $e){
+        } catch (RecordNotFoundException $e) {
             return NULL;
         }
     }
@@ -66,7 +62,7 @@ class EventApi extends BaseApiController {
 
     public function update($id)
     {
-        try{
+        try {
 
             $this->event->setInput($this->inputAll())->updateDates($id);
 
