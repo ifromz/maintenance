@@ -5,8 +5,9 @@ namespace Stevebauman\Maintenance\Listeners;
 use Illuminate\Support\Facades\Mail;
 use Stevebauman\Maintenance\Models\Notification;
 
-abstract class AbstractListener {
-    
+abstract class AbstractListener
+{
+
     public function createNotification($user_id, $object, $message, $link, $before = NULL, $after = NULL)
     {
         $notification = Notification::create(array(
@@ -18,14 +19,16 @@ abstract class AbstractListener {
             'before' => $before,
             'after' => $after,
         ));
-        
-        Mail::send('maintenance::emails.notification', array('notification'=>$notification), function($message)
-        {
+
+        Mail::send('maintenance::emails.notification', array('notification' => $notification), function ($message) {
             $message->to('sbauman@bwbc.gc.ca')->subject('Testing');
         });
+
+    }
+
+    private function getNotifiableUsers($id)
+    {
         
     }
-    
-    private function getNotifiableUsers($id){}
-    
+
 }
