@@ -14,19 +14,19 @@ class AbstractNoteableController extends BaseController
      *
      * @var NoteService
      */
-    private $note;
+    protected $note;
 
     /*
      * Holds the noteable service
      */
-    private $noteable;
+    protected $noteable;
 
     /**
      * Holds the note validator
      *
      * @var NoteValidator
      */
-    private $noteValidator;
+    protected $noteValidator;
 
     public function __construct(NoteService $note, NoteValidator $noteValidator)
     {

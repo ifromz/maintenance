@@ -1,29 +1,29 @@
 <!-- Scripts -->
 
 <!-- Bootstrap -->
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/admin-lte/js/bootstrap.min.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/admin-lte/js/bootstrap.min.js') }}
 
 <!-- bootstrap modals -->
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/bootstrap-modal/js/bootstrap-modalmanager.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/bootstrap-modal/js/bootstrap-modal.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/bootstrap-modal/js/bootstrap-modalmanager.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/bootstrap-modal/js/bootstrap-modal.js') }}
 
 <!-- Mobiscroll scripts and styles -->
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.core.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.widget.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.scroller.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.util.datetime.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.datetimebase.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.datetime.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.select.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.listbase.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.image.js') }}
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/mobiscroll/js/mobiscroll.treelist.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.core.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.widget.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.scroller.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.util.datetime.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.datetimebase.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.datetime.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.select.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.listbase.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.image.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.treelist.js') }}
 
 <!-- Select2 3.4.5-->
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/select2/select2.min.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/select2/select2.min.js') }}
 
 <!-- JS Tree -->
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/jstree/dist/jstree.min.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/jstree/dist/jstree.min.js') }}
 
 <!-- Typeahead -->
 {{ HTML::script('packages/stevebauman/maintenance/js/vendor/bootstrap3-typeahead.js') }}
@@ -32,12 +32,12 @@
 {{ HTML::script('packages/stevebauman/maintenance/js/vendor/jquery.form.min.js') }}
 
 <!-- CKeditor -->
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/ckeditor/ckeditor.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/ckeditor/ckeditor.js') }}
 
 <!-- Bootbox-->
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/bootbox/bootbox.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/bootbox/bootbox.js') }}
 <!-- AdminLTE App -->
-{{ HTML::script('packages/stevebauman/maintenance/bower_resources/admin-lte/js/AdminLTE/app.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/admin-lte/js/AdminLTE/app.js') }}
 
 <!-- Base JS -->
 {{ HTML::script('packages/stevebauman/maintenance/js/base.js') }}
