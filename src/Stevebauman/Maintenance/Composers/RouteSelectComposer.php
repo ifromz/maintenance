@@ -2,6 +2,8 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\Support\Facades\Route;
+
 /**
  * Class RouteSelectComposer
  * @package Stevebauman\Maintenance\Composers

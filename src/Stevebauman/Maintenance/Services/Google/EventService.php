@@ -36,7 +36,7 @@ class EventService extends AbstractService
     /**
      * Returns a google collection of all events from the inputted filter
      *
-     * @return \Stevebauman\EloquentTable\TableCollection
+     * @return mixed
      */
     public function get()
     {

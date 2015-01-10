@@ -32,17 +32,11 @@ class MaintenanceServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['maintenance'] = $this->app->share(function($app)
-		{
-			return new Maintenance($app['config']);
-		});
-
 		$this->app->missing(function($e){
 			return view('maintenance::404', array(
 				'title' => '404 - Not Found'
 			));
 		});
-
 	}
 
 	/**

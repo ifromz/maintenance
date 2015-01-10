@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Exceptions;
 
+use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;
 
 class WorkOrderSessionNotFoundException extends BaseException {

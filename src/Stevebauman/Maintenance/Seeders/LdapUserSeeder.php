@@ -87,6 +87,8 @@ class LdapUserSeeder extends Seeder {
                 'first_name' => $first_name,
             );
 
+            $groups = array();
+
             if($user->group) {
                 $groups[] = $this->sentry->createOrUpdateGroup($user->group);
             }
