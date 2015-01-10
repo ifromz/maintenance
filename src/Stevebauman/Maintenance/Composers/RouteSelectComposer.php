@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Composers;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\View\View;
 
 /**
  * Class RouteSelectComposer
@@ -15,7 +16,7 @@ class RouteSelectComposer
      * @param $view
      * @return mixed
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         /*
          * Stores all the routes for selection, defaults are stored in config

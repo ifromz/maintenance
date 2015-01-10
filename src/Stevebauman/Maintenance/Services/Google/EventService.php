@@ -88,21 +88,9 @@ class EventService extends AbstractService
     public function create()
     {
         /*
-         * If recur until is specified, make sure to convert it to RFC2445 format
-         *
-         * Recur frequency is mandatory, while other attributes are optional
-         */
-        $arrayRule = array(
-            'FREQ' => $this->getInput('recur_frequency'),
-            'BYDAY' => ($this->getInput('recur_days') ? $this->implodeArrayForRule($this->getInput('recur_days')) : NULL),
-            'BYMONTH' => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
-            'UNTIL' => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
-        );
-
-        /*
          * Convert the rule array to RRULE string
          */
-        $rrule = $this->arrayToRRule($arrayRule);
+        $rrule = $this->arrayToRRule($this->arrayToRRule());
 
         /*
          * Combine dates with their times
@@ -142,21 +130,9 @@ class EventService extends AbstractService
         if ($event) {
 
             /*
-            * If recur until is specified, make sure to convert it to RFC2445 format
-            *
-            * Recur frequency is mandatory, while other attributes are optional
-            */
-            $arrayRule = array(
-                'FREQ' => $this->getInput('recur_frequency'),
-                'BYDAY' => ($this->getInput('recur_days') ? $this->implodeArrayForRule($this->getInput('recur_days')) : NULL),
-                'BYMONTH' => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
-                'UNTIL' => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
-            );
-
-            /*
              * Convert the rule array to RRULE string
              */
-            $rrule = $this->arrayToRRule($arrayRule);
+            $rrule = $this->arrayToRRule($this->arrayToRRule());
 
             /*
              * Combine dates with their times
@@ -287,6 +263,28 @@ class EventService extends AbstractService
     public function destroy($id)
     {
         return $this->calendar->deleteEvent($id);
+    }
+
+    /**
+     * Returns a google api RRULE compatible array
+     *
+     * @return array
+     */
+    private function getArrayRules()
+    {
+        /*
+        * If recur until is specified, make sure to convert it to RFC2445 format
+        *
+        * Recur frequency is mandatory, while other attributes are optional
+        */
+        $arrayRule = array(
+            'FREQ' => $this->getInput('recur_frequency'),
+            'BYDAY' => ($this->getInput('recur_days') ? $this->implodeArrayForRule($this->getInput('recur_days')) : NULL),
+            'BYMONTH' => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
+            'UNTIL' => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
+        );
+
+        return $arrayRule;
     }
 
     /**

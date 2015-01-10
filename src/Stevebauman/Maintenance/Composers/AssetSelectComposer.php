@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 
 /**
@@ -28,7 +29,7 @@ class AssetSelectComposer
      * @param $view
      * @return mixed
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         $allAssets = $this->asset->get()->lists('name', 'id');
 

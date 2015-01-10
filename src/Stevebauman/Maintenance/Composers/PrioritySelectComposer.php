@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\PriorityService;
 
 /**
@@ -28,7 +29,7 @@ class PrioritySelectComposer
      * @param $view
      * @return mixed
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         $priorities = $this->priority->get()->lists('name', 'id');
 

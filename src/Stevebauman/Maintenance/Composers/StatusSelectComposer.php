@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\StatusService;
 
 /**
@@ -28,7 +29,7 @@ class StatusSelectComposer
      * @param $view
      * @return mixed
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         $statuses = $this->status->get()->lists('name', 'id');
 

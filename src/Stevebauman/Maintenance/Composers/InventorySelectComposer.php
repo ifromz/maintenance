@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 
 /**
@@ -28,7 +29,7 @@ class InventorySelectComposer
      * @param $view
      * @return mixed
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         $allInventories = $this->inventory->get()->lists('name', 'id');
 

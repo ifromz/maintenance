@@ -30,7 +30,7 @@ Route::filter('maintenance.notauth', function(){
  *
  * @author Steve Bauman
  */
-Route::filter('maintenance.permission', function($route){
+Route::filter('maintenance.permission', function(\Illuminate\Routing\Route $route){
     
     if(!Sentry::hasAccess($route->getName())){
         

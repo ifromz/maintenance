@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\MetricService;
 
 /**
@@ -28,7 +29,7 @@ class MetricSelectComposer
      * @param $view
      * @return mixed
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         $allMetrics = $this->metric->get()->lists('name', 'id');
 

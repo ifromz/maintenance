@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\UserService;
 
 /**
@@ -28,7 +29,7 @@ class UserSelectComposer
      * @param $view
      * @return mixed
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         $users = $this->user->get()->lists('full_name', 'id');
 

@@ -2,17 +2,21 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Illuminate\Support\Facades\Config;
+use Illuminate\View\View;
 
+/**
+ * Class MainLayoutComposer
+ * @package Stevebauman\Maintenance\Composers
+ */
 class MainLayoutComposer
 {
 
     /**
      * @param $view
      */
-    public function compose($view)
+    public function compose(View $view)
     {
-        $siteTitle = Config::get('maintenance::site.title.main');
+        $siteTitle = config('maintenance::site.title.main');
 
         $view->with('siteTitle', $siteTitle);
     }

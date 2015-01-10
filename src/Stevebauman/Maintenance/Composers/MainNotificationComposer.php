@@ -2,9 +2,14 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\NotificationService;
 
+/**
+ * Class MainNotificationComposer
+ * @package Stevebauman\Maintenance\Composers
+ */
 class MainNotificationComposer
 {
 
@@ -31,7 +36,7 @@ class MainNotificationComposer
     /**
      * @param $view
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         $notifications = $this->notification
             ->where('user_id', $this->sentry->getCurrentUserId())

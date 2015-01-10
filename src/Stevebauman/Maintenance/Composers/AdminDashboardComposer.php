@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\UserService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\InventoryService;
@@ -52,7 +53,7 @@ class AdminDashboardComposer
      * @param $view
      * @return mixed
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         return $view
             ->with('users', $this->user->get()->count())

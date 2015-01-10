@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 
 /**
@@ -28,7 +29,7 @@ class WorkOrderSelectComposer
      * @param $view
      * @return mixed
      */
-    public function compose($view)
+    public function compose(View $view)
     {
         $allWorkOrders = $this->workOrder->get()->lists('subject', 'id');
 
