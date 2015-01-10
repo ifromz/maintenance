@@ -9,7 +9,6 @@
 namespace Stevebauman\Maintenance\Services\Asset;
 
 use Dmyers\Storage\Storage;
-use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\AttachmentService;
@@ -17,6 +16,21 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 
 class ImageService extends BaseModelService
 {
+
+    /**
+     * @var AssetService
+     */
+    protected $asset;
+
+    /**
+     * @var AttachmentService
+     */
+    protected $attachment;
+
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
 
     public function __construct(AssetService $asset, AttachmentService $attachment, SentryService $sentry)
     {
@@ -29,7 +43,7 @@ class ImageService extends BaseModelService
      * Creates attachment records, attaches them to the asset images pivot table,
      * and moves the uploaded file into it's stationary position (out of the temp folder)
      *
-     * @return boolean OR object
+     * @return mixed
      */
     public function create()
     {
@@ -63,12 +77,12 @@ class ImageService extends BaseModelService
                     /*
                      * Ex. files/assets/images/1/example.png
                      */
-                    $movedFilePath = Config::get('maintenance::site.paths.assets.images') . sprintf('%s/', $asset->id);
+                    $movedFilePath = config('maintenance::site.paths.assets.images') . sprintf('%s/', $asset->id);
 
                     /*
                      * Move the file
                      */
-                    Storage::move(Config::get('maintenance::site.paths.temp') . $fileName, $movedFilePath . $fileName);
+                    Storage::move(config('maintenance::site.paths.temp') . $fileName, $movedFilePath . $fileName);
 
                     /*
                      * Set insert data
