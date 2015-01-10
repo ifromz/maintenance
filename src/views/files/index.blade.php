@@ -128,7 +128,6 @@
                     .on('move_node.jstree', function (e, data) {
                         $.get('?operation=move_node', {'id': data.node.id, 'parent': data.parent})
                                 .done(function (d) {
-                                    //data.instance.load_node(data.parent);
                                     data.instance.refresh();
                                 })
                                 .fail(function () {
