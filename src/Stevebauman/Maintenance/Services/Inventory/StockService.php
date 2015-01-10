@@ -91,7 +91,7 @@ class StockService extends BaseModelService
             return false;
 
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -159,7 +159,7 @@ class StockService extends BaseModelService
 
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -200,7 +200,7 @@ class StockService extends BaseModelService
 
             return true;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -265,7 +265,7 @@ class StockService extends BaseModelService
 
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -332,7 +332,7 @@ class StockService extends BaseModelService
 
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 

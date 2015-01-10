@@ -42,7 +42,7 @@ class ReadingService extends BaseModelService
 
             return $record;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -75,7 +75,7 @@ class ReadingService extends BaseModelService
 
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 

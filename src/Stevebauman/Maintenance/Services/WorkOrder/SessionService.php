@@ -52,7 +52,7 @@ class SessionService extends BaseModelService
 
             return $record;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -84,7 +84,7 @@ class SessionService extends BaseModelService
 
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 

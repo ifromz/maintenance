@@ -58,7 +58,7 @@ class PublicService extends BaseModelService
 
             return $record;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -90,7 +90,7 @@ class PublicService extends BaseModelService
 
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 

@@ -108,7 +108,7 @@ class ManualService extends BaseModelService
             return false;
 
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 

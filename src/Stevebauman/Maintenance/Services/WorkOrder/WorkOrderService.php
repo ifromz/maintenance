@@ -96,7 +96,7 @@ class WorkOrderService extends BaseModelService
 
             return $record;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -144,7 +144,7 @@ class WorkOrderService extends BaseModelService
 
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
 
             return false;
@@ -170,7 +170,7 @@ class WorkOrderService extends BaseModelService
 
             return true;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -231,7 +231,7 @@ class WorkOrderService extends BaseModelService
 
             return true;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -269,7 +269,7 @@ class WorkOrderService extends BaseModelService
 
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -306,7 +306,7 @@ class WorkOrderService extends BaseModelService
 
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 

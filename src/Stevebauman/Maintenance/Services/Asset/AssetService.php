@@ -156,7 +156,7 @@ class AssetService extends BaseModelService
             return false;
 
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
@@ -222,7 +222,7 @@ class AssetService extends BaseModelService
              */
             return false;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 
