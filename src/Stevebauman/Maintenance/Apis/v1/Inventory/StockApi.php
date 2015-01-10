@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Apis\v1\Inventory;
 
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Apis\BaseApiController;
+use Stevebauman\Maintenance\Apis\v1\BaseApi;
 
-class StockApi extends BaseApiController {
+class StockApi extends BaseApi {
     
     public function __construct(InventoryService $inventory, StockService $inventoryStock) {
         $this->inventory = $inventory;
