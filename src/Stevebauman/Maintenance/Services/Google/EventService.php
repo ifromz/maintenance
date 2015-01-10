@@ -90,7 +90,7 @@ class EventService extends AbstractService
         /*
          * Convert the rule array to RRULE string
          */
-        $rrule = $this->arrayToRRule($this->arrayToRRule());
+        $rrule = $this->arrayToRRule($this->getArrayRules());
 
         /*
          * Combine dates with their times
@@ -132,7 +132,7 @@ class EventService extends AbstractService
             /*
              * Convert the rule array to RRULE string
              */
-            $rrule = $this->arrayToRRule($this->arrayToRRule());
+            $rrule = $this->arrayToRRule($this->getArrayRules());
 
             /*
              * Combine dates with their times
@@ -223,15 +223,6 @@ class EventService extends AbstractService
             } else {
 
                 $start = $startDate->format('Y-m-d');
-
-                /*
-                 * Add one day when POSTing to google for FullCalendar
-                 * fix. FullCalendar treats end dates that are all day as a day
-                 * before Google Calendar.
-                 *
-                 * Jan 8th 2015 - Removed for FullCalendar V2 update
-                 */
-                //$endDate->add(new \DateInterval('P1D'));
 
                 $end = $endDate->format('Y-m-d');
 

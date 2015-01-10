@@ -138,7 +138,6 @@
                     .on('copy_node.jstree', function (e, data) {
                         $.get('?operation=copy_node', {'id': data.original.id, 'parent': data.parent})
                                 .done(function (d) {
-                                    //data.instance.load_node(data.parent);
                                     data.instance.refresh();
                                 })
                                 .fail(function () {

@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Listeners;
 
+use Illuminate\Mail\Message;
 use Illuminate\Support\Facades\Mail;
 use Stevebauman\Maintenance\Models\Notification;
 
@@ -33,7 +34,7 @@ abstract class AbstractListener
             'after' => $after,
         ));
 
-        Mail::send('maintenance::emails.notification', array('notification' => $notification), function ($message) {
+        Mail::send('maintenance::emails.notification', array('notification' => $notification), function (Message $message) {
             $message->to('sbauman@bwbc.gc.ca')->subject('Testing');
         });
 
