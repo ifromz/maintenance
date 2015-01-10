@@ -6,7 +6,7 @@
  *
  * @author Steve Bauman
  */
-Route::filter('maintenance.auth', function($route, $request){
+Route::filter('maintenance.auth', function(){
     if(!Sentry::check()) {
         Session::put('url.intended', URL::full());
         return Redirect::route('maintenance.login');
@@ -19,7 +19,7 @@ Route::filter('maintenance.auth', function($route, $request){
  *
  * @author Steve Bauman
  */
-Route::filter('maintenance.notauth', function($route, $request){
+Route::filter('maintenance.notauth', function(){
     if(Sentry::check()) {
         return Redirect::route('maintenance.dashboard.index');
     }
@@ -30,7 +30,7 @@ Route::filter('maintenance.notauth', function($route, $request){
  *
  * @author Steve Bauman
  */
-Route::filter('maintenance.permission', function($route, $request){ 
+Route::filter('maintenance.permission', function($route){
     
     if(!Sentry::hasAccess($route->getName())){
         

@@ -2,22 +2,23 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
-
-/*
- * Passes all the routes available to be selected to the route select box
+/**
+ * Class RouteSelectComposer
+ * @package Stevebauman\Maintenance\Composers
  */
-
 class RouteSelectComposer
 {
 
+    /**
+     * @param $view
+     * @return mixed
+     */
     public function compose($view)
     {
         /*
          * Stores all the routes for selection, defaults are stored in config
          */
-        $allRoutes = Config::get('maintenance::permissions.default');
+        $allRoutes = config('maintenance::permissions.default');
 
         /*
          * Holds all the routes in the application

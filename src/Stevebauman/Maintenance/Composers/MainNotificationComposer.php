@@ -8,12 +8,29 @@ use Stevebauman\Maintenance\Services\NotificationService;
 class MainNotificationComposer
 {
 
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @var NotificationService
+     */
+    protected $notification;
+
+    /**
+     * @param SentryService $sentry
+     * @param NotificationService $notification
+     */
     public function __construct(SentryService $sentry, NotificationService $notification)
     {
         $this->sentry = $sentry;
         $this->notification = $notification;
     }
 
+    /**
+     * @param $view
+     */
     public function compose($view)
     {
         $notifications = $this->notification

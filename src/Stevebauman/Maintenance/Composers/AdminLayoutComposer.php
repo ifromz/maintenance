@@ -2,14 +2,19 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Illuminate\Support\Facades\Config;
-
+/**
+ * Class AdminLayoutComposer
+ * @package Stevebauman\Maintenance\Composers
+ */
 class AdminLayoutComposer
 {
 
+    /**
+     * @param $view
+     */
     public function compose($view)
     {
-        $siteTitle = Config::get('maintenance::site.title.admin');
+        $siteTitle = config('maintenance::site.title.admin');
 
         $view->with('siteTitle', $siteTitle);
     }

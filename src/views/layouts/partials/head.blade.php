@@ -38,7 +38,7 @@
 {{ HTML::style('packages/stevebauman/maintenance/css/custom.css') }}
 
 <!-- JS Tree Style -->
-{{ HTML::style('packages/stevebauman/maintenance/bower_resources/jstree/dist/themes/default/style.min.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/resources/jstree/dist/themes/default/style.min.css') }}
 
 <!-- FullCalendar -->
 {{ HTML::style('packages/stevebauman/maintenance/resources/fullcalendar/dist/fullcalendar.css') }}
