@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 /**
  * Handles inventory interactions
- * 
+ *
  * @author Steve Bauman <sbauman@bwbc.gc.ca>
  */
 
@@ -13,51 +13,55 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class InventoryService extends BaseModelService {
-    
-    public function __construct(Inventory $inventory, SentryService $sentry, InventoryNotFoundException $notFoundException){
+class InventoryService extends BaseModelService
+{
+
+    public function __construct(Inventory $inventory, SentryService $sentry, InventoryNotFoundException $notFoundException)
+    {
         $this->model = $inventory;
         $this->sentry = $sentry;
         $this->notFoundException = $notFoundException;
     }
-    
+
     /**
      * Returns all inventory items paginated, with eager loaded relationships,
      * as well as scopes for search.
-     * 
+     *
      * @return type Collection
      */
-    public function getByPageWithFilter($archived = NULL){
-            return $this->model
-                    ->with(array(
-                            'category',
-                            'user',
-                            'stocks',
-                    ))
-                    ->id($this->getInput('id'))
-                    ->name($this->getInput('name'))
-                    ->description($this->getInput('description'))
-                    ->category($this->getInput('category_id'))
-                    ->stock(
-                            $this->getInput('operator'),
-                            $this->getInput('quantity')
-                    )
-                    ->archived($archived)
-                    ->sort($this->getInput('field'), $this->getInput('sort'))
-                    ->paginate(25);
+    public function getByPageWithFilter($archived = NULL)
+    {
+        return $this->model
+            ->with(array(
+                'category',
+                'user',
+                'stocks',
+            ))
+            ->id($this->getInput('id'))
+            ->name($this->getInput('name'))
+            ->description($this->getInput('description'))
+            ->category($this->getInput('category_id'))
+            ->stock(
+                $this->getInput('operator'),
+                $this->getInput('quantity')
+            )
+            ->archived($archived)
+            ->sort($this->getInput('field'), $this->getInput('sort'))
+            ->paginate(25);
     }
-    
+
     /**
      * Creates an item record
-     * 
+     *
      * @return boolean OR object
      */
-    public function create(){
-        
+    public function create()
+    {
+
         $this->dbStartTransaction();
-        
+
         try {
-        
+
             /*
              * Set input data
              */
@@ -73,47 +77,48 @@ class InventoryService extends BaseModelService {
              * If the record is created, return it, otherwise return false
              */
             $record = $this->model->create($insert);
-            
-            if($record) {
-                
+
+            if ($record) {
+
                 /*
                  * Fire created event
                  */
                 $this->fireEvent('maintenance.inventory.created', array(
                     'item' => $record
                 ));
-                
+
                 $this->dbCommitTransaction();
-                
+
                 return $record;
-                
-            } 
-                
+
+            }
+
             $this->dbRollbackTransaction();
-            
-            return false;    
-            
+
+            return false;
+
         } catch (Exception $e) {
-            
+
             $this->dbRollbackTransaction();
-            
+
             return false;
         }
-        
+
     }
-    
+
     /**
      * Updates an item record
-     * 
+     *
      * @param type $id
      * @return boolean
      */
-    public function update($id){
-        
+    public function update($id)
+    {
+
         $this->dbStartTransaction();
-        
+
         try {
-            
+
             /*
              * Find the item record
              */
@@ -132,7 +137,7 @@ class InventoryService extends BaseModelService {
             /*
              * Update the record, return it upon success
              */
-            if($record->update($insert)){
+            if ($record->update($insert)) {
 
                 /*
                  * Fire updated event
@@ -144,38 +149,39 @@ class InventoryService extends BaseModelService {
                 $this->dbCommitTransaction();
 
                 return $record;
-                
+
             }
-            
+
             $this->dbRollbackTransaction();
-            
+
             return false;
-        
-        } catch(Exception $e) {
-            
+
+        } catch (Exception $e) {
+
             $this->dbRollbackTransaction();
-            
+
             return false;
         }
-        
+
     }
-    
+
     /*
      * Archives an item record
      */
-    public function destroy($id) {
-        
+    public function destroy($id)
+    {
+
         $record = $this->find($id);
-        
+
         $record->delete();
-        
+
         /*
          * Fire archived event
          */
         $this->fireEvent('maintenance.inventory.archived', array(
             'item' => $record
         ));
-        
+
         return true;
     }
 }

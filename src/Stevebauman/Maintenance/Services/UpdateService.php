@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Stevebauman\Maintenance\Services;
 
@@ -6,36 +6,37 @@ use Stevebauman\Maintenance\Models\Update;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class UpdateService extends BaseModelService {
-	
-	public function __construct(Update $update, SentryService $sentry)
-        {
-            $this->model = $update;
-            $this->sentry = $sentry;
-	}
-	
-	public function create()
-        {
-            $this->dbStartTransaction();
-            
-            try {
+class UpdateService extends BaseModelService
+{
 
-                $insert = array(
-                    'user_id' => $this->sentry->getCurrentUserId(),
-                    'content' => $this->getInput('update_content', NULL, true)
-                );
+    public function __construct(Update $update, SentryService $sentry)
+    {
+        $this->model = $update;
+        $this->sentry = $sentry;
+    }
 
-                $record = $this->model->create($insert);
-                
-                $this->dbCommitTransaction();
-                
-                return $record;
+    public function create()
+    {
+        $this->dbStartTransaction();
 
-            } catch (Exception $e) {
-                
-                $this->dbRollbackTransaction();
-                
-                return false;
-            }
-	}
+        try {
+
+            $insert = array(
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'content' => $this->getInput('update_content', NULL, true)
+            );
+
+            $record = $this->model->create($insert);
+
+            $this->dbCommitTransaction();
+
+            return $record;
+
+        } catch (Exception $e) {
+
+            $this->dbRollbackTransaction();
+
+            return false;
+        }
+    }
 }

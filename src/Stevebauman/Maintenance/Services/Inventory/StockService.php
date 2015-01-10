@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 /**
  * Handles inventory stock interactions
- * 
+ *
  * @author Steve Bauman <sbauman@bwbc.gc.ca>
  */
 
@@ -13,31 +13,32 @@ use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class StockService extends BaseModelService {
-    
+class StockService extends BaseModelService
+{
+
     public function __construct(
-            InventoryStock $inventoryStock, 
-            StockMovementService $inventoryStockMovement, 
-            InventoryStockNotFoundException $notFoundException
-            )
+        InventoryStock $inventoryStock,
+        StockMovementService $inventoryStockMovement,
+        InventoryStockNotFoundException $notFoundException
+    )
     {
         $this->model = $inventoryStock;
         $this->inventoryStockMovement = $inventoryStockMovement;
         $this->notFoundException = $notFoundException;
     }
-    
+
     /**
      * Creates a stock record as well as a first record movement
-     * 
+     *
      * @return boolean OR object
      */
     public function create()
     {
-        
+
         $this->dbStartTransaction();
-        
+
         try {
-        
+
             /*
              * Set insert data
              */
@@ -51,9 +52,9 @@ class StockService extends BaseModelService {
              * Create the stock record
              */
             $record = $this->model->create($insert);
-                
-            if($record) {
-                
+
+            if ($record) {
+
                 /*
                  * Set first movement data
                  */
@@ -69,7 +70,7 @@ class StockService extends BaseModelService {
                  * If the inventory movement has been successfully created, return the record. 
                  * Otherwise delete it.
                  */
-                if($this->inventoryStockMovement->setInput($movement)->create()){
+                if ($this->inventoryStockMovement->setInput($movement)->create()) {
 
                     /*
                      * Fire stock created event
@@ -81,38 +82,38 @@ class StockService extends BaseModelService {
                     $this->dbCommitTransaction();
 
                     return $record;
-                    
+
                 }
             }
-            
+
             $this->dbRollbackTransaction();
-            
+
             return false;
-            
-        
+
+
         } catch (Exception $e) {
-            
+
             $this->dbRollbackTransaction();
-            
+
             return false;
-            
+
         }
     }
-    
+
     /**
      * Updates the current stock record and creates a stock movement when it has
      * been updated.
-     * 
+     *
      * @param type $id
      * @return boolean OR object
      */
     public function update($id)
     {
-        
+
         $this->dbStartTransaction();
-        
+
         try {
-            
+
             $record = $this->find($id);
 
             /*
@@ -126,12 +127,12 @@ class StockService extends BaseModelService {
             /*
              * Update the stock record
              */
-            if($record->update($insert)){
+            if ($record->update($insert)) {
 
                 /*
                  * Create the movement
                  */
-                if($this->createUpdateMovement($record)){
+                if ($this->createUpdateMovement($record)) {
 
                     /*
                      * Fire stock updated event
@@ -148,9 +149,9 @@ class StockService extends BaseModelService {
                     return $record;
 
                 }
-                
+
             }
-                
+
             /*
              * Rollback on failure to update the stock record
              */
@@ -159,23 +160,64 @@ class StockService extends BaseModelService {
             return false;
 
         } catch (Exception $e) {
-            
+
             $this->dbRollbackTransaction();
-            
+
             return false;
         }
     }
-    
+
+    /**
+     * Creates a stock movement record
+     *
+     * @param type $record
+     * @return boolean
+     */
+    private function createUpdateMovement($record)
+    {
+
+        $this->dbStartTransaction();
+
+        try {
+
+            /*
+             * Set movement insert data
+             */
+            $movement = array(
+                'stock_id' => $record->id,
+                'before' => $record->movements->first()->after,
+                'after' => $record->quantity,
+                'reason' => $this->getInput('reason', NULL, true),
+                'cost' => $this->getInput('cost'),
+            );
+
+            /*
+             * Create the stock movement
+             */
+            $this->inventoryStockMovement->setInput($movement)->create();
+
+            $this->dbCommitTransaction();
+
+            return true;
+
+        } catch (Exception $e) {
+
+            $this->dbRollbackTransaction();
+
+            return false;
+        }
+    }
+
     /**
      * Updates the stock record by taking away the inputted stock by the current stock,
      * effectively processing a "taking from stock" action.
-     * 
+     *
      * @param type $id
      * @return boolean OR object
      */
     public function take($id)
     {
-        
+
         $this->dbStartTransaction();
 
         try {
@@ -194,78 +236,79 @@ class StockService extends BaseModelService {
             /*
              * Update stock record
              */
-            if($record->update($insert)) {
+            if ($record->update($insert)) {
 
                 /*
                  * Create the movement
                  */
-                if($this->createUpdateMovement($record)) {
-                    
+                if ($this->createUpdateMovement($record)) {
+
                     /*
                      * Fire stock taken event
                      */
-                   $this->fireEvent('maintenance.inventory.stock.taken', array(
-                       'stock' => $record
-                   ));
-                   
-                   $this->dbCommitTransaction();
-                   
-                   return $record;
+                    $this->fireEvent('maintenance.inventory.stock.taken', array(
+                        'stock' => $record
+                    ));
+
+                    $this->dbCommitTransaction();
+
+                    return $record;
 
                 }
-                
+
             }
-                
+
             /*
              * Rollback on failure to update the record
              */
             $this->dbRollbackTransaction();
 
             return false;
-            
+
         } catch (Exception $e) {
-            
+
             $this->dbRollbackTransaction();
-            
+
             return false;
         }
 
     }
-    
+
     /**
      * Updates the stock record by adding the inputted stock to the current stock,
      * effectively processing a "putting into the stock" action.
-     * 
+     *
      * @param type $id
-     * @return boolean OR object
+     * @return mixed
      */
-    public function put($id){
-        
+    public function put($id)
+    {
+
         $this->dbStartTransaction();
-        
+
         try {
-            
+
             /*
              * Find the stock record
              */
             $record = $this->find($id);
-            
+
             /*
              * Set update data
              */
             $insert = array(
                 'quantity' => $record->quantity + $this->getInput('quantity'),
             );
-            
+
             /*
              * Update the record
              */
-            if($record->update($insert)) {
-            
+            if ($record->update($insert)) {
+
                 /*
                  * Create the movement
                  */
-                if($this->createUpdateMovement($record)) {
+                if ($this->createUpdateMovement($record)) {
 
                     /*
                      * Fire stock put event
@@ -280,66 +323,26 @@ class StockService extends BaseModelService {
                      * Return the record
                      */
                     return $record;
-                
+
                 }
-            
+
             }
-                
+
             $this->dbRollbackTransaction();
 
             return false;
-            
+
         } catch (Exception $e) {
-            
+
             $this->dbRollbackTransaction();
-            
+
             return false;
         }
-        
+
         /*
          * Stock record not found
          */
         return false;
     }
-    
-    /**
-     * Creates a stock movement record
-     * 
-     * @param type $record
-     * @return boolean
-     */
-    private function createUpdateMovement($record){
-        
-        $this->dbStartTransaction();
-        
-        try {
 
-            /*
-             * Set movement insert data
-             */
-            $movement = array(
-                'stock_id' => $record->id,
-                'before' => $record->movements->first()->after,
-                'after' => $record->quantity,
-                'reason' => $this->getInput('reason', NULL, true),
-                'cost' => $this->getInput('cost'),
-            );
-
-            /*
-             * Create the stock movement
-             */
-            $this->inventoryStockMovement->setInput($movement)->create();
-            
-            $this->dbCommitTransaction();
-            
-            return true;
-        
-        } catch (Exception $e) {
-            
-            $this->dbRollbackTransaction();
-            
-            return false;
-        }
-    }
-    
 }

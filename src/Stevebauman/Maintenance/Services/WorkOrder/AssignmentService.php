@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
@@ -7,54 +7,73 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Models\WorkOrderAssignment;
 
-class AssignmentService extends BaseModelService {
-	
-	public function __construct(WorkOrderAssignment $assignment, SentryService $sentry, WorkOrderAssignmentNotFoundException $notFoundException){
-		$this->model = $assignment;
-                $this->sentry = $sentry;
-                $this->notFoundException = $notFoundException;
-	}
-        
-        public function create()
-        {
-            
-            $this->dbStartTransaction();
-            
-            try {
-                
-                $users = $this->getInput('users');
+/**
+ * Class AssignmentService
+ * @package Stevebauman\Maintenance\Services\WorkOrder
+ */
+class AssignmentService extends BaseModelService
+{
 
-                if($users) {
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
 
-                    $records = array();
+    /**
+     * @param WorkOrderAssignment $assignment
+     * @param SentryService $sentry
+     * @param WorkOrderAssignmentNotFoundException $notFoundException
+     */
+    public function __construct(WorkOrderAssignment $assignment, SentryService $sentry, WorkOrderAssignmentNotFoundException $notFoundException)
+    {
+        $this->model = $assignment;
+        $this->sentry = $sentry;
+        $this->notFoundException = $notFoundException;
+    }
 
-                    foreach($users as $user){
+    /**
+     * @return array|bool
+     */
+    public function create()
+    {
 
-                        $insert = array(
-                            'work_order_id' => $this->getInput('work_order_id'),
-                            'by_user_id' => $this->sentry->getCurrentUserId(),
-                            'to_user_id' => $user
-                        );
+        $this->dbStartTransaction();
 
-                        $records[] = $this->model->create($insert);
-                        
-                    }
-                    
-                    $this->dbCommitTransaction();
-                    
-                    return $records;
+        try {
+
+            $users = $this->getInput('users');
+
+            if ($users) {
+
+                $records = array();
+
+                foreach ($users as $user) {
+
+                    $insert = array(
+                        'work_order_id' => $this->getInput('work_order_id'),
+                        'by_user_id' => $this->sentry->getCurrentUserId(),
+                        'to_user_id' => $user
+                    );
+
+                    $records[] = $this->model->create($insert);
 
                 }
 
-                return false;
-            
-            } catch (Exception $e) {
-                
-                $this->dbRollbackTransaction();
-                
-                return false;
+                $this->dbCommitTransaction();
+
+                return $records;
+
             }
-            
+
+            return false;
+
+        } catch (Exception $e) {
+
+            $this->dbRollbackTransaction();
+
+            return false;
         }
-	
+
+    }
+
 }

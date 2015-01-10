@@ -11,7 +11,8 @@ use Stevebauman\CoreHelper\Services\AbstractService;
 /**
  * Handles Google Calendar Events much like the typical model services
  */
-class EventService extends AbstractService {
+class EventService extends AbstractService
+{
 
     use TableTrait;
 
@@ -45,6 +46,28 @@ class EventService extends AbstractService {
     }
 
     /**
+     * Returns param array for querying google events
+     *
+     * @return array
+     */
+    private function getEventsFilter()
+    {
+        $filter = array(
+            'alwaysIncludeEmail' => $this->getInput('alwaysIncludeEmail', false),
+            'maxAttendees' => $this->getInput('maxAttendees'),
+            'maxResults' => $this->getInput('maxResults'),
+            'singleEvents' => $this->getInput('singleEvents', true),
+            'orderBy' => $this->getInput('orderBy'),
+            'pageToken' => $this->getInput('pageToken'),
+            'showDeleted' => $this->getInput('showDeleted', false),
+            'timeMin' => $this->getInput('timeMin'),
+            'timeMax' => $this->getInput('timeMax'),
+        );
+
+        return $filter;
+    }
+
+    /**
      * Returns recurrences of the specified ID
      *
      * @param string $id
@@ -58,6 +81,27 @@ class EventService extends AbstractService {
     }
 
     /**
+     * Returns param array for querying google event recurrences
+     *
+     * @return array
+     */
+    private function getRecurringEventsFilter()
+    {
+        $filter = array(
+            'alwaysIncludeEmail' => $this->getInput('alwaysIncludeEmail', false),
+            'maxAttendees' => $this->getInput('maxAttendees'),
+            'maxResults' => $this->getInput('maxResults'),
+            'originalStart' => $this->getInput('originalStart'),
+            'pageToken' => $this->getInput('pageToken'),
+            'showDeleted' => $this->getInput('showDeleted', false),
+            'timeMin' => $this->getInput('timeMin'),
+            'timeMax' => $this->getInput('timeMax'),
+        );
+
+        return $filter;
+    }
+
+    /**
      * Creates a google batch request for specific event ID's
      *
      * @param array $ids
@@ -67,36 +111,15 @@ class EventService extends AbstractService {
     {
         $events = $this->calendar->specificEvents($ids, $recurrences, $this->getRecurringEventsFilter());
 
-        foreach($events as &$event) {
+        foreach ($events as &$event) {
 
-            if($event->attendees) {
+            if ($event->attendees) {
                 $event->attendees = new $this->collection($event->attendees);
             }
 
         }
 
         return new $this->collection($events);
-    }
-
-    /**
-     * Returns the specified google calendar event
-     *
-     * @param string $id
-     * @return \Stevebauman\EloquentTable\TableCollection
-     */
-    public function find($id)
-    {
-        $event = $this->calendar->event($id);
-
-        if($event->status !== 'cancelled') {
-
-            $event->attendees = new $this->collection($event->attendees);
-
-            return $event;
-
-        }
-
-        return false;
     }
 
     /**
@@ -108,14 +131,14 @@ class EventService extends AbstractService {
     {
         /*
          * If recur until is specified, make sure to convert it to RFC2445 format
-         * 
+         *
          * Recur frequency is mandatory, while other attributes are optional
          */
         $arrayRule = array(
-            'FREQ'      => $this->getInput('recur_frequency'),
-            'BYDAY'      => ($this->getInput('recur_days') ? $this->implodeArrayForRule($this->getInput('recur_days')) : NULL),
-            'BYMONTH'    => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
-            'UNTIL'     => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
+            'FREQ' => $this->getInput('recur_frequency'),
+            'BYDAY' => ($this->getInput('recur_days') ? $this->implodeArrayForRule($this->getInput('recur_days')) : NULL),
+            'BYMONTH' => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
+            'UNTIL' => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
         );
 
         /*
@@ -126,10 +149,10 @@ class EventService extends AbstractService {
         /*
          * Combine dates with their times
          */
-        $start = $this->getInput('start_date'). ' ' . $this->getInput('start_time');
-        $end = $this->getInput('end_date'). ' ' . $this->getInput('end_time');
+        $start = $this->getInput('start_date') . ' ' . $this->getInput('start_time');
+        $end = $this->getInput('end_date') . ' ' . $this->getInput('end_time');
 
-        if($this->getInput('all_day') === 'true') {
+        if ($this->getInput('all_day') === 'true') {
             $allDay = true;
         } else {
             $allDay = false;
@@ -148,6 +171,70 @@ class EventService extends AbstractService {
     }
 
     /**
+     * Converts an array from the multi-select inputs to a comma seperated list
+     * for use in the RRule rule string
+     *
+     * @param array $values
+     * @return null OR string
+     */
+    private function implodeArrayForRule(array $values = array())
+    {
+        /*
+         * If a value is given, and it's an array, implode the array by comma
+         * converting it into a comma seperated string.
+         *
+         * Ex. array(0 => 'MO', 1 => 'TU', 2 => 'WE') = 'MO,TU,WE'
+         */
+        if (isset($values) && is_array($values)) {
+            return implode(",", $values);
+        }
+
+        return NULL;
+    }
+
+    /**
+     * Converts an array of recurring event rules to an RRULE string
+     *
+     * @param array $rules
+     */
+    private function arrayToRRule(array $rules = array())
+    {
+        $ruleString = '';
+
+        /*
+         * If rules exist in the array
+         */
+        if (count($rules) > 0) {
+
+            foreach ($rules as $rule => $value) {
+
+                /*
+                 * Make sure the value of the rule isn't empty
+                 */
+                if (!empty($value)) {
+
+                    /*
+                     * Add the rule onto the string
+                     */
+                    $ruleString .= strtoupper($rule) . '=' . $value . ';';
+
+                }
+            }
+
+            /*
+             * Check if there are actually any arguements in the rule string
+             * by checking the length. If there are, add the required RRULE prefix
+             */
+            if (strlen($ruleString) > 0) {
+                $ruleString = 'RRULE:' . $ruleString;
+            }
+
+        }
+
+        return $ruleString;
+    }
+
+    /**
      * Updates the specified google calendar event
      *
      * @param string $id
@@ -157,18 +244,18 @@ class EventService extends AbstractService {
     {
         $event = $this->find($id);
 
-        if($event) {
+        if ($event) {
 
             /*
             * If recur until is specified, make sure to convert it to RFC2445 format
-            * 
+            *
             * Recur frequency is mandatory, while other attributes are optional
             */
             $arrayRule = array(
-                'FREQ'      => $this->getInput('recur_frequency'),
-                'BYDAY'      => ($this->getInput('recur_days') ? $this->implodeArrayForRule($this->getInput('recur_days')) : NULL),
-                'BYMONTH'    => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
-                'UNTIL'     => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
+                'FREQ' => $this->getInput('recur_frequency'),
+                'BYDAY' => ($this->getInput('recur_days') ? $this->implodeArrayForRule($this->getInput('recur_days')) : NULL),
+                'BYMONTH' => ($this->getInput('recur_months') ? $this->implodeArrayForRule($this->getInput('recur_months')) : NULL),
+                'UNTIL' => ($this->getInput('recur_until') ? strToRfc2445($this->getInput('recur_until')) : NULL),
             );
 
             /*
@@ -179,8 +266,8 @@ class EventService extends AbstractService {
             /*
              * Combine dates with their times
              */
-            $start = $this->getInput('start_date'). ' ' . $this->getInput('start_time');
-            $end = $this->getInput('end_date'). ' ' . $this->getInput('end_time');
+            $start = $this->getInput('start_date') . ' ' . $this->getInput('start_time');
+            $end = $this->getInput('end_date') . ' ' . $this->getInput('end_time');
 
             $allDay = $this->getInput('all_day');
 
@@ -204,6 +291,27 @@ class EventService extends AbstractService {
     }
 
     /**
+     * Returns the specified google calendar event
+     *
+     * @param string $id
+     * @return mixed
+     */
+    public function find($id)
+    {
+        $event = $this->calendar->event($id);
+
+        if ($event->status !== 'cancelled') {
+
+            $event->attendees = new $this->collection($event->attendees);
+
+            return $event;
+
+        }
+
+        return false;
+    }
+
+    /**
      * Updates the start and end dates of the specified google calendar event
      *
      * @param string $id
@@ -213,11 +321,11 @@ class EventService extends AbstractService {
     {
         $event = $this->find($id);
 
-        if($event) {
+        if ($event) {
 
             $allDay = false;
 
-            if($this->getInput('all_day') === 'true') {
+            if ($this->getInput('all_day') === 'true') {
                 $allDay = true;
             }
 
@@ -227,7 +335,7 @@ class EventService extends AbstractService {
              * FullCalendar doesn't post end date if all day event
              * ends on the same day
              */
-            if($this->getInput('end')) {
+            if ($this->getInput('end')) {
                 $endDate = new \DateTime($this->getInput('end'));
             } else {
                 $endDate = $startDate;
@@ -236,7 +344,7 @@ class EventService extends AbstractService {
             /*
              * If google event is all day, dateTime attribute will be NULL
              */
-            if(!$allDay){
+            if (!$allDay) {
 
                 $start = $startDate->format(\DateTime::RFC3339);
                 $end = $endDate->format(\DateTime::RFC3339);
@@ -284,114 +392,6 @@ class EventService extends AbstractService {
     public function destroy($id)
     {
         return $this->calendar->deleteEvent($id);
-    }
-
-    /**
-     * Converts an array of recurring event rules to an RRULE string
-     *
-     * @param array $rules
-     */
-    private function arrayToRRule(array $rules = array())
-    {
-        $ruleString = '';
-
-        /*
-         * If rules exist in the array
-         */
-        if(count($rules) > 0) {
-
-            foreach($rules as $rule => $value) {
-
-                /*
-                 * Make sure the value of the rule isn't empty
-                 */
-                if(!empty($value)) {
-
-                    /*
-                     * Add the rule onto the string
-                     */
-                    $ruleString .= strtoupper($rule) . '=' . $value . ';';
-
-                }
-            }
-
-            /*
-             * Check if there are actually any arguements in the rule string
-             * by checking the length. If there are, add the required RRULE prefix
-             */
-            if(strlen($ruleString) > 0) {
-                $ruleString = 'RRULE:'.$ruleString;
-            }
-
-        }
-
-        return $ruleString;
-    }
-
-    /**
-     * Converts an array from the multi-select inputs to a comma seperated list
-     * for use in the RRule rule string
-     *
-     * @param array $values
-     * @return null OR string
-     */
-    private function implodeArrayForRule(array $values = array())
-    {
-        /*
-         * If a value is given, and it's an array, implode the array by comma
-         * converting it into a comma seperated string.
-         * 
-         * Ex. array(0 => 'MO', 1 => 'TU', 2 => 'WE') = 'MO,TU,WE'
-         */
-        if(isset($values) && is_array($values)){
-            return implode(",", $values);
-        }
-
-        return NULL;
-    }
-
-
-    /**
-     * Returns param array for querying google events
-     *
-     * @return array
-     */
-    private function getEventsFilter()
-    {
-        $filter = array(
-            'alwaysIncludeEmail'    => $this->getInput('alwaysIncludeEmail', false),
-            'maxAttendees'          => $this->getInput('maxAttendees'),
-            'maxResults'            => $this->getInput('maxResults'),
-            'singleEvents'          => $this->getInput('singleEvents', true),
-            'orderBy'               => $this->getInput('orderBy'),
-            'pageToken'             => $this->getInput('pageToken'),
-            'showDeleted'           => $this->getInput('showDeleted', false),
-            'timeMin'               => $this->getInput('timeMin'),
-            'timeMax'               => $this->getInput('timeMax'),
-        );
-
-        return $filter;
-    }
-
-    /**
-     * Returns param array for querying google event recurrences
-     *
-     * @return array
-     */
-    private function getRecurringEventsFilter()
-    {
-        $filter = array(
-            'alwaysIncludeEmail'    => $this->getInput('alwaysIncludeEmail', false),
-            'maxAttendees'          => $this->getInput('maxAttendees'),
-            'maxResults'            => $this->getInput('maxResults'),
-            'originalStart'         => $this->getInput('originalStart'),
-            'pageToken'             => $this->getInput('pageToken'),
-            'showDeleted'           => $this->getInput('showDeleted', false),
-            'timeMin'               => $this->getInput('timeMin'),
-            'timeMax'               => $this->getInput('timeMax'),
-        );
-
-        return $filter;
     }
 
 }

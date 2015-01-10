@@ -1,10 +1,4 @@
-<?php 
-
-/**
- * Handles Asset Image uploads
- * 
- * @author Steve Bauman <sbauman@bwbc.gc.ca>
- */
+<?php
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
@@ -14,113 +8,129 @@ use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\AttachmentService as BaseAttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-class AttachmentService extends BaseModelService {
-	
-	public function __construct(WorkOrderService $workOrder, BaseAttachmentService $attachment, SentryService $sentry){
-		$this->workOrder = $workOrder;
-		$this->attachment = $attachment;
-                $this->sentry = $sentry;
-	}
-	
-        /**
-         * Creates attachment records, attaches them to the asset images pivot table,
-         * and moves the uploaded file into it's stationary position (out of the temp folder)
-         * 
-         * @return boolean OR object
-         */
-        public function create()
-        {
-            
-            $this->dbStartTransaction();
-            
-            try {
-            
-                /*
-                 * Find the asset
-                 */
-                $asset = $this->workOrder->find($this->getInput('work_order_id'));
+/**
+ * Class AttachmentService
+ * @package Stevebauman\Maintenance\Services\WorkOrder
+ */
+class AttachmentService extends BaseModelService
+{
+
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @param WorkOrderService $workOrder
+     * @param BaseAttachmentService $attachment
+     * @param SentryService $sentry
+     */
+    public function __construct(WorkOrderService $workOrder, BaseAttachmentService $attachment, SentryService $sentry)
+    {
+        $this->workOrder = $workOrder;
+        $this->attachment = $attachment;
+        $this->sentry = $sentry;
+    }
+
+    /**
+     * Creates attachment records, attaches them to the asset images pivot table,
+     * and moves the uploaded file into it's stationary position (out of the temp folder)
+     *
+     * @return array|bool
+     */
+    public function create()
+    {
+
+        $this->dbStartTransaction();
+
+        try {
+
+            /*
+             * Find the asset
+             */
+            $asset = $this->workOrder->find($this->getInput('work_order_id'));
+
+            /*
+             * Check if any files have been uploaded
+             */
+            $files = $this->getInput('files');
+
+            if ($files) {
+
+                $records = array();
 
                 /*
-                 * Check if any files have been uploaded
+                 * For each file, create the attachment record, and sync asset image pivot table
                  */
-                $files = $this->getInput('files');
+                foreach ($files as $file) {
 
-                if($files){
+                    $attributes = explode('|', $file);
 
-                    $records = array();
+                    $fileName = $attributes[0];
+                    $fileOriginalName = $attributes[1];
 
                     /*
-                     * For each file, create the attachment record, and sync asset image pivot table
+                     * Ex. files/assets/images/1/example.png
                      */
-                    foreach($files as $file){
+                    $movedFilePath = config('maintenance::site.paths.work-orders.attachments') . sprintf('%s/', $asset->id);
 
-                        $attributes = explode('|', $file);
+                    /*
+                     * Move the file
+                     */
+                    Storage::move(config('maintenance::site.paths.temp') . $fileName, $movedFilePath . $fileName);
 
-                        $fileName = $attributes[0];
-                        $fileOriginalName = $attributes[1];
+                    /*
+                     * Set insert data
+                     */
+                    $insert = array(
+                        'name' => $fileOriginalName,
+                        'file_name' => $fileName,
+                        'file_path' => $movedFilePath,
+                        'user_id' => $this->sentry->getCurrentUserId()
+                    );
 
-                        /*
-                         * Ex. files/assets/images/1/example.png
-                         */
-                        $movedFilePath = config('maintenance::site.paths.work-orders.attachments').sprintf('%s/', $asset->id);
+                    /*
+                     * Create the attachment record
+                     */
+                    $record = $this->attachment->setInput($insert)->create();
 
-                        /*
-                         * Move the file
-                         */
-                        Storage::move(config('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
-
-                        /*
-                         * Set insert data
-                         */
-                        $insert = array(
-                            'name' => $fileOriginalName,
-                            'file_name' => $fileName,
-                            'file_path' => $movedFilePath,
-                            'user_id' => $this->sentry->getCurrentUserId()
-                        );
+                    if ($record) {
 
                         /*
-                         * Create the attachment record
+                         * Attach the attachment record to the asset images
                          */
-                        $record = $this->attachment->setInput($insert)->create();
+                        $asset->attachments()->attach($record);
 
-                        if($record){
+                        $records[] = $record;
 
-                            /*
-                             * Attach the attachment record to the asset images
-                             */
-                            $asset->attachments()->attach($record);
-                            
-                            $records[] = $record;
+                    } else {
 
-                        } else {
+                        $this->dbRollbackTransaction();
 
-                            $this->dbRollbackTransaction();
-
-                        }
                     }
-
-                   $this->dbCommitTransaction();
-
-                    /*
-                     *  Return attachment records on success
-                     */
-                    return $records;
-
                 }
-                
+
+                $this->dbCommitTransaction();
+
                 /*
-                 * No Files were detected to be uploaded, return false
+                 *  Return attachment records on success
                  */
-                return false;
-            
-            } catch (Exception $e) {
-                
-                $this->dbRollbackTransaction();
-                
-                return false;
+                return $records;
+
             }
-            
+
+            /*
+             * No Files were detected to be uploaded, return false
+             */
+            return false;
+
+        } catch (Exception $e) {
+
+            $this->dbRollbackTransaction();
+
+            return false;
         }
-            
+
+    }
+
 }

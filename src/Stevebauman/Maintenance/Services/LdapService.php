@@ -4,19 +4,20 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Corp\Facades\Corp;
 
-class LdapService {
+class LdapService
+{
 
     /**
      * Authenticate with Corp
      *
      * @author Steve Bauman
      *
-     * @param $username, $password
+     * @param $username , $password
      * @return boolean
      */
     public function authenticate($username, $password)
     {
-        if(Corp::auth($username, $password)){
+        if (Corp::auth($username, $password)) {
             return true;
         }
 
@@ -50,13 +51,13 @@ class LdapService {
      * @author Steve Bauman
      *
      * @param $username
-     * @return string or boolean
+     * @return mixed
      */
     public function getUserEmail($username)
     {
         $user = Corp::user($username);
 
-        if($user){
+        if ($user) {
             return $user->email;
         }
 
@@ -69,14 +70,14 @@ class LdapService {
      * @author Steve Bauman
      *
      * @param $username
-     * @return string or boolean
+     * @return mixed
      */
     public function getUserFullName($username)
     {
         $user = Corp::user($username);
 
-        if($user){
-            return $name;
+        if ($user) {
+            return $user->name;
         }
 
         return false;
