@@ -4,14 +4,30 @@ namespace Stevebauman\Maintenance\Composers;
 
 use Stevebauman\Maintenance\Services\PriorityService;
 
+/**
+ * Class PrioritySelectComposer
+ * @package Stevebauman\Maintenance\Composers
+ */
 class PrioritySelectComposer
 {
 
+    /**
+     * @var PriorityService
+     */
+    protected $priority;
+
+    /**
+     * @param PriorityService $priority
+     */
     public function __construct(PriorityService $priority)
     {
         $this->priority = $priority;
     }
 
+    /**
+     * @param $view
+     * @return mixed
+     */
     public function compose($view)
     {
         $priorities = $this->priority->get()->lists('name', 'id');

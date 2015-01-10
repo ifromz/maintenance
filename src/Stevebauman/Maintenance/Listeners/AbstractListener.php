@@ -5,9 +5,22 @@ namespace Stevebauman\Maintenance\Listeners;
 use Illuminate\Support\Facades\Mail;
 use Stevebauman\Maintenance\Models\Notification;
 
+/**
+ * Class AbstractListener
+ * @package Stevebauman\Maintenance\Listeners
+ */
 abstract class AbstractListener
 {
 
+    /**
+     * @param string $user_id
+     * @param object $object
+     * @param string $message
+     * @param string $link
+     * @param string $link
+     * @param null $before
+     * @param null $after
+     */
     public function createNotification($user_id, $object, $message, $link, $before = NULL, $after = NULL)
     {
         $notification = Notification::create(array(

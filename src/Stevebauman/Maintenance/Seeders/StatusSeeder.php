@@ -5,8 +5,20 @@ namespace Stevebauman\Maintenance\Seeders;
 use Stevebauman\Maintenance\Services\StatusService;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class StatusSeeder
+ * @package Stevebauman\Maintenance\Seeders
+ */
 class StatusSeeder extends Seeder {
 
+    /**
+     * @var StatusService
+     */
+    protected $status;
+
+    /**
+     * @param StatusService $status
+     */
     public function __construct(StatusService $status)
     {
         $this->status = $status;

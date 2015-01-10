@@ -5,8 +5,20 @@ namespace Stevebauman\Maintenance\Seeders;
 use Stevebauman\Maintenance\Services\MetricService;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class MetricSeeder
+ * @package Stevebauman\Maintenance\Seeders
+ */
 class MetricSeeder extends Seeder {
 
+    /**
+     * @var MetricService
+     */
+    protected $metric;
+
+    /**
+     * @param MetricService $metric
+     */
     public function __construct(MetricService $metric)
     {
         $this->metric = $metric;

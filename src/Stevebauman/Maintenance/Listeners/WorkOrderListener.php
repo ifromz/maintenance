@@ -7,8 +7,32 @@ use Stevebauman\Maintenance\Services\WorkOrder\NotificationService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Listeners\AbstractListener;
 
+/**
+ * Class WorkOrderListener
+ * @package Stevebauman\Maintenance\Listeners
+ */
 class WorkOrderListener extends AbstractListener {
-    
+
+    /**
+     * @var WorkOrderService
+     */
+    protected $workOrder;
+
+    /**
+     * @var NotificationService
+     */
+    protected $workOrderNotification;
+
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @param WorkOrderService $workOrder
+     * @param NotificationService $workOrderNotification
+     * @param SentryService $sentry
+     */
     public function __construct(
             WorkOrderService $workOrder,
             NotificationService $workOrderNotification,
