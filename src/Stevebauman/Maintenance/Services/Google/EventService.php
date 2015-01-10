@@ -45,27 +45,6 @@ class EventService extends AbstractService
         return new $this->collection($events);
     }
 
-    /**
-     * Returns param array for querying google events
-     *
-     * @return array
-     */
-    private function getEventsFilter()
-    {
-        $filter = array(
-            'alwaysIncludeEmail' => $this->getInput('alwaysIncludeEmail', false),
-            'maxAttendees' => $this->getInput('maxAttendees'),
-            'maxResults' => $this->getInput('maxResults'),
-            'singleEvents' => $this->getInput('singleEvents', true),
-            'orderBy' => $this->getInput('orderBy'),
-            'pageToken' => $this->getInput('pageToken'),
-            'showDeleted' => $this->getInput('showDeleted', false),
-            'timeMin' => $this->getInput('timeMin'),
-            'timeMax' => $this->getInput('timeMax'),
-        );
-
-        return $filter;
-    }
 
     /**
      * Returns recurrences of the specified ID
@@ -78,27 +57,6 @@ class EventService extends AbstractService
         $events = $this->calendar->recurrences($id, $this->getRecurringEventsFilter());
 
         return new $this->collection($events);
-    }
-
-    /**
-     * Returns param array for querying google event recurrences
-     *
-     * @return array
-     */
-    private function getRecurringEventsFilter()
-    {
-        $filter = array(
-            'alwaysIncludeEmail' => $this->getInput('alwaysIncludeEmail', false),
-            'maxAttendees' => $this->getInput('maxAttendees'),
-            'maxResults' => $this->getInput('maxResults'),
-            'originalStart' => $this->getInput('originalStart'),
-            'pageToken' => $this->getInput('pageToken'),
-            'showDeleted' => $this->getInput('showDeleted', false),
-            'timeMin' => $this->getInput('timeMin'),
-            'timeMax' => $this->getInput('timeMax'),
-        );
-
-        return $filter;
     }
 
     /**
@@ -170,69 +128,6 @@ class EventService extends AbstractService
         return $this->calendar->createEvent($event);
     }
 
-    /**
-     * Converts an array from the multi-select inputs to a comma seperated list
-     * for use in the RRule rule string
-     *
-     * @param array $values
-     * @return null OR string
-     */
-    private function implodeArrayForRule(array $values = array())
-    {
-        /*
-         * If a value is given, and it's an array, implode the array by comma
-         * converting it into a comma seperated string.
-         *
-         * Ex. array(0 => 'MO', 1 => 'TU', 2 => 'WE') = 'MO,TU,WE'
-         */
-        if (isset($values) && is_array($values)) {
-            return implode(",", $values);
-        }
-
-        return NULL;
-    }
-
-    /**
-     * Converts an array of recurring event rules to an RRULE string
-     *
-     * @param array $rules
-     */
-    private function arrayToRRule(array $rules = array())
-    {
-        $ruleString = '';
-
-        /*
-         * If rules exist in the array
-         */
-        if (count($rules) > 0) {
-
-            foreach ($rules as $rule => $value) {
-
-                /*
-                 * Make sure the value of the rule isn't empty
-                 */
-                if (!empty($value)) {
-
-                    /*
-                     * Add the rule onto the string
-                     */
-                    $ruleString .= strtoupper($rule) . '=' . $value . ';';
-
-                }
-            }
-
-            /*
-             * Check if there are actually any arguements in the rule string
-             * by checking the length. If there are, add the required RRULE prefix
-             */
-            if (strlen($ruleString) > 0) {
-                $ruleString = 'RRULE:' . $ruleString;
-            }
-
-        }
-
-        return $ruleString;
-    }
 
     /**
      * Updates the specified google calendar event
@@ -392,6 +287,119 @@ class EventService extends AbstractService
     public function destroy($id)
     {
         return $this->calendar->deleteEvent($id);
+    }
+
+    /**
+     * Returns a base event filter for google API
+     *
+     * @return array
+     */
+    private function getBaseFilter()
+    {
+        $filter = array(
+            'alwaysIncludeEmail' => $this->getInput('alwaysIncludeEmail', false),
+            'maxAttendees' => $this->getInput('maxAttendees'),
+            'maxResults' => $this->getInput('maxResults'),
+            'pageToken' => $this->getInput('pageToken'),
+            'showDeleted' => $this->getInput('showDeleted', false),
+            'timeMin' => $this->getInput('timeMin'),
+            'timeMax' => $this->getInput('timeMax'),
+        );
+
+        return $filter;
+    }
+
+    /**
+     * Returns param array for querying google events
+     *
+     * @return array
+     */
+    private function getEventsFilter()
+    {
+        $filter = array(
+            'singleEvents' => $this->getInput('singleEvents', true),
+            'orderBy' => $this->getInput('orderBy'),
+        );
+
+        return array_merge($filter, $this->getBaseFilter());
+    }
+
+    /**
+     * Returns param array for querying google event recurrences
+     *
+     * @return array
+     */
+    private function getRecurringEventsFilter()
+    {
+        $filter = array(
+            'originalStart' => $this->getInput('originalStart'),
+        );
+
+        return array_merge($filter, $this->getBaseFilter());
+    }
+
+    /**
+     * Converts an array from the multi-select inputs to a comma seperated list
+     * for use in the RRule rule string
+     *
+     * @param array $values
+     * @return null OR string
+     */
+    private function implodeArrayForRule(array $values = array())
+    {
+        /*
+         * If a value is given, and it's an array, implode the array by comma
+         * converting it into a comma seperated string.
+         *
+         * Ex. array(0 => 'MO', 1 => 'TU', 2 => 'WE') = 'MO,TU,WE'
+         */
+        if (isset($values) && is_array($values)) {
+            return implode(",", $values);
+        }
+
+        return NULL;
+    }
+
+    /**
+     * Converts an array of recurring event rules to an RRULE string
+     *
+     * @param array $rules
+     */
+    private function arrayToRRule(array $rules = array())
+    {
+        $ruleString = '';
+
+        /*
+         * If rules exist in the array
+         */
+        if (count($rules) > 0) {
+
+            foreach ($rules as $rule => $value) {
+
+                /*
+                 * Make sure the value of the rule isn't empty
+                 */
+                if (!empty($value)) {
+
+                    /*
+                     * Add the rule onto the string
+                     */
+                    $ruleString .= strtoupper($rule) . '=' . $value . ';';
+
+                }
+            }
+
+            /*
+             * Check if there are actually any arguements in the rule string
+             * by checking the length. If there are, add the required RRULE prefix
+             */
+            if (strlen($ruleString) > 0) {
+                $ruleString = 'RRULE:' . $ruleString;
+            }
+
+        }
+
+        return $ruleString;
     }
 
 }

@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Commands;
 
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Console\Command;
 
 class InstallCommand extends Command {

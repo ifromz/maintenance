@@ -39,9 +39,4 @@ abstract class AbstractListener
 
     }
 
-    private function getNotifiableUsers($id)
-    {
-        
-    }
-
 }

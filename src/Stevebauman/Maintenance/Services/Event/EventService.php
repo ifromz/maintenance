@@ -15,6 +15,28 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class EventService extends BaseModelService
 {
 
+    /**
+     * @var GoogleEventService
+     */
+    public $eventApi;
+
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @var LocationService
+     */
+    protected $location;
+
+    /**
+     * @param Event $model
+     * @param GoogleEventService $google
+     * @param SentryService $sentry
+     * @param LocationService $location
+     * @param EventNotFoundException $notFoundException
+     */
     public function __construct(
         Event $model,
         GoogleEventService $google,
@@ -48,7 +70,8 @@ class EventService extends BaseModelService
      * Returns a collection of all API events
      *
      * @param array $apiIds
-     * @return collection
+     * @param bool $recurrences
+     * @return mixed|\Stevebauman\EloquentTable\TableCollection
      */
     public function getApiEvents($apiIds = array(), $recurrences = false)
     {
@@ -67,7 +90,7 @@ class EventService extends BaseModelService
      * Returns recurrences from the specified API ID
      *
      * @param string $api_id
-     * @return object
+     * @return mixed
      */
     public function getRecurrencesByApiId($api_id)
     {
@@ -76,12 +99,12 @@ class EventService extends BaseModelService
         return $recurrences;
     }
 
+
     /**
      * Retrieves and returns an API event by it's API ID
      *
      * @param string $api_id
-     * @return object
-     * @throws EventNotFoundException
+     * @return mixed
      */
     public function findByApiId($api_id)
     {
@@ -110,6 +133,9 @@ class EventService extends BaseModelService
 
     /**
      * Creates a local recurrence from the specified parent event
+     *
+     * @param $event
+     * @return mixed
      */
     public function createRecurrence($event)
     {
@@ -149,8 +175,7 @@ class EventService extends BaseModelService
      * Retrieves the local database record of the API event
      *
      * @param string $api_id
-     * @return object
-     * @throws EventNotFoundException
+     * @return mixed
      */
     public function findLocalByApiId($api_id)
     {
@@ -172,7 +197,7 @@ class EventService extends BaseModelService
      * attaching it to whatever created it along with inserting
      * the google event ID
      *
-     * @return mixed (boolean OR object)
+     * @return mixed
      */
     public function create()
     {
@@ -231,11 +256,12 @@ class EventService extends BaseModelService
         return false;
     }
 
+
     /**
      * Updates an event by the specified API ID
      *
      * @param string $api_id
-     * @return \Stevebauman\CalendarHelper\Objects\Event
+     * @return bool
      */
     public function updateByApiId($api_id)
     {
@@ -257,8 +283,8 @@ class EventService extends BaseModelService
     /**
      * Updates the specified event dates
      *
-     * @param string $api_id
-     * @return \Stevebauman\CalendarHelper\Objects\Event
+     * @param $api_id
+     * @return mixed
      */
     public function updateDates($api_id)
     {
@@ -269,8 +295,8 @@ class EventService extends BaseModelService
      * Removes event from the local database calendar and then removes it from
      * the API calendar
      *
-     * @param string $api_id
-     * @return boolean
+     * @param $api_id
+     * @return mixed
      */
     public function destroyByApiId($api_id)
     {
@@ -283,8 +309,7 @@ class EventService extends BaseModelService
      * Removes local events from the database if the status is cancelled on the
      * API service
      *
-     * @param array $events
-     * @return void
+     * @param $events
      */
     public function sync($events)
     {
@@ -303,8 +328,8 @@ class EventService extends BaseModelService
      * Parses a google collection of events into an array of events compatible
      * with FullCalendar
      *
-     * @param collection $events
-     * @return type
+     * @param $events
+     * @return array
      */
     public function parseEvents($events)
     {

@@ -127,7 +127,7 @@ class MeterController extends BaseController {
             $data = $this->inputAll();
             $data['asset_id'] = $asset->id;
             
-            $this->meter->setInput($this->inputAll())->update($meter_id);
+            $this->meter->setInput($data)->update($meter_id);
             
             $this->message = 'Successfully updated meter';
             $this->messageType = 'success';

@@ -14,7 +14,7 @@ class InventoryController extends BaseController {
     
     public function index()
     {
-        $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter($archived = true);
+        $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter(true);
         
         return view('maintenance::admin.archive.inventory.index', array(
             'title' => 'Archived Inventory Items',

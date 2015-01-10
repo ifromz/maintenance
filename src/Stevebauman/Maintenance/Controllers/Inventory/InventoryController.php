@@ -6,7 +6,21 @@ use Stevebauman\Maintenance\Validators\InventoryValidator;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
+/**
+ * Class InventoryController
+ * @package Stevebauman\Maintenance\Controllers\Inventory
+ */
 class InventoryController extends BaseController {
+
+    /**
+     * @var InventoryService
+     */
+    protected $inventory;
+
+    /**
+     * @var InventoryValidator
+     */
+    protected $inventoryValidator;
 
     public function __construct(InventoryService $inventory, InventoryValidator $inventoryValidator)
     {

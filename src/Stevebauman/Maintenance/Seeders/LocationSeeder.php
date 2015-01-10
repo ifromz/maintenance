@@ -5,11 +5,20 @@ namespace Stevebauman\Maintenance\Seeders;
 use Stevebauman\Maintenance\Services\LocationService;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class LocationSeeder
+ * @package Stevebauman\Maintenance\Seeders
+ */
 class LocationSeeder extends Seeder {
 
-    public function __construct()
-    {
+    /**
+     * @var LocationService
+     */
+    protected $location;
 
+    public function __construct(LocationService $location)
+    {
+        $this->location = $location;
     }
 
 }

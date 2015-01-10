@@ -35,7 +35,7 @@ class MetricController extends BaseController {
     {
         if($this->metricValidator->passes()) {
             
-            $metric = $this->metric->setInput($this->inputAll())->create();
+            $this->metric->setInput($this->inputAll())->create();
             
             $this->message = 'Successfully created metric.';
             $this->messageType = 'success';
@@ -63,7 +63,7 @@ class MetricController extends BaseController {
     {
         if($this->metricValidator->passes()) {
             
-            $metric = $this->metric->setInput($this->inputAll())->update($id);
+            $this->metric->setInput($this->inputAll())->update($id);
             
             $this->message = 'Successfully updated metric.';
             $this->messageType = 'success';

@@ -14,7 +14,7 @@ class WorkOrderController extends BaseController {
     
     public function index()
     {
-        $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter($archived = true);
+        $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter(true);
         
         return view('maintenance::admin.archive.work-orders.index', array(
             'title' => 'Archived Work Orders',
