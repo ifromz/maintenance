@@ -4,13 +4,13 @@
  * Attachment Routes
  */
 
-Route::resource('attachments', 'AttachmentController', 
+Route::resource('attachments', 'AttachmentController',
     array(
         'only' => array(
-                'destroy'
+            'destroy'
         ),
         'names' => array(
-                'destroy' => 'maintenace.attachments.destroy',
+            'destroy' => 'maintenace.attachments.destroy',
         ),
     )
 );

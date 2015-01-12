@@ -4,7 +4,7 @@
  * Registration Routes
  */
 
-Route::group(array('prefix'=>'register', 'namespace'=>'Controllers'), function(){
+Route::group(array('prefix' => 'register', 'namespace' => 'Controllers'), function () {
     Route::get('', array(
         'as' => 'maintenance.register',
         'uses' => 'AuthController@getRegister',

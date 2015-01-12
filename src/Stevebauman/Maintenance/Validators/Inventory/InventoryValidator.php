@@ -2,14 +2,15 @@
 
 use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class InventoryValidator extends BaseValidator {
-    
+class InventoryValidator extends BaseValidator
+{
+
     protected $rules = array(
-            'name' => 'required|max:250',
-            'description' => 'max:1000',
-            'inventory_category' => 'required',
-            'inventory_category_id' => 'integer',
-            'metric' => 'required|integer'
-	);
-    
+        'name' => 'required|max:250',
+        'description' => 'max:1000',
+        'category' => 'required',
+        'category_id' => 'integer',
+        'metric' => 'required|integer'
+    );
+
 }

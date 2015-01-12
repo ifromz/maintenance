@@ -20,7 +20,7 @@ class CreateWorkOrderTables extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->integer('user_id')->unsigned();
-            $table->integer('work_order_category_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned()->nullable();
             $table->integer('location_id')->unsigned()->nullable();
             $table->integer('status_id')->unsigned();
             $table->integer('priority_id')->unsigned();
@@ -37,7 +37,7 @@ class CreateWorkOrderTables extends Migration
                 ->onUpdate('restrict')
                 ->onDelete('set null');
 
-            $table->foreign('work_order_category_id')->references('id')->on('work_order_categories')
+            $table->foreign('category_id')->references('id')->on('categories')
                 ->onUpdate('restrict')
                 ->onDelete('set null');
 

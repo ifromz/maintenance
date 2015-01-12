@@ -44,7 +44,7 @@ class WorkOrderService extends BaseModelService
             ->assets($this->getInput('assets'))
             ->description($this->getInput('description'))
             ->status($this->getInput('status'))
-            ->category($this->getInput('work_order_category_id'))
+            ->category($this->getInput('category_id'))
             ->sort($this->getInput('field'), $this->getInput('sort'))
             ->archived($archived)
             ->paginate(25);
@@ -70,7 +70,7 @@ class WorkOrderService extends BaseModelService
 
             $insert = array(
                 'user_id' => $this->sentry->getCurrentUserId(),
-                'work_order_category_id' => $this->getInput('work_order_category_id'),
+                'category_id' => $this->getInput('category_id'),
                 'location_id' => $this->getInput('location_id'),
                 'status_id' => $this->getInput('status'),
                 'priority_id' => $this->getInput('priority'),
@@ -112,7 +112,7 @@ class WorkOrderService extends BaseModelService
             $record = $this->find($id);
 
             $insert = array(
-                'work_order_category_id' => $this->getInput('work_order_category_id', $record->work_order_category_id),
+                'category_id' => $this->getInput('category_id', $record->category_id),
                 'location_id' => $this->getInput('location_id', $record->location_id),
                 'status_id' => $this->getInput('status', $record->status->id),
                 'priority_id' => $this->getInput('priority', $record->priority->id),

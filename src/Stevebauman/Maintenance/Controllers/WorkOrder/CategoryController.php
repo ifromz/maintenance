@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Controllers\BaseNestedSetController;
 use Stevebauman\Maintenance\Services\WorkOrder\CategoryService;
 use Stevebauman\Maintenance\Validators\WorkOrderCategoryValidator;
+use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
 
-class CategoryController extends BaseNestedSetController {
+class CategoryController extends AbstractNestedSetController {
 	
 	public function __construct(CategoryService $categoryService, WorkOrderCategoryValidator $categoryValidator){
 		$this->service = $categoryService;

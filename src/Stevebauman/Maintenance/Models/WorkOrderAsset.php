@@ -2,8 +2,9 @@
 
 use Stevebauman\Maintenance\Models\BaseModel;
 
-class WorkOrderAsset extends BaseModel {
-	
-	protected $table = 'work_order_assets';
-	
+class WorkOrderAsset extends BaseModel
+{
+
+    protected $table = 'work_order_assets';
+
 }

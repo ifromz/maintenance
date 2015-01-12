@@ -66,7 +66,7 @@ class InventoryService extends BaseModelService
              * Set input data
              */
             $insert = array(
-                'inventory_category_id' => $this->getInput('inventory_category_id'),
+                'category_id' => $this->getInput('category_id'),
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'metric_id' => $this->getInput('metric'),
                 'name' => $this->getInput('name', NULL, true),
@@ -128,7 +128,7 @@ class InventoryService extends BaseModelService
              * Set update data
              */
             $insert = array(
-                'inventory_category_id' => $this->getInput('inventory_category_id'),
+                'category_id' => $this->getInput('category_id', $record->category_id),
                 'metric_id' => $this->getInput('metric'),
                 'name' => $this->getInput('name', $record->name, true),
                 'description' => $this->getInput('description', $record->description, true),

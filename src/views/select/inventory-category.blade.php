@@ -1,7 +1,7 @@
 <div class="input-group">
 
-    {{ Form::text('inventory_category', (isset($category_name) ? $category_name : NULL), array('readonly', 'class'=>'form-control', 'placeholder'=>"Click 'Select'")) }}
-    {{ Form::hidden('inventory_category_id', (isset($category_id) ? $category_id : NULL)) }}
+    {{ Form::text('category', (isset($category_name) ? $category_name : NULL), array('readonly', 'class'=>'form-control', 'placeholder'=>"Click 'Select'")) }}
+    {{ Form::hidden('category_id', (isset($category_id) ? $category_id : NULL)) }}
 
     <span class="input-group-btn">
     	<button class="btn btn-primary" data-toggle="modal" data-target="#inventoryCategoryModal" type="button">Select
@@ -50,8 +50,8 @@
                     $('#inventory-category-select').attr('disabled', false);
 
                     for (i = 0, j = data.selected.length; i < j; i++) {
-                        $('input[name="inventory_category_id"]').attr('value', data.instance.get_node(data.selected[i]).id);
-                        $('input[name="inventory_category"]').attr('value', $.trim(data.instance.get_node(data.selected[i]).text));
+                        $('input[name="category_id"]').attr('value', data.instance.get_node(data.selected[i]).id);
+                        $('input[name="category"]').attr('value', $.trim(data.instance.get_node(data.selected[i]).text));
                     }
                 }).jstree({
                     "plugins": ["core", "json_data", "themes", "ui"],
@@ -60,7 +60,7 @@
                         'check_callback': true
                     }
                 }).bind("loaded.jstree", function (event, data) {
-                    $(this).jstree('select_node', $('input[name="inventory_category_id"]').val());
+                    $(this).jstree('select_node', $('input[name="category_id"]').val());
                     $(this).jstree("open_all");
                 });
             }

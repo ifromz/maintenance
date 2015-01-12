@@ -2,20 +2,19 @@
 
 namespace Stevebauman\Maintenance\Services\Inventory;
 
-use Stevebauman\Maintenance\Models\InventoryCategory;
-use Stevebauman\Maintenance\Services\BaseNestedSetModelService;
+use Stevebauman\Maintenance\Exceptions\InventoryCategoryNotFoundException;
+use Stevebauman\Maintenance\Models\Category;
+use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 
-class CategoryService extends BaseNestedSetModelService
+class CategoryService extends BaseCategoryService
 {
 
-    public function __construct(InventoryCategory $inventoryCategory)
+    protected $scoped_id = 'inventories';
+
+    public function __construct(Category $inventoryCategory, InventoryCategoryNotFoundException $notFoundException)
     {
         $this->model = $inventoryCategory;
-    }
-
-    public function roots()
-    {
-        return $this->model->roots()->get();
+        $this->notFoundException = $notFoundException;
     }
 
 }

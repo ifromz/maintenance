@@ -5,6 +5,6 @@
  */
 
 Route::get('/', array(
-        'as' => 'maintenance.dashboard.index',
-        'uses'=>'MaintenanceController@getIndex',
+    'as' => 'maintenance.dashboard.index',
+    'uses' => 'MaintenanceController@getIndex',
 ));

@@ -2,8 +2,9 @@
 
 use Stevebauman\Maintenance\Models\BaseModel;
 
-class WorkOrderAttachment extends BaseModel {
-	
-	protected $table = 'work_order_attachment';
-	
+class WorkOrderAttachment extends BaseModel
+{
+
+    protected $table = 'work_order_attachment';
+
 }

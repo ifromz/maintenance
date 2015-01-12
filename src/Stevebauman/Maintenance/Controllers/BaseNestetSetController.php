@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\CoreHelper\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
 
 class BaseNestedSetController extends AbstractNestedSetController {
     

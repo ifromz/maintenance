@@ -7,7 +7,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class BaseModel extends Eloquent {
+class BaseModel extends Eloquent
+{
 
     /*
      * Provides easy table generation
@@ -59,7 +60,7 @@ class BaseModel extends Eloquent {
      */
     public function getLimitedDescriptionAttribute()
     {
-        if(array_key_exists('description', $this->attributes)) {
+        if (array_key_exists('description', $this->attributes)) {
 
             /*
              * Strip tags due to HTML formatting that may be inside the discription
@@ -72,38 +73,15 @@ class BaseModel extends Eloquent {
     }
 
     /**
-     *
-     *
-     * @param string $string
-     * @return boolean OR array
-     */
-    protected function getOperator($string)
-    {
-        $allowed_operators = array('>', '<', '=', '>=', '<=');
-        $output = preg_split("/[\[\]]/", $string);
-
-        if(is_array($output)){
-            if(array_key_exists('1', $output) && array_key_exists('2', $output)){
-                if(in_array($output[1], $allowed_operators)){
-                    return array($output[1], $output[2]);
-                }
-            } else{
-                return $output;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Allows all tables extending from the base model to be scoped by ID
      *
      * @param object $query
-     * @param integer/string $id
+     * @param integer /string $id
      * @return object
      */
     public function scopeId($query, $id = NULL)
     {
-        if($id){
+        if ($id) {
             return $query->where('id', $id);
         }
     }
@@ -117,7 +95,7 @@ class BaseModel extends Eloquent {
      */
     public function scopeArchived($query, $archived = false)
     {
-        if($archived){
+        if ($archived) {
             return $query->onlyTrashed();
         }
     }
@@ -151,12 +129,13 @@ class BaseModel extends Eloquent {
      * @param string $sort
      * @return object
      */
-    public function scopeSort($query, $field = NULL, $sort = NULL){
+    public function scopeSort($query, $field = NULL, $sort = NULL)
+    {
 
         /*
          * Make sure both the field and sort variables are present
          */
-        if($field && $sort){
+        if ($field && $sort) {
 
             /*
              * Retrieve all column names for the current model table
@@ -166,12 +145,12 @@ class BaseModel extends Eloquent {
             /*
              * Make sure the field inputted is available on the current table
              */
-            if(in_array($field, $columns)){
+            if (in_array($field, $columns)) {
 
                 /*
                  * Make sure the sort input is equal to asc or desc
                  */
-                if($sort === 'asc' || $sort === 'desc'){
+                if ($sort === 'asc' || $sort === 'desc') {
                     /*
                      * Return the query sorted
                      */
@@ -195,5 +174,28 @@ class BaseModel extends Eloquent {
     public function getCurrentTable()
     {
         return $this->table;
+    }
+
+    /**
+     *
+     *
+     * @param string $string
+     * @return boolean OR array
+     */
+    protected function getOperator($string)
+    {
+        $allowed_operators = array('>', '<', '=', '>=', '<=');
+        $output = preg_split("/[\[\]]/", $string);
+
+        if (is_array($output)) {
+            if (array_key_exists('1', $output) && array_key_exists('2', $output)) {
+                if (in_array($output[1], $allowed_operators)) {
+                    return array($output[1], $output[2]);
+                }
+            } else {
+                return $output;
+            }
+        }
+        return false;
     }
 }

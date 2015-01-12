@@ -1,17 +1,20 @@
-<?php namespace  Stevebauman\Maintenance\Models;
+<?php namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Stevebauman\Maintenance\Traits\HasCategory;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
 use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
-class Asset extends BaseModel {
+class Asset extends BaseModel
+{
 
     use SoftDeletingTrait;
     use HasUserTrait;
     use HasEventsTrait;
     use HasLocationTrait;
+    use HasCategory;
 
     protected $table = 'assets';
 
@@ -20,7 +23,7 @@ class Asset extends BaseModel {
     protected $fillable = array(
         'user_id',
         'location_id',
-        'asset_category_id',
+        'category_id',
         'name',
         'condition',
         'size',
@@ -35,25 +38,20 @@ class Asset extends BaseModel {
     );
 
     protected $revisionFormattedFieldNames = array(
-        'location_id'   => 'Location',
-        'asset_category_id'   => 'Category',
-        'name'          => 'Name',
-        'condition'     => 'Condition',
-        'size'          => 'Size',
-        'weight'        => 'Weight',
-        'vendor'        => 'Vendor',
-        'make'          => 'Make',
-        'model'         => 'Model',
-        'serial'        => 'Serial',
-        'price'         => 'Price',
-        'aquired_at'    => 'Aquired At',
-        'end_of_life'   => 'End of Life',
+        'location_id' => 'Location',
+        'category_id' => 'Category',
+        'name' => 'Name',
+        'condition' => 'Condition',
+        'size' => 'Size',
+        'weight' => 'Weight',
+        'vendor' => 'Vendor',
+        'make' => 'Make',
+        'model' => 'Model',
+        'serial' => 'Serial',
+        'price' => 'Price',
+        'aquired_at' => 'Aquired At',
+        'end_of_life' => 'End of Life',
     );
-
-    public function category()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\AssetCategory', 'id', 'asset_category_id');
-    }
 
     public function images()
     {
@@ -80,8 +78,8 @@ class Asset extends BaseModel {
      */
     public function scopeName($query, $name = NULL)
     {
-        if($name){
-            return $query->where('name', 'LIKE', '%'.$name.'%');
+        if ($name) {
+            return $query->where('name', 'LIKE', '%' . $name . '%');
         }
     }
 
@@ -90,32 +88,8 @@ class Asset extends BaseModel {
      */
     public function scopeCondition($query, $condition = NULL)
     {
-        if($condition){
-            return $query->where('condition', 'LIKE', '%'.$condition.'%');
-        }
-    }
-
-    /*
-     * Filters query by the inputted asset category
-     */
-    public function scopeCategory($query, $category = NULL)
-    {
-        if($category){
-            $query->whereHas('category', function($query) use($category){
-                return $query->where('id', $category);
-            });
-        }
-    }
-
-    /*
-     * Filters query by the inputted asset location
-     */
-    public function scopeLocation($query, $location = NULL)
-    {
-        if($location){
-            $query->whereHas('location', function($query) use($location){
-                return $query->where('name', 'LIKE', '%'.$location.'%');
-            });
+        if ($condition) {
+            return $query->where('condition', 'LIKE', '%' . $condition . '%');
         }
     }
 
@@ -125,7 +99,7 @@ class Asset extends BaseModel {
      */
     public function getConditionAttribute($attr)
     {
-        return trans(sprintf('maintenance::assets.conditions.%s',$attr));
+        return trans(sprintf('maintenance::assets.conditions.%s', $attr));
     }
 
     public function getConditionNumberAttribute()

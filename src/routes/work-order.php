@@ -4,7 +4,7 @@
  * Work Order Routes
  */
 
-Route::group(array('namespace'=>'WorkOrder'), function(){
+Route::group(array('namespace' => 'WorkOrder'), function () {
 
     Route::get('work-orders/assigned', array(
         'as' => 'maintenance.work-orders.assigned.index',
@@ -20,14 +20,14 @@ Route::group(array('namespace'=>'WorkOrder'), function(){
             'update',
             'destroy',
         ),
-        'names'=> array(
-            'index'     => 'maintenance.work-orders.priorities.index',
-            'create'  	=> 'maintenance.work-orders.priorities.create',
-            'store'   	=> 'maintenance.work-orders.priorities.store',
-            'show'    	=> 'maintenance.work-orders.priorities.show',
-            'edit'    	=> 'maintenance.work-orders.priorities.edit',
-            'update'  	=> 'maintenance.work-orders.priorities.update',
-            'destroy' 	=> 'maintenance.work-orders.priorities.destroy',
+        'names' => array(
+            'index' => 'maintenance.work-orders.priorities.index',
+            'create' => 'maintenance.work-orders.priorities.create',
+            'store' => 'maintenance.work-orders.priorities.store',
+            'show' => 'maintenance.work-orders.priorities.show',
+            'edit' => 'maintenance.work-orders.priorities.edit',
+            'update' => 'maintenance.work-orders.priorities.update',
+            'destroy' => 'maintenance.work-orders.priorities.destroy',
         ),
     ));
 
@@ -40,50 +40,50 @@ Route::group(array('namespace'=>'WorkOrder'), function(){
             'update',
             'destroy',
         ),
-        'names'=> array(
-            'index'         => 'maintenance.work-orders.statuses.index',
-            'create'  	=> 'maintenance.work-orders.statuses.create',
-            'store'   	=> 'maintenance.work-orders.statuses.store',
-            'show'    	=> 'maintenance.work-orders.statuses.show',
-            'edit'    	=> 'maintenance.work-orders.statuses.edit',
-            'update'  	=> 'maintenance.work-orders.statuses.update',
-            'destroy' 	=> 'maintenance.work-orders.statuses.destroy',
+        'names' => array(
+            'index' => 'maintenance.work-orders.statuses.index',
+            'create' => 'maintenance.work-orders.statuses.create',
+            'store' => 'maintenance.work-orders.statuses.store',
+            'show' => 'maintenance.work-orders.statuses.show',
+            'edit' => 'maintenance.work-orders.statuses.edit',
+            'update' => 'maintenance.work-orders.statuses.update',
+            'destroy' => 'maintenance.work-orders.statuses.destroy',
         ),
     ));
 
     Route::get('work-orders/categories/json', array(
-                    'as' => 'maintenance.work-orders.categories.json',
-                    'uses' => 'CategoryController@getJson',
-            )
+            'as' => 'maintenance.work-orders.categories.json',
+            'uses' => 'CategoryController@getJson',
+        )
     );
 
     Route::get('work-orders/categories/create/{categories?}', array(
-                    'as' => 'maintenance.work-orders.categories.nodes.create',
-                    'uses' => 'CategoryController@create',
-            )
+            'as' => 'maintenance.work-orders.categories.nodes.create',
+            'uses' => 'CategoryController@create',
+        )
     );
 
     Route::post('work-orders/categories/move/{categories?}', array(
-            'as' => 'maintenance.work-orders.categories.nodes.move',
-            'uses'=> 'CategoryController@postMoveCategory'
+        'as' => 'maintenance.work-orders.categories.nodes.move',
+        'uses' => 'CategoryController@postMoveCategory'
     ));
 
     Route::post('work-orders/categories/create/{categories?}', array(
-                    'as' => 'maintenance.work-orders.categories.nodes.store',
-                    'uses' => 'CategoryController@store',
-            )
+            'as' => 'maintenance.work-orders.categories.nodes.store',
+            'uses' => 'CategoryController@store',
+        )
     );
 
     Route::resource('work-orders/categories', 'CategoryController', array(
-            'names'=> array(
-                    'index'	=> 'maintenance.work-orders.categories.index',
-                    'create'  	=> 'maintenance.work-orders.categories.create',
-                    'store'   	=> 'maintenance.work-orders.categories.store',
-                    'show'    	=> 'maintenance.work-orders.categories.show',
-                    'edit'    	=> 'maintenance.work-orders.categories.edit',
-                    'update'  	=> 'maintenance.work-orders.categories.update',
-                    'destroy' 	=> 'maintenance.work-orders.categories.destroy',
-            ),
+        'names' => array(
+            'index' => 'maintenance.work-orders.categories.index',
+            'create' => 'maintenance.work-orders.categories.create',
+            'store' => 'maintenance.work-orders.categories.store',
+            'show' => 'maintenance.work-orders.categories.show',
+            'edit' => 'maintenance.work-orders.categories.edit',
+            'update' => 'maintenance.work-orders.categories.update',
+            'destroy' => 'maintenance.work-orders.categories.destroy',
+        ),
     ));
 
 
@@ -111,18 +111,18 @@ Route::group(array('namespace'=>'WorkOrder'), function(){
         'only' => array(
             'create',
             'store',
-            'show', 
-            'edit',  
-            'update', 
+            'show',
+            'edit',
+            'update',
             'destroy',
         ),
-        'names'=> array(
-            'create'        => 'maintenance.work-orders.report.create',
-            'store'   	=> 'maintenance.work-orders.report.store',
-            'show'    	=> 'maintenance.work-orders.report.show',
-            'edit'    	=> 'maintenance.work-orders.report.edit',
-            'update'  	=> 'maintenance.work-orders.report.update',
-            'destroy' 	=> 'maintenance.work-orders.report.destroy',
+        'names' => array(
+            'create' => 'maintenance.work-orders.report.create',
+            'store' => 'maintenance.work-orders.report.store',
+            'show' => 'maintenance.work-orders.report.show',
+            'edit' => 'maintenance.work-orders.report.edit',
+            'update' => 'maintenance.work-orders.report.update',
+            'destroy' => 'maintenance.work-orders.report.destroy',
         ),
     ));
 
@@ -133,14 +133,14 @@ Route::group(array('namespace'=>'WorkOrder'), function(){
     |--------------------------------------------------------------------------
     */
     Route::resource('work-orders', 'WorkOrderController', array(
-        'names'=> array(
-            'index'         => 'maintenance.work-orders.index',
-            'create'  	=> 'maintenance.work-orders.create',
-            'store'   	=> 'maintenance.work-orders.store',
-            'show'    	=> 'maintenance.work-orders.show',
-            'edit'    	=> 'maintenance.work-orders.edit',
-            'update'  	=> 'maintenance.work-orders.update',
-            'destroy' 	=> 'maintenance.work-orders.destroy',
+        'names' => array(
+            'index' => 'maintenance.work-orders.index',
+            'create' => 'maintenance.work-orders.create',
+            'store' => 'maintenance.work-orders.store',
+            'show' => 'maintenance.work-orders.show',
+            'edit' => 'maintenance.work-orders.edit',
+            'update' => 'maintenance.work-orders.update',
+            'destroy' => 'maintenance.work-orders.destroy',
         ),
     ));
 
@@ -151,7 +151,7 @@ Route::group(array('namespace'=>'WorkOrder'), function(){
     |--------------------------------------------------------------------------
     */
 
-    Route::group(array('namespace'=>'Update'), function(){
+    Route::group(array('namespace' => 'Update'), function () {
 
         Route::post('work-orders/{work_orders}/updates/customer', array(
             'uses' => 'CustomerUpdateController@store',
@@ -200,8 +200,8 @@ Route::group(array('namespace'=>'WorkOrder'), function(){
     | Maintenance Work Order Part / Supply Routes
     |--------------------------------------------------------------------------
     */
-    Route::group(array('namespace'=>'Part'), function(){
-        
+    Route::group(array('namespace' => 'Part'), function () {
+
         Route::get('work-orders/{work_orders}/parts', array(
             'uses' => 'PartController@index',
             'as' => 'maintenance.work-orders.parts.index'
@@ -232,41 +232,41 @@ Route::group(array('namespace'=>'WorkOrder'), function(){
             'as' => 'maintenance.work-orders.parts.stocks.put-back-some',
             'uses' => 'StockController@postPutBackSome'
         ));
-        
+
     });
 
     /*
      * Work Order Attachment Upload Routes
      */
-    Route::group(array('namespace'=>'Attachment'), function(){
-        
+    Route::group(array('namespace' => 'Attachment'), function () {
+
         Route::post('work-orders/attachments/uploads', array(
             'as' => 'maintenance.work-orders.attachments.uploads.store',
             'uses' => 'UploadController@store'
         ));
 
         Route::post('work-orders/attachments/uploads/destroy', array(
-                'as' => 'maintenance.work-orders.attachments.uploads.destroy',
-                'uses' => 'UploadController@store@destroy'
+            'as' => 'maintenance.work-orders.attachments.uploads.destroy',
+            'uses' => 'UploadController@store@destroy'
         ));
 
         Route::resource('work-orders.attachments', 'AttachmentController', array(
             'only' => array(
-                'index',	
-                'create', 
+                'index',
+                'create',
                 'store',
-                'show', 
+                'show',
                 'destroy'
             ),
             'names' => array(
-                'index'		=> 'maintenance.work-orders.attachments.index',
-                'create'  	=> 'maintenance.work-orders.attachments.create',
-                'store'   	=> 'maintenance.work-orders.attachments.store',
-                'show'    	=> 'maintenance.work-orders.attachments.show',
-                'destroy' 	=> 'maintenance.work-orders.attachments.destroy',
+                'index' => 'maintenance.work-orders.attachments.index',
+                'create' => 'maintenance.work-orders.attachments.create',
+                'store' => 'maintenance.work-orders.attachments.store',
+                'show' => 'maintenance.work-orders.attachments.show',
+                'destroy' => 'maintenance.work-orders.attachments.destroy',
             )
         ));
-        
+
     });
 
     Route::resource('work-orders.notifications', 'NotificationController', array(
@@ -282,13 +282,13 @@ Route::group(array('namespace'=>'WorkOrder'), function(){
 
     Route::resource('work-orders.events', 'EventController', array(
         'names' => array(
-            'index'     => 'maintenance.work-orders.events.index',
-            'create'  	=> 'maintenance.work-orders.events.create',
-            'store'   	=> 'maintenance.work-orders.events.store',
-            'show'    	=> 'maintenance.work-orders.events.show',
-            'edit'    	=> 'maintenance.work-orders.events.edit',
-            'update'  	=> 'maintenance.work-orders.events.update',
-            'destroy' 	=> 'maintenance.work-orders.events.destroy',
+            'index' => 'maintenance.work-orders.events.index',
+            'create' => 'maintenance.work-orders.events.create',
+            'store' => 'maintenance.work-orders.events.store',
+            'show' => 'maintenance.work-orders.events.show',
+            'edit' => 'maintenance.work-orders.events.edit',
+            'update' => 'maintenance.work-orders.events.update',
+            'destroy' => 'maintenance.work-orders.events.destroy',
         )
     ));
 

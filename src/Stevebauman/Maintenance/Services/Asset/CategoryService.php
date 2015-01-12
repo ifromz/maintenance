@@ -2,20 +2,19 @@
 
 namespace Stevebauman\Maintenance\Services\Asset;
 
-use Stevebauman\Maintenance\Models\AssetCategory;
-use Stevebauman\Maintenance\Services\BaseNestedSetModelService;
+use Stevebauman\Maintenance\Exceptions\AssetCategoryNotFoundException;
+use Stevebauman\Maintenance\Models\Category;
+use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 
-class CategoryService extends BaseNestedSetModelService
+class CategoryService extends BaseCategoryService
 {
 
-    public function __construct(AssetCategory $assetCategory)
-    {
-        $this->model = $assetCategory;
-    }
+    protected $scoped_id = 'assets';
 
-    public function roots()
+    public function __construct(Category $category, AssetCategoryNotFoundException $notFoundException)
     {
-        return $this->model->roots()->get();
+        $this->model = $category;
+        $this->notFoundException = $notFoundException;
     }
 
 }

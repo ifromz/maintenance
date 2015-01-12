@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssetCategoriesTable extends Migration
+class CreateCategoriesTable extends Migration
 {
 
     /**
@@ -13,7 +13,7 @@ class CreateAssetCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('asset_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
 
             $table->increments('id');
             $table->timestamps();
@@ -22,6 +22,7 @@ class CreateAssetCategoriesTable extends Migration
             $table->integer('rgt')->nullable()->index();
             $table->integer('depth')->nullable();
             $table->string('name');
+            $table->string('belongs_to');
 
         });
     }
@@ -33,7 +34,7 @@ class CreateAssetCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('asset_categories');
+        Schema::drop('categories');
     }
 
 }

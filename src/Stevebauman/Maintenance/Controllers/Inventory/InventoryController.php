@@ -10,7 +10,8 @@ use Stevebauman\Maintenance\Controllers\BaseController;
  * Class InventoryController
  * @package Stevebauman\Maintenance\Controllers\Inventory
  */
-class InventoryController extends BaseController {
+class InventoryController extends BaseController
+{
 
     /**
      * @var InventoryService
@@ -66,19 +67,19 @@ class InventoryController extends BaseController {
     {
         $this->inventoryValidator->unique('name', $this->inventory->getTableName(), 'name');
 
-        if($this->inventoryValidator->passes()) {
+        if ($this->inventoryValidator->passes()) {
 
             $record = $this->inventory->setInput($this->inputAll())->create();
 
-            if($record){
+            if ($record) {
                 $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', array($record->id)));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.inventory.index');
 
-            } else{
+            } else {
                 $this->message = 'There was an error adding this item to the inventory. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.index');
+                $this->redirect = route('maintenance.inventory.create');
             }
 
         } else {
@@ -92,7 +93,7 @@ class InventoryController extends BaseController {
     /**
      * Display the specified inventory
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Support\Facades\Response
      */
     public function show($id)
@@ -100,7 +101,7 @@ class InventoryController extends BaseController {
         $item = $this->inventory->find($id);
 
         return view('maintenance::inventory.show', array(
-            'title' => 'Viewing Inventory Item: '.$item->name,
+            'title' => 'Viewing Inventory Item: ' . $item->name,
             'item' => $item,
         ));
     }
@@ -109,7 +110,7 @@ class InventoryController extends BaseController {
     /**
      * Displays the edit form for the specified inventory
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Support\Facades\Response
      */
     public function edit($id)
@@ -117,7 +118,7 @@ class InventoryController extends BaseController {
         $item = $this->inventory->find($id);
 
         return view('maintenance::inventory.edit', array(
-            'title' => 'Editing Inventory Item: '.$item->name,
+            'title' => 'Editing Inventory Item: ' . $item->name,
             'item' => $item,
         ));
     }
@@ -126,23 +127,23 @@ class InventoryController extends BaseController {
     /**
      * Updates the specified inventory
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Support\Facades\Response
      */
     public function update($id)
     {
         $this->inventoryValidator->ignore('name', $this->inventory->getTableName(), 'name', $id);
 
-        if($this->inventoryValidator->passes()) {
+        if ($this->inventoryValidator->passes()) {
 
             $item = $this->inventory->setInput($this->inputAll())->update($id);
 
-            if($item){
+            if ($item) {
                 $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', array($item->id)));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.inventory.show', array($item->id));
 
-            } else{
+            } else {
                 $this->message = 'There was an error trying to update this item. Please try again.';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.inventory.edit', array($item->id));

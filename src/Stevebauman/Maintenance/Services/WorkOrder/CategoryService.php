@@ -3,13 +3,15 @@
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Stevebauman\Maintenance\Exceptions\WorkOrderCategoryNotFoundException;
-use Stevebauman\Maintenance\Services\BaseNestedSetModelService;
-use Stevebauman\Maintenance\Models\WorkOrderCategory;
+use Stevebauman\Maintenance\Models\Category;
+use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 
-class CategoryService extends BaseNestedSetModelService
+class CategoryService extends BaseCategoryService
 {
 
-    public function __construct(WorkOrderCategory $workOrderCategory, WorkOrderCategoryNotFoundException $notFoundException)
+    protected $scoped_id = 'work_orders';
+
+    public function __construct(Category $workOrderCategory, WorkOrderCategoryNotFoundException $notFoundException)
     {
         $this->model = $workOrderCategory;
         $this->notFoundException = $notFoundException;

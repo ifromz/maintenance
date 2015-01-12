@@ -24,7 +24,7 @@ class EventApi extends BaseApi
             'timeMax' => strToRfc3339($this->input('end')),
         );
 
-        $events = $this->event->parseEvents($this->event->setInput($data)->getApiEvents());
+        $events = $this->event->parseEvents($this->event->setInput($data)->get());
 
         return $this->responseJson($events);
     }
