@@ -2,10 +2,13 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class MeterReading extends BaseModel
 {
+
+    use HasUserTrait;
 
     protected $table = 'meter_readings';
 
@@ -15,10 +18,5 @@ class MeterReading extends BaseModel
         'reading',
         'comment',
     );
-
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
-    }
 
 }

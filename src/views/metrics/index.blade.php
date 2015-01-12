@@ -14,8 +14,7 @@
 @section('panel.head.content')
 
     <div class="btn-toolbar">
-        <a href="{{ route('maintenance.metrics.create') }}" class="btn btn-primary" data-toggle="tooltip"
-           title="Create a new Metric">
+        <a href="{{ route('maintenance.metrics.create') }}" class="btn btn-primary">
             <i class="fa fa-plus"></i>
             New Metric
         </a>

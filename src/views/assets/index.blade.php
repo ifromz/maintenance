@@ -24,8 +24,7 @@
 @section('panel.head.content')
 
     <div class="btn-toolbar">
-        <a href="{{ route('maintenance.assets.create') }}" class="btn btn-primary pull-left" data-toggle="tooltip"
-           title="Create a new Asset">
+        <a href="{{ route('maintenance.assets.create') }}" class="btn btn-primary pull-left">
             <i class="fa fa-plus"></i>
             New Asset
         </a>

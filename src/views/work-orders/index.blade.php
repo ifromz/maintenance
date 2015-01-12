@@ -23,8 +23,7 @@
 
 @section('panel.head.content')
     <div class="btn-toolbar">
-        <a href="{{ route('maintenance.work-orders.create') }}" class="btn btn-primary" data-toggle="tooltip"
-           title="Create a new Work Order">
+        <a href="{{ route('maintenance.work-orders.create') }}" class="btn btn-primary">
             <i class="fa fa-plus"></i>
             New Work Order
         </a>

@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Traits\HasCategory;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
@@ -11,6 +12,7 @@ class Inventory extends BaseModel
     use SoftDeletingTrait;
     use HasEventsTrait;
     use HasCategory;
+    use HasUserTrait;
 
     protected $table = 'inventories';
 
@@ -38,11 +40,6 @@ class Inventory extends BaseModel
     public function stocks()
     {
         return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStock', 'inventory_id')->orderBy('quantity', 'DESC');
-    }
-
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
     }
 
     /*

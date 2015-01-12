@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class InventoryStock extends BaseModel
@@ -23,11 +24,6 @@ class InventoryStock extends BaseModel
     public function item()
     {
         return $this->belongsTo('Stevebauman\Maintenance\Models\Inventory', 'inventory_id', 'id');
-    }
-
-    public function location()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');
     }
 
     public function movements()

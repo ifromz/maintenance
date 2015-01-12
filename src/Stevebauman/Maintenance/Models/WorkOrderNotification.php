@@ -2,10 +2,13 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class WorkOrderNotification extends BaseModel
 {
+
+    use HasUserTrait;
 
     protected $table = 'work_order_notifications';
 
@@ -19,11 +22,6 @@ class WorkOrderNotification extends BaseModel
         'technician_updates',
         'completion_report',
     );
-
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
-    }
 
     public function workOrder()
     {

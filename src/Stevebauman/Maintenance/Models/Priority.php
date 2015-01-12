@@ -2,10 +2,13 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Priority extends BaseModel
 {
+
+    use HasUserTrait;
 
     protected $table = 'priorities';
 
@@ -16,11 +19,6 @@ class Priority extends BaseModel
         'name',
         'color',
     );
-
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
-    }
 
     /**
      * Returns a pretty label of the work order priority

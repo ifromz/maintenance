@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Status extends BaseModel
@@ -16,11 +17,6 @@ class Status extends BaseModel
         'name',
         'color'
     );
-
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
-    }
 
     public function getLabelAttribute()
     {

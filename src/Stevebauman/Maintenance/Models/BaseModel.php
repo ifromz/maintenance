@@ -3,7 +3,10 @@
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Stevebauman\EloquentTable\TableTrait;
+use Stevebauman\Maintenance\Traits\HasEventsTrait;
+use Stevebauman\Maintenance\Traits\HasNotificationsTrait;
 use Venturecraft\Revisionable\RevisionableTrait;
+use Stevebauman\Maintenance\Traits\HasScopeIdTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -25,6 +28,10 @@ class BaseModel extends Eloquent
      * from this class
      */
     use RevisionableTrait;
+
+    use HasScopeIdTrait;
+    use HasEventsTrait;
+    use HasNotificationsTrait;
 
     /*
      * Tell revisionable to not keep a revision of deleted_at columns
@@ -73,20 +80,6 @@ class BaseModel extends Eloquent
     }
 
     /**
-     * Allows all tables extending from the base model to be scoped by ID
-     *
-     * @param object $query
-     * @param integer /string $id
-     * @return object
-     */
-    public function scopeId($query, $id = NULL)
-    {
-        if ($id) {
-            return $query->where('id', $id);
-        }
-    }
-
-    /**
      * Scopes a query to show only soft deleted records
      *
      * @param object $query
@@ -100,25 +93,7 @@ class BaseModel extends Eloquent
         }
     }
 
-    /**
-     * Allows all models extending from BaseModel to have notifications
-     *
-     * @return object
-     */
-    public function notifications()
-    {
-        return $this->morphMany('Stevebauman\Maintenance\Models\Notification', 'notifiable');
-    }
 
-    /**
-     * Allows all models extending from BaseModel to have evens
-     *
-     * @return object
-     */
-    public function events()
-    {
-        return $this->morphMany('Stevebauman\Maintenance\Models\Event', 'eventable');
-    }
 
     /**
      * Allows all columns on the current database table to be sorted through

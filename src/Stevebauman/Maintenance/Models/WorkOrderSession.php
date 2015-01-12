@@ -1,9 +1,12 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class WorkOrderSession extends BaseModel
 {
+
+    use HasUserTrait;
 
     protected $table = 'work_order_sessions';
 
@@ -18,11 +21,6 @@ class WorkOrderSession extends BaseModel
     public function workOrder()
     {
         return $this->hasOne('Stevebauman\Maintenanace\Models\WorkOrder', 'work_order_id');
-    }
-
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
     }
 
     public function getHoursAttribute()

@@ -1,6 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
-use Illuminate\Support\Facades\Config;
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Notification extends BaseModel
@@ -22,16 +22,11 @@ class Notification extends BaseModel
         return $this->morphTo();
     }
 
-    public function user()
-    {
-        return $this->belongsTo('Stevebauman\Maintenance\Models\User');
-    }
-
     public function getIconAttribute()
     {
         $class = $this->attributes['notifiable_type'];
 
-        if ($icon = Config::get("maintenance::notifications.icons.$class")) {
+        if ($icon = config("maintenance::notifications.icons.$class")) {
             return $icon;
         } else {
             return 'test';

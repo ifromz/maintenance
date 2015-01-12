@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Metric extends BaseModel
@@ -30,11 +31,6 @@ class Metric extends BaseModel
     public function identifiableName()
     {
         return $this->name;
-    }
-
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
     }
 
 }

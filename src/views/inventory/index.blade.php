@@ -23,8 +23,7 @@
 
 @section('panel.head.content')
     <div class="btn-toolbar">
-        <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip"
-           title="Add new Item to inventory">
+        <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary">
             <i class="fa fa-plus"></i>
             New Item
         </a>
@@ -39,7 +38,9 @@
 
     @if($items->count() > 0)
 
-        {{ $items->columns(array(
+        {{
+
+        $items->columns(array(
                     'id' => 'ID',
                     'name' => 'Name',
                     'category' => 'Category',

@@ -19,8 +19,7 @@
 
 @section('panel.head.content')
     <div class="btn-toolbar">
-        <a href="{{ route('maintenance.work-orders.priorities.create') }}" class="btn btn-primary" data-toggle="tooltip"
-           title="Create a new Priority">
+        <a href="{{ route('maintenance.work-orders.priorities.create') }}" class="btn btn-primary">
             <i class="fa fa-plus"></i>
             New Priority
         </a>

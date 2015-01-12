@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 class Update extends BaseModel
@@ -11,8 +12,4 @@ class Update extends BaseModel
 
     protected $fillable = array('user_id', 'content');
 
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
-    }
 }
