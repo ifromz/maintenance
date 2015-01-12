@@ -38,6 +38,8 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Better category management - Oct 15th 2014
 
 ###Features
+* Multiple full calendar support with Google Calendar API (using Google Calendar means easy synchronization with your phone)
+* Create events for inventory, work orders, assets and generic events
 * Infinite Category Management with Laravel [Baum](https://github.com/etrepat/baum) & [JsTree](https://github.com/vakata/jstree)
 * Dynamic Ajax Uploads for Attachments & Images with [Plupload](https://github.com/jildertmiedema/laravel-plupload)
 * LDAP Authentication with [Corp](https://github.com/stevebauman/Corp) Combined with [Sentry](https://github.com/cartalyst/sentry)
