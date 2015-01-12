@@ -42,7 +42,7 @@ abstract class AbstractEventableController extends BaseController {
 
         $events = $this->event->getApiEvents($eventable->events->lists('api_id'));
 
-        return view('maintenance::events.eventable.index', array(
+        return view('maintenance::events.eventables.index', array(
             'title' => 'Events',
             'eventable' => $eventable,
             'events' => $events,
@@ -57,7 +57,7 @@ abstract class AbstractEventableController extends BaseController {
     {
         $eventable = $this->eventable->find($eventable_id);
 
-        return view('maintenance::events.eventable.create', array(
+        return view('maintenance::events.eventables.create', array(
             'title' => 'Create Event',
             'eventable' => $eventable,
         ));
@@ -125,7 +125,7 @@ abstract class AbstractEventableController extends BaseController {
 
         $recurrences = $this->event->setInput($data)->getRecurrencesByApiId($api_id);
 
-        return view('maintenance::events.eventable.show', array(
+        return view('maintenance::events.eventables.show', array(
             'title' => 'Viewing Event: '.$event->title,
             'event' => $event,
             'localEvent' => $localEvent,
@@ -145,7 +145,7 @@ abstract class AbstractEventableController extends BaseController {
 
         $event = $this->event->findByApiId($api_id);
 
-        return view('maintenance::events.eventable.edit', array(
+        return view('maintenance::events.eventables.edit', array(
             'title' => sprintf('Editing event %s', $event->title),
             'eventable' => $eventable,
             'event' => $event,

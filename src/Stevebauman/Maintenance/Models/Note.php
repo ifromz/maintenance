@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Models\BaseModel;
 
-class Note
+class Note extends BaseModel
 {
 
     use HasUserTrait;
@@ -16,5 +16,20 @@ class Note
         'user_id',
         'content',
     );
+
+    public function assets()
+    {
+        return $this->morphedByMany('Stevebauman\Maintenance\Models\Asset', 'noteable')->withTimestamps();
+    }
+
+    public function inventories()
+    {
+        return $this->morphedByMany('Stevebauman\Maintenance\Models\Inventory', 'noteable')->withTimestamps();
+    }
+
+    public function workOrders()
+    {
+        return $this->morphedByMany('Stevebauman\Maintenance\Models\WorkOrder', 'noteable')->withTimestamps();
+    }
 
 }

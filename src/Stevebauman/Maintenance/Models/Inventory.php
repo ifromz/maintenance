@@ -1,5 +1,6 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasNotesTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Traits\HasCategory;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
@@ -13,6 +14,7 @@ class Inventory extends BaseModel
     use HasEventsTrait;
     use HasCategory;
     use HasUserTrait;
+    use HasNotesTrait;
 
     protected $table = 'inventories';
 

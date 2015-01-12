@@ -44,15 +44,15 @@ class AbstractNoteableController extends BaseController
 
             if ($note) {
 
+                $noteable->notes()->attach($note);
+
                 $this->message = 'Successfully created note';
                 $this->messageType = 'success';
-                $this->redirect = routeBack('');
 
             } else {
 
                 $this->message = 'There was an error creating a note, please try again later.';
                 $this->messageType = 'danger';
-                $this->redirect = '';
 
             }
 
