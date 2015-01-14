@@ -4,6 +4,7 @@
 A Preventative Maintenance Application (CMMS) for Laravel
 
 ##TO DO
+* Move work order management to separate package - IN PROGRESS
 * Localize all text into lang arrays
 * Robust notifications - IN PROGRESS
 * Robust reporting
@@ -18,7 +19,7 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Tests
 
 ##Done
-* Moved inventory management to seperate package - Jan 14th 2015
+* Moved inventory management to separate package - Jan 14th 2015
 * Assigned work orders view - Jan 9th 2015
 * Ability to assign users to events - Jan 8th 20155
 * Finish asset events with event reporting / other additions - Jan 8th 2015
