@@ -7,6 +7,10 @@ use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
+/**
+ * Class StockController
+ * @package Stevebauman\Maintenance\Controllers\Inventory
+ */
 class StockController extends BaseController
 {
 
@@ -20,8 +24,8 @@ class StockController extends BaseController
     /**
      * Displays all inventory stock entries
      *
-     * @param type $inventory_id
-     * @return type
+     * @param $inventory_id
+     * @return mixed
      */
     public function index($inventory_id)
     {
@@ -36,7 +40,8 @@ class StockController extends BaseController
     /**
      * Displays the form for creating a new stock entry for the inventory
      *
-     * @return Response
+     * @param $inventory_id
+     * @return mixed
      */
     public function create($inventory_id)
     {
@@ -49,11 +54,11 @@ class StockController extends BaseController
 
     }
 
-
     /**
      * Create a new stock entry for the inventory
      *
-     * @return Response
+     * @param $inventory_id
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function store($inventory_id)
     {
@@ -86,12 +91,12 @@ class StockController extends BaseController
         return $this->response();
     }
 
-
     /**
      * Displays the specified stock entry for the specified inventory
      *
-     * @param  int $id
-     * @return Response
+     * @param $inventory_id
+     * @param $stock_id
+     * @return mixed
      */
     public function show($inventory_id, $stock_id)
     {
@@ -107,12 +112,12 @@ class StockController extends BaseController
 
     }
 
-
     /**
      * Displays the edit form for the specified stock for the specified inventory
      *
-     * @param  int $id
-     * @return Response
+     * @param $inventory_id
+     * @param $stock_id
+     * @return mixed
      */
     public function edit($inventory_id, $stock_id)
     {
@@ -127,12 +132,12 @@ class StockController extends BaseController
         ));
     }
 
-
     /**
      * Updates the specified stock for the specified inventory
      *
-     * @param  int $id
-     * @return Response
+     * @param $inventory_id
+     * @param $stock_id
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function update($inventory_id, $stock_id)
     {
@@ -160,12 +165,12 @@ class StockController extends BaseController
         return $this->response();
     }
 
-
     /**
      * Removes the specified stock from the specified inventory
      *
-     * @param  int $id
-     * @return Response
+     * @param $inventory_id
+     * @param $stock_id
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($inventory_id, $stock_id)
     {

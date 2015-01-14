@@ -32,7 +32,7 @@ class InventoryController extends BaseController
     /**
      * Display all inventory entries (paginated with search functionality)
      *
-     * @return \Illuminate\Support\Facades\Response
+     * @return mixed
      */
     public function index()
     {
@@ -44,11 +44,10 @@ class InventoryController extends BaseController
         ));
     }
 
-
     /**
      * Show the form for creating an inventory
      *
-     * @return \Illuminate\Support\Facades\Response
+     * @return mixed
      */
     public function create()
     {
@@ -57,11 +56,10 @@ class InventoryController extends BaseController
         ));
     }
 
-
     /**
      * Store a new inventory
      *
-     * @return \Illuminate\Support\Facades\Response
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function store()
     {
@@ -89,12 +87,11 @@ class InventoryController extends BaseController
         return $this->response();
     }
 
-
     /**
      * Display the specified inventory
      *
-     * @param  int $id
-     * @return \Illuminate\Support\Facades\Response
+     * @param $id
+     * @return mixed
      */
     public function show($id)
     {
@@ -106,12 +103,11 @@ class InventoryController extends BaseController
         ));
     }
 
-
     /**
      * Displays the edit form for the specified inventory
      *
-     * @param  int $id
-     * @return \Illuminate\Support\Facades\Response
+     * @param $id
+     * @return mixed
      */
     public function edit($id)
     {
@@ -123,12 +119,11 @@ class InventoryController extends BaseController
         ));
     }
 
-
     /**
      * Updates the specified inventory
      *
-     * @param  int $id
-     * @return \Illuminate\Support\Facades\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function update($id)
     {
@@ -159,8 +154,8 @@ class InventoryController extends BaseController
     /**
      * Removes the specified inventory
      *
-     * @param int $id
-     * @return \Illuminate\Support\Facades\Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($id)
     {

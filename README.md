@@ -18,12 +18,13 @@ A Preventative Maintenance Application (CMMS) for Laravel
 * Tests
 
 ##Done
-* Assigned work orders view - Jan 9th 2014
-* Ability to assign users to events - Jan 8th 2014
-* Finish asset events with event reporting / other additions - Jan 8th 2014
-* Namespace and directory tweaks / modifications - Jan 8th 2014
-* Multiple calendar functionality - Jan 8th 2014
-* Installation Commands - Jan 7th 2014
+* Moved inventory management to seperate package - Jan 14th 2015
+* Assigned work orders view - Jan 9th 2015
+* Ability to assign users to events - Jan 8th 20155
+* Finish asset events with event reporting / other additions - Jan 8th 2015
+* Namespace and directory tweaks / modifications - Jan 8th 2015
+* Multiple calendar functionality - Jan 8th 2015
+* Installation Commands - Jan 7th 2015
 * Implement DB transactions for every service method - Nov 5th 2014
 * Add 'Put Back Some' option for work order parts/supplies Nov 4th 2014
 * User registration with public work order creation - Oct 28th 2014
