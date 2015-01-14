@@ -16,7 +16,7 @@ class StockMovementController extends BaseController {
         }
         
         /**
-         * Dispalys all the stock movement entries for the specified stock for the 
+         * Displays all the stock movement entries for the specified stock for the
          * specified inventory
          * 
          * @param type $inventory_id

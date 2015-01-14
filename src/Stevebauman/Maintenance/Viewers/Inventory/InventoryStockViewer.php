@@ -18,7 +18,7 @@ class InventoryStockViewer extends BaseViewer {
             'stock' => $this->entity,
         ));
     }
-    
+
     public function btnPutBackSomeForWorkOrder($workOrder)
     {
         return view('maintenance::viewers.inventory.stock.buttons.put-back-some-work-order', array(
@@ -26,7 +26,7 @@ class InventoryStockViewer extends BaseViewer {
             'stock' => $this->entity,
         ));
     }
-    
+
     public function btnPutBackAllForWorkOrder($workOrder)
     {
         return view('maintenance::viewers.inventory.stock.buttons.put-back-all-work-order', array(

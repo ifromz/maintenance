@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Handles inventory interactions
- *
- * @author Steve Bauman <sbauman@bwbc.gc.ca>
- */
-
 namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Exceptions\InventoryNotFoundException;
@@ -13,6 +7,10 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class InventoryService
+ * @package Stevebauman\Maintenance\Services\Inventory
+ */
 class InventoryService extends BaseModelService
 {
 

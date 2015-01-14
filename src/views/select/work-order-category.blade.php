@@ -4,8 +4,7 @@
     <span class="input-group-btn">
     	<button class="btn btn-primary" data-toggle="modal" data-target="#workOrderCategoryModal" type="button">Select
         </button>
-        <a href="{{ route('maintenance.work-orders.categories.index') }}" class="btn btn-default" data-toggle="tooltip"
-           data-title="Manage work order categories"> Manage</a>
+        <a href="{{ route('maintenance.work-orders.categories.index') }}" class="btn btn-default">Manage</a>
     </span>
 </div><!-- /input-group -->
 

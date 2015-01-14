@@ -15,7 +15,7 @@
                     })
                     ->hidden(array('last_movement', 'last_movement_by'))
                     ->render()
-        
+
         }}
 
     @else

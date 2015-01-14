@@ -2,14 +2,6 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Models\BaseCategoryModel;
+use Stevebauman\Inventory\Models\Location as BaseLocation;
 
-class Location extends BaseCategoryModel
-{
-
-    protected $table = 'locations';
-
-    protected $fillable = array(
-        'name',
-    );
-}
+class Location extends BaseLocation {}

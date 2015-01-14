@@ -2,21 +2,10 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Models\BaseCategoryModel;
+use Stevebauman\Inventory\Models\Category as BaseCategory;
 
 /**
  * Class Category
  * @package Stevebauman\Maintenance\Models
  */
-class Category extends BaseCategoryModel {
-
-    protected $table = 'categories';
-
-    protected $scoped = array('belongs_to');
-
-    protected $fillable = array(
-        'name',
-        'belongs_to',
-    );
-
-}
+class Category extends BaseCategory {}

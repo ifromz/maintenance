@@ -6,8 +6,7 @@
     <span class="input-group-btn">
     	<button class="btn btn-primary" data-toggle="modal" data-target="#inventoryCategoryModal" type="button">Select
         </button>
-        <a href="{{ route('maintenance.inventory.categories.index') }}" class="btn btn-default" data-toggle="tooltip"
-           data-title="Manage Categories"> Manage</a>
+        <a href="{{ route('maintenance.inventory.categories.index') }}" class="btn btn-default">Manage</a>
     </span>
 </div><!-- /input-group -->
 

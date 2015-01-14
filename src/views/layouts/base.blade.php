@@ -7,7 +7,7 @@
     @yield('head')
 
 </head>
-<body class="skin-blue">
+<body class="skin-blue fixed">
 
 <header class="header">
 

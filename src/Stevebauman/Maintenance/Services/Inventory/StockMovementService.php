@@ -1,17 +1,15 @@
 <?php
 
-/**
- * Handles inventory stock movement interactions
- *
- * @author Steve Bauman <sbauman@bwbc.gc.ca>
- */
-
 namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Models\InventoryStockMovement;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class StockMovementService
+ * @package Stevebauman\Maintenance\Services\Inventory
+ */
 class StockMovementService extends BaseModelService
 {
 

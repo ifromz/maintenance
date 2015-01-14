@@ -1,7 +1,7 @@
 @yield('dropdown.extra.top')
 
 <div class="btn-group dropdown">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
         @section('dropdown.head.content')
             Action
             <span class="caret"></span>
