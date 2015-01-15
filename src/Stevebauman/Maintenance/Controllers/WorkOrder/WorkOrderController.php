@@ -29,7 +29,6 @@ class WorkOrderController extends BaseController {
         ));
     }
 
-
     /**
      * Displays the form to create a work order
      *
@@ -41,7 +40,6 @@ class WorkOrderController extends BaseController {
             'title' => 'Create a Work Order'
         ));
     }
-
 
     /**
      * Stores a new work order
@@ -64,7 +62,6 @@ class WorkOrderController extends BaseController {
         return $this->response();
     }
 
-
     /**
      * Displays the specified work order
      *
@@ -80,7 +77,6 @@ class WorkOrderController extends BaseController {
             'workOrder' => $workOrder
         ));
     }
-
 
     /**
      * Displays the edit form for the specified work order
@@ -144,6 +140,5 @@ class WorkOrderController extends BaseController {
 
         return $this->response();
     }
-
 
 }

@@ -12,10 +12,4 @@ class User extends SentryUser
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
 
-    /*
-    public function getId(){
-        return $this->id;
-    }
-     *
-     */
 }

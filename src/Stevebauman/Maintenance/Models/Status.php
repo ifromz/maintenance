@@ -3,10 +3,11 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\HasUserTrait;
-use Stevebauman\Maintenance\Models\BaseModel;
 
 class Status extends BaseModel
 {
+
+    use HasUserTrait;
 
     protected $table = 'statuses';
 

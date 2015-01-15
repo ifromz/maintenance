@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Models\BaseModel;
-
 class Group extends BaseModel
 {
 

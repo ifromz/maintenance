@@ -2,15 +2,39 @@
 
 namespace Stevebauman\Maintenance\Traits;
 
-use Stevebauman\Maintenance\Traits\HasScopeLocationTrait;
-
 trait HasLocationTrait {
-
-    use HasScopeLocationTrait;
 
     public function location()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');
+        return $this->hasOne('Stevebauman\Maintenance\Models\Extended\Location', 'id', 'location_id');
     }
-    
+
+    /**
+     * Filters inventory results by specified location
+     *
+     * @return object
+     */
+    public function scopeLocation($query, $location_id = NULL)
+    {
+        if ($location_id) {
+            /*
+             * Get descendants and self inventory category nodes
+             */
+            $locations = Location::find($location_id)->getDescendantsAndSelf();
+            /*
+             * Perform a subquery on main query
+             */
+            $query->where(function ($query) use ($locations) {
+                /*
+                 * For each category, apply a orWhere query to the subquery
+                 */
+                foreach ($locations as $location) {
+                    $query->orWhere('location_id', $location->id);
+                }
+                return $query;
+            });
+        }
+    }
+
+
 }

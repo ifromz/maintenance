@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Controllers\BaseController;
-
 /**
  * Class AbstractNestedSetController
  * @package Stevebauman\Maintenance\Controllers

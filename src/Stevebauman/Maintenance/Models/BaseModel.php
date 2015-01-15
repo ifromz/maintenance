@@ -1,12 +1,12 @@
-<?php namespace Stevebauman\Maintenance\Models;
+<?php
+
+namespace Stevebauman\Maintenance\Models;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
-use Stevebauman\EloquentTable\TableTrait;
-use Stevebauman\Maintenance\Traits\HasEventsTrait;
-use Stevebauman\Maintenance\Traits\HasNotificationsTrait;
 use Venturecraft\Revisionable\RevisionableTrait;
 use Stevebauman\Maintenance\Traits\HasScopeIdTrait;
+use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -19,6 +19,11 @@ class BaseModel extends Eloquent
     use TableTrait;
 
     /*
+     * Provides scope for viewing a specific record ID
+     */
+    use HasScopeIdTrait;
+
+    /*
      * Provides reusable views when an object is returned
      */
     use ViewableTrait;
@@ -28,10 +33,6 @@ class BaseModel extends Eloquent
      * from this class
      */
     use RevisionableTrait;
-
-    use HasScopeIdTrait;
-    use HasEventsTrait;
-    use HasNotificationsTrait;
 
     /*
      * Tell revisionable to not keep a revision of deleted_at columns
@@ -57,7 +58,9 @@ class BaseModel extends Eloquent
      */
     public function getDeletedAtAttribute($deleted_at)
     {
-        return Carbon::parse($deleted_at)->format('M dS Y - h:ia');
+        if(array_key_exists('deleted_at', $this->attributes)) {
+            return Carbon::parse($deleted_at)->format('M dS Y - h:ia');
+        }
     }
 
     /**
@@ -70,7 +73,7 @@ class BaseModel extends Eloquent
         if (array_key_exists('description', $this->attributes)) {
 
             /*
-             * Strip tags due to HTML formatting that may be inside the discription
+             * Strip tags due to HTML formatting that may be inside the description
              * that could ruin the display of the table
              */
             return str_limit(strip_tags($this->attributes['description']), 30);
@@ -93,8 +96,6 @@ class BaseModel extends Eloquent
         }
     }
 
-
-
     /**
      * Allows all columns on the current database table to be sorted through
      * query scope
@@ -115,7 +116,7 @@ class BaseModel extends Eloquent
             /*
              * Retrieve all column names for the current model table
              */
-            $columns = Schema::getColumnListing($this->table);
+            $columns = Schema::getColumnListing($this->getCurrentTable());
 
             /*
              * Make sure the field inputted is available on the current table

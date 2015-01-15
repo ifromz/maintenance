@@ -4,7 +4,6 @@ namespace Stevebauman\Maintenance\Apis\v1;
 
 use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 use Stevebauman\Maintenance\Services\Event\EventService;
-use Stevebauman\Maintenance\Apis\v1\BaseApi;
 
 /**
  * API for FullCalendar interactions

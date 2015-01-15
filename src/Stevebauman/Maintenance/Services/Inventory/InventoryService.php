@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Exceptions\InventoryNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Models\Inventory;
+use Stevebauman\Maintenance\Models\Extended\Inventory;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**

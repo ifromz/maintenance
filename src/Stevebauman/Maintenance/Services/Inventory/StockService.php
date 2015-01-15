@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Exceptions\InventoryStockNotFoundException;
-use Stevebauman\Maintenance\Models\InventoryStock;
+use Stevebauman\Maintenance\Models\Extended\InventoryStock;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
@@ -162,6 +162,114 @@ class StockService extends BaseModelService
 
             return false;
         }
+    }
+
+    /**
+     * Updates the stock record by taking away the inputted stock by the current stock,
+     * effectively processing a "taking from stock" action.
+     *
+     * @param type $id
+     * @return boolean OR object
+     */
+    public function take($id)
+    {
+
+        $this->dbStartTransaction();
+
+        try {
+            /*
+             * Find the stock record
+             */
+            $record = $this->find($id);
+
+            /*
+             * Update stock record
+             */
+            if ($record->take($this->getInput('quantity', 0), $this->getInput('reason'))) {
+
+                /*
+                 * Fire stock taken event
+                 */
+                $this->fireEvent('maintenance.inventory.stock.taken', array(
+                    'stock' => $record
+                ));
+
+                $this->dbCommitTransaction();
+
+                return $record;
+            }
+
+            /*
+             * Rollback on failure to update the record
+             */
+            $this->dbRollbackTransaction();
+
+            return false;
+
+        } catch (\Exception $e) {
+
+            $this->dbRollbackTransaction();
+
+            return false;
+        }
+
+    }
+
+    /**
+     * Updates the stock record by adding the inputted stock to the current stock,
+     * effectively processing a "putting into the stock" action.
+     *
+     * @param type $id
+     * @return mixed
+     */
+    public function put($id)
+    {
+
+        $this->dbStartTransaction();
+
+        try {
+
+            /*
+             * Find the stock record
+             */
+            $record = $this->find($id);
+
+            /*
+             * Update the record
+             */
+            if ($record->put($this->getInput('quantity'), $this->getInput('reason'), $this->getInput('cost', 0))) {
+
+                /*
+                 * Fire stock put event
+                 */
+                $this->fireEvent('maintenance.inventory.stock.put', array(
+                    'stock' => $record
+                ));
+
+                $this->dbCommitTransaction();
+
+                /*
+                 * Return the record
+                 */
+                return $record;
+
+            }
+
+            $this->dbRollbackTransaction();
+
+            return false;
+
+        } catch (\Exception $e) {
+
+            $this->dbRollbackTransaction();
+
+            return false;
+        }
+
+        /*
+         * Stock record not found
+         */
+        return false;
     }
 
 }

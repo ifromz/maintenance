@@ -1,10 +1,11 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\HasUserTrait;
-use Stevebauman\Maintenance\Models\BaseModel;
 
 class Update extends BaseModel
 {
+
+    use HasUserTrait;
 
     protected $table = 'updates';
 

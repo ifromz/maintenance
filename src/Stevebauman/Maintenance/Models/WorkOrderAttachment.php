@@ -1,6 +1,7 @@
-<?php namespace Stevebauman\Maintenance\Models;
+<?php
 
-use Stevebauman\Maintenance\Models\BaseModel;
+namespace Stevebauman\Maintenance\Models;
+
 
 class WorkOrderAttachment extends BaseModel
 {

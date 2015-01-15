@@ -1,10 +1,11 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\HasUserTrait;
-use Stevebauman\Maintenance\Models\BaseModel;
 
 class Notification extends BaseModel
 {
+
+    use HasUserTrait;
 
     protected $table = 'notifications';
 

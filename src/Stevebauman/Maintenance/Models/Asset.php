@@ -5,7 +5,6 @@ use Stevebauman\Maintenance\Traits\HasCategory;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
 use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
-use Stevebauman\Maintenance\Models\BaseModel;
 
 class Asset extends BaseModel
 {

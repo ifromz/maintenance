@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Handles asset interactions
- *
- * @author Steve Bauman <sbauman@bwbc.gc.ca>
- */
-
 namespace Stevebauman\Maintenance\Services\Asset;
 
 use Exception;

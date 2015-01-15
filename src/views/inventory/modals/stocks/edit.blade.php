@@ -1,5 +1,3 @@
-<div id="inventory-stock-update-alert"></div>
-
 {{ Form::open(array(
             'url'=>route('maintenance.inventory.stocks.update', array($item->id, $stock->id)),
             'method'=>'PATCH',
@@ -8,7 +6,10 @@
             'data-status-target'=>'#inventory-stock-update-alert'
         ))
 }}
+
 <legend class="margin-top-10">Enter New Quantity</legend>
+
+<div id="inventory-stock-update-alert"></div>
 
 <div class="form-group">
     <label class="col-sm-2 control-label">Location</label>

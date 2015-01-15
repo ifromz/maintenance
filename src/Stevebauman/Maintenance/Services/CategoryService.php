@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Models\Category;
+use Stevebauman\Maintenance\Models\Extended\Category;
 use Stevebauman\Maintenance\Services\BaseNestedSetModelService;
 
 class CategoryService extends BaseNestedSetModelService

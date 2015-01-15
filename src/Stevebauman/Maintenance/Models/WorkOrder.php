@@ -9,8 +9,6 @@ use Stevebauman\Maintenance\Traits\HasNotesTrait;
 use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
-use Stevebauman\Maintenance\Models\WorkOrderCategory;
-use Stevebauman\Maintenance\Models\BaseModel;
 
 class WorkOrder extends BaseModel
 {
@@ -91,7 +89,7 @@ class WorkOrder extends BaseModel
 
     public function parts()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');
+        return $this->belongsToMany('Stevebauman\Maintenance\Models\Extended\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');
     }
 
     /**
@@ -269,9 +267,9 @@ class WorkOrder extends BaseModel
      *
      * @param type $value
      */
-    public function setWorkOrderCategoryIdAttribute($value)
+    public function setCategoryIdAttribute($value)
     {
-        $this->attributes['work_order_category_id'] = $value ? $value : NULL;
+        $this->attributes['category_id'] = $value ? $value : NULL;
     }
 
     /**
