@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Controllers\BaseController;
-
 class PrintQrController extends BaseController {
     
     public function generate()

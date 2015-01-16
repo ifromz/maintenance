@@ -1,6 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers;
+<?php
 
-use Stevebauman\Maintenance\Controllers\BaseController;
+namespace Stevebauman\Maintenance\Controllers;
 
 class MaintenanceController extends BaseController {
         

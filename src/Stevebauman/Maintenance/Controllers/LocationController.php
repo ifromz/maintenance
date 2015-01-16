@@ -2,7 +2,6 @@
 
 use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\Maintenance\Validators\LocationValidator;
-use Stevebauman\Maintenance\Controllers\BaseNestedSetController;
 
 class LocationController extends BaseNestedSetController {
 	

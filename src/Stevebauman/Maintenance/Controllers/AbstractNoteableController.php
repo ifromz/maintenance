@@ -4,7 +4,6 @@ namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\NoteValidator;
 use Stevebauman\Maintenance\Services\NoteService;
-use Stevebauman\Maintenance\Controllers\BaseController;
 
 class AbstractNoteableController extends BaseController
 {

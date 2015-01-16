@@ -5,9 +5,7 @@ namespace Stevebauman\Maintenance\Controllers;
 use Dmyers\Storage\Storage;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Controllers\BaseController;
 
 class AttachmentController extends BaseController {
 	
@@ -20,7 +18,7 @@ class AttachmentController extends BaseController {
 			$attachment = $this->attachment->find($attachment_id);
 			if($attachment){
 				if(Storage::delete($attachment->file_path.$attachment->file_name)){
-					rmdir(Config::get('path.storage').$attachment->file_path);
+					rmdir(config('path.storage').$attachment->file_path);
 					$attachment->delete();
 					
 					return Response::json(array(

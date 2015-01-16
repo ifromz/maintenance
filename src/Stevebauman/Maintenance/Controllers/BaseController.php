@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\CoreHelper\Controllers\AbstractController;
+use Stevebauman\CoreHelper\Controllers\Controller;
 
-class BaseController extends AbstractController {
+class BaseController extends Controller {
     
     
     

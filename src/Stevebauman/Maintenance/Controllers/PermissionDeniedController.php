@@ -3,7 +3,6 @@
 namespace Stevebauman\Maintenance\Controllers;
 
 use Illuminate\Support\Facades\Session;
-use Stevebauman\Maintenance\Controllers\BaseController;
 
 class PermissionDeniedController extends BaseController {
     

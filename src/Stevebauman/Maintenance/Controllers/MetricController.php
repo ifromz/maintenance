@@ -4,7 +4,6 @@ namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\MetricValidator;
 use Stevebauman\Maintenance\Services\MetricService;
-use Stevebauman\Maintenance\Controllers\BaseController;
 
 class MetricController extends BaseController {
     

@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Exceptions;
 
-use Stevebauman\CoreHelper\Exceptions\AbstractException;
+use Stevebauman\CoreHelper\Exceptions\Exception;
 
-class BaseException extends AbstractException {
+class BaseException extends Exception {
     
     
     
