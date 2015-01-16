@@ -3,7 +3,6 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Dmyers\Storage\Storage;
-use Stevebauman\Maintenance\Models\BaseModel;
 
 class Attachment extends BaseModel
 {

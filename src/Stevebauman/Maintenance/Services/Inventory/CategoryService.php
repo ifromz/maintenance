@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Exceptions\InventoryCategoryNotFoundException;
-use Stevebauman\Maintenance\Models\Extended\Category;
+use Stevebauman\Maintenance\Models\Category;
 use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 
 /**

@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Services\Event;
 
 use Stevebauman\Maintenance\Exceptions\EventNotFoundException;
 use Stevebauman\Maintenance\Services\LocationService;
-use Stevebauman\Maintenance\Services\Google\EventService as GoogleEventService;
+use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Event;
 use Stevebauman\Maintenance\Services\BaseModelService;

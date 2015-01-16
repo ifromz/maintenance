@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Traits;
 
-trait HasCategory {
+trait HasCategoryTrait {
 
     public function category()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\Extended\Category', 'id', 'category_id');
+        return $this->hasOne('Stevebauman\Maintenance\Models\Category', 'id', 'category_id');
     }
 
     /**

@@ -6,7 +6,7 @@ trait HasLocationTrait {
 
     public function location()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\Extended\Location', 'id', 'location_id');
+        return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use Stevebauman\Maintenance\Traits\HasCategory;
+use Stevebauman\Maintenance\Traits\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
 use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
@@ -13,7 +13,7 @@ class Asset extends BaseModel
     use HasUserTrait;
     use HasEventsTrait;
     use HasLocationTrait;
-    use HasCategory;
+    use HasCategoryTrait;
 
     protected $table = 'assets';
 

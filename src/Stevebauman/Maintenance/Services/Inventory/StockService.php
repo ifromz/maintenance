@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Services\Inventory;
 
 use Stevebauman\Maintenance\Exceptions\InventoryStockNotFoundException;
-use Stevebauman\Maintenance\Models\Extended\InventoryStock;
+use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**

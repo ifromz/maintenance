@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use Stevebauman\Maintenance\Traits\HasCategory;
+use Stevebauman\Maintenance\Traits\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\HasNotesTrait;
 use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
@@ -18,7 +18,7 @@ class WorkOrder extends BaseModel
     use HasLocationTrait;
     use HasUserTrait;
     use HasEventsTrait;
-    use HasCategory;
+    use HasCategoryTrait;
 
     protected $table = 'work_orders';
 

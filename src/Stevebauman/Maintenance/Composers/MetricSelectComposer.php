@@ -36,7 +36,6 @@ class MetricSelectComposer
         $allMetrics[NULL] = 'Select a Metric';
 
         return $view->with('allMetrics', $allMetrics);
-
     }
 
 }

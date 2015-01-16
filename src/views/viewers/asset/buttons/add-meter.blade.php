@@ -17,7 +17,7 @@
             </div>
 
             {{ Form::open(array(
-                        'url'=>route('maintenance.assets.meters.store', array($asset->id)), 
+                        'url'=>route('maintenance.assets.meters.store', array($asset->id)),
                         'class'=>'form-horizontal ajax-form-post clear-form',
                         'data-status-target' => '#asset-meter-status',
                         'data-refresh-target' => '#asset-meters-table',

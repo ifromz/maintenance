@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-
 class EventReport extends BaseModel
 {
 
