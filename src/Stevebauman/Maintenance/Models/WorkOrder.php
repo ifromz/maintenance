@@ -89,7 +89,7 @@ class WorkOrder extends BaseModel
 
     public function parts()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\Extended\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');
+        return $this->belongsToMany('Stevebauman\Maintenance\Models\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');
     }
 
     /**
