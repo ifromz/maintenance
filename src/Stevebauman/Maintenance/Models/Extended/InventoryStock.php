@@ -15,7 +15,7 @@ class InventoryStock extends BaseStock
 
     use ViewableTrait;
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\InventoryStockViewer';
+    protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockViewer';
 
     public function item()
     {

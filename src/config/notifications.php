@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * The maintenance application notification icons.
+ * A different icon will be displayed depending on the model that created it
+ */
 return array(
     
     'icons' => array(

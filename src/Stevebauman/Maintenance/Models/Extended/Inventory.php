@@ -33,7 +33,7 @@ class Inventory extends BaseInventory
     use HasNotesTrait;
     use HasScopeIdTrait;
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\InventoryViewer';
+    protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryViewer';
 
     protected $dontKeepRevisionOf = array('deleted_at');
 

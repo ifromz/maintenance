@@ -27,7 +27,7 @@ class StockService extends BaseModelService
     /**
      * Creates a stock record as well as a first record movement
      *
-     * @return boolean OR object
+     * @return bool|static
      */
     public function create()
     {
@@ -101,8 +101,8 @@ class StockService extends BaseModelService
      * Updates the current stock record and creates a stock movement when it has
      * been updated.
      *
-     * @param type $id
-     * @return boolean OR object
+     * @param string|int $id
+     * @return bool|static
      */
     public function update($id)
     {
@@ -168,8 +168,8 @@ class StockService extends BaseModelService
      * Updates the stock record by taking away the inputted stock by the current stock,
      * effectively processing a "taking from stock" action.
      *
-     * @param type $id
-     * @return boolean OR object
+     * @param string|int $id
+     * @return bool|static
      */
     public function take($id)
     {
@@ -219,7 +219,7 @@ class StockService extends BaseModelService
      * Updates the stock record by adding the inputted stock to the current stock,
      * effectively processing a "putting into the stock" action.
      *
-     * @param type $id
+     * @param string|int $id
      * @return mixed
      */
     public function put($id)
@@ -266,10 +266,6 @@ class StockService extends BaseModelService
             return false;
         }
 
-        /*
-         * Stock record not found
-         */
-        return false;
     }
 
 }

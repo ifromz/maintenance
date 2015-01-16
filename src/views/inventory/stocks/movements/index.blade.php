@@ -37,8 +37,9 @@
 
     @if($movements->count() > 0)
 
-        {{ 
+        {{
             $movements->columns(array(
+                        'id' => 'ID',
                         'user' => 'User',
                         'before' => 'Before Quantity',
                         'after' => 'After Quantity',
@@ -53,6 +54,7 @@
                     })
                     ->hidden(array('before', 'after', 'reason'))
                     ->sortable(array(
+                        'id',
                         'user' => 'user_id',
                         'before',
                         'after',

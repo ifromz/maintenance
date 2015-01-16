@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * The maintenance application rules. The rules indicate the result of certain
+ * functionality throughout the application.
+ */
 return array(
     
     'notifications' => array(

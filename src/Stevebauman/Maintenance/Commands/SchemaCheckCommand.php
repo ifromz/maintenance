@@ -31,7 +31,13 @@ class SchemaCheckCommand extends Command {
         'users_groups'  => 'sentry',
         'groups'        => 'sentry',
         'throttle'      => 'sentry',
-        'revisions'     => 'revisionable'
+        'revisions'     => 'revisionable',
+        'inventories' => 'inventory',
+        'inventory_stocks' => 'inventory',
+        'inventory_stock_movements' => 'inventory',
+        'locations' => 'inventory',
+        'categories' => 'inventory',
+        'metrics' => 'inventory',
     );
 
     protected $supplierCommands = array(
@@ -43,6 +49,10 @@ class SchemaCheckCommand extends Command {
             'type' => 'migrate',
             'args' => array('--package' => 'venturecraft/revisionable')
         ),
+        'inventory' => array(
+            'type' => 'migrate',
+            'args' => array('--package' => 'stevebauman/inventory')
+        ),
     );
 
     /*
@@ -50,7 +60,6 @@ class SchemaCheckCommand extends Command {
      */
     protected $reserved = array(
         'assets',
-        'asset_categories',
         'asset_images',
         'asset_manuals',
         'asset_meters',
@@ -58,14 +67,8 @@ class SchemaCheckCommand extends Command {
         'eventables',
         'events',
         'event_reports',
-        'inventories',
-        'inventory_categories',
-        'inventory_stocks',
-        'inventory_stock_movements',
-        'locations',
         'meters',
         'meter_readings',
-        'metrics',
         'notifications',
         'priorities',
         'statuses',
@@ -74,7 +77,6 @@ class SchemaCheckCommand extends Command {
         'work_order_assets',
         'work_order_assignments',
         'work_order_attachments',
-        'work_order_categories',
         'work_order_customer_updates',
         'work_order_technician_updates',
         'work_order_notifications',

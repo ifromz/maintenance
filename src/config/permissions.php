@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * The default maintenance application permissions during installation.
+ */
 return array(
     
     'default' => array(

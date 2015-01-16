@@ -21,13 +21,16 @@ class DependencyCheckCommand extends Command {
      */
     protected $description = 'Checks installed packages that the maintenance application relies on';
 
-    /*
+    /**
      * Holds the dependencies that maintenance depends on
+     *
+     * @var array
      */
     private $dependencies = array(
         'Stevebauman\Corp\CorpServiceProvider' => 'Corp',
         'Stevebauman\Viewer\ViewerServiceProvider' => 'Viewer',
         'Stevebauman\EloquentTable\EloquentTableServiceProvider' => 'Eloquent-Table',
+        'Stevebauman\Inventory\InventoryServiceProvider' => 'Inventory',
         'Stevebauman\CalendarHelper\CalendarHelperServiceProvider' => 'CalendarHelper',
         'Stevebauman\CoreHelper\CoreHelperServiceProvider' => 'Core Helper',
         'Dmyers\Storage\StorageServiceProvider' => 'Storage',
@@ -54,10 +57,9 @@ class DependencyCheckCommand extends Command {
 
     /**
      * Checks the current project to make sure all classes that maintenance
-     * depends on are available before installation
      *
      * @return bool
-     * @throws DependencyNotFound
+     * @throws DependencyNotFoundException
      */
     private function check()
     {

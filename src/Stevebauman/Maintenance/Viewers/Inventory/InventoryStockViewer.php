@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Viewers;
+namespace Stevebauman\Maintenance\Viewers\Inventory;
 
 use Stevebauman\Maintenance\Viewers\BaseViewer;
 

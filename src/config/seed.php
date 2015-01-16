@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This config file holds the default seeds when installing the maintenance application. They are completely optional
+ * The maintenance application installation seeds. They are completely optional.
  */
 return array(
 
