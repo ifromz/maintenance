@@ -2,13 +2,17 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Illuminate\Support\Facades\Config;
-use Stevebauman\Maintenance\Services\LdapService;
-use Stevebauman\Maintenance\Services\SentryService;
-
+/**
+ * Class AuthService
+ * @package Stevebauman\Maintenance\Services
+ */
 class AuthService
 {
 
+    /**
+     * @param LdapService $ldap
+     * @param SentryService $sentry
+     */
     public function __construct(LdapService $ldap, SentryService $sentry)
     {
         $this->ldap = $ldap;
@@ -25,7 +29,7 @@ class AuthService
      */
     public function ldapAuthenticate($credentials)
     {
-        $login_attribute = Config::get('cartalyst/sentry::users.login_attribute');
+        $login_attribute = config('cartalyst/sentry::users.login_attribute');
 
         if ($this->ldap->authenticate($credentials[$login_attribute], $credentials['password'])) {
             return true;

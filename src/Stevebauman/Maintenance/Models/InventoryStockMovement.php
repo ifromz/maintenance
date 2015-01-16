@@ -6,7 +6,7 @@ use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 
 /**
  * Class InventoryStockMovement
- * @package Stevebauman\Maintenance\Models\Extended
+ * @package Stevebauman\Maintenance\Models
  */
 class InventoryStockMovement extends BaseModel
 {

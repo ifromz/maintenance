@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\CoreHelper\Services\AbstractModelService;
+use Stevebauman\CoreHelper\Services\ModelService;
 
-class BaseModelService extends AbstractModelService
+class BaseModelService extends ModelService
 {
 
 

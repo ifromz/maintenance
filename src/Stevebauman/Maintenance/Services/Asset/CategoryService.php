@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Services\Asset;
 
 use Stevebauman\Maintenance\Exceptions\AssetCategoryNotFoundException;
-use Stevebauman\Maintenance\Models\Extended\Category;
+use Stevebauman\Maintenance\Models\Category;
 use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 
 class CategoryService extends BaseCategoryService

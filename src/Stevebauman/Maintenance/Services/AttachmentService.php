@@ -2,17 +2,22 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Models\Attachment;
 
 class AttachmentService extends BaseModelService
 {
 
+    /**
+     * @param Attachment $attachment
+     */
     public function __construct(Attachment $attachment)
     {
         $this->model = $attachment;
     }
 
+    /**
+     * @return bool|static
+     */
     public function create()
     {
 

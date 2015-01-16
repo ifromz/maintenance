@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 /**
  * Class Metric
- * @package Stevebauman\Maintenance\Models\Extended
+ * @package Stevebauman\Maintenance\Models
  */
 class Metric extends BaseModel
 {

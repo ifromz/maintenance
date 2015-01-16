@@ -7,6 +7,10 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class WorkOrderService
+ * @package Stevebauman\Maintenance\Services\WorkOrder
+ */
 class WorkOrderService extends BaseModelService
 {
 

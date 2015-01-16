@@ -13,7 +13,7 @@ use Stevebauman\Maintenance\Traits\HasEventsTrait;
 
 /**
  * Class Inventory
- * @package Stevebauman\Maintenance\Models\Extended
+ * @package Stevebauman\Maintenance\Models
  */
 class Inventory extends BaseModel
 {
