@@ -10,7 +10,7 @@ trait HasCategoryTrait {
     }
 
     /**
-     * Filters inventory results by specified category
+     * Filters results by specified category
      *
      * @return object
      */

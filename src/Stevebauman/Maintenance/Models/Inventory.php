@@ -3,7 +3,6 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Inventory\Traits\InventoryTrait;
-use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasScopeArchivedTrait;
 use Stevebauman\Maintenance\Traits\HasNotesTrait;
 use Stevebauman\Maintenance\Traits\HasScopeIdTrait;
@@ -21,7 +20,6 @@ class Inventory extends BaseModel
     use InventoryTrait;
     use HasScopeArchivedTrait;
     use HasScopeIdTrait;
-    use HasLocationTrait;
     use HasCategoryTrait;
     use HasEventsTrait;
     use HasUserTrait;
@@ -127,6 +125,36 @@ class Inventory extends BaseModel
                 }
             });
         }
+    }
+
+    /**
+     * Mutator for showing the total current stock of the inventory item
+     *
+     * @return int|string
+     */
+    public function getCurrentStockAttribute()
+    {
+        $stock = $this->getTotalStock();
+
+        if ($this->hasMetric()) {
+            return sprintf('%s %s', $stock, $this->getMetricSymbol());
+        }
+
+        return $stock;
+    }
+
+    /**
+     * Mutator for showing the inventories metric symbol
+     *
+     * @return null|string
+     */
+    public function getMetricSymbolAttribute()
+    {
+        if ($this->hasMetric()) {
+            return $this->getMetricSymbol();
+        }
+
+        return NULL;
     }
 
 }

@@ -64,6 +64,8 @@ class ImageService extends BaseModelService
 
             if ($files) {
 
+                $records = array();
+
                 /*
                  * For each file, create the attachment record, and sync asset image pivot table
                  */
@@ -97,7 +99,7 @@ class ImageService extends BaseModelService
                     /*
                      * Create the attachment record
                      */
-                    $record = $this->attachment->setInput($insert)->create();
+                    $records[] = $this->attachment->setInput($insert)->create();
 
                     /*
                      * Attach the attachment record to the asset images
@@ -111,7 +113,7 @@ class ImageService extends BaseModelService
                 /*
                  *  Return attachment record on success
                  */
-                return $record;
+                return $records;
 
             }
 

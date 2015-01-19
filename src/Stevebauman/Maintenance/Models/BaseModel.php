@@ -47,7 +47,7 @@ class BaseModel extends Eloquent
      */
     public function getCreatedAtAttribute($created_at)
     {
-        return Carbon::parse($created_at)->format('M dS Y - h:ia');
+        return Carbon::parse($created_at)->format('Y-m-d h:i A');
     }
 
     /**
@@ -59,7 +59,7 @@ class BaseModel extends Eloquent
     public function getDeletedAtAttribute($deleted_at)
     {
         if(array_key_exists('deleted_at', $this->attributes)) {
-            return Carbon::parse($deleted_at)->format('M dS Y - h:ia');
+            return Carbon::parse($deleted_at)->format('Y-m-d h:i A');
         }
     }
 

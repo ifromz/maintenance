@@ -31,6 +31,22 @@ class InventoryStockMovement extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockMovementViewer';
 
+    /**
+     * The belongsTo stock relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function stock()
+    {
+        return $this->belongsTo('Stevebauman\Maintenance\Models\InventoryStock', 'stock_id', 'id');
+    }
+
+    /**
+     * Returns the cost of the movement. If no cost is available it will return 0.00
+     *
+     * @param $cost
+     * @return string
+     */
     public function getCostAttribute($cost)
     {
         if ($cost == NULL) {
@@ -40,12 +56,23 @@ class InventoryStockMovement extends BaseModel
         return $cost;
     }
 
+    /**
+     * Returns the change of a stock
+     *
+     * @return string
+     */
     public function getChangeAttribute()
     {
         if ($this->before > $this->after) {
+
             return sprintf('- %s', $this->before - $this->after);
-        } else {
+
+        } else if($this->after > $this->before) {
+
             return sprintf('+ %s', $this->after - $this->before);
+
+        } else {
+            return 'None';
         }
     }
 
