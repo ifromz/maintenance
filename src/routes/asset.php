@@ -96,7 +96,15 @@ Route::group(array('namespace' => 'Asset'), function () {
                 'edit' => 'maintenance.assets.meters.edit',
                 'update' => 'maintenance.assets.meters.update',
                 'destroy' => 'maintenance.assets.meters.destroy',
-            )
+            ),
+            'only' => array(
+                'index',
+                'store',
+                'show',
+                'edit',
+                'update',
+                'destroy'
+            ),
         ));
 
         Route::resource('assets.meters.readings', 'MeterReadingController', array(

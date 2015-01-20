@@ -47,6 +47,7 @@ class RouteSelectComposer
                 if (array_key_exists('maintenance.permission', $filters)) {
                     $allRoutes[$route->getName()] = $route->getName();
                 }
+
             }
 
         }

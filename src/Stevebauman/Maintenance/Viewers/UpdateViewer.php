@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Viewers;
 
-use Stevebauman\Maintenance\Viewers\BaseViewer;
-
 class UpdateViewer extends BaseViewer {
     
     public function workOrderCustomer($workOrder)

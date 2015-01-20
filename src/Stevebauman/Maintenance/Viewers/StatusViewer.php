@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Viewers;
 
-use Stevebauman\Maintenance\Viewers\BaseViewer;
-
 class StatusViewer extends BaseViewer {
     
     public function btnActions()

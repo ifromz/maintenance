@@ -2,14 +2,24 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Illuminate\Support\Facades\Config;
-use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\LdapService;
 use Stevebauman\Maintenance\Models\User;
-use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class UserService
+ * @package Stevebauman\Maintenance\Services
+ */
 class UserService extends BaseModelService
 {
+
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @var LdapService
+     */
+    protected $ldap;
 
     public function __construct(User $user, SentryService $sentry, LdapService $ldap)
     {
@@ -33,7 +43,7 @@ class UserService extends BaseModelService
      */
     public function createOrUpdateUser($credentials)
     {
-        $login_attribute = Config::get('cartalyst/sentry::users.login_attribute');
+        $login_attribute = config('cartalyst/sentry::users.login_attribute');
 
         $username = $credentials[$login_attribute];
         $password = $credentials['password'];

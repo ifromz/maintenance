@@ -1,9 +1,10 @@
 <?php
 
 return array(
+
     /*
-     * Prefix of the application (ex. http://www.example.com/maintenance/)
-     */
+    * Prefix of the application (ex. http://www.example.com/maintenance/)
+    */
     'prefix' => '/',
 
     /*
@@ -24,6 +25,7 @@ return array(
      * LDAP Settings
      */
     'ldap' => array(
+
         /*
          * Enables use of LDAP for logging in. You must publish the config
          * file of Stevebauman\Corp and fill in your settings to use LDAP.
@@ -31,6 +33,7 @@ return array(
         'enabled' => true,
 
         'user_sync' => array(
+
             /*
              * Enables the maintenance seeder to add LDAP users to the web database so they are visble
              * for assigning work orders and managing permissions.
@@ -60,6 +63,7 @@ return array(
 
     // Paths for file storage. All paths have to end with trailing slash
     'paths' => array(
+
         'base' => config('core-helper::base-upload-path'), // Base default storage location
 
         'temp' => config('core-helper::temp-upload-path'), // Temporary file location storage for ajax uploads, these will be cleared periodically
@@ -71,7 +75,8 @@ return array(
 
         'work-orders' => array(
             'attachments' => 'work-orders/attachments/'
-        )
+        ),
+
     ),
 
 );

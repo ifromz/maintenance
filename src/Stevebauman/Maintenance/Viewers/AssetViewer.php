@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Viewers;
 
-use Stevebauman\Maintenance\Viewers\BaseViewer;
-
 class AssetViewer extends BaseViewer {
     
     public function profile()

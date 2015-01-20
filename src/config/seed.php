@@ -1,10 +1,10 @@
 <?php
 
-/**
- * The maintenance application installation seeds. They are completely optional.
- */
 return array(
 
+    /**
+     * The maintenance application installation seeds. They are completely optional.
+     */
     'priorities' => array(
         array(
             'name' => 'Low',
@@ -63,7 +63,7 @@ return array(
         array(
             'name' => 'Litres',
             'symbol' => 'L',
-        )
-    )
+        ),
+    ),
 
 );
