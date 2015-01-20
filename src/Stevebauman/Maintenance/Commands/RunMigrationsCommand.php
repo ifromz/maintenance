@@ -22,7 +22,7 @@ class RunMigrationsCommand extends Command {
 
     public function fire()
     {
-        $this->call('migrate', array('--env' => $this->option('env'), '--bench' => 'stevebauman/maintenance' ) );
+        $this->call('migrate', array('--env' => $this->option('env'), '--vendor' => 'stevebauman/maintenance' ) );
     }
 
 }
