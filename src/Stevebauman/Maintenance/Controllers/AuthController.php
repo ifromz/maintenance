@@ -49,7 +49,7 @@ class AuthController extends BaseController
 
             $data = $this->inputAll();
 
-            if ($this->config('maintenance::site.ldap.enabled') === true) {
+            if (config('maintenance::site.ldap.enabled') === true) {
                 //If user exists on active directory
 
                 if ($this->ldap->getUserEmail($data['email'])) {
