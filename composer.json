@@ -15,6 +15,7 @@
         "stevebauman/core-helper": "1.0.*",
         "stevebauman/eloquenttable": "1.0.*",
         "stevebauman/inventory": "0.*",
+        "stevebauman/calendar-helper": "0.*",
         "cartalyst/sentry": "2.*",
         "venturecraft/revisionable": "1.*",
         "jildertmiedema/laravel-plupload": "0.*",
