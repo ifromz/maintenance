@@ -15,10 +15,16 @@ return array(
         'admin' => 'Admin Panel'
     ),
 
+    /*
+     * Enter the API calendar keys you'd like to use for each different calendar.
+     *
+     * For example, if using Google calendar you could enter 'primary' on each entry below to use the same
+     * calendar for every entry.
+     */
     'calendars' => array(
-        'work-orders' => 'ul0ucq192d851683povd1f1gp8@group.calendar.google.com',
-        'inventories' => '7a92l6lg5p4m9k4sggnsfj3q3o@group.calendar.google.com',
-        'assets' => 'qea8n1h5h0b3btgvsg46dhi3qc@group.calendar.google.com',
+        'work-orders' => 'mycalendar@group.calendar.google.com',
+        'inventories' => 'mycalendar@group.calendar.google.com',
+        'assets' => 'mycalendar@group.calendar.google.com',
     ),
 
     /*

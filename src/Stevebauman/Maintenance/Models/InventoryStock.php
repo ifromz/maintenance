@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Inventory\Traits\InventoryStockTrait;
 
@@ -9,6 +10,8 @@ class InventoryStock extends BaseModel
 {
 
     use InventoryStockTrait;
+
+    use HasUserTrait;
 
     use HasLocationTrait;
 
@@ -54,7 +57,7 @@ class InventoryStock extends BaseModel
      */
     public function location()
     {
-        return $this->hasOne('Location', 'id', 'location_id');
+        return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');
     }
 
     /**
@@ -64,7 +67,7 @@ class InventoryStock extends BaseModel
      */
     public function movements()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStockMovement', 'stock_id');
+        return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStockMovement', 'stock_id')->orderBy('created_at', 'DESC');
     }
 
     /**

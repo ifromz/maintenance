@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 
 /**
@@ -12,6 +13,8 @@ class InventoryStockMovement extends BaseModel
 {
 
     use InventoryStockMovementTrait;
+
+    use HasUserTrait;
 
     protected $table = 'inventory_stock_movements';
 
