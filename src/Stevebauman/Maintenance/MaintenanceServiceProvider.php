@@ -1,6 +1,7 @@
 <?php namespace Stevebauman\Maintenance;
 
 use Illuminate\Support\ServiceProvider;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class MaintenanceServiceProvider extends ServiceProvider {
 
@@ -71,12 +72,17 @@ class MaintenanceServiceProvider extends ServiceProvider {
 			return new Commands\SchemaCheckCommand();
 		});
 
+		$this->app->bind('maintenance:create-admin', function(){
+			return new Commands\CreateAdminCommand(new SentryService);
+		});
+
 		$this->commands(array(
 			'maintenance:install',
 			'maintenance:run-migrations',
 			'maintenance:run-seeds',
 			'maintenance:check-depends',
 			'maintenance:check-schema',
+			'maintenance:create-admin',
 		));
 	}
 

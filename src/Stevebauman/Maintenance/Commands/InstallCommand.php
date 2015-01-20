@@ -48,6 +48,13 @@ class InstallCommand extends Command {
 			$this->call('maintenance:run-seeds');
 
 		}
+
+		if($this->confirm('Do you want to create an administrator? [yes|no]', true)) {
+
+			$this->call('maintenance::create-admin');
+
+		}
+
 	}
 
 }
