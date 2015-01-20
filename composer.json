@@ -15,7 +15,7 @@
         "stevebauman/core-helper": "1.0.*",
         "stevebauman/eloquenttable": "1.0.*",
         "stevebauman/inventory": "0.*",
-        "stevebauman/calendar-helper": "0.*",
+        "stevebauman/calendar-helper": "dev-master",
         "cartalyst/sentry": "2.*",
         "venturecraft/revisionable": "1.*",
         "jildertmiedema/laravel-plupload": "0.*",
@@ -23,8 +23,7 @@
         "simplesoftwareio/simple-qrcode": "1.0.*",
         "dmyers/laravel-storage": "1.*",
         "mews/purifier": "1.*",
-        "mews/captcha": "1.*",
-        "google/apiclient": "1.*"
+        "mews/captcha": "1.*"
     },
     "require-dev": {
         "codeception/codeception": "2.*"
