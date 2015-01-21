@@ -9,6 +9,15 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class GroupService extends BaseModelService
 {
 
+    /**
+     * @var SentryGroupService
+     */
+    protected $sentryGroup;
+
+    /**
+     * @param Group $group
+     * @param SentryGroupService $sentryGroup
+     */
     public function __construct(Group $group, SentryGroupService $sentryGroup)
     {
         $this->model = $group;
@@ -18,8 +27,8 @@ class GroupService extends BaseModelService
     /**
      * Uses Sentry to find the group to keep Sentry functions intact
      *
-     * @param integer $id
-     * @return type
+     * @param mixed $id
+     * @return object
      */
     public function find($id)
     {
@@ -29,7 +38,7 @@ class GroupService extends BaseModelService
     /**
      * Creates a new Sentry group using Eloquent
      *
-     * @return boolean OR object
+     * @return bool|static
      */
     public function create()
     {
@@ -76,8 +85,8 @@ class GroupService extends BaseModelService
      * due to sentry not removing permissions unless they are specified to be
      * removed. This essentially 'syncs' the permissions for the group specified
      *
-     * @param integer $id
-     * @return boolean OR object
+     * @param int|string $id
+     * @return bool|\Illuminate\Support\Collection|null|static
      */
     public function update($id)
     {

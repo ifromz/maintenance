@@ -99,7 +99,7 @@ class ImageService extends BaseModelService
                     /*
                      * Create the attachment record
                      */
-                    $records[] = $this->attachment->setInput($insert)->create();
+                    $record = $this->attachment->setInput($insert)->create();
 
                     /*
                      * Attach the attachment record to the asset images

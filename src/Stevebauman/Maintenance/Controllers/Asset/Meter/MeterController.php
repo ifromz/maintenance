@@ -12,7 +12,33 @@ use Stevebauman\Maintenance\Controllers\BaseController;
  * Handles asset meter creation and updating
  */
 class MeterController extends BaseController {
-    
+
+    /**
+     * @var AssetService
+     */
+    protected $asset;
+
+    /**
+     * @var MeterService
+     */
+    protected $meter;
+
+    /**
+     * @var ReadingService
+     */
+    protected $meterReading;
+
+    /**
+     * @var MeterValidator
+     */
+    protected $meterValidator;
+
+    /**
+     * @param AssetService $asset
+     * @param MeterService $meter
+     * @param ReadingService $meterReading
+     * @param MeterValidator $meterValidator
+     */
     public function __construct(
             AssetService $asset,
             MeterService $meter, 

@@ -6,7 +6,8 @@ use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class WorkOrderController extends BaseController {
+class WorkOrderController extends BaseController
+{
 
     public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator)
     {
@@ -48,13 +49,13 @@ class WorkOrderController extends BaseController {
      */
     public function store()
     {
-        if($this->workOrderValidator->passes()){
+        if ($this->workOrderValidator->passes()) {
             $workOrder = $this->workOrder->setInput($this->inputAll())->create();
 
             $this->redirect = route('maintenance.work-orders.index');
             $this->message = sprintf('Successfully created work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($workOrder->id)));
             $this->messageType = 'success';
-        } else{
+        } else {
             $this->redirect = route('maintenance.work-orders.create');
             $this->errors = $this->workOrderValidator->getErrors();
         }
@@ -65,7 +66,7 @@ class WorkOrderController extends BaseController {
     /**
      * Displays the specified work order
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show($id)
@@ -73,7 +74,7 @@ class WorkOrderController extends BaseController {
         $workOrder = $this->workOrder->find($id);
 
         return view('maintenance::work-orders.show', array(
-            'title' => 'Viewing Work Order: '.$workOrder->subject,
+            'title' => 'Viewing Work Order: ' . $workOrder->subject,
             'workOrder' => $workOrder
         ));
     }
@@ -81,7 +82,7 @@ class WorkOrderController extends BaseController {
     /**
      * Displays the edit form for the specified work order
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)
@@ -89,7 +90,7 @@ class WorkOrderController extends BaseController {
         $workOrder = $this->workOrder->find($id);
 
         return view('maintenance::work-orders.edit', array(
-            'title' => 'Editing Work Order: '.$workOrder->subject,
+            'title' => 'Editing Work Order: ' . $workOrder->subject,
             'workOrder' => $workOrder,
         ));
 
@@ -98,12 +99,12 @@ class WorkOrderController extends BaseController {
     /**
      * Update the specified work order
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function update($id)
     {
-        if($this->workOrderValidator->passes()) {
+        if ($this->workOrderValidator->passes()) {
 
             $record = $this->workOrder->setInput($this->inputAll())->update($id);
 
@@ -123,16 +124,16 @@ class WorkOrderController extends BaseController {
     /**
      * Removes the work order
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function destroy($id)
     {
-        if($this->workOrder->destroy($id)){
+        if ($this->workOrder->destroy($id)) {
             $this->message = 'Successfully deleted work order';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.index');
-        } else{
+        } else {
             $this->message = 'There was an error deleting the work order. Please try again';
             $this->messageType = 'danger';
             $this->redirect = route('maintenance.work-orders.show', array($id));

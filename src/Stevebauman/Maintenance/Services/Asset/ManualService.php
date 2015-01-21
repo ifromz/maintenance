@@ -18,6 +18,26 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class ManualService extends BaseModelService
 {
 
+    /**
+     * @var AssetService
+     */
+    protected $asset;
+
+    /**
+     * @var AttachmentService
+     */
+    protected $attachment;
+
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @param AssetService $asset
+     * @param AttachmentService $attachment
+     * @param SentryService $sentry
+     */
     public function __construct(AssetService $asset, AttachmentService $attachment, SentryService $sentry)
     {
         $this->asset = $asset;

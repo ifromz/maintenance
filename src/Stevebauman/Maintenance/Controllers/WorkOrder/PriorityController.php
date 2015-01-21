@@ -6,7 +6,8 @@ use Stevebauman\Maintenance\Validators\PriorityValidator;
 use Stevebauman\Maintenance\Services\PriorityService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class PriorityController extends BaseController {
+class PriorityController extends BaseController
+{
 
     public function __construct(PriorityService $priority, PriorityValidator $priorityValidator)
     {
@@ -52,19 +53,19 @@ class PriorityController extends BaseController {
     {
         $this->priorityValidator->unique('name', $this->priority->getTableName(), 'name');
 
-        if($this->priorityValidator->passes()){
+        if ($this->priorityValidator->passes()) {
 
-            if($this->priority->setInput($this->inputAll())->create()){
+            if ($this->priority->setInput($this->inputAll())->create()) {
                 $this->message = 'Successfully created priority';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.work-orders.priorities.index');
-            } else{
+            } else {
                 $this->message = 'There was an error trying to create a priority. Please try again';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.work-orders.priorities.create');
             }
 
-        } else{
+        } else {
             $this->errors = $this->priorityValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.priorities.create');
         }
@@ -75,7 +76,7 @@ class PriorityController extends BaseController {
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)
@@ -83,7 +84,7 @@ class PriorityController extends BaseController {
         $priority = $this->priority->find($id);
 
         return view('maintenance::work-orders.priorities.edit', array(
-            'title' => 'Editing Priority: '.$priority->name,
+            'title' => 'Editing Priority: ' . $priority->name,
             'priority' => $priority
         ));
     }
@@ -92,26 +93,26 @@ class PriorityController extends BaseController {
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function update($id)
     {
         $this->priorityValidator->ignore('name', $this->priority->getTableName(), 'name', $id);
 
-        if($this->priorityValidator->passes()) {
+        if ($this->priorityValidator->passes()) {
 
-            if($this->priority->setInput($this->inputAll())->update($id)){
+            if ($this->priority->setInput($this->inputAll())->update($id)) {
                 $this->message = 'Successfully updated priority';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.work-orders.priorities.index');
-            } else{
+            } else {
                 $this->message = 'There was an error trying to create a priority. Please try again';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.work-orders.priorities.edit', array($id));
             }
 
-        } else{
+        } else {
             $this->errors = $this->priorityValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.priorities.edit', array($id));
         }
@@ -123,7 +124,7 @@ class PriorityController extends BaseController {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function destroy($id)

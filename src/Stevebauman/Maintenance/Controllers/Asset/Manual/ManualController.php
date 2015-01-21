@@ -9,18 +9,39 @@ use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class ManualController extends BaseController {
-        
-        public function __construct(AssetService $asset, ManualService $assetManual, AttachmentService $attachment){
-            $this->asset = $asset;
-            $this->assetManual = $assetManual;
-            $this->attachment = $attachment;
-        }
-    
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+
+    /**
+     * @var AssetService
+     */
+    protected $asset;
+
+    /**
+     * @var ManualService
+     */
+    protected $assetManual;
+
+    /**
+     * @var AttachmentService
+     */
+    protected $attachment;
+
+    /**
+     * @param AssetService $asset
+     * @param ManualService $assetManual
+     * @param AttachmentService $attachment
+     */
+    public function __construct(AssetService $asset, ManualService $assetManual, AttachmentService $attachment){
+        $this->asset = $asset;
+        $this->assetManual = $assetManual;
+        $this->attachment = $attachment;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param $asset_id
+     * @return mixed
+     */
 	public function index($asset_id){
             $asset = $this->asset->find($asset_id);
 
@@ -30,12 +51,12 @@ class ManualController extends BaseController {
             ));
 	}
 
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param $asset_id
+     * @return mixed
+     */
 	public function create($asset_id){
             $asset = $this->asset->find($asset_id);
 
@@ -45,12 +66,12 @@ class ManualController extends BaseController {
             ));
 	}
 
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param $asset_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
 	public function store($asset_id){
 
             $asset = $this->asset->find($asset_id);
@@ -73,13 +94,13 @@ class ManualController extends BaseController {
             return $this->response();
 	}
 
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $asset_id
+     * @param $attachment_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
 	public function destroy($asset_id, $attachment_id){
 
             $asset = $this->asset->find($asset_id);

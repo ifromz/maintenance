@@ -7,7 +7,8 @@ use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\Event\AbstractEventableController;
 
-class EventController extends AbstractEventableController {
+class EventController extends AbstractEventableController
+{
 
     public function __construct(WorkOrderService $workOrder, EventService $event, EventValidator $eventValidator)
     {

@@ -37,7 +37,7 @@ class CategoryService extends BaseNestedSetModelService
 
             return $record;
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
 
             $this->dbRollbackTransaction();
 

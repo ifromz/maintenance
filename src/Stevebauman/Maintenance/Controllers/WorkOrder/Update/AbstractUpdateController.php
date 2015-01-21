@@ -7,18 +7,19 @@ use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Validators\UpdateValidator;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-abstract class AbstractUpdateController extends BaseController {
-    
+abstract class AbstractUpdateController extends BaseController
+{
+
     public function __construct(WorkOrderService $workOrder, UpdateService $update, UpdateValidator $updateValidator)
     {
         $this->workOrder = $workOrder;
         $this->update = $update;
         $this->updateValidator = $updateValidator;
     }
-    
+
     /**
      * Destroys the specified work order customer update
-     * 
+     *
      * @param int $workOrder_id
      * @return mixed
      */
@@ -27,10 +28,10 @@ abstract class AbstractUpdateController extends BaseController {
         $workOrder = $this->workOrder->find($workOrder_id);
         $update = $this->update->find($update_id);
 
-        if($update->delete()){
+        if ($update->delete()) {
             $this->message = 'Successfully deleted update';
             $this->messageType = 'success';
-        } else{
+        } else {
             $this->message = 'There was an error trying to delete this update, please try again.';
             $this->messageType = 'danger';
         }
@@ -39,5 +40,5 @@ abstract class AbstractUpdateController extends BaseController {
 
         return $this->response();
     }
-    
+
 }

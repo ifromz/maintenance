@@ -9,12 +9,26 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class ReportService extends BaseModelService
 {
 
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @param EventReport $report
+     * @param SentryService $sentry
+     */
     public function __construct(EventReport $report, SentryService $sentry)
     {
         $this->model = $report;
         $this->sentry = $sentry;
     }
 
+    /**
+     * Creates an event report
+     *
+     * @return bool|static
+     */
     public function create()
     {
         $this->dbStartTransaction();

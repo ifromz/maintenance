@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
@@ -7,89 +7,113 @@ use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrder\AssignmentService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-class AssignmentController extends BaseController {
-        
-        public function __construct(AssignmentService $assignment, WorkOrderService $workOrder, AssignmentValidator $assignmentValidator){
-            $this->assignment = $assignment;
-            $this->workOrder = $workOrder;
-            $this->assignmentValidator = $assignmentValidator;
-        }
-    
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index($workOrder_id){
-            
-	}
+class AssignmentController extends BaseController
+{
 
+    /**
+     * @var AssignmentService
+     */
+    protected $assignment;
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create($workOrder_id){
-            
-	}
+    /**
+     * @var WorkOrderService
+     */
+    protected $workOrder;
 
+    /**
+     * @var AssignmentValidator
+     */
+    protected $assignmentValidator;
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store($workOrder_id){
-            
-            if($this->assignmentValidator->passes()){
-                    
-                $workOrder = $this->workOrder->find($workOrder_id);
-                
-                $data = $this->inputAll();
-                $data['work_order_id'] = $workOrder->id;
-                
-                $records = $this->assignment->setInput($data)->create();
-                
-                if($records) {
-                    $this->message = 'Successfully assigned worker(s)';
-                    $this->messageType = 'success';
-                    $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
-                } else {
-                    $this->message = 'There was an error trying to assign workers to this work order. Please try again.';
-                    $this->messageType = 'danger';
-                    $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
-                }
-                    
-            } else{
-                $this->errors = $this->assignmentValidator->getErrors();
-                $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
-            }
-            
-            return $this->response();
-	}
-        
+    /**
+     * @param AssignmentService $assignment
+     * @param WorkOrderService $workOrder
+     * @param AssignmentValidator $assignmentValidator
+     */
+    public function __construct(AssignmentService $assignment, WorkOrderService $workOrder, AssignmentValidator $assignmentValidator)
+    {
+        $this->assignment = $assignment;
+        $this->workOrder = $workOrder;
+        $this->assignmentValidator = $assignmentValidator;
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($workOrder_id, $assignment_id)
-	{
-            if($this->assignment->destroy($assignment_id)){
-                $this->message = 'Successfully removed worker from this work order.';
+    /**
+     * Display a listing of the resource.
+     *
+     * @param $workOrder_id
+     */
+    public function index($workOrder_id)
+    {
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param $workOrder_id
+     */
+    public function create($workOrder_id)
+    {
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param $workOrder_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
+    public function store($workOrder_id)
+    {
+
+        if ($this->assignmentValidator->passes()) {
+
+            $workOrder = $this->workOrder->find($workOrder_id);
+
+            $data = $this->inputAll();
+            $data['work_order_id'] = $workOrder->id;
+
+            $records = $this->assignment->setInput($data)->create();
+
+            if ($records) {
+                $this->message = 'Successfully assigned worker(s)';
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
-            } else{
-                $this->message = 'There was an error trying to remove this worker from this work order. Please try again later.';
+                $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+            } else {
+                $this->message = 'There was an error trying to assign workers to this work order. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+                $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
             }
-            
-            return $this->response();
-	}
+
+        } else {
+            $this->errors = $this->assignmentValidator->getErrors();
+            $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+        }
+
+        return $this->response();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $workOrder_id
+     * @param $assignment_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
+    public function destroy($workOrder_id, $assignment_id)
+    {
+        if ($this->assignment->destroy($assignment_id)) {
+            $this->message = 'Successfully removed worker from this work order.';
+            $this->messageType = 'success';
+            $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+        } else {
+            $this->message = 'There was an error trying to remove this worker from this work order. Please try again later.';
+            $this->messageType = 'danger';
+            $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+        }
+
+        return $this->response();
+    }
 
 
 }

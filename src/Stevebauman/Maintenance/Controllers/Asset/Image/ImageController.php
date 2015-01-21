@@ -9,18 +9,39 @@ use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 class ImageController extends BaseController {
-	
+
+    /**
+     * @var AssetService
+     */
+    protected $asset;
+
+    /**
+     * @var ImageService
+     */
+    protected $assetImage;
+
+    /**
+     * @var AttachmentService
+     */
+    protected $attachment;
+
+    /**
+     * @param AssetService $asset
+     * @param ImageService $assetImage
+     * @param AttachmentService $attachment
+     */
 	public function __construct(AssetService $asset, ImageService $assetImage, AttachmentService $attachment){
 		$this->asset = $asset;
 		$this->assetImage = $assetImage;
-                $this->attachment = $attachment;
+        $this->attachment = $attachment;
 	}
-	
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param $asset_id
+     * @return mixed
+     */
 	public function index($asset_id){
 
             $asset = $this->asset->find($asset_id);
@@ -31,12 +52,12 @@ class ImageController extends BaseController {
             ));
 	}
 
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param $asset_id
+     * @return mixed
+     */
 	public function create($asset_id){
             $asset = $this->asset->find($asset_id);
 
@@ -46,12 +67,12 @@ class ImageController extends BaseController {
             ));
 	}
 
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param $asset_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
 	public function store($asset_id){
             $asset = $this->asset->find($asset_id);
             
@@ -71,13 +92,13 @@ class ImageController extends BaseController {
             return $this->response();
 	}
 
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Display the specified resource.
+     *
+     * @param $asset_id
+     * @param $attachment_id
+     * @return mixed
+     */
 	public function show($asset_id, $attachment_id){
             $asset = $this->asset->find($asset_id);
 
@@ -90,37 +111,33 @@ class ImageController extends BaseController {
             ));
 	}
 
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param $id
+     */
 	public function edit($id)
 	{
 		//
 	}
 
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param $id
+     */
 	public function update($id)
 	{
 		//
 	}
 
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $asset_id
+     * @param $attachment_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
 	public function destroy($asset_id, $attachment_id){
 
             $asset = $this->asset->find($asset_id);
