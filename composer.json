@@ -17,12 +17,8 @@
         "stevebauman/inventory": "0.*",
         "stevebauman/calendar-helper": "0.1.*",
         "cartalyst/sentry": "2.*",
-        "venturecraft/revisionable": "1.*",
-        "jildertmiedema/laravel-plupload": "0.*",
         "baum/baum": "1.0.*",
         "simplesoftwareio/simple-qrcode": "1.0.*",
-        "dmyers/laravel-storage": "1.*",
-        "mews/purifier": "1.*",
         "mews/captcha": "1.*"
     },
     "require-dev": {
