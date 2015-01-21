@@ -8,7 +8,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/stevebauman/maintenance/v/unstable.svg)](https://packagist.org/packages/stevebauman/maintenance) 
 [![License](https://poser.pugx.org/stevebauman/maintenance/license.svg)](https://packagist.org/packages/stevebauman/maintenance)
 
-A Preventative Maintenance Application (CMMS) for Laravel
+> **Note:** This repository contains the core code of the Maintenance application. If you want the actual pre-built application, visit the main [Maintenance App repository](https://github.com/stevebauman/maintenance-app).
 
 ##TO DO
 * Move work order management to separate package - IN PROGRESS
