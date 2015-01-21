@@ -30,7 +30,10 @@ class InventoryStock extends BaseModel
     protected $fillable = array(
         'inventory_id',
         'location_id',
-        'quantity'
+        'quantity',
+        'aisle',
+        'row',
+        'bin',
     );
 
     protected $revisionFormattedFieldNames = array(

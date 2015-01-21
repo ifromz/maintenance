@@ -53,34 +53,15 @@ class StockService extends BaseModelService
             if ($record) {
 
                 /*
-                 * Set first movement data
+                 * Fire stock created event
                  */
-                $movement = array(
-                    'stock_id' => $record->id,
-                    'before' => 0,
-                    'after' => $record->quantity,
-                    'reason' => 'First Item Record; Stock Increase',
-                    'cost' => $this->getInput('cost'),
-                );
+                $this->fireEvent('maintenance.inventory.stock.created', array(
+                    'stock' => $record
+                ));
 
-                /*
-                 * If the inventory movement has been successfully created, return the record. 
-                 * Otherwise delete it.
-                 */
-                if ($this->inventoryStockMovement->setInput($movement)->create()) {
+                $this->dbCommitTransaction();
 
-                    /*
-                     * Fire stock created event
-                     */
-                    $this->fireEvent('maintenance.inventory.stock.created', array(
-                        'stock' => $record
-                    ));
-
-                    $this->dbCommitTransaction();
-
-                    return $record;
-
-                }
+                return $record;
             }
 
             $this->dbRollbackTransaction();
