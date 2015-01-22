@@ -29,26 +29,17 @@
             </div>
             <div class="panel-body">
 
-                {{ Form::open(array(
+                {{
+                    Form::open(array(
                         'url'=>action(currentControllerAction('store'), array($category->id)), 
                         'class'=>'form-horizontal ajax-form-post clear-form'
                     )) 
                 }}
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="location_name">Name</label>
+                @include('maintenance::categories.create', compact('category'))
 
-                    <div class="col-md-4">
-                        {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Electrical / Lighting')) }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
-                    </div>
-                </div>
                 {{ Form::close() }}
+
             </div>
         </div>
     </div>

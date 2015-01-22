@@ -1,11 +1,12 @@
-<?php 
+<?php
 
 namespace Stevebauman\Maintenance\Validators\Event;
 
 use Stevebauman\Maintenance\Validators\BaseValidator;
 
-class EventValidator extends BaseValidator {
-    
+class EventValidator extends BaseValidator
+{
+
     protected $rules = array(
         'title' => 'required|min:5|max:250',
         'description' => 'min:5|max:2000',
@@ -19,19 +20,22 @@ class EventValidator extends BaseValidator {
         'recur_months' => '',
         'all_day' => '',
     );
-    
-    public function passes() {
+
+    public function passes()
+    {
         /*
         * Validate if the end date is before the start date only if all day is not checked
         */
-        $this->validator()->sometimes('start_date', 'before:end_date', function($input){
-            if($input->all_day) {
+        $this->validator()->sometimes('start_date', 'before:end_date', function ($input) {
+
+            if ($input->all_day) {
                 return false;
             }
+
             return true;
         });
-        
+
         return parent::passes();
     }
-    
+
 }

@@ -26,29 +26,16 @@
         </div>
 
         <div class="panel-body">
-            {{ Form::open(array('url'=>route('maintenance.metrics.store'), 'class'=>'form-horizontal ajax-form-post clear-form')) }}
+            {{
+                Form::open(array(
+                    'url'=>route('maintenance.metrics.store'),
+                    'class'=>'form-horizontal ajax-form-post clear-form'
+                ))
+            }}
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Name</label>
+            @include('maintenance::metrics.form')
 
-                <div class="col-md-4">
-                    {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. LB, Tonne, Litre, ML')) }}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Symbol</label>
-
-                <div class="col-md-4">
-                    {{ Form::text('symbol', NULL, array('class'=>'form-control', 'placeholder'=>'Kms')) }}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
-                </div>
-            </div>
+            {{ Form::close() }}
         </div>
 
     </div>

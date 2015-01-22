@@ -24,27 +24,18 @@
                 <h3 class="panel-title">Create {{ $resource }}</h3>
             </div>
             <div class="panel-body">
-                {{ Form::open(array(
+
+                {{
+                    Form::open(array(
                         'url'=>action(currentControllerAction('store')),
                         'class'=>'form-horizontal ajax-form-post clear-form'
                     ))
                 }}
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="name">Name</label>
-
-                    <div class="col-md-4">
-                        {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Electrical / Lighting')) }}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
-                    </div>
-                </div>
+                @include('maintenance::categories.form')
 
                 {{ Form::close() }}
+
             </div>
         </div>
     </div>

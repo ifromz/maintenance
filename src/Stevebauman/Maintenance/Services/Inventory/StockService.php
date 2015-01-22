@@ -13,6 +13,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class StockService extends BaseModelService
 {
 
+    /**
+     * @var StockMovementService
+     */
+    protected $inventoryStockMovement;
+
     public function __construct(
         InventoryStock $inventoryStock,
         StockMovementService $inventoryStockMovement,
