@@ -25,6 +25,11 @@ class InventoryViewer extends BaseViewer {
     {
         return view('maintenance::viewers.inventory.notes', array('item'=>$this->entity));
     }
+
+    public function btnAddNote()
+    {
+        return view('maintenance::viewers.inventory.buttons.add-note', array('item'=>$this->entity));
+    }
     
     public function btnAddStock()
     {

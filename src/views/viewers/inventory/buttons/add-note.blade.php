@@ -1,23 +1,23 @@
 <a href=""
-   data-target="#create-stock-modal"
+   data-target="#create-note-modal"
    data-toggle="modal"
    class="btn btn-app no-print">
-    <i class="fa fa-plus-circle"></i> Add Stock
+    <i class="fa fa-plus-circle"></i> Add Note
 </a>
 
-<div class="modal fade" id="create-stock-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="create-note-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                             class="sr-only">Close</span></button>
-                <h4 class="modal-title">Add new Stock Location</h4>
+                <h4 class="modal-title">Add a new Note</h4>
             </div>
 
             {{
                 Form::open(array(
-                    'url'=>route('maintenance.inventory.stocks.store', array($item->id)),
+                    'url'=>route('maintenance.inventory.notes.store', array($item->id)),
                     'class'=>'form-horizontal ajax-form-post clear-form',
                     'data-status-target' => '#stock-location-status',
                     'data-refresh-target' => '#inventory-stocks-table',
