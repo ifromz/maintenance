@@ -10,8 +10,7 @@
 
         <div class="panel-heading">
             <div class="btn-toolbar">
-                <a href="{{ route('maintenance.admin.groups.create') }}" class="btn btn-primary" data-toggle="tooltip"
-                   title="Create a new User Group">
+                <a href="{{ route('maintenance.admin.groups.create') }}" class="btn btn-primary">
                     <i class="fa fa-plus"></i>
                     New Group
                 </a>

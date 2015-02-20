@@ -2,7 +2,7 @@
 
 return array(
 
-    /**
+    /*
      * The default maintenance application permissions during installation.
      */
     'default' => array(
@@ -12,6 +12,9 @@ return array(
         'superuser' => 'superuser',
     ),
 
+    /*
+     * All Users have access to these routes
+     */
     'all_users' => array(
 
         'maintenance.login',
@@ -24,18 +27,24 @@ return array(
 
     ),
 
+    /*
+     * Only customers have access to these routes
+     */
     'customers' => array(
 
-        'maintenance.work-requests.index',
-        'maintenance.work-requests.create',
-        'maintenance.work-requests.store',
-        'maintenance.work-requests.show',
-        'maintenance.work-requests.edit',
-        'maintenance.work-requests.update',
-        'maintenance.work-requests.destroy',
+        'maintenance.my-work-requests.index',
+        'maintenance.my-work-requests.create',
+        'maintenance.my-work-requests.store',
+        'maintenance.my-work-requests.show',
+        'maintenance.my-work-requests.edit',
+        'maintenance.my-work-requests.update',
+        'maintenance.my-work-requests.destroy',
 
     ),
 
+    /*
+     * Only workers have access to these groups
+     */
     'workers' => array(
 
         'maintenance.dashboard.index',

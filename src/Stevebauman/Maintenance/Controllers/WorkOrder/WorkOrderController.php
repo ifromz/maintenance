@@ -6,9 +6,27 @@ use Stevebauman\Maintenance\Validators\WorkOrderValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
+/**
+ * Class WorkOrderController
+ * @package Stevebauman\Maintenance\Controllers\WorkOrder
+ */
 class WorkOrderController extends BaseController
 {
 
+    /**
+     * @var WorkOrderService
+     */
+    protected $workOrder;
+
+    /**
+     * @var WorkOrderValidator
+     */
+    protected $workOrderValidator;
+
+    /**
+     * @param WorkOrderService $workOrder
+     * @param WorkOrderValidator $workOrderValidator
+     */
     public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator)
     {
         $this->workOrder = $workOrder;
@@ -18,14 +36,14 @@ class WorkOrderController extends BaseController
     /**
      * Displays all work orders (paginated with search functionality)
      *
-     * @return Response
+     * @return mixed
      */
     public function index()
     {
         $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
 
         return view('maintenance::work-orders.index', array(
-            'title' => 'Work Orders',
+            'title' => _t('Work Orders'),
             'workOrders' => $workOrders
         ));
     }
@@ -33,19 +51,19 @@ class WorkOrderController extends BaseController
     /**
      * Displays the form to create a work order
      *
-     * @return Response
+     * @return mixed
      */
     public function create()
     {
         return view('maintenance::work-orders.create', array(
-            'title' => 'Create a Work Order'
+            'title' => _t('Create a Work Order'),
         ));
     }
 
     /**
      * Stores a new work order
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function store()
     {
@@ -66,8 +84,8 @@ class WorkOrderController extends BaseController
     /**
      * Displays the specified work order
      *
-     * @param  int $id
-     * @return Response
+     * @param $id
+     * @return mixed
      */
     public function show($id)
     {
@@ -82,8 +100,8 @@ class WorkOrderController extends BaseController
     /**
      * Displays the edit form for the specified work order
      *
-     * @param  int $id
-     * @return Response
+     * @param $id
+     * @return mixed
      */
     public function edit($id)
     {
@@ -99,8 +117,8 @@ class WorkOrderController extends BaseController
     /**
      * Update the specified work order
      *
-     * @param  int $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function update($id)
     {
@@ -124,8 +142,8 @@ class WorkOrderController extends BaseController
     /**
      * Removes the work order
      *
-     * @param  int $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($id)
     {

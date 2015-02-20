@@ -21,6 +21,11 @@ class UserService extends BaseModelService
      */
     protected $ldap;
 
+    /**
+     * @param User $user
+     * @param SentryService $sentry
+     * @param LdapService $ldap
+     */
     public function __construct(User $user, SentryService $sentry, LdapService $ldap)
     {
         $this->model = $user;
@@ -28,13 +33,23 @@ class UserService extends BaseModelService
         $this->ldap = $ldap;
     }
 
+    /**
+     * Returns a filtered and paginated collection of users
+     *
+     * @return mixed
+     */
     public function getByPageWithFilter()
     {
-        return $this->model->paginate(25);
+        return $this->model
+            ->id($this->getInput('id'))
+            ->name($this->getInput('name'))
+            ->username($this->getInput('username'))
+            ->email($this->getInput('email'))
+            ->paginate(25);
     }
 
     /**
-     * Create or Update a User for authentication
+     * Create or Update a User for authentication for use with ldap
      *
      * @author Steve Bauman
      *

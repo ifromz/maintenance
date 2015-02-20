@@ -24,6 +24,7 @@
 * Optimize views for tablet/mobile - IN PROGRESS
 * Upgrade to Laravel 5.0
 * Tests
+* Restrict multiple submits through ajax requests
 
 ##Done
 * Moved inventory management to separate package - Jan 14th 2015

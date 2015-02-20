@@ -71,13 +71,36 @@ Route::group(array('namespace' => 'Inventory'), function () {
         ),
     ));
 
+    Route::resource('inventory.notes', 'NoteController', array(
+        'names' => array(
+            'create' => 'maintenance.inventory.notes.create',
+            'store' => 'maintenance.inventory.notes.store',
+            'edit' => 'maintenance.inventory.notes.edit',
+            'update' => 'maintenance.inventory.notes.update',
+            'destroy' => 'maintenance.inventory.notes.destroy',
+        ),
+        'only' => array(
+            'create',
+            'store',
+            'edit',
+            'update',
+            'destroy',
+        ),
+    ));
+
+    Route::post('inventory/{inventory}/stocks/{stocks}/movements/{movements}/rollback', array(
+        'as' => 'maintenance.inventory.stocks.movements.rollback',
+        'uses' => 'StockMovementController@rollback',
+    ));
 
     Route::resource('inventory.stocks.movements', 'StockMovementController', array(
         'only' => array(
-            'index'
+            'index',
+            'show',
         ),
         'names' => array(
             'index' => 'maintenance.inventory.stocks.movements.index',
+            'show' => 'maintenance.inventory.stocks.movements.show',
         ),
     ));
 

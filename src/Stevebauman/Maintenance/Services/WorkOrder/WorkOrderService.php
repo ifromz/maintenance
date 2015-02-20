@@ -3,6 +3,8 @@
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Stevebauman\Maintenance\Exceptions\WorkOrderNotFoundException;
+use Stevebauman\Maintenance\Services\PriorityService;
+use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Services\BaseModelService;
@@ -14,14 +16,40 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class WorkOrderService extends BaseModelService
 {
 
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @var PriorityService
+     */
+    protected $priority;
+
+    /**
+     * @var StatusService
+     */
+    protected $status;
+
+    /**
+     * @param WorkOrder $workOrder
+     * @param SentryService $sentry
+     * @param PriorityService $priority
+     * @param StatusService $status
+     * @param WorkOrderNotFoundException $notFoundException
+     */
     public function __construct(
         WorkOrder $workOrder,
         SentryService $sentry,
+        PriorityService $priority,
+        StatusService $status,
         WorkOrderNotFoundException $notFoundException
     )
     {
         $this->model = $workOrder;
         $this->sentry = $sentry;
+        $this->priority = $priority;
+        $this->status = $status;
         $this->notFoundException = $notFoundException;
     }
 
@@ -29,8 +57,8 @@ class WorkOrderService extends BaseModelService
      * Returns an eloquent collection of all work orders with query scopes
      * for search functionality
      *
-     * @param boolean $archived
-     * @return eloquent collection
+     * @param null $archived
+     * @return mixed
      */
     public function getByPageWithFilter($archived = NULL)
     {
@@ -54,6 +82,9 @@ class WorkOrderService extends BaseModelService
             ->paginate(25);
     }
 
+    /**
+     * @return mixed
+     */
     public function getUserAssignedWorkOrders()
     {
         return $this->model
@@ -66,6 +97,11 @@ class WorkOrderService extends BaseModelService
             ->paginate(25);
     }
 
+    /**
+     * Creates a work order
+     *
+     * @return bool|static
+     */
     public function create()
     {
         $this->dbStartTransaction();
@@ -108,6 +144,54 @@ class WorkOrderService extends BaseModelService
         }
     }
 
+    public function createFromWorkRequest($workRequest)
+    {
+        $this->dbStartTransaction();
+
+        try {
+
+            $status = $this
+                ->status
+                ->setInput(config('maintenance::rules.work-requests.submission_status'))
+                ->firstOrCreate();
+
+            $priority = $this
+                ->priority
+                ->setInput(config('maintenance::rules.work-requests.submission_priority'))
+                ->firstOrCreate();
+
+            $insert = array(
+                'status_id' => $status->id,
+                'priority_id' => $priority->id,
+                'user_id' => $workRequest->user_id,
+                'subject' => $workRequest->subject,
+                'description' => $workRequest->description,
+            );
+
+            $workOrder = $this->model->create($insert);
+
+            if($workOrder) {
+
+                $this->dbCommitTransaction();
+
+                return $workOrder;
+            }
+
+        } catch(\Exception $e) {
+
+            $this->dbRollbackTransaction();
+
+        }
+
+        return false;
+    }
+
+    /**
+     * Updates a work order
+     *
+     * @param int|string $id
+     * @return bool|object
+     */
     public function update($id)
     {
         $this->dbStartTransaction();
@@ -156,6 +240,12 @@ class WorkOrderService extends BaseModelService
 
     }
 
+    /**
+     * Deletes a work order
+     *
+     * @param $id
+     * @return bool
+     */
     public function destroy($id)
     {
         $this->dbStartTransaction();

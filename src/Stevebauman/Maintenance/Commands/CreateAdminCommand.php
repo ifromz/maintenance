@@ -28,6 +28,9 @@ class CreateAdminCommand extends Command {
      */
     protected $sentry;
 
+    /**
+     * @param SentryService $sentry
+     */
     public function __construct(SentryService $sentry){
 
         $this->sentry = $sentry;
@@ -35,6 +38,9 @@ class CreateAdminCommand extends Command {
         parent::__construct();
     }
 
+    /**
+     * Execute the command
+     */
     public function fire()
     {
         $user = array(
@@ -61,26 +67,51 @@ class CreateAdminCommand extends Command {
         }
     }
 
+    /**
+     * Ask for the administrators first name
+     *
+     * @return string
+     */
     private function askFirstName()
     {
         return $this->ask('What will you use as the administrators first name? ');
     }
 
+    /**
+     * Ask for the administrators last name
+     *
+     * @return string
+     */
     private function askLastName()
     {
         return $this->ask('What will you use as the administrators last name? ');
     }
 
+    /**
+     * Ask for the administrators username
+     *
+     * @return string
+     */
     private function askUsername()
     {
         return $this->ask('What will you use as the administrators username? ');
     }
 
+    /**
+     * Ask for the administrators email
+     *
+     * @return string
+     */
     private function askEmail()
     {
         return $this->ask('What will you use as the administrators email? ');
     }
 
+    /**
+     * Ask for the administrators password
+     *
+     * @return string
+     */
     private function askPassword()
     {
         return $this->ask('What will you use as the administrators password? ');

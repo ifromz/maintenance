@@ -45,6 +45,28 @@ return array(
 
     ),
 
+    'work-requests' => array(
+
+        /*
+         * The status for the work order that's generated when a work request
+         * is created
+         */
+        'submission_status' => array(
+            'name' => 'Requested',
+            'color' => 'default',
+        ),
+
+        /*
+         * The priority for the work order that's generated when a work request
+         * is created
+         */
+        'submission_priority' => array(
+            'name' => 'Requested',
+            'color' => 'default',
+        ),
+
+    ),
+
     'inventory' => array(
 
         /*

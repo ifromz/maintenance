@@ -51,6 +51,10 @@
     </div>
 
     <div class="tab-pane" id="tab_notes">
+        {{ $item->viewer()->btnAddNote }}
+
+        <hr>
+
         {{ $item->viewer()->notes }}
     </div>
 

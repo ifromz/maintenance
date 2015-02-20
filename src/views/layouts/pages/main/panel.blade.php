@@ -28,6 +28,8 @@
 
     </div>
 
+    <div class="padding-bottom-100"></div>
+
     @yield('panel.extra.bottom')
 
 @stop

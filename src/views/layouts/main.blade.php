@@ -45,6 +45,15 @@
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
+
+                @if(Sentry::hasAccess('maintenance.work-requests.index'))
+                    <li class="{{ activeMenuLink('maintenance.work-requests.index') }}">
+                        <a href="{{ route('maintenance.work-requests.index') }}" style="margin-left: 10px;">
+                            <i class="fa fa-exclamation-triangle"></i> Work Requests
+                        </a>
+                    </li>
+                @endif
+
                 @if(Sentry::hasAccess('maintenance.work-orders.index'))
                     <li class="{{ activeMenuLink('maintenance.work-orders.index') }}">
                         <a href="{{ route('maintenance.work-orders.index') }}" style="margin-left: 10px;">

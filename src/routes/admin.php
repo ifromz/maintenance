@@ -59,10 +59,10 @@ Route::group(array('namespace' => 'Archive'), function () {
      */
     Route::post('archive/assets/{assets}/restore', array(
         'as' => 'maintenance.admin.archive.assets.restore',
-        'uses' => 'ArchiveAssetController@restore'
+        'uses' => 'AssetController@restore'
     ));
 
-    Route::resource('archive/assets', 'ArchiveAssetController', array(
+    Route::resource('archive/assets', 'AssetController', array(
         'only' => array(
             'index',
             'show',
@@ -80,10 +80,10 @@ Route::group(array('namespace' => 'Archive'), function () {
      */
     Route::post('archive/work-orders/{work_orders}/restore', array(
         'as' => 'maintenance.admin.archive.work-orders.restore',
-        'uses' => 'ArchiveWorkOrderController@restore'
+        'uses' => 'WorkOrderController@restore'
     ));
 
-    Route::resource('archive/work-orders', 'ArchiveWorkOrderController', array(
+    Route::resource('archive/work-orders', 'WorkOrderController', array(
         'only' => array(
             'index',
             'show',
@@ -101,10 +101,10 @@ Route::group(array('namespace' => 'Archive'), function () {
      */
     Route::post('archive/inventory/{inventory}/restore', array(
         'as' => 'maintenance.admin.archive.inventory.restore',
-        'uses' => 'ArchiveInventoryController@restore'
+        'uses' => 'InventoryController@restore'
     ));
 
-    Route::resource('archive/inventory', 'ArchiveInventoryController', array(
+    Route::resource('archive/inventory', 'InventoryController', array(
         'only' => array(
             'index',
             'show',

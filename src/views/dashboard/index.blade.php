@@ -4,7 +4,6 @@
     <h1>Dashboard</h1>
 @stop
 
-
 @section('content')
 
     <div class="col-md-8">
@@ -19,4 +18,5 @@
             </div>
         </div>
     </div>
+
 @stop

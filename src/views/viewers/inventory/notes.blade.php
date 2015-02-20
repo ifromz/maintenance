@@ -8,6 +8,9 @@
         'action' => 'Action'
      ))
      ->means('user', 'user.fullname')
+     ->modify('action', function($note) use($item) {
+        return $item->viewer()->btnNoteActions($note);
+     })
      ->render()
 
      }}

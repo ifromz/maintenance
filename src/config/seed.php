@@ -19,8 +19,8 @@ return array(
             'color' => 'danger',
         ),
         array(
-            'name' => 'Test',
-            'color' => 'success'
+            'name' => 'Requested',
+            'color' => 'default'
         ),
     ),
 
@@ -36,7 +36,11 @@ return array(
         array(
             'name' => 'In Progress',
             'color' => 'warning'
-        )
+        ),
+        array(
+            'name' => 'Requested',
+            'color' => 'default'
+        ),
     ),
 
     'metrics' => array(

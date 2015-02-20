@@ -14,6 +14,16 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class InventoryService extends BaseModelService
 {
 
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @param Inventory $inventory
+     * @param SentryService $sentry
+     * @param InventoryNotFoundException $notFoundException
+     */
     public function __construct(Inventory $inventory, SentryService $sentry, InventoryNotFoundException $notFoundException)
     {
         $this->model = $inventory;
@@ -25,7 +35,8 @@ class InventoryService extends BaseModelService
      * Returns all inventory items paginated, with eager loaded relationships,
      * as well as scopes for search.
      *
-     * @return type Collection
+     * @param null $archived
+     * @return mixed
      */
     public function getByPageWithFilter($archived = NULL)
     {
@@ -51,7 +62,7 @@ class InventoryService extends BaseModelService
     /**
      * Creates an item record
      *
-     * @return boolean OR object
+     * @return mixed
      */
     public function create()
     {
@@ -107,7 +118,7 @@ class InventoryService extends BaseModelService
     /**
      * Updates an item record
      *
-     * @param type $id
+     * @param int|string $id
      * @return boolean
      */
     public function update($id)

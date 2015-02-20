@@ -47,10 +47,14 @@
                         'cost' => 'Cost',
                         'reason' => 'Reason',
                         'created_at' => 'Date',
+                        'action' => 'Action'
                     ))
                     ->means('user', 'user.full_name')
                     ->modify('change', function($movement) use($item) {
                         return $movement->change . ' ' . $item->metric->name;
+                    })
+                    ->modify('action', function($movement) use($item, $stock){
+                        return $movement->viewer()->btnActions($item, $stock);
                     })
                     ->hidden(array('before', 'after', 'reason'))
                     ->sortable(array(

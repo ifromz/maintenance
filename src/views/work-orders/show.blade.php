@@ -55,6 +55,14 @@
 
         {{ $workOrder->viewer()->profile }}
 
+        <legend>Work Request</legend>
+
+        @if($workOrder->workRequest)
+            {{ $workOrder->viewer()->workRequest }}
+        @else
+            <h5>No work request was created for this work order.</h5>
+        @endif
+
     </div>
 
     <div class="tab-pane" id="tab_details">
@@ -113,11 +121,5 @@
 
         {{ $workOrder->viewer()->technicianUpdates }}
     </div>
-
-@stop
-
-@section('tab.extra.bottom')
-
-
 
 @stop

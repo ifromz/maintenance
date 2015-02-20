@@ -27,33 +27,12 @@ class MaintenanceServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Register the service provider.
-	 *
-	 * @return void
+	 * Registers all the maintenance commands
 	 */
-	public function register()
-	{
-		$this->app->missing(function($e){
-			return view('maintenance::404', array(
-				'title' => '404 - Not Found'
-			));
-		});
-	}
-
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return array('maintenance');
-	}
-
 	private function bootCommands()
 	{
 		$this->app->bind('maintenance:install', function(){
-					return new Commands\InstallCommand();
+			return new Commands\InstallCommand();
 		});
 
 		$this->app->bind('maintenance:run-migrations', function(){
@@ -86,6 +65,9 @@ class MaintenanceServiceProvider extends ServiceProvider {
 		));
 	}
 
+	/**
+	 * Includes the required maintenance files
+	 */
 	private function bootRequiredFiles()
 	{
 		include __DIR__ .'/../../routes.php';
@@ -94,5 +76,32 @@ class MaintenanceServiceProvider extends ServiceProvider {
 		include __DIR__ .'/../../validators.php';
 		include __DIR__ .'/../../listeners.php';
 	}
+
+	/**
+	 * Register the service provider.
+	 *
+	 * @return void
+	 */
+	public function register()
+	{
+		$this->app->missing(function($e){
+			return view('maintenance::404', array(
+				'title' => '404 - Not Found'
+			));
+		});
+
+	}
+
+	/**
+	 * Get the services provided by the provider.
+	 *
+	 * @return array
+	 */
+	public function provides()
+	{
+		return array('maintenance');
+	}
+
+
 
 }

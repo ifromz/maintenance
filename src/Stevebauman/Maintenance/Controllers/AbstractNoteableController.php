@@ -27,12 +27,38 @@ class AbstractNoteableController extends BaseController
      */
     protected $noteValidator;
 
+    /**
+     * @param NoteService $note
+     * @param NoteValidator $noteValidator
+     */
     public function __construct(NoteService $note, NoteValidator $noteValidator)
     {
         $this->note = $note;
         $this->noteValidator = $noteValidator;
     }
 
+    /**
+     * Displays the form for creating a note
+     *
+     * @param string|int $noteable_id
+     * @return mixed
+     */
+    public function create($noteable_id)
+    {
+        $noteable = $this->noteable->find($noteable_id);
+
+        return view('maintenance::noteables.create', array(
+            'title' => 'Create a Note',
+            'noteable' => $noteable,
+        ));
+    }
+
+    /**
+     * Creates a note
+     *
+     * @param string|int $noteable_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     public function store($noteable_id)
     {
         if ($this->noteValidator->passes()) {
@@ -65,6 +91,23 @@ class AbstractNoteableController extends BaseController
 
     }
 
+    public function edit($noteable_id, $note_id)
+    {
+
+    }
+
+    public function update($noteable_id, $note_id)
+    {
+
+    }
+
+    /**
+     * Deletes the specified note
+     *
+     * @param string|int $noteable_id
+     * @param $note_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     public function destroy($noteable_id, $note_id)
     {
         if ($this->note->destroy($note_id)) {

@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
-use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\LdapService;
+use Stevebauman\CoreHelper\Services\Auth\SentryService;
+use Stevebauman\CoreHelper\Services\Auth\LdapService;
 use Illuminate\Database\Seeder;
 
 class LdapUserSeeder extends Seeder {

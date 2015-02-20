@@ -28,6 +28,7 @@ class WorkOrder extends BaseModel
         'user_id',
         'location_id',
         'category_id',
+        'request_id',
         'status_id',
         'priority_id',
         'subject',
@@ -47,46 +48,100 @@ class WorkOrder extends BaseModel
         'completed_at' => 'Completed At',
     );
 
+    /**
+     * The belongsTo work request relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function request()
+    {
+        return $this->belongsTo('Stevebauman\Maintenance\Models\WorkRequest', 'request_id', 'id');
+    }
+
+    /**
+     * The belongsToMany customer updates relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function customerUpdates()
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_customer_updates', 'work_order_id', 'update_id')->withTimestamps();
     }
 
+    /**
+     * The belongsToMany technician updates relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function technicianUpdates()
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_technician_updates', 'work_order_id', 'update_id')->withTimestamps();
     }
 
+    /**
+     * The hasOne status relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function status()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\Status', 'id', 'status_id');
     }
 
+    /**
+     * The hasOne priority relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function priority()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\Priority', 'id', 'priority_id');
     }
 
+    /**
+     * The belongsToMany assets relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function assets()
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Asset', 'work_order_assets', 'work_order_id', 'asset_id')->withTimestamps();
     }
 
+    /**
+     * The hasOne report relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function report()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrderReport', 'work_order_id');
     }
 
+    /**
+     * The hasMany assignments relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function assignments()
     {
         return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderAssignment', 'work_order_id', 'id');
     }
 
+    /**
+     * The belongsToMany attachments relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function attachments()
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'work_order_attachments', 'work_order_id', 'attachment_id')->withTimestamps();
     }
 
+    /**
+     * The belongsToMany inventory parts relationship
+     * @return $this
+     */
     public function parts()
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');

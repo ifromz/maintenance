@@ -20,6 +20,9 @@ class RunMigrationsCommand extends Command {
      */
     protected $description = 'Runs the maintenance application migrations';
 
+    /**
+     * Execute the command
+     */
     public function fire()
     {
         $this->call('migrate', array('--env' => $this->option('env'), '--package' => 'stevebauman/maintenance' ) );

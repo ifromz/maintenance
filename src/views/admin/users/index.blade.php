@@ -25,6 +25,10 @@
             </div>
         </div>
 
+        @include('maintenance::admin.users.modals.search', array(
+            'url' => route('maintenance.admin.users.index'),
+        ))
+
         <div id="resource-paginate" class="panel-body">
 
             <div class="text-center">{{ $users->links() }}</div>

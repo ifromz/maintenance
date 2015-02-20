@@ -3,7 +3,7 @@
 <!-- Bootstrap -->
 {{ HTML::script('packages/stevebauman/maintenance/resources/admin-lte/js/bootstrap.min.js') }}
 
-<!-- bootstrap modals -->
+<!-- Bootstrap modals -->
 {{ HTML::script('packages/stevebauman/maintenance/resources/bootstrap-modal/js/bootstrap-modalmanager.js') }}
 {{ HTML::script('packages/stevebauman/maintenance/resources/bootstrap-modal/js/bootstrap-modal.js') }}
 

@@ -16,7 +16,7 @@ Route::filter('maintenance.auth', function () {
 });
 
 /**
- * Filter to protect against authorized users.
+ * Filter to prevent users from visiting the login/register pages when logged in
  * Redirects user to main dashboard
  *
  * @author Steve Bauman
@@ -36,7 +36,10 @@ Route::filter('maintenance.notauth', function () {
  */
 Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $route) {
 
-
+    /*
+     * Make sure the route we're on isn't allowing all users already, and if so we'll check to see
+     * if the current user has access to it
+     */
     if(!in_array($route->getName(), config('maintenance::permissions.all_users')) && !Sentry::hasAccess($route->getName())) {
 
         $message = 'You do not have access to do perform this function.';

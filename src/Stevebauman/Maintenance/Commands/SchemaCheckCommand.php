@@ -23,8 +23,10 @@ class SchemaCheckCommand extends Command {
      */
     protected $description = 'Checks the current database to make sure the required tables are present, and the reserved tables are not';
 
-    /*
+    /**
      * Holds the database tables that must be present before install
+     *
+     * @var array
      */
     protected $dependencies = array(
         'users'         => 'sentry',
@@ -40,6 +42,11 @@ class SchemaCheckCommand extends Command {
         'metrics' => 'inventory',
     );
 
+    /**
+     * Stores the commands to install the dependencies if available
+     *
+     * @var array
+     */
     protected $supplierCommands = array(
         'sentry' => array(
             'type' => 'migrate',
@@ -55,8 +62,10 @@ class SchemaCheckCommand extends Command {
         ),
     );
 
-    /*
-     * Holds the required database tables necessary to install
+    /**
+     * Holds the reserved database tables necessary to install
+     *
+     * @var array
      */
     protected $reserved = array(
         'assets',
@@ -73,6 +82,7 @@ class SchemaCheckCommand extends Command {
         'priorities',
         'statuses',
         'updates',
+        'work_requests',
         'work_orders',
         'work_order_assets',
         'work_order_assignments',

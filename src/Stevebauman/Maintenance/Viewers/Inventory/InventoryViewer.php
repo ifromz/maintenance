@@ -79,6 +79,14 @@ class InventoryViewer extends BaseViewer {
             'item' => $this->entity,
         ));
     }
+
+    public function btnNoteActions($note)
+    {
+        return view('maintenance::viewers.inventory.buttons.note-actions', array(
+            'item' => $this->entity,
+            'note' => $note,
+        ));
+    }
     
 }
 

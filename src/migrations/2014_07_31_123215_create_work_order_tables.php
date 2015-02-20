@@ -14,6 +14,18 @@ class CreateWorkOrderTables extends Migration
     public function up()
     {
 
+        Schema::create('work_requests', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->timestamps();
+            $table->softDeletes();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->string('subject');
+            $table->text('description');
+            $table->string('best_time');
+
+        });
+
         Schema::create('work_orders', function (Blueprint $table) {
 
             $table->increments('id');
@@ -22,6 +34,7 @@ class CreateWorkOrderTables extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned()->nullable();
             $table->integer('location_id')->unsigned()->nullable();
+            $table->integer('request_id')->unsigned()->nullable();
             $table->integer('status_id')->unsigned();
             $table->integer('priority_id')->unsigned();
             $table->dateTime('started_at')->nullable();
@@ -38,6 +51,10 @@ class CreateWorkOrderTables extends Migration
                 ->onDelete('set null');
 
             $table->foreign('category_id')->references('id')->on('categories')
+                ->onUpdate('restrict')
+                ->onDelete('set null');
+
+            $table->foreign('request_id')->references('id')->on('work_requests')
                 ->onUpdate('restrict')
                 ->onDelete('set null');
 
@@ -238,6 +255,7 @@ class CreateWorkOrderTables extends Migration
         Schema::drop('work_order_reports');
         Schema::drop('work_order_notifications');
         Schema::drop('work_orders');
+        Schema::drop('work_requests');
     }
 
 }
