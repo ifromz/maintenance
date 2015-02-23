@@ -1,6 +1,8 @@
 <?php namespace Stevebauman\Maintenance;
 
 use Illuminate\Support\ServiceProvider;
+use Stevebauman\Maintenance\Models\Asset;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\SentryService;
 
 class MaintenanceServiceProvider extends ServiceProvider {
@@ -31,28 +33,36 @@ class MaintenanceServiceProvider extends ServiceProvider {
 	 */
 	private function bootCommands()
 	{
-		$this->app->bind('maintenance:install', function(){
+		$this->app->bind('maintenance:install', function() {
 			return new Commands\InstallCommand();
 		});
 
-		$this->app->bind('maintenance:run-migrations', function(){
+		$this->app->bind('maintenance:run-migrations', function() {
 			return new Commands\RunMigrationsCommand();
 		});
 
-		$this->app->bind('maintenance:run-seeds', function(){
+		$this->app->bind('maintenance:run-seeds', function() {
 			return new Commands\RunSeedsCommand();
 		});
 
-		$this->app->bind('maintenance:check-depends', function(){
+		$this->app->bind('maintenance:check-depends', function() {
 			return new Commands\DependencyCheckCommand();
 		});
 
-		$this->app->bind('maintenance:check-schema', function(){
+		$this->app->bind('maintenance:check-schema', function() {
 			return new Commands\SchemaCheckCommand();
 		});
 
-		$this->app->bind('maintenance:create-admin', function(){
+		$this->app->bind('maintenance:create-admin', function() {
 			return new Commands\CreateAdminCommand(new SentryService);
+		});
+
+		$this->app->bind('maintenance:import', function() {
+			return new Commands\ImportCommand;
+		});
+
+		$this->app->bind('maintenance:import-dynamics', function() {
+			return new Commands\Import\DynamicsCommand;
 		});
 
 		$this->commands(array(
@@ -62,6 +72,8 @@ class MaintenanceServiceProvider extends ServiceProvider {
 			'maintenance:check-depends',
 			'maintenance:check-schema',
 			'maintenance:create-admin',
+			'maintenance:import',
+			'maintenance:import-dynamics',
 		));
 	}
 

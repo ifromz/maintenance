@@ -20,10 +20,12 @@ class Asset extends BaseModel
     protected $viewer = 'Stevebauman\Maintenance\Viewers\AssetViewer';
 
     protected $fillable = array(
+        'import_id',
         'user_id',
         'location_id',
         'category_id',
         'name',
+        'description',
         'condition',
         'size',
         'weight',
@@ -32,7 +34,7 @@ class Asset extends BaseModel
         'model',
         'serial',
         'price',
-        'aquired_at',
+        'acquired_at',
         'end_of_life',
     );
 

@@ -24,6 +24,9 @@ class CreateWorkOrderTables extends Migration
             $table->text('description');
             $table->string('best_time');
 
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('restrict')
+                ->onDelete('set null');
         });
 
         Schema::create('work_orders', function (Blueprint $table) {
@@ -31,7 +34,7 @@ class CreateWorkOrderTables extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('category_id')->unsigned()->nullable();
             $table->integer('location_id')->unsigned()->nullable();
             $table->integer('request_id')->unsigned()->nullable();
@@ -44,7 +47,7 @@ class CreateWorkOrderTables extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('restrict')
-                ->onDelete('cascade');
+                ->onDelete('set null');
 
             $table->foreign('location_id')->references('id')->on('locations')
                 ->onUpdate('restrict')

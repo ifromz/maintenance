@@ -5,9 +5,7 @@
 }
 
 body {
-
     font-family: Arial
-
 }
 
 .dropdown-menu-right {
@@ -21,7 +19,9 @@ body {
 }
 
 .padding-bottom-100 {
-
     padding-bottom: 100px;
+}
 
+.menu-margin-left {
+    margin-left: 10px;
 }

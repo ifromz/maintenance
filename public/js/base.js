@@ -537,5 +537,6 @@ function paginate(url, target) {
         .done(function (data) {
             html = $(data).find(target);
             $(target).replaceWith(html);
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
         });
 }

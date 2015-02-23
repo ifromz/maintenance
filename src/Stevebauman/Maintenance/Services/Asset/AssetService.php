@@ -121,7 +121,7 @@ class AssetService extends BaseModelService
                 'size' => $this->getInput('size', NULL, true),
                 'weight' => $this->getInput('weight', NULL, true),
                 'serial' => $this->getInput('serial', NULL, true),
-                'aquired_at' => $this->formatDateWithTime($this->getInput('aquired_at')),
+                'acquired_at' => $this->formatDateWithTime($this->getInput('acquired_at')),
                 'end_of_life' => $this->formatDateWithTime($this->getInput('end_of_life')),
             );
 

@@ -10,12 +10,18 @@
     <p></p>
 
     <dt>Added By:</dt>
-    <dd>{{ $asset->user->full_name }}</dd>
+    <dd>
+        @if($asset->user)
+            {{ $asset->user->full_name }}
+        @else
+            <em>None</em>
+        @endif
+    </dd>
 
     <p></p>
 
     <dt>Aquired At:</dt>
-    <dd>{{ ($asset->aquired_at ? $asset->aquired_at : '<em>None</em>') }}</dd>
+    <dd>{{ ($asset->acquired_at ? $asset->acquired_at : '<em>None</em>') }}</dd>
 
     @if($asset->location)
         <p></p>

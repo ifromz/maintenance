@@ -91,7 +91,7 @@
     <label class="col-sm-2 control-label" for="name">Aquisition Date</label>
 
     <div class="col-md-4">
-        {{ Form::text('aquired_at', (isset($asset) ? $asset->aquired_at : NULL), array('class'=>'pickadate form-control', 'placeholder'=>'Click to Select Date')) }}
+        {{ Form::text('acquired_at', (isset($asset) ? $asset->aquired_at : NULL), array('class'=>'pickadate form-control', 'placeholder'=>'Click to Select Date')) }}
     </div>
 </div>
 

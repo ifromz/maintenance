@@ -16,14 +16,16 @@ class CreateAssetTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
 
             $table->increments('id');
+            $table->string('import_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->datetime('aquired_at')->nullable();
+            $table->datetime('acquired_at')->nullable();
             $table->datetime('end_of_life')->nullable();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('location_id')->unsigned()->nullable();
             $table->integer('category_id')->unsigned();
             $table->string('name');
+            $table->text('description')->nullable();
             $table->integer('condition')->nullable();
             $table->string('size')->nullable();
             $table->string('weight')->nullable();
@@ -35,7 +37,7 @@ class CreateAssetTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('restrict')
-                ->onDelete('cascade');
+                ->onDelete('set null');
 
             $table->foreign('location_id')->references('id')->on('locations')
                 ->onUpdate('restrict')
