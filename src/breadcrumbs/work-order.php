@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The Work Order breadcrumbs
+ * The Work Order breadcrumbs registration file
  */
 
 /*

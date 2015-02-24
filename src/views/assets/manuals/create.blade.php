@@ -4,33 +4,14 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.assets.index') }}">
-            <i class="fa fa-truck"></i>
-            Assets
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.assets.show', array($asset->id)) }}">
-            {{ $asset->name }}
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.assets.manuals.index', array($asset->id)) }}">
-            Manuals
-        </a>
-    </li>
-    <li class="active">
-        <i class="fa fa-plus-circle"></i>
-        Create
-    </li>
-@stop
-
 @section('content')
 
+    {{
+        Form::open(array(
+            'url'=>route('maintenance.assets.manuals.store', array($asset->id))
+        ))
+    }}
 
-    {{ Form::open(array('url'=>route('maintenance.assets.manuals.store', array($asset->id)))) }}
     <div id="current-container" class="form-group">
         {{ Form::button('Choose Files...', array('class'=>'btn btn-primary', 'id'=>'current-browse-button')) }}
         {{ Form::button('Upload Added Files', array('class'=>'btn btn-success', 'id'=>'current-start-upload')) }}

@@ -2,7 +2,12 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-class GreaterThanNumberValidator {
+/**
+ * Class GreaterThanNumberValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class GreaterThanNumberValidator
+{
     
     /**
      * Validates a form field to make sure the inputted number is greater
@@ -15,12 +20,9 @@ class GreaterThanNumberValidator {
      */
     public function validateGreaterThan($attribute, $number, $parameters){
         
-        if(is_numeric($number)){
-            
-            if($number > $parameters[0]){
-                return true;
-            }
-            
+        if(is_numeric($number))
+        {
+            if($number > $parameters[0]) return true;
         }
         
         return false;

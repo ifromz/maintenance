@@ -2,9 +2,12 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
-
-class NoteValidator extends BaseValidator {
+/**
+ * Class NoteValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class NoteValidator extends BaseValidator
+{
 
     protected $rules = array(
         'content' => 'required|min:5',

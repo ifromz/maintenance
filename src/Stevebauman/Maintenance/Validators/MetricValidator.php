@@ -2,8 +2,10 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
-
+/**
+ * Class MetricValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
 class MetricValidator extends BaseValidator
 {
 
@@ -12,8 +14,4 @@ class MetricValidator extends BaseValidator
         'symbol' => 'required|max:5|unique:metrics,symbol'
     );
 
-    public function passes()
-    {
-        return parent::passes();
-    }
 }

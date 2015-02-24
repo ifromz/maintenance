@@ -1,8 +1,13 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
+namespace Stevebauman\Maintenance\Validators;
 
-class AssignmentValidator extends BaseValidator {
+/**
+ * Class AssignmentValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class AssignmentValidator extends BaseValidator
+{
 	
 	protected $rules = array(
             'users' => 'required|user_assignment',

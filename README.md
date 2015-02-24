@@ -17,7 +17,7 @@
 * Robust reporting
 * Customizable user dashboard
 * User profile view - IN PROGRESS
-* Better breadcrumb management
+* Better breadcrumb management - IN PROGRESS
 * Finish administration panel for managing permissions/users/groups
 * Implement Print view for QR codes as well as all other data
 * Lots of optimization and tweaks in views, services, controllers etc - IN PROGRESS

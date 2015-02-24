@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The dashboard breadcrumbs
+ * The Dashboard breadcrumbs registration file
  */
 
 Breadcrumbs::register('maintenance.dashboard.index', function($breadcrumbs) {

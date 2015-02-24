@@ -4,18 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.assets.index') }}">
-            <i class="fa fa-truck"></i>
-            Assets
-        </a>
-    </li>
-    <li class="active">
-        {{ $asset->name }}
-    </li>
-@stop
-
 @section('tab.head.content')
     <li class="active"><a href="#tab_asset" data-toggle="tab">Profile</a></li>
     <li><a href="#tab_history" data-toggle="tab">History</a></li>

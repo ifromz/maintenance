@@ -1,8 +1,13 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
+namespace Stevebauman\Maintenance\Validators;
 
-class AuthLoginValidator extends BaseValidator {
+/**
+ * Class AuthLoginValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class AuthLoginValidator extends BaseValidator
+{
 	
 	protected $rules = array(
 		'email' => 'required',

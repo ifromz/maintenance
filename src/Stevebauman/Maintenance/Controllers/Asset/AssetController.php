@@ -7,9 +7,33 @@ use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Validators\AssetValidator;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
+/**
+ * Class AssetController
+ * @package Stevebauman\Maintenance\Controllers\Asset
+ */
 class AssetController extends BaseController
 {
 
+    /**
+     * @var AssetService
+     */
+    protected $asset;
+
+    /**
+     * @var WorkOrderService
+     */
+    protected $workOrder;
+
+    /**
+     * @var AssetValidator
+     */
+    protected $assetValidator;
+
+    /**
+     * @param AssetService $asset
+     * @param AssetValidator $assetValidator
+     * @param WorkOrderService $workOrder
+     */
     public function __construct(AssetService $asset, AssetValidator $assetValidator, WorkOrderService $workOrder)
     {
         $this->asset = $asset;
@@ -20,7 +44,7 @@ class AssetController extends BaseController
     /**
      * Show the index of all assets
      *
-     * @return View
+     * @return mixed
      */
     public function index()
     {
@@ -35,7 +59,7 @@ class AssetController extends BaseController
     /**
      * Show the create form for assets
      *
-     * @return View
+     * @return mixed
      */
     public function create()
     {
@@ -44,11 +68,10 @@ class AssetController extends BaseController
         ));
     }
 
-
     /**
      * Process and store the creation of the asset
      *
-     * @return $this->response (object or json response)
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function store()
     {
@@ -81,7 +104,8 @@ class AssetController extends BaseController
     /**
      * Show the asset
      *
-     * @return View
+     * @param $id
+     * @return mixed
      */
     public function show($id)
     {
@@ -103,7 +127,8 @@ class AssetController extends BaseController
     /**
      * Show the edit form
      *
-     * @return View
+     * @param $id
+     * @return mixed
      */
     public function edit($id)
     {

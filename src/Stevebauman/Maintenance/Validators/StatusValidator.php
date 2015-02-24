@@ -1,12 +1,17 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
+namespace Stevebauman\Maintenance\Validators;
 
-class StatusValidator extends BaseValidator { 
+/**
+ * Class StatusValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class StatusValidator extends BaseValidator
+{
 	
 	protected $rules = array(
-                'name' => 'required|max:250',
-                'color' => 'required|max:20'
+        'name' => 'required|max:250',
+        'color' => 'required|max:20'
 	);
 
 }

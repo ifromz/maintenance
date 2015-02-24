@@ -1,8 +1,13 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
+namespace Stevebauman\Maintenance\Validators;
 
-class LocationValidator extends BaseValidator {
+/**
+ * Class LocationValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class LocationValidator extends BaseValidator
+{
 	
 	protected $rules = array(
 		'name' => 'required|max:250',

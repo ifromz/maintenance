@@ -4,6 +4,10 @@ namespace Stevebauman\Maintenance\Validators\Event;
 
 use Stevebauman\Maintenance\Validators\BaseValidator;
 
+/**
+ * Class EventValidator
+ * @package Stevebauman\Maintenance\Validators\Event
+ */
 class EventValidator extends BaseValidator
 {
 

@@ -2,9 +2,12 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
-
-class MeterValidator extends BaseValidator {
+/**
+ * Class MeterValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class MeterValidator extends BaseValidator
+{
     
     protected $rules = array(
         'metric' => 'required|integer',

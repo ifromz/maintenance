@@ -1,8 +1,13 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
+namespace Stevebauman\Maintenance\Validators;
 
-class WorkOrderCategoryValidator extends BaseValidator {
+/**
+ * Class WorkOrderCategoryValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class WorkOrderCategoryValidator extends BaseValidator
+{
 	
 	protected $rules = array(
 		'name' => 'required|max:250',

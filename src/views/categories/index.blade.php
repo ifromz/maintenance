@@ -4,14 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li class="active">
-        <a href="{{ action(currentControllerAction('index')) }}">
-            {{ str_plural($resource) }}
-        </a>
-    </li>
-@stop
-
 @section('content')
 
     <div class="panel panel-default">

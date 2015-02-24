@@ -2,8 +2,10 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
-
+/**
+ * Class DateOnOrAfterValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
 class DateOnOrAfterValidator extends BaseValidator {
     
     /**

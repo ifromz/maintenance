@@ -1,8 +1,9 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
+namespace Stevebauman\Maintenance\Validators;
 
-class UpdateValidator extends BaseValidator { 
+class UpdateValidator extends BaseValidator
+{
 	
 	protected $rules = array(
 		'update_content' => 'required|max:1000',

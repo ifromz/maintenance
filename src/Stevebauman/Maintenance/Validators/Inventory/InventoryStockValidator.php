@@ -1,8 +1,11 @@
 <?php namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
-
-class InventoryStockValidator extends BaseValidator {
+/**
+ * Class InventoryStockValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class InventoryStockValidator extends BaseValidator
+{
     
     protected $rules = array(
             'location_id' => 'integer|stock_location',

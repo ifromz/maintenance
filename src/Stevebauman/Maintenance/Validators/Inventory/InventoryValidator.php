@@ -1,7 +1,9 @@
 <?php namespace Stevebauman\Maintenance\Validators;
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
-
+/**
+ * Class InventoryValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
 class InventoryValidator extends BaseValidator
 {
 

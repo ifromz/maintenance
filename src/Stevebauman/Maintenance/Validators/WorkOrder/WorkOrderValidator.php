@@ -1,7 +1,11 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
 
-use Stevebauman\Maintenance\Validators\BaseValidator;
+namespace Stevebauman\Maintenance\Validators;
 
+/**
+ * Class WorkOrderValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
 class WorkOrderValidator extends BaseValidator
 {
 

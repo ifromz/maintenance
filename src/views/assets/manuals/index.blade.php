@@ -4,23 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.assets.index') }}">
-            <i class="fa fa-truck"></i>
-            Assets
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.assets.show', array($asset->id)) }}">
-            {{ $asset->name }}
-        </a>
-    </li>
-    <li class="active">
-        Manuals
-    </li>
-@stop
-
 @section('panel.head.content')
 
     <div class="btn-toolbar">
@@ -37,16 +20,17 @@
 
     @if($asset->manuals->count() > 0)
 
-        {{ $asset->manuals
-                    ->columns(array(
-                        'name' => 'Name',
-                        'file_name' => 'File Name',
-                        'action' => 'Action',
-                    ))
-                    ->modify('action', function($manual) use($asset) {
-                        return $manual->viewer()->btnActionsForAssetManual($asset);
-                    })
-                    ->render()
+        {{
+            $asset->manuals
+                ->columns(array(
+                    'name' => 'Name',
+                    'file_name' => 'File Name',
+                    'action' => 'Action',
+                ))
+                ->modify('action', function($manual) use($asset) {
+                    return $manual->viewer()->btnActionsForAssetManual($asset);
+                })
+                ->render()
         }}
 
     @else

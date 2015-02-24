@@ -6,7 +6,8 @@ namespace Stevebauman\Maintenance\Validators;
  * Class WorkRequestValidator
  * @package Stevebauman\Maintenance\Validators
  */
-class WorkRequestValidator extends BaseValidator {
+class WorkRequestValidator extends BaseValidator
+{
 
     protected $rules = array(
         'subject' => 'required|min:10',

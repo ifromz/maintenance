@@ -4,6 +4,11 @@ namespace Stevebauman\Maintenance\Validators;
 
 use Stevebauman\CoreHelper\Validators\AbstractValidator;
 
-class BaseValidator extends AbstractValidator {
-    
+/**
+ * Class BaseValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class BaseValidator extends AbstractValidator
+{
+
 }

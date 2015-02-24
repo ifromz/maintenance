@@ -1,12 +1,27 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
 
-class PositiveNumberValidator  {
-    
-     public function validatePositive($attribute, $value, $params, $validator){
-        if (preg_match('#^\d+(\.(\d{2}))?$#', $value))
-        {
-            return true;
-        } return false;
+namespace Stevebauman\Maintenance\Validators;
+
+/**
+ * Class PositiveNumberValidator
+ * @package Stevebauman\Maintenance\Validators
+ */
+class PositiveNumberValidator
+{
+    /**
+     * Validates if a number is positive or not
+     *
+     * @param $attribute
+     * @param $value
+     * @param $params
+     * @param $validator
+     * @return bool
+     */
+     public function validatePositive($attribute, $value, $params, $validator)
+     {
+        if(is_numeric($value) && $value == 0 || $value > 0) return true;
+
+         return false;
      }
     
 }
