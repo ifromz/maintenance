@@ -2,12 +2,17 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-class MaintenanceController extends BaseController {
+/**
+ * Class MaintenanceController
+ * @package Stevebauman\Maintenance\Controllers
+ */
+class MaintenanceController extends BaseController
+{
         
 	public function getIndex()
-        {
-            return view('maintenance::dashboard.index', array(
-                'title' => 'Dashboard'
-            ));
+    {
+        return view('maintenance::dashboard.index', array(
+            'title' => 'Dashboard'
+        ));
 	}
 }

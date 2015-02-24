@@ -5,8 +5,6 @@
 @stop
 
 @section('panel.body.content')
-    <script type="text/javascript" src="{{ asset('packages/stevebauman/maintenance/js/categories/create.js') }}"></script>
-
     {{
         Form::open(array(
         'url'=>action(currentControllerAction('store'), array($category->id)),

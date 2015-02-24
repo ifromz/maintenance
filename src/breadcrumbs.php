@@ -13,3 +13,5 @@ include('breadcrumbs/work-request.php');
 include('breadcrumbs/asset.php');
 
 include('breadcrumbs/inventory.php');
+
+include('breadcrumbs/location.php');

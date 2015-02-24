@@ -16,7 +16,6 @@
 * Robust notifications - IN PROGRESS
 * Robust reporting
 * Customizable user dashboard
-* User profile view - IN PROGRESS
 * Better breadcrumb management - IN PROGRESS
 * Finish administration panel for managing permissions/users/groups
 * Implement Print view for QR codes as well as all other data
@@ -24,10 +23,11 @@
 * Upgrade to Laravel 5.0
 * Tests
 * Restrict multiple submits through ajax requests
+* Revamp the way uploads are handled
 
 ##Done
-* Optimize views
-* Jan 14th 2015- Moved inventory management to separate package
+* Feb 24th 2015 - Optimize views
+* Jan 14th 2015 - Moved inventory management to separate package
 * Jan 9th 2015 - Assigned work orders view
 * Jan 8th 2015 - Ability to assign users to events
 * Jan 8th 2015 - Finish asset events with event reporting / other additions

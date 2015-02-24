@@ -27,7 +27,7 @@
 
 <!-- Theme style -->
 {{ HTML::style('packages/stevebauman/maintenance/resources/AdminLTE/dist/css/AdminLTE.min.css') }}
-{{ HTML::style('packages/stevebauman/maintenance/resources/AdminLTE/dist/css/skins/skin-blue.min.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/resources/AdminLTE/dist/css/skins/_all-skins.min.css') }}
 
 <!-- Custom style -->
 {{ HTML::style('packages/stevebauman/maintenance/css/custom.css') }}

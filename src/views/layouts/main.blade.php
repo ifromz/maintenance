@@ -20,12 +20,6 @@
                         <i class="fa fa-calendar"></i> Calendar
                     </a>
                 </li>
-
-                <li>
-                    <a href="{{ route('maintenance.work-orders.assigned.index') }}" class="menu-margin-left">
-                        <i class="fa fa-book"></i> Assigned Work Orders
-                    </a>
-                </li>
             </ul>
         </li>
     @endif
@@ -45,6 +39,12 @@
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
+
+                <li>
+                    <a href="{{ route('maintenance.work-orders.assigned.index') }}" class="menu-margin-left">
+                        <i class="fa fa-book"></i> Assigned Work Orders
+                    </a>
+                </li>
 
                 @if(Sentry::hasAccess('maintenance.work-requests.index'))
                     <li class="{{ activeMenuLink('maintenance.work-requests.index') }}">
