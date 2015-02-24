@@ -532,7 +532,11 @@ function paginate(url, target) {
         {
             url: url,
             type: "GET",
-            datatype: "html"
+            datatype: "html",
+            beforeSend: function(xhr) {
+                $(target).empty();
+                $(target).append('<div class="overlay text-center"><i class="fa fa-4x fa-refresh fa-spin"></i></div>');
+            }
         })
         .done(function (data) {
             html = $(data).find(target);
