@@ -1,33 +1,5 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.assets.index') }}">
-            <i class="fa fa-truck"></i>
-            Assets
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.assets.show', array($asset->id)) }}">
-            {{ $asset->name }}
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.assets.images.index', array($asset->id)) }}">
-            <i class="fa fa-picture-o"></i>
-            Images
-        </a>
-    </li>
-    <li class="active">
-        <i class="fa fa-plus-circle"></i>
-        Upload
-    </li>
-@stop
-
 @section('panel.head.content')
     <div class="btn-toolbar">
         {{ Form::button('Choose Files...', array('class'=>'btn btn-primary', 'id'=>'current-browse-button')) }}

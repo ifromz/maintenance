@@ -1,14 +1,10 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('panel.extra.top')
 
     @include('maintenance::inventory.modals.search', array(
-            'url' => route('maintenance.inventory.index', Input::only('field', 'sort'))
-        ))
+        'url' => route('maintenance.inventory.index', Input::only('field', 'sort'))
+    ))
 
 @stop
 
@@ -30,30 +26,29 @@
     @if($items->count() > 0)
 
         {{
-
-        $items->columns(array(
-                    'id' => 'ID',
-                    'name' => 'Name',
-                    'category' => 'Category',
-                    'current_stock' => 'Current Stock',
-                    'description' => 'Description',
-                    'added_on' => 'Added On',
-                    'action'  => 'Action'
-                ))
-                ->means('category', 'category.trail')
-                ->means('added_on', 'created_at')
-                ->modify('action', function($item){
-                    return $item->viewer()->btnActions;
-                })
-                ->sortable(array(
-                    'id',
-                    'name',
-                    'category' => 'category_id',
-                    'added_on' => 'created_at',
-                ))
-                ->hidden(array('id', 'added_on', 'description'))
-                ->showPages()
-                ->render()
+            $items->columns(array(
+                'id' => 'ID',
+                'name' => 'Name',
+                'category' => 'Category',
+                'current_stock' => 'Current Stock',
+                'description' => 'Description',
+                'added_on' => 'Added On',
+                'action'  => 'Action'
+            ))
+            ->means('category', 'category.trail')
+            ->means('added_on', 'created_at')
+            ->modify('action', function($item){
+                return $item->viewer()->btnActions;
+            })
+            ->sortable(array(
+                'id',
+                'name',
+                'category' => 'category_id',
+                'added_on' => 'created_at',
+            ))
+            ->hidden(array('id', 'added_on', 'description'))
+            ->showPages()
+            ->render()
         }}
 
     @else

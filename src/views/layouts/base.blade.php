@@ -63,7 +63,9 @@
             <aside class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    @yield('header')
+                    @section('header')
+                        <h1>{{ $title }}</h1>
+                    @show
 
                     @section('breadcrumb')
                         {{ Breadcrumbs::renderIfExists() }}

@@ -1,11 +1,9 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('panel.head.content')
 @stop
 
-@section('content')
-
+@section('panel.body.content')
     {{
         Form::open(array(
             'url'=>route('maintenance.work-orders.attachments.store', array($workOrder->id)),
@@ -59,7 +57,4 @@
 
     {{ HTML::script('packages/jildertmiedema/laravel-plupload/assets/js/plupload.full.min.js') }}
     {{ HTML::script('packages/stevebauman/maintenance/js/upload.js') }}
-
-    </div>
-
 @stop

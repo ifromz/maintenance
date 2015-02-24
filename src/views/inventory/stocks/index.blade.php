@@ -1,11 +1,6 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('panel.head.content')
-
     <div class="btn-toolbar">
         <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip"
            title="Add new Item to inventory">
@@ -13,7 +8,6 @@
             Add Stock
         </a>
     </div>
-
 @stop
 
 @section('panel.body.content')

@@ -1,11 +1,10 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('panel.head.content')
+    Add Manuals
 @stop
 
-@section('content')
-
+@section('panel.body.content')
     {{
         Form::open(array(
             'url'=>route('maintenance.assets.manuals.store', array($asset->id))
@@ -144,5 +143,5 @@
             return false;
         });
     </script>
-    </div>
+
 @stop

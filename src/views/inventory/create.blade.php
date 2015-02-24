@@ -1,33 +1,20 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('panel.head.content')
+    Add an Item
 @stop
 
-@section('content')
-    <div class="col-md-12">
+@section('panel.body.content')
+    @include('maintenance::metrics.modals.create')
 
-        @include('maintenance::metrics.modals.create')
+    {{
+        Form::open(array(
+            'url'=>route('maintenance.inventory.store'),
+            'class'=>'form-horizontal ajax-form-post clear-form'
+        ))
+    }}
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Add an Item</h3>
-            </div>
-            <div class="panel-body">
+    @include('maintenance::inventory.form')
 
-                {{
-                    Form::open(array(
-                        'url'=>route('maintenance.inventory.store'),
-                        'class'=>'form-horizontal ajax-form-post clear-form'
-                    ))
-                }}
-
-                @include('maintenance::inventory.form')
-
-                {{ Form::close() }}
-
-            </div>
-        </div>
-
-    </div>
+    {{ Form::close() }}
 @stop

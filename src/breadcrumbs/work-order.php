@@ -113,3 +113,11 @@ Breadcrumbs::register('maintenance.work-orders.attachments.create', function($br
 /*
  * End Work Order attachment crumbs
  */
+
+/*
+ * Work Order Status crumbs
+ */
+Breadcrumbs::register('maintenance.work-orders.statuses.index', function($breadcrumbs) {
+    $breadcrumbs->parent('maintenance.work-orders.index');
+    $breadcrumbs->push('Statuses', route('maintenance.work-orders.statuses.index'));
+});

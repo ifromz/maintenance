@@ -1,9 +1,5 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('panel.head.content')
 
     <div class="btn-toolbar">

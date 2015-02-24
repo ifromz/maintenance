@@ -1,9 +1,5 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('panel.head.content')
     <div class="btn-toolbar">
         <a href="{{ route('maintenance.work-requests.create') }}" class="btn btn-primary">
@@ -22,7 +18,6 @@
     @if($workRequests->count() > 0)
 
         {{
-
             $workRequests
                 ->columns(array(
                     'id' => 'ID',
@@ -36,7 +31,6 @@
                     return $workRequest->viewer()->btnActions;
                 })
                 ->render()
-
         }}
 
     @else

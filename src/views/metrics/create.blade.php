@@ -1,43 +1,18 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('panel.head.content')
+    Create a new Metric
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.metrics.index') }}">
-            <i class="fa fa-anchor"></i>
-            Metrics
-        </a>
-    </li>
-    <li class="active">
-        <i class="fa fa-plus-circle"></i>
-        Create
-    </li>
-@stop
+@section('panel.body.content')
+    {{
+        Form::open(array(
+            'url'=>route('maintenance.metrics.store'),
+            'class'=>'form-horizontal ajax-form-post clear-form'
+        ))
+    }}
 
-@section('content')
+    @include('maintenance::metrics.form')
 
-    <div class="panel panel-default">
-
-        <div class="panel-heading">
-            <h3 class="panel-title">Create a new Metric</h3>
-        </div>
-
-        <div class="panel-body">
-            {{
-                Form::open(array(
-                    'url'=>route('maintenance.metrics.store'),
-                    'class'=>'form-horizontal ajax-form-post clear-form'
-                ))
-            }}
-
-            @include('maintenance::metrics.form')
-
-            {{ Form::close() }}
-        </div>
-
-    </div>
-
+    {{ Form::close() }}
 @stop

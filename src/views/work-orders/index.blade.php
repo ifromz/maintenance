@@ -1,9 +1,5 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('panel.extra.top')
 
     @include('maintenance::work-orders.modals.search', array(
@@ -30,8 +26,7 @@
     @if($workOrders->count() > 0)
 
         {{
-
-        $workOrders->columns(array(
+            $workOrders->columns(array(
                 'id' => _t('ID'),
                 'status' => _t('Status'),
                 'priority' => _t('Priority'),

@@ -1,17 +1,10 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('panel.head.content')
-    <h3 class="panel-title">
-        Create Event
-    </h3>
+    Create Event
 @stop
 
 @section('panel.body.content')
-
     {{
         Form::open(array(
             'url'=>action(currentControllerAction('store'), array($eventable->id)),
@@ -22,5 +15,4 @@
     @include('maintenance::events.form')
 
     {{ Form::close() }}
-
 @stop

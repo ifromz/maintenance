@@ -1,9 +1,5 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('panel.head.content')
     <div class="btn-toolbar">
         <a class="btn btn-primary" href="{{ action(currentControllerAction('create'), array($eventable->id)) }}">

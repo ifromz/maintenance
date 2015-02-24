@@ -1,64 +1,49 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('panel.head.content')
+    My Assigned Work Orders
 @stop
 
-@section('content')
+@section('panel.body.content')
+    @if($workOrders->count() > 0)
 
-    <div class="panel panel-default">
+        {{
+            $workOrders->columns(array(
+                'id' => 'ID',
+                'status' => 'Status',
+                'priority' => 'Priority',
+                'subject' => 'Subject',
+                'description' => 'Description',
+                'category' => 'Category',
+                'created_by' => 'Created By',
+                'created_at' => 'Created At',
+                'action' => 'Action'
+            ))
+            ->means('status', 'status.label')
+            ->means('priority', 'priority.label')
+            ->means('category', 'category.trail')
+            ->means('created_by', 'user.full_name')
+            ->means('description', 'limited_description')
+            ->modify('action', function($workOrder){
+                return $workOrder->viewer()->btnActions;
+            })
+            ->sortable(array(
+                'id',
+                'status'=>'status_id',
+                'priority' => 'priority_id',
+                'category' => 'category_id',
+                'created_by' => 'user_id',
+                'subject',
+                'created_at'
+            ))
+            ->hidden(array('id', 'description', 'category', 'created_by', 'created_at'))
+            ->showPages()
+            ->render()
+        }}
 
-        <div class="panel-heading">
-            <h3 class="panel-title">My Assigned Work Orders</h3>
-        </div>
+    @else
 
-        <div class="panel-body">
+        <h5>There are no work orders to display.</h5>
 
-            @if($workOrders->count() > 0)
-
-                {{
-
-                    $workOrders->columns(array(
-                            'id' => 'ID',
-                            'status' => 'Status',
-                            'priority' => 'Priority',
-                            'subject' => 'Subject',
-                            'description' => 'Description',
-                            'category' => 'Category',
-                            'created_by' => 'Created By',
-                            'created_at' => 'Created At',
-                            'action' => 'Action'
-                        ))
-                        ->means('status', 'status.label')
-                        ->means('priority', 'priority.label')
-                        ->means('category', 'category.trail')
-                        ->means('created_by', 'user.full_name')
-                        ->means('description', 'limited_description')
-                        ->modify('action', function($workOrder){
-                            return $workOrder->viewer()->btnActions;
-                        })
-                        ->sortable(array(
-                            'id',
-                            'status'=>'status_id',
-                            'priority' => 'priority_id',
-                            'category' => 'category_id',
-                            'created_by' => 'user_id',
-                            'subject',
-                            'created_at'
-                        ))
-                        ->hidden(array('id', 'description', 'category', 'created_by', 'created_at'))
-                        ->showPages()
-                        ->render()
-                }}
-
-            @else
-
-                <h5>There are no work orders to display.</h5>
-
-            @endif
-
-        </div>
-
-    </div>
-
+    @endif
 @stop

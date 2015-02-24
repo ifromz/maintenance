@@ -1,9 +1,5 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('panel.head.content')
     <h3 class="panel-title">Choose a Stock Location for Item: {{ $item->name }}</h3>
 @stop

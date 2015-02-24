@@ -1,13 +1,5 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
-@section('breadcrumb')
-
-@stop
-
 @section('panel.head.content')
     <h3 class="panel-title">
         Create Note
@@ -15,7 +7,6 @@
 @stop
 
 @section('panel.body.content')
-
     {{
         Form::open(array(
             'url'=>action(currentControllerAction('store'), array($noteable->id)),
@@ -26,5 +17,4 @@
     @include('maintenance::noteables.form')
 
     {{ Form::close() }}
-
 @stop

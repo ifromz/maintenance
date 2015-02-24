@@ -1,9 +1,5 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('panel.extra.top')
 
     @include('maintenance::assets.modals.search', array(
@@ -31,7 +27,8 @@
 
     @if($assets->count() > 0)
 
-        {{ $assets->columns(array(
+        {{
+            $assets->columns(array(
                     'id' => 'ID',
                     'name' => 'Name',
                     'location' => 'Location',

@@ -1,30 +1,18 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('panel.head.content')
+    Create {{ $resource }}
 @stop
 
-@section('content')
+@section('panel.body.content')
+{{
+    Form::open(array(
+        'url'=>action(currentControllerAction('store')),
+        'class'=>'form-horizontal ajax-form-post clear-form'
+    ))
+}}
 
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Create {{ $resource }}</h3>
-            </div>
-            <div class="panel-body">
+@include('maintenance::categories.form')
 
-                {{
-                    Form::open(array(
-                        'url'=>action(currentControllerAction('store')),
-                        'class'=>'form-horizontal ajax-form-post clear-form'
-                    ))
-                }}
-
-                @include('maintenance::categories.form')
-
-                {{ Form::close() }}
-
-            </div>
-        </div>
-    </div>
+{{ Form::close() }}
 @stop

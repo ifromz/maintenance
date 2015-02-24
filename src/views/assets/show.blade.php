@@ -1,9 +1,5 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
 @section('tab.head.content')
     <li class="active"><a href="#tab_asset" data-toggle="tab">Profile</a></li>
     <li><a href="#tab_history" data-toggle="tab">History</a></li>

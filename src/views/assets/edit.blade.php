@@ -1,24 +1,19 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('panel.head.content')
+    Edit asset
 @stop
 
-@section('content')
+@section('panel.body.content')
+{{
+    Form::open(array(
+        'url'=>route('maintenance.assets.update', array($asset->id)),
+        'method'=>'PATCH',
+        'class'=>'form-horizontal ajax-form-post'
+    ))
+}}
 
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Edit asset</h3>
-            </div>
-            <div class="panel-body">
-                {{ Form::open(array('url'=>route('maintenance.assets.update', array($asset->id)), 'method'=>'PATCH', 'class'=>'form-horizontal ajax-form-post')) }}
+    @include('maintenance::assets.form', compact('asset'))
 
-                @include('maintenance::assets.form', compact('asset'))
-
-                {{ Form::close() }}
-            </div>
-        </div>
-    </div>
-
+{{ Form::close() }}
 @stop
