@@ -27,25 +27,25 @@
 * Restrict multiple submits through ajax requests
 
 ##Done
-* Moved inventory management to separate package - Jan 14th 2015
-* Assigned work orders view - Jan 9th 2015
-* Ability to assign users to events - Jan 8th 20155
-* Finish asset events with event reporting / other additions - Jan 8th 2015
-* Namespace and directory tweaks / modifications - Jan 8th 2015
-* Multiple calendar functionality - Jan 8th 2015
-* Installation Commands - Jan 7th 2015
-* Implement DB transactions for every service method - Nov 5th 2014
-* Add 'Put Back Some' option for work order parts/supplies Nov 4th 2014
-* User registration with public work order creation - Oct 28th 2014
-* Add meter readings to assets - Oct 24th 2014
-* Implement Status and Priority DB tables and functionality - Oct 23rd 2014
-* Add date for end of life for assets - Oct 22nd 2014
-* Implement selectable inventory metrics (LB, Litres, Tonnes etc) - Oct 22nd 2014
-* Implement [Revisionable](https://github.com/VentureCraft/revisionable) for viewing edit history on records - Oct 22nd 2014
-* Add soft deletes for some tables for recoverable data - Oct 21st 2014 (Work Orders, Assets & Inventory)
-* Clean up routes - Oct 21st 2014
-* Asset manual attachments - Oct 15th 2014
-* Better category management - Oct 15th 2014
+* Jan 14th 2015- Moved inventory management to separate package
+* Jan 9th 2015 - Assigned work orders view
+* Jan 8th 2015 - Ability to assign users to events
+* Jan 8th 2015 - Finish asset events with event reporting / other additions
+* Jan 8th 2015 - Namespace and directory tweaks / modifications
+* Jan 8th 2015 - Multiple calendar functionality
+* Jan 7th 2015 - Installation Commands
+* Nov 5th 2014 - Implement DB transactions for every service method
+* Nov 4th 2014 - Add 'Put Back Some' option for work order parts/supplies
+* Oct 28th 2014 - User registration with public work order creation
+* Oct 24th 2014 - Add meter readings to assets
+* Oct 23rd 2014 - Implement Status and Priority DB tables and functionality
+* Oct 22nd 2014 - Add date for end of life for assets
+* Oct 22nd 2014 - Implement selectable inventory metrics (LB, Litres, Tonnes etc)
+* Oct 22nd 2014 - Implement [Revisionable](https://github.com/VentureCraft/revisionable) for viewing edit history on records
+* Oct 21st 2014 - Add soft deletes for some tables for recoverable data (Work Orders, Assets & Inventory)
+* Oct 21st 2014 - Clean up routes
+* Oct 15th 2014 - Asset manual attachments
+* Oct 15th 2014 - Better category management
 
 ###Features
 * Multiple full calendar support with Google Calendar API (using Google Calendar means easy synchronization with your phone)
