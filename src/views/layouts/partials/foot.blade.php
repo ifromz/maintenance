@@ -1,7 +1,7 @@
 <!-- Scripts -->
 
 <!-- Bootstrap -->
-{{ HTML::script('packages/stevebauman/maintenance/resources/admin-lte/js/bootstrap.min.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/AdminLTE/bootstrap/js/bootstrap.min.js') }}
 
 <!-- Bootstrap modals -->
 {{ HTML::script('packages/stevebauman/maintenance/resources/bootstrap-modal/js/bootstrap-modalmanager.js') }}
@@ -36,8 +36,12 @@
 
 <!-- Bootbox-->
 {{ HTML::script('packages/stevebauman/maintenance/resources/bootbox/bootbox.js') }}
+
+<!-- SlimScroll -->
+{{ HTML::script('packages/stevebauman/maintenance/resources/AdminLTE/plugins/slimScroll/jquery.slimscroll.js') }}
+
 <!-- AdminLTE App -->
-{{ HTML::script('packages/stevebauman/maintenance/resources/admin-lte/js/AdminLTE/app.js') }}
+{{ HTML::script('packages/stevebauman/maintenance/resources/AdminLTE/dist/js/app.js') }}
 
 <!-- Base JS -->
 {{ HTML::script('packages/stevebauman/maintenance/js/base.js') }}

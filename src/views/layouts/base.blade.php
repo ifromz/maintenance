@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html>
+
     <head>
 
     @include('maintenance::layouts.partials.head')
@@ -8,97 +9,86 @@
     @yield('head')
 
     </head>
+
     <body class="skin-blue fixed">
 
-    <header class="header">
+        <div class="wrapper">
 
-        @yield('nav.head')
+            <header class="main-header">
 
-        <a href="{{ route('maintenance.dashboard.index') }}" class="logo"><i class="fa fa-wrench"></i> {{ $siteTitle }}</a>
+                @yield('nav.head')
 
-        <nav class="navbar navbar-static-top" role="navigation">
+                <a href="{{ route('maintenance.dashboard.index') }}" class="logo">{{ $siteTitle }}</a>
 
-            <!-- Sidebar toggle button-->
-            <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
+                <nav class="navbar navbar-static-top" role="navigation">
 
-            <div class="navbar-right">
-                <ul class="nav navbar-nav">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
 
-                    @include('maintenance::layouts.partials.notifications')
+                    <div class="navbar-custom-menu">
 
-                    @include('maintenance::layouts.partials.profile')
+                        <ul class="nav navbar-nav">
 
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <!--End of header-->
+                            @include('maintenance::layouts.partials.notifications')
 
-    <div class="wrapper row-offcanvas row-offcanvas-left">
-        <!-- Left side column. contains the logo and sidebar -->
-        <aside class="left-side sidebar-offcanvas">
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
+                            @include('maintenance::layouts.partials.profile')
 
-                <!-- Sidebar user panel -->
-                <div class="user-panel">
-                    <div class="pull-left image">
-                        <img src="{{ asset('packages/stevebauman/maintenance/img/user.jpg') }}" class="img-circle"
-                             alt="User Image"/>
+                        </ul>
+
                     </div>
-                    <div class="pull-left info">
-                        <p>Hello,
-                            @if(Sentry::getUser()->first_name)
-                                {{ Sentry::getUser()->first_name }}
-                            @else
-                                {{ Sentry::getUser()->last_name }}
-                            @endif
-                        </p>
+                </nav>
+            </header>
+            <!--End of header-->
+
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <ul class="sidebar-menu">
+                        @yield('nav.left')
+                    </ul>
+
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <!-- /.left-side -->
+
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    @yield('header')
+
+                    @section('breadcrumb')
+                        {{ Breadcrumbs::renderIfExists() }}
+                    @show
+                </section>
+
+                <!-- Main content -->
+                <section class="content body">
+                    <div id="alerts">
+                        @include('maintenance::layouts.partials.alert')
                     </div>
-                </div>
 
-                <ul class="sidebar-menu">
-                    @yield('nav.left')
-                </ul>
+                    <div id="content">
+                        @yield('content')
+                    </div>
+                </section>
+            </aside>
+            <!-- /.right-side -->
+        </div>
+        <!-- ./wrapper -->
 
-            </section>
-            <!-- /.sidebar -->
-        </aside>
+        @include('maintenance::layouts.partials.foot')
 
-        <!-- Right side column. Contains the navbar and content of the page -->
-        <aside class="right-side">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                @yield('header')
+        @yield('foot')
 
-                @section('breadcrumb')
-                    {{ Breadcrumbs::renderIfExists() }}
-                @show
-            </section>
-
-            <!-- Main content -->
-            <section class="content">
-                <div id="alerts">
-                    @include('maintenance::layouts.partials.alert')
-                </div>
-
-                <div id="content">
-                    @yield('content')
-                </div>
-            </section>
-        </aside>
-        <!-- /.right-side -->
-    </div>
-    <!-- ./wrapper -->
-
-    @include('maintenance::layouts.partials.foot')
-
-    @yield('foot')
     </body>
 
 </html>

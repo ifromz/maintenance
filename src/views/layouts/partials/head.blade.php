@@ -16,23 +16,18 @@
 
 <!-- Styles -->
 <!-- Bootstrap 3.1.0 -->
-{{ HTML::style('packages/stevebauman/maintenance/resources/admin-lte/css/bootstrap.min.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/resources/AdminLTE/bootstrap/css/bootstrap.min.css') }}
 
 <!-- Bootstrap stackable modals extension -->
 {{ HTML::style('packages/stevebauman/maintenance/resources/bootstrap-modal/css/bootstrap-modal.css') }}
-
-<!-- Font Awesome -->
-{{ HTML::style('packages/stevebauman/maintenance/resources/admin-lte/css/font-awesome.min.css') }}
-
-<!-- Ionicons -->
-{{ HTML::style('packages/stevebauman/maintenance/resources/admin-lte/css/ionicons.min.css') }}
 
 <!-- Select2 3.4.5-->
 {{ HTML::style('packages/stevebauman/maintenance/resources/select2/select2.css') }}
 {{ HTML::style('packages/stevebauman/maintenance/resources/select2/select2-bootstrap.css') }}
 
 <!-- Theme style -->
-{{ HTML::style('packages/stevebauman/maintenance/resources/admin-lte/css/AdminLTE.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/resources/AdminLTE/dist/css/AdminLTE.min.css') }}
+{{ HTML::style('packages/stevebauman/maintenance/resources/AdminLTE/dist/css/skins/skin-blue.min.css') }}
 
 <!-- Custom style -->
 {{ HTML::style('packages/stevebauman/maintenance/css/custom.css') }}

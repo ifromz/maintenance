@@ -4,26 +4,27 @@
         <span>Profile <i class="caret"></i></span>
     </a>
     <ul class="dropdown-menu">
-        <!-- User image -->
-        <li class="user-header bg-light-blue">
-            <img src="{{ asset('packages/stevebauman/maintenance/img/user.jpg') }}" class="img-circle"
-                 alt="User Image"/>
 
-            <p>
-                {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}
-                <small>Member since {{ Sentry::getUser()->created_at->format('M. Y') }}</small>
-            </p>
-        </li>
         <!-- Menu Body -->
-        <li class="user-body"></li>
+        <li class="user-body">
+            <dl class="dl-horizontal">
+
+                <dt>Logged In As:</dt>
+                <dd>{{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}</dd>
+
+                <p></p>
+
+            </dl>
+        </li>
         <!-- Menu Footer-->
         <li class="user-footer">
             <div class="pull-left">
-                <a href="" class="btn btn-default btn-flat">Profile</a>
+                <a href="" class="btn btn-default btn-flat">Settings</a>
             </div>
             <div class="pull-right">
                 <a href="{{ route('maintenance.logout') }}" class="btn btn-default btn-flat">Sign out</a>
             </div>
         </li>
+
     </ul>
 </li>
