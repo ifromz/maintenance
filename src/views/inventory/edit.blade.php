@@ -4,24 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.inventory.index') }}">
-            <i class="fa fa-dropbox"></i>
-            Inventory
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.inventory.show', array($item->id)) }}">
-            {{ $item->name }}
-        </a>
-    </li>
-    <li class="active">
-        <i class="fa fa-pencil-square-o"></i>
-        Edit
-    </li>
-@stop
-
 @section('content')
     <div class="col-md-12">
 

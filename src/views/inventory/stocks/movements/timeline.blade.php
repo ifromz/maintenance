@@ -1,25 +1,5 @@
 @extends('maintenance::layouts.main')
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.inventory.index') }}">
-            <i class="fa fa-dropbox"></i>
-            Inventory
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.inventory.show', array($item->id)) }}">
-            {{ $item->name }}
-        </a>
-    </li>
-    <li>
-        {{ $stock->location->trail }}
-    </li>
-    <li>
-        Timeline
-    </li>
-@stop
-
 @section('content')
 
     <div class="col-md-12">

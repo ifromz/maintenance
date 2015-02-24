@@ -4,10 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-
-@stop
-
 @section('content')
 
     <div class="panel panel-default">
@@ -16,11 +12,12 @@
         </div>
         <div class="panel-body">
 
-            {{ Form::open(array(
-                        'url'=>route('maintenance.inventory.stocks.update', array($item->id, $stock->id)),
-                        'method'=>'PATCH',
-                        'class'=>'form-horizontal ajax-form-post',
-                    ))
+            {{
+                Form::open(array(
+                    'url'=>route('maintenance.inventory.stocks.update', array($item->id, $stock->id)),
+                    'method'=>'PATCH',
+                    'class'=>'form-horizontal ajax-form-post',
+                ))
             }}
             <legend class="margin-top-10">Enter New Quantity</legend>
 

@@ -4,18 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.inventory.index') }}">
-            <i class="fa fa-dropbox"></i>
-            Inventory
-        </a>
-    </li>
-    <li class="active">
-        {{ $item->name }}
-    </li>
-@stop
-
 @section('tab.head.content')
     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>

@@ -31,7 +31,7 @@ class AssetSelectComposer
      */
     public function compose(View $view)
     {
-        $allAssets = $this->asset->get()->lists('name', 'id');
+        $allAssets = $this->asset->orderBy('name', 'ASC')->get()->lists('name', 'id');
 
         return $view->with('allAssets', $allAssets);
     }

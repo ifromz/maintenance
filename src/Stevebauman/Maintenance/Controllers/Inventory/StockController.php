@@ -14,7 +14,31 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 class StockController extends BaseController
 {
 
-    public function __construct(InventoryService $inventory, StockService $inventoryStock, InventoryStockValidator $inventoryStockValidator)
+    /**
+     * @var InventoryService
+     */
+    protected $inventory;
+
+    /**
+     * @var StockService
+     */
+    protected $inventoryStock;
+
+    /**
+     * @var InventoryStockValidator
+     */
+    protected $inventoryStockValidator;
+
+    /**
+     * @param InventoryService $inventory
+     * @param StockService $inventoryStock
+     * @param InventoryStockValidator $inventoryStockValidator
+     */
+    public function __construct(
+        InventoryService $inventory,
+        StockService $inventoryStock,
+        InventoryStockValidator $inventoryStockValidator
+    )
     {
         $this->inventory = $inventory;
         $this->inventoryStock = $inventoryStock;
@@ -104,10 +128,13 @@ class StockController extends BaseController
 
         $stock = $this->inventoryStock->find($stock_id);
 
+        $lastMovements = $stock->movements()->take(10)->get();
+
         return view('maintenance::inventory.stocks.show', array(
             'title' => sprintf('Viewing Stock for item: %s inside Location: %s', $item->name, renderNode($stock->location)),
             'item' => $item,
             'stock' => $stock,
+            'lastMovements' => $lastMovements,
         ));
 
     }

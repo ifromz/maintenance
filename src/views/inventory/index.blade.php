@@ -4,15 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.inventory.index') }}">
-            <i class="fa fa-dropbox"></i>
-            Inventory
-        </a>
-    </li>
-@stop
-
 @section('panel.extra.top')
 
     @include('maintenance::inventory.modals.search', array(

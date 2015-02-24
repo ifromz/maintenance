@@ -1,35 +1,45 @@
-@extends('maintenance::layouts.main')
+@extends('maintenance::layouts.pages.main.tabbed')
 
 @section('header')
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-
+@section('tab.head.content')
+    <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
 @stop
 
-@section('content')
+@section('tab.body.content')
 
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_movements" data-toggle="tab">Movements</a></li>
-            <li><a href="#tab_timeline" data-toggle="tab">Timeline</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab_movements">
-                @include('maintenance::inventory.stocks.movements.index', array(
-                    'stock' => $stock
+    <div class="tab-pane active" id="tab_profile">
+
+        {{ $stock->viewer()->btnEdit }}
+
+        {{ $stock->viewer()->btnDelete }}
+
+        <hr>
+
+        {{ $stock->viewer()->profile }}
+
+        <legend>Last 10 Movements</legend>
+
+        {{
+            $lastMovements->columns(array(
+                'id' => 'ID',
+                    'user' => 'User',
+                    'before' => 'Before Quantity',
+                    'after' => 'After Quantity',
+                    'change' => 'Change',
+                    'cost' => 'Cost',
+                    'reason' => 'Reason',
+                    'created_at' => 'Date',
+                    'action' => 'Action'
                 ))
-            </div>
-            <div class="tab-pane" id="tab_timeline">
-                <div class="col-md-12">
-                    @include('maintenance::inventory.stocks.movements.timeline', array(
-                        'stock' => $stock
-                    ))
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
+                ->means('user', 'user.full_name')
+                ->modify('action', function($movement) use($item, $stock) {
+                    return $movement->viewer()->btnActions($item, $stock);
+                })
+                ->render()
+        }}
 
+    </div>
 @stop
