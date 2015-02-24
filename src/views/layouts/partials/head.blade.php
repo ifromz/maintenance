@@ -2,6 +2,9 @@
 <title>{{ strip_tags($siteTitle) }} | {{ $title }}</title>
 <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
+<!-- Shortcut Icon -->
+<link rel="shortcut icon" href="{{ asset('packages/stevebauman/maintenance/favicon.ico') }}">
+
 <!-- jQuery -->
 {{ HTML::script('packages/stevebauman/maintenance/resources/jquery/dist/jquery.js') }}
 
