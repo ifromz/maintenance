@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<title>{{ $siteTitle }} | {{ $title }}</title>
+<title>{{ strip_tags($siteTitle) }} | {{ $title }}</title>
 <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
 <!-- jQuery -->
