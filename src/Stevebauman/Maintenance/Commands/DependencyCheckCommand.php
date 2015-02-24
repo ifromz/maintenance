@@ -40,7 +40,8 @@ class DependencyCheckCommand extends Command {
         'SimpleSoftwareIO\QrCode\QrCodeServiceProvider' => 'Simple-QrCode Generator',
         'Mews\Purifier\PurifierServiceProvider' => 'Purifier',
         'Mews\Captcha\CaptchaServiceProvider' => 'Captcha',
-        'Google_Service' => 'Google API'
+        'Google_Service' => 'Google API',
+        'DaveJamesMiller\Breadcrumbs\ServiceProvider' => 'Breadcrumbs',
     );
 
     /**

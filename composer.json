@@ -19,7 +19,8 @@
         "cartalyst/sentry": "2.*",
         "baum/baum": "1.0.*",
         "simplesoftwareio/simple-qrcode": "1.0.*",
-        "mews/captcha": "1.*"
+        "mews/captcha": "1.*",
+        "davejamesmiller/laravel-breadcrumbs": "2.3.*"
     },
     "require-dev": {
         "codeception/codeception": "2.*"
