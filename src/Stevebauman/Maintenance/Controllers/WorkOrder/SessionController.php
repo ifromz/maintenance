@@ -1,26 +1,45 @@
-<?php namespace Stevebauman\Maintenance\Controllers\WorkOrder;
+<?php
+
+namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Services\WorkOrder\SessionService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
+/**
+ * Class SessionController
+ * @package Stevebauman\Maintenance\Controllers\WorkOrder
+ */
 class SessionController extends BaseController
 {
 
+    /**
+     * @var SessionService
+     */
+    protected $session;
+
+    /**
+     * @param SessionService $session
+     */
     public function __construct(SessionService $session)
     {
         $this->session = $session;
     }
 
+    /**
+     * Starts a maintenance workers session on a work order
+     *
+     * @param string|int $workOrder_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     public function postStart($workOrder_id)
     {
-
         $data = $this->inputAll();
         $data['work_order_id'] = $workOrder_id;
 
         $record = $this->session->setInput($data)->create();
 
         if ($record) {
-            $this->message = "You have been checked into this work order. Don't forget to checkout";
+            $this->message = "You have been checked into this work order. Don't forget to checkout!";
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.show', array($record->work_order_id));
         } else {
@@ -32,9 +51,15 @@ class SessionController extends BaseController
         return $this->response();
     }
 
+    /**
+     * Ends a maintenance workers session on a work order
+     *
+     * @param string|int $workOrder_id
+     * @param string|int $session_id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     public function postEnd($workOrder_id, $session_id)
     {
-
         $data = $this->inputAll();
         $data['work_order_id'] = $workOrder_id;
 

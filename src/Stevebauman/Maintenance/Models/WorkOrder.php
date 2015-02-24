@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Carbon\Carbon;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Maintenance\Traits\HasCategoryTrait;
@@ -10,6 +11,10 @@ use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
 
+/**
+ * Class WorkOrder
+ * @package Stevebauman\Maintenance\Models
+ */
 class WorkOrder extends BaseModel
 {
 
@@ -148,6 +153,16 @@ class WorkOrder extends BaseModel
     }
 
     /**
+     * The hasMany sessions relationship
+     *
+     * @return mixed
+     */
+    public function sessions()
+    {
+        return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderSession', 'work_order_id')->orderBy('created_at', 'DESC');
+    }
+
+    /**
      * Filters work order results by priority
      *
      * @return object
@@ -210,6 +225,11 @@ class WorkOrder extends BaseModel
         }
     }
 
+    /**
+     * @param $query
+     * @param $user
+     * @return mixed
+     */
     public function scopeUserHours($query, $user)
     {
         if ($user) {
@@ -219,12 +239,32 @@ class WorkOrder extends BaseModel
         }
     }
 
+    /**
+     * @param $query
+     * @param $user_id
+     * @return mixed
+     */
     public function scopeAssignedUser($query, $user_id)
     {
         if ($user_id) {
             return $query->whereHas('assignments', function ($query) use ($user_id) {
                 return $query->where('to_user_id', $user_id);
             });
+        }
+    }
+
+    /**
+     * Closes the sessions on the current work order
+     */
+    public function closeSessions()
+    {
+        foreach($this->sessions as $session)
+        {
+            if(!$session->out)
+            {
+                $session->out = Carbon::now()->toDateTimeString();
+                $session->save();
+            }
         }
     }
 
@@ -236,9 +276,8 @@ class WorkOrder extends BaseModel
      */
     public function isComplete()
     {
-        if ($this->report) {
-            return true;
-        }
+        if ($this->report) return true;
+
         return false;
     }
 
@@ -249,9 +288,8 @@ class WorkOrder extends BaseModel
      */
     public function hasWorkersAssigned()
     {
-        if ($this->assignments->count() > 0) {
-            return true;
-        }
+        if ($this->assignments->count() > 0) return true;
+
         return false;
     }
 
@@ -283,11 +321,6 @@ class WorkOrder extends BaseModel
         $record = $this->sessions()->where('user_id', Sentry::getUser()->id)->first();
 
         return $record;
-    }
-
-    public function sessions()
-    {
-        return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderSession', 'work_order_id')->orderBy('created_at', 'DESC');
     }
 
     /**

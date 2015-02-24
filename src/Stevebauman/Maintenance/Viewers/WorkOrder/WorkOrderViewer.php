@@ -123,6 +123,13 @@ class WorkOrderViewer extends BaseViewer {
     {
         return view('maintenance::viewers.work-order.buttons.actions', array('workOrder'=>$this->entity));
     }
+
+    public function btnEventTag()
+    {
+        return view('maintenance::viewers.work-order.buttons.event-tag', array(
+            'workOrder' => $this->entity,
+        ));
+    }
     
     public function lblStartedAt()
     {
@@ -134,11 +141,9 @@ class WorkOrderViewer extends BaseViewer {
         return view('maintenance::viewers.work-order.labels.completed-at', array('workOrder'=>$this->entity));
     }
     
-    public function btnEventTag()
+    public function lblCheckCompleted()
     {
-        return view('maintenance::viewers.work-order.buttons.event-tag', array(
-            'workOrder' => $this->entity,
-        ));
+        return view('maintenance::viewers.work-order.labels.check-completed', array('workOrder'=>$this->entity));
     }
     
 }

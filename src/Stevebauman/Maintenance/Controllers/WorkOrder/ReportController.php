@@ -44,14 +44,12 @@ class ReportController extends BaseController
      */
     public function create($workOrder_id)
     {
-
         $workOrder = $this->workOrder->find($workOrder_id);
 
         return view('maintenance::work-orders.report.create', array(
             'title' => 'Create a Work Order Report',
             'workOrder' => $workOrder
         ));
-
     }
 
     /**
@@ -62,7 +60,6 @@ class ReportController extends BaseController
      */
     public function store($workOrder_id)
     {
-
         if ($this->reportValidator->passes()) {
 
             $workOrder = $this->workOrder->find($workOrder_id);

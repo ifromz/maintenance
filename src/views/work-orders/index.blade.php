@@ -28,6 +28,7 @@
         {{
             $workOrders->columns(array(
                 'id' => 'ID',
+                'completed' => 'Completed',
                 'status' => 'Status',
                 'priority' => 'Priority',
                 'subject' => 'Subject',
@@ -44,6 +45,9 @@
             ->means('description', 'limited_description')
             ->modify('action', function($workOrder){
                 return $workOrder->viewer()->btnActions;
+            })
+            ->modify('completed', function($workOrder){
+                return $workOrder->viewer()->lblCheckCompleted;
             })
             ->sortable(array(
                 'id',
