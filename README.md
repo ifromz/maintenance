@@ -21,12 +21,12 @@
 * Finish administration panel for managing permissions/users/groups
 * Implement Print view for QR codes as well as all other data
 * Lots of optimization and tweaks in views, services, controllers etc - IN PROGRESS
-* Optimize views for tablet/mobile - IN PROGRESS
 * Upgrade to Laravel 5.0
 * Tests
 * Restrict multiple submits through ajax requests
 
 ##Done
+* Optimize views
 * Jan 14th 2015- Moved inventory management to separate package
 * Jan 9th 2015 - Assigned work orders view
 * Jan 8th 2015 - Ability to assign users to events
