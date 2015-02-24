@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Users</label>
+                    <label class="col-sm-2 control-label">Users Apart of this Group</label>
 
                     <div class="col-md-4">
                         @include('maintenance::select.users')

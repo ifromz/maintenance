@@ -4,15 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.work-orders.index') }}">
-            <i class="fa fa-book"></i>
-            Work Orders
-        </a>
-    </li>
-@stop
-
 @section('panel.extra.top')
 
     @include('maintenance::work-orders.modals.search', array(

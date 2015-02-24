@@ -4,19 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.admin.archive.index') }}">
-            <i class="fa fa-archive"></i>
-            Archive
-        </a>
-    </li>
-    <li class="active">
-        <i class="fa fa-wrench"></i>
-        Work Orders
-    </li>
-@stop
-
 @section('content')
 
     @include('maintenance::work-orders.modals.search', array(

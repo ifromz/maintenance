@@ -1,5 +1,10 @@
 <dl class="dl-horizontal">
 
+    <dt>ID:</dt>
+    <dd>{{ $workOrder->id }}</dd>
+
+    <p></p>
+
     <dt>Status:</dt>
     <dd>{{ $workOrder->status->label }}</dd>
 

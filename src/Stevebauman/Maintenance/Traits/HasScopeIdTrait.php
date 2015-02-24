@@ -2,9 +2,8 @@
 
 namespace Stevebauman\Maintenance\Traits;
 
-
-trait HasScopeIdTrait {
-
+trait HasScopeIdTrait
+{
     /**
      * Allows all tables extending from the base model to be scoped by ID
      *

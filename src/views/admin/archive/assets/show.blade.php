@@ -4,24 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.admin.archive.index') }}">
-            <i class="fa fa-archive"></i>
-            Archive
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.admin.archive.assets.index') }}">
-            <i class="fa fa-truck"></i>
-            Assets
-        </a>
-    </li>
-    <li class="active">
-        {{ $asset->name }}
-    </li>
-@stop
-
 @section('content')
 
     <div class="panel panel-default">

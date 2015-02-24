@@ -50,7 +50,10 @@ class DynamicsCommand extends Command
         $limit = $this->askHowManyRecords();
 
         $query = new $model;
-        $query->newQuery();
+
+        $query
+            ->newQuery()
+            ->where('Asset Status', '!=', 'Retired');
 
         $records = array();
 
@@ -62,7 +65,10 @@ class DynamicsCommand extends Command
                 $records = $query->all();
                 break;
             default:
-                $records = $query->take($limit)->get();
+                $records = $query
+                    ->where('Asset Class ID', 'LIKE', 'TRUCKS%')
+                    ->take($limit)
+                    ->get();
                 break;
         }
 

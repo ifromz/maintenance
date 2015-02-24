@@ -4,37 +4,15 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-    <li>
-        <a href="{{ route('maintenance.work-orders.index') }}">
-            <i class="fa fa-book"></i>
-            Work Orders
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.work-orders.show', array($workOrder->id)) }}">
-            {{ $workOrder->subject }}
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('maintenance.work-orders.attachments.index', array($workOrder->id)) }}">
-            Attachments
-        </a>
-    </li>
-    <li class="active">
-        <i class="fa fa-plus-circle"></i>
-        Create
-    </li>
-@stop
-
 @section('content')
 
-    {{ Form::open(array(
-                'url'=>route('maintenance.work-orders.attachments.store', array($workOrder->id)),
-                'id'=>'upload-form',
-                'data-upload-url'=>route('maintenance.work-orders.attachments.uploads.store'),
-                'data-upload-ext'=>'doc,docx,xls,xlsx,ppt,txt,jpg,png,gif,pdf'
-            ))
+    {{
+        Form::open(array(
+            'url'=>route('maintenance.work-orders.attachments.store', array($workOrder->id)),
+            'id'=>'upload-form',
+            'data-upload-url'=>route('maintenance.work-orders.attachments.uploads.store'),
+            'data-upload-ext'=>'doc,docx,xls,xlsx,ppt,txt,jpg,png,gif,pdf'
+        ))
     }}
 
     <div id="current-container" class="form-group">

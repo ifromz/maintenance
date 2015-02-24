@@ -5,8 +5,8 @@
 
     <div class="col-md-4">
         @include('maintenance::select.work-order-category', array(
-              'category_name'=>(isset($workOrder) ? ($workOrder->category ?: $workOrder->category->name) : NULL),
-              'category_id'=>(isset($workOrder) ? ($workOrder->category ?: $workOrder->category->id) : NULL)
+              'category_name'=>(isset($workOrder) ? ($workOrder->category ? $workOrder->category->name : NULL) : NULL),
+              'category_id'=>(isset($workOrder) ? ($workOrder->category ? $workOrder->category->id : NULL) : NULL)
           ))
     </div>
 </div>
@@ -16,8 +16,8 @@
 
     <div class="col-md-4">
         @include('maintenance::select.location', array(
-              'location_name'=>(isset($workOrder) ? ($workOrder->location ?: $workOrder->location->name) : NULL),
-              'location_id' => (isset($workOrder) ? ($workOrder->location ?: $workOrder->location->id) : NULL),
+              'location_name'=>(isset($workOrder) ? ($workOrder->location ? $workOrder->location->name : NULL) : NULL),
+              'location_id' => (isset($workOrder) ? ($workOrder->location ? $workOrder->location->id : NULL) : NULL),
           ))
     </div>
 </div>

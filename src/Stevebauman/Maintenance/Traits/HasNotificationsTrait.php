@@ -3,8 +3,8 @@
 namespace Stevebauman\Maintenance\Traits;
 
 
-trait HasNotificationsTrait {
-
+trait HasNotificationsTrait
+{
     /**
      * Allows all models extending from BaseModel to have notifications
      *

@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Traits;
 
-trait HasScopeArchivedTrait {
-
+trait HasScopeArchivedTrait
+{
     /**
      * Scopes a query to show only soft deleted records
      *

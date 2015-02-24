@@ -4,11 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-
-@section('breadcrumb')
-
-@stop
-
 @section('panel.head.content')
     <div class="btn-toolbar">
         <a class="btn btn-primary" href="{{ action(currentControllerAction('create')) }}">

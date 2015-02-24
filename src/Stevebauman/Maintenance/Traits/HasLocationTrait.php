@@ -2,8 +2,15 @@
 
 namespace Stevebauman\Maintenance\Traits;
 
-trait HasLocationTrait {
+use Stevebauman\Maintenance\Models\Location;
 
+trait HasLocationTrait
+{
+    /**
+     * The has one location relationship
+     *
+     * @return mixed
+     */
     public function location()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');

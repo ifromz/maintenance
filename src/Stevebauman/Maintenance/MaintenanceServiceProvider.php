@@ -30,6 +30,8 @@ class MaintenanceServiceProvider extends ServiceProvider {
 
 	/**
 	 * Registers all the maintenance commands
+	 *
+	 * @return void
 	 */
 	private function bootCommands()
 	{
@@ -79,6 +81,8 @@ class MaintenanceServiceProvider extends ServiceProvider {
 
 	/**
 	 * Includes the required maintenance files
+	 *
+	 * @return void
 	 */
 	private function bootRequiredFiles()
 	{
@@ -87,6 +91,7 @@ class MaintenanceServiceProvider extends ServiceProvider {
 		include __DIR__ .'/../../composers.php';
 		include __DIR__ .'/../../validators.php';
 		include __DIR__ .'/../../listeners.php';
+		include __DIR__ .'/../../breadcrumbs.php';
 	}
 
 	/**

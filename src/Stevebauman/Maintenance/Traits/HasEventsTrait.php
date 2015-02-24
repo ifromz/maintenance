@@ -2,11 +2,10 @@
 
 namespace Stevebauman\Maintenance\Traits;
 
-trait HasEventsTrait {
-    
+trait HasEventsTrait
+{
     public function events()
     {
         return $this->morphToMany('Stevebauman\Maintenance\Models\Event', 'eventable')->withTimestamps();
     }
-    
 }

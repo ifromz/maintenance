@@ -4,10 +4,6 @@
     <h1>{{ $title }}</h1>
 @stop
 
-@section('breadcrumb')
-
-@stop
-
 @section('panel.head.content')
     <h3 class="panel-title">
         Edit Event

@@ -2,8 +2,15 @@
 
 namespace Stevebauman\Maintenance\Traits;
 
-trait HasCategoryTrait {
+use Stevebauman\Maintenance\Models\Category;
 
+trait HasCategoryTrait
+{
+    /**
+     * The has one category relationship
+     *
+     * @return mixed
+     */
     public function category()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\Category', 'id', 'category_id');
