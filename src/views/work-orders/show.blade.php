@@ -1,7 +1,6 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
 @section('tab.head.content')
-
     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab_details" data-toggle="tab">Details</a></li>
     <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
@@ -10,11 +9,9 @@
     <li><a href="#tab_attachments" data-toggle="tab">Attachments</a></li>
     <li><a href="#tab_customer_updates" data-toggle="tab">Customer Updates</a></li>
     <li><a href="#tab_technician_updates" data-toggle="tab">Technician Updates</a></li>
-
 @stop
 
 @section('tab.body.content')
-
     <div class="tab-pane active" id="tab_profile">
 
         <legend>Profile</legend>
@@ -105,5 +102,4 @@
 
         {{ $workOrder->viewer()->technicianUpdates }}
     </div>
-
 @stop

@@ -27,15 +27,15 @@
 
         {{
             $workOrders->columns(array(
-                'id' => _t('ID'),
-                'status' => _t('Status'),
-                'priority' => _t('Priority'),
-                'subject' => _t('Subject'),
-                'description' => _t('Description'),
-                'category' => _t('Category'),
-                'created_by' => _t('Created By'),
-                'created_at' => _t('Created At'),
-                'action' => _t('Action')
+                'id' => 'ID',
+                'status' => 'Status',
+                'priority' => 'Priority',
+                'subject' => 'Subject',
+                'description' => 'Description',
+                'category' => 'Category',
+                'created_by' => 'Created By',
+                'created_at' => 'Created At',
+                'action' => 'Action',
             ))
             ->means('status', 'status.label')
             ->means('priority', 'priority.label')
@@ -61,7 +61,7 @@
 
     @else
 
-        <h5>{{ _t('There are no work orders to display.') }}</h5>
+        <h5>There are no work orders to display.</h5>
 
     @endif
 

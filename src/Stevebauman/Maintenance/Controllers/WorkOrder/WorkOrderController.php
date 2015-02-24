@@ -43,7 +43,7 @@ class WorkOrderController extends BaseController
         $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
 
         return view('maintenance::work-orders.index', array(
-            'title' => _t('Work Orders'),
+            'title' => 'Work Orders',
             'workOrders' => $workOrders
         ));
     }
@@ -56,7 +56,7 @@ class WorkOrderController extends BaseController
     public function create()
     {
         return view('maintenance::work-orders.create', array(
-            'title' => _t('Create a Work Order'),
+            'title' => 'Create a Work Order',
         ));
     }
 
