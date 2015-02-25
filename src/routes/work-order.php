@@ -126,6 +126,20 @@ Route::group(array('namespace' => 'WorkOrder'), function () {
         ),
     ));
 
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Work Order Request Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('work-orders/requests/create/{work_requests}', array(
+        'as' => 'maintenance.work-orders.requests.create',
+        'uses' => 'RequestController@create'
+    ));
+
+    Route::put('work-orders/requests/{work_requests}', array(
+        'as' => 'maintenance.work-orders.requests.store',
+        'uses' => 'RequestController@store',
+    ));
 
     /*
     |--------------------------------------------------------------------------

@@ -17,4 +17,10 @@
             <i class="fa fa-trash-o"></i> Delete Work Request
         </a>
     </li>
+    <li class="divider"></li>
+    <li>
+        <a href="{{ route('maintenance.work-orders.requests.create', array($workRequest->id)) }}">
+            <i class="fa fa-plus"></i> Create Work Order
+        </a>
+    </li>
 @overwrite
