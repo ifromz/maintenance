@@ -24,6 +24,9 @@
 <!-- Bootstrap stackable modals extension -->
 {{ HTML::style('packages/stevebauman/maintenance/resources/bootstrap-modal/css/bootstrap-modal.css') }}
 
+<!-- Font Awesome -->
+{{ HTML::style('packages/stevebauman/maintenance/resources/fontawesome/css/font-awesome.min.css') }}
+
 <!-- Select2 3.4.5-->
 {{ HTML::style('packages/stevebauman/maintenance/resources/select2/select2.css') }}
 {{ HTML::style('packages/stevebauman/maintenance/resources/select2/select2-bootstrap.css') }}

@@ -78,26 +78,25 @@ $(document).ready(function () {
     $(document).on('submit', '.ajax-form-post', function (e) {
         e.preventDefault();
 
+        var btnSubmit = $(this).find(':submit');
         var refreshTarget = $(this).data('refresh-target');
 
-        if (typeof refreshTarget === 'undefined') {
+        btnDisable(btnSubmit);
 
-            $(this).ajaxSubmit({
-                success: showFormResponse,
-                error: showErrorResponse
-            });
+        $(this).ajaxSubmit({
+            success: function (response, status, xhr, $form) {
+                showFormResponse(response, status, xhr, $form);
+                refreshContent(refreshTarget);
 
-        } else {
-
-            $(this).ajaxSubmit({
-                success: function (response, status, xhr, $form) {
-                    showFormResponse(response, status, xhr, $form);
+                if (typeof refreshTarget != 'undefined') {
                     refreshContent(refreshTarget);
-                },
-                error: showErrorResponse
-            });
+                }
 
-        }
+                btnEnable(btnSubmit);
+            },
+            error: showErrorResponse
+        });
+
     });
 
     /*
@@ -107,12 +106,16 @@ $(document).ready(function () {
         e.preventDefault();
 
         var refreshTarget = $(this).data('refresh-target');
+        var btnSubmit = $(this).find(':submit');
+
+        btnDisable(btnSubmit);
 
         $(this).ajaxSubmit({
             success: function (response, status, xhr, $form) {
 
                 refreshContent(refreshTarget, response);
 
+                btnEnable(btnSubmit);
             }
         });
     });
@@ -535,7 +538,7 @@ function paginate(url, target) {
             datatype: "html",
             beforeSend: function(xhr) {
                 $(target).empty();
-                $(target).append('<div class="text-center"><i class="fa fa-4x fa-refresh fa-spin"></i></div>');
+                $(target).append('<div class="text-center"><i class="fa fa-2x fa-refresh fa-spin"></i></div>');
             }
         })
         .done(function (data) {
@@ -543,4 +546,14 @@ function paginate(url, target) {
             $(target).replaceWith(html);
             $('html, body').animate({ scrollTop: 0 }, 'fast');
         });
+}
+
+function btnDisable(btn)
+{
+    btn.attr('disabled', 'disabled');
+}
+
+function btnEnable(btn)
+{
+    btn.removeAttr('disabled');
 }
