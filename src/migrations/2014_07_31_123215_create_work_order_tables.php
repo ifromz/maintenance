@@ -69,6 +69,13 @@ class CreateWorkOrderTables extends Migration
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
 
+            /*
+             * Allow only one work request to be attached per work order
+             *
+             * Possible incompatibility with SQL Server
+             */
+            $table->unique(array('request_id'));
+
         });
 
         Schema::create('work_order_notifications', function (Blueprint $table) {

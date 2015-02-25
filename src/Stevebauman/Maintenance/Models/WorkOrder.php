@@ -59,7 +59,7 @@ class WorkOrder extends BaseModel
      */
     public function request()
     {
-        return $this->belongsTo('Stevebauman\Maintenance\Models\WorkRequest', 'request_id', 'id');
+        return $this->belongsTo('Stevebauman\Maintenance\Models\WorkRequest', 'request_id');
     }
 
     /**

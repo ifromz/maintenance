@@ -1,67 +1,17 @@
-@extends('maintenance::layouts.admin')
+@extends('maintenance::layouts.pages.admin.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('panel.head.content')
+    Viewing Work Order
 @stop
 
-@section('content')
+@section('panel.body.content')
 
-    <div class="panel panel-default">
+    {{ $workOrder->viewer()->btnRestore }}
 
-        <div class="panel-heading">
-            <h3 class="panel-title">Limited View While viewing in Archive</h3>
-        </div>
+    {{ $workOrder->viewer()->btnDeleteArchive }}
 
-        <div class="panel-body">
+    <hr>
 
-            <a href="{{ route('maintenance.admin.archive.work-orders.restore', array($workOrder->id)) }}"
-               data-method="post"
-               data-title="Restore Work Order?"
-               data-message="Are you sure you want to restore this work order?"
-               class="btn btn-app">
-                <i class="fa fa-refresh"></i> Restore
-            </a>
-
-            <a href="{{ route('maintenance.admin.archive.work-orders.destroy', array($workOrder->id)) }}"
-               data-method="delete"
-               data-title="Delete asset?"
-               data-message="Are you sure you want to delete this work order? All data for this work order will be lost, and won't be recoverable."
-               class="btn btn-app">
-                <i class="fa fa-trash-o"></i> Delete (Permanent)
-            </a>
-
-            <hr>
-
-            @include('maintenance::work-orders.tabs.profile.description', array(
-                'workOrder'=>$workOrder
-            ))
-
-            <legend>More Information:</legend>
-
-            <dl class="dl-horizontal">
-
-                <dt>Attachments:</dt>
-                <dd>{{ $workOrder->attachments->count() }}</dd>
-
-                <p></p>
-
-                <dt>Workers Assigned:</dt>
-                <dd>
-                    @if($workOrder->assignments->count() > 0)
-                        @foreach($workOrder->assignments as $assignment)
-                            <span class="label label-default">{{ $assignment->to_user->full_name }}</span>
-                        @endforeach
-                    @else
-                        0
-                    @endif
-                </dd>
-
-                <p></p>
-
-
-            </dl>
-        </div>
-
-    </div>
+    {{ $workOrder->viewer()->profile }}
 
 @stop

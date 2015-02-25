@@ -74,6 +74,7 @@ class WorkOrderViewer extends BaseViewer {
             return $date->format('M dS Y - h:ia');
         }
     }
+
     public function btnEdit()
     {
         return view('maintenance::viewers.work-order.buttons.edit', array('workOrder'=>$this->entity));
@@ -82,6 +83,11 @@ class WorkOrderViewer extends BaseViewer {
     public function btnDelete()
     {
         return view('maintenance::viewers.work-order.buttons.delete', array('workOrder'=>$this->entity));
+    }
+
+    public function btnDeleteArchive()
+    {
+        return view('maintenance::viewers.work-order.buttons.delete-archive', array('workOrder'=>$this->entity));
     }
 
     public function btnEvents()
@@ -118,11 +124,6 @@ class WorkOrderViewer extends BaseViewer {
     {
         return view('maintenance::viewers.work-order.buttons.add-attachments', array('workOrder'=>$this->entity));
     }
-    
-    public function btnActions()
-    {
-        return view('maintenance::viewers.work-order.buttons.actions', array('workOrder'=>$this->entity));
-    }
 
     public function btnEventTag()
     {
@@ -130,7 +131,22 @@ class WorkOrderViewer extends BaseViewer {
             'workOrder' => $this->entity,
         ));
     }
-    
+
+    public function btnRestore()
+    {
+        return view('maintenance::viewers.work-order.buttons.restore', array('workOrder'=>$this->entity));
+    }
+
+    public function btnActions()
+    {
+        return view('maintenance::viewers.work-order.buttons.actions', array('workOrder'=>$this->entity));
+    }
+
+    public function btnActionsArchive()
+    {
+        return view('maintenance::viewers.work-order.buttons.actions-archive', array('workOrder'=>$this->entity));
+    }
+
     public function lblStartedAt()
     {
         return view('maintenance::viewers.work-order.labels.started-at', array('workOrder'=>$this->entity));

@@ -18,9 +18,17 @@
         </a>
     </li>
     <li class="divider"></li>
-    <li>
-        <a href="{{ route('maintenance.work-orders.requests.create', array($workRequest->id)) }}">
-            <i class="fa fa-plus"></i> Create Work Order
-        </a>
-    </li>
+    @if($workRequest->workOrder)
+        <li>
+            <a href="{{ route('maintenance.work-orders.show', array($workRequest->workOrder->id)) }}">
+                <i class="fa fa-search"></i> View Work Order
+            </a>
+        </li>
+    @else
+        <li>
+            <a href="{{ route('maintenance.work-orders.requests.create', array($workRequest->id)) }}">
+                <i class="fa fa-plus"></i> Create Work Order
+            </a>
+        </li>
+    @endif
 @overwrite

@@ -148,39 +148,47 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try {
+        /*
+         * We'll make sure the work request doesn't already have a
+         * work order attached to it before we try and create it
+         */
+        if(!$workRequest->workOrder)
+        {
+            try {
 
-            $status = $this
-                ->status
-                ->setInput(config('maintenance::rules.work-requests.submission_status'))
-                ->firstOrCreate();
+                $status = $this
+                    ->status
+                    ->setInput(config('maintenance::rules.work-requests.submission_status'))
+                    ->firstOrCreate();
 
-            $priority = $this
-                ->priority
-                ->setInput(config('maintenance::rules.work-requests.submission_priority'))
-                ->firstOrCreate();
+                $priority = $this
+                    ->priority
+                    ->setInput(config('maintenance::rules.work-requests.submission_priority'))
+                    ->firstOrCreate();
 
-            $insert = array(
-                'status_id' => $status->id,
-                'priority_id' => $priority->id,
-                'user_id' => $workRequest->user_id,
-                'subject' => $workRequest->subject,
-                'description' => $workRequest->description,
-            );
+                $insert = array(
+                    'status_id' => $status->id,
+                    'priority_id' => $priority->id,
+                    'request_id' => $workRequest->id,
+                    'user_id' => $workRequest->user_id,
+                    'subject' => $workRequest->subject,
+                    'description' => $workRequest->description,
+                );
 
-            $workOrder = $this->model->create($insert);
+                $workOrder = $this->model->create($insert);
 
-            if($workOrder) {
+                if($workOrder)
+                {
+                    $this->dbCommitTransaction();
 
-                $this->dbCommitTransaction();
+                    return $workOrder;
+                }
 
-                return $workOrder;
+            } catch(\Exception $e) {
+
+                $this->dbRollbackTransaction();
+
             }
-
-        } catch(\Exception $e) {
-
-            $this->dbRollbackTransaction();
-
         }
 
         return false;

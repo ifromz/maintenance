@@ -38,11 +38,7 @@
 
         <legend>Work Request</legend>
 
-        @if($workOrder->workRequest)
-            {{ $workOrder->viewer()->workRequest }}
-        @else
-            <h5>No work request was created for this work order.</h5>
-        @endif
+        {{ $workOrder->viewer()->workRequest }}
 
     </div>
 
