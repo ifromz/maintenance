@@ -2,8 +2,15 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
+
+/**
+ * Class WorkOrderReport
+ * @package Stevebauman\Maintenance\Models
+ */
 class WorkOrderReport extends BaseModel
 {
+    use HasUserTrait;
 
     protected $table = 'work_order_reports';
 
@@ -13,14 +20,13 @@ class WorkOrderReport extends BaseModel
         'description'
     );
 
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
-    }
-
+    /**
+     * The hasOne work order trait
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function workOrder()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrder', 'id', 'work_order_id');
     }
-
 }

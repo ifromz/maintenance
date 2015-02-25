@@ -1,6 +1,9 @@
-<?php namespace Stevebauman\Maintenance\Models;
+<?php
+
+namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\HasScopeIdTrait;
+use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 
@@ -11,6 +14,8 @@ use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 class User extends SentryUser
 {
     use ViewableTrait;
+
+    use TableTrait;
 
     use HasScopeIdTrait;
 
@@ -75,5 +80,4 @@ class User extends SentryUser
             return $query->where('email', 'LIKE', '%' . $email . '%');
         }
     }
-
 }

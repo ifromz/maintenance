@@ -11,6 +11,7 @@
             <i class="fa fa-edit"></i> Edit User
         </a>
     </li>
+    @if(!Sentry::getUser()->id === $user->id)
     <li>
         <a href="{{ route('maintenance.admin.users.destroy', array($user->id)) }}"
            data-method="delete"
@@ -18,4 +19,5 @@
             <i class="fa fa-trash-o"></i> Delete User
         </a>
     </li>
+    @endif
 @overwrite

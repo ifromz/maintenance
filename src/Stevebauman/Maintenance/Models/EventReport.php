@@ -2,8 +2,15 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\HasUserTrait;
+
+/**
+ * Class EventReport
+ * @package Stevebauman\Maintenance\Models
+ */
 class EventReport extends BaseModel
 {
+    use HasUserTrait;
 
     protected $table = 'event_reports';
 
@@ -12,10 +19,5 @@ class EventReport extends BaseModel
         'user_id',
         'description',
     );
-
-    public function user()
-    {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
-    }
 
 }

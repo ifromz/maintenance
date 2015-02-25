@@ -6,7 +6,6 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 class Priority extends BaseModel
 {
-
     use HasUserTrait;
 
     protected $table = 'priorities';
@@ -43,5 +42,4 @@ class Priority extends BaseModel
     {
         return $this->name;
     }
-
 }

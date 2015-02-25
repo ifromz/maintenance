@@ -6,7 +6,6 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 class MeterReading extends BaseModel
 {
-
     use HasUserTrait;
 
     protected $table = 'meter_readings';

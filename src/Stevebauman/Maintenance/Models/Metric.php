@@ -8,7 +8,6 @@ namespace Stevebauman\Maintenance\Models;
  */
 class Metric extends BaseModel
 {
-
     protected $table = 'metrics';
 
     protected $fillable = array(
@@ -17,5 +16,4 @@ class Metric extends BaseModel
     );
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\MetricViewer';
-
 }

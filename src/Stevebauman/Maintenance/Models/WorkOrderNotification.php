@@ -4,9 +4,12 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
+/**
+ * Class WorkOrderNotification
+ * @package Stevebauman\Maintenance\Models
+ */
 class WorkOrderNotification extends BaseModel
 {
-
     use HasUserTrait;
 
     protected $table = 'work_order_notifications';
@@ -22,9 +25,13 @@ class WorkOrderNotification extends BaseModel
         'completion_report',
     );
 
+    /**
+     * The hasOne work order relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function workOrder()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrder', 'id', 'work_order_id');
     }
-
 }

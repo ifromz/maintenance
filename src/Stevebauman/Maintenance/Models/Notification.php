@@ -4,7 +4,6 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 class Notification extends BaseModel
 {
-
     use HasUserTrait;
 
     protected $table = 'notifications';
@@ -18,11 +17,21 @@ class Notification extends BaseModel
         'read'
     );
 
+    /**
+     * The morphTo relationship allowing all models to have notifications
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
     public function notifiable()
     {
         return $this->morphTo();
     }
 
+    /**
+     * Returns an html icon of the type of notification
+     *
+     * @return string
+     */
     public function getIconAttribute()
     {
         $class = $this->attributes['notifiable_type'];

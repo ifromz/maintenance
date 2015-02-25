@@ -25,5 +25,5 @@
     </table>
 
 @else
-    <h5>There are no permissions to display.</h5>
+
 @endif

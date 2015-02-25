@@ -6,13 +6,14 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Inventory\Traits\InventoryStockTrait;
 
+/**
+ * Class InventoryStock
+ * @package Stevebauman\Maintenance\Models
+ */
 class InventoryStock extends BaseModel
 {
-
     use InventoryStockTrait;
-
     use HasUserTrait;
-
     use HasLocationTrait;
 
     /**

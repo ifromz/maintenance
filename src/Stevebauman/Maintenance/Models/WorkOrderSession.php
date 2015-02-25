@@ -1,10 +1,15 @@
-<?php namespace Stevebauman\Maintenance\Models;
+<?php
+
+namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
+/**
+ * Class WorkOrderSession
+ * @package Stevebauman\Maintenance\Models
+ */
 class WorkOrderSession extends BaseModel
 {
-
     use HasUserTrait;
 
     protected $table = 'work_order_sessions';
@@ -17,11 +22,21 @@ class WorkOrderSession extends BaseModel
         'hours'
     );
 
+    /**
+     * The hasOne work order relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function workOrder()
     {
         return $this->hasOne('Stevebauman\Maintenanace\Models\WorkOrder', 'work_order_id');
     }
 
+    /**
+     * Returns the number of hours a session lasted with decimals
+     *
+     * @return null|number
+     */
     public function getHoursAttribute()
     {
         if ($this->attributes['out']) {

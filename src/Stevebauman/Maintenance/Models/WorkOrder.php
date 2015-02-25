@@ -17,7 +17,6 @@ use Stevebauman\Maintenance\Traits\HasEventsTrait;
  */
 class WorkOrder extends BaseModel
 {
-
     use SoftDeletingTrait;
     use HasNotesTrait;
     use HasLocationTrait;

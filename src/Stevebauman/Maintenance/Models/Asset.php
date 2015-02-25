@@ -6,9 +6,12 @@ use Stevebauman\Maintenance\Traits\HasEventsTrait;
 use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
+/**
+ * Class Asset
+ * @package Stevebauman\Maintenance\Models
+ */
 class Asset extends BaseModel
 {
-
     use SoftDeletingTrait;
     use HasUserTrait;
     use HasEventsTrait;

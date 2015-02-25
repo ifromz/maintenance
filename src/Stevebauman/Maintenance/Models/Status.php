@@ -4,9 +4,12 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
+/**
+ * Class Status
+ * @package Stevebauman\Maintenance\Models
+ */
 class Status extends BaseModel
 {
-
     use HasUserTrait;
 
     protected $table = 'statuses';
@@ -19,6 +22,11 @@ class Status extends BaseModel
         'color'
     );
 
+    /**
+     * Returns an html label with the color of the status
+     *
+     * @return string
+     */
     public function getLabelAttribute()
     {
         return sprintf(
@@ -37,5 +45,4 @@ class Status extends BaseModel
     {
         return $this->name;
     }
-
 }

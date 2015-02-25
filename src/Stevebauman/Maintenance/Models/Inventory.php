@@ -16,7 +16,6 @@ use Stevebauman\Maintenance\Traits\HasEventsTrait;
  */
 class Inventory extends BaseModel
 {
-
     use InventoryTrait;
     use HasScopeArchivedTrait;
     use HasScopeIdTrait;

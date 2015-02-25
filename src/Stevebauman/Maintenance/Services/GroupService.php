@@ -3,36 +3,19 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Group;
-use Stevebauman\Maintenance\Services\SentryGroupService;
-use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class GroupService
+ * @package Stevebauman\Maintenance\Services
+ */
 class GroupService extends BaseModelService
 {
-
-    /**
-     * @var SentryGroupService
-     */
-    protected $sentryGroup;
-
     /**
      * @param Group $group
-     * @param SentryGroupService $sentryGroup
      */
-    public function __construct(Group $group, SentryGroupService $sentryGroup)
+    public function __construct(Group $group)
     {
         $this->model = $group;
-        $this->sentryGroup = $sentryGroup;
-    }
-
-    /**
-     * Uses Sentry to find the group to keep Sentry functions intact
-     *
-     * @param mixed $id
-     * @return object
-     */
-    public function find($id)
-    {
-        return $this->sentryGroup->find($id);
     }
 
     /**
@@ -42,7 +25,6 @@ class GroupService extends BaseModelService
      */
     public function create()
     {
-
         $this->dbStartTransaction();
 
         try {
@@ -54,8 +36,8 @@ class GroupService extends BaseModelService
 
             $record = $this->model->create($insert);
 
-            if ($record) {
-
+            if ($record)
+            {
                 $users = $this->getInput('users');
 
                 if ($users) {
@@ -65,7 +47,6 @@ class GroupService extends BaseModelService
                 $this->dbCommitTransaction();
 
                 return $record;
-
             }
 
             $this->dbRollbackTransaction();

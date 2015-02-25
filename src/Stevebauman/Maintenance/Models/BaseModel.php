@@ -10,6 +10,10 @@ use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
+/**
+ * Class BaseModel
+ * @package Stevebauman\Maintenance\Models
+ */
 class BaseModel extends Eloquent
 {
 
@@ -107,7 +111,6 @@ class BaseModel extends Eloquent
      */
     public function scopeSort($query, $field = NULL, $sort = NULL)
     {
-
         /*
          * Make sure both the field and sort variables are present
          */
@@ -150,28 +153,5 @@ class BaseModel extends Eloquent
     public function getCurrentTable()
     {
         return $this->table;
-    }
-
-    /**
-     *
-     *
-     * @param string $string
-     * @return boolean OR array
-     */
-    protected function getOperator($string)
-    {
-        $allowed_operators = array('>', '<', '=', '>=', '<=');
-        $output = preg_split("/[\[\]]/", $string);
-
-        if (is_array($output)) {
-            if (array_key_exists('1', $output) && array_key_exists('2', $output)) {
-                if (in_array($output[1], $allowed_operators)) {
-                    return array($output[1], $output[2]);
-                }
-            } else {
-                return $output;
-            }
-        }
-        return false;
     }
 }

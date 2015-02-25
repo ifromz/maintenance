@@ -4,9 +4,12 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
+/**
+ * Class Meter
+ * @package Stevebauman\Maintenance\Models
+ */
 class Meter extends BaseModel
 {
-
     use HasUserTrait;
 
     protected $table = 'meters';
