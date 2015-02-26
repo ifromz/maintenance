@@ -19,13 +19,13 @@
 * Robust notifications - IN PROGRESS
 * Robust reporting
 * Customizable user dashboard
-* Better breadcrumb management - IN PROGRESS
 * Implement Print view for QR codes as well as all other data
 * Upgrade to Laravel 5.0
 * Tests
 * Revamp the way uploads are handled
 
 ##Done
+* Feb 26th 2015 - Better breadcrumb management ([Laravel Breadcrumbs](https://github.com/davejamesmiller/laravel-breadcrumbs))
 * Feb 26th 2015 - Restrict multiple submits through ajax requests & more optimizations
 * Feb 24th 2015 - Optimize views
 * Jan 14th 2015 - Moved inventory management to separate package
