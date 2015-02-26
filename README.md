@@ -16,7 +16,7 @@
 * Robust reporting
 * Customizable user dashboard
 * Better breadcrumb management - IN PROGRESS
-* Finish administration panel for managing permissions/users/groups
+* Finish administration panel for managing permissions/users/groups - IN PROGRESS
 * Implement Print view for QR codes as well as all other data
 * Upgrade to Laravel 5.0
 * Tests
