@@ -1,42 +1,21 @@
 <?php
 
-/*
- * Main Layout Composer
+/**
+ * The Maintenance View Composers registration file
  */
-View::composer('maintenance::layouts.main', 'Stevebauman\Maintenance\Composers\MainLayoutComposer');
 
-/*
- * Public Layout Composer
- */
-View::composer('maintenance::layouts.public', 'Stevebauman\Maintenance\Composers\PublicLayoutComposer');
-
-/*
- * Admin Layout Composer
- */
-View::composer('maintenance::layouts.admin', 'Stevebauman\Maintenance\Composers\AdminLayoutComposer');
-
-View::composer('maintenance::admin.dashboard.index', 'Stevebauman\Maintenance\Composers\AdminDashboardComposer');
-
-/*
- * Notifications Composer
- */
-View::composer('maintenance::layouts.partials.notifications', 'Stevebauman\Maintenance\Composers\MainNotificationComposer');
-
-/*
- * Select Composers
- */
-View::composer('maintenance::select.assets', 'Stevebauman\Maintenance\Composers\AssetSelectComposer');
-
-View::composer('maintenance::select.inventories', 'Stevebauman\Maintenance\Composers\InventorySelectComposer');
-
-View::composer('maintenance::select.work-orders', 'Stevebauman\Maintenance\Composers\WorkOrderSelectComposer');
-
-View::composer('maintenance::select.status', 'Stevebauman\Maintenance\Composers\StatusSelectComposer');
-
-View::composer('maintenance::select.priority', 'Stevebauman\Maintenance\Composers\PrioritySelectComposer');
-
-View::composer('maintenance::select.users', 'Stevebauman\Maintenance\Composers\UserSelectComposer');
-
-View::composer('maintenance::select.routes', 'Stevebauman\Maintenance\Composers\RouteSelectComposer');
-
-View::composer('maintenance::select.metric', 'Stevebauman\Maintenance\Composers\MetricSelectComposer');
+View::composers(array(
+    'Stevebauman\Maintenance\Composers\MainLayoutComposer'      => 'maintenance::layouts.main',
+    'Stevebauman\Maintenance\Composers\PublicLayoutComposer'    => 'maintenance::layouts.public',
+    'Stevebauman\Maintenance\Composers\AdminLayoutComposer'     => 'maintenance::layouts.admin',
+    'Stevebauman\Maintenance\Composers\AdminDashboardComposer'  => 'maintenance::admin.dashboard.index',
+    'Stevebauman\Maintenance\Composers\MainNotificationComposer' => 'maintenance::layouts.partials.notifications',
+    'Stevebauman\Maintenance\Composers\AssetSelectComposer'     => 'maintenance::select.assets',
+    'Stevebauman\Maintenance\Composers\InventorySelectComposer' => 'maintenance::select.inventories',
+    'Stevebauman\Maintenance\Composers\WorkOrderSelectComposer' => 'maintenance::select.work-orders',
+    'Stevebauman\Maintenance\Composers\StatusSelectComposer'    => 'maintenance::select.status',
+    'Stevebauman\Maintenance\Composers\PrioritySelectComposer'  => 'maintenance::select.priority',
+    'Stevebauman\Maintenance\Composers\UserSelectComposer'      => 'maintenance::select.users',
+    'Stevebauman\Maintenance\Composers\RouteSelectComposer'     => 'maintenance::select.routes',
+    'Stevebauman\Maintenance\Composers\MetricSelectComposer'    => 'maintenance::select.metric',
+));

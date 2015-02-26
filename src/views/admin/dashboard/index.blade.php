@@ -10,88 +10,56 @@
 
 @section('content')
 
-    <div class="col-lg-2 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-blue">
-            <div class="inner">
-                <h3>
-                    {{ $users }}
-                </h3>
-
-                <p>
-                    Users
-                </p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-person"></i>
-            </div>
-            <a href="{{ route('maintenance.admin.users.index') }}" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-        </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-users"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Users</span>
+                <span class="info-box-number">{{ $users }}</span>
+                <a href="{{ route('maintenance.admin.users.index') }}" class="small-box-footer">
+                    More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
     </div>
 
-    <div class="col-lg-2 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-yellow">
-            <div class="inner">
-                <h3>
-                    {{ $assets }}
-                </h3>
-
-                <p>
-                    Assets
-                </p>
-            </div>
-            <div class="icon">
-                <i class="fa fa-truck"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-        </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-truck"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Assets</span>
+                <span class="info-box-number">{{ $assets }}</span>
+                <a href="{{ route('maintenance.admin.users.index') }}" class="small-box-footer">
+                    More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
     </div>
 
-    <div class="col-lg-2 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-green">
-            <div class="inner">
-                <h3>
-                    {{ $inventories }}
-                </h3>
-
-                <p>
-                    Inventory Items
-                </p>
-            </div>
-            <div class="icon">
-                <i class="fa fa-gears"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-        </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-dropbox"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Inventory</span>
+                <span class="info-box-number">{{ $inventories }}</span>
+                <a href="{{ route('maintenance.admin.users.index') }}" class="small-box-footer">
+                    More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
     </div>
 
-    <div class="col-lg-2 col-xs-6">
-        <!-- small box -->
-        <div class="small-box bg-blue">
-            <div class="inner">
-                <h3>
-                    {{ $workOrders }}
-                </h3>
-
-                <p>
-                    Work Orders
-                </p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-wrench"></i>
-            </div>
-            <a href="#" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-        </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-blue"><i class="fa fa-book"></i></span>
+            <div class="info-box-content">
+                <span class="info-box-text">Work Orders</span>
+                <span class="info-box-number">{{ $workOrders }}</span>
+                <a href="{{ route('maintenance.admin.users.index') }}" class="small-box-footer">
+                    More info <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div><!-- /.info-box-content -->
+        </div><!-- /.info-box -->
     </div>
 
 @stop

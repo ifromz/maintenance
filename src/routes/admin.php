@@ -119,3 +119,37 @@ Route::group(array('namespace' => 'Archive'), function () {
 
 });
 
+Route::group(array('namespace' => 'Setting'), function ()
+{
+
+    Route::resource('settings/mail', 'MailController', array(
+        'only' => array(
+            'index',
+            'store',
+        ),
+        'names' => array(
+            'index' => 'maintenance.admin.settings.mail.index',
+            'store' => 'maintenance.admin.settings.mail.store',
+        ),
+    ));
+
+    Route::resource('settings/site', 'SiteController', array(
+        'only' => array(
+            'index',
+            'store',
+        ),
+        'names' => array(
+            'index' => 'maintenance.admin.settings.site.index',
+            'store' => 'maintenance.admin.settings.site.store',
+        ),
+    ));
+
+    Route::resource('settings', 'SettingsController', array(
+        'only' => array(
+            'index',
+        ),
+        'names' => array(
+            'index' => 'maintenance.admin.settings.index',
+        ),
+    ));
+});
