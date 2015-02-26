@@ -12,20 +12,18 @@
 
 ##TO DO
 * Move work order management to separate package - IN PROGRESS
-* Localize all text into lang arrays
 * Robust notifications - IN PROGRESS
 * Robust reporting
 * Customizable user dashboard
 * Better breadcrumb management - IN PROGRESS
 * Finish administration panel for managing permissions/users/groups
 * Implement Print view for QR codes as well as all other data
-* Lots of optimization and tweaks in views, services, controllers etc - IN PROGRESS
 * Upgrade to Laravel 5.0
 * Tests
-* Restrict multiple submits through ajax requests
 * Revamp the way uploads are handled
 
 ##Done
+* Feb 26th 2015 - Restrict multiple submits through ajax requests & more optimizations
 * Feb 24th 2015 - Optimize views
 * Jan 14th 2015 - Moved inventory management to separate package
 * Jan 9th 2015 - Assigned work orders view
