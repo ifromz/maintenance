@@ -69,6 +69,11 @@ class AssetViewer extends BaseViewer {
         return view('maintenance::viewers.asset.buttons.delete', array('asset'=>$this->entity));
     }
 
+    public function btnRestore()
+    {
+        return view('maintenance::viewers.asset.buttons.restore', array('asset'=>$this->entity));
+    }
+
     public function btnQrCode()
     {
         return view('maintenance::viewers.partials.buttons.qr-code', array(
@@ -81,6 +86,11 @@ class AssetViewer extends BaseViewer {
     public function btnActions()
     {
         return view('maintenance::viewers.asset.buttons.actions', array('asset'=>$this->entity));
+    }
+
+    public function btnActionsArchive()
+    {
+        return view('maintenance::viewers.asset.buttons.actions-archived', array('asset'=>$this->entity));
     }
 
     public function btnEventTag()

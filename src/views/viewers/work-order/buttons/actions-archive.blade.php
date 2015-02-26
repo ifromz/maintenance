@@ -4,7 +4,7 @@
 <li>
     <a href="{{ route('maintenance.admin.archive.work-orders.restore', array($workOrder->id)) }}"
        data-method="POST"
-       data-message="Are you sure you want to restore this asset?">
+       data-message="Are you sure you want to restore this work order?">
         <i class="fa fa-refresh"></i> Restore
     </a>
 </li>

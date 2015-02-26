@@ -10,13 +10,16 @@
 
 > **Note:** This repository contains the core code of the Maintenance application. If you want the actual pre-built application, visit the main [Maintenance App repository](https://github.com/stevebauman/maintenance-app).
 
+##Important Todo's
+* Started: Feb 22nd 2015    - Complete administration panel
+* Started: Not yet started  - Complete client interface and functionality
+
 ##TO DO
 * Move work order management to separate package - IN PROGRESS
 * Robust notifications - IN PROGRESS
 * Robust reporting
 * Customizable user dashboard
 * Better breadcrumb management - IN PROGRESS
-* Finish administration panel for managing permissions/users/groups - IN PROGRESS
 * Implement Print view for QR codes as well as all other data
 * Upgrade to Laravel 5.0
 * Tests
