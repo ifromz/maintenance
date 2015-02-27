@@ -25,8 +25,7 @@
                         <legend>Current Assigned Workers</legend>
 
                         {{
-
-                        $workOrder->assignments->columns(array(
+                            $workOrder->assignments->columns(array(
                                 'name' => 'Name',
                                 'created_at' => 'Assigned',
                                 'remove' => 'Remove',
@@ -36,7 +35,6 @@
                                 return $assignment->viewer()->btnRemove;
                             })
                             ->render()
-
                         }}
 
                     @else
@@ -49,12 +47,13 @@
 
                 <legend>Assign Workers</legend>
 
-                {{ Form::open(array(
-                        'url'=>route('maintenance.work-orders.assignments.store', array($workOrder->id)), 
-                        'class'=>'ajax-form-post', 
+                {{
+                    Form::open(array(
+                        'url'=>route('maintenance.work-orders.assignments.store', array($workOrder->id)),
+                        'class'=>'ajax-form-post',
                         'data-refresh-target'=>'#assigned-workers',
                         'data-status-target'=>'#workers-assigned-status'
-                    )) 
+                    ))
                 }}
 
                 <label>Enter Names</label>

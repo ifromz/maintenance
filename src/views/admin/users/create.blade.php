@@ -1,16 +1,18 @@
-@extends('maintenance::layouts.admin')
+@extends('maintenance::layouts.pages.admin.panel')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('panel.head.content')
+    Create User
 @stop
 
-@section('breadcrumb')
+@section('panel.body.content')
+    {{
+        Form::open(array(
+            'url' => route('maintenance.admin.users.store'),
+            'class' => 'form-horizontal clear-form'
+        ))
+    }}
 
-@stop
+    @include('maintenance::admin.users.form')
 
-@section('content')
-
-
-
-
+    {{ Form::close() }}
 @stop

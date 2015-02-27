@@ -45,7 +45,7 @@
            ->render()
        }}
     @else
-        <h5>There are no inventory items to list.</h5>
+        <h5>There are no archived inventory items to display.</h5>
     @endif
 
 @stop

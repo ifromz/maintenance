@@ -49,6 +49,8 @@
         }}
     @else
 
+        <h5>There are no archived assets to display.</h5>
+
     @endif
 
 @stop

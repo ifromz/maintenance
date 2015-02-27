@@ -17,5 +17,6 @@ View::composers(array(
     'Stevebauman\Maintenance\Composers\PrioritySelectComposer'  => 'maintenance::select.priority',
     'Stevebauman\Maintenance\Composers\UserSelectComposer'      => 'maintenance::select.users',
     'Stevebauman\Maintenance\Composers\RouteSelectComposer'     => 'maintenance::select.routes',
+    'Stevebauman\Maintenance\Composers\GroupSelectComposer'     => 'maintenance::select.groups',
     'Stevebauman\Maintenance\Composers\MetricSelectComposer'    => 'maintenance::select.metric',
 ));

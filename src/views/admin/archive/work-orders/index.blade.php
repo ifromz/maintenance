@@ -42,6 +42,6 @@
             ->render()
         }}
     @else
-        <h5>There are no work orders to display.</h5>
+        <h5>There are no archived work orders to display.</h5>
     @endif
 @stop

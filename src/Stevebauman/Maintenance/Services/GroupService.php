@@ -19,7 +19,7 @@ class GroupService extends BaseModelService
     }
 
     /**
-     * Creates a new Sentry group using Eloquent
+     * Creates a new Sentry group
      *
      * @return bool|static
      */
@@ -27,11 +27,11 @@ class GroupService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $insert = array(
                 'name' => $this->getInput('name'),
-                'permissions' => ($this->getInput('permissions') ? json_encode($this->getInput('permissions')) : NULL)
+                'permissions' => $this->getInput('permissions', array()),
             );
 
             $record = $this->model->create($insert);
@@ -40,9 +40,7 @@ class GroupService extends BaseModelService
             {
                 $users = $this->getInput('users');
 
-                if ($users) {
-                    $record->users()->sync($this->getInput('users'));
-                }
+                if ($users) $record->users()->sync($this->getInput('users'));
 
                 $this->dbCommitTransaction();
 
@@ -53,8 +51,8 @@ class GroupService extends BaseModelService
 
             return false;
 
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
 
             return false;
@@ -62,9 +60,7 @@ class GroupService extends BaseModelService
     }
 
     /**
-     * Uses maintenance model for update instead of Sentry's update. This is
-     * due to sentry not removing permissions unless they are specified to be
-     * removed. This essentially 'syncs' the permissions for the group specified
+     * Updates a sentry group
      *
      * @param int|string $id
      * @return bool|\Illuminate\Support\Collection|null|static
@@ -73,38 +69,48 @@ class GroupService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $record = $this->model->find($id);
+
+            $updatedPermissions = $this->getInput('permissions', array());
+
+            /*
+             * Check if the permissions current on the group exist in the updated array
+             */
+            foreach($record->permissions as $permission => $allowed)
+            {
+                /*
+                 * If the permission currently inside the group does not
+                 * exist in the updated array, we need to add it to the array
+                 * and set it to 0 to tell Sentry to remove it
+                 */
+                if(!array_key_exists($permission, $updatedPermissions))
+                {
+                    $updatedPermissions[$permission] = 0;
+                }
+            }
 
             $insert = array(
                 'name' => $this->getInput('name'),
-                'permissions' => ($this->getInput('permissions') ? json_encode($this->getInput('permissions')) : NULL)
+                'permissions' => $updatedPermissions,
             );
 
-            if ($record->update($insert)) {
-
-                $users = $this->getInput('users');
-
-                if ($users) {
-                    $record->users()->sync($this->getInput('users'));
-                }
+            if ($record->update($insert))
+            {
+                $record->users()->sync($this->getInput('users', array()));
 
                 $this->dbCommitTransaction();
 
                 return $record;
             }
 
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
-
-        } catch (\Exception $e) {
-
-            $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
 }

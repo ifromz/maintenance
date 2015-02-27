@@ -47,10 +47,10 @@ class StockMovementService extends BaseModelService
              * Only create a record if the before and after quantity differ
              * if enabled in config
              */
-            if (config('maintenance::rules.inventory.prevent_duplicate_movements')) {
-
-                if ($insert['before'] != $insert['after']) {
-
+            if (config('inventory::allow_duplicate_movements'))
+            {
+                if ($insert['before'] != $insert['after'])
+                {
                     $record = $this->model->create($insert);
 
                     $this->dbCommitTransaction();

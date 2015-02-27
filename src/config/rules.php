@@ -1,10 +1,26 @@
 <?php
 
+/**
+ * The maintenance application rules. The rules indicate the result of certain
+ * functionality throughout the application.
+ */
 return array(
 
-    /**
-     * The maintenance application rules. The rules indicate the result of certain
-     * functionality throughout the application.
+    /*
+     * User rules
+     */
+    'users' => array(
+
+        /*
+         * If enabled, users will be sent an email when registering for an account, or and account
+         * is created in the administration panel and 'activated' is not checked
+         */
+        'require_activation_by_email' => false,
+    ),
+
+
+    /*
+     * Notification rules
      */
     'notifications' => array(
 
@@ -16,6 +32,9 @@ return array(
 
     ),
 
+    /*
+     * Meter rules
+     */
     'meters' => array(
 
         /*
@@ -27,6 +46,9 @@ return array(
 
     ),
 
+    /*
+     * Work Order rules
+     */
     'work-orders' => array(
 
         /*
@@ -45,6 +67,9 @@ return array(
 
     ),
 
+    /*
+     * Work Request rules
+     */
     'work-requests' => array(
 
         /*
@@ -66,16 +91,4 @@ return array(
         ),
 
     ),
-
-    'inventory' => array(
-
-        /*
-         * Set this to true if you want to prevent inventory movements from being
-         * created if the quantity inputted by the user is the same as the
-         * current quantity.
-         */
-        'prevent_duplicate_movements' => true,
-
-    ),
-
 );

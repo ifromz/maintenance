@@ -80,8 +80,6 @@ class GroupController extends BaseController {
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.admin.groups.create');
             }
-            
-            return $this->response();
 
         } else
         {
@@ -143,12 +141,12 @@ class GroupController extends BaseController {
             {
                 $this->message = sprintf('Successfully updated group. %s', link_to_route('maintenance.admin.groups.show', 'Show', array($record->id)));
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.admin.groups.index');
+                $this->redirect = routeBack('maintenance.admin.groups.index');
             } else
             {
-                $this->message = 'Successfully updated group';
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.admin.groups.edit', array($id));
+                $this->message = 'There was an error updating this group, please try again.';
+                $this->messageType = 'danger';
+                $this->redirect = routeBack('maintenance.admin.groups.edit', array($id));
             }
             
         } else
@@ -165,10 +163,27 @@ class GroupController extends BaseController {
      * Processes deleting the specified user group
      *
      * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($id)
     {
-        
+        $group = $this->group->find($id);
+
+        $group->users()->detach();
+
+        if($group->delete())
+        {
+            $this->message = 'Successfully deleted group';
+            $this->messageType = 'success';
+            $this->redirect = routeBack('maintenance.admin.groups.index');
+        } else
+        {
+            $this->message = 'There was an issue trying to delete this group, please try again.';
+            $this->messageType = 'danger';
+            $this->redirect = routeBack('maintenance.admin.groups.show', array($group->id));
+        }
+
+        return $this->response();
     }
 
     /**

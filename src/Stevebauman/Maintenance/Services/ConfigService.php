@@ -182,35 +182,6 @@ class ConfigService extends Service
         }
     }
 
-    private function updateArray($values)
-    {
-        array(
-            'mail.username' => array(
-                'type' => 'string',
-                'value' => 'test'
-            )
-        );
-
-        foreach($values as $field => $settings)
-        {
-            if(array_key_exists('type', $settings) && array_key_exists('value', $settings))
-            {
-                switch($settings['type'])
-                {
-                    case 'integer':
-                        $string = "'$field' => %s";
-                        break;
-                    case 'string':
-                        $string = "'$field' => '%s'";
-                        break;
-                    default:
-                        break;
-                }
-            }
-            $string = "'$field' => ''";
-        }
-    }
-
     /**
      * Returns the contents of the specified file path
      *

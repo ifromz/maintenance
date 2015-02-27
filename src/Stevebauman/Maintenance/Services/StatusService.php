@@ -2,13 +2,23 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Status;
-use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class StatusService
+ * @package Stevebauman\Maintenance\Services
+ */
 class StatusService extends BaseModelService
 {
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
 
+    /**
+     * @param Status $status
+     * @param SentryService $sentry
+     */
     public function __construct(Status $status, SentryService $sentry)
     {
         $this->model = $status;

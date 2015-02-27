@@ -20,7 +20,9 @@
 
         {{ $workOrder->viewer()->btnEvents }}
 
+        <!-- ERROR HERE -->
         {{ $workOrder->viewer()->btnWorkers }}
+        <!-- ERROR STOP -->
 
         {{ $workOrder->viewer()->btnNotifications }}
 

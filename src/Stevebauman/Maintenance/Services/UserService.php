@@ -48,6 +48,32 @@ class UserService extends BaseModelService
             ->paginate(25);
     }
 
+    public function create()
+    {
+        $this->dbStartTransaction();
+
+        $activated = $this->getInput('activated');
+
+        $insert = array(
+            'username' => $this->getInput('username'),
+            'email' => $this->getInput('email'),
+            'password' => $this->getInput('password'),
+            'permissions' => $this->getInput('permissions', array()),
+            'activated' => ($activated ? true : false)
+        );
+
+        $record = $this->sentry->createUser($insert);
+
+        if($record)
+        {
+            $this->dbCommitTransaction();
+
+            return $record;
+        }
+
+        return false;
+    }
+
     /**
      * Create or Update a User for authentication for use with ldap
      *
@@ -58,33 +84,36 @@ class UserService extends BaseModelService
      */
     public function createOrUpdateUser($credentials)
     {
-        $login_attribute = config('cartalyst/sentry::users.login_attribute');
+        $loginAttribute = config('cartalyst/sentry::users.login_attribute');
 
-        $username = $credentials[$login_attribute];
+        $username = $credentials[$loginAttribute];
         $password = $credentials['password'];
 
-        // If a user is found, update their password to match active-directory
+        /*
+         * If a user is found, update their password to match active-directory
+         */
         $user = $this->model->where('username', $username)->first();
 
-        if ($user) {
-
+        if ($user)
+        {
             $this->sentry->updatePasswordById($user->id, $password);
-
-        } else {
-
-            // If a user is not found, create their web account
+        } else
+        {
+            /*
+             * If a user is not found, create their web account
+             */
             $ldapUser = $this->ldap->user($username);
 
-            $fullname = explode(',', $ldapUser->name);
-            $last_name = (array_key_exists(0, $fullname) ? $fullname[0] : NULL);
-            $first_name = (array_key_exists(1, $fullname) ? $fullname[1] : NULL);
+            $fullName = explode(',', $ldapUser->name);
+            $lastName = (array_key_exists(0, $fullName) ? $fullName[0] : NULL);
+            $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : NULL);
 
             $data = array(
                 'email' => $ldapUser->email,
                 'password' => $password,
                 'username' => $username,
-                'last_name' => (string)$last_name,
-                'first_name' => (string)$first_name,
+                'last_name' => (string)$lastName,
+                'first_name' => (string)$firstName,
             );
 
             $user = $this->sentry->createUser($data);

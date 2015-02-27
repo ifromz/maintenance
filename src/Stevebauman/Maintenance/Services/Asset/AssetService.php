@@ -20,6 +20,11 @@ class AssetService extends BaseModelService
      */
     protected $sentry;
 
+    /**
+     * @param Asset $asset
+     * @param SentryService $sentry
+     * @param AssetNotFoundException $notFoundException
+     */
     public function __construct(Asset $asset, SentryService $sentry, AssetNotFoundException $notFoundException)
     {
         $this->model = $asset;
@@ -34,7 +39,6 @@ class AssetService extends BaseModelService
      */
     public function getByPageWithFilter($archived = NULL)
     {
-
         return $this->model
             ->id($this->getInput('id'))
             ->name($this->getInput('name'))
