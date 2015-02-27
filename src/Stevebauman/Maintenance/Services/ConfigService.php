@@ -158,27 +158,19 @@ class ConfigService extends Service
                 $newEntry = sprintf("'$name' => '%s'", addslashes($value));
 
                 return str_replace($oldEntry, $newEntry, $content);
-
-                break;
             case 'integer':
 
                 $oldEntry = sprintf("'$name' => %s", config($entry));
                 $newEntry = sprintf("'$name' => %s", $value);
 
                 return str_replace($oldEntry, $newEntry, $content);
-
-                break;
             case 'bool':
                 $oldEntry = sprintf("'$name' => %s", var_export(config($entry), true));
                 $newEntry = sprintf("'$name' => %s", var_export($value, true));
 
                 return str_replace($oldEntry, $newEntry, $content);
-
-                break;
             default:
-
                 return $content;
-                break;
         }
     }
 

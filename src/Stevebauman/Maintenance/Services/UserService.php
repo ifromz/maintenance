@@ -48,6 +48,11 @@ class UserService extends BaseModelService
             ->paginate(25);
     }
 
+    /**
+     * Creates a user through sentry
+     *
+     * @return bool|mixed
+     */
     public function create()
     {
         $this->dbStartTransaction();
