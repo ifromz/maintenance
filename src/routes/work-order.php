@@ -261,7 +261,7 @@ Route::group(array('namespace' => 'WorkOrder'), function () {
 
         Route::post('work-orders/attachments/uploads/destroy', array(
             'as' => 'maintenance.work-orders.attachments.uploads.destroy',
-            'uses' => 'UploadController@store@destroy'
+            'uses' => 'UploadController@destroy'
         ));
 
         Route::resource('work-orders.attachments', 'AttachmentController', array(

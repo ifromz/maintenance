@@ -2,17 +2,17 @@
 
 namespace Stevebauman\Maintenance\Listeners;
 
+use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\WorkOrder\NotificationService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Listeners\AbstractListener;
 
 /**
  * Class WorkOrderListener
  * @package Stevebauman\Maintenance\Listeners
  */
-class WorkOrderListener extends AbstractListener {
-
+class WorkOrderListener extends AbstractListener
+{
     /**
      * @var WorkOrderService
      */
@@ -29,18 +29,27 @@ class WorkOrderListener extends AbstractListener {
     protected $sentry;
 
     /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
      * @param WorkOrderService $workOrder
      * @param NotificationService $workOrderNotification
      * @param SentryService $sentry
+     * @param ConfigService $config
      */
     public function __construct(
-            WorkOrderService $workOrder,
-            NotificationService $workOrderNotification,
-            SentryService $sentry)
+        WorkOrderService $workOrder,
+        NotificationService $workOrderNotification,
+        SentryService $sentry,
+        ConfigService $config
+    )
     {
         $this->workOrder = $workOrder;
         $this->workOrderNotification = $workOrderNotification;
         $this->sentry = $sentry;
+        $this->config = $config->setPrefix('maintenance');
     }
     
     /**
@@ -66,11 +75,12 @@ class WorkOrderListener extends AbstractListener {
     {
         $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
 
-        if($notifiableUsers->count() > 0){
-        
-            foreach($notifiableUsers as $notify){
-                
-                if($notify->parts){
+        if($notifiableUsers->count() > 0)
+        {
+            foreach($notifiableUsers as $notify)
+            {
+                if($notify->parts)
+                {
                     $this->createNotification(
                             $notify->user_id,
                             $workOrder,
@@ -92,11 +102,12 @@ class WorkOrderListener extends AbstractListener {
     {
         $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
         
-        if($notifiableUsers->count() > 0){
-        
-            foreach($notifiableUsers as $notify){
-                
-                if($notify->customer_updates){
+        if($notifiableUsers->count() > 0)
+        {
+            foreach($notifiableUsers as $notify)
+            {
+                if($notify->customer_updates)
+                {
                     $this->createNotification(
                             $notify->user_id,
                             $workOrder, 
@@ -118,11 +129,12 @@ class WorkOrderListener extends AbstractListener {
     {
         $notifiableUsers = $this->getNotifiableUsers($workOrder->id);
         
-        if($notifiableUsers->count() > 0){
-        
-            foreach($notifiableUsers as $notify){
-                
-                if($notify->technician_updates){
+        if($notifiableUsers->count() > 0)
+        {
+            foreach($notifiableUsers as $notify)
+            {
+                if($notify->technician_updates)
+                {
                     $this->createNotification(
                             $notify->user_id,
                             $workOrder, 
@@ -144,23 +156,21 @@ class WorkOrderListener extends AbstractListener {
     {   
         $notifiableUsers = $this->getNotifiableUsers($report->workOrder->id);
         
-        if($notifiableUsers->count() > 0){
-        
-            foreach($notifiableUsers as $notify){
-                
-                if($notify->completion_report){
-                    
+        if($notifiableUsers->count() > 0)
+        {
+            foreach($notifiableUsers as $notify)
+            {
+                if($notify->completion_report)
+                {
                     $this->createNotification(
                             $notify->user_id,
                             $report->workOrder, 
                             'Parts have been added work order', 
                             route('maintenance.work-orders.show', array($report->workOrder->id))
                     );
-                    
                 }
             }
         }
-        
     }
     
     /**
@@ -170,21 +180,18 @@ class WorkOrderListener extends AbstractListener {
      */
     private function getNotifiableUsers($workOrder_id)
     {
-        
         $query = $this->workOrderNotification->where('work_order_id', $workOrder_id);
         
-        if(config('maintenance::rules.notifications.prevent_sending_to_source')){
-            
+        if($this->config->get('rules.notifications.prevent_sending_to_source'))
+        {
             /*
-            * Returns notifiable users but removes the current user since
-            * they are the ones who made the change
-            */
+             * Returns notifiable users but removes the current user since
+             * they are the ones who made the change
+             */
             $query->where('user_id', '!=', $this->sentry->getCurrentUserId());
             
         }
         
         return $query->get();
-        
     }
-    
 }

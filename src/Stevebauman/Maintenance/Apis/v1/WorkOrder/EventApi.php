@@ -2,23 +2,39 @@
 
 namespace Stevebauman\Maintenance\Apis\v1\WorkOrder;
 
+use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Apis\v1\AbstractEventableApi;
 
-class EventApi extends AbstractEventableApi {
+/**
+ * Class EventApi
+ * @package Stevebauman\Maintenance\Apis\v1\WorkOrder
+ */
+class EventApi extends AbstractEventableApi
+{
+    /**
+     * @var ConfigService
+     */
+    protected $config;
 
-
-    public function __construct(WorkOrderService $workOrder, EventService $event)
+    /**
+     * @param WorkOrderService $workOrder
+     * @param EventService $event
+     * @param ConfigService $config
+     */
+    public function __construct(WorkOrderService $workOrder, EventService $event, ConfigService $config)
     {
         parent::__construct($event);
 
         $this->eventable = $workOrder;
 
+        $this->config = $config->setPrefix('maintenance');
+
         /*
          * Set the asset calendar
          */
-        $this->event->eventApi->setCalendar(config('maintenance::site.calendars.work-orders'));
+        $this->event->eventApi->setCalendar($this->config->get('site.calendars.work-orders'));
     }
 
 }

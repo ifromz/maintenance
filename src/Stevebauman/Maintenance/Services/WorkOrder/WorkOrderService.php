@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Stevebauman\Maintenance\Exceptions\WorkOrderNotFoundException;
+use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\PriorityService;
 use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -15,7 +16,6 @@ use Stevebauman\Maintenance\Services\BaseModelService;
  */
 class WorkOrderService extends BaseModelService
 {
-
     /**
      * @var SentryService
      */
@@ -32,10 +32,16 @@ class WorkOrderService extends BaseModelService
     protected $status;
 
     /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
      * @param WorkOrder $workOrder
      * @param SentryService $sentry
      * @param PriorityService $priority
      * @param StatusService $status
+     * @param ConfigService $config
      * @param WorkOrderNotFoundException $notFoundException
      */
     public function __construct(
@@ -43,6 +49,7 @@ class WorkOrderService extends BaseModelService
         SentryService $sentry,
         PriorityService $priority,
         StatusService $status,
+        ConfigService $config,
         WorkOrderNotFoundException $notFoundException
     )
     {
@@ -50,6 +57,7 @@ class WorkOrderService extends BaseModelService
         $this->sentry = $sentry;
         $this->priority = $priority;
         $this->status = $status;
+        $this->config = $config->setPrefix('maintenance');
         $this->notFoundException = $notFoundException;
     }
 
@@ -144,6 +152,12 @@ class WorkOrderService extends BaseModelService
         }
     }
 
+    /**
+     * Creates a work order from the specified work request
+     *
+     * @param $workRequest
+     * @return bool|static
+     */
     public function createFromWorkRequest($workRequest)
     {
         $this->dbStartTransaction();
@@ -156,14 +170,18 @@ class WorkOrderService extends BaseModelService
         {
             try {
 
+                $statusData = $this->config->get('rules.work-requests.submission_status');
+
                 $status = $this
                     ->status
-                    ->setInput(config('maintenance::rules.work-requests.submission_status'))
+                    ->setInput($statusData)
                     ->firstOrCreate();
+
+                $priorityData = $this->config->get('rules.work-requests.submission_priority');
 
                 $priority = $this
                     ->priority
-                    ->setInput(config('maintenance::rules.work-requests.submission_priority'))
+                    ->setInput($priorityData)
                     ->firstOrCreate();
 
                 $insert = array(
@@ -184,10 +202,9 @@ class WorkOrderService extends BaseModelService
                     return $workOrder;
                 }
 
-            } catch(\Exception $e) {
-
+            } catch(\Exception $e)
+            {
                 $this->dbRollbackTransaction();
-
             }
         }
 
@@ -204,7 +221,8 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try {
+        try
+        {
             $record = $this->find($id);
 
             $insert = array(
@@ -218,11 +236,12 @@ class WorkOrderService extends BaseModelService
                 'completed_at' => $this->getInput('completed_at', $record->completed_at),
             );
 
-            if ($record->update($insert)) {
-
+            if ($record->update($insert))
+            {
                 $assets = $this->getInput('assets');
 
-                if ($assets) {
+                if ($assets)
+                {
                     $record->assets()->sync($assets);
                 }
 
@@ -233,19 +252,14 @@ class WorkOrderService extends BaseModelService
                 $this->dbCommitTransaction();
 
                 return $record;
-
             }
 
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
-
-        } catch (\Exception $e) {
-            $this->dbRollbackTransaction();
-
-            return false;
         }
 
+        return false;
     }
 
     /**
@@ -258,8 +272,8 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $record = $this->find($id);
 
             $record->delete();
@@ -272,12 +286,12 @@ class WorkOrderService extends BaseModelService
 
             return true;
 
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -289,10 +303,10 @@ class WorkOrderService extends BaseModelService
      */
     public function savePart($workOrder, $stock)
     {
-
         $this->dbStartTransaction();
 
-        try {
+        try
+        {
             /*
              * Find if the stock ('part') is already attached to the work order
              */
@@ -301,8 +315,8 @@ class WorkOrderService extends BaseModelService
             /*
              * If record exists
              */
-            if ($part) {
-
+            if ($part)
+            {
                 /*
                  * Add on the quantity inputted to the existing record quantity
                  */
@@ -313,8 +327,8 @@ class WorkOrderService extends BaseModelService
                  */
                 $workOrder->parts()->updateExistingPivot($part->id, array('quantity' => $newQuantity));
 
-            } else {
-
+            } else
+            {
                 /*
                  * Part Record does not exist, attach a new record with quantity inputted
                  */
@@ -333,12 +347,12 @@ class WorkOrderService extends BaseModelService
 
             return true;
 
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -352,10 +366,10 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try {
-
-            if ($workOrder->customerUpdates()->save($update)) {
-
+        try
+        {
+            if ($workOrder->customerUpdates()->save($update))
+            {
                 $this->fireEvent('maintenance.work-orders.updates.customer.created', array(
                     'workOrder' => $workOrder,
                     'update' => $update
@@ -364,19 +378,14 @@ class WorkOrderService extends BaseModelService
                 $this->dbCommitTransaction();
 
                 return true;
-
             }
 
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
-
-        } catch (\Exception $e) {
-
-            $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -390,10 +399,10 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try {
-
-            if ($workOrder->technicianUpdates()->save($update)) {
-
+        try
+        {
+            if ($workOrder->technicianUpdates()->save($update))
+            {
                 $this->fireEvent('maintenance.work-orders.updates.technician.created', array(
                     'workOrder' => $workOrder,
                     'update' => $update
@@ -408,12 +417,12 @@ class WorkOrderService extends BaseModelService
 
             return false;
 
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
 }

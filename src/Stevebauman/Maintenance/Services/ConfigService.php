@@ -2,62 +2,14 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Config\Repository as Config;
-use Stevebauman\CoreHelper\Services\Service;
+use Stevebauman\CoreHelper\Services\ConfigService as CoreHelperConfigService;
 
 /**
  * Class ConfigService
  * @package Stevebauman\Maintenance\Services
  */
-class ConfigService extends Service
+class ConfigService extends CoreHelperConfigService
 {
-
-    /**
-     * @var Config
-     */
-    protected $config;
-
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * @param Config $config
-     * @param Filesystem $filesystem
-     */
-    public function __construct(Config $config, Filesystem $filesystem)
-    {
-        $this->config = $config;
-        $this->filesystem = $filesystem;
-    }
-
-    /**
-     * Retrieves the specified key from the current configuration
-     *
-     * @param $key
-     * @param $default
-     * @return mixed
-     */
-    public function get($key, $default)
-    {
-        return $this->config->get($key, $default);
-    }
-
-    /**
-     * Sets a configuration by the specified key
-     *
-     * @param $key
-     * @param $value
-     * @return bool
-     */
-    public function set($key, $value)
-    {
-        $this->config->set($key, $value);
-
-        return true;
-    }
 
     /**
      * Updates the maintenance site configuration file
@@ -116,7 +68,7 @@ class ConfigService extends Service
          * not overwritten with a blank field
          */
         $content = $this->replaceConfigEntry($content, 'password', 'mail.password',
-            ($this->getInput('smtp_password') ? $this->getInput('smtp_password') : config('mail.password'))
+            ($this->getInput('smtp_password') ? $this->getInput('smtp_password') : $this->get('mail.password'))
         );
 
         $content = $this->replaceConfigEntry($content, 'host', 'mail.host', $this->getInput('host_ip'));
@@ -136,63 +88,5 @@ class ConfigService extends Service
         if($this->setConfigFile($mailConfig, $content)) return true;
 
         return false;
-    }
-
-    /**
-     * Replaces content from configuration files and returns the result content
-     *
-     * @param $content
-     * @param $name
-     * @param $entry
-     * @param string $value
-     * @param string $type
-     * @return mixed
-     */
-    private function replaceConfigEntry($content, $name, $entry, $value = "''", $type = 'string')
-    {
-        switch($type)
-        {
-            case 'string':
-
-                $oldEntry = sprintf("'$name' => '%s'", addslashes(config($entry)));
-                $newEntry = sprintf("'$name' => '%s'", addslashes($value));
-
-                return str_replace($oldEntry, $newEntry, $content);
-            case 'integer':
-
-                $oldEntry = sprintf("'$name' => %s", config($entry));
-                $newEntry = sprintf("'$name' => %s", $value);
-
-                return str_replace($oldEntry, $newEntry, $content);
-            case 'bool':
-                $oldEntry = sprintf("'$name' => %s", var_export(config($entry), true));
-                $newEntry = sprintf("'$name' => %s", var_export($value, true));
-
-                return str_replace($oldEntry, $newEntry, $content);
-            default:
-                return $content;
-        }
-    }
-
-    /**
-     * Returns the contents of the specified file path
-     *
-     * @param $path
-     * @return string
-     * @throws \Illuminate\Filesystem\FileNotFoundException
-     */
-    private function getConfigFile($path)
-    {
-        return $this->filesystem->get(app_path($path));
-    }
-
-    /**
-     * @param $path
-     * @param $content
-     * @return int
-     */
-    private function setConfigFile($path, $content)
-    {
-        return $this->filesystem->put(app_path($path), $content);
     }
 }

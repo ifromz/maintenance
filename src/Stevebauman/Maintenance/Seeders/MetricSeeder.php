@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
+use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\MetricService;
 use Illuminate\Database\Seeder;
 
@@ -9,35 +10,51 @@ use Illuminate\Database\Seeder;
  * Class MetricSeeder
  * @package Stevebauman\Maintenance\Seeders
  */
-class MetricSeeder extends Seeder {
-
+class MetricSeeder extends Seeder
+{
     /**
      * @var MetricService
      */
     protected $metric;
 
     /**
-     * @param MetricService $metric
+     * @var ConfigService
      */
-    public function __construct(MetricService $metric)
+    protected $config;
+
+    /**
+     * @param MetricService $metric
+     * @param ConfigService $config
+     */
+    public function __construct(MetricService $metric, ConfigService $config)
     {
         $this->metric = $metric;
+        $this->config = $config->setPrefix('maintenance');
     }
 
+    /**
+     * Runs the seeding operations
+     *
+     * @return void
+     */
     public function run()
     {
         $metrics = $this->getSeedData();
 
-        foreach($metrics as $metric) {
-
+        foreach($metrics as $metric)
+        {
             $this->metric->setInput($metric)->firstOrCreate();
-
         }
     }
 
+    /**
+     * Retrieves the seed data from the maintenance configuration
+     *
+     * @return mixed
+     */
     private function getSeedData()
     {
-        return config('maintenance::seed.metrics');
+        return $this->config->get('seed.metrics');
     }
 
 }

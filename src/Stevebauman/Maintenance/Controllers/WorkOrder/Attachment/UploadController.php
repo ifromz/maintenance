@@ -2,6 +2,8 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder\Attachment;
 
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\StorageService;
 use Stevebauman\Maintenance\Controllers\BaseUploadController;
 
 /**
@@ -12,9 +14,13 @@ use Stevebauman\Maintenance\Controllers\BaseUploadController;
 class UploadController extends BaseUploadController
 {
 
-    public function __construct()
+    /**
+     * @param ConfigService $config
+     * @param StorageService $storage
+     */
+    public function __construct(ConfigService $config, StorageService $storage)
     {
-        parent::__construct();
+        parent::__construct($config, $storage);
 
         $this->responseView = 'maintenance::partials.work-order-upload';
     }

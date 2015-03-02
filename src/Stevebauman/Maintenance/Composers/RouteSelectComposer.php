@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
@@ -11,6 +12,18 @@ use Illuminate\View\View;
  */
 class RouteSelectComposer
 {
+    /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
+     * @param ConfigService $config
+     */
+    public function __construct(ConfigService $config)
+    {
+        $this->config = $config->setPrefix('maintenance');
+    }
 
     /**
      * @param $view
@@ -21,7 +34,7 @@ class RouteSelectComposer
         /*
          * Stores all the routes for selection, defaults are stored in config
          */
-        $allRoutes = config('maintenance::permissions.default');
+        $allRoutes = $this->config->get('permissions.default');
 
         /*
          * Get all the routes in the application

@@ -2,6 +2,8 @@
 
 namespace Stevebauman\Maintenance\Controllers\Asset\Image;
 
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\StorageService;
 use Stevebauman\Maintenance\Controllers\BaseUploadController;
 
 /**
@@ -9,12 +11,17 @@ use Stevebauman\Maintenance\Controllers\BaseUploadController;
  * A json view response is definable here you can customize the layout of the dynamic uploads. 
  *
  */
-class UploadController extends BaseUploadController {
-	
-	public function __construct(){
-            parent::__construct();
-			
-            $this->responseView = 'maintenance::partials.asset-upload';
+class UploadController extends BaseUploadController
+{
+    /**
+     * @param ConfigService $config
+     * @param StorageService $storage
+     */
+	public function __construct(ConfigService $config, StorageService $storage)
+    {
+        parent::__construct($config, $storage);
+
+        $this->responseView = 'maintenance::partials.asset-upload';
 	}
 	
 }

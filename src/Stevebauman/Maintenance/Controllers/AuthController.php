@@ -4,6 +4,7 @@ namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\AuthLoginValidator;
 use Stevebauman\Maintenance\Validators\AuthRegisterValidator;
+use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\UserService;
 use Stevebauman\Maintenance\Services\LdapService;
@@ -15,7 +16,6 @@ use Stevebauman\Maintenance\Services\AuthService;
  */
 class AuthController extends BaseController
 {
-
     /**
      * @var AuthLoginValidator
      */
@@ -25,6 +25,11 @@ class AuthController extends BaseController
      * @var AuthRegisterValidator
      */
     protected $registerValidator;
+
+    /**
+     * @var ConfigService
+     */
+    protected $config;
 
     /**
      * @var SentryService
@@ -57,14 +62,23 @@ class AuthController extends BaseController
     public function __construct(
         AuthLoginValidator $loginValidator,
         AuthRegisterValidator $registerValidator,
+        ConfigService $config,
         SentryService $sentry,
         UserService $user,
         AuthService $auth,
         LdapService $ldap
     )
     {
+        /*
+         * Setup validators
+         */
         $this->loginValidator = $loginValidator;
         $this->registerValidator = $registerValidator;
+
+        /*
+         * Setup services
+         */
+        $this->config = $config->setPrefix('maintenance');
         $this->sentry = $sentry;
         $this->user = $user;
         $this->auth = $auth;
@@ -94,7 +108,7 @@ class AuthController extends BaseController
         {
             $data = $this->inputAll();
 
-            if (config('maintenance::site.ldap.enabled') === true)
+            if ($this->config->get('site.ldap.enabled') === true)
             {
                 /*
                  * Check if the user exists on active directory

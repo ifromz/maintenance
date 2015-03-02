@@ -22,15 +22,27 @@ class UserService extends BaseModelService
     protected $ldap;
 
     /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
      * @param User $user
      * @param SentryService $sentry
      * @param LdapService $ldap
+     * @param ConfigService $config
      */
-    public function __construct(User $user, SentryService $sentry, LdapService $ldap)
+    public function __construct(
+        User $user,
+        SentryService $sentry,
+        LdapService $ldap,
+        ConfigService $config
+    )
     {
         $this->model = $user;
         $this->sentry = $sentry;
         $this->ldap = $ldap;
+        $this->config = $config;
     }
 
     /**
@@ -82,14 +94,13 @@ class UserService extends BaseModelService
     /**
      * Create or Update a User for authentication for use with ldap
      *
-     * @author Steve Bauman
-     *
      * @param $credentials
-     * @return void
+     * @return mixed
      */
+
     public function createOrUpdateUser($credentials)
     {
-        $loginAttribute = config('cartalyst/sentry::users.login_attribute');
+        $loginAttribute = $this->config->get('cartalyst/sentry::users.login_attribute');
 
         $username = $credentials[$loginAttribute];
         $password = $credentials['password'];

@@ -2,8 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services\Inventory;
 
-use Stevebauman\Maintenance\Models\InventoryStockMovement;
+use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Models\InventoryStockMovement;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
@@ -12,13 +13,37 @@ use Stevebauman\Maintenance\Services\BaseModelService;
  */
 class StockMovementService extends BaseModelService
 {
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
 
-    public function __construct(InventoryStockMovement $inventoryStockMovement, SentryService $sentry)
+    /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
+     * @param InventoryStockMovement $inventoryStockMovement
+     * @param SentryService $sentry
+     * @param ConfigService $config
+     */
+    public function __construct(
+        InventoryStockMovement $inventoryStockMovement,
+        SentryService $sentry,
+        ConfigService $config
+    )
     {
         $this->model = $inventoryStockMovement;
         $this->sentry = $sentry;
+        $this->config = $config;
     }
 
+    /**
+     * Returns a paginated collection of the stocks model
+     *
+     * @return mixed
+     */
     public function getByPageWithFilter()
     {
         return $this->model
@@ -27,13 +52,17 @@ class StockMovementService extends BaseModelService
             ->paginate(25);
     }
 
+    /**
+     * Creates a new inventory stock record
+     *
+     * @return bool|static
+     */
     public function create()
     {
-
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $insert = array(
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'stock_id' => $this->getInput('stock_id'),
@@ -47,7 +76,7 @@ class StockMovementService extends BaseModelService
              * Only create a record if the before and after quantity differ
              * if enabled in config
              */
-            if (config('inventory::allow_duplicate_movements'))
+            if ($this->config->setPrefix('inventory')->get('allow_duplicate_movements'))
             {
                 if ($insert['before'] != $insert['after'])
                 {
@@ -56,9 +85,8 @@ class StockMovementService extends BaseModelService
                     $this->dbCommitTransaction();
 
                     return $record;
-
-                } else {
-
+                } else
+                {
                     /*
                      * Return true if before and after quantity are the same
                      * and prevent duplicate movements is enabled
@@ -66,8 +94,8 @@ class StockMovementService extends BaseModelService
                     return true;
                 }
 
-            } else {
-
+            } else
+            {
                 /*
                  * Prevent duplicate movements is disabled, create the record
                  */
@@ -78,17 +106,12 @@ class StockMovementService extends BaseModelService
                 return $record;
             }
 
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
-
-        } catch (\Exception $e) {
-
-            $this->dbRollbackTransaction();
-
-            return false;
         }
 
+        return false;
     }
 
 }

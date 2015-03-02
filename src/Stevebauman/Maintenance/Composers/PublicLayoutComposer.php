@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
+use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\View\View;
 
 /**
@@ -10,13 +11,26 @@ use Illuminate\View\View;
  */
 class PublicLayoutComposer
 {
+    /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
+     * @param ConfigService $config
+     */
+    public function __construct(ConfigService $config)
+    {
+        $this->config = $config->setPrefix('maintenance');
+    }
 
     /**
      * @param $view
      */
     public function compose(View $view)
     {
-        $siteTitle = config('maintenance::site.title.public', 'Maintenance');
+        $siteTitle = $this->config->get('site.title.public', 'Maintenance');
+
         $view->with('siteTitle', $siteTitle);
     }
 

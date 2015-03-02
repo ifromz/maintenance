@@ -8,7 +8,7 @@
     {{
         Form::open(array(
             'url' => route('maintenance.admin.users.store'),
-            'class' => 'form-horizontal clear-form'
+            'class' => 'form-horizontal ajax-form-post clear-form'
         ))
     }}
 

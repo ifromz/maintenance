@@ -1,12 +1,12 @@
-<?php namespace Stevebauman\Maintenance;
+<?php
 
-use Illuminate\Support\ServiceProvider;
-use Stevebauman\Maintenance\Models\Asset;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
+namespace Stevebauman\Maintenance;
+
 use Stevebauman\Maintenance\Services\SentryService;
+use Illuminate\Support\ServiceProvider;
 
-class MaintenanceServiceProvider extends ServiceProvider {
-
+class MaintenanceServiceProvider extends ServiceProvider
+{
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -36,23 +36,23 @@ class MaintenanceServiceProvider extends ServiceProvider {
 	private function bootCommands()
 	{
 		$this->app->bind('maintenance:install', function() {
-			return new Commands\InstallCommand();
+			return new Commands\InstallCommand;
 		});
 
 		$this->app->bind('maintenance:run-migrations', function() {
-			return new Commands\RunMigrationsCommand();
+			return new Commands\RunMigrationsCommand;
 		});
 
 		$this->app->bind('maintenance:run-seeds', function() {
-			return new Commands\RunSeedsCommand();
+			return new Commands\RunSeedsCommand;
 		});
 
 		$this->app->bind('maintenance:check-depends', function() {
-			return new Commands\DependencyCheckCommand();
+			return new Commands\DependencyCheckCommand;
 		});
 
 		$this->app->bind('maintenance:check-schema', function() {
-			return new Commands\SchemaCheckCommand();
+			return new Commands\SchemaCheckCommand;
 		});
 
 		$this->app->bind('maintenance:create-admin', function() {
@@ -101,12 +101,12 @@ class MaintenanceServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app->missing(function($e){
+		$this->app->missing(function($e)
+        {
 			return view('maintenance::404', array(
-				'title' => '404 - Not Found'
+				'title' => '404 - Page Not Found'
 			));
 		});
-
 	}
 
 	/**
@@ -118,7 +118,4 @@ class MaintenanceServiceProvider extends ServiceProvider {
 	{
 		return array('maintenance');
 	}
-
-
-
 }

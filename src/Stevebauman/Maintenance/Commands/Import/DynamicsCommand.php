@@ -112,7 +112,7 @@ class DynamicsCommand extends Command
         foreach($records as $record)
         {
             $location = Location::firstOrCreate(array(
-                'name' => $record->{'Location ID'},
+                'name' => $record->location->{'STATEDESCR'},
             ));
 
             $category = Category::firstOrCreate(array(
@@ -129,6 +129,8 @@ class DynamicsCommand extends Command
                 'acquired_at' => date("Y-m-d H:i:s", strtotime($record->{'Acquisition Date'})),
                 'price' => $record->{'Acquisition Cost (General)'},
                 'serial' => $record->{'Serial Number'},
+                'vendor' => $record->{'Manufacturer Name'},
+                'model' => $record->{'Model Number'},
             );
 
             $assets[] = Asset::firstOrCreate($insert);

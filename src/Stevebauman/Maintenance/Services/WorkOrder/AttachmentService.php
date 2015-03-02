@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Dmyers\Storage\Storage;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\StorageService;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\AttachmentService as BaseAttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
@@ -14,6 +14,15 @@ use Stevebauman\Maintenance\Services\BaseModelService;
  */
 class AttachmentService extends BaseModelService
 {
+    /**
+     * @var WorkOrderService
+     */
+    protected $workOrder;
+
+    /**
+     * @var BaseAttachmentService
+     */
+    protected $attachment;
 
     /**
      * @var SentryService
@@ -21,15 +30,34 @@ class AttachmentService extends BaseModelService
     protected $sentry;
 
     /**
+     * @var StorageService
+     */
+    protected $storage;
+
+    /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
      * @param WorkOrderService $workOrder
      * @param BaseAttachmentService $attachment
      * @param SentryService $sentry
+     * @param ConfigService $config
      */
-    public function __construct(WorkOrderService $workOrder, BaseAttachmentService $attachment, SentryService $sentry)
+    public function __construct(
+        WorkOrderService $workOrder,
+        BaseAttachmentService $attachment,
+        SentryService $sentry,
+        StorageService $storage,
+        ConfigService $config
+    )
     {
         $this->workOrder = $workOrder;
         $this->attachment = $attachment;
         $this->sentry = $sentry;
+        $this->storage = $storage;
+        $this->config = $config;
     }
 
     /**
@@ -40,30 +68,29 @@ class AttachmentService extends BaseModelService
      */
     public function create()
     {
-
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             /*
-             * Find the asset
+             * Find the work order
              */
-            $asset = $this->workOrder->find($this->getInput('work_order_id'));
+            $workOrder = $this->workOrder->find($this->getInput('work_order_id'));
 
             /*
              * Check if any files have been uploaded
              */
             $files = $this->getInput('files');
 
-            if ($files) {
-
+            if ($files)
+            {
                 $records = array();
 
                 /*
                  * For each file, create the attachment record, and sync asset image pivot table
                  */
-                foreach ($files as $file) {
-
+                foreach ($files as $file)
+                {
                     $attributes = explode('|', $file);
 
                     $fileName = $attributes[0];
@@ -72,12 +99,16 @@ class AttachmentService extends BaseModelService
                     /*
                      * Ex. files/assets/images/1/example.png
                      */
-                    $movedFilePath = config('maintenance::site.paths.work-orders.attachments') . sprintf('%s/', $asset->id);
+                    $movedFilePath = $this->config->setPrefix('maintenance')->get('site.paths.work-orders.attachments')
+                        . sprintf('%s/', $workOrder->id);
 
                     /*
                      * Move the file
                      */
-                    Storage::move(config('maintenance::site.paths.temp') . $fileName, $movedFilePath . $fileName);
+                    $this->storage->move(
+                        $this->config->setPrefix('core-helper')->get('temp-upload-path') . $fileName,
+                        $movedFilePath . $fileName
+                    );
 
                     /*
                      * Set insert data
@@ -94,19 +125,18 @@ class AttachmentService extends BaseModelService
                      */
                     $record = $this->attachment->setInput($insert)->create();
 
-                    if ($record) {
-
+                    if ($record)
+                    {
                         /*
                          * Attach the attachment record to the asset images
                          */
-                        $asset->attachments()->attach($record);
+                        $workOrder->attachments()->attach($record);
 
                         $records[] = $record;
 
-                    } else {
-
+                    } else
+                    {
                         $this->dbRollbackTransaction();
-
                     }
                 }
 
@@ -119,18 +149,12 @@ class AttachmentService extends BaseModelService
 
             }
 
-            /*
-             * No Files were detected to be uploaded, return false
-             */
-            return false;
-
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
         }
 
+        return false;
     }
 
 }

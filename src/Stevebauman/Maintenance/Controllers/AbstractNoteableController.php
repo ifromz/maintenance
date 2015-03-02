@@ -110,18 +110,16 @@ class AbstractNoteableController extends BaseController
      */
     public function destroy($noteable_id, $note_id)
     {
-        if ($this->note->destroy($note_id)) {
-
+        if ($this->note->destroy($note_id))
+        {
             $this->message = 'Successfully deleted note';
             $this->messageType = 'success';
             $this->redirect = '';
-
-        } else {
-
+        } else
+        {
             $this->message = 'There was an error trying to delete this note, please try again later.';
             $this->messageType = 'danger';
             $this->redirect = '';
-
         }
 
         return $this->response();

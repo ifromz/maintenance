@@ -1,19 +1,17 @@
 <?php
 
-/**
- * Handles Asset Image uploads
- *
- * @author Steve Bauman <sbauman@bwbc.gc.ca>
- */
-
 namespace Stevebauman\Maintenance\Services\Asset;
 
-use Dmyers\Storage\Storage;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\StorageService;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class ImageService
+ * @package Stevebauman\Maintenance\Services\Asset
+ */
 class ImageService extends BaseModelService
 {
 
@@ -32,11 +30,29 @@ class ImageService extends BaseModelService
      */
     protected $sentry;
 
-    public function __construct(AssetService $asset, AttachmentService $attachment, SentryService $sentry)
+    /**
+     * @var StorageService
+     */
+    protected $storage;
+
+    /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    public function __construct(
+        AssetService $asset,
+        AttachmentService $attachment,
+        SentryService $sentry,
+        StorageService $storage,
+        ConfigService $config
+    )
     {
         $this->asset = $asset;
         $this->attachment = $attachment;
         $this->sentry = $sentry;
+        $this->storage = $storage;
+        $this->config = $config;
     }
 
     /**
@@ -47,11 +63,10 @@ class ImageService extends BaseModelService
      */
     public function create()
     {
-
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             /*
              * Find the asset
              */
@@ -62,15 +77,15 @@ class ImageService extends BaseModelService
              */
             $files = $this->getInput('files');
 
-            if ($files) {
-
+            if ($files)
+            {
                 $records = array();
 
                 /*
                  * For each file, create the attachment record, and sync asset image pivot table
                  */
-                foreach ($files as $file) {
-
+                foreach ($files as $file)
+                {
                     $attributes = explode('|', $file);
 
                     $fileName = $attributes[0];
@@ -79,12 +94,15 @@ class ImageService extends BaseModelService
                     /*
                      * Ex. files/assets/images/1/example.png
                      */
-                    $movedFilePath = config('maintenance::site.paths.assets.images') . sprintf('%s/', $asset->id);
+                    $movedFilePath = $this->config->setPrefix('maintenance')->get('site.paths.assets.images') . sprintf('%s/', $asset->id);
 
                     /*
                      * Move the file
                      */
-                    Storage::move(config('maintenance::site.paths.temp') . $fileName, $movedFilePath . $fileName);
+                    $this->storage->move(
+                        $this->config->setPrefix('core-helper')->get('temp-upload-path') . $fileName,
+                        $movedFilePath . $fileName
+                    );
 
                     /*
                      * Set insert data
@@ -125,12 +143,12 @@ class ImageService extends BaseModelService
             return false;
 
 
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
 }

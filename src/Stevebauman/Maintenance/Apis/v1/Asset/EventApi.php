@@ -2,23 +2,39 @@
 
 namespace Stevebauman\Maintenance\Apis\v1\Asset;
 
+use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Apis\v1\AbstractEventableApi;
 
-class EventApi extends AbstractEventableApi {
+/**
+ * Class EventApi
+ * @package Stevebauman\Maintenance\Apis\v1\Asset
+ */
+class EventApi extends AbstractEventableApi
+{
+    /**
+     * @var ConfigService
+     */
+    protected $config;
 
-
-    public function __construct(AssetService $asset, EventService $event)
+    /**
+     * @param AssetService $asset
+     * @param EventService $event
+     * @param ConfigService $config
+     */
+    public function __construct(AssetService $asset, EventService $event, ConfigService $config)
     {
         parent::__construct($event);
 
         $this->eventable = $asset;
 
+        $this->config = $config->setPrefix('maintenance');
+
         /*
          * Set the asset calendar
          */
-        $this->event->eventApi->setCalendar(config('maintenance::site.calendars.assets'));
+        $this->event->eventApi->setCalendar($this->config->get('site.calendars.assets'));
     }
 
 }

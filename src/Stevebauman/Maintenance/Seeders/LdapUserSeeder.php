@@ -2,63 +2,79 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
-use Stevebauman\CoreHelper\Services\Auth\SentryService;
-use Stevebauman\CoreHelper\Services\Auth\LdapService;
+use Stevebauman\Corp\Objects\User;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Services\LdapService;
 use Illuminate\Database\Seeder;
 
-class LdapUserSeeder extends Seeder {
-
-    /*
+/**
+ * Class LdapUserSeeder
+ * @package Stevebauman\Maintenance\Seeders
+ */
+class LdapUserSeeder extends Seeder
+{
+    /**
      * Holds the current LDAP instance
+     *
+     * @var LdapService
      */
-    private $ldap;
+    protected $ldap;
 
-    /*
+    /**
      * Holds the current Sentry instance
+     *
+     * @var SentryService
      */
-    private $sentry;
+    protected $sentry;
 
-    public function __construct(LdapService $ldap, SentryService $sentry)
+    /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
+     * @param LdapService $ldap
+     * @param SentryService $sentry
+     * @param ConfigService $config
+     */
+    public function __construct(LdapService $ldap, SentryService $sentry, ConfigService $config)
     {
         $this->ldap = $ldap;
         $this->sentry = $sentry;
+        $this->config = $config->setPrefix('maintenance');
     }
 
     /**
      * Runs the seeding operation
+     *
+     * @return void
      */
     public function run()
     {
         $users = $this->ldap->users();
 
-        foreach($users as $user) {
+        foreach($users as $user)
+        {
+            if($this->syncFiltersEnabled())
+            {
+                if($this->userAllowed($user)) $this->createUser($user);
 
-            if($this->syncFiltersEnabled()) {
-
-                if($this->userAllowed($user)) {
-
-                    $this->createUser($user);
-
-                } else {
-
-                    continue;
-
-                }
-
+                continue;
             }
-
         }
     }
 
     /**
-     * Creates a user with Sentry
+     * Creates a user with Sentry by the supplied corp user object
      *
-     * @param \Stevebauman\Corp\Objects\User $user
+     * @param User $user
+     * @return bool|mixed|User
      */
-    private function createUser(\Stevebauman\Corp\Objects\User $user)
+    private function createUser(User $user)
     {
-        if($user->username && $user->email) {
-
+        if($user->username && $user->email)
+        {
             $first_name = '';
 
             $last_name = '';
@@ -67,16 +83,13 @@ class LdapUserSeeder extends Seeder {
              * An LDAP user may not have a name, so we'll explode it by a comma to see if they have
              * a fully separated name
              */
-            if($user->name) {
+            if($user->name)
+            {
                 $name = explode(',', $user->name);
 
-                if(array_key_exists(0, $name)) {
-                    $last_name = $name[0];
-                }
+                if(array_key_exists(0, $name)) $last_name = $name[0];
 
-                if(array_key_exists(1, $name)) {
-                    $first_name = $name[1];
-                }
+                if(array_key_exists(1, $name)) $first_name = $name[1];
             }
 
             $data = array(
@@ -89,34 +102,35 @@ class LdapUserSeeder extends Seeder {
 
             $groups = array();
 
-            if($user->group) {
+            if($user->group)
+            {
                 $groups[] = $this->sentry->createOrUpdateGroup($user->group);
             }
 
-            if($user->type) {
+            if($user->type)
+            {
                 $groups[] = $this->sentry->createOrUpdateGroup($user->type);
             }
 
-            $this->sentry->createUser($data, $groups);
+            $user = $this->sentry->createUser($data, $groups);
 
+            return $user;
         }
+
+        return false;
     }
 
     /**
      * Check the returned values and make sure they are arrays and that they are enabled
      *
-     * @param \Stevebauman\Corp\Objects\User $user
-     * @return boolean
+     * @param User $user
+     * @return bool
      */
-    private function userAllowed(\Stevebauman\Corp\Objects\User $user)
+    private function userAllowed(User $user)
     {
-        if(!in_array($user->group, $this->getAllowedGroups())){
-            return false;
-        }
+        if(!in_array($user->group, $this->getAllowedGroups())) return false;
 
-        if(!in_array($user->type, $this->getAllowedUserTypes())){
-            return false;
-        }
+        if(!in_array($user->type, $this->getAllowedUserTypes())) return false;
 
         return true;
     }
@@ -128,7 +142,7 @@ class LdapUserSeeder extends Seeder {
      */
     private function getAllowedGroups()
     {
-        return config('maintenance::site.ldap.user_sync.filters.groups');
+        return $this->config->get('site.ldap.user_sync.filters.groups');
     }
 
     /**
@@ -138,17 +152,17 @@ class LdapUserSeeder extends Seeder {
      */
     private function getAllowedUserTypes()
     {
-        return config('maintenance::site.ldap.user_sync.filters.types');
+        return $this->config->get('site.ldap.user_sync.filters.types');
     }
 
     /**
-     * Returns config option of wether or not sync filters are enabled or not
+     * Returns config option of whether or not sync filters are enabled
      *
-     * @return boolean
+     * @return bool
      */
     private function syncFiltersEnabled()
     {
-        return config('maintenance::site.ldap.user_sync.filters.enabled');
+        return $this->config->get('site.ldap.user_sync.filters.enabled');
     }
 
 }
