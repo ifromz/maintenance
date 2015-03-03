@@ -12,22 +12,30 @@ Route::get('/', array(
 /*
  * User Management Routes
  */
-Route::resource('users', 'UserController', array(
-    'names' => array(
-        'index' => 'maintenance.admin.users.index',
-        'create' => 'maintenance.admin.users.create',
-        'store' => 'maintenance.admin.users.store',
-        'show' => 'maintenance.admin.users.show',
-        'edit' => 'maintenance.admin.users.edit',
-        'update' => 'maintenance.admin.users.update',
-        'destroy' => 'maintenance.admin.users.destroy',
-    ),
-));
+Route::group(array('namespace' => 'User'), function ()
+{
+    Route::resource('users', 'UserController', array(
+        'names' => array(
+            'index' => 'maintenance.admin.users.index',
+            'create' => 'maintenance.admin.users.create',
+            'store' => 'maintenance.admin.users.store',
+            'show' => 'maintenance.admin.users.show',
+            'edit' => 'maintenance.admin.users.edit',
+            'update' => 'maintenance.admin.users.update',
+            'destroy' => 'maintenance.admin.users.destroy',
+        ),
+    ));
 
-Route::post('users/{users}/check-access', array(
-    'as' => 'maintenance.admin.users.check-access',
-    'uses' => 'AccessController@postCheck'
-));
+    Route::patch('users/{users}/password', array(
+        'as' => 'maintenance.admin.users.password.update',
+        'uses' => 'PasswordController@update'
+    ));
+
+    Route::post('users/{users}/check-access', array(
+        'as' => 'maintenance.admin.users.check-access',
+        'uses' => 'AccessController@postCheck'
+    ));
+});
 
 /*
  * Group Management Routes

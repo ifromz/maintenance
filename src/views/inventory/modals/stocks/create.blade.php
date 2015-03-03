@@ -8,12 +8,13 @@
                 <h4 class="modal-title" id="myModalLabel">Add new Stock Location</h4>
             </div>
 
-            {{ Form::open(array(
-                        'url'=>route('maintenance.inventory.stocks.store', array($item->id)), 
-                        'class'=>'form-horizontal ajax-form-post clear-form',
-                        'data-status-target' => '#stock-location-status',
-                        'data-refresh-target' => '#inventory-stocks-table',
-                    ))
+            {{
+                Form::open(array(
+                    'url'=>route('maintenance.inventory.stocks.store', array($item->id)),
+                    'class'=>'form-horizontal ajax-form-post clear-form',
+                    'data-status-target' => '#stock-location-status',
+                    'data-refresh-target' => '#inventory-stocks-table',
+                ))
             }}
 
             <div class="modal-body">

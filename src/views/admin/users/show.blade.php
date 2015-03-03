@@ -1,25 +1,25 @@
-@extends('maintenance::layouts.admin')
+@extends('maintenance::layouts.pages.admin.tabbed')
 
-@section('header')
-    <h1>{{ $title }}</h1>
+@section('tab.head.content')
+    <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
 @stop
 
-@section('breadcrumb')
+@section('tab.body.content')
 
-@stop
+    <div class="tab-pane active" id="tab_profile">
 
-@section('content')
+        {{ $user->viewer()->btnUpdatePassword }}
 
-    <div class="nav-tabs-custom">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_1" data-toggle="tab">Profile</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab_1">
-                @include('maintenance::admin.users.tabs.profile', array('user'=>$user))
-            </div>
-        </div>
-        <!-- /.tab-content -->
+        {{ $user->viewer()->btnEdit }}
+
+        {{ $user->viewer()->btnDelete }}
+
+        {{ $user->viewer()->profile }}
+
+        <hr>
+
+        {{ $user->viewer()->permissionChecker }}
+
     </div>
 
 @stop

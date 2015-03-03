@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin;
+namespace Stevebauman\Maintenance\Controllers\Admin\User;
 
 use Stevebauman\Maintenance\Validators\UserValidator;
 use Stevebauman\Maintenance\Services\UserService;
@@ -66,7 +66,7 @@ class UserController extends BaseController
      */
     public function store()
     {
-        if($this->userValidator->passes())
+        if($this->userValidator->passesCreate())
         {
             $user = $this->user->setInput($this->inputAll())->create();
 
@@ -124,15 +124,60 @@ class UserController extends BaseController
             'user'=>$user
         ));
     }
-    
+
+    /**
+     * Processes updating the user with the specified ID
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     public function update($id)
     {
-        
+        if($this->userValidator->passesUpdate($id))
+        {
+            if($this->user->setInput($this->inputAll())->update($id))
+            {
+                $link = link_to_route('maintenance.admin.users.show', 'Show', array($id));
+
+                $this->message = "Successfully updated user. $link";
+                $this->messageType = 'success';
+                $this->redirect = routeBack('maintenance.admin.users.show', array($id));
+            } else
+            {
+                $this->message = 'There was an error trying to update this user. Please try again.';
+                $this->messageType = 'danger';
+                $this->redirect = routeBack('maintenance.admin.users.edit', array($id));
+            }
+        } else
+        {
+            $this->errors = $this->userValidator->getErrors();
+            $this->redirect = routeBack('maintenance.admin.users.edit', array($id));
+        }
+
+        return $this->response();
     }
-    
+
+    /**
+     * Deletes the user with the specified ID
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     public function destroy($id)
     {
-        
+        if($this->user->destroy($id))
+        {
+            $this->message = 'Successfully deleted user';
+            $this->messageType = 'success';
+            $this->redirect = route('maintenance.admin.users.index');
+        } else
+        {
+            $this->message = 'There was an issue deleting this user, please try again.';
+            $this->messageType = 'danger';
+            $this->redirect = routeBack('maintenance.admin.users.show', array($id));
+        }
+
+        return $this->response();
     }
     
 }

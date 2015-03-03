@@ -10,7 +10,6 @@ use Stevebauman\Maintenance\Models\User;
  */
 class UserService extends BaseModelService
 {
-
     /**
      * @var SentryService
      */
@@ -96,7 +95,7 @@ class UserService extends BaseModelService
 
             $modelRecord->update($insertAdditional);
 
-            if($record)
+            if ($record)
             {
                 $this->dbCommitTransaction();
 
@@ -117,7 +116,7 @@ class UserService extends BaseModelService
      * @return mixed
      */
 
-    public function createOrUpdateUser($credentials)
+    public function createOrUpdateUserWithCredentials($credentials)
     {
         $loginAttribute = $this->config->get('cartalyst/sentry::users.login_attribute');
 
@@ -155,6 +154,49 @@ class UserService extends BaseModelService
         }
 
         return $user;
+    }
+
+    /**
+     * Processes updating a user
+     *
+     * @param int|string $id
+     * @return bool|\Illuminate\Support\Collection|null|static
+     */
+    public function update($id)
+    {
+        try
+        {
+            $this->dbStartTransaction();
+
+            /*
+             * Update the user through Sentry first
+             */
+            $this->sentry->update($id, $this->input);
+
+            /*
+             * Now we'll update the extra user details Sentry
+             * doesn't manage
+             */
+            $user = $this->model->find($id);
+
+            $insert = array(
+                'first_name' => $this->getInput('first_name'),
+                'last_name' => $this->getInput('last_name')
+            );
+
+            if($user->update($insert))
+            {
+                $this->dbCommitTransaction();
+
+                return $user;
+            }
+
+        } catch(\Exception $e)
+        {
+            $this->dbRollbackTransaction();
+        }
+
+        return false;
     }
 
 }

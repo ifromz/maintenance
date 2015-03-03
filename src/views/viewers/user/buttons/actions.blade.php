@@ -11,7 +11,7 @@
             <i class="fa fa-edit"></i> Edit User
         </a>
     </li>
-    @if(!Sentry::getUser()->id === $user->id)
+    @if(Sentry::getUser()->id != $user->id)
     <li>
         <a href="{{ route('maintenance.admin.users.destroy', array($user->id)) }}"
            data-method="delete"
