@@ -59,7 +59,6 @@ class Inventory extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryViewer';
 
-
     /**
      * The hasOne metric relationship
      *
@@ -68,6 +67,16 @@ class Inventory extends BaseModel
     public function metric()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\Metric', 'id', 'metric_id');
+    }
+
+    /**
+     * The hasOne SKU relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function sku()
+    {
+        return $this->hasOne('Stevebauman\Maintenance\Models\InventorySku', 'inventory_id', 'id');
     }
 
     /**

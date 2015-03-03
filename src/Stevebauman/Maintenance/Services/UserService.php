@@ -69,23 +69,42 @@ class UserService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        $activated = $this->getInput('activated');
-
-        $insert = array(
-            'username' => $this->getInput('username'),
-            'email' => $this->getInput('email'),
-            'password' => $this->getInput('password'),
-            'permissions' => $this->getInput('permissions', array()),
-            'activated' => ($activated ? true : false)
-        );
-
-        $record = $this->sentry->createUser($insert);
-
-        if($record)
+        try
         {
-            $this->dbCommitTransaction();
+            $activated = $this->getInput('activated');
 
-            return $record;
+            $insert = array(
+                'username' => $this->getInput('username'),
+                'email' => $this->getInput('email'),
+                'password' => $this->getInput('password'),
+                'permissions' => $this->getInput('permissions', array()),
+                'activated' => ($activated ? true : false)
+            );
+
+            $record = $this->sentry->createUser($insert);
+
+            /*
+             * Due to sentry restrictions, we'll update the additional user
+             * information manually
+             */
+            $modelRecord = $this->model->find($record->id);
+
+            $insertAdditional = array(
+                'first_name' => $this->getInput('first_name'),
+                'last_name' => $this->getInput('last_name'),
+            );
+
+            $modelRecord->update($insertAdditional);
+
+            if($record)
+            {
+                $this->dbCommitTransaction();
+
+                return $record;
+            }
+        } catch(\Exception $e)
+        {
+            $this->dbRollbackTransaction();
         }
 
         return false;

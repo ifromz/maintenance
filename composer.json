@@ -14,7 +14,7 @@
         "stevebauman/corp": "1.0.*",
         "stevebauman/core-helper": "1.0.*",
         "stevebauman/eloquenttable": "1.0.*",
-        "stevebauman/inventory": "1.0.*",
+        "stevebauman/inventory": "1.1.*",
         "stevebauman/calendar-helper": "0.1.*",
         "cartalyst/sentry": "2.*",
         "baum/baum": "1.0.*",

@@ -16,6 +16,13 @@
 
     <p></p>
 
+    @if($item->hasSku())
+        <dt>SKU:</dt>
+        <dd>{{ $item->sku }}</dd>
+
+        <p></p>
+    @endif
+
     <dt>Metric:</dt>
     <dd>{{ $item->metric->name }}</dd>
 
