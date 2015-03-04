@@ -191,7 +191,7 @@ $(document).ready(function () {
         var link = $(this);
 
         var httpMethod = link.data('method').toUpperCase();
-        var allowedMethods = ['POST', 'PUT', 'DELETE'];
+        var allowedMethods = ['POST', 'PUT', 'PATCH', 'DELETE'];
         var msg = link.data('message');
         var title = link.data('title');
 

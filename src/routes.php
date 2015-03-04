@@ -3,8 +3,8 @@
 /*
  * Maintenance Application Routes
  */
-Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespace' => 'Stevebauman\Maintenance'), function () {
-
+Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespace' => 'Stevebauman\Maintenance'), function ()
+{
     /*
      * Authentication Routes
      */
@@ -28,7 +28,12 @@ Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespa
      * Auth         - Only Allows logged in users
      * Permission   - Only Allows users with correct permissions
      */
-    Route::group(array('prefix' => 'management', 'namespace' => 'Controllers', 'before' => 'maintenance.auth|maintenance.permission'), function () {
+    Route::group(array('prefix' => 'management', 'namespace' => 'Controllers', 'before' => 'maintenance.auth|maintenance.permission'), function ()
+    {
+        /*
+         * Client Routes
+         */
+        include('routes/client.php');
 
         /*
          * Dashboard Routes
@@ -78,28 +83,24 @@ Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespa
         /*
          * Administration Route Group
          */
-        Route::group(array('prefix' => 'admin', 'namespace' => 'Admin'), function () {
-
+        Route::group(array('prefix' => 'admin', 'namespace' => 'Admin'), function ()
+        {
             /*
              * Amdministration Routes
              */
             include('routes/admin.php');
-
         });
-
     });
 
     /*
      * API Route Group
      */
-    Route::group(array('prefix' => 'api', 'namespace' => 'Apis'), function () {
-
+    Route::group(array('prefix' => 'api', 'namespace' => 'Apis'), function ()
+    {
         /*
          * API Routes
          */
         include('routes/api.php');
-
     });
-
 
 }); /* End Maintenance Routes */

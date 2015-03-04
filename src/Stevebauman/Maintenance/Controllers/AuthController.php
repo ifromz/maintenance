@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Stevebauman\Maintenance\Validators\AuthLoginValidator;
+use Stevebauman\Maintenance\Validators\Login\LoginValidator;
 use Stevebauman\Maintenance\Validators\AuthRegisterValidator;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -52,15 +52,16 @@ class AuthController extends BaseController
     protected $ldap;
 
     /**
-     * @param AuthLoginValidator $loginValidator
+     * @param LoginValidator $loginValidator
      * @param AuthRegisterValidator $registerValidator
+     * @param ConfigService $config
      * @param SentryService $sentry
      * @param UserService $user
      * @param AuthService $auth
      * @param LdapService $ldap
      */
     public function __construct(
-        AuthLoginValidator $loginValidator,
+        LoginValidator $loginValidator,
         AuthRegisterValidator $registerValidator,
         ConfigService $config,
         SentryService $sentry,
@@ -92,7 +93,7 @@ class AuthController extends BaseController
      */
     public function getLogin()
     {
-        return view('maintenance::login', array(
+        return view('maintenance::login.index', array(
             'title' => 'Sign In',
         ));
     }

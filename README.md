@@ -13,6 +13,7 @@
 ##Important Todo's
 * Started: Feb 22nd 2015    - Complete administration panel
 * Started: Not yet started  - Complete client interface and functionality
+* Started: Not yet started  - Complete notification functionality
 
 ##TO DO
 * Move work order management to separate package - IN PROGRESS

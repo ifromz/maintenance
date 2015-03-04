@@ -47,6 +47,20 @@ Route::group(array('namespace' => 'Inventory'), function () {
      * End Category Routes
      */
 
+    /*
+     * Start Inventory SKU routes
+     */
+    Route::patch('inventory/{inventories}/sku/regenerate', array(
+        'as' => 'maintenance.inventory.sku.regenerate',
+        'uses' => 'SkuController@regenerate',
+    ));
+    /*
+     * End Inventory SKU routes
+     */
+
+    /*
+     * Start Inventory Routes
+     */
     Route::resource('inventory', 'InventoryController', array(
         'names' => array(
             'index' => 'maintenance.inventory.index',
@@ -115,5 +129,8 @@ Route::group(array('namespace' => 'Inventory'), function () {
             'destroy' => 'maintenance.inventory.events.destroy',
         )
     ));
+    /*
+     * End Inventory Routes
+     */
 
 });

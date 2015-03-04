@@ -35,7 +35,12 @@ class InventoryViewer extends BaseViewer {
     {
         return view('maintenance::viewers.inventory.buttons.add-stock', array('item'=>$this->entity));
     }
-    
+
+    public function btnRegenerateSku()
+    {
+        return view('maintenance::viewers.inventory.buttons.regenerate-sku', array('item'=>$this->entity));
+    }
+
     public function btnQrCode()
     {
         return view('maintenance::viewers.partials.buttons.qr-code', array(

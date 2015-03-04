@@ -16,6 +16,8 @@
 
         {{ $item->viewer()->btnAddStock }}
 
+        {{ $item->viewer()->btnRegenerateSku }}
+
         {{ $item->viewer()->btnEdit }}
 
         {{ $item->viewer()->btnDelete }}
