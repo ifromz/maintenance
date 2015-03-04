@@ -148,6 +148,7 @@ class UserService extends BaseModelService
                 'username' => $username,
                 'last_name' => (string)$lastName,
                 'first_name' => (string)$firstName,
+                'activated' => 1,
             );
 
             $user = $this->sentry->createUser($data);

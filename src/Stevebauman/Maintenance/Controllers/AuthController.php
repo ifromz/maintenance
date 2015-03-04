@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Controllers;
 
 use Stevebauman\Maintenance\Validators\Login\LoginValidator;
-use Stevebauman\Maintenance\Validators\AuthRegisterValidator;
+use Stevebauman\Maintenance\Validators\Login\RegisterValidator;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\UserService;
@@ -17,12 +17,12 @@ use Stevebauman\Maintenance\Services\AuthService;
 class AuthController extends BaseController
 {
     /**
-     * @var AuthLoginValidator
+     * @var LoginValidator
      */
     protected $loginValidator;
 
     /**
-     * @var AuthRegisterValidator
+     * @var RegisterValidator
      */
     protected $registerValidator;
 
@@ -53,7 +53,7 @@ class AuthController extends BaseController
 
     /**
      * @param LoginValidator $loginValidator
-     * @param AuthRegisterValidator $registerValidator
+     * @param RegisterValidator $registerValidator
      * @param ConfigService $config
      * @param SentryService $sentry
      * @param UserService $user
@@ -62,7 +62,7 @@ class AuthController extends BaseController
      */
     public function __construct(
         LoginValidator $loginValidator,
-        AuthRegisterValidator $registerValidator,
+        RegisterValidator $registerValidator,
         ConfigService $config,
         SentryService $sentry,
         UserService $user,
@@ -178,7 +178,7 @@ class AuthController extends BaseController
      */
     public function getRegister()
     {
-        return view('maintenance::register', array(
+        return view('maintenance::register.index', array(
             'title' => 'Register',
         ));
     }
@@ -230,5 +230,4 @@ class AuthController extends BaseController
 
         return $this->response();
     }
-
 }

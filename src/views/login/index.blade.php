@@ -38,7 +38,14 @@
                 {{ Form::checkbox('remember', 'true') }} Remember me
             </div>
 
-            {{ link_to_route('maintenance.login.forgot-password', 'Forgot Password?') }}
+                <p class="text-center">
+                    {{ link_to_route('maintenance.login.forgot-password', 'Forgot Password?') }}
+                </p>
+
+                <p class="text-center">
+                    {{ link_to_route('maintenance.register', "Don't Have an Account?") }}
+                </p>
+
         </div>
 
         <div class="form-group">

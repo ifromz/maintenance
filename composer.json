@@ -17,9 +17,9 @@
         "stevebauman/inventory": "1.1.*",
         "stevebauman/calendar-helper": "0.1.*",
         "cartalyst/sentry": "2.*",
+        "arcanedev/no-captcha": "~1.2",
         "baum/baum": "1.0.*",
         "simplesoftwareio/simple-qrcode": "1.0.*",
-        "mews/captcha": "1.*",
         "davejamesmiller/laravel-breadcrumbs": "2.3.*"
     },
     "require-dev": {

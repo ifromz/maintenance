@@ -8,7 +8,4 @@ use Stevebauman\CoreHelper\Services\Auth\AuthService as BaseAuthService;
  * Class AuthService
  * @package Stevebauman\Maintenance\Services
  */
-class AuthService extends BaseAuthService
-{
-
-}
+class AuthService extends BaseAuthService {}
