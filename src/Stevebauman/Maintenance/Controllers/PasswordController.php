@@ -82,11 +82,9 @@ class PasswordController extends BaseController
 
             if($user)
             {
-                $code = $user->getResetPasswordCode();
-
-                $this->mail->send('maintenance::emails.reset-password', array(
+                $sent = $this->mail->send('maintenance::emails.reset-password', array(
                     'user' => $user,
-                    'code' => $code,
+                    'code' => $user->getResetPasswordCode(),
                 ), function($message) use ($user)
                 {
                     $adminEmail = $this->config->get('mail.from.address');
@@ -98,9 +96,17 @@ class PasswordController extends BaseController
                         ->subject('Reset Your Password');
                 });
 
-                $this->message = "We've sent you an email to reset your password.";
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.login.forgot-password');
+                if($sent)
+                {
+                    $this->message = "We've sent you an email to reset your password.";
+                    $this->messageType = 'success';
+                    $this->redirect = route('maintenance.login.forgot-password');
+                } else
+                {
+                    $this->message = "There was an issue trying to send your password reset request. Please try again later.";
+                    $this->messageType = 'danger';
+                    $this->redirect = route('maintenance.login.forgot-password');
+                }
             } else
             {
                 $this->message = 'The email/username you entered does not exist, please try again';

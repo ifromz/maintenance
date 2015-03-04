@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services;
 
+use Swift_TransportException;
 use Illuminate\Mail\Mailer;
 use Stevebauman\CoreHelper\Services\Service;
 
@@ -34,6 +35,15 @@ class MailService extends Service
      */
     public function send($views, $data, $callback)
     {
-        return $this->mail->send($views, $data, $callback);
+        try
+        {
+            $this->mail->send($views, $data, $callback);
+
+            return true;
+        } catch(Swift_TransportException $e)
+        {
+            return false;
+        }
+
     }
 }
