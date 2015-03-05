@@ -112,7 +112,8 @@ class Inventory extends BaseModel
      */
     public function scopeDescription($query, $description = NULL)
     {
-        if ($description) {
+        if ($description)
+        {
             return $query->where('description', 'LIKE', '%' . $description . '%');
         }
     }
@@ -126,13 +127,35 @@ class Inventory extends BaseModel
      */
     public function scopeStock($query, $operator = NULL, $stock = NULL)
     {
-        if ($operator && $stock) {
-            return $query->whereHas('stocks', function ($query) use ($operator, $stock) {
-                if ($output = $this->getOperator($operator)) {
+        if ($operator && $stock)
+        {
+            return $query->whereHas('stocks', function ($query) use ($operator, $stock)
+            {
+                if ($output = $this->getOperator($operator))
+                {
                     return $query->where('quantity', $output[0], $stock);
-                } else {
+                } else
+                {
                     return $query;
                 }
+            });
+        }
+    }
+
+    /**
+     * Filters query by the inputted inventory sku
+     *
+     * @param $query
+     * @param null $sku
+     * @return mixed
+     */
+    public function scopeSku($query, $sku = NULL)
+    {
+        if ($sku)
+        {
+            return $query->whereHas('sku', function($query) use($sku)
+            {
+                return $query->where('code', 'LIKE', '%'.$sku.'%');
             });
         }
     }

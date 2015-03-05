@@ -50,6 +50,7 @@ class InventoryService extends BaseModelService
             ->name($this->getInput('name'))
             ->description($this->getInput('description'))
             ->category($this->getInput('category_id'))
+            ->sku($this->getInput('sku'))
             ->stock(
                 $this->getInput('operator'),
                 $this->getInput('quantity')

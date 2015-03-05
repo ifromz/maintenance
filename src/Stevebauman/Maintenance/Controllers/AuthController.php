@@ -125,7 +125,7 @@ class AuthController extends BaseController
                          * If authentication is good, update their
                          * web profile in case of a password update in AD
                          */
-                        $user = $this->user->createOrUpdateUserWithCredentials($data);
+                        $user = $this->user->createOrUpdateLdapUser($data);
 
                         $data['email'] = $user->email;
                     }

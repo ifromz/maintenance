@@ -47,19 +47,19 @@ return array(
      */
     'workers' => array(
 
-        'maintenance.dashboard.index',
+        'maintenance.dashboard.index' => 1,
 
-        'maintenance.events.index',
-        'maintenance.events.create',
-        'maintenance.events.store',
-        'maintenance.events.show',
-        'maintenance.events.edit',
-        'maintenance.events.update',
-        'maintenance.events.destroy',
-        'maintenance.events.report.store',
-        'maintenance.events.report.edit',
-        'maintenance.events.report.update',
-        'maintenance.events.report.destroy',
+        'maintenance.events.index' => 1,
+        'maintenance.events.create' => 1,
+        'maintenance.events.store' => 1,
+        'maintenance.events.show' => 1,
+        'maintenance.events.edit' => 1,
+        'maintenance.events.update' => 1,
+        'maintenance.events.destroy' => 1,
+        'maintenance.events.report.store' => 1,
+        'maintenance.events.report.edit' => 1,
+        'maintenance.events.report.update' => 1,
+        'maintenance.events.report.destroy' => 0,
 
         'maintenance.work-orders.assigned.index',
 

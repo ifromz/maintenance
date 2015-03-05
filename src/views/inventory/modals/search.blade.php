@@ -1,8 +1,15 @@
-<div class="modal fade" id="search-modal" tabindex="-1 " role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="search-modal" tabindex="-1 " role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            {{ Form::open(array('url'=>$url, 'method'=>'GET', 'class'=>'form-horizontal ajax-form-get', 'data-refresh-target'=>'#resource-paginate')) }}
+
+            {{
+                Form::open(array(
+                    'url'=>$url,
+                    'method'=>'GET',
+                    'class'=>'form-horizontal ajax-form-get',
+                    'data-refresh-target'=>'#resource-paginate'
+                ))
+            }}
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
@@ -15,11 +22,26 @@
                     <label class="col-sm-2 control-label">ID</label>
 
                     <div class="col-md-10">
-                        {{ Form::text(
-                                    'id', 
-                                    (Input::has('id') ? Input::get('id') : NULL),  
-                                    array('class'=>'form-control', 'placeholder'=>'Enter Item ID')
-                                ) 
+                        {{
+                            Form::text(
+                                'id',
+                                (Input::has('id') ? Input::get('id') : NULL),
+                                array('class'=>'form-control', 'placeholder'=>'Enter Item ID')
+                            )
+                        }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">SKU</label>
+
+                    <div class="col-md-10">
+                        {{
+                            Form::text(
+                                'sku',
+                                (Input::has('sku') ? Input::get('sku') : NULL),
+                                array('class'=>'form-control', 'placeholder'=>'Enter SKU')
+                            )
                         }}
                     </div>
                 </div>
@@ -28,11 +50,12 @@
                     <label class="col-sm-2 control-label">Name</label>
 
                     <div class="col-md-10">
-                        {{ Form::text(
-                                    'name', 
-                                    (Input::has('name') ? Input::get('name') : NULL),  
-                                    array('class'=>'form-control', 'placeholder'=>'Enter Name')
-                                ) 
+                        {{
+                            Form::text(
+                                'name',
+                                (Input::has('name') ? Input::get('name') : NULL),
+                                array('class'=>'form-control', 'placeholder'=>'Enter Name')
+                            )
                         }}
                     </div>
                 </div>
@@ -41,11 +64,12 @@
                     <label class="col-sm-2 control-label">Description</label>
 
                     <div class="col-md-10">
-                        {{ Form::text(
-                                    'description', 
-                                    (Input::has('description') ? Input::get('description') : NULL),  
-                                    array('class'=>'form-control', 'placeholder'=>'Enter Description')
-                                ) 
+                        {{
+                            Form::text(
+                                'description',
+                                (Input::has('description') ? Input::get('description') : NULL),
+                                array('class'=>'form-control', 'placeholder'=>'Enter Description')
+                            )
                         }}
                     </div>
                 </div>
@@ -54,16 +78,23 @@
                     <label class="col-sm-2 control-label">Stock Level</label>
 
                     <div class="col-md-6">
-                        {{ Form::select('operator', array(
-                            '>' => 'Greater Than', 
-                            '<' => 'Less Than', 
-                            '=' => 'Equals', 
-                            '>=' => 'Greater Than or Equal To', 
-                            '<=' => 'Less Than or Equal To',
-                        ), (Input::has('operator') ? Input::get('operator') : NULL), array('class'=>'form-control')) }}
+                        {{
+                            Form::select('operator', array(
+                                    '>' => 'Greater Than',
+                                    '<' => 'Less Than',
+                                    '=' => 'Equals',
+                                    '>=' => 'Greater Than or Equal To',
+                                    '<=' => 'Less Than or Equal To',
+                                ),
+                                (Input::has('operator') ? Input::get('operator') : NULL),
+                                array('class'=>'form-control')
+                            )
+                        }}
                     </div>
                     <div class="col-md-4">
-                        {{ Form::text('quantity', (Input::has('quantity') ? Input::get('quantity') : NULL), array('class'=>'form-control', 'placeholder'=>'Enter Quantity')) }}
+                        {{
+                            Form::text('quantity', (Input::has('quantity') ? Input::get('quantity') : NULL), array('class'=>'form-control', 'placeholder'=>'Enter Quantity'))
+                        }}
                     </div>
                 </div>
 

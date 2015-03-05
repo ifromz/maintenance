@@ -116,7 +116,7 @@ class UserService extends BaseModelService
      * @return mixed
      */
 
-    public function createOrUpdateUserWithCredentials($credentials)
+    public function createOrUpdateLdapUser($credentials)
     {
         $loginAttribute = $this->config->get('cartalyst/sentry::users.login_attribute');
 
@@ -152,6 +152,12 @@ class UserService extends BaseModelService
             );
 
             $user = $this->sentry->createUser($data);
+
+            $groupPermissions = $this->config->setPrefix('maintenance')->get('permissions.workers');
+
+            $group = $this->sentry->createOrUpdateGroup('Workers', $groupPermissions);
+
+            $user->addGroup($group);
         }
 
         return $user;
