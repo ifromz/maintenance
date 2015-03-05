@@ -1,0 +1,51 @@
+<?php
+
+namespace Stevebauman\Maintenance\Controllers\Client;
+
+use Stevebauman\Maintenance\Services\WorkRequestService;
+use Stevebauman\Maintenance\Controllers\BaseController;
+
+/**
+ * Class WorkRequestController
+ * @package Stevebauman\Maintenance\Controllers\Client
+ */
+class WorkRequestController extends BaseController
+{
+    /**
+     * @var WorkRequestService
+     */
+    protected $workRequest;
+
+    /**
+     * @param WorkRequestService $workRequest
+     */
+    public function __construct(WorkRequestService $workRequest)
+    {
+        $this->workRequest = $workRequest;
+    }
+
+    public function index()
+    {
+
+    }
+
+    public function create()
+    {
+
+    }
+
+    public function store()
+    {
+
+    }
+
+    public function edit($id)
+    {
+
+    }
+
+    public function update($id)
+    {
+
+    }
+}

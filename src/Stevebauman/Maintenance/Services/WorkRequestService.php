@@ -42,31 +42,29 @@ class WorkRequestService extends BaseModelService {
     {
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $workRequest = new $this->model;
             $workRequest->user_id = $this->sentry->getCurrentUserId();
             $workRequest->subject = $this->getInput('subject', NULL, true);
             $workRequest->best_time = $this->getInput('best_time', NULL, true);
             $workRequest->description = $this->getInput('description', NULL, true);
 
-            if($workRequest->save()) {
-
+            if($workRequest->save())
+            {
                 $workOrder = $this->workOrder->createFromWorkRequest($workRequest);
 
-                if($workOrder) {
-
+                if($workOrder)
+                {
                     $this->dbCommitTransaction();
 
                     return $workRequest;
-
                 }
             }
 
-        } catch(\Exception $e) {
-
+        } catch(\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
         }
 
         return false;
@@ -76,7 +74,7 @@ class WorkRequestService extends BaseModelService {
      * Updates a work request
      *
      * @param int|string $id
-     * @return bool|object
+     * @return bool|mixed
      */
     public function update($id)
     {
@@ -84,23 +82,54 @@ class WorkRequestService extends BaseModelService {
 
         $workRequest = $this->find($id);
 
-        try {
-
+        try
+        {
             $workRequest->subject = $this->getInput('subject', $workRequest->subject, true);
             $workRequest->best_time = $this->getInput('best_time', $workRequest->best_time, true);
             $workRequest->description = $this->getInput('description', $workRequest->description, true);
 
-            if($workRequest->save()) {
-
+            if($workRequest->save())
+            {
                 $this->dbCommitTransaction();
 
                 return $workRequest;
             }
-
-        } catch(\Exception $e) {
-
+        } catch(\Exception $e)
+        {
             $this->dbRollbackTransaction();
+        }
 
+        return false;
+    }
+
+    /**
+     * Attaches an update to the work request pivot table
+     *
+     * @param $workRequest
+     * @param $update
+     * @return bool
+     */
+    public function saveUpdate($workRequest, $update)
+    {
+        $this->dbStartTransaction();
+
+        try
+        {
+            if ($workRequest->updates()->save($update))
+            {
+                $this->fireEvent('maintenance.work-requests.updates.created', array(
+                    'workRequest' => $workRequest,
+                    'update' => $update
+                ));
+
+                $this->dbCommitTransaction();
+
+                return true;
+            }
+
+        } catch (\Exception $e)
+        {
+            $this->dbRollbackTransaction();
         }
 
         return false;

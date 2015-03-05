@@ -18,5 +18,7 @@
 
         <legend>Updates</legend>
 
+        {{ $workRequest->viewer()->updates }}
+
     </div>
 @stop

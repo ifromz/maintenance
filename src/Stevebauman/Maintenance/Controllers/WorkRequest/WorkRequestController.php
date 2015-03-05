@@ -1,16 +1,17 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Controllers\WorkRequest;
 
 use Stevebauman\Maintenance\Validators\WorkRequestValidator;
 use Stevebauman\Maintenance\Services\WorkRequestService;
+use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
  * Class WorkRequest
  * @package Stevebauman\Maintenance\Controllers\WorkRequest
  */
-class WorkRequestController extends BaseController {
-
+class WorkRequestController extends BaseController
+{
     /**
      * @var WorkRequestService
      */
@@ -31,6 +32,11 @@ class WorkRequestController extends BaseController {
         $this->workRequestValidator = $workRequestValidator;
     }
 
+    /**
+     * Displays all work requests
+     *
+     * @return mixed
+     */
     public function index()
     {
         $workRequests = $this->workRequest->get();
@@ -41,6 +47,11 @@ class WorkRequestController extends BaseController {
         ));
     }
 
+    /**
+     * Displays the form to create a work request
+     *
+     * @return mixed
+     */
     public function create()
     {
         return view('maintenance::work-requests.create', array(
@@ -48,33 +59,40 @@ class WorkRequestController extends BaseController {
         ));
     }
 
+    /**
+     * Processes creating a work request
+     *
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     public function store()
     {
-        if($this->workRequestValidator->passes()) {
-
+        if($this->workRequestValidator->passes())
+        {
             $workRequest = $this->workRequest->setInput($this->inputAll())->create();
 
-            if($workRequest) {
-
+            if($workRequest)
+            {
                 $this->message = 'Successfully created work request.';
                 $this->messageType = 'success';
-
-            } else {
-
+            } else
+            {
                 $this->message = 'There was an issue trying to create a work request. Please try again';
                 $this->messageType = 'danger';
-
             }
-
-        } else {
-
+        } else
+        {
             $this->errors = $this->workRequestValidator->getErrors();
-
         }
 
         return $this->response();
     }
 
+    /**
+     * Displays a work request by the specified ID
+     *
+     * @param $id
+     * @return mixed
+     */
     public function show($id)
     {
         $workRequest = $this->workRequest->find($id);

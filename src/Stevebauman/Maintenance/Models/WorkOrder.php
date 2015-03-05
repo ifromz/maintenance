@@ -67,19 +67,9 @@ class WorkOrder extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function customerUpdates()
+    public function updates()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_customer_updates', 'work_order_id', 'update_id')->withTimestamps();
-    }
-
-    /**
-     * The belongsToMany technician updates relationship
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function technicianUpdates()
-    {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_technician_updates', 'work_order_id', 'update_id')->withTimestamps();
+        return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_updates', 'work_order_id', 'update_id')->withTimestamps();
     }
 
     /**

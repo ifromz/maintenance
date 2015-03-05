@@ -87,6 +87,31 @@ class BaseModel extends Eloquent
     }
 
     /**
+     * Retrieves a valid operator from the specified string
+     *
+     * @param string $string
+     * @return boolean OR array
+     */
+    protected function getOperator($string)
+    {
+        $allowed_operators = array('>', '<', '=', '>=', '<=');
+
+        $output = preg_split("/[\[\]]/", $string);
+
+        if (is_array($output))
+        {
+            if (array_key_exists('1', $output) && array_key_exists('2', $output))
+            {
+                if (in_array($output[1], $allowed_operators)) return array($output[1], $output[2]);
+            } else
+            {
+                return $output;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Scopes a query to show only soft deleted records
      *
      * @param object $query

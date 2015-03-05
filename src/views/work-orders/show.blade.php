@@ -7,8 +7,7 @@
     <li><a href="#tab_history" data-toggle="tab">History</a></li>
     <li><a href="#tab_parts" data-toggle="tab">Parts / Supplies</a></li>
     <li><a href="#tab_attachments" data-toggle="tab">Attachments</a></li>
-    <li><a href="#tab_customer_updates" data-toggle="tab">Customer Updates</a></li>
-    <li><a href="#tab_technician_updates" data-toggle="tab">Technician Updates</a></li>
+    <li><a href="#tab_updates" data-toggle="tab">Updates</a></li>
 @stop
 
 @section('tab.body.content')
@@ -87,17 +86,10 @@
         {{ $workOrder->viewer()->attachments }}
     </div>
 
-    <div class="tab-pane" id="tab_customer_updates">
+    <div class="tab-pane" id="tab_updates">
 
-        <legend>Customer Updates</legend>
+        <legend>Updates</legend>
 
-        {{ $workOrder->viewer()->customerUpdates }}
-    </div>
-
-    <div class="tab-pane" id="tab_technician_updates">
-
-        <legend>Technician Updates</legend>
-
-        {{ $workOrder->viewer()->technicianUpdates }}
+        {{ $workOrder->viewer()->updates }}
     </div>
 @stop

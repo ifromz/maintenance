@@ -158,36 +158,21 @@ Route::group(array('namespace' => 'WorkOrder'), function () {
         ),
     ));
 
-
     /*
     |--------------------------------------------------------------------------
     | Maintenance Work Order Update Routes
     |--------------------------------------------------------------------------
     */
-
-    Route::group(array('namespace' => 'Update'), function () {
-
-        Route::post('work-orders/{work_orders}/updates/customer', array(
-            'uses' => 'CustomerUpdateController@store',
-            'as' => 'maintenance.work-orders.updates.customer.store',
-        ));
-
-        Route::delete('work-orders/{work_orders}/updates/{updates}/customer', array(
-            'uses' => 'CustomerUpdateController@destroy',
-            'as' => 'maintenance.work-orders.updates.customer.destroy',
-        ));
-
-        Route::post('work-orders/{work_orders}/updates/technician', array(
-            'uses' => 'TechnicianUpdateController@store',
-            'as' => 'maintenance.work-orders.updates.technician.store',
-        ));
-
-        Route::delete('work-orders/{work_orders}/updates/{updates}/technician', array(
-            'uses' => 'TechnicianUpdateController@destroy',
-            'as' => 'maintenance.work-orders.updates.technician.destroy',
-        ));
-
-    });
+    Route::resource('work-orders.updates', 'UpdateController', array(
+        'only' => array(
+            'store',
+            'destroy',
+        ),
+        'names' => array(
+            'store' => 'maintenance.work-orders.updates.store',
+            'destroy' => 'maintenance.work-orders.updates.destroy',
+        ),
+    ));
 
     /*
     |--------------------------------------------------------------------------

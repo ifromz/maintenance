@@ -356,21 +356,21 @@ class WorkOrderService extends BaseModelService
     }
 
     /**
-     * Attaches a customer update to the work order pivot table
+     * Attaches an update to the work order pivot table
      *
      * @param object $workOrder
      * @param object $update
      * @return boolean
      */
-    public function saveCustomerUpdate($workOrder, $update)
+    public function saveUpdate($workOrder, $update)
     {
         $this->dbStartTransaction();
 
         try
         {
-            if ($workOrder->customerUpdates()->save($update))
+            if ($workOrder->updates()->save($update))
             {
-                $this->fireEvent('maintenance.work-orders.updates.customer.created', array(
+                $this->fireEvent('maintenance.work-orders.updates.created', array(
                     'workOrder' => $workOrder,
                     'update' => $update
                 ));
@@ -387,42 +387,4 @@ class WorkOrderService extends BaseModelService
 
         return false;
     }
-
-    /**
-     * Attaches a technician update to the work order pivot table
-     *
-     * @param object $workOrder
-     * @param object $update
-     * @return boolean
-     */
-    public function saveTechnicianUpdate($workOrder, $update)
-    {
-        $this->dbStartTransaction();
-
-        try
-        {
-            if ($workOrder->technicianUpdates()->save($update))
-            {
-                $this->fireEvent('maintenance.work-orders.updates.technician.created', array(
-                    'workOrder' => $workOrder,
-                    'update' => $update
-                ));
-
-                $this->dbCommitTransaction();
-
-                return true;
-            }
-
-            $this->dbRollbackTransaction();
-
-            return false;
-
-        } catch (\Exception $e)
-        {
-            $this->dbRollbackTransaction();
-        }
-
-        return false;
-    }
-
 }

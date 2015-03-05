@@ -13,6 +13,11 @@ class WorkRequestViewer extends BaseViewer {
         return view('maintenance::viewers.work-request.profile', array('workRequest'=>$this->entity));
     }
 
+    public function updates()
+    {
+        return view('maintenance::viewers.work-request.updates', array('workRequest'=>$this->entity));
+    }
+
     public function btnActions()
     {
         return view('maintenance::viewers.work-request.buttons.actions', array('workRequest'=>$this->entity));

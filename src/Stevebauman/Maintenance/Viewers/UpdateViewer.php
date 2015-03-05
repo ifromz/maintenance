@@ -2,22 +2,21 @@
 
 namespace Stevebauman\Maintenance\Viewers;
 
-class UpdateViewer extends BaseViewer {
-    
-    public function workOrderCustomer($workOrder)
+class UpdateViewer extends BaseViewer
+{
+    public function workRequest($workRequest)
     {
-        return view('maintenance::viewers.update.work-order.customer', array(
-            'workOrder' => $workOrder,
+        return view('maintenance::viewers.update.work-request', array(
+            'workRequest' => $workRequest,
             'update' => $this->entity,
         ));
     }
     
-    public function workOrderTechnician($workOrder)
+    public function workOrder($workOrder)
     {
-        return view('maintenance::viewers.update.work-order.technician', array(
+        return view('maintenance::viewers.update.work-order', array(
             'workOrder' => $workOrder,
             'update' => $this->entity,
         ));
     }
-    
 }
