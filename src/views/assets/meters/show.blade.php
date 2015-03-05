@@ -18,69 +18,35 @@
 
 @section('panel.body.content')
 
-<div id="asset-meters-table">
+    {{ $meter->viewer()->btnEditForAsset($asset) }}
 
-    <div id="resource-paginate">
+    {{ $meter->viewer()->btnDeleteForAsset($asset) }}
 
-        @include('maintenance::assets.meters.menu', array(
-            'asset' => $asset,
-            'meter' => $meter,
-        ))
+    <hr>
 
-        <hr>
-
+    <div id="asset-meters-table">
         @if($readings->count() > 0)
 
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>User Responsible</th>
-                    <th>Reading</th>
-                    <th>Created At</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                @foreach($readings as $reading)
-                    <tr>
-                        <td>{{ $reading->user->full_name }}</td>
-                        <td>{{ $reading->reading }} {{ $meter->metric->symbol }}</td>
-                        <td>{{ $reading->created_at }}</td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Action
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('maintenance.assets.meters.readings.destroy', array($asset->id, $meter->id, $reading->id)) }}"
-                                           data-method="delete"
-                                           data-message="Are you sure you want to delete this reading?">
-                                            <i class="fa fa-trash-o"></i> Delete Reading
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-
+            {{
+                $readings->columns(array(
+                    'user' => 'User Responsible',
+                    'reading' => 'Reading',
+                    'created_at' => 'Created',
+                    'action' => 'Action'
+                ))
+                ->means('user', 'user.full_name')
+                ->modify('action', function($reading) use($asset)
+                {
+                    return $reading->viewer()->btnActionsForAsset($asset);
+                })
+                ->render()
+            }}
         @else
-
             <h5>There are no readings to display for this meter.</h5>
-
         @endif
 
         <div class="btn-toolbar text-center">
             {{ $readings->links() }}
         </div>
-
     </div>
-
-</div>
-
 @stop

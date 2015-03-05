@@ -9,12 +9,13 @@
                 <h4 class="modal-title" id="myModalLabel">Update Meter Reading</h4>
             </div>
 
-            {{ Form::open(array(
-                        'url'=>route('maintenance.assets.meters.readings.store', array($asset->id, $meter->id)), 
-                        'class'=>'form-horizontal ajax-form-post',
-                        'data-status-target' => '#update-reading-modal-status-'.$meter->id,
-                        'data-refresh-target' => '#asset-meters-table',
-                    ))
+            {{
+                Form::open(array(
+                    'url'=>route('maintenance.assets.meters.readings.store', array($asset->id, $meter->id)),
+                    'class'=>'form-horizontal ajax-form-post',
+                    'data-status-target' => '#update-reading-modal-status-'.$meter->id,
+                    'data-refresh-target' => '#asset-meters-table',
+                ))
             }}
 
             <div class="modal-body">

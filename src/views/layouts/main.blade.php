@@ -27,7 +27,7 @@
     @if(Sentry::hasAccess('maintenance.events.index'))
         <li class="{{ activeMenuLink('maintenance.events') }}">
             <a href="{{ route('maintenance.events.index') }}">
-                <i class="fa fa-calendar"></i> Generic Events
+                <i class="fa fa-calendar"></i> Events
             </a>
         </li>
     @endif
@@ -57,40 +57,47 @@
                 @if(Sentry::hasAccess('maintenance.work-orders.index'))
                     <li class="{{ activeMenuLink('maintenance.work-orders') }}">
                         <a href="{{ route('maintenance.work-orders.index') }}">
-                            <i class="fa fa-book"></i> Work Orders
+                            <i class="fa fa-briefcase"></i> Work Orders
+                            <i class="fa fa-angle-left pull-right"></i>
                         </a>
+
+                        <ul class="treeview-menu">
+
+                            @if(Sentry::hasAccess('maintenance.work-orders.index'))
+                                <li class="{{ activeMenuLink('maintenance.work-orders.index') }}">
+                                    <a href="{{ route('maintenance.work-orders.index') }}">
+                                        <i class="fa fa-book"></i> Work Orders
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(Sentry::hasAccess('maintenance.work-orders.statuses.index'))
+                                <li class="{{ activeMenuLink('maintenance.work-orders.statuses') }}">
+                                    <a href="{{ route('maintenance.work-orders.statuses.index') }}">
+                                        <i class="fa fa-info"></i> Statuses
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(Sentry::hasAccess('maintenance.work-orders.priorities.index'))
+                                <li class="{{ activeMenuLink('maintenance.work-orders.priorities') }}">
+                                    <a href="{{ route('maintenance.work-orders.priorities.index') }}">
+                                        <i class="fa fa-exclamation-circle"></i> Priorities
+                                    </a>
+                                </li>
+                            @endif
+
+                            @if(Sentry::hasAccess('maintenance.work-orders.categories.index'))
+                                <li class="{{ activeMenuLink('maintenance.work-orders.categories') }}">
+                                    <a href="{{ route('maintenance.work-orders.categories.index') }}">
+                                        <i class="fa fa-folder"></i> Categories
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
                     </li>
                 @endif
 
-                <li>
-                    <a href="#">
-                        <i class="fa fa-refresh"></i> Scheduled Maintenance
-                    </a>
-                </li>
-
-                @if(Sentry::hasAccess('maintenance.work-orders.statuses.index'))
-                    <li class="{{ activeMenuLink('maintenance.work-orders.statuses') }}">
-                        <a href="{{ route('maintenance.work-orders.statuses.index') }}">
-                            <i class="fa fa-info"></i> Statuses
-                        </a>
-                    </li>
-                @endif
-
-                @if(Sentry::hasAccess('maintenance.work-orders.priorities.index'))
-                    <li class="{{ activeMenuLink('maintenance.work-orders.priorities') }}">
-                        <a href="{{ route('maintenance.work-orders.priorities.index') }}">
-                            <i class="fa fa-exclamation-circle"></i> Priorities
-                        </a>
-                    </li>
-                @endif
-
-                @if(Sentry::hasAccess('maintenance.work-orders.categories.index'))
-                    <li class="{{ activeMenuLink('maintenance.work-orders.categories') }}">
-                        <a href="{{ route('maintenance.work-orders.categories.index') }}">
-                            <i class="fa fa-folder"></i> Categories
-                        </a>
-                    </li>
-                @endif
             </ul>
         </li>
     @endif

@@ -90,7 +90,6 @@ Route::group(array('namespace' => 'Asset'), function () {
 
         Route::resource('assets.meters', 'MeterController', array(
             'names' => array(
-                'index' => 'maintenance.assets.meters.index',
                 'store' => 'maintenance.assets.meters.store',
                 'show' => 'maintenance.assets.meters.show',
                 'edit' => 'maintenance.assets.meters.edit',
@@ -98,7 +97,6 @@ Route::group(array('namespace' => 'Asset'), function () {
                 'destroy' => 'maintenance.assets.meters.destroy',
             ),
             'only' => array(
-                'index',
                 'store',
                 'show',
                 'edit',
@@ -107,7 +105,7 @@ Route::group(array('namespace' => 'Asset'), function () {
             ),
         ));
 
-        Route::resource('assets.meters.readings', 'MeterReadingController', array(
+        Route::resource('assets.meters.readings', 'ReadingController', array(
             'only' => array(
                 'store',
                 'destroy',
