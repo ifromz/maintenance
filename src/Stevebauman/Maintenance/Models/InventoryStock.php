@@ -65,6 +65,16 @@ class InventoryStock extends BaseModel
     }
 
     /**
+     * The hasMany transactions relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany('Stevebauman\Maintenance\Models\InventoryTransaction', 'stock_id', 'id');
+    }
+
+    /**
      * The hasMany movements relationship
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -81,25 +91,21 @@ class InventoryStock extends BaseModel
      */
     public function getLastMovementAttribute()
     {
-        if ($this->movements->count() > 0) {
-
+        if ($this->movements->count() > 0)
+        {
             $movement = $this->movements->first();
 
-            if ($movement->after > $movement->before) {
-
+            if ($movement->after > $movement->before)
+            {
                 return sprintf('<b>%s</b> (Stock was added - %s) - <b>Reason:</b> %s', $movement->change, $movement->created_at, $movement->reason);
-
-            } else if ($movement->before > $movement->after) {
-
+            } else if ($movement->before > $movement->after)
+            {
                 return sprintf('<b>%s</b> (Stock was removed - %s) - <b>Reason:</b> %s', $movement->change, $movement->created_at, $movement->reason);
-
             }
-            else{
-
+            else
+            {
                 return sprintf('<b>%s</b> (No Change - %s) - <b>Reason:</b> %s', $movement->change, $movement->created_at, $movement->reason);
-
             }
-
         }
 
         return NULL;
@@ -113,20 +119,11 @@ class InventoryStock extends BaseModel
      */
     public function getLastMovementByAttribute()
     {
-        if ($this->movements->count() > 0) {
-
+        if ($this->movements->count() > 0)
+        {
             $movement = $this->movements->first();
 
-            if ($movement->user) {
-
-                return $movement->user->full_name;
-
-            } else {
-
-                return NULL;
-
-            }
-
+            if ($movement->user) return $movement->user->full_name;
         }
 
         return NULL;

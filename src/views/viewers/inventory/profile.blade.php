@@ -18,7 +18,7 @@
 
     @if($item->hasSku())
         <dt>SKU:</dt>
-        <dd>{{ $item->sku }}</dd>
+        <dd>{{ $item->getSku() }}</dd>
 
         <p></p>
     @endif

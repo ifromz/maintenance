@@ -40,6 +40,7 @@ class WorkOrderController extends BaseController
      */
     public function index()
     {
+        dd(\Location::get());
         $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
 
         return view('maintenance::work-orders.index', array(

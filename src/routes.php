@@ -21,6 +21,17 @@ Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespa
     include('routes/permission.php');
 
     /*
+     * Main Client Controller Group
+     */
+    Route::group(array('prefix' => 'client', 'namespace' => 'Controllers', 'before'=> 'maintenance.auth'), function()
+    {
+        /*
+         * Client Routes
+         */
+        include('routes/client.php');
+    });
+
+    /*
      * Main Application Controller Group
      *
      * @filters
@@ -30,11 +41,6 @@ Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespa
      */
     Route::group(array('prefix' => 'management', 'namespace' => 'Controllers', 'before' => 'maintenance.auth|maintenance.permission'), function ()
     {
-        /*
-         * Client Routes
-         */
-        include('routes/client.php');
-
         /*
          * Dashboard Routes
          */

@@ -36,6 +36,10 @@ class InventoryController extends BaseController
      */
     public function index()
     {
+        $transaction = \Stevebauman\Maintenance\Models\InventoryTransaction::find(2);
+
+        $transaction->sold(4);
+
         $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
 
         return view('maintenance::inventory.index', array(

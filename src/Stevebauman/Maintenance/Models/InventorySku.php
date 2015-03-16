@@ -19,4 +19,14 @@ class InventorySku extends BaseModel
         'prefix',
         'code',
     );
+
+    /**
+     * The belongsTo item trait
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function item()
+    {
+        return $this->belongsTo('Stevebauman\Maintenance\Models\Inventory', 'inventory_id', 'id');
+    }
 }

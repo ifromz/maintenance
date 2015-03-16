@@ -90,6 +90,16 @@ class Inventory extends BaseModel
     }
 
     /**
+     * The hasMany suppliers relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function suppliers()
+    {
+        return $this->belongsToMany('Stevebauman\Maintenance\Models\Supplier', 'inventory_suppliers', 'inventory_id')->withTimestamps();
+    }
+
+    /**
      * Filters query by the inputted inventory item name
      *
      * @param $query
