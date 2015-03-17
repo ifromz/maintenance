@@ -12,7 +12,6 @@ use Stevebauman\Maintenance\Controllers\BaseController;
  */
 class WorkOrderController extends BaseController
 {
-
     /**
      * @var WorkOrderService
      */
@@ -40,7 +39,6 @@ class WorkOrderController extends BaseController
      */
     public function index()
     {
-        dd(\Location::get());
         $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
 
         return view('maintenance::work-orders.index', array(
