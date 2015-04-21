@@ -44,6 +44,5 @@ class MailService extends Service
         {
             return false;
         }
-
     }
 }

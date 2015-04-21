@@ -1,13 +1,37 @@
 <?php
 
 /*
- * Amdministration Routes
+ * Administration Routes
  */
 
 Route::get('/', array(
     'as' => 'maintenance.admin.dashboard.index',
     'uses' => 'DashboardController@getIndex'
 ));
+
+/*
+ * Log Management Routes
+ */
+Route::post('logs/{logs}/mark-read', array(
+    'as' => 'maintenance.admin.logs.mark-read',
+    'uses' => 'LogController@markRead'
+));
+
+Route::resource('logs', 'LogController', array(
+    'only' => array(
+        'index',
+        'show',
+        'destroy',
+    ),
+    'names' => array(
+        'index' => 'maintenance.admin.logs.index',
+        'show' => 'maintenance.admin.logs.show',
+        'destroy' => 'maintenance.admin.logs.destroy',
+    ),
+));
+/*
+ * End Log Management Routes
+ */
 
 /*
  * User Management Routes
@@ -36,6 +60,9 @@ Route::group(array('namespace' => 'User'), function ()
         'uses' => 'AccessController@postCheck'
     ));
 });
+/*
+ * End User Management Routes
+ */
 
 /*
  * Group Management Routes
@@ -124,9 +151,14 @@ Route::group(array('namespace' => 'Archive'), function () {
             'destroy' => 'maintenance.admin.archive.inventory.destroy',
         ),
     ));
-
 });
+/*
+ * End Archive Routes
+ */
 
+/*
+ * Setting Routes
+ */
 Route::group(array('namespace' => 'Setting'), function ()
 {
 
@@ -161,3 +193,6 @@ Route::group(array('namespace' => 'Setting'), function ()
         ),
     ));
 });
+/*
+ * End Setting Routes
+ */

@@ -9,6 +9,9 @@
                 'action' => 'Action',
             ))
             ->means('created_by', 'user.full_name')
+            ->modify('last_reading', function($reading) {
+                return $reading->last_reading. ' '.$reading->metric->symbol;
+            })
             ->modify('action', function($meter) use ($asset) {
                 return $meter->viewer()->btnActionsForAsset($asset);
             })

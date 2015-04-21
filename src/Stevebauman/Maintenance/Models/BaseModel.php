@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  */
 class BaseModel extends Eloquent
 {
-
     /*
      * Provides easy table generation
      */

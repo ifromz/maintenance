@@ -7,7 +7,7 @@
     .border-bottom-radius(0);
     position: relative;
     overflow-x: hidden;
-    padding: 0;    
+    padding: 0;
   }
   &.chat-pane-open {
     .direct-chat-contacts {
@@ -98,28 +98,25 @@
 }
 //Direct chat contacts pane
 .direct-chat-contacts-open {
-  /*.direct-chat-messages {
-    .translate(-101%, 0);
-  }*/
   .direct-chat-contacts {
     .translate(0, 0);
   }
 }
 .direct-chat-contacts {
-  .translate(101%, 0);
+  .translate(100%, 0);
   position: absolute;
   top: 0;
   bottom: 0;
   height: 250px;
   width: 100%;
   background: #222d32;
-  color: #fff;  
+  color: #fff;
   overflow: auto;
 }
 
 //Contacts list -- for displaying contacts in direct chat contacts pane
 .contacts-list {
-  &:extend(.list-unstyled); 
+  &:extend(.list-unstyled);
   > li {
     .clearfix();
     border-bottom: 1px solid rgba(0,0,0,0.2);

@@ -14,6 +14,12 @@ class CategoryService extends BaseNestedSetModelService
         $this->model = $category;
     }
 
+    /**
+     * Retrieves all categories scoped
+     *
+     * @param array $select
+     * @return mixed
+     */
     public function get($select = array('*'))
     {
         return $this->model->select($select)->where('belongs_to', $this->scoped_id)->get();
@@ -21,7 +27,6 @@ class CategoryService extends BaseNestedSetModelService
 
     public function create()
     {
-
         $this->dbStartTransaction();
 
         try {

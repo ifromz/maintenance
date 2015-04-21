@@ -14,7 +14,6 @@ use Stevebauman\Maintenance\Services\BaseModelService;
  */
 class AssetService extends BaseModelService
 {
-
     /**
      * @var SentryService
      */
@@ -30,6 +29,26 @@ class AssetService extends BaseModelService
         $this->model = $asset;
         $this->sentry = $sentry;
         $this->notFoundException = $notFoundException;
+    }
+
+    /**
+     * @param mixed $ids
+     * @return \Illuminate\Support\Collection|null|static
+     */
+    public function find($ids)
+    {
+        $records = $this->model->with(array(
+            'meters',
+            'category',
+            'location',
+            'manuals',
+            'workOrders',
+            'images',
+        ))->find($ids);
+
+        if($records) return $records;
+
+        throw new $this->notFoundException;
     }
 
     /**
@@ -241,5 +260,4 @@ class AssetService extends BaseModelService
 
         return true;
     }
-
 }

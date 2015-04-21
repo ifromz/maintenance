@@ -7,13 +7,21 @@ use Stevebauman\Maintenance\Services\NoteService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Controllers\AbstractNoteableController;
 
-class NoteController extends AbstractNoteableController {
-
+/**
+ * Class NoteController
+ * @package Stevebauman\Maintenance\Controllers\Inventory
+ */
+class NoteController extends AbstractNoteableController
+{
+    /**
+     * @param InventoryService $inventory
+     * @param NoteService $note
+     * @param NoteValidator $noteValidator
+     */
     public function __construct(InventoryService $inventory, NoteService $note, NoteValidator $noteValidator)
     {
         $this->noteable = $inventory;
 
         parent::__construct($note, $noteValidator);
     }
-
 }

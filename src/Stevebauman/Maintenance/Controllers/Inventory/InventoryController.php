@@ -12,7 +12,6 @@ use Stevebauman\Maintenance\Controllers\BaseController;
  */
 class InventoryController extends BaseController
 {
-
     /**
      * @var InventoryService
      */
@@ -23,6 +22,10 @@ class InventoryController extends BaseController
      */
     protected $inventoryValidator;
 
+    /**
+     * @param InventoryService $inventory
+     * @param InventoryValidator $inventoryValidator
+     */
     public function __construct(InventoryService $inventory, InventoryValidator $inventoryValidator)
     {
         $this->inventory = $inventory;
@@ -36,10 +39,6 @@ class InventoryController extends BaseController
      */
     public function index()
     {
-        $transaction = \Stevebauman\Maintenance\Models\InventoryTransaction::find(2);
-
-        $transaction->sold(4);
-
         $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
 
         return view('maintenance::inventory.index', array(
@@ -69,22 +68,25 @@ class InventoryController extends BaseController
     {
         $this->inventoryValidator->unique('name', $this->inventory->getTableName(), 'name');
 
-        if ($this->inventoryValidator->passes()) {
-
+        if ($this->inventoryValidator->passes())
+        {
             $record = $this->inventory->setInput($this->inputAll())->create();
 
-            if ($record) {
+            if ($record)
+            {
                 $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', array($record->id)));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.inventory.index');
 
-            } else {
+            } else
+            {
                 $this->message = 'There was an error adding this item to the inventory. Please try again.';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.inventory.create');
             }
 
-        } else {
+        } else
+        {
             $this->errors = $this->inventoryValidator->getErrors();
         }
 

@@ -1,7 +1,12 @@
 {
   "name": "bootstrap-modal",
   "description": "Extends the default Bootstrap Modal class. Responsive, stackable, ajax and more.",
-  "version": "2.2.5",
+  "version": "2.2.6",
+  "main": [
+    "js/bootstrap-modal.js",
+    "js/bootstrap-modalmanager.js",
+    "css/bootstrap-modal.css"
+  ],
   "dependencies": {
     "bootstrap": "2.3.0"
   },
@@ -12,14 +17,13 @@
     "url": "https://github.com/jschr/bootstrap-modal/blob/master/LICENSE"
   },
   "homepage": "https://github.com/jschr/bootstrap-modal",
-  "_release": "2.2.5",
+  "_release": "2.2.6",
   "_resolution": {
     "type": "version",
-    "tag": "2.2.5",
-    "commit": "d2a0270d82f8e6b7655583b42e7f402479610b0f"
+    "tag": "2.2.6",
+    "commit": "d0f498c453206373cac8c124e53d5cf967617a71"
   },
   "_source": "git://github.com/jschr/bootstrap-modal.git",
   "_target": "~2.2.5",
-  "_originalSource": "bootstrap-modal",
-  "_direct": true
+  "_originalSource": "bootstrap-modal"
 }

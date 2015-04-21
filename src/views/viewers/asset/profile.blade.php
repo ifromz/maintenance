@@ -20,7 +20,7 @@
 
     <p></p>
 
-    <dt>Aquired At:</dt>
+    <dt>Acquired At:</dt>
     <dd>{{ ($asset->acquired_at ? $asset->acquired_at : '<em>None</em>') }}</dd>
 
     @if($asset->location)

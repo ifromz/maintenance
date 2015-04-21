@@ -72,4 +72,12 @@
             </ul>
         </li>
     @endif
+
+    @if(Sentry::hasAccess('maintenance.admin.logs.index'))
+        <li class="{{ activeMenuLink('maintenance.admin.logs') }}">
+            <a href="{{ route('maintenance.admin.logs.index') }}">
+                <i class="fa fa-list-alt"></i> Site Log
+            </a>
+        </li>
+    @endif
 @stop

@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance;
 
 use Stevebauman\Maintenance\Services\SentryService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class MaintenanceServiceProvider extends ServiceProvider

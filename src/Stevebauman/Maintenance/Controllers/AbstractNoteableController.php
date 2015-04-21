@@ -5,9 +5,12 @@ namespace Stevebauman\Maintenance\Controllers;
 use Stevebauman\Maintenance\Validators\NoteValidator;
 use Stevebauman\Maintenance\Services\NoteService;
 
+/**
+ * Class AbstractNoteableController
+ * @package Stevebauman\Maintenance\Controllers
+ */
 class AbstractNoteableController extends BaseController
 {
-
     /**
      * Holds the note service
      *
@@ -61,30 +64,26 @@ class AbstractNoteableController extends BaseController
      */
     public function store($noteable_id)
     {
-        if ($this->noteValidator->passes()) {
-
+        if ($this->noteValidator->passes())
+        {
             $noteable = $this->noteable->find($noteable_id);
 
             $note = $this->note->setInput($this->inputAll())->create();
 
-            if ($note) {
-
+            if ($note)
+            {
                 $noteable->notes()->attach($note);
 
                 $this->message = 'Successfully created note';
                 $this->messageType = 'success';
-
-            } else {
-
+            } else
+            {
                 $this->message = 'There was an error creating a note, please try again later.';
                 $this->messageType = 'danger';
-
             }
-
-        } else {
-
+        } else
+        {
             $this->errors = $this->noteValidator->getErrors();
-
         }
 
         return $this->response();

@@ -53,7 +53,7 @@ class Asset extends BaseModel
         'model' => 'Model',
         'serial' => 'Serial',
         'price' => 'Price',
-        'aquired_at' => 'Aquired At',
+        'acquired' => 'Acquired At',
         'end_of_life' => 'End of Life',
     );
 

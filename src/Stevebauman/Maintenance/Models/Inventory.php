@@ -25,7 +25,6 @@ class Inventory extends BaseModel
     use HasEventsTrait;
     use HasUserTrait;
     use HasNotesTrait;
-
     /**
      * The database table to store inventory records
      *
@@ -43,7 +42,8 @@ class Inventory extends BaseModel
         'metric_id',
         'category_id',
         'name',
-        'description'
+        'description',
+        'is_assembly',
     );
 
     /**
@@ -87,6 +87,16 @@ class Inventory extends BaseModel
     public function stocks()
     {
         return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStock', 'inventory_id');
+    }
+
+    /**
+     * The hasMany assemblies relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function assemblies()
+    {
+        return $this->hasMany('Stevebauman\Inventory\Models\InventoryAssembly', 'inventory_id');
     }
 
     /**

@@ -67,11 +67,10 @@ class InventoryService extends BaseModelService
      */
     public function create()
     {
-
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             /*
              * Set input data
              */
@@ -88,8 +87,8 @@ class InventoryService extends BaseModelService
              */
             $record = $this->model->create($insert);
 
-            if ($record) {
-
+            if ($record)
+            {
                 /*
                  * Fire created event
                  */
@@ -100,20 +99,18 @@ class InventoryService extends BaseModelService
                 $this->dbCommitTransaction();
 
                 return $record;
-
             }
 
             $this->dbRollbackTransaction();
 
             return false;
 
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
         }
 
+        return false;
     }
 
     /**

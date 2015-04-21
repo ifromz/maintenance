@@ -14,9 +14,9 @@
 
         {{ $user->viewer()->btnDelete }}
 
-        {{ $user->viewer()->profile }}
-
         <hr>
+
+        {{ $user->viewer()->profile }}
 
         {{ $user->viewer()->permissionChecker }}
 
