@@ -10,6 +10,11 @@
 
 > **Note:** This repository contains the core code of the Maintenance application. If you want the actual pre-built application, visit the main [Maintenance App repository](https://github.com/stevebauman/maintenance-app).
 
+## Status
+
+This application is not finished yet and is in heavy development. When a release is tagged on Github, you will know when
+it is complete.
+
 ##Important Todo's
 * Started: Feb 22nd 2015    - Complete administration panel
 * Started: Not yet started  - Complete client interface and functionality
