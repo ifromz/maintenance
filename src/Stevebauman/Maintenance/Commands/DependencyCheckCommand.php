@@ -39,7 +39,6 @@ class DependencyCheckCommand extends Command {
         'Baum\BaumServiceProvider' => 'Baum',
         'SimpleSoftwareIO\QrCode\QrCodeServiceProvider' => 'Simple-QrCode Generator',
         'Mews\Purifier\PurifierServiceProvider' => 'Purifier',
-        'Mews\Captcha\CaptchaServiceProvider' => 'Captcha',
         'Google_Service' => 'Google API',
         'DaveJamesMiller\Breadcrumbs\ServiceProvider' => 'Breadcrumbs',
     );
@@ -47,7 +46,7 @@ class DependencyCheckCommand extends Command {
     /**
      * Fires the command
      *
-     * @throws DependencyNotFound
+     * @throws DependencyNotFoundException
      */
     public function fire()
     {
