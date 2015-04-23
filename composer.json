@@ -22,7 +22,8 @@
         "baum/baum": "1.0.*",
         "simplesoftwareio/simple-qrcode": "1.0.*",
         "davejamesmiller/laravel-breadcrumbs": "2.3.*",
-        "dmyers/laravel-storage": "1.0.*"
+        "dmyers/laravel-storage": "1.0.*",
+        "google/apiclient": "1.*"
     },
     "require-dev": {
         "codeception/codeception": "2.*"
