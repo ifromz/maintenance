@@ -67,7 +67,6 @@ class PriorityController extends BaseController
         $this->priorityValidator->unique('name', $this->priority->getTableName(), 'name');
 
         if ($this->priorityValidator->passes()) {
-
             if ($this->priority->setInput($this->inputAll())->create()) {
                 $this->message = 'Successfully created priority';
                 $this->messageType = 'success';
@@ -77,7 +76,6 @@ class PriorityController extends BaseController
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.work-orders.priorities.create');
             }
-
         } else {
             $this->errors = $this->priorityValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.priorities.create');
@@ -115,7 +113,6 @@ class PriorityController extends BaseController
         $this->priorityValidator->ignore('name', $this->priority->getTableName(), 'name', $id);
 
         if ($this->priorityValidator->passes()) {
-
             if ($this->priority->setInput($this->inputAll())->update($id)) {
                 $this->message = 'Successfully updated priority';
                 $this->messageType = 'success';
@@ -125,7 +122,6 @@ class PriorityController extends BaseController
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.work-orders.priorities.edit', array($id));
             }
-
         } else {
             $this->errors = $this->priorityValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.priorities.edit', array($id));

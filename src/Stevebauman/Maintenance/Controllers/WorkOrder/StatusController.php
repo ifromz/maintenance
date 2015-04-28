@@ -8,7 +8,23 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 
 class StatusController extends BaseController
 {
+    /**
+     * @var StatusService
+     */
+    protected $status;
 
+    /**
+     * @var StatusValidator
+     */
+    protected $statusValidator;
+
+    /**
+     * Constructor.
+     *
+     * @param StatusService $status
+     *
+     * @param StatusValidator $statusValidator
+     */
     public function __construct(StatusService $status, StatusValidator $statusValidator)
     {
         $this->status = $status;
@@ -16,9 +32,9 @@ class StatusController extends BaseController
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays all of the work order statuses.
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -31,9 +47,10 @@ class StatusController extends BaseController
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Displays the form for creating a new
+     * work order status.
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -42,11 +59,10 @@ class StatusController extends BaseController
         ));
     }
 
-
     /**
-     * Store a newly created resource in storage.
+     * Creates a new work order status.
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store()
     {
@@ -56,7 +72,6 @@ class StatusController extends BaseController
         $this->statusValidator->unique('name', 'statuses', 'name');
 
         if ($this->statusValidator->passes()) {
-
             if ($this->status->setInput($this->inputAll())->create()) {
                 $this->message = 'Successfully created status';
                 $this->messageType = 'success';
@@ -66,7 +81,6 @@ class StatusController extends BaseController
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.work-orders.statuses.create');
             }
-
         } else {
             $this->errors = $this->statusValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.statuses.create');
@@ -76,10 +90,12 @@ class StatusController extends BaseController
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Displays the form for editing a
+     * work order status.
      *
-     * @param  int $id
-     * @return Response
+     * @param string|int $id
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -91,23 +107,22 @@ class StatusController extends BaseController
         ));
     }
 
-
     /**
-     * Update the specified resource in storage.
+     * Updates the specified work order status.
      *
-     * @param  int $id
-     * @return Response
+     * @param string|int $id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update($id)
     {
         /*
-         * Ignores the current status ID but makes sure the name is still
-         * uniques
+         * Ignores the current status ID but makes
+         *  sure the name is still unique
          */
         $this->statusValidator->ignore('name', 'statuses', 'name', $id);
 
         if ($this->statusValidator->passes()) {
-
             if ($this->status->setInput($this->inputAll())->update($id)) {
                 $this->message = 'Successfully updated status';
                 $this->messageType = 'success';
@@ -117,7 +132,6 @@ class StatusController extends BaseController
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.work-orders.statuses.edit', array($id));
             }
-
         } else {
             $this->errors = $this->statusValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.statuses.edit', array($id));
@@ -126,12 +140,12 @@ class StatusController extends BaseController
         return $this->response();
     }
 
-
     /**
-     * Remove the specified resource from storage.
+     * Deletes the specified work order status.
      *
-     * @param  int $id
-     * @return Response
+     * @param string|int $id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -143,6 +157,4 @@ class StatusController extends BaseController
 
         return $this->response();
     }
-
-
 }

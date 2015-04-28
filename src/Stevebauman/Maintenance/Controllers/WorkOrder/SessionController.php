@@ -11,7 +11,6 @@ use Stevebauman\Maintenance\Controllers\BaseController;
  */
 class SessionController extends BaseController
 {
-
     /**
      * @var SessionService
      */
@@ -26,10 +25,11 @@ class SessionController extends BaseController
     }
 
     /**
-     * Starts a maintenance workers session on a work order
+     * Starts a maintenance workers session on a work order.
      *
      * @param string|int $workOrder_id
-     * @return \Illuminate\Http\JsonResponse|mixed
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function postStart($workOrder_id)
     {
@@ -52,11 +52,12 @@ class SessionController extends BaseController
     }
 
     /**
-     * Ends a maintenance workers session on a work order
+     * Ends a maintenance workers session on a work order.
      *
      * @param string|int $workOrder_id
      * @param string|int $session_id
-     * @return \Illuminate\Http\JsonResponse|mixed
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function postEnd($workOrder_id, $session_id)
     {
@@ -77,5 +78,4 @@ class SessionController extends BaseController
 
         return $this->response();
     }
-
 }

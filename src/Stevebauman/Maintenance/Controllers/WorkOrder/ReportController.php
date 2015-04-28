@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Controllers\WorkOrder;
+<?php
+
+namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\WorkOrderReportValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\ReportService;
@@ -7,7 +9,6 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 
 class ReportController extends BaseController
 {
-
     /**
      * @var WorkOrderService
      */
@@ -24,6 +25,8 @@ class ReportController extends BaseController
     protected $reportValidator;
 
     /**
+     * Constructor.
+     *
      * @param WorkOrderService $workOrder
      * @param ReportService $report
      * @param WorkOrderReportValidator $reportValidator
@@ -36,11 +39,12 @@ class ReportController extends BaseController
     }
 
     /**
-     * Displays the form to create a work order report attached to the specified
-     * work order
+     * Displays the form for creating a report
+     * for the specified work order.
      *
-     * @param $workOrder_id
-     * @return mixed
+     * @param string|int $workOrder_id
+     *
+     * @return \Illuminate\View\View
      */
     public function create($workOrder_id)
     {
@@ -53,10 +57,11 @@ class ReportController extends BaseController
     }
 
     /**
-     * Creates a new work order report attached to the specified work order
+     * Creates a new report for the specified work order.
      *
-     * @param $workOrder_id
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @param string|int $workOrder_id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store($workOrder_id)
     {
@@ -80,8 +85,6 @@ class ReportController extends BaseController
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
             }
-
-
         } else {
             $this->errors = $this->reportValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
@@ -133,6 +136,4 @@ class ReportController extends BaseController
     {
 
     }
-
-
 }

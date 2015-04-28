@@ -23,6 +23,8 @@ class RequestController extends BaseController
     protected $workRequest;
 
     /**
+     * Constructor.
+     *
      * @param WorkOrderService $workOrder
      * @param WorkRequestService $workRequest
      */
@@ -32,6 +34,14 @@ class RequestController extends BaseController
         $this->workRequest = $workRequest;
     }
 
+    /**
+     * Displays the form to create a work order from the
+     * specified request.
+     *
+     * @param string|int $requestId
+     *
+     * @return \Illuminate\View\View
+     */
     public function create($requestId)
     {
         $workRequest = $this->workRequest->find($requestId);
@@ -42,6 +52,14 @@ class RequestController extends BaseController
         ));
     }
 
+    /**
+     * Creates a new work order for the specified
+     * request.
+     *
+     * @param string|int $requestId
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function store($requestId)
     {
         $workRequest = $this->workRequest->find($requestId);
