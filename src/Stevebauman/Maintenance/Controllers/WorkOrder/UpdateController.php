@@ -29,6 +29,8 @@ class UpdateController extends BaseController
     protected $updateValidator;
 
     /**
+     * Constructor.
+     *
      * @param UpdateService $update
      * @param WorkOrderService $workOrder
      * @param UpdateValidator $updateValidator
@@ -41,15 +43,15 @@ class UpdateController extends BaseController
     }
 
     /**
-     * Creates a new work order customer update
+     * Creates a new work order customer update.
      *
-     * @param int $workOrder_id
-     * @return mixed
+     * @param string|int $workOrder_id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store($workOrder_id)
     {
-        if ($this->updateValidator->passes())
-        {
+        if ($this->updateValidator->passes()) {
             $workOrder = $this->workOrder->find($workOrder_id);
 
             $update = $this->update->setInput($this->inputAll())->create();
@@ -59,8 +61,7 @@ class UpdateController extends BaseController
             $this->message = 'Successfully added update';
             $this->messageType = 'success';
             $this->redirect = routeBack('maintenance.work-orders.show', array($workOrder->id));
-        } else
-        {
+        } else {
             $this->errors = $this->updateValidator->getErrors();
             $this->redirect = routeBack('maintenance.work-orders.show', array($workOrder_id));
         }
@@ -69,23 +70,22 @@ class UpdateController extends BaseController
     }
 
     /**
-     * Processes deleting a work order update
+     * Deletes a work order update.
      *
-     * @param $workOrderId
-     * @param $updateId
+     * @param string|int $workOrderId
+     * @param string|int $updateId
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($workOrderId, $updateId)
     {
         $workOrder = $this->workOrder->find($workOrderId);
 
-        if($this->update->destroy($updateId))
-        {
+        if($this->update->destroy($updateId)) {
             $this->message = 'Successfully deleted update';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.show', array($workOrder->id, '#tab_updates'));
-        } else
-        {
+        } else {
             $this->message = 'There was an error trying to delete this update. Please try again.';
             $this->messageType = 'danger';
             $this->redirect = route('maintenance.work-orders.show', array($workOrder->id, '#tab_updates'));
@@ -93,5 +93,4 @@ class UpdateController extends BaseController
 
         return $this->response();
     }
-
 }

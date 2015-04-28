@@ -23,6 +23,8 @@ class WorkOrderController extends BaseController
     protected $workOrderValidator;
 
     /**
+     * Constructor.
+     *
      * @param WorkOrderService $workOrder
      * @param WorkOrderValidator $workOrderValidator
      */
@@ -33,9 +35,9 @@ class WorkOrderController extends BaseController
     }
 
     /**
-     * Displays all work orders (paginated with search functionality)
+     * Displays work orders paginated.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -48,7 +50,7 @@ class WorkOrderController extends BaseController
     }
 
     /**
-     * Displays the form to create a work order
+     * Displays the form to create a work order.
      *
      * @return mixed
      */
@@ -60,9 +62,9 @@ class WorkOrderController extends BaseController
     }
 
     /**
-     * Stores a new work order
+     * Creates a new work order.
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store()
     {
@@ -81,10 +83,11 @@ class WorkOrderController extends BaseController
     }
 
     /**
-     * Displays the specified work order
+     * Displays the specified work order.
      *
-     * @param $id
-     * @return mixed
+     * @param string|int $id
+     *
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -97,10 +100,11 @@ class WorkOrderController extends BaseController
     }
 
     /**
-     * Displays the edit form for the specified work order
+     * Displays the edit form for the specified work order.
      *
-     * @param $id
-     * @return mixed
+     * @param string|int $id
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -110,26 +114,23 @@ class WorkOrderController extends BaseController
             'title' => 'Editing Work Order: ' . $workOrder->subject,
             'workOrder' => $workOrder,
         ));
-
     }
 
     /**
-     * Update the specified work order
+     * Updates the specified work order.
      *
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @param string|int $id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update($id)
     {
         if ($this->workOrderValidator->passes()) {
-
             $record = $this->workOrder->setInput($this->inputAll())->update($id);
 
             $this->redirect = route('maintenance.work-orders.show', array($id));
             $this->message = sprintf('Successfully edited work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($record->id)));
             $this->messageType = 'success';
-
-
         } else {
             $this->redirect = route('maintenance.work-orders.edit', array($id));
             $this->errors = $this->workOrderValidator->getErrors();
@@ -139,10 +140,10 @@ class WorkOrderController extends BaseController
     }
 
     /**
-     * Removes the work order
+     * Deletes a work order.
      *
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @param string|int $id
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -158,5 +159,4 @@ class WorkOrderController extends BaseController
 
         return $this->response();
     }
-
 }
