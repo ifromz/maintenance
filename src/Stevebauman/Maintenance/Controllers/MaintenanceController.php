@@ -11,7 +11,7 @@ class MaintenanceController extends BaseController
     /**
      * Displays the maintenance management dashboard
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
 	public function getIndex()
     {

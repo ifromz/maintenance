@@ -10,8 +10,8 @@ use Stevebauman\Maintenance\Controllers\BaseController;
  * Class GroupController
  * @package Stevebauman\Maintenance\Controllers\Admin
  */
-class GroupController extends BaseController {
-
+class GroupController extends BaseController
+{
     /**
      * @var GroupService
      */
@@ -22,6 +22,12 @@ class GroupController extends BaseController {
      */
     private $groupValidator;
 
+    /**
+     * Constructor.
+     *
+     * @param GroupService $group
+     * @param GroupValidator $groupValidator
+     */
     public function __construct(GroupService $group, GroupValidator $groupValidator)
     {
         $this->group = $group;
@@ -163,6 +169,7 @@ class GroupController extends BaseController {
      * Processes deleting the specified user group
      *
      * @param $id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($id)
@@ -190,6 +197,7 @@ class GroupController extends BaseController {
      * Converts the submitted route array key values to 1 for sentry
      *
      * @param null $routes
+     *
      * @return array
      */
     private function routesToPermissions($routes = NULL)

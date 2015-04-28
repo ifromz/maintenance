@@ -40,5 +40,4 @@ class EventController extends AbstractEventableController
 
         parent::__construct($event, $eventValidator);
     }
-
 }

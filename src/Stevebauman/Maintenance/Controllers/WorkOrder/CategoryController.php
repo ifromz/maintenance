@@ -8,7 +8,12 @@ use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
 
 class CategoryController extends AbstractNestedSetController
 {
-
+    /**
+     * Constructor.
+     *
+     * @param CategoryService $categoryService
+     * @param WorkOrderCategoryValidator $categoryValidator
+     */
     public function __construct(CategoryService $categoryService, WorkOrderCategoryValidator $categoryValidator)
     {
         $this->service = $categoryService;
@@ -16,5 +21,4 @@ class CategoryController extends AbstractNestedSetController
 
         $this->resource = 'Work Order Category';
     }
-
 }

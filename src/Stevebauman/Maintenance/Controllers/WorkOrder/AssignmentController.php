@@ -9,7 +9,6 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 
 class AssignmentController extends BaseController
 {
-
     /**
      * @var AssignmentService
      */
@@ -26,6 +25,8 @@ class AssignmentController extends BaseController
     protected $assignmentValidator;
 
     /**
+     * Constructor.
+     *
      * @param AssignmentService $assignment
      * @param WorkOrderService $workOrder
      * @param AssignmentValidator $assignmentValidator
@@ -58,14 +59,14 @@ class AssignmentController extends BaseController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Assigns workers to the specified work order ID.
      *
-     * @param $workOrder_id
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @param string|int $workOrder_id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store($workOrder_id)
     {
-
         if ($this->assignmentValidator->passes()) {
 
             $workOrder = $this->workOrder->find($workOrder_id);
@@ -94,10 +95,11 @@ class AssignmentController extends BaseController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the specified assignent from the specified work order.
      *
-     * @param $workOrder_id
-     * @param $assignment_id
+     * @param string|int $workOrder_id
+     * @param string|int $assignment_id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($workOrder_id, $assignment_id)
@@ -114,6 +116,4 @@ class AssignmentController extends BaseController
 
         return $this->response();
     }
-
-
 }

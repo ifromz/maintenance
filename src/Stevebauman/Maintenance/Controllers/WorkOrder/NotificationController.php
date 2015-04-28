@@ -9,7 +9,28 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 
 class NotificationController extends BaseController
 {
+    /**
+     * @var NotificationService
+     */
+    protected $workOrderNotification;
 
+    /**
+     * @var WorkOrderNotificationValidator
+     */
+    protected $workOrderNotificationValidator;
+
+    /**
+     * @var WorkOrderService
+     */
+    protected $workOrder;
+
+    /**
+     * Constructor.
+     *
+     * @param WorkOrderService $workOrder
+     * @param NotificationService $workOrderNotification
+     * @param WorkOrderNotificationValidator $workOrderNotificationValidator
+     */
     public function __construct(
         WorkOrderService $workOrder,
         NotificationService $workOrderNotification,
@@ -21,6 +42,13 @@ class NotificationController extends BaseController
         $this->workOrder = $workOrder;
     }
 
+    /**
+     * Creates a new notification for the specified work order.
+     *
+     * @param string|int $workOrder_id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function store($workOrder_id)
     {
 
@@ -45,6 +73,14 @@ class NotificationController extends BaseController
 
     }
 
+    /**
+     * Updates the specified notification for the specified work order.
+     *
+     * @param string|int $workOrder_id
+     * @param string|int $notification_id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function update($workOrder_id, $notification_id)
     {
         if ($this->workOrderNotificationValidator->passes()) {
@@ -69,5 +105,4 @@ class NotificationController extends BaseController
 
         return $this->response();
     }
-
 }

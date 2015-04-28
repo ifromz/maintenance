@@ -8,7 +8,22 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 
 class PriorityController extends BaseController
 {
+    /**
+     * @var PriorityService
+     */
+    protected $priority;
 
+    /**
+     * @var PriorityValidator
+     */
+    protected $priorityValidator;
+
+    /**
+     * Constructor.
+     *
+     * @param PriorityService $priority
+     * @param PriorityValidator $priorityValidator
+     */
     public function __construct(PriorityService $priority, PriorityValidator $priorityValidator)
     {
         $this->priority = $priority;
@@ -16,9 +31,9 @@ class PriorityController extends BaseController
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays all priorities.
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -30,11 +45,10 @@ class PriorityController extends BaseController
         ));
     }
 
-
     /**
-     * Show the form for creating a new resource.
+     * Displays the form for creating a priority.
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -43,11 +57,10 @@ class PriorityController extends BaseController
         ));
     }
 
-
     /**
-     * Store a newly created resource in storage.
+     * Creates a new priority.
      *
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store()
     {
@@ -74,10 +87,11 @@ class PriorityController extends BaseController
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Displays the form for editing the specified priority.
      *
-     * @param  int $id
-     * @return Response
+     * @param string|int $id
+     *
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -89,12 +103,12 @@ class PriorityController extends BaseController
         ));
     }
 
-
     /**
-     * Update the specified resource in storage.
+     * Updates the specified priority.
      *
-     * @param  int $id
-     * @return Response
+     * @param string|int $id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update($id)
     {
@@ -120,12 +134,12 @@ class PriorityController extends BaseController
         return $this->response();
     }
 
-
     /**
-     * Remove the specified resource from storage.
+     * Deletes the specified priority.
      *
-     * @param  int $id
-     * @return Response
+     * @param string|int $id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -137,6 +151,4 @@ class PriorityController extends BaseController
 
         return $this->response();
     }
-
-
 }

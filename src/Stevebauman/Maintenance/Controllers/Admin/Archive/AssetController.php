@@ -5,13 +5,23 @@ namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
 use Stevebauman\Maintenance\Controllers\BaseController;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 
-class AssetController extends BaseController {
-    
+class AssetController extends BaseController
+{
+    /**
+     * Constructor.
+     *
+     * @param AssetService $asset
+     */
     public function __construct(AssetService $asset)
     {
         $this->asset = $asset;
     }
-    
+
+    /**
+     * Displays the archived assets.
+     *
+     * @return mixed
+     */
     public function index()
     {
         $assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter(true);
@@ -21,7 +31,14 @@ class AssetController extends BaseController {
             'assets'=> $assets
         ));
     }
-    
+
+    /**
+     * Displays the specified archived asset.
+     *
+     * @param string|int $id
+     *
+     * @return mixed
+     */
     public function show($id)
     {
         $asset = $this->asset->findArchived($id);
@@ -31,7 +48,14 @@ class AssetController extends BaseController {
             'asset' => $asset
         ));
     }
-    
+
+    /**
+     * Deletes the specified archived asset.
+     *
+     * @param string|int $id
+     *
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     public function destroy($id)
     {
         $this->asset->destroyArchived($id);
@@ -42,7 +66,14 @@ class AssetController extends BaseController {
         
         return $this->response();
     }
-    
+
+    /**
+     * Restores the specified archived asset.
+     *
+     * @param string|int $id
+     *
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
     public function restore($id)
     {
         if($this->asset->restoreArchived($id)){
