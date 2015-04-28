@@ -4,6 +4,8 @@
  * The Maintenance View Composers registration file
  */
 
+use Illuminate\Support\Facades\View;
+
 View::composers(array(
     'Stevebauman\Maintenance\Composers\MainLayoutComposer'      => 'maintenance::layouts.main',
     'Stevebauman\Maintenance\Composers\PublicLayoutComposer'    => 'maintenance::layouts.public',

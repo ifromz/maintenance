@@ -4,6 +4,8 @@
  * Validator Registrations
  */
 
+use Illuminate\Support\Facades\Validator;
+
 /**
  * Validates Work Order Assignments to make sure if the user has already been assigned to the work order.
  */

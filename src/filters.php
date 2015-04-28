@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /**
  * Filter to protect against unauthorized users
  * Redirects users to main login
