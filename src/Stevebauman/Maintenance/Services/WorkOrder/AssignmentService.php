@@ -45,15 +45,15 @@ class AssignmentService extends BaseModelService
 
             if ($users) {
 
-                $records = array();
+                $records = [];
 
                 foreach ($users as $user) {
 
-                    $insert = array(
+                    $insert = [
                         'work_order_id' => $this->getInput('work_order_id'),
                         'by_user_id' => $this->sentry->getCurrentUserId(),
                         'to_user_id' => $user
-                    );
+                    ];
 
                     $records[] = $this->model->create($insert);
 

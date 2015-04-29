@@ -24,7 +24,7 @@ abstract class AbstractListener
      */
     public function createNotification($user_id, $object, $message, $link, $before = NULL, $after = NULL)
     {
-        $notification = Notification::create(array(
+        $notification = Notification::create([
             'user_id' => $user_id,
             'notifiable_type' => get_class($object),
             'notifiable_id' => $object->id,
@@ -32,9 +32,9 @@ abstract class AbstractListener
             'link' => $link,
             'before' => $before,
             'after' => $after,
-        ));
+        ]);
 
-        Mail::send('maintenance::emails.notification', array('notification' => $notification), function (Message $message) {
+        Mail::send('maintenance::emails.notification', ['notification' => $notification], function (Message $message) {
             $message->to('sbauman@bwbc.gc.ca')->subject('Testing');
         });
 

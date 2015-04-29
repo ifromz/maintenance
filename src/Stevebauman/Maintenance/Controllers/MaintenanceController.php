@@ -15,8 +15,8 @@ class MaintenanceController extends BaseController
      */
 	public function getIndex()
     {
-        return view('maintenance::dashboard.index', array(
+        return view('maintenance::dashboard.index', [
             'title' => 'Dashboard'
-        ));
+        ]);
 	}
 }

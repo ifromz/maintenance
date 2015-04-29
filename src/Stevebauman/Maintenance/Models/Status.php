@@ -16,11 +16,11 @@ class Status extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\StatusViewer';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'name',
         'color'
-    );
+    ];
 
     /**
      * Returns an html label with the color of the status

@@ -92,15 +92,15 @@ class LdapUserSeeder extends Seeder
                 if(array_key_exists(1, $name)) $first_name = $name[1];
             }
 
-            $data = array(
+            $data = [
                 'email'    => $user->email,
                 'password' => str_random(20),
                 'username' => $user->username,
                 'last_name' => $last_name,
                 'first_name' => $first_name,
-            );
+            ];
 
-            $groups = array();
+            $groups = [];
 
             if($user->group)
             {

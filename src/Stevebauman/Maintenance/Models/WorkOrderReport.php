@@ -14,11 +14,11 @@ class WorkOrderReport extends BaseModel
 
     protected $table = 'work_order_reports';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'work_order_id',
         'description'
-    );
+    ];
 
     /**
      * The hasOne work order trait

@@ -46,17 +46,17 @@ class PasswordController extends BaseController
             {
                 $this->message = 'Successfully updated password';
                 $this->messageType = 'success';
-                $this->redirect = routeBack('maintenance.admin.users.show', array($id));
+                $this->redirect = routeBack('maintenance.admin.users.show', [$id]);
             } else
             {
                 $this->message = 'There was an issue resseting this users password. Please try again';
                 $this->messageType = 'danger';
-                $this->redirect = routeBack('maintenance.admin.users.show', array($id));
+                $this->redirect = routeBack('maintenance.admin.users.show', [$id]);
             }
         } else
         {
             $this->errors = $this->passwordValidator->getErrors();
-            $this->redirect = route('maintenance.admin.users.show', array($id));
+            $this->redirect = route('maintenance.admin.users.show', [$id]);
         }
 
         return $this->response();

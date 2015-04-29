@@ -3,44 +3,44 @@
 /*
  * Authentication Routes
  */
-Route::group(array('prefix' => 'login', 'namespace' => 'Controllers', 'before' => 'maintenance.notauth'), function ()
+Route::group(['prefix' => 'login', 'namespace' => 'Controllers', 'before' => 'maintenance.notauth'], function ()
 {
-    Route::get('', array(
+    Route::get('', [
         'as' => 'maintenance.login',
         'uses' => 'AuthController@getLogin',
-    ));
+    ]);
 
-    Route::post('', array(
+    Route::post('', [
         'as' => 'maintenance.login',
         'uses' => 'AuthController@postLogin',
-    ));
+    ]);
 
-    Route::get('forgot-password', array(
+    Route::get('forgot-password', [
         'as' => 'maintenance.login.forgot-password',
         'uses' => 'PasswordController@getRequest',
-    ));
+    ]);
 
-    Route::post('forgot-password', array(
+    Route::post('forgot-password', [
         'as' => 'maintenance.login.forgot-password',
         'uses' => 'PasswordController@postRequest',
-    ));
+    ]);
 
-    Route::get('reset-password/{users}/{code}', array(
+    Route::get('reset-password/{users}/{code}', [
         'as' => 'maintenance.login.reset-password',
         'uses' => 'PasswordController@getReset',
-    ));
+    ]);
 
-    Route::post('reset-password/{users}/{code}', array(
+    Route::post('reset-password/{users}/{code}', [
         'as' => 'maintenance.login.reset-password',
         'uses' => 'PasswordController@postReset',
-    ));
+    ]);
 });
 
-Route::group(array('namespace' => 'Controllers', 'before' => 'maintenance.auth'), function ()
+Route::group(['namespace' => 'Controllers', 'before' => 'maintenance.auth'], function ()
 {
-    Route::get('logout', array(
+    Route::get('logout', [
         'as' => 'maintenance.logout',
         'uses' => 'AuthController@getLogout',
-    ));
+    ]);
 });
    

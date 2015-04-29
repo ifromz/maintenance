@@ -14,13 +14,13 @@ class WorkOrderSession extends BaseModel
 
     protected $table = 'work_order_sessions';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'work_order_id',
         'in',
         'out',
         'hours'
-    );
+    ];
 
     /**
      * The hasOne work order relationship

@@ -12,13 +12,13 @@ class InventoryTransactionHistory extends BaseModel
 {
     use InventoryTransactionHistoryTrait;
 
-    protected $fillable = array(
+    protected $fillable = [
         'transaction_id',
         'state_before',
         'state_after',
         'quantity_before',
         'quantity_after',
-    );
+    ];
 
     protected $table = 'inventory_transaction_histories';
 

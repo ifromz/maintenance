@@ -8,7 +8,7 @@ class AssignmentViewer extends BaseViewer {
 
     public function btnRemove()
     {
-        return view('maintenance::viewers.work-order.assignment.buttons.remove', array('assignment'=>$this->entity));
+        return view('maintenance::viewers.work-order.assignment.buttons.remove', ['assignment'=>$this->entity]);
     }
 
 }

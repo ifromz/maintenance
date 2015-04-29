@@ -34,7 +34,7 @@ class MetricService extends BaseModelService
      * @param array $select
      * @return mixed
      */
-    public function get($select = array())
+    public function get($select = [])
     {
         return $this->model->sort($this->getInput('field'), $this->getInput('sort'))->get();
     }
@@ -50,11 +50,11 @@ class MetricService extends BaseModelService
 
         try
         {
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'name' => $this->getInput('name'),
                 'symbol' => $this->getInput('symbol')
-            );
+            ];
 
             $record = $this->model->create($insert);
 
@@ -82,10 +82,10 @@ class MetricService extends BaseModelService
 
         try
         {
-            $insert = array(
+            $insert = [
                 'name' => $this->getInput('name'),
                 'symbol' => $this->getInput('symbol')
-            );
+            ];
 
             $record = $this->find($id);
 

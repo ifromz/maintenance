@@ -43,10 +43,10 @@ class WorkOrderController extends BaseController
     {
         $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
 
-        return view('maintenance::work-orders.index', array(
+        return view('maintenance::work-orders.index', [
             'title' => 'Work Orders',
             'workOrders' => $workOrders
-        ));
+        ]);
     }
 
     /**
@@ -56,9 +56,9 @@ class WorkOrderController extends BaseController
      */
     public function create()
     {
-        return view('maintenance::work-orders.create', array(
+        return view('maintenance::work-orders.create', [
             'title' => 'Create a Work Order',
-        ));
+        ]);
     }
 
     /**
@@ -72,7 +72,7 @@ class WorkOrderController extends BaseController
             $workOrder = $this->workOrder->setInput($this->inputAll())->create();
 
             $this->redirect = route('maintenance.work-orders.index');
-            $this->message = sprintf('Successfully created work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($workOrder->id)));
+            $this->message = sprintf('Successfully created work order. %s', link_to_route('maintenance.work-orders.show', 'Show', [$workOrder->id]));
             $this->messageType = 'success';
         } else {
             $this->redirect = route('maintenance.work-orders.create');
@@ -93,10 +93,10 @@ class WorkOrderController extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
-        return view('maintenance::work-orders.show', array(
+        return view('maintenance::work-orders.show', [
             'title' => 'Viewing Work Order: ' . $workOrder->subject,
             'workOrder' => $workOrder
-        ));
+        ]);
     }
 
     /**
@@ -110,10 +110,10 @@ class WorkOrderController extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
-        return view('maintenance::work-orders.edit', array(
+        return view('maintenance::work-orders.edit', [
             'title' => 'Editing Work Order: ' . $workOrder->subject,
             'workOrder' => $workOrder,
-        ));
+        ]);
     }
 
     /**
@@ -128,11 +128,11 @@ class WorkOrderController extends BaseController
         if ($this->workOrderValidator->passes()) {
             $record = $this->workOrder->setInput($this->inputAll())->update($id);
 
-            $this->redirect = route('maintenance.work-orders.show', array($id));
-            $this->message = sprintf('Successfully edited work order. %s', link_to_route('maintenance.work-orders.show', 'Show', array($record->id)));
+            $this->redirect = route('maintenance.work-orders.show', [$id]);
+            $this->message = sprintf('Successfully edited work order. %s', link_to_route('maintenance.work-orders.show', 'Show', [$record->id]));
             $this->messageType = 'success';
         } else {
-            $this->redirect = route('maintenance.work-orders.edit', array($id));
+            $this->redirect = route('maintenance.work-orders.edit', [$id]);
             $this->errors = $this->workOrderValidator->getErrors();
         }
 
@@ -154,7 +154,7 @@ class WorkOrderController extends BaseController
         } else {
             $this->message = 'There was an error deleting the work order. Please try again';
             $this->messageType = 'danger';
-            $this->redirect = route('maintenance.work-orders.show', array($id));
+            $this->redirect = route('maintenance.work-orders.show', [$id]);
         }
 
         return $this->response();

@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Validators;
 
 class UserValidator extends BaseValidator
 {
-    protected $createRules = array(
+    protected $createRules = [
         'first_name' => 'required|min:3',
         'last_name' => 'required|min:3',
         'username' => 'required|min:5',
@@ -12,15 +12,15 @@ class UserValidator extends BaseValidator
         'password' => 'confirmed|required_with:activated|min:8',
         'password_confirmation' => 'required_with:activated|min:8',
         'activated' => 'integer|boolean',
-    );
+    ];
 
-    protected $updateRules = array(
+    protected $updateRules = [
         'first_name' => 'required|min:3',
         'last_name' => 'required|min:3',
         'username' => 'required|min:5',
         'email' => 'required|min:5|email',
         'activated' => 'integer|boolean',
-    );
+    ];
 
     public function passesCreate()
     {

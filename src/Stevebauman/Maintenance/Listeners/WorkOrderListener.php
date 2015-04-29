@@ -85,7 +85,7 @@ class WorkOrderListener extends AbstractListener
                             $notify->user_id,
                             $workOrder,
                             'Parts have been added work order', 
-                            route('maintenance.work-orders.show', array($workOrder->id))
+                            route('maintenance.work-orders.show', [$workOrder->id])
                     );
                 }
             }
@@ -112,7 +112,7 @@ class WorkOrderListener extends AbstractListener
                             $notify->user_id,
                             $workOrder, 
                             'Customer updates have been added to work order', 
-                            route('maintenance.work-orders.show', array($workOrder->id))
+                            route('maintenance.work-orders.show', [$workOrder->id])
                     );
                 }
             }
@@ -139,7 +139,7 @@ class WorkOrderListener extends AbstractListener
                             $notify->user_id,
                             $workOrder, 
                             'Technician updates have been added to work order', 
-                            route('maintenance.work-orders.show', array($workOrder->id))
+                            route('maintenance.work-orders.show', [$workOrder->id])
                     );
                 }
             }
@@ -166,7 +166,7 @@ class WorkOrderListener extends AbstractListener
                             $notify->user_id,
                             $report->workOrder, 
                             'Parts have been added work order', 
-                            route('maintenance.work-orders.show', array($report->workOrder->id))
+                            route('maintenance.work-orders.show', [$report->workOrder->id])
                     );
                 }
             }

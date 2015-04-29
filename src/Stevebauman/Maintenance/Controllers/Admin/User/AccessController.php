@@ -51,18 +51,18 @@ class AccessController extends BaseController
             {
                 $this->message = sprintf('This user <b>has access</b> to %s', $permission);
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.admin.users.show', array($user->id));
+                $this->redirect = route('maintenance.admin.users.show', [$user->id]);
             } else
             {
                 $this->message = sprintf('This user <b>does not have access</b> to %s', $permission);
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.admin.users.show', array($user->id));
+                $this->redirect = route('maintenance.admin.users.show', [$user->id]);
             }
             
         } else
         {
             $this->errors = $this->accessValidator->getErrors();
-            $this->redirect = route('maintenance.admin.users.show', array($id));
+            $this->redirect = route('maintenance.admin.users.show', [$id]);
         }
         
         return $this->response();

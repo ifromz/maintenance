@@ -1,10 +1,10 @@
 <?php
 
-Route::group(array('namespace'=>'WorkRequest'), function()
+Route::group(['namespace'=>'WorkRequest'], function()
 {
 
-    Route::resource('work-requests', 'WorkRequestController', array(
-        'names' => array(
+    Route::resource('work-requests', 'WorkRequestController', [
+        'names' => [
             'index' => 'maintenance.work-requests.index',
             'create' => 'maintenance.work-requests.create',
             'store' => 'maintenance.work-requests.store',
@@ -12,18 +12,18 @@ Route::group(array('namespace'=>'WorkRequest'), function()
             'edit' => 'maintenance.work-requests.edit',
             'update' => 'maintenance.work-requests.update',
             'destroy' => 'maintenance.work-requests.destroy',
-        ),
-    ));
+        ],
+    ]);
 
-    Route::resource('work-requests.updates', 'UpdateController', array(
-        'only' => array(
+    Route::resource('work-requests.updates', 'UpdateController', [
+        'only' => [
             'store',
             'destroy',
-        ),
-        'names' => array(
+        ],
+        'names' => [
             'store' => 'maintenance.work-requests.updates.store',
             'destroy' => 'maintenance.work-requests.updates.destroy',
-        ),
-    ));
+        ],
+    ]);
 
 });

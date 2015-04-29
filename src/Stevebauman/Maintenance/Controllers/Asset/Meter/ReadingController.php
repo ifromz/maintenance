@@ -88,7 +88,7 @@ class ReadingController extends BaseController
                      */
                     $this->message = 'Please enter a reading different from the last reading';
                     $this->messageType = 'warning';
-                    $this->redirect = route('maintenance.assets.meters.show', array($asset->id, $meter->id));
+                    $this->redirect = route('maintenance.assets.meters.show', [$asset->id, $meter->id]);
                     
                     return $this->response();
                 }
@@ -98,12 +98,12 @@ class ReadingController extends BaseController
             {
                 $this->message = 'Successfully updated reading';
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.assets.show', array($asset->id));
+                $this->redirect = route('maintenance.assets.show', [$asset->id]);
             } else
             {
                 $this->message = 'There was an error trying to update this meter. Please try again';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.assets.show', array($asset->id));
+                $this->redirect = route('maintenance.assets.show', [$asset->id]);
             }
         } else
         {
@@ -123,7 +123,7 @@ class ReadingController extends BaseController
         
         $this->message = 'Successfully deleted reading';
         $this->messageType = 'success';
-        $this->redirect = route('maintenance.assets.meters.show', array($asset->id, $meter->id));
+        $this->redirect = route('maintenance.assets.meters.show', [$asset->id, $meter->id]);
         
         return $this->response();
     }

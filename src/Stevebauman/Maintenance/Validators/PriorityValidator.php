@@ -9,9 +9,9 @@ namespace Stevebauman\Maintenance\Validators;
 class PriorityValidator extends BaseValidator
 {
 	
-	protected $rules = array(
+	protected $rules = [
         'name' => 'required|max:250',
         'color' => 'required|max:250'
-	);
+    ];
 
 }

@@ -26,10 +26,10 @@ class AssetController extends BaseController
     {
         $assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter(true);
         
-        return view('maintenance::admin.archive.assets.index', array(
+        return view('maintenance::admin.archive.assets.index', [
             'title' => 'Archived Assets',
             'assets'=> $assets
-        ));
+        ]);
     }
 
     /**
@@ -43,10 +43,10 @@ class AssetController extends BaseController
     {
         $asset = $this->asset->findArchived($id);
         
-        return view('maintenance::admin.archive.assets.show', array(
+        return view('maintenance::admin.archive.assets.show', [
             'title' => 'Viewing Archived Asset: '.$asset->name,
             'asset' => $asset
-        ));
+        ]);
     }
 
     /**

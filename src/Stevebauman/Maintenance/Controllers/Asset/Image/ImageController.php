@@ -46,10 +46,10 @@ class ImageController extends BaseController {
 
             $asset = $this->asset->find($asset_id);
 
-            return view('maintenance::assets.images.index', array(
+            return view('maintenance::assets.images.index', [
                 'title' => 'Viewing Asset Images for: '.$asset->name,
                 'asset' => $asset,
-            ));
+            ]);
 	}
 
     /**
@@ -61,10 +61,10 @@ class ImageController extends BaseController {
 	public function create($asset_id){
             $asset = $this->asset->find($asset_id);
 
-            return view('maintenance::assets.images.create', array(
+            return view('maintenance::assets.images.create', [
                     'title' => 'Adding Asset Images for: '.$asset->name,
                     'asset' => $asset,
-            ));
+            ]);
 	}
 
     /**
@@ -80,11 +80,11 @@ class ImageController extends BaseController {
             $data['asset_id'] = $asset->id;
             
             if($this->assetImage->setInput($data)->create()){
-                $this->redirect = route('maintenance.assets.images.index', array($asset->id));
+                $this->redirect = route('maintenance.assets.images.index', [$asset->id]);
                 $this->message = 'Successfully added images';
                 $this->messageType = 'success';
             } else{
-                $this->redirect = route('maintenance.assets.images.create', array($asset->id));
+                $this->redirect = route('maintenance.assets.images.create', [$asset->id]);
                 $this->message = 'There was an error adding images to the asset, please try again';
                 $this->messageType = 'danger';
             }
@@ -104,11 +104,11 @@ class ImageController extends BaseController {
 
             $attachment = $this->attachment->find($attachment_id);
 
-            return view('maintenance::assets.images.show', array(
+            return view('maintenance::assets.images.show', [
                 'title' => 'Viewing Asset Image',
                 'asset' => $asset,
                 'image' => $attachment,
-            ));
+            ]);
 	}
 
     /**
@@ -146,12 +146,12 @@ class ImageController extends BaseController {
             if(Storage::delete($attachment->file_path.$attachment->file_name)){
                 $attachment->delete();
 
-                $this->redirect = route('maintenance.assets.images.index', array($asset->id));
+                $this->redirect = route('maintenance.assets.images.index', [$asset->id]);
                 $this->message = 'Successfully deleted image';
                 $this->messageType = 'success';
 
             } else{
-                $this->redirect = route('maintenance.assets.images.show', array($asset->id, $attachment->id));
+                $this->redirect = route('maintenance.assets.images.show', [$asset->id, $attachment->id]);
                 $this->message = 'There was an error deleting the image file, please try again';
                 $this->messageType = 'danger';
             }

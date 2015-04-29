@@ -29,10 +29,10 @@ class GroupService extends BaseModelService
 
         try
         {
-            $insert = array(
+            $insert = [
                 'name' => $this->getInput('name'),
-                'permissions' => $this->getInput('permissions', array()),
-            );
+                'permissions' => $this->getInput('permissions', []),
+            ];
 
             $record = $this->model->create($insert);
 
@@ -73,7 +73,7 @@ class GroupService extends BaseModelService
         {
             $record = $this->model->find($id);
 
-            $updatedPermissions = $this->getInput('permissions', array());
+            $updatedPermissions = $this->getInput('permissions', []);
 
             /*
              * Check if the permissions current on the group exist in the updated array
@@ -91,14 +91,14 @@ class GroupService extends BaseModelService
                 }
             }
 
-            $insert = array(
+            $insert = [
                 'name' => $this->getInput('name'),
                 'permissions' => $updatedPermissions,
-            );
+            ];
 
             if ($record->update($insert))
             {
-                $record->users()->sync($this->getInput('users', array()));
+                $record->users()->sync($this->getInput('users', []));
 
                 $this->dbCommitTransaction();
 

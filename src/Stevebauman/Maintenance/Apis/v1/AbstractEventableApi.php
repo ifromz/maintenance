@@ -27,10 +27,10 @@ class AbstractEventableApi extends BaseApi
     {
         $eventable = $this->eventable->find($eventable_id);
 
-        $data = array(
+        $data = [
             'timeMin' => strToRfc3339($this->input('start')),
             'timeMax' => strToRfc3339($this->input('end')),
-        );
+        ];
 
         $events = $eventable->events->lists('api_id');
 

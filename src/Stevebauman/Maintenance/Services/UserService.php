@@ -72,13 +72,13 @@ class UserService extends BaseModelService
         {
             $activated = $this->getInput('activated');
 
-            $insert = array(
+            $insert = [
                 'username' => $this->getInput('username'),
                 'email' => $this->getInput('email'),
                 'password' => $this->getInput('password'),
-                'permissions' => $this->getInput('permissions', array()),
+                'permissions' => $this->getInput('permissions', []),
                 'activated' => ($activated ? true : false)
-            );
+            ];
 
             $record = $this->sentry->createUser($insert);
 
@@ -88,10 +88,10 @@ class UserService extends BaseModelService
              */
             $modelRecord = $this->model->find($record->id);
 
-            $insertAdditional = array(
+            $insertAdditional = [
                 'first_name' => $this->getInput('first_name'),
                 'last_name' => $this->getInput('last_name'),
-            );
+            ];
 
             $modelRecord->update($insertAdditional);
 
@@ -142,14 +142,14 @@ class UserService extends BaseModelService
             $lastName = (array_key_exists(0, $fullName) ? $fullName[0] : NULL);
             $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : NULL);
 
-            $data = array(
+            $data = [
                 'email' => $ldapUser->email,
                 'password' => $password,
                 'username' => $username,
                 'last_name' => (string)$lastName,
                 'first_name' => (string)$firstName,
                 'activated' => 1,
-            );
+            ];
 
             $user = $this->sentry->createUser($data);
 
@@ -186,10 +186,10 @@ class UserService extends BaseModelService
              */
             $user = $this->model->find($id);
 
-            $insert = array(
+            $insert = [
                 'first_name' => $this->getInput('first_name'),
                 'last_name' => $this->getInput('last_name')
-            );
+            ];
 
             if($user->update($insert))
             {

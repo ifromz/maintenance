@@ -50,10 +50,10 @@ class AssetController extends BaseController
     {
         $assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter();
 
-        return view('maintenance::assets.index', array(
+        return view('maintenance::assets.index', [
             'title' => 'All Assets',
             'assets' => $assets
-        ));
+        ]);
     }
 
     /**
@@ -63,9 +63,9 @@ class AssetController extends BaseController
      */
     public function create()
     {
-        return view('maintenance::assets.create', array(
+        return view('maintenance::assets.create', [
             'title' => 'Create an Asset'
-        ));
+        ]);
     }
 
     /**
@@ -82,7 +82,7 @@ class AssetController extends BaseController
             if ($record) {
 
                 $this->redirect = route('maintenance.assets.index');
-                $this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
+                $this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', [$record->id]));
                 $this->messageType = 'success';
 
             } else {
@@ -112,15 +112,15 @@ class AssetController extends BaseController
         $asset = $this->asset->find($id);
 
         $data = $this->inputAll();
-        $data['assets'] = array($asset->id);
+        $data['assets'] = [$asset->id];
 
         $workOrders = $this->workOrder->setInput($data)->getByPageWithFilter();
 
-        return view('maintenance::assets.show', array(
+        return view('maintenance::assets.show', [
             'title' => 'Viewing Asset: ' . $asset->name,
             'asset' => $asset,
             'workOrders' => $workOrders
-        ));
+        ]);
 
     }
 
@@ -134,10 +134,10 @@ class AssetController extends BaseController
     {
         $asset = $this->asset->find($id);
 
-        return view('maintenance::assets.edit', array(
+        return view('maintenance::assets.edit', [
             'title' => 'Editing asset: ' . $asset->name,
             'asset' => $asset,
-        ));
+        ]);
     }
 
     /**
@@ -151,12 +151,12 @@ class AssetController extends BaseController
 
             $record = $this->asset->setInput($this->inputAll())->update($id);
 
-            $this->redirect = route('maintenance.assets.show', array($record->id));
-            $this->message = sprintf('Successfully edited asset: %s', link_to_route('maintenance.assets.show', 'Show', array($record->id)));
+            $this->redirect = route('maintenance.assets.show', [$record->id]);
+            $this->message = sprintf('Successfully edited asset: %s', link_to_route('maintenance.assets.show', 'Show', [$record->id]));
             $this->messageType = 'success';
 
         } else {
-            $this->redirect = route('maintenance.assets.edit', array($id));
+            $this->redirect = route('maintenance.assets.edit', [$id]);
             $this->errors = $this->assetValidator->getErrors();
         }
 

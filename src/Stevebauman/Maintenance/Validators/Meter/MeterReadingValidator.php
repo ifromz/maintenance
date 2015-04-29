@@ -9,9 +9,9 @@ namespace Stevebauman\Maintenance\Validators;
 class MeterReadingValidator extends BaseValidator
 {
     
-    protected $rules = array(
+    protected $rules = [
         'reading' => 'required|positive',
         'comment' => 'max:250'
-    );
+    ];
     
 }

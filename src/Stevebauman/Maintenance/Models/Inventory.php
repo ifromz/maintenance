@@ -37,25 +37,25 @@ class Inventory extends BaseModel
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'metric_id',
         'category_id',
         'name',
         'description',
         'is_assembly',
-    );
+    ];
 
     /**
      * Revisionable field names
      *
      * @var array
      */
-    protected $revisionFormattedFieldNames = array(
+    protected $revisionFormattedFieldNames = [
         'category_id' => 'Category',
         'metric_id' => 'Metric',
         'name' => 'Name',
-    );
+    ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryViewer';
 

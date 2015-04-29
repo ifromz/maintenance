@@ -28,19 +28,19 @@ class InventoryStock extends BaseModel
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'inventory_id',
         'location_id',
         'quantity',
         'aisle',
         'row',
         'bin',
-    );
+    ];
 
-    protected $revisionFormattedFieldNames = array(
+    protected $revisionFormattedFieldNames = [
         'location_id' => 'Location',
         'quantity' => 'Quantity',
-    );
+    ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockViewer';
 

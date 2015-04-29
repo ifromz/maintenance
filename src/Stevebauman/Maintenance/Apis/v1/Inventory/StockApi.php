@@ -19,12 +19,12 @@ class StockApi extends BaseApi {
                 
         $stock = $this->inventoryStock->find($stock_id);
 
-        return $this->responseJson(array(
-            'html' => view('maintenance::inventory.modals.stocks.edit', array(
+        return $this->responseJson([
+            'html' => view('maintenance::inventory.modals.stocks.edit', [
                     'item' => $item,
                     'stock' => $stock,
-                ))->render(),
-        ));
+            ])->render(),
+        ]);
     }
     
     public function update($inventory_id, $stock_id){

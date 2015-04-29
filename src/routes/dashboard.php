@@ -4,7 +4,7 @@
  * Dashboard Routes
  */
 
-Route::get('/', array(
+Route::get('/', [
     'as' => 'maintenance.dashboard.index',
     'uses' => 'MaintenanceController@getIndex',
-));
+]);

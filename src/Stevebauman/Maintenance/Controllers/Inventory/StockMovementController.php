@@ -59,12 +59,12 @@ class StockMovementController extends BaseController
 
         $movements = $this->inventoryStockMovement->setInput($data)->getByPageWithFilter();
 
-        return view('maintenance::inventory.stocks.movements.index', array(
+        return view('maintenance::inventory.stocks.movements.index', [
             'title' => "Viewing Stock Movements for Item: $item->name in Location: " . renderNode($stock->location),
             'item' => $item,
             'stock' => $stock,
             'movements' => $movements,
-        ));
+        ]);
 
     }
 
@@ -81,12 +81,12 @@ class StockMovementController extends BaseController
         $stock = $this->inventoryStock->find($stock_id);
         $movement = $this->inventoryStockMovement->find($movement_id);
 
-        return view('maintenance::inventory.stocks.movements.show', array(
+        return view('maintenance::inventory.stocks.movements.show', [
             'title' => 'Viewing Movement: '.$movement->id,
             'item' => $item,
             'stock' => $stock,
             'movement' => $movement,
-        ));
+        ]);
     }
 
     /**
@@ -107,17 +107,17 @@ class StockMovementController extends BaseController
 
             $this->message = 'Successfully rolled back movement';
             $this->messageType = 'success';
-            $this->redirect = routeBack('maintenance.inventory.stock.movements.index', array(
+            $this->redirect = routeBack('maintenance.inventory.stock.movements.index', [
                 $item->id, $stock->id
-            ));
+            ]);
 
         } else {
 
             $this->message = 'There was an error trying to roll back this movement. Please try again.';
             $this->messageType = 'success';
-            $this->redirect = routeBack('maintenance.inventory.stock.movements.index', array(
+            $this->redirect = routeBack('maintenance.inventory.stock.movements.index', [
                 $item->id, $stock->id
-            ));
+            ]);
 
         }
 

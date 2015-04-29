@@ -14,10 +14,10 @@ class EventReport extends BaseModel
 
     protected $table = 'event_reports';
 
-    protected $fillable = array(
+    protected $fillable = [
         'event_id',
         'user_id',
         'description',
-    );
+    ];
 
 }

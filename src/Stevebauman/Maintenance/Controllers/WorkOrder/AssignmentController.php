@@ -79,16 +79,16 @@ class AssignmentController extends BaseController
             if ($records) {
                 $this->message = 'Successfully assigned worker(s)';
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+                $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
             } else {
                 $this->message = 'There was an error trying to assign workers to this work order. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+                $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
             }
 
         } else {
             $this->errors = $this->assignmentValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
         }
 
         return $this->response();
@@ -107,11 +107,11 @@ class AssignmentController extends BaseController
         if ($this->assignment->destroy($assignment_id)) {
             $this->message = 'Successfully removed worker from this work order.';
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
         } else {
             $this->message = 'There was an error trying to remove this worker from this work order. Please try again later.';
             $this->messageType = 'danger';
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
         }
 
         return $this->response();

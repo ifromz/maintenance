@@ -12,16 +12,16 @@ class Category extends Node
 {
     protected $table = 'categories';
 
-    protected $scoped = array('belongs_to');
+    protected $scoped = ['belongs_to'];
 
-    protected $fillable = array(
+    protected $fillable = [
         'name',
         'belongs_to',
-    );
+    ];
 
-    protected $revisionFormattedFieldNames = array(
+    protected $revisionFormattedFieldNames = [
         'name' => 'Name',
-    );
+    ];
 
     /**
      * Returns a single lined string with arrows indicating depth of the current category

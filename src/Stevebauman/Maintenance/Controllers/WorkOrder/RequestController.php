@@ -46,10 +46,10 @@ class RequestController extends BaseController
     {
         $workRequest = $this->workRequest->find($requestId);
 
-        return view('maintenance::work-orders.requests.create', array(
+        return view('maintenance::work-orders.requests.create', [
             'title' => 'Create Work Order from Request',
             'workRequest' => $workRequest,
-        ));
+        ]);
     }
 
     /**
@@ -70,7 +70,7 @@ class RequestController extends BaseController
          */
         if($workRequest->workOrder)
         {
-            $link = link_to_route('maintenance.work-orders.show', 'Show Work Order', array($workRequest->workOrder->id));
+            $link = link_to_route('maintenance.work-orders.show', 'Show Work Order', [$workRequest->workOrder->id]);
 
             $this->message = "A work order already exists for this work request. $link";
             $this->messageType = 'warning';
@@ -83,11 +83,11 @@ class RequestController extends BaseController
 
         if($workOrder)
         {
-            $link = link_to_route('maintenance.work-orders.show', 'Show', array($workOrder->id));
+            $link = link_to_route('maintenance.work-orders.show', 'Show', [$workOrder->id]);
 
             $this->message = "Successfully generated work order. $link";
             $this->messageType = 'success';
-            $this->redirect = routeBack('maintenance.work-orders.show', array($workOrder->id));
+            $this->redirect = routeBack('maintenance.work-orders.show', [$workOrder->id]);
         } else
         {
             $message = 'There was an issue trying to generate a work order for this request.
@@ -96,7 +96,7 @@ class RequestController extends BaseController
 
             $this->message = $message;
             $this->messageType = 'danger';
-            $this->redirect = routeBack('maintenance.work-orders.requests.create', array($requestId));
+            $this->redirect = routeBack('maintenance.work-orders.requests.create', [$requestId]);
         }
 
         return $this->response();

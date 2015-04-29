@@ -40,7 +40,7 @@ class BaseModel extends Eloquent
     /*
      * Tell revisionable to not keep a revision of deleted_at columns
      */
-    protected $dontKeepRevisionOf = array('deleted_at');
+    protected $dontKeepRevisionOf = ['deleted_at'];
 
     /**
      * Formats the created_at timestamp
@@ -93,7 +93,7 @@ class BaseModel extends Eloquent
      */
     protected function getOperator($string)
     {
-        $allowed_operators = array('>', '<', '=', '>=', '<=');
+        $allowed_operators = ['>', '<', '=', '>=', '<='];
 
         $output = preg_split("/[\[\]]/", $string);
 
@@ -101,7 +101,7 @@ class BaseModel extends Eloquent
         {
             if (array_key_exists('1', $output) && array_key_exists('2', $output))
             {
-                if (in_array($output[1], $allowed_operators)) return array($output[1], $output[2]);
+                if (in_array($output[1], $allowed_operators)) return [$output[1], $output[2]];
             } else
             {
                 return $output;

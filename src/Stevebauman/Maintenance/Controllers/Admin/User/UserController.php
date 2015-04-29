@@ -41,10 +41,10 @@ class UserController extends BaseController
     {
         $users = $this->user->setInput($this->inputAll())->getByPageWithFilter();
         
-        return view('maintenance::admin.users.index', array(
+        return view('maintenance::admin.users.index', [
             'title' => 'All Users',
             'users' => $users
-        ));
+        ]);
     }
 
     /**
@@ -54,9 +54,9 @@ class UserController extends BaseController
      */
     public function create()
     {
-        return view('maintenance::admin.users.create', array(
+        return view('maintenance::admin.users.create', [
             'title' => 'Create a User'
-        ));
+        ]);
     }
 
     /**
@@ -72,7 +72,7 @@ class UserController extends BaseController
 
             if($user)
             {
-                $link = link_to_route('maintenance.admin.users.show', 'Show', array($user->id));
+                $link = link_to_route('maintenance.admin.users.show', 'Show', [$user->id]);
 
                 $this->message = "Successfully created user. $link";
                 $this->messageType = 'success';
@@ -103,10 +103,10 @@ class UserController extends BaseController
     {
         $user = $this->user->find($id);
         
-        return view('maintenance::admin.users.show', array(
+        return view('maintenance::admin.users.show', [
             'title'=>'Viewing User',
             'user'=>$user
-        ));
+        ]);
     }
 
     /**
@@ -119,10 +119,10 @@ class UserController extends BaseController
     {
         $user = $this->user->find($id);
         
-        return view('maintenance::admin.users.edit', array(
+        return view('maintenance::admin.users.edit', [
             'title'=>'Editing User',
             'user'=>$user
-        ));
+        ]);
     }
 
     /**
@@ -137,21 +137,21 @@ class UserController extends BaseController
         {
             if($this->user->setInput($this->inputAll())->update($id))
             {
-                $link = link_to_route('maintenance.admin.users.show', 'Show', array($id));
+                $link = link_to_route('maintenance.admin.users.show', 'Show', [$id]);
 
                 $this->message = "Successfully updated user. $link";
                 $this->messageType = 'success';
-                $this->redirect = routeBack('maintenance.admin.users.show', array($id));
+                $this->redirect = routeBack('maintenance.admin.users.show', [$id]);
             } else
             {
                 $this->message = 'There was an error trying to update this user. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = routeBack('maintenance.admin.users.edit', array($id));
+                $this->redirect = routeBack('maintenance.admin.users.edit', [$id]);
             }
         } else
         {
             $this->errors = $this->userValidator->getErrors();
-            $this->redirect = routeBack('maintenance.admin.users.edit', array($id));
+            $this->redirect = routeBack('maintenance.admin.users.edit', [$id]);
         }
 
         return $this->response();
@@ -174,7 +174,7 @@ class UserController extends BaseController
         {
             $this->message = 'There was an issue deleting this user, please try again.';
             $this->messageType = 'danger';
-            $this->redirect = routeBack('maintenance.admin.users.show', array($id));
+            $this->redirect = routeBack('maintenance.admin.users.show', [$id]);
         }
 
         return $this->response();

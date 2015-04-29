@@ -57,7 +57,7 @@ class EventService extends BaseModelService
      * @param array $select
      * @return \Stevebauman\EloquentTable\TableCollection
      */
-    public function get($select = array())
+    public function get($select = [])
     {
         $records = $this->model->where('parent_id', NULL)->get();
 
@@ -73,7 +73,7 @@ class EventService extends BaseModelService
      * @param bool $recurrences
      * @return mixed|\Stevebauman\EloquentTable\TableCollection
      */
-    public function getApiEvents($apiIds = array(), $recurrences = false)
+    public function getApiEvents($apiIds = [], $recurrences = false)
     {
         if (count($apiIds) > 0) {
 
@@ -148,11 +148,11 @@ class EventService extends BaseModelService
          */
         $record = $this->where('api_id', $event->parent_id)->first();
 
-        $insert = array(
+        $insert = [
             'api_id' => $event->id,
             'parent_id' => $record->id,
             'user_id' => $record->user_id,
-        );
+        ];
 
         /*
          * Use first or create so we don't create duplicate local recurrence
@@ -241,11 +241,11 @@ class EventService extends BaseModelService
             /*
              * Create the main event
              */
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'location_id' => $location_id,
                 'api_id' => $event->id,
-            );
+            ];
 
             $this->model->create($insert);
 
@@ -333,7 +333,7 @@ class EventService extends BaseModelService
      */
     public function parseEvents($events)
     {
-        $arrayEvents = array();
+        $arrayEvents = [];
 
         foreach ($events as $event) {
 
@@ -343,14 +343,14 @@ class EventService extends BaseModelService
             /*
              * Add the event into a FullCalendar compatible array
              */
-            $arrayEvents[] = array(
+            $arrayEvents[] = [
                 'id' => $event->id,
                 'title' => $event->title,
                 'description' => $event->location,
                 'start' => $startDate->format('Y-m-d H:i:s'),
                 'end' => $endDate->format('Y-m-d H:i:s'),
                 'allDay' => $event->all_day,
-            );
+            ];
         }
 
         return $arrayEvents;

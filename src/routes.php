@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /*
  * Maintenance Application Routes
  */
-Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespace' => 'Stevebauman\Maintenance'), function ()
+Route::group(['prefix' => Config::get('maintenance::site.prefix'), 'namespace' => 'Stevebauman\Maintenance'], function ()
 {
     /*
      * Authentication Routes
@@ -25,7 +25,7 @@ Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespa
     /*
      * Main Client Controller Group
      */
-    Route::group(array('prefix' => 'client', 'namespace' => 'Controllers', 'before'=> 'maintenance.auth'), function()
+    Route::group(['prefix' => 'client', 'namespace' => 'Controllers', 'before'=> 'maintenance.auth'], function()
     {
         /*
          * Client Routes
@@ -41,7 +41,7 @@ Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespa
      * Auth         - Only Allows logged in users
      * Permission   - Only Allows users with correct permissions
      */
-    Route::group(array('prefix' => 'management', 'namespace' => 'Controllers', 'before' => 'maintenance.auth|maintenance.permission'), function ()
+    Route::group(['prefix' => 'management', 'namespace' => 'Controllers', 'before' => 'maintenance.auth|maintenance.permission'], function ()
     {
         /*
          * Dashboard Routes
@@ -91,7 +91,7 @@ Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespa
         /*
          * Administration Route Group
          */
-        Route::group(array('prefix' => 'admin', 'namespace' => 'Admin'), function ()
+        Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function ()
         {
             /*
              * Amdministration Routes
@@ -103,7 +103,7 @@ Route::group(array('prefix' => Config::get('maintenance::site.prefix'), 'namespa
     /*
      * API Route Group
      */
-    Route::group(array('prefix' => 'api', 'namespace' => 'Apis'), function ()
+    Route::group(['prefix' => 'api', 'namespace' => 'Apis'], function ()
     {
         /*
          * API Routes

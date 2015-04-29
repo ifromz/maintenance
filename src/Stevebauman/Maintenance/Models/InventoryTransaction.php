@@ -13,11 +13,11 @@ class InventoryTransaction extends BaseModel implements StateableInterface
 {
     use InventoryTransactionTrait;
 
-    protected $fillable = array(
+    protected $fillable = [
         'stock_id',
         'state',
         'quantity',
-    );
+    ];
 
     protected $table = 'inventory_transactions';
 

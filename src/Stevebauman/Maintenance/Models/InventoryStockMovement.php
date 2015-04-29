@@ -21,14 +21,14 @@ class InventoryStockMovement extends BaseModel
      *
      * @var array
      */
-    protected $fillable = array(
+    protected $fillable = [
         'stock_id',
         'user_id',
         'before',
         'after',
         'cost',
         'reason',
-    );
+    ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockMovementViewer';
 

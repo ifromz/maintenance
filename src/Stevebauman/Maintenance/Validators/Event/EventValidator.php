@@ -11,7 +11,7 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
 class EventValidator extends BaseValidator
 {
 
-    protected $rules = array(
+    protected $rules = [
         'title' => 'required|min:5|max:250',
         'description' => 'min:5|max:2000',
         'start_date' => 'required|max:25',
@@ -23,7 +23,7 @@ class EventValidator extends BaseValidator
         'recur_days' => '',
         'recur_months' => '',
         'all_day' => '',
-    );
+    ];
 
     public function passes()
     {

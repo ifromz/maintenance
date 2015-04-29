@@ -1,21 +1,21 @@
 <?php
 
-return array(
+return [
 
     /*
      * The default maintenance application permissions during installation.
      */
-    'default' => array(
+    'default' => [
         /*
          * Allows access to all site functions
          */
         'superuser' => 'superuser',
-    ),
+    ],
 
     /*
      * All Users have access to these routes
      */
-    'all_users' => array(
+    'all_users' => [
 
         'maintenance.login',
         'maintenance.login',
@@ -25,12 +25,12 @@ return array(
         'maintenance.register',
         'maintenance.permission-denied.index',
 
-    ),
+    ],
 
     /*
      * Only customers have access to these routes
      */
-    'customers' => array(
+    'customers' => [
 
         'maintenance.my-work-requests.index',
         'maintenance.my-work-requests.create',
@@ -40,12 +40,12 @@ return array(
         'maintenance.my-work-requests.update',
         'maintenance.my-work-requests.destroy',
 
-    ),
+    ],
 
     /*
      * Only workers have access to these groups
      */
-    'workers' => array(
+    'workers' => [
 
         'maintenance.dashboard.index' => 1,
 
@@ -269,18 +269,18 @@ return array(
         'maintenance.api.v1.assets.events.show',
 
 
-    ),
+    ],
 
-    'managers' => array(
+    'managers' => [
 
         'maintenance.work-orders.assignments.index',
         'maintenance.work-orders.assignments.create',
         'maintenance.work-orders.assignments.store',
         'maintenance.work-orders.assignments.destroy',
 
-    ),
+    ],
 
-    'administrators' => array(
+    'administrators' => [
 
         'maintenance.admin.dashboard.index',
         'maintenance.admin.users.index',
@@ -312,6 +312,6 @@ return array(
         'maintenance.admin.archive.inventory.show',
         'maintenance.admin.archive.inventory.destroy',
 
-    ),
+    ],
 
-);
+];

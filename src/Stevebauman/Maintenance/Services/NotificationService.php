@@ -21,9 +21,9 @@ class NotificationService extends BaseModelService
 
             $notification = $this->find($id);
 
-            $insert = array(
+            $insert = [
                 'read' => $this->getInput('read'),
-            );
+            ];
 
             if ($notification->update($insert)) {
 

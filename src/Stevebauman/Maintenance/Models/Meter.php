@@ -16,11 +16,11 @@ class Meter extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\MeterViewer';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'metric_id',
         'name'
-    );
+    ];
 
     /**
      * The hasOne meter relationship

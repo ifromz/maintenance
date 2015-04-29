@@ -14,11 +14,11 @@ class InventorySku extends BaseModel
 
     protected $table = 'inventory_skus';
 
-    protected $fillable = array(
+    protected $fillable = [
         'inventory_id',
         'prefix',
         'code',
-    );
+    ];
 
     /**
      * The belongsTo item trait

@@ -42,11 +42,11 @@ abstract class AbstractEventableController extends BaseController {
 
         $events = $this->event->getApiEvents($eventable->events->lists('api_id'));
 
-        return view('maintenance::events.eventables.index', array(
+        return view('maintenance::events.eventables.index', [
             'title' => 'Events',
             'eventable' => $eventable,
             'events' => $events,
-        ));
+        ]);
     }
 
     /**
@@ -57,10 +57,10 @@ abstract class AbstractEventableController extends BaseController {
     {
         $eventable = $this->eventable->find($eventable_id);
 
-        return view('maintenance::events.eventables.create', array(
+        return view('maintenance::events.eventables.create', [
             'title' => 'Create Event',
             'eventable' => $eventable,
-        ));
+        ]);
     }
 
     /**
@@ -81,21 +81,21 @@ abstract class AbstractEventableController extends BaseController {
 
                 $eventable->events()->attach($localEvent);
 
-                $this->message = sprintf('Successfully created event. %s', link_to_action(currentControllerAction('show'), 'Show', array($eventable->id, $event->id)));
+                $this->message = sprintf('Successfully created event. %s', link_to_action(currentControllerAction('show'), 'Show', [$eventable->id, $event->id]));
                 $this->messageType = 'success';
-                $this->redirect = action(currentControllerAction('show'), array($eventable->id, $event->id));
+                $this->redirect = action(currentControllerAction('show'), [$eventable->id, $event->id]);
 
             } else {
 
                 $this->message = 'There was an error trying to create an event. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect =  action(currentControllerAction('create'), array($eventable->id));
+                $this->redirect =  action(currentControllerAction('create'), [$eventable->id]);
 
             }
 
         } else {
 
-            $this->redirect = action(currentControllerAction('create'), array($eventable_id));
+            $this->redirect = action(currentControllerAction('create'), [$eventable_id]);
             $this->errors = $this->eventValidator->getErrors();
         }
 
@@ -118,20 +118,20 @@ abstract class AbstractEventableController extends BaseController {
         /*
          * Filter recurrences to display entries one month from now
          */
-        $data = array(
+        $data = [
             'timeMin' => strToRfc3339(strtotime('now')),
             'timeMax' => strToRfc3339(strtotime('+1 month')),
-        );
+        ];
 
         $recurrences = $this->event->setInput($data)->getRecurrencesByApiId($api_id);
 
-        return view('maintenance::events.eventables.show', array(
+        return view('maintenance::events.eventables.show', [
             'title' => 'Viewing Event: '.$event->title,
             'event' => $event,
             'localEvent' => $localEvent,
             'eventable' => $eventable,
             'recurrences' => $recurrences,
-        ));
+        ]);
     }
 
     /**
@@ -145,11 +145,11 @@ abstract class AbstractEventableController extends BaseController {
 
         $event = $this->event->findByApiId($api_id);
 
-        return view('maintenance::events.eventables.edit', array(
+        return view('maintenance::events.eventables.edit', [
             'title' => sprintf('Editing event %s', $event->title),
             'eventable' => $eventable,
             'event' => $event,
-        ));
+        ]);
     }
 
     /**
@@ -166,21 +166,21 @@ abstract class AbstractEventableController extends BaseController {
 
             if($event) {
 
-                $this->message = sprintf('Successfully updated event. %s', link_to_action(currentControllerAction('show'), 'Show', array($eventable->id, $event->id)));
+                $this->message = sprintf('Successfully updated event. %s', link_to_action(currentControllerAction('show'), 'Show', [$eventable->id, $event->id]));
                 $this->messageType = 'success';
-                $this->redirect = action(currentControllerAction('show'), array($eventable->id, $event->id));
+                $this->redirect = action(currentControllerAction('show'), [$eventable->id, $event->id]);
 
             } else {
 
                 $this->message = 'There was an error trying to udpdate this event. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = action(currentControllerAction('edit'), array($eventable->id, $event->id));
+                $this->redirect = action(currentControllerAction('edit'), [$eventable->id, $event->id]);
 
             }
 
         } else {
 
-            $this->redirect = action(currentControllerAction('edit'), array($eventable_id));
+            $this->redirect = action(currentControllerAction('edit'), [$eventable_id]);
             $this->errors = $this->eventValidator->getErrors();
 
         }
@@ -198,13 +198,13 @@ abstract class AbstractEventableController extends BaseController {
 
             $this->message = 'Successfully deleted event';
             $this->messageType = 'success';
-            $this->redirect = action(currentControllerAction('index'), array($eventable_id));
+            $this->redirect = action(currentControllerAction('index'), [$eventable_id]);
 
         } else {
 
             $this->message = 'There was an error trying to delete this event. Please try again.';
             $this->messageType = 'danger';
-            $this->redirect = action(currentControllerAction('show'), array($eventable_id, $api_id));
+            $this->redirect = action(currentControllerAction('show'), [$eventable_id, $api_id]);
 
         }
 

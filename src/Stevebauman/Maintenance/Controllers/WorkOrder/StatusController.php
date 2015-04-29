@@ -40,10 +40,10 @@ class StatusController extends BaseController
     {
         $statuses = $this->status->get();
 
-        return view('maintenance::work-orders.statuses.index', array(
+        return view('maintenance::work-orders.statuses.index', [
             'title' => 'All Statuses',
             'statuses' => $statuses
-        ));
+        ]);
     }
 
     /**
@@ -54,9 +54,9 @@ class StatusController extends BaseController
      */
     public function create()
     {
-        return view('maintenance::work-orders.statuses.create', array(
+        return view('maintenance::work-orders.statuses.create', [
             'title' => 'Create a Status'
-        ));
+        ]);
     }
 
     /**
@@ -101,10 +101,10 @@ class StatusController extends BaseController
     {
         $status = $this->status->find($id);
 
-        return view('maintenance::work-orders.statuses.edit', array(
+        return view('maintenance::work-orders.statuses.edit', [
             'title' => 'Editing Status: ' . $status->name,
             'status' => $status
-        ));
+        ]);
     }
 
     /**
@@ -130,11 +130,11 @@ class StatusController extends BaseController
             } else {
                 $this->message = 'There was an error trying to update this status. Please try again';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.statuses.edit', array($id));
+                $this->redirect = route('maintenance.work-orders.statuses.edit', [$id]);
             }
         } else {
             $this->errors = $this->statusValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.statuses.edit', array($id));
+            $this->redirect = route('maintenance.work-orders.statuses.edit', [$id]);
         }
 
         return $this->response();

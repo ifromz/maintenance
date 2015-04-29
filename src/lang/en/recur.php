@@ -1,8 +1,8 @@
 <?php
 
-return array(
+return [
 
-    'frequency' => array(
+    'frequency' => [
 
         NULL => 'None',
         'WEEKLY' => 'Weekly',
@@ -10,9 +10,9 @@ return array(
         'MONTHLY' => 'Monthly',
         'YEARLY' => 'Yearly',
 
-    ),
+    ],
 
-    'days' => array(
+    'days' => [
 
         'MO' => 'Monday',
         'TU' => 'Tuesday',
@@ -20,6 +20,6 @@ return array(
         'TH' => 'Thursday',
         'FR' => 'Friday'
 
-    ),
+    ],
 
-);
+];

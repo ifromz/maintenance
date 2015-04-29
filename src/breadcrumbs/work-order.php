@@ -18,12 +18,12 @@ Breadcrumbs::register('maintenance.work-orders.create', function($breadcrumbs) {
 
 Breadcrumbs::register('maintenance.work-orders.show', function($breadcrumbs, $workOrderId) {
     $breadcrumbs->parent('maintenance.work-orders.index');
-    $breadcrumbs->push("ID: $workOrderId", route('maintenance.work-orders.show', array($workOrderId)));
+    $breadcrumbs->push("ID: $workOrderId", route('maintenance.work-orders.show', [$workOrderId]));
 });
 
 Breadcrumbs::register('maintenance.work-orders.edit', function($breadcrumbs, $workOrderId) {
     $breadcrumbs->parent('maintenance.work-orders.show', $workOrderId);
-    $breadcrumbs->push('Edit', route('maintenance.work-orders.edit', array($workOrderId)));
+    $breadcrumbs->push('Edit', route('maintenance.work-orders.edit', [$workOrderId]));
 });
 /*
  * End Work Order crumbs
@@ -34,17 +34,17 @@ Breadcrumbs::register('maintenance.work-orders.edit', function($breadcrumbs, $wo
  */
 Breadcrumbs::register('maintenance.work-orders.parts.index', function($breadcrumbs, $workOrderId) {
     $breadcrumbs->parent('maintenance.work-orders.show', $workOrderId);
-    $breadcrumbs->push('Parts', route('maintenance.work-orders.parts.index', array($workOrderId)));
+    $breadcrumbs->push('Parts', route('maintenance.work-orders.parts.index', [$workOrderId]));
 });
 
 Breadcrumbs::register('maintenance.work-orders.parts.stocks.index', function($breadcrumbs, $workOrderId, $partId) {
     $breadcrumbs->parent('maintenance.work-orders.parts.index', $workOrderId);
-    $breadcrumbs->push("ID: $partId", route('maintenance.work-orders.parts.stocks.create', array($workOrderId, $partId)));
+    $breadcrumbs->push("ID: $partId", route('maintenance.work-orders.parts.stocks.create', [$workOrderId, $partId]));
 });
 
 Breadcrumbs::register('maintenance.work-orders.parts.stocks.create', function($breadcrumbs, $workOrderId, $partId, $stockId) {
     $breadcrumbs->parent('maintenance.work-orders.parts.stocks.index', $workOrderId, $partId);
-    $breadcrumbs->push('Enter Quantity', route('maintenance.work-orders.parts.stocks.create', array($workOrderId, $partId, $stockId)));
+    $breadcrumbs->push('Enter Quantity', route('maintenance.work-orders.parts.stocks.create', [$workOrderId, $partId, $stockId]));
 });
 /*
  * End Work Order part crumbs
@@ -66,22 +66,22 @@ Breadcrumbs::register('maintenance.work-orders.assigned.index', function($breadc
  */
 Breadcrumbs::register('maintenance.work-orders.events.index', function($breadcrumbs, $workOrderId) {
     $breadcrumbs->parent('maintenance.work-orders.show', $workOrderId);
-    $breadcrumbs->push('Events', route('maintenance.work-orders.events.index', array($workOrderId)));
+    $breadcrumbs->push('Events', route('maintenance.work-orders.events.index', [$workOrderId]));
 });
 
 Breadcrumbs::register('maintenance.work-orders.events.create', function($breadcrumbs, $workOrderId) {
     $breadcrumbs->parent('maintenance.work-orders.events.index', $workOrderId);
-    $breadcrumbs->push('Create', route('maintenance.work-orders.events.create', array($workOrderId)));
+    $breadcrumbs->push('Create', route('maintenance.work-orders.events.create', [$workOrderId]));
 });
 
 Breadcrumbs::register('maintenance.work-orders.events.show', function($breadcrumbs, $workOrderId, $eventId) {
     $breadcrumbs->parent('maintenance.work-orders.events.index', $workOrderId);
-    $breadcrumbs->push("ID: $eventId", route('maintenance.work-orders.events.show', array($workOrderId, $eventId)));
+    $breadcrumbs->push("ID: $eventId", route('maintenance.work-orders.events.show', [$workOrderId, $eventId]));
 });
 
 Breadcrumbs::register('maintenance.work-orders.events.edit', function($breadcrumbs, $workOrderId, $eventId) {
     $breadcrumbs->parent('maintenance.work-orders.events.show', $workOrderId, $eventId);
-    $breadcrumbs->push('Edit', route('maintenance.work-orders.events.edit', array($workOrderId, $eventId)));
+    $breadcrumbs->push('Edit', route('maintenance.work-orders.events.edit', [$workOrderId, $eventId]));
 });
 /*
  * End Work Order event crumbs
@@ -92,7 +92,7 @@ Breadcrumbs::register('maintenance.work-orders.events.edit', function($breadcrum
  */
 Breadcrumbs::register('maintenance.work-orders.report.create', function($breadcrumbs, $workOrderId) {
     $breadcrumbs->parent('maintenance.work-orders.show', $workOrderId);
-    $breadcrumbs->push('Create Report', route('maintenance.work-orders.report.create', array($workOrderId)));
+    $breadcrumbs->push('Create Report', route('maintenance.work-orders.report.create', [$workOrderId]));
 });
 /*
  * End Work Order report crumbs
@@ -103,12 +103,12 @@ Breadcrumbs::register('maintenance.work-orders.report.create', function($breadcr
  */
 Breadcrumbs::register('maintenance.work-orders.attachments.index', function($breadcrumbs, $workOrderId) {
     $breadcrumbs->parent('maintenance.work-orders.show', $workOrderId);
-    $breadcrumbs->push('Attachments', route('maintenance.work-orders.attachments.index', array($workOrderId)));
+    $breadcrumbs->push('Attachments', route('maintenance.work-orders.attachments.index', [$workOrderId]));
 });
 
 Breadcrumbs::register('maintenance.work-orders.attachments.create', function($breadcrumbs, $workOrderId) {
     $breadcrumbs->parent('maintenance.work-orders.attachments.index', $workOrderId);
-    $breadcrumbs->push('Add', route('maintenance.work-orders.attachments.create', array($workOrderId)));
+    $breadcrumbs->push('Add', route('maintenance.work-orders.attachments.create', [$workOrderId]));
 });
 /*
  * End Work Order attachment crumbs

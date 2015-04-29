@@ -1,5 +1,4 @@
-<div class="modal fade" id="search-modal" tabindex="-1 " role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="search-modal" tabindex="-1 " role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             {{ Form::open(array('url'=>$url, 'method'=>'GET', 'class'=>'form-horizontal ajax-form-get', 'data-refresh-target'=>'#resource-paginate')) }}
@@ -7,7 +6,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
                             class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Filter Your Asset Results</h4>
+                <h4 class="modal-title">Filter Your Asset Results</h4>
             </div>
             <div class="modal-body">
 
@@ -15,12 +14,7 @@
                     <label class="col-sm-2 control-label">ID</label>
 
                     <div class="col-md-10">
-                        {{ Form::text(
-                                    'id', 
-                                    (Input::has('id') ? Input::get('id') : NULL),  
-                                    array('class'=>'form-control', 'placeholder'=>'Enter Asset ID')
-                                ) 
-                        }}
+                        {{ Form::text('id', (Input::has('id') ? Input::get('id') : NULL), ['class'=>'form-control', 'placeholder'=>'Enter Asset ID']) }}
                     </div>
                 </div>
 
@@ -28,12 +22,7 @@
                     <label class="col-sm-2 control-label">Name</label>
 
                     <div class="col-md-10">
-                        {{ Form::text(
-                                    'name', 
-                                    (Input::has('name') ? Input::get('name') : NULL),  
-                                    array('class'=>'form-control', 'placeholder'=>'Enter Name')
-                                ) 
-                        }}
+                        {{ Form::text('name',(Input::has('name') ? Input::get('name') : NULL), ['class'=>'form-control', 'placeholder'=>'Enter Name']) }}
                     </div>
                 </div>
 

@@ -10,10 +10,10 @@ class InventoryAssembly extends BaseModel
 {
     protected $table = 'inventory_assemblies';
 
-    protected $fillable = array(
+    protected $fillable = [
         'inventory_id',
         'part_id',
         'quantity',
         'depth',
-    );
+    ];
 }

@@ -93,9 +93,9 @@ class AuthController extends BaseController
      */
     public function getLogin()
     {
-        return view('maintenance::login.index', array(
+        return view('maintenance::login.index', [
             'title' => 'Sign In',
-        ));
+        ]);
     }
 
     /**
@@ -136,7 +136,7 @@ class AuthController extends BaseController
              * Authenticate with sentry
              */
             $response = $this->auth->sentryAuthenticate(
-                array_only($data, array('email', 'password')),
+                array_only($data, ['email', 'password']),
                 (array_key_exists('remember', $data) ? $data['remember'] : NULL)
             );
 
@@ -178,9 +178,9 @@ class AuthController extends BaseController
      */
     public function getRegister()
     {
-        return view('maintenance::register.index', array(
+        return view('maintenance::register.index', [
             'title' => 'Register',
-        ));
+        ]);
     }
 
     /**

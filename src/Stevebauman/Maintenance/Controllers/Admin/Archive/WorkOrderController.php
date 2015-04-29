@@ -16,20 +16,20 @@ class WorkOrderController extends BaseController {
     {
         $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter(true);
         
-        return view('maintenance::admin.archive.work-orders.index', array(
+        return view('maintenance::admin.archive.work-orders.index', [
             'title' => 'Archived Work Orders',
             'workOrders'=> $workOrders
-        ));
+        ]);
     }
     
     public function show($id)
     {
         $workOrder = $this->workOrder->findArchived($id);
         
-        return view('maintenance::admin.archive.work-orders.show', array(
+        return view('maintenance::admin.archive.work-orders.show', [
             'title' => 'Viewing Archived Work Order: '.$workOrder->subject,
             'workOrder' => $workOrder
-        ));
+        ]);
     }
     
     public function destroy($id)

@@ -38,7 +38,7 @@ class RunSeedsCommand extends Command {
 
         if($this->confirm($message)) {
 
-            $this->call('db:seed', array('--class' => 'Stevebauman\Maintenance\Seeders\LdapUserSeeder'));
+            $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\LdapUserSeeder']);
 
             $this->info('Successfully seeded database with LDAP users');
         }
@@ -51,7 +51,7 @@ class RunSeedsCommand extends Command {
 
         if($this->confirm($message)) {
 
-            $this->call('db:seed', array('--class' => 'Stevebauman\Maintenance\Seeders\PrioritySeeder'));
+            $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\PrioritySeeder']);
 
             $this->info('Successfully seeded database with config priorities');
         }
@@ -64,7 +64,7 @@ class RunSeedsCommand extends Command {
 
         if($this->confirm($message)) {
 
-            $this->call('db:seed', array('--class' => 'Stevebauman\Maintenance\Seeders\StatusSeeder'));
+            $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\StatusSeeder']);
 
             $this->info('Successfully seeded database with config statuses');
         }
@@ -77,7 +77,7 @@ class RunSeedsCommand extends Command {
 
         if($this->confirm($message)) {
 
-            $this->call('db:seed', array('--class' => 'Stevebauman\Maintenance\Seeders\MetricSeeder'));
+            $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\MetricSeeder']);
 
             $this->info('Successfully seeded database with config metrics');
         }

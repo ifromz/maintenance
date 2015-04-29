@@ -55,11 +55,11 @@ class ReportService extends BaseModelService
             /*
              * Set the insert data for the work order report
              */
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'work_order_id' => $workOrder->id,
                 'description' => $this->getInput('description', NULL, true),
-            );
+            ];
 
             /*
              * Create the work order report
@@ -76,10 +76,10 @@ class ReportService extends BaseModelService
              * would be complete once a report has been filled out. If a started_at time exists
              * then we'll throw NULL inside so it isn't updated, otherwise we'll throw in today's time
              */
-            $update = array(
+            $update = [
                 'started_at' => ($workOrder->started_at ? NULL : $now),
                 'completed_at' => $now
-            );
+            ];
 
             /*
              * Update the work order
@@ -94,9 +94,9 @@ class ReportService extends BaseModelService
             /*
              * Fire the work order report created event
              */
-            $this->fireEvent('maintenance.work-orders.reports.created', array(
+            $this->fireEvent('maintenance.work-orders.reports.created', [
                 'report' => $record
-            ));
+            ]);
 
             /*
              * Commit the database transaction

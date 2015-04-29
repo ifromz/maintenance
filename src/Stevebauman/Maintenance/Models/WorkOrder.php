@@ -28,7 +28,7 @@ class WorkOrder extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrderViewer';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'location_id',
         'category_id',
@@ -39,9 +39,9 @@ class WorkOrder extends BaseModel
         'description',
         'started_at',
         'completed_at',
-    );
+    ];
 
-    protected $revisionFormattedFieldNames = array(
+    protected $revisionFormattedFieldNames = [
         'location_id' => 'Location',
         'category_id' => 'Work Order Category',
         'status_id' => 'Status',
@@ -50,7 +50,7 @@ class WorkOrder extends BaseModel
         'description' => 'Description',
         'started_at' => 'Started At',
         'completed_at' => 'Completed At',
-    );
+    ];
 
     /**
      * The belongsTo work request relationship

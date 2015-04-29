@@ -26,7 +26,7 @@ class DependencyCheckCommand extends Command {
      *
      * @var array
      */
-    private $dependencies = array(
+    private $dependencies = [
         'Stevebauman\Corp\CorpServiceProvider' => 'Corp',
         'Stevebauman\Viewer\ViewerServiceProvider' => 'Viewer',
         'Stevebauman\EloquentTable\EloquentTableServiceProvider' => 'Eloquent-Table',
@@ -40,8 +40,9 @@ class DependencyCheckCommand extends Command {
         'SimpleSoftwareIO\QrCode\QrCodeServiceProvider' => 'Simple-QrCode Generator',
         'Mews\Purifier\PurifierServiceProvider' => 'Purifier',
         'Google_Service' => 'Google API',
+        'Arcanedev\NoCaptcha\Laravel\ServiceProvider' => 'Google NoCaptcha',
         'DaveJamesMiller\Breadcrumbs\ServiceProvider' => 'Breadcrumbs',
-    );
+    ];
 
     /**
      * Fires the command
@@ -64,16 +65,13 @@ class DependencyCheckCommand extends Command {
     private function check()
     {
         foreach($this->dependencies as $class => $name) {
-
-            if(!class_exists($class)) {
+            if(! class_exists($class)) {
                 $message = sprintf('Dependency: %s (%s) not found. Please check your composer file', $name, $class);
 
                 throw new DependencyNotFoundException($message);
             }
-
         }
 
         return true;
     }
-
 }

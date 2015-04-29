@@ -23,10 +23,10 @@ class EventController extends BaseController {
     {
         $events = $this->event->get();
         
-        return view('maintenance::events.index', array(
+        return view('maintenance::events.index', [
             'title' => 'Events',
             'events' => $events,
-        ));
+        ]);
     }
 
     /**
@@ -34,9 +34,9 @@ class EventController extends BaseController {
      */
     public function create()
     {
-        return view('maintenance::events.create', array(
+        return view('maintenance::events.create', [
             'title' => 'Create an Event'
-        ));
+        ]);
     }
 
     /**
@@ -50,7 +50,7 @@ class EventController extends BaseController {
             
             if($event) {
                 
-                $this->message = sprintf('Successfully created event. %s', link_to_route('maintenance.events.show', 'Show', array($event->id)));
+                $this->message = sprintf('Successfully created event. %s', link_to_route('maintenance.events.show', 'Show', [$event->id]));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.events.index');
                 
@@ -84,19 +84,19 @@ class EventController extends BaseController {
         /*
          * Filter recurrences to display entries one month from now
          */
-        $filter = array(
+        $filter = [
             'timeMin' => strToRfc3339(strtotime('now')),
             'timeMax' => strToRfc3339(strtotime('+1 month')),
-        );
+        ];
         
         $recurrences = $this->event->setInput($filter)->getRecurrencesByApiId($api_id);
         
-        return view('maintenance::events.show', array(
+        return view('maintenance::events.show', [
             'title' => 'Viewing Event: '.$event->title,
             'event' => $event,
             'localEvent' => $localEvent,
             'recurrences' => $recurrences,
-        ));
+        ]);
     }
 
     /**
@@ -107,10 +107,10 @@ class EventController extends BaseController {
     {
         $event = $this->event->findByApiId($api_id);
 
-        return view('maintenance::events.edit', array(
+        return view('maintenance::events.edit', [
             'title' => sprintf('Editing event %s', $event->title),
             'event' => $event,
-        ));
+        ]);
     }
 
     /**
@@ -127,19 +127,19 @@ class EventController extends BaseController {
                 
                 $this->message = 'Successfully updated event';
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.events.show', array($event->id));
+                $this->redirect = route('maintenance.events.show', [$event->id]);
                 
             } else {
                 
                 $this->message = 'There was an error trying to udpdate this event. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.events.edit', array($api_id));
+                $this->redirect = route('maintenance.events.edit', [$api_id]);
                 
             }
             
         } else {
             
-            $this->redirect = route('maintenance.events.edit', array($api_id));
+            $this->redirect = route('maintenance.events.edit', [$api_id]);
             $this->errors = $this->eventValidator->getErrors();
             
         }
@@ -163,7 +163,7 @@ class EventController extends BaseController {
             
             $this->message = 'There was an error trying to delete this event. Please try again.';
             $this->messageType = 'danger';
-            $this->redirect = route('maintenance.events.show', array($api_id));
+            $this->redirect = route('maintenance.events.show', [$api_id]);
             
         }
         

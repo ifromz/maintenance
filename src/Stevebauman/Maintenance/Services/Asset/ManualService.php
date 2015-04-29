@@ -93,12 +93,12 @@ class ManualService extends BaseModelService
                     /*
                      * Set insert data
                      */
-                    $insert = array(
+                    $insert = [
                         'name' => $fileOriginalName,
                         'file_name' => $fileName,
                         'file_path' => $movedFilePath,
                         'user_id' => $this->sentry->getCurrentUserId()
-                    );
+                    ];
 
                     /*
                      * Create the attachment record

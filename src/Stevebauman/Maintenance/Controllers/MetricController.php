@@ -17,17 +17,17 @@ class MetricController extends BaseController {
     {
         $metrics = $this->metric->setInput($this->inputAll())->get();
         
-        return view('maintenance::metrics.index', array(
+        return view('maintenance::metrics.index', [
             'title' => 'All Metrics',
             'metrics' => $metrics
-        ));
+        ]);
     }
     
     public function create()
     {
-        return view('maintenance::metrics.create', array(
+        return view('maintenance::metrics.create', [
             'title' => 'Create a Metric',
-        ));
+        ]);
     }
     
     public function store()
@@ -52,10 +52,10 @@ class MetricController extends BaseController {
     {
         $metric = $this->metric->find($id);
         
-        return view('maintenance::metrics.edit', array(
+        return view('maintenance::metrics.edit', [
             'title' => 'Edit Metric: '.$metric->name,
             'metric' => $metric
-        ));
+        ]);
     }
     
     public function update($id)

@@ -6,7 +6,7 @@ class MetricViewer extends BaseViewer {
     
     public function btnActions()
     {
-        return view('maintenance::viewers.metric.buttons.actions', array('metric'=>$this->entity));
+        return view('maintenance::viewers.metric.buttons.actions', ['metric'=>$this->entity]);
     }
     
 }

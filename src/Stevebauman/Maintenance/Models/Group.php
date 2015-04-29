@@ -18,7 +18,7 @@ class Group extends SentryGroup
 
     protected $table = 'groups';
 
-    protected $fillable = array('name', 'permissions');
+    protected $fillable = ['name', 'permissions'];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\GroupViewer';
 

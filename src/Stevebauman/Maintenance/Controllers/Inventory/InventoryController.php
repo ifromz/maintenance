@@ -41,10 +41,10 @@ class InventoryController extends BaseController
     {
         $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
 
-        return view('maintenance::inventory.index', array(
+        return view('maintenance::inventory.index', [
             'title' => 'Inventory',
             'items' => $items,
-        ));
+        ]);
     }
 
     /**
@@ -54,9 +54,9 @@ class InventoryController extends BaseController
      */
     public function create()
     {
-        return view('maintenance::inventory.create', array(
+        return view('maintenance::inventory.create', [
             'title' => 'Add an Item to the Inventory',
-        ));
+        ]);
     }
 
     /**
@@ -74,7 +74,7 @@ class InventoryController extends BaseController
 
             if ($record)
             {
-                $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', array($record->id)));
+                $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', [$record->id]));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.inventory.index');
 
@@ -103,10 +103,10 @@ class InventoryController extends BaseController
     {
         $item = $this->inventory->find($id);
 
-        return view('maintenance::inventory.show', array(
+        return view('maintenance::inventory.show', [
             'title' => 'Viewing Inventory Item: ' . $item->name,
             'item' => $item,
-        ));
+        ]);
     }
 
     /**
@@ -119,10 +119,10 @@ class InventoryController extends BaseController
     {
         $item = $this->inventory->find($id);
 
-        return view('maintenance::inventory.edit', array(
+        return view('maintenance::inventory.edit', [
             'title' => 'Editing Inventory Item: ' . $item->name,
             'item' => $item,
-        ));
+        ]);
     }
 
     /**
@@ -140,14 +140,14 @@ class InventoryController extends BaseController
             $item = $this->inventory->setInput($this->inputAll())->update($id);
 
             if ($item) {
-                $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', array($item->id)));
+                $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', [$item->id]));
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.inventory.show', array($item->id));
+                $this->redirect = route('maintenance.inventory.show', [$item->id]);
 
             } else {
                 $this->message = 'There was an error trying to update this item. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.edit', array($item->id));
+                $this->redirect = route('maintenance.inventory.edit', [$item->id]);
             }
 
         } else {

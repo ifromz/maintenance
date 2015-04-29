@@ -20,12 +20,12 @@
 
         <p>
             Record in the archive:
-        <ul>
-            <li>Can be permanently deleted</li>
-            <li>Can be restored</li>
-            <li>Have no expiry date</li>
-            <li>Can be viewed and/or modified</li>
-        </ul>
+            <ul>
+                <li>Can be permanently deleted</li>
+                <li>Can be restored</li>
+                <li>Have no expiry date</li>
+                <li>Can be viewed and/or modified</li>
+            </ul>
         </p>
     </div>
 

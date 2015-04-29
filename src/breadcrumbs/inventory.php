@@ -18,12 +18,12 @@ Breadcrumbs::register('maintenance.inventory.create', function($breadcrumbs) {
 
 Breadcrumbs::register('maintenance.inventory.show', function($breadcrumbs, $inventoryId) {
     $breadcrumbs->parent('maintenance.inventory.index');
-    $breadcrumbs->push("ID: $inventoryId", route('maintenance.inventory.show', array($inventoryId)));
+    $breadcrumbs->push("ID: $inventoryId", route('maintenance.inventory.show', [$inventoryId]));
 });
 
 Breadcrumbs::register('maintenance.inventory.edit', function($breadcrumbs, $inventoryId) {
     $breadcrumbs->parent('maintenance.inventory.show', $inventoryId);
-    $breadcrumbs->push('Edit', route('maintenance.inventory.edit', array($inventoryId)));
+    $breadcrumbs->push('Edit', route('maintenance.inventory.edit', [$inventoryId]));
 });
 /*
  * End Inventory crumbs
@@ -34,12 +34,12 @@ Breadcrumbs::register('maintenance.inventory.edit', function($breadcrumbs, $inve
  */
 Breadcrumbs::register('maintenance.inventory.stocks.index', function($breadcrumbs, $inventoryId) {
     $breadcrumbs->parent('maintenance.inventory.show', $inventoryId);
-    $breadcrumbs->push('Stocks', route('maintenance.inventory.stocks.index', array($inventoryId)));
+    $breadcrumbs->push('Stocks', route('maintenance.inventory.stocks.index', [$inventoryId]));
 });
 
 Breadcrumbs::register('maintenance.inventory.stocks.show', function($breadcrumbs, $inventoryId, $stockId) {
     $breadcrumbs->parent('maintenance.inventory.stocks.index', $inventoryId);
-    $breadcrumbs->push("ID: $stockId", route('maintenance.inventory.stocks.show', array($inventoryId, $stockId)));
+    $breadcrumbs->push("ID: $stockId", route('maintenance.inventory.stocks.show', [$inventoryId, $stockId]));
 });
 /*
  * End Inventory Stock Crumbs
@@ -50,12 +50,12 @@ Breadcrumbs::register('maintenance.inventory.stocks.show', function($breadcrumbs
  */
 Breadcrumbs::register('maintenance.inventory.stocks.movements.index', function($breadcrumbs, $inventoryId, $stockId) {
     $breadcrumbs->parent('maintenance.inventory.stocks.show', $inventoryId, $stockId);
-    $breadcrumbs->push('Movements', route('maintenance.inventory.stocks.movements.index', array($inventoryId, $stockId)));
+    $breadcrumbs->push('Movements', route('maintenance.inventory.stocks.movements.index', [$inventoryId, $stockId]));
 });
 
 Breadcrumbs::register('maintenance.inventory.stocks.movements.show', function($breadcrumbs, $inventoryId, $stockId, $movementId) {
     $breadcrumbs->parent('maintenance.inventory.stocks.movements.index', $inventoryId, $stockId);
-    $breadcrumbs->push("ID: $movementId", route('maintenance.inventory.stocks.movements.index', array($inventoryId, $stockId, $movementId)));
+    $breadcrumbs->push("ID: $movementId", route('maintenance.inventory.stocks.movements.index', [$inventoryId, $stockId, $movementId]));
 });
 /*
  * End Inventory Stock Movement crumbs

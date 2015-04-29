@@ -11,7 +11,7 @@ class BaseViewer extends AbstractViewer {
      */
     public function history()
     {
-        return view('maintenance::partials.history-table', array('record'=>$this->entity));
+        return view('maintenance::partials.history-table', ['record'=>$this->entity]);
     }
     
 }

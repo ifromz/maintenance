@@ -26,9 +26,9 @@ class ImportCommand extends Command
      *
      * @var array
      */
-    protected $sources = array(
+    protected $sources = [
         'dynamics'
-    );
+    ];
 
     /**
      * Execute the console command.
@@ -37,7 +37,7 @@ class ImportCommand extends Command
      */
     public function fire()
     {
-        $this->call('maintenance:import-dynamics', array('component' => $this->argument('component')));
+        $this->call('maintenance:import-dynamics', ['component' => $this->argument('component')]);
     }
 
     /**
@@ -47,9 +47,9 @@ class ImportCommand extends Command
      */
     protected function getArguments()
     {
-        return array(
-            array('source', InputArgument::REQUIRED, 'The source to import (ex. Dynamics)'),
-            array('component', InputArgument::REQUIRED, 'The maintenance component (ex. assets)'),
-        );
+        return [
+            ['source', InputArgument::REQUIRED, 'The source to import (ex. Dynamics)'],
+            ['component', InputArgument::REQUIRED, 'The maintenance component (ex. assets)'],
+        ];
     }
 }

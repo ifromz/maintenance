@@ -1,19 +1,22 @@
 <?php
 
-return array(
+/**
+ * Maintenance Application Site Configuration
+ */
 
+return [
     /*
-    * Prefix of the application (ex. http://www.example.com/maintenance/)
-    */
+     * Prefix of the application (ex. http://www.example.com/maintenance/)
+     */
     'prefix' => '/',
 
     /*
      * Title of the backend Application
      */
-    'title' => array(
+    'title' => [
         'main' => 'Maintenance',
         'admin' => 'Admin Panel'
-    ),
+    ],
 
     /*
      * Enter the API calendar keys you'd like to use for each different calendar.
@@ -21,24 +24,23 @@ return array(
      * For example, if using Google calendar you could enter 'primary' on each entry below to use the same
      * calendar for every entry.
      */
-    'calendars' => array(
+    'calendars' => [
         'work-orders' => 'mycalendar@group.calendar.google.com',
         'inventories' => 'mycalendar@group.calendar.google.com',
         'assets' => 'mycalendar@group.calendar.google.com',
-    ),
+    ],
 
     /*
      * LDAP Settings
      */
-    'ldap' => array(
-
+    'ldap' => [
         /*
          * Enables use of LDAP for logging in. You must publish the config
          * file of Stevebauman\Corp and fill in your settings to use LDAP.
          */
         'enabled' => true,
 
-        'user_sync' => array(
+        'user_sync' => [
 
             /*
              * Enables the maintenance seeder to add LDAP users to the web database so they are visble
@@ -49,38 +51,34 @@ return array(
             /*
              * Filters for the user sync. Set enabled to false to allow all users detected on LDAP to be added
              */
-            'filters' => array(
+            'filters' => [
 
                 'enabled' => true,
 
                 /*
                  * User groups to allow **MUST BE ARRAY IF ENABLED - FALSE OTHERWISE**
                  */
-                'groups' => array('Maintenance', 'User Accounts'),
+                'groups' => ['Maintenance', 'User Accounts'],
 
                 /*
                  * User types to allow **MUST BE ARRAY IF ENABLED - FALSE OTHERWISE**
                  */
-                'types' => array('Managers', 'Students'),
-            ),
-
-        ),
-    ),
+                'types' => ['Managers', 'Students'],
+            ],
+        ],
+    ],
 
     /*
      * Paths for file storage. All paths have to end with trailing slash
      */
-    'paths' => array(
-
-        'assets' => array(
+    'paths' => [
+        'assets' => [
             'images' => 'assets/images/',
             'manuals' => 'assets/manuals/',
-        ),
+        ],
 
-        'work-orders' => array(
+        'work-orders' => [
             'attachments' => 'work-orders/attachments/'
-        ),
-
-    ),
-
-);
+        ],
+    ],
+];

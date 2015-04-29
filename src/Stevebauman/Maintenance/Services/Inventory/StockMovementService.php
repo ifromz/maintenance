@@ -63,14 +63,14 @@ class StockMovementService extends BaseModelService
 
         try
         {
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'stock_id' => $this->getInput('stock_id'),
                 'before' => $this->getInput('before'),
                 'after' => $this->getInput('after'),
                 'cost' => $this->getInput('cost'),
                 'reason' => $this->getInput('reason', 'Stock Adjustment', true)
-            );
+            ];
 
             /*
              * Only create a record if the before and after quantity differ

@@ -9,12 +9,10 @@ use Illuminate\Support\Facades\Route;
  * @author Steve Bauman
  */
 Route::filter('maintenance.auth', function () {
-
-    if (!Sentry::check()) {
+    if (! Sentry::check()) {
         Session::put('url.intended', URL::full());
         return Redirect::route('maintenance.login');
     }
-
 });
 
 /**
@@ -24,11 +22,9 @@ Route::filter('maintenance.auth', function () {
  * @author Steve Bauman
  */
 Route::filter('maintenance.notauth', function () {
-
     if (Sentry::check()) {
         return Redirect::route('maintenance.dashboard.index');
     }
-
 });
 
 /**
@@ -42,7 +38,7 @@ Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $rou
      * Make sure the route we're on isn't allowing all users already, and if so we'll check to see
      * if the current user has access to it
      */
-    if(!in_array($route->getName(), config('maintenance::permissions.all_users')) && !Sentry::hasAccess($route->getName())) {
+    if(! in_array($route->getName(), config('maintenance::permissions.all_users')) && !Sentry::hasAccess($route->getName())) {
 
         $message = 'You do not have access to do perform this function.';
         $messageType = 'danger';
@@ -52,10 +48,10 @@ Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $rou
          */
         if (Request::ajax()) {
 
-            return Response::json(array(
+            return Response::json([
                 'message' => $message,
                 'messageType' => $messageType
-            ));
+            ]);
 
         } else {
 

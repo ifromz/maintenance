@@ -44,11 +44,11 @@ class StockService extends BaseModelService
             /*
              * Set insert data
              */
-            $insert = array(
+            $insert = [
                 'inventory_id' => $this->getInput('inventory_id'),
                 'location_id' => $this->getInput('location_id'),
                 'quantity' => $this->getInput('quantity')
-            );
+            ];
 
             /*
              * Create the stock record
@@ -60,9 +60,9 @@ class StockService extends BaseModelService
                 /*
                  * Fire stock created event
                  */
-                $this->fireEvent('maintenance.inventory.stock.created', array(
+                $this->fireEvent('maintenance.inventory.stock.created', [
                     'stock' => $record
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 
@@ -122,9 +122,9 @@ class StockService extends BaseModelService
                 /*
                  * Fire stock updated event
                  */
-                $this->fireEvent('maintenance.inventory.stock.updated', array(
+                $this->fireEvent('maintenance.inventory.stock.updated', [
                     'stock' => $record
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 
@@ -176,9 +176,9 @@ class StockService extends BaseModelService
                 /*
                  * Fire stock taken event
                  */
-                $this->fireEvent('maintenance.inventory.stock.taken', array(
+                $this->fireEvent('maintenance.inventory.stock.taken', [
                     'stock' => $record
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 
@@ -228,9 +228,9 @@ class StockService extends BaseModelService
                 /*
                  * Fire stock put event
                  */
-                $this->fireEvent('maintenance.inventory.stock.put', array(
+                $this->fireEvent('maintenance.inventory.stock.put', [
                     'stock' => $record
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 

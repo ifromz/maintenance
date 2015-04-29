@@ -31,11 +31,11 @@ class StatusService extends BaseModelService
 
         try {
 
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'name' => $this->getInput('name'),
                 'color' => $this->getInput('color')
-            );
+            ];
 
             $record = $this->model->create($insert);
 
@@ -58,10 +58,10 @@ class StatusService extends BaseModelService
 
         try {
 
-            $insert = array(
+            $insert = [
                 'name' => $this->getInput('name'),
                 'color' => $this->getInput('color')
-            );
+            ];
 
             $record = $this->find($id);
 
@@ -91,10 +91,10 @@ class StatusService extends BaseModelService
 
         try {
 
-            $insert = array(
+            $insert = [
                 'name' => 'Requested',
                 'color' => 'default'
-            );
+            ];
 
             $record = $this->model->firstOrCreate($insert);
 

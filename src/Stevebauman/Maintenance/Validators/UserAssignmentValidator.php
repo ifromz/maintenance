@@ -18,7 +18,7 @@ class UserAssignmentValidator extends Validator {
      *
      * @var array
      */
-    protected $invalidUsers = array();
+    protected $invalidUsers = [];
 
     /**
      * @var \Symfony\Component\Translation\TranslatorInterface

@@ -12,13 +12,13 @@ class Location extends Node
 {
     protected $table = 'locations';
 
-    protected $fillable = array(
+    protected $fillable = [
         'name',
-    );
+    ];
 
-    protected $revisionFormattedFieldNames = array(
+    protected $revisionFormattedFieldNames = [
         'name' => 'Name',
-    );
+    ];
 
     /**
      * Returns a single lined string with arrows indicating depth of the current category

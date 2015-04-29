@@ -3,36 +3,36 @@
 /*
  * Asset Routes
  */
-Route::group(array('namespace' => 'Asset'), function () {
+Route::group(['namespace' => 'Asset'], function () {
 
     /*
     * Category Routes
     */
-    Route::get('assets/categories/json', array(
+    Route::get('assets/categories/json', [
             'as' => 'maintenance.assets.categories.json',
             'uses' => 'CategoryController@getJson',
-        )
+        ]
     );
 
-    Route::get('assets/categories/create/{categories?}', array(
+    Route::get('assets/categories/create/{categories?}', [
             'as' => 'maintenance.assets.categories.nodes.create',
             'uses' => 'CategoryController@create',
-        )
+        ]
     );
 
-    Route::post('assets/categories/move/{categories?}', array(
+    Route::post('assets/categories/move/{categories?}', [
         'as' => 'maintenance.assets.categories.nodes.move',
         'uses' => 'CategoryController@postMoveCategory'
-    ));
+    ]);
 
-    Route::post('assets/categories/create/{categories?}', array(
+    Route::post('assets/categories/create/{categories?}', [
             'as' => 'maintenance.assets.categories.nodes.store',
             'uses' => 'CategoryController@store',
-        )
+        ]
     );
 
-    Route::resource('assets/categories', 'CategoryController', array(
-        'names' => array(
+    Route::resource('assets/categories', 'CategoryController', [
+        'names' => [
             'index' => 'maintenance.assets.categories.index',
             'create' => 'maintenance.assets.categories.create',
             'store' => 'maintenance.assets.categories.store',
@@ -40,8 +40,8 @@ Route::group(array('namespace' => 'Asset'), function () {
             'edit' => 'maintenance.assets.categories.edit',
             'update' => 'maintenance.assets.categories.update',
             'destroy' => 'maintenance.assets.categories.destroy',
-        ),
-    ));
+        ],
+    ]);
     /*
      * End Category Routes
      */
@@ -49,34 +49,34 @@ Route::group(array('namespace' => 'Asset'), function () {
     /*
      * Asset Image Routes
      */
-    Route::group(array('namespace' => 'Image'), function () {
+    Route::group(['namespace' => 'Image'], function () {
 
-        Route::post('assets/images/uploads', array(
+        Route::post('assets/images/uploads', [
             'as' => 'maintenance.assets.images.uploads.store',
             'uses' => 'UploadController@store'
-        ));
+        ]);
 
-        Route::post('assets/images/uploads/destroy', array(
+        Route::post('assets/images/uploads/destroy', [
             'as' => 'maintenance.assets.images.uploads.destroy',
             'uses' => 'UploadController@destroy'
-        ));
+        ]);
 
-        Route::resource('assets.images', 'ImageController', array(
-            'only' => array(
+        Route::resource('assets.images', 'ImageController', [
+            'only' => [
                 'index',
                 'create',
                 'store',
                 'show',
                 'destroy'
-            ),
-            'names' => array(
+            ],
+            'names' => [
                 'index' => 'maintenance.assets.images.index',
                 'create' => 'maintenance.assets.images.create',
                 'store' => 'maintenance.assets.images.store',
                 'show' => 'maintenance.assets.images.show',
                 'destroy' => 'maintenance.assets.images.destroy',
-            ),
-        ));
+            ],
+        ]);
 
     });
     /*
@@ -86,35 +86,35 @@ Route::group(array('namespace' => 'Asset'), function () {
     /*
      * Asset Meter Routes
      */
-    Route::group(array('namespace' => 'Meter'), function () {
+    Route::group(['namespace' => 'Meter'], function () {
 
-        Route::resource('assets.meters', 'MeterController', array(
-            'names' => array(
+        Route::resource('assets.meters', 'MeterController', [
+            'names' => [
                 'store' => 'maintenance.assets.meters.store',
                 'show' => 'maintenance.assets.meters.show',
                 'edit' => 'maintenance.assets.meters.edit',
                 'update' => 'maintenance.assets.meters.update',
                 'destroy' => 'maintenance.assets.meters.destroy',
-            ),
-            'only' => array(
+            ],
+            'only' => [
                 'store',
                 'show',
                 'edit',
                 'update',
                 'destroy'
-            ),
-        ));
+            ],
+        ]);
 
-        Route::resource('assets.meters.readings', 'ReadingController', array(
-            'only' => array(
+        Route::resource('assets.meters.readings', 'ReadingController', [
+            'only' => [
                 'store',
                 'destroy',
-            ),
-            'names' => array(
+            ],
+            'names' => [
                 'store' => 'maintenance.assets.meters.readings.store',
                 'destroy' => 'maintenance.assets.meters.readings.destroy'
-            )
-        ));
+            ]
+        ]);
 
     });
     /*
@@ -124,36 +124,36 @@ Route::group(array('namespace' => 'Asset'), function () {
     /*
      * Asset Manual Upload Routes
      */
-    Route::group(array('namespace' => 'Manual'), function () {
+    Route::group(['namespace' => 'Manual'], function () {
 
-        Route::group(array('prefix' => 'assets/manuals/uploads'), function () {
+        Route::group(['prefix' => 'assets/manuals/uploads'], function () {
 
-            Route::post('', array(
+            Route::post('', [
                 'as' => 'maintenance.assets.manuals.uploads.store',
                 'uses' => 'UploadController@store'
-            ));
+            ]);
 
-            Route::post('destroy', array(
+            Route::post('destroy', [
                 'as' => 'maintenance.assets.manuals.uploads.destroy',
                 'uses' => 'UploadController@destroy'
-            ));
+            ]);
 
         });
 
-        Route::resource('assets.manuals', 'ManualController', array(
-            'only' => array(
+        Route::resource('assets.manuals', 'ManualController', [
+            'only' => [
                 'index',
                 'create',
                 'store',
                 'destroy'
-            ),
-            'names' => array(
+            ],
+            'names' => [
                 'index' => 'maintenance.assets.manuals.index',
                 'create' => 'maintenance.assets.manuals.create',
                 'store' => 'maintenance.assets.manuals.store',
                 'destroy' => 'maintenance.assets.manuals.destroy',
-            ),
-        ));
+            ],
+        ]);
 
     });
     /*
@@ -163,8 +163,8 @@ Route::group(array('namespace' => 'Asset'), function () {
     /*
      * Asset Event Routes
      */
-    Route::resource('assets.events', 'EventController', array(
-        'names' => array(
+    Route::resource('assets.events', 'EventController', [
+        'names' => [
             'index' => 'maintenance.assets.events.index',
             'create' => 'maintenance.assets.events.create',
             'store' => 'maintenance.assets.events.store',
@@ -172,14 +172,14 @@ Route::group(array('namespace' => 'Asset'), function () {
             'edit' => 'maintenance.assets.events.edit',
             'update' => 'maintenance.assets.events.update',
             'destroy' => 'maintenance.assets.events.destroy',
-        )
-    ));
+        ]
+    ]);
 
     /*
      * Asset Routes
      */
-    Route::resource('assets', 'AssetController', array(
-        'names' => array(
+    Route::resource('assets', 'AssetController', [
+        'names' => [
             'index' => 'maintenance.assets.index',
             'create' => 'maintenance.assets.create',
             'store' => 'maintenance.assets.store',
@@ -187,8 +187,8 @@ Route::group(array('namespace' => 'Asset'), function () {
             'edit' => 'maintenance.assets.edit',
             'update' => 'maintenance.assets.update',
             'destroy' => 'maintenance.assets.destroy',
-        ),
-    ));
+        ],
+    ]);
 
 });
 

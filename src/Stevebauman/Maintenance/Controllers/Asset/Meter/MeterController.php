@@ -93,16 +93,16 @@ class MeterController extends BaseController {
                 
                 $this->message = 'Successfully created meter reading';
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.assets.show', array($asset->id));
+                $this->redirect = route('maintenance.assets.show', [$asset->id]);
                 
             } else{
                 $this->message = 'There was an error trying to create a meter for this asset. Please try again';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.assets.show', array($asset->id));
+                $this->redirect = route('maintenance.assets.show', [$asset->id]);
             }
             
         } else{
-            $this->redirect = route('maintenance.assets.meters.show', array($asset_id));
+            $this->redirect = route('maintenance.assets.meters.show', [$asset_id]);
             $this->errors = $this->meterValidator->getErrors();
         }
         
@@ -123,12 +123,12 @@ class MeterController extends BaseController {
         
         $readings = $this->meterReading->getByMeterByPageWithFilter($meter->id);
         
-        return view('maintenance::assets.meters.show', array(
+        return view('maintenance::assets.meters.show', [
             'title' => 'Viewing Asset Meter: '.$meter->name,
             'asset' => $asset,
             'meter' => $meter,
             'readings'=> $readings
-        ));
+        ]);
     }
     
     public function edit($asset_id, $meter_id)
@@ -137,11 +137,11 @@ class MeterController extends BaseController {
         
         $meter = $this->meter->find($meter_id);
         
-        return view('maintenance::assets.meters.edit', array(
+        return view('maintenance::assets.meters.edit', [
             'title' => 'Editing Asset Meter: '.$meter->name,
             'asset' => $asset,
             'meter' => $meter
-        ));
+        ]);
     }
     
     public function update($asset_id, $meter_id)
@@ -157,12 +157,12 @@ class MeterController extends BaseController {
             
             $this->message = 'Successfully updated meter';
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.assets.show', array($asset_id));
+            $this->redirect = route('maintenance.assets.show', [$asset_id]);
             
         } else {
             
             $this->errors = $this->meterValidator->getErrors();
-            $this->redirect = route('maintenance.assets.meters.edit', array($asset_id, $meter_id));
+            $this->redirect = route('maintenance.assets.meters.edit', [$asset_id, $meter_id]);
             
         }
         
@@ -177,7 +177,7 @@ class MeterController extends BaseController {
         
         $this->message = 'Successfully deleted meter';
         $this->messageType = 'success';
-        $this->redirect = route('maintenance.assets.show', array($asset->id));
+        $this->redirect = route('maintenance.assets.show', [$asset->id]);
         
         return $this->response();
     }

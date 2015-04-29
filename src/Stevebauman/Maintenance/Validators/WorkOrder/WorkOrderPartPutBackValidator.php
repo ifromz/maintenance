@@ -9,8 +9,8 @@ namespace Stevebauman\Maintenance\Validators;
 class WorkOrderPartPutBackValidator extends BaseValidator
 {
     
-    protected $rules = array(
+    protected $rules = [
         'quantity' => 'required|positive|greater_than:0'
-    );
+    ];
     
 }

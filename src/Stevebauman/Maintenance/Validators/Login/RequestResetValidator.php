@@ -10,7 +10,7 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
  */
 class RequestResetValidator extends BaseValidator
 {
-    protected $rules = array(
+    protected $rules = [
         'email' => 'required'
-    );
+    ];
 }

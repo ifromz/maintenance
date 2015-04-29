@@ -68,7 +68,7 @@ class MaintenanceServiceProvider extends ServiceProvider
 			return new Commands\Import\DynamicsCommand;
 		});
 
-		$this->commands(array(
+		$this->commands([
 			'maintenance:install',
 			'maintenance:run-migrations',
 			'maintenance:run-seeds',
@@ -77,7 +77,7 @@ class MaintenanceServiceProvider extends ServiceProvider
 			'maintenance:create-admin',
 			'maintenance:import',
 			'maintenance:import-dynamics',
-		));
+        ]);
 	}
 
 	/**
@@ -104,9 +104,9 @@ class MaintenanceServiceProvider extends ServiceProvider
 	{
 		$this->app->missing(function($e)
         {
-			return view('maintenance::404', array(
+			return view('maintenance::404', [
 				'title' => '404 - Page Not Found'
-			));
+            ]);
 		});
 	}
 
@@ -117,6 +117,6 @@ class MaintenanceServiceProvider extends ServiceProvider
 	 */
 	public function provides()
 	{
-		return array('maintenance');
+		return ['maintenance'];
 	}
 }

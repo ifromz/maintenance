@@ -50,10 +50,10 @@ class ReportController extends BaseController
     {
         $workOrder = $this->workOrder->find($workOrder_id);
 
-        return view('maintenance::work-orders.report.create', array(
+        return view('maintenance::work-orders.report.create', [
             'title' => 'Create a Work Order Report',
             'workOrder' => $workOrder
-        ));
+        ]);
     }
 
     /**
@@ -78,16 +78,16 @@ class ReportController extends BaseController
 
                 $this->message = 'Successfully created work order report';
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+                $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
 
             } else {
                 $this->message = 'There was an error creating a work order report. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+                $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
             }
         } else {
             $this->errors = $this->reportValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
         }
 
         return $this->response();

@@ -13,31 +13,31 @@ class ApiEventViewer extends BaseViewer {
      */
     public function profile()
     {
-        return view('maintenance::viewers.event.profile', array(
+        return view('maintenance::viewers.event.profile', [
             'event' => $this->entity,
-        ));
+        ]);
     }
     
     public function recurrences($recurrences)
     {
-        return view('maintenance::viewers.event.recurrences', array(
+        return view('maintenance::viewers.event.recurrences', [
             'event' => $this->entity,
             'recurrences' => $recurrences
-        ));
+        ]);
     }
     
     public function attendees()
     {
-        return view('maintenance::viewers.event.attendees', array(
+        return view('maintenance::viewers.event.attendees', [
             'event' => $this->entity
-        ));
+        ]);
     }
     
     public function recurrenceWarning()
     {
-        return view('maintenance::viewers.event.recurrence-warning', array(
+        return view('maintenance::viewers.event.recurrence-warning', [
             'event' => $this->entity
-        ));
+        ]);
     }
     
     /**
@@ -167,7 +167,7 @@ class ApiEventViewer extends BaseViewer {
     
     public function lblRecurring()
     {
-        return view('maintenance::viewers.event.labels.recurring', array('event'=>$this->entity));
+        return view('maintenance::viewers.event.labels.recurring', ['event'=>$this->entity]);
     }
     
     /**
@@ -177,46 +177,46 @@ class ApiEventViewer extends BaseViewer {
      */
     public function lblAllDay()
     {
-        return view('maintenance::viewers.event.labels.all-day', array('event'=>$this->entity));
+        return view('maintenance::viewers.event.labels.all-day', ['event'=>$this->entity]);
     }
 
     public function btnEventableActions($eventable)
     {
-        return view('maintenance::viewers.event.buttons.eventable-actions', array(
+        return view('maintenance::viewers.event.buttons.eventable-actions', [
             'event'=>$this->entity,
             'eventable' => $eventable,
-        ));
+        ]);
     }
 
     public function btnEventableEdit($eventable)
     {
-        return view('maintenance::viewers.event.buttons.eventable-edit', array(
+        return view('maintenance::viewers.event.buttons.eventable-edit', [
             'event' => $this->entity,
             'eventable' => $eventable,
-        ));
+        ]);
     }
 
     public function btnEventableDelete($eventable)
     {
-        return view('maintenance::viewers.event.buttons.eventable-delete', array(
+        return view('maintenance::viewers.event.buttons.eventable-delete', [
             'event' => $this->entity,
             'eventable' => $eventable,
-        ));
+        ]);
     }
 
     public function btnActions()
     {
-        return view('maintenance::viewers.event.buttons.actions', array('event'=>$this->entity));
+        return view('maintenance::viewers.event.buttons.actions', ['event'=>$this->entity]);
     }
     
     public function btnEdit()
     {
-        return view('maintenance::viewers.event.buttons.edit', array('event' => $this->entity));
+        return view('maintenance::viewers.event.buttons.edit', ['event' => $this->entity]);
     }
     
     public function btnDelete()
     {
-        return view('maintenance::viewers.event.buttons.delete', array('event' => $this->entity));
+        return view('maintenance::viewers.event.buttons.delete', ['event' => $this->entity]);
     }
     
 }

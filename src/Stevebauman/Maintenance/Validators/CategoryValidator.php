@@ -9,8 +9,8 @@ namespace Stevebauman\Maintenance\Validators;
 class CategoryValidator extends BaseValidator
 {
 	
-	protected $rules = array(
+	protected $rules = [
 		'name' => 'required|max:250',
-	);
+    ];
 	
 }

@@ -18,10 +18,10 @@ class EventApi extends BaseApi
 
     public function index()
     {
-        $data = array(
+        $data = [
             'timeMin' => strToRfc3339($this->input('start')),
             'timeMax' => strToRfc3339($this->input('end')),
-        );
+        ];
 
         $events = $this->event->parseEvents($this->event->setInput($data)->get());
 
@@ -46,7 +46,7 @@ class EventApi extends BaseApi
             $event = $this->event->find($id);
 
             return $this->responseJson(
-                view('maintenance::apis.calendar.events.show', array('event' => $event))->render()
+                view('maintenance::apis.calendar.events.show', ['event' => $event])->render()
             );
 
         } catch (RecordNotFoundException $e) {
@@ -65,10 +65,10 @@ class EventApi extends BaseApi
 
             $this->event->setInput($this->inputAll())->updateDates($id);
 
-            return $this->responseJson(array(
+            return $this->responseJson([
                 'message' => 'Successfully updated event',
                 'messageType' => 'success',
-            ));
+            ]);
 
         } catch (RecordNotFoundException $ex) {
             return NULL;

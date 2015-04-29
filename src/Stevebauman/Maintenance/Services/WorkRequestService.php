@@ -117,10 +117,10 @@ class WorkRequestService extends BaseModelService {
         {
             if ($workRequest->updates()->save($update))
             {
-                $this->fireEvent('maintenance.work-requests.updates.created', array(
+                $this->fireEvent('maintenance.work-requests.updates.created', [
                     'workRequest' => $workRequest,
                     'update' => $update
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 

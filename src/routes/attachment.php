@@ -5,16 +5,16 @@
  */
 
 Route::resource('attachments', 'AttachmentController',
-    array(
-        'only' => array(
+    [
+        'only' => [
             'destroy'
-        ),
-        'names' => array(
+        ],
+        'names' => [
             'destroy' => 'maintenance.attachments.destroy',
-        ),
-    )
+        ],
+    ]
 );
 
-Route::delete('attachments/uploaded', array(
+Route::delete('attachments/uploaded', [
     'as' => 'maintenance.attachments.uploaded.destroy',
-));
+]);

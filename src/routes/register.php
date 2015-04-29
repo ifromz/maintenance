@@ -4,19 +4,19 @@
  * Registration Routes
  */
 
-Route::group(array('prefix' => 'register', 'namespace' => 'Controllers'), function () {
-    Route::get('', array(
+Route::group(['prefix' => 'register', 'namespace' => 'Controllers'], function () {
+    Route::get('', [
         'as' => 'maintenance.register',
         'uses' => 'AuthController@getRegister',
-    ));
+    ]);
 
-    Route::get('why', array(
+    Route::get('why', [
         'as' => 'maintenance.register.why',
         'uses' => 'AuthController@getWhyRegister',
-    ));
+    ]);
 
-    Route::post('', array(
+    Route::post('', [
         'as' => 'maintenance.register',
         'uses' => 'AuthController@postRegister',
-    ));
+    ]);
 });

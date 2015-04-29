@@ -63,10 +63,10 @@ class AttachmentController extends BaseController
     {
         $workOrder = $this->workOrder->find($workOrder_id);
 
-        return view('maintenance::work-orders.attachments.index', array(
+        return view('maintenance::work-orders.attachments.index', [
             'title' => 'Work Order Attachments',
             'workOrder' => $workOrder
-        ));
+        ]);
     }
 
     /**
@@ -79,10 +79,10 @@ class AttachmentController extends BaseController
     {
         $workOrder = $this->workOrder->find($workOrder_id);
 
-        return view('maintenance::work-orders.attachments.create', array(
+        return view('maintenance::work-orders.attachments.create', [
             'title' => 'Add Attachments to Work Order',
             'workOrder' => $workOrder
-        ));
+        ]);
     }
 
     /**
@@ -100,12 +100,12 @@ class AttachmentController extends BaseController
 
         if ($this->workOrderAttachment->setInput($data)->create())
         {
-            $this->redirect = route('maintenance.work-orders.attachments.index', array($workOrder->id));
+            $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrder->id]);
             $this->message = 'Successfully added attachments';
             $this->messageType = 'success';
         } else
         {
-            $this->redirect = route('maintenance.work-orders.attachments.create', array($workOrder->id));
+            $this->redirect = route('maintenance.work-orders.attachments.create', [$workOrder->id]);
             $this->message = 'There was an error adding images to the asset, please try again';
             $this->messageType = 'danger';
         }
@@ -134,12 +134,12 @@ class AttachmentController extends BaseController
 
             $attachment->delete();
 
-            $this->redirect = route('maintenance.work-orders.attachments.index', array($workOrder->id));
+            $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrder->id]);
             $this->message = 'Successfully deleted attachment';
             $this->messageType = 'success';
         } else
         {
-            $this->redirect = route('maintenance.work-orders.attachments.index', array($workOrder->id));
+            $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrder->id]);
             $this->message = 'There was an error deleting the attached file, please try again';
             $this->messageType = 'danger';
         }

@@ -10,7 +10,6 @@ use Illuminate\Console\Command;
 
 class DynamicsCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -30,9 +29,9 @@ class DynamicsCommand extends Command
      *
      * @var array
      */
-    protected $components = array(
+    protected $components = [
         'assets' => 'Stevebauman\Maintenance\Models\Dynamics\FixedAsset',
-    );
+    ];
 
     /**
      * Execute the console command.
@@ -55,7 +54,7 @@ class DynamicsCommand extends Command
             ->newQuery()
             ->where('Asset Status', '!=', 'Retired');
 
-        $records = array();
+        $records = [];
 
         switch($limit)
         {
@@ -94,9 +93,9 @@ class DynamicsCommand extends Command
      */
     protected function getArguments()
     {
-        return array(
-            array('component', InputArgument::REQUIRED, 'The name of the component to import (ex. assets)'),
-        );
+        return [
+            ['component', InputArgument::REQUIRED, 'The name of the component to import (ex. assets)'],
+        ];
     }
 
     /**
@@ -107,20 +106,20 @@ class DynamicsCommand extends Command
      */
     private function importAssets($records)
     {
-        $assets = array();
+        $assets = [];
 
         foreach($records as $record)
         {
-            $location = Location::firstOrCreate(array(
+            $location = Location::firstOrCreate([
                 'name' => $record->location->{'STATEDESCR'},
-            ));
+            ]);
 
-            $category = Category::firstOrCreate(array(
+            $category = Category::firstOrCreate([
                 'name' => $record->{'Asset Class ID'},
                 'belongs_to' => 'assets'
-            ));
+            ]);
 
-            $insert = array(
+            $insert = [
                 'location_id' => $location->id,
                 'category_id' => $category->id,
                 'import_id' => $record->{'Asset ID'},
@@ -131,7 +130,7 @@ class DynamicsCommand extends Command
                 'serial' => $record->{'Serial Number'},
                 'vendor' => $record->{'Manufacturer Name'},
                 'model' => $record->{'Model Number'},
-            );
+            ];
 
             $assets[] = Asset::firstOrCreate($insert);
         }
@@ -180,5 +179,4 @@ class DynamicsCommand extends Command
 
         exit;
     }
-
 }

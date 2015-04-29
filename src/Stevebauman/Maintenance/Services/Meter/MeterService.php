@@ -21,11 +21,11 @@ class MeterService extends BaseModelService
 
         try {
 
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'metric_id' => $this->getInput('metric'),
                 'name' => $this->getInput('name')
-            );
+            ];
 
             $record = $this->model->create($insert);
 
@@ -49,10 +49,10 @@ class MeterService extends BaseModelService
 
             $record = $this->find($id);
 
-            $insert = array(
+            $insert = [
                 'metric_id' => $this->getInput('metric'),
                 'name' => $this->getInput('name')
-            );
+            ];
 
             if ($record->update($insert)) {
                 $this->dbCommitTransaction();

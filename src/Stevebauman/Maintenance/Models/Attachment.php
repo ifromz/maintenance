@@ -14,7 +14,7 @@ class Attachment extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\AttachmentViewer';
 
-    protected $fillable = array('user_id', 'name', 'file_name', 'file_path');
+    protected $fillable = ['user_id', 'name', 'file_name', 'file_path'];
 
     /**
      * Returns an html link to the manual

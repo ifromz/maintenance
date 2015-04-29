@@ -10,9 +10,9 @@ class PrintQrController extends BaseController {
         
         if($qr){
             
-            return view('maintenance::qr.generate', array(
+            return view('maintenance::qr.generate', [
                 'qr' => $qr
-            ));
+            ]);
             
         } else{
             $this->redirect = route('maintenance.dashboard.index');

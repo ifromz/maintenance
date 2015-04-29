@@ -60,10 +60,10 @@ class UpdateController extends BaseController
 
             $this->message = 'Successfully added update';
             $this->messageType = 'success';
-            $this->redirect = routeBack('maintenance.work-orders.show', array($workOrder->id));
+            $this->redirect = routeBack('maintenance.work-orders.show', [$workOrder->id]);
         } else {
             $this->errors = $this->updateValidator->getErrors();
-            $this->redirect = routeBack('maintenance.work-orders.show', array($workOrder_id));
+            $this->redirect = routeBack('maintenance.work-orders.show', [$workOrder_id]);
         }
 
         return $this->response();
@@ -84,11 +84,11 @@ class UpdateController extends BaseController
         if($this->update->destroy($updateId)) {
             $this->message = 'Successfully deleted update';
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder->id, '#tab_updates'));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder->id, '#tab_updates']);
         } else {
             $this->message = 'There was an error trying to delete this update. Please try again.';
             $this->messageType = 'danger';
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder->id, '#tab_updates'));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder->id, '#tab_updates']);
         }
 
         return $this->response();

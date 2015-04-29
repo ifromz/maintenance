@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
+
+namespace Stevebauman\Maintenance\Validators;
 
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Illuminate\Support\Facades\Route;
@@ -9,7 +11,6 @@ use Illuminate\Support\Facades\Route;
  */
 class InventoryStockLocationValidator
 {
-
     /**
      * @var StockService
      */
@@ -28,16 +29,14 @@ class InventoryStockLocationValidator
         $item_id = Route::getCurrentRoute()->getParameter('inventory');
         $stock_id = Route::getCurrentRoute()->getParameter('stocks');
 
-        if(isset($stock_id))
-        {
+        if(isset($stock_id)) {
          $stocks = $this
              ->inventoryStock
              ->where('inventory_id', $item_id)
              ->where('id', '!=', $stock_id)
              ->where('location_id', $location_id)
              ->get();
-        } else
-        {
+        } else {
          $stocks = $this
              ->inventoryStock
              ->where('inventory_id', $item_id)
@@ -45,9 +44,10 @@ class InventoryStockLocationValidator
              ->get();
         }
 
-        if($stocks->count() > 0) return false;
+        if($stocks->count() > 0) {
+            return false;
+        }
 
         return true;
     }
-    
 }

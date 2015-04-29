@@ -1,3 +1,7 @@
-<?php namespace Stevebauman\Maintenance\Exceptions;
+<?php
 
-class RecordNotFoundException extends \Exception {}
+namespace Stevebauman\Maintenance\Exceptions\NotFound;
+
+class RecordNotFoundException extends \Exception
+{
+}

@@ -33,11 +33,11 @@ abstract class AbstractNestedSetController extends BaseController
     {
         $categories = $this->service->get();
 
-        return view('maintenance::categories.index', array(
+        return view('maintenance::categories.index', [
             'title' => sprintf('All %s', str_plural($this->resource)),
             'categories' => $categories,
             'resource' => $this->resource
-        ));
+        ]);
     }
 
     /**
@@ -55,18 +55,18 @@ abstract class AbstractNestedSetController extends BaseController
 
             if($category)
             {
-                return view('maintenance::categories.nodes.create', array(
+                return view('maintenance::categories.nodes.create', [
                     'title' => "Create a $this->resource under $category->name",
                     'parent' => $category,
                     'resource' => $this->resource
-                ));
+                ]);
             }
         } else
         {
-            return view('maintenance::categories.create', array(
+            return view('maintenance::categories.create', [
                 'title' => "Create a $this->resource",
                 'resource' => $this->resource
-            ));
+            ]);
         }
     }
 
@@ -121,11 +121,11 @@ abstract class AbstractNestedSetController extends BaseController
     {
         $category = $this->service->find($id);
 
-        return view('maintenance::categories.edit', array(
+        return view('maintenance::categories.edit', [
             'title' => sprintf('Edit %s', $this->resource),
             'category' => $category,
             'resource' => $this->resource
-        ));
+        ]);
     }
 
     /**
@@ -192,9 +192,9 @@ abstract class AbstractNestedSetController extends BaseController
             {
                 $category->makeRoot();
 
-                return $this->responseJson(array(
+                return $this->responseJson([
                     'categoryMoved' => true,
-                ));
+                ]);
 
             } else
             {
@@ -204,9 +204,9 @@ abstract class AbstractNestedSetController extends BaseController
                 {
                     $category->makeChildOf($parent_category);
 
-                    return $this->responseJson(array(
+                    return $this->responseJson([
                         'categoryMoved' => true,
-                    ));
+                    ]);
                 }
             }
         }
@@ -225,19 +225,19 @@ abstract class AbstractNestedSetController extends BaseController
 
             if($categories->count() > 0)
             {
-                $json_categories = array();
+                $json_categories = [];
 
                 foreach($categories as $category)
                 {
-                    $json_categories[] = array(
+                    $json_categories[] = [
                         'id'=>(string)$category->id,
                         'parent'=>($category->parent_id ? (string)$category->parent_id : '#'),
                         'text'=>(string)$category->name,
                         "class" => "jstree-drop",
-                        'data-jstree'=> array(
+                        'data-jstree'=> [
                             'icon'=>$category->icon,
-                        ),
-                    );
+                        ],
+                    ];
                 }
 
                 return $this->responseJson($json_categories);

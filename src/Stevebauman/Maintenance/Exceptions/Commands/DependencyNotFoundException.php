@@ -3,4 +3,6 @@
 namespace Stevebauman\Maintenance\Exceptions\Commands;
 
 
-class DependencyNotFoundException extends \Exception {}
+class DependencyNotFoundException extends \Exception
+{
+}

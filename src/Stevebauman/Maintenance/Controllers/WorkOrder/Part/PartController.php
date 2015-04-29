@@ -26,11 +26,11 @@ class PartController extends BaseController
 
         $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
 
-        return view('maintenance::work-orders.parts.index', array(
+        return view('maintenance::work-orders.parts.index', [
             'title' => 'Add parts to Work Order: ' . $workOrder->subject,
             'workOrder' => $workOrder,
             'items' => $items,
-        ));
+        ]);
 
     }
 

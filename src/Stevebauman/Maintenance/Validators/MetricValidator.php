@@ -9,9 +9,9 @@ namespace Stevebauman\Maintenance\Validators;
 class MetricValidator extends BaseValidator
 {
 
-    protected $rules = array(
+    protected $rules = [
         'name' => 'required|max:250|unique:metrics,name',
         'symbol' => 'required|max:5|unique:metrics,symbol'
-    );
+    ];
 
 }

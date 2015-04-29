@@ -14,12 +14,12 @@ class WorkRequest extends BaseModel {
 
     protected $table = 'work_requests';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'subject',
         'description',
         'best_time'
-    );
+    ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkRequestViewer';
 

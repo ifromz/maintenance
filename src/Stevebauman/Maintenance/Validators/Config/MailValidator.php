@@ -10,11 +10,11 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
  */
 class MailValidator extends BaseValidator
 {
-    protected $rules = array(
+    protected $rules = [
         'mail_driver' => 'required',
         'host_ip' => 'required|ip',
         'host_port' => 'required|integer',
         'smtp_username' => 'required_with:smtp_password',
         'smtp_password' => '',
-    );
+    ];
 }

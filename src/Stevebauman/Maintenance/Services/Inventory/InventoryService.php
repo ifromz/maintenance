@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services\Inventory;
 
-use Stevebauman\Maintenance\Exceptions\InventoryNotFoundException;
+use Stevebauman\Maintenance\Exceptions\NotFound\Inventory\InventoryNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Services\BaseModelService;
@@ -41,11 +41,11 @@ class InventoryService extends BaseModelService
     public function getByPageWithFilter($archived = NULL)
     {
         return $this->model
-            ->with(array(
+            ->with([
                 'category',
                 'user',
                 'stocks',
-            ))
+            ])
             ->id($this->getInput('id'))
             ->name($this->getInput('name'))
             ->description($this->getInput('description'))
@@ -74,13 +74,13 @@ class InventoryService extends BaseModelService
             /*
              * Set input data
              */
-            $insert = array(
+            $insert = [
                 'category_id' => $this->getInput('category_id'),
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'metric_id' => $this->getInput('metric'),
                 'name' => $this->getInput('name', NULL, true),
                 'description' => $this->getInput('description', NULL, true),
-            );
+            ];
 
             /*
              * If the record is created, return it, otherwise return false
@@ -92,9 +92,9 @@ class InventoryService extends BaseModelService
                 /*
                  * Fire created event
                  */
-                $this->fireEvent('maintenance.inventory.created', array(
+                $this->fireEvent('maintenance.inventory.created', [
                     'item' => $record
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 
@@ -134,12 +134,12 @@ class InventoryService extends BaseModelService
             /*
              * Set update data
              */
-            $insert = array(
+            $insert = [
                 'category_id' => $this->getInput('category_id', $record->category_id),
                 'metric_id' => $this->getInput('metric'),
                 'name' => $this->getInput('name', $record->name, true),
                 'description' => $this->getInput('description', $record->description, true),
-            );
+            ];
 
             /*
              * Update the record, return it upon success
@@ -149,9 +149,9 @@ class InventoryService extends BaseModelService
                 /*
                  * Fire updated event
                  */
-                $this->fireEvent('maintenance.inventory.updated', array(
+                $this->fireEvent('maintenance.inventory.updated', [
                     'item' => $record
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 
@@ -185,9 +185,9 @@ class InventoryService extends BaseModelService
         /*
          * Fire archived event
          */
-        $this->fireEvent('maintenance.inventory.archived', array(
+        $this->fireEvent('maintenance.inventory.archived', [
             'item' => $record
-        ));
+        ]);
 
         return true;
     }

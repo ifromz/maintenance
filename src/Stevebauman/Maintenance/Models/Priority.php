@@ -12,11 +12,11 @@ class Priority extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\PriorityViewer';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'name',
         'color',
-    );
+    ];
 
     /**
      * Returns a pretty label of the work order priority

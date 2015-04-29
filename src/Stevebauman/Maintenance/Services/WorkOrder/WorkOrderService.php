@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Stevebauman\Maintenance\Exceptions\WorkOrderNotFoundException;
+use Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder\WorkOrderNotFoundException;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\PriorityService;
 use Stevebauman\Maintenance\Services\StatusService;
@@ -73,11 +73,11 @@ class WorkOrderService extends BaseModelService
         return $this
             ->setPaginatedName('work-order-page')
             ->model
-            ->with(array(
+            ->with([
                 'category',
                 'user',
                 'sessions',
-            ))
+            ])
             ->id($this->getInput('id'))
             ->priority($this->getInput('priority'))
             ->subject($this->getInput('subject'))
@@ -96,11 +96,11 @@ class WorkOrderService extends BaseModelService
     public function getUserAssignedWorkOrders()
     {
         return $this->model
-            ->with(array(
+            ->with([
                 'status',
                 'category',
                 'user',
-            ))
+            ])
             ->assignedUser($this->sentry->getCurrentUserId())
             ->paginate(25);
     }
@@ -116,7 +116,7 @@ class WorkOrderService extends BaseModelService
 
         try {
 
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'category_id' => $this->getInput('category_id'),
                 'location_id' => $this->getInput('location_id'),
@@ -126,7 +126,7 @@ class WorkOrderService extends BaseModelService
                 'description' => $this->getInput('description', NULL, true),
                 'started_at' => $this->getInput('started_at'),
                 'completed_at' => $this->getInput('completed_at'),
-            );
+            ];
 
             $record = $this->model->create($insert);
 
@@ -136,9 +136,9 @@ class WorkOrderService extends BaseModelService
                 $record->assets()->attach($assets);
             }
 
-            $this->fireEvent('maintenance.work-orders.created', array(
+            $this->fireEvent('maintenance.work-orders.created', [
                 'workOrder' => $record
-            ));
+            ]);
 
             $this->dbCommitTransaction();
 
@@ -184,14 +184,14 @@ class WorkOrderService extends BaseModelService
                     ->setInput($priorityData)
                     ->firstOrCreate();
 
-                $insert = array(
+                $insert = [
                     'status_id' => $status->id,
                     'priority_id' => $priority->id,
                     'request_id' => $workRequest->id,
                     'user_id' => $workRequest->user_id,
                     'subject' => $workRequest->subject,
                     'description' => $workRequest->description,
-                );
+                ];
 
                 $workOrder = $this->model->create($insert);
 
@@ -225,7 +225,7 @@ class WorkOrderService extends BaseModelService
         {
             $record = $this->find($id);
 
-            $insert = array(
+            $insert = [
                 'category_id' => $this->getInput('category_id', $record->category_id),
                 'location_id' => $this->getInput('location_id', $record->location_id),
                 'status_id' => $this->getInput('status', $record->status->id),
@@ -234,7 +234,7 @@ class WorkOrderService extends BaseModelService
                 'description' => $this->getInput('description', $record->description, true),
                 'started_at' => $this->getInput('started_at', $record->started_at),
                 'completed_at' => $this->getInput('completed_at', $record->completed_at),
-            );
+            ];
 
             if ($record->update($insert))
             {
@@ -245,9 +245,9 @@ class WorkOrderService extends BaseModelService
                     $record->assets()->sync($assets);
                 }
 
-                $this->fireEvent('maintenance.work-orders.updated', array(
+                $this->fireEvent('maintenance.work-orders.updated', [
                     'workOrder' => $record
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 
@@ -278,9 +278,9 @@ class WorkOrderService extends BaseModelService
 
             $record->delete();
 
-            $this->fireEvent('maintenance.work-orders.destroyed', array(
+            $this->fireEvent('maintenance.work-orders.destroyed', [
                 'workOrder' => $record
-            ));
+            ]);
 
             $this->dbCommitTransaction();
 
@@ -325,23 +325,23 @@ class WorkOrderService extends BaseModelService
                 /*
                  * Update the existing pivot record
                  */
-                $workOrder->parts()->updateExistingPivot($part->id, array('quantity' => $newQuantity));
+                $workOrder->parts()->updateExistingPivot($part->id, ['quantity' => $newQuantity]);
 
             } else
             {
                 /*
                  * Part Record does not exist, attach a new record with quantity inputted
                  */
-                $workOrder->parts()->attach($stock->id, array('quantity' => $this->getInput('quantity')));
+                $workOrder->parts()->attach($stock->id, ['quantity' => $this->getInput('quantity')]);
             }
 
             /*
              * Fire the event for notifications
              */
-            $this->fireEvent('maintenance.work-orders.parts.created', array(
+            $this->fireEvent('maintenance.work-orders.parts.created', [
                 'workOrder' => $workOrder,
                 'stock' => $stock,
-            ));
+            ]);
 
             $this->dbCommitTransaction();
 
@@ -370,10 +370,10 @@ class WorkOrderService extends BaseModelService
         {
             if ($workOrder->updates()->save($update))
             {
-                $this->fireEvent('maintenance.work-orders.updates.created', array(
+                $this->fireEvent('maintenance.work-orders.updates.created', [
                     'workOrder' => $workOrder,
                     'update' => $update
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 

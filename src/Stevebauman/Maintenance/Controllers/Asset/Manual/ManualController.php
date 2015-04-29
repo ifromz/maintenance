@@ -45,10 +45,10 @@ class ManualController extends BaseController {
 	public function index($asset_id){
             $asset = $this->asset->find($asset_id);
 
-            return view('maintenance::assets.manuals.index', array(
+            return view('maintenance::assets.manuals.index', [
                     'title' => 'Viewing Asset Manuals for: '.$asset->name,
                     'asset' => $asset,
-            ));
+            ]);
 	}
 
     /**
@@ -60,10 +60,10 @@ class ManualController extends BaseController {
 	public function create($asset_id){
             $asset = $this->asset->find($asset_id);
 
-            return view('maintenance::assets.manuals.create', array(
+            return view('maintenance::assets.manuals.create', [
                     'title' => 'Upload Asset Manuals for: '.$asset->name,
                     'asset' => $asset,
-            ));
+            ]);
 	}
 
     /**
@@ -80,12 +80,12 @@ class ManualController extends BaseController {
             $data['asset_id'] = $asset->id;
 
             if($this->assetManual->setInput($data)->create()){
-                $this->redirect = route('maintenance.assets.manuals.index', array($asset->id));
+                $this->redirect = route('maintenance.assets.manuals.index', [$asset->id]);
                 $this->message = 'Successfully added manual(s)';
                 $this->messageType = 'success';
 
             } else{
-                $this->redirect = route('maintenance.assets.manuals.create', array($asset->id));
+                $this->redirect = route('maintenance.assets.manuals.create', [$asset->id]);
                 $this->message = 'There was an error adding manuals to the asset, please try again';
                 $this->messageType = 'danger';
 
@@ -109,12 +109,12 @@ class ManualController extends BaseController {
             if(Storage::delete($attachment->file_path.$attachment->file_name)){
                 $attachment->delete();
 
-                $this->redirect = routeBack('maintenance.assets.manuals.index', array($asset->id));
+                $this->redirect = routeBack('maintenance.assets.manuals.index', [$asset->id]);
                 $this->message = 'Successfully deleted manual';
                 $this->messageType = 'success';
 
             } else{
-                $this->redirect = routeBack('maintenance.assets.manuals.index', array($asset->id));
+                $this->redirect = routeBack('maintenance.assets.manuals.index', [$asset->id]);
                 $this->message = 'There was an error deleting the manual file, please try again';
                 $this->messageType = 'danger';
             }

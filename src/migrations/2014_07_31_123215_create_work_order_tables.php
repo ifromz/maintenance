@@ -89,7 +89,7 @@ class CreateWorkOrderTables extends Migration
              *
              * Possible incompatibility with SQL Server
              */
-            $table->unique(array('request_id'));
+            $table->unique(['request_id']);
 
         });
 

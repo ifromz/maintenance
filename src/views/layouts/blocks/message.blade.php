@@ -5,9 +5,9 @@
     <p class="message">
         @yield('message.body.content')
 
-    <div class="tools pull-right">
-        @yield('message.tools.content')
-    </div>
+        <div class="tools pull-right">
+            @yield('message.tools.content')
+        </div>
     </p>
 
 </div>

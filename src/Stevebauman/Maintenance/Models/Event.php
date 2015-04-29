@@ -16,11 +16,11 @@ class Event extends BaseModel
 
     protected $table = 'events';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'parent_id',
         'api_id',
-    );
+    ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Event\EventViewer';
 

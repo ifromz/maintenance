@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Services\Asset;
 
 use Exception;
-use Stevebauman\Maintenance\Exceptions\AssetNotFoundException;
+use Stevebauman\Maintenance\Exceptions\NotFound\Asset\AssetNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Asset;
 use Stevebauman\Maintenance\Services\BaseModelService;
@@ -37,14 +37,14 @@ class AssetService extends BaseModelService
      */
     public function find($ids)
     {
-        $records = $this->model->with(array(
+        $records = $this->model->with([
             'meters',
             'category',
             'location',
             'manuals',
             'workOrders',
             'images',
-        ))->find($ids);
+        ])->find($ids);
 
         if($records) return $records;
 
@@ -132,7 +132,7 @@ class AssetService extends BaseModelService
             /*
              * Set insert data
              */
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'category_id' => $this->getInput('category_id'),
                 'location_id' => $this->getInput('location_id'),
@@ -146,7 +146,7 @@ class AssetService extends BaseModelService
                 'serial' => $this->getInput('serial', NULL, true),
                 'acquired_at' => $this->formatDateWithTime($this->getInput('acquired_at')),
                 'end_of_life' => $this->formatDateWithTime($this->getInput('end_of_life')),
-            );
+            ];
 
             /*
              * Create the record and return it upon success
@@ -155,9 +155,9 @@ class AssetService extends BaseModelService
 
             if ($record) {
 
-                $this->fireEvent('maintenance.assets.created', array(
+                $this->fireEvent('maintenance.assets.created', [
                     'asset' => $record
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 
@@ -203,7 +203,7 @@ class AssetService extends BaseModelService
             /*
              * Set update data
              */
-            $insert = array(
+            $insert = [
                 'location_id' => $this->getInput('location_id', $record->location_id),
                 'category_id' => $this->getInput('category_id', $record->category_id),
                 'name' => $this->getInput('name', $record->name, true),
@@ -216,16 +216,16 @@ class AssetService extends BaseModelService
                 'serial' => $this->getInput('serial', $record->serial, true),
                 'aquired_at' => ($this->formatDateWithTime($this->getInput('aquired_at')) ?: $record->aquired_at),
                 'end_of_life' => ($this->formatDateWithTime($this->getInput('end_of_life')) ?: $record->end_of_life),
-            );
+            ];
 
             /*
              * Update the record and return it upon success
              */
             if ($record->update($insert)) {
 
-                $this->fireEvent('maintenance.assets.created', array(
+                $this->fireEvent('maintenance.assets.created', [
                     'asset' => $record
-                ));
+                ]);
 
                 $this->dbCommitTransaction();
 
@@ -254,9 +254,9 @@ class AssetService extends BaseModelService
 
         $record->delete();
 
-        $this->fireEvent('maintenance.assets.archived', array(
+        $this->fireEvent('maintenance.assets.archived', [
             'asset' => $record
-        ));
+        ]);
 
         return true;
     }

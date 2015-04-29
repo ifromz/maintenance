@@ -8,46 +8,46 @@ class InventoryStockViewer extends BaseViewer {
 
     public function profile()
     {
-        return view('maintenance::viewers.inventory.stock.profile', array('stock'=>$this->entity));
+        return view('maintenance::viewers.inventory.stock.profile', ['stock'=>$this->entity]);
     }
 
     public function btnActions()
     {
-        return view('maintenance::viewers.inventory.stock.buttons.actions', array('stock'=>$this->entity));
+        return view('maintenance::viewers.inventory.stock.buttons.actions', ['stock'=>$this->entity]);
     }
 
     public function btnEdit()
     {
-        return view('maintenance::viewers.inventory.stock.buttons.edit', array('stock'=>$this->entity));
+        return view('maintenance::viewers.inventory.stock.buttons.edit', ['stock'=>$this->entity]);
     }
 
     public function btnDelete()
     {
-        return view('maintenance::viewers.inventory.stock.buttons.delete', array('stock'=>$this->entity));
+        return view('maintenance::viewers.inventory.stock.buttons.delete', ['stock'=>$this->entity]);
     }
     
     public function btnAddForWorkOrder($workOrder)
     {
-        return view('maintenance::viewers.inventory.stock.buttons.add-to-work-order', array(
+        return view('maintenance::viewers.inventory.stock.buttons.add-to-work-order', [
             'workOrder' => $workOrder,
             'stock' => $this->entity,
-        ));
+        ]);
     }
 
     public function btnPutBackSomeForWorkOrder($workOrder)
     {
-        return view('maintenance::viewers.inventory.stock.buttons.put-back-some-work-order', array(
+        return view('maintenance::viewers.inventory.stock.buttons.put-back-some-work-order', [
             'workOrder' => $workOrder,
             'stock' => $this->entity,
-        ));
+        ]);
     }
 
     public function btnPutBackAllForWorkOrder($workOrder)
     {
-        return view('maintenance::viewers.inventory.stock.buttons.put-back-all-work-order', array(
+        return view('maintenance::viewers.inventory.stock.buttons.put-back-all-work-order', [
             'workOrder' => $workOrder,
             'stock' => $this->entity,
-        ));
+        ]);
     }
     
 }

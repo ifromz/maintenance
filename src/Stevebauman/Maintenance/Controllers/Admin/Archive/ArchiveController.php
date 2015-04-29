@@ -13,9 +13,9 @@ class ArchiveController extends BaseController
      */
     public function getIndex()
     {
-        return view('maintenance::admin.archive.index', array(
+        return view('maintenance::admin.archive.index', [
             'title' => 'Archive'
-        ));
+        ]);
     }
     
 }

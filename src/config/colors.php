@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /**
      * These are the colors used to indicate Statuses and Priorities.
@@ -14,4 +14,4 @@ return array(
     'warning' => 'Warning',
     'danger' => 'Danger',
 
-);
+];

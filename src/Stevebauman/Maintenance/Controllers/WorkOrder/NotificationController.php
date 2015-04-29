@@ -63,10 +63,10 @@ class NotificationController extends BaseController
 
             $this->message = 'Successfully updated notifications';
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
         } else {
             $this->errors = $this->workOrderNotificationValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
         }
 
         return $this->response();
@@ -96,11 +96,11 @@ class NotificationController extends BaseController
 
             $this->message = 'Successfully updated notifications';
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
 
         } else {
             $this->errors = $this->workOrderNotificationValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder_id));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
         }
 
         return $this->response();

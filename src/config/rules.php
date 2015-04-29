@@ -4,25 +4,25 @@
  * The maintenance application rules. The rules indicate the result of certain
  * functionality throughout the application.
  */
-return array(
+return [
 
     /*
      * User rules
      */
-    'users' => array(
+    'users' => [
 
         /*
          * If enabled, users will be sent an email when registering for an account, or and account
          * is created in the administration panel and 'activated' is not checked
          */
         'require_activation_by_email' => false,
-    ),
+    ],
 
 
     /*
      * Notification rules
      */
-    'notifications' => array(
+    'notifications' => [
 
         /*
          * Set this to true if you would like to send a notification to the user
@@ -30,12 +30,12 @@ return array(
          */
         'prevent_sending_to_source' => true,
 
-    ),
+    ],
 
     /*
      * Meter rules
      */
-    'meters' => array(
+    'meters' => [
 
         /*
          * Set this to true if you want to prevent a new reading from being created
@@ -44,12 +44,12 @@ return array(
          */
         'prevent_duplicate_entries' => true,
 
-    ),
+    ],
 
     /*
      * Work Order rules
      */
-    'work-orders' => array(
+    'work-orders' => [
 
         /*
          * Set enabled to true if you want to prevent a lot of work order updates
@@ -60,35 +60,35 @@ return array(
          * 5 minutes.
          *
          */
-        'prevent_spam_updates' => array(
+        'prevent_spam_updates' => [
             'enabled' => 'true',
             'minutes_apart' => '5'
-        )
+        ]
 
-    ),
+    ],
 
     /*
      * Work Request rules
      */
-    'work-requests' => array(
+    'work-requests' => [
 
         /*
          * The status for the work order that's generated when a work request
          * is created
          */
-        'submission_status' => array(
+        'submission_status' => [
             'name' => 'Requested',
             'color' => 'default',
-        ),
+        ],
 
         /*
          * The priority for the work order that's generated when a work request
          * is created
          */
-        'submission_priority' => array(
+        'submission_priority' => [
             'name' => 'Requested',
             'color' => 'default',
-        ),
+        ],
 
-    ),
-);
+    ],
+];

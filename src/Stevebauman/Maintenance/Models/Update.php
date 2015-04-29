@@ -14,5 +14,5 @@ class Update extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\UpdateViewer';
 
-    protected $fillable = array('user_id', 'content');
+    protected $fillable = ['user_id', 'content'];
 }

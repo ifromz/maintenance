@@ -35,16 +35,16 @@ class SessionService extends BaseModelService
              */
             if ($workOrder->sessions->count() === 0) {
 
-                $update = array('started_at' => $now);
+                $update = ['started_at' => $now];
 
                 $this->workOrder->setInput($update)->update($workOrder->id);
             }
 
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUser()->id,
                 'work_order_id' => $workOrder->id,
                 'in' => $now,
-            );
+            ];
 
             $record = $this->model->create($insert);
 
@@ -69,9 +69,9 @@ class SessionService extends BaseModelService
 
             $record = $this->model->find($id);
 
-            $insert = array(
+            $insert = [
                 'out' => Carbon::now()->toDateTimeString(),
-            );
+            ];
 
             if ($record->update($insert)) {
 

@@ -36,17 +36,17 @@ class ReportController extends BaseController {
                 
                 $this->message = 'Succesfully created report';
                 $this->messageType = 'success';
-                $this->redirect = routeBack('maintenance.events.show', array($event->id));
+                $this->redirect = routeBack('maintenance.events.show', [$event->id]);
                 
             } else {
                 $this->message = 'There was an error trying to create an report. Please try again';
                 $this->messageType = 'danger';
-                $this->redirect = routeBack('maintenance.events.show', array($event->id));
+                $this->redirect = routeBack('maintenance.events.show', [$event->id]);
             }
             
         } else {
             $this->errors = $this->reportValidator->getErrors();
-            $this->redirect = routeBack('maintenance.events.show', array($event_id));
+            $this->redirect = routeBack('maintenance.events.show', [$event_id]);
         }
         
         return $this->response();

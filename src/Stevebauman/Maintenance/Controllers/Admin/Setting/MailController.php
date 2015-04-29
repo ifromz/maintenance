@@ -39,9 +39,9 @@ class MailController extends BaseController
      */
     public function index()
     {
-        return view('maintenance::admin.settings.mail.index', array(
+        return view('maintenance::admin.settings.mail.index', [
             'title' => 'Edit Mail Settings'
-        ));
+        ]);
     }
 
     /**

@@ -42,11 +42,11 @@ class StockController extends BaseController
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
 
-        return view('maintenance::work-orders.parts.stocks.index', array(
+        return view('maintenance::work-orders.parts.stocks.index', [
             'title' => 'Choose a Stock Location',
             'workOrder' => $workOrder,
             'item' => $item
-        ));
+        ]);
     }
 
     /**
@@ -64,12 +64,12 @@ class StockController extends BaseController
         $item = $this->inventory->find($inventory_id);
         $stock = $this->inventoryStock->find($stock_id);
 
-        return view('maintenance::work-orders.parts.stocks.create', array(
+        return view('maintenance::work-orders.parts.stocks.create', [
             'title' => "Enter Quantity Used",
             'workOrder' => $workOrder,
             'item' => $item,
             'stock' => $stock
-        ));
+        ]);
     }
 
     /**
@@ -102,7 +102,7 @@ class StockController extends BaseController
             /*
              * Set the extra input data for the inventory stock change reason
              */
-            $data['reason'] = sprintf('Used for <a href="%s">Work Order</a>', route('maintenance.work-orders.show', array($workOrder->id)));
+            $data['reason'] = sprintf('Used for <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id]));
 
             /*
              * Perform a take from the stock
@@ -116,19 +116,19 @@ class StockController extends BaseController
                 'Successfully added %s of %s to work order. %s or %s',
                 $this->input('quantity'),
                 $item->name,
-                link_to_route('maintenance.work-orders.parts.index', 'Add More', array($workOrder->id)),
-                link_to_route('maintenance.work-orders.show', 'View Work Order', array($workOrder->id))
+                link_to_route('maintenance.work-orders.parts.index', 'Add More', [$workOrder->id]),
+                link_to_route('maintenance.work-orders.show', 'View Work Order', [$workOrder->id])
             );
 
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.work-orders.parts.index', array($workOrder->id));
+            $this->redirect = route('maintenance.work-orders.parts.index', [$workOrder->id]);
 
         } else {
 
             $this->errors = $this->workOrderPartTakeValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.parts.stocks.create', array(
+            $this->redirect = route('maintenance.work-orders.parts.stocks.create', [
                 $workOrder_id, $inventory_id, $stock_id
-            ));
+            ]);
         }
 
         return $this->response();
@@ -159,10 +159,10 @@ class StockController extends BaseController
         /*
          * Set the reason and quantity of why the putting back is taking place
          */
-        $data = array(
-            'reason' => sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', array($workOrder->id))),
+        $data = [
+            'reason' => sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id])),
             'quantity' => $record->pivot->quantity
-        );
+        ];
 
         /*
          * Update the inventory stock record
@@ -176,7 +176,7 @@ class StockController extends BaseController
 
         $this->message = sprintf('Successfully put back %s into the inventory', $item->name);
         $this->messageType = 'success';
-        $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+        $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
 
         return $this->response();
     }
@@ -203,10 +203,10 @@ class StockController extends BaseController
             /*
              * Set the reason and quantity of why the putting back is taking place
              */
-            $data = array(
-                'reason' => sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', array($workOrder->id))),
+            $data = [
+                'reason' => sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id])),
                 'quantity' => $this->input('quantity')
-            );
+            ];
 
             /*
              * Update the inventory stock record
@@ -221,16 +221,16 @@ class StockController extends BaseController
             /*
              * Update the existing pivot record
              */
-            $workOrder->parts()->updateExistingPivot($stock->id, array('quantity' => $newQuantity));
+            $workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity]);
 
             $this->message = sprintf('Successfully put back %s into the inventory', $item->name);
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.work-orders.show', array($workOrder->id));
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
 
         } else {
 
             $this->errors = $this->workOrderPartPutBackValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.parts.stocks.index', array($workOrder_id, $inventory_id));
+            $this->redirect = route('maintenance.work-orders.parts.stocks.index', [$workOrder_id, $inventory_id]);
 
         }
 

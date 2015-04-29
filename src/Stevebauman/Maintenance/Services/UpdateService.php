@@ -21,10 +21,10 @@ class UpdateService extends BaseModelService
 
         try {
 
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'content' => $this->getInput('update_content', NULL, true)
-            );
+            ];
 
             $record = $this->model->create($insert);
 

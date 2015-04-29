@@ -44,13 +44,13 @@ class PublicService extends BaseModelService
             $status = $this->status->firstOrCreateRequest();
             $priority = $this->priority->firstOrCreateRequest();
 
-            $insert = array(
+            $insert = [
                 'status_id' => $status->id,
                 'priority_id' => $priority->id,
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'subject' => $this->getInput('subject', NULL, true),
                 'description' => $this->getInput('description', NULL, true),
-            );
+            ];
 
             $record = $this->model->create($insert);
 
@@ -74,10 +74,10 @@ class PublicService extends BaseModelService
 
             $record = $this->find($id);
 
-            $insert = array(
+            $insert = [
                 'subject' => $this->getInput('subject', $record->subject, true),
                 'description' => $this->getInput('description', $record->description, true)
-            );
+            ];
 
             if ($record->update($insert)) {
 

@@ -26,10 +26,10 @@ class InventoryController extends BaseController
     {
         $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter(true);
         
-        return view('maintenance::admin.archive.inventory.index', array(
+        return view('maintenance::admin.archive.inventory.index', [
             'title' => 'Archived Inventory Items',
             'items'=> $items
-        ));
+        ]);
     }
 
     /**
@@ -43,10 +43,10 @@ class InventoryController extends BaseController
     {
         $item = $this->inventory->findArchived($id);
         
-        return view('maintenance::admin.archive.inventory.show', array(
+        return view('maintenance::admin.archive.inventory.show', [
             'title' => 'Viewing Archived Inventory Item: '.$item->name,
             'item' => $item
-        ));
+        ]);
     }
 
     /**

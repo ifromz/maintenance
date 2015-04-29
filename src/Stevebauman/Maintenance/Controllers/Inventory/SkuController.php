@@ -38,12 +38,12 @@ class SkuController extends BaseController
         {
             $this->message = 'Successfully regenerated SKU for this item.';
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.inventory.show', array($item->id));
+            $this->redirect = route('maintenance.inventory.show', [$item->id]);
         } else
         {
             $this->message = 'There was an issue regenerating an SKU. Please try again.';
             $this->messageType = 'danger';
-            $this->redirect = route('maintenance.inventory.show', array($item->id));
+            $this->redirect = route('maintenance.inventory.show', [$item->id]);
         }
 
         return $this->response();

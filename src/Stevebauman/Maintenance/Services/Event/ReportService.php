@@ -33,11 +33,11 @@ class ReportService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        $insert = array(
+        $insert = [
             'user_id' => $this->sentry->getCurrentUserId(),
             'event_id' => $this->getInput('event_id'),
             'description' => $this->getInput('description', NULL, true),
-        );
+        ];
 
         $record = $this->model->create($insert);
 

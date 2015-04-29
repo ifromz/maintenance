@@ -17,8 +17,8 @@ class SettingsController extends BaseController
      */
     public function index()
     {
-        return view('maintenance::admin.settings.index', array(
+        return view('maintenance::admin.settings.index', [
             'title' => 'Settings',
-        ));
+        ]);
     }
 }

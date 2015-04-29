@@ -41,7 +41,7 @@
             </tr>
         @endforeach
         <tr>
-            <td><u><b>Total:</b></u></td>
+            <td class="text-underline"><b>Total:</b></td>
             <td></td>
             <td></td>
             <td>{{ $workOrder->sessions->sum('hours') }}</td>

@@ -9,8 +9,8 @@ namespace Stevebauman\Maintenance\Validators;
 class NoteValidator extends BaseValidator
 {
 
-    protected $rules = array(
+    protected $rules = [
         'content' => 'required|min:5',
-    );
+    ];
 
 }

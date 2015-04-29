@@ -9,7 +9,7 @@ namespace Stevebauman\Maintenance\Validators;
 class WorkOrderValidator extends BaseValidator
 {
 
-    protected $rules = array(
+    protected $rules = [
         'category' => '',
         'category_id' => 'integer',
 
@@ -27,6 +27,6 @@ class WorkOrderValidator extends BaseValidator
 
         'completed_at_date' => '',
         'completed_at_time' => '',
-    );
+    ];
 
 }

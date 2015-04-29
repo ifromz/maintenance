@@ -43,10 +43,10 @@ class GroupController extends BaseController
     {
         $groups = $this->group->get();
 
-        return view('maintenance::admin.groups.index', array(
+        return view('maintenance::admin.groups.index', [
             'title' => 'All Groups',
             'groups' => $groups
-        ));
+        ]);
     }
 
     /**
@@ -56,9 +56,9 @@ class GroupController extends BaseController
      */
     public function create()
     {
-        return view('maintenance::admin.groups.create', array(
+        return view('maintenance::admin.groups.create', [
             'title' => 'Create a Group'
-        ));
+        ]);
     }
 
     /**
@@ -77,7 +77,7 @@ class GroupController extends BaseController
             
             if($record)
             {
-                $this->message = sprintf('Successfully created group. %s', link_to_route('maintenance.admin.groups.show', 'Show', array($record->id)));
+                $this->message = sprintf('Successfully created group. %s', link_to_route('maintenance.admin.groups.show', 'Show', [$record->id]));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.admin.groups.index');
             } else
@@ -106,10 +106,10 @@ class GroupController extends BaseController
     {
         $group = $this->group->find($id);
         
-        return view('maintenance::admin.groups.show', array(
+        return view('maintenance::admin.groups.show', [
             'title'=>'Viewing Group',
             'group'=>$group
-        ));
+        ]);
     }
 
     /**
@@ -122,10 +122,10 @@ class GroupController extends BaseController
     {
         $group = $this->group->find($id);
         
-        return view('maintenance::admin.groups.edit', array(
+        return view('maintenance::admin.groups.edit', [
             'title'=>'Editing Group',
             'group'=>$group
-        ));
+        ]);
     }
 
     /**
@@ -145,20 +145,20 @@ class GroupController extends BaseController
             
             if($record)
             {
-                $this->message = sprintf('Successfully updated group. %s', link_to_route('maintenance.admin.groups.show', 'Show', array($record->id)));
+                $this->message = sprintf('Successfully updated group. %s', link_to_route('maintenance.admin.groups.show', 'Show', [$record->id]));
                 $this->messageType = 'success';
                 $this->redirect = routeBack('maintenance.admin.groups.index');
             } else
             {
                 $this->message = 'There was an error updating this group, please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = routeBack('maintenance.admin.groups.edit', array($id));
+                $this->redirect = routeBack('maintenance.admin.groups.edit', [$id]);
             }
             
         } else
         {
             $this->errors = $this->groupValidator->getErrors();
-            $this->redirect = routeBack('maintenance.admin.groups.edit', array($id));
+            $this->redirect = routeBack('maintenance.admin.groups.edit', [$id]);
         }
         
         return $this->response();
@@ -187,7 +187,7 @@ class GroupController extends BaseController
         {
             $this->message = 'There was an issue trying to delete this group, please try again.';
             $this->messageType = 'danger';
-            $this->redirect = routeBack('maintenance.admin.groups.show', array($group->id));
+            $this->redirect = routeBack('maintenance.admin.groups.show', [$group->id]);
         }
 
         return $this->response();
@@ -202,7 +202,7 @@ class GroupController extends BaseController
      */
     private function routesToPermissions($routes = NULL)
     {
-        $permissions = array();
+        $permissions = [];
         
         /*
          * If routes are provided, set the route value key to 1,

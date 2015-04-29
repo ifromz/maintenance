@@ -28,7 +28,7 @@ class SchemaCheckCommand extends Command {
      *
      * @var array
      */
-    protected $dependencies = array(
+    protected $dependencies = [
         'users'         => 'sentry',
         'users_groups'  => 'sentry',
         'groups'        => 'sentry',
@@ -40,34 +40,34 @@ class SchemaCheckCommand extends Command {
         'locations' => 'inventory',
         'categories' => 'inventory',
         'metrics' => 'inventory',
-    );
+    ];
 
     /**
      * Stores the commands to install the dependencies if available
      *
      * @var array
      */
-    protected $supplierCommands = array(
-        'sentry' => array(
+    protected $supplierCommands = [
+        'sentry' => [
             'type' => 'migrate',
-            'args' => array('--package' => 'cartalyst/sentry')
-        ),
-        'revisionable' => array(
+            'args' => ['--package' => 'cartalyst/sentry']
+        ],
+        'revisionable' => [
             'type' => 'migrate',
-            'args' => array('--package' => 'venturecraft/revisionable')
-        ),
-        'inventory' => array(
+            'args' => ['--package' => 'venturecraft/revisionable']
+        ],
+        'inventory' => [
             'type' => 'migrate',
-            'args' => array('--package' => 'stevebauman/inventory')
-        ),
-    );
+            'args' => ['--package' => 'stevebauman/inventory']
+        ],
+    ];
 
     /**
      * Holds the reserved database tables necessary to install
      *
      * @var array
      */
-    protected $reserved = array(
+    protected $reserved = [
         'assets',
         'asset_images',
         'asset_manuals',
@@ -93,7 +93,7 @@ class SchemaCheckCommand extends Command {
         'work_order_parts',
         'work_order_reports',
         'work_order_sessions',
-    );
+    ];
 
     /**
      * Executes the console command

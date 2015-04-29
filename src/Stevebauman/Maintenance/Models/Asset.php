@@ -22,7 +22,7 @@ class Asset extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\AssetViewer';
 
-    protected $fillable = array(
+    protected $fillable = [
         'import_id',
         'user_id',
         'location_id',
@@ -39,9 +39,9 @@ class Asset extends BaseModel
         'price',
         'acquired_at',
         'end_of_life',
-    );
+    ];
 
-    protected $revisionFormattedFieldNames = array(
+    protected $revisionFormattedFieldNames = [
         'location_id' => 'Location',
         'category_id' => 'Category',
         'name' => 'Name',
@@ -55,7 +55,7 @@ class Asset extends BaseModel
         'price' => 'Price',
         'acquired' => 'Acquired At',
         'end_of_life' => 'End of Life',
-    );
+    ];
 
     public function images()
     {
@@ -118,7 +118,7 @@ class Asset extends BaseModel
     {
         return sprintf(
             '<a href="%s" class="label label-primary">%s</span></a>',
-            route('maintenance.assets.show', array($this->attributes['id'])),
+            route('maintenance.assets.show', [$this->attributes['id']]),
             $this->attributes['name']
         );
     }

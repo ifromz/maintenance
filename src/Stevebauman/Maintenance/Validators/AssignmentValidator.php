@@ -9,8 +9,8 @@ namespace Stevebauman\Maintenance\Validators;
 class AssignmentValidator extends BaseValidator
 {
 	
-	protected $rules = array(
+	protected $rules = [
             'users' => 'required|user_assignment',
-	);
+    ];
 	
 }

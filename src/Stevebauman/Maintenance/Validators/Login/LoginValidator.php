@@ -11,9 +11,9 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
 class LoginValidator extends BaseValidator
 {
 	
-	protected $rules = array(
+	protected $rules = [
 		'email' => 'required',
       	'password' => 'required',
-	);
+    ];
 	
 }

@@ -66,9 +66,9 @@ class PasswordController extends BaseController
      */
     public function getRequest()
     {
-        return view('maintenance::login.password.request', array(
+        return view('maintenance::login.password.request', [
             'title' => 'Reset Your Password',
-        ));
+        ]);
     }
 
     /**
@@ -82,10 +82,10 @@ class PasswordController extends BaseController
 
             if($user)
             {
-                $sent = $this->mail->send('maintenance::emails.reset-password', array(
+                $sent = $this->mail->send('maintenance::emails.reset-password', [
                     'user' => $user,
                     'code' => $user->getResetPasswordCode(),
-                ), function($message) use ($user)
+                ], function($message) use ($user)
                 {
                     $adminEmail = $this->config->get('mail.from.address');
                     $adminName = $this->config->get('mail.from.name');
@@ -135,11 +135,11 @@ class PasswordController extends BaseController
 
         if($user->checkResetPasswordCode($key))
         {
-            return view('maintenance::login.password.reset', array(
+            return view('maintenance::login.password.reset', [
                 'title' => 'Reset Your Password',
                 'user' => $user,
                 'code' => $key
-            ));
+            ]);
         } else
         {
             $this->redirect = route('maintenance.login');

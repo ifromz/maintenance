@@ -18,23 +18,23 @@ class EventViewer extends BaseViewer {
             $event = $this->entity;
         }
 
-        return view('maintenance::viewers.event.tags', array(
+        return view('maintenance::viewers.event.tags', [
             'event' => $event,
-        ));
+        ]);
     }
     
     public function report()
     {
-        return view('maintenance::viewers.event.report', array(
+        return view('maintenance::viewers.event.report', [
             'event' => $this->entity,
-        ));
+        ]);
     }
     
     public function lblReportCreated()
     {
-        return view('maintenance::viewers.event.labels.report-created', array(
+        return view('maintenance::viewers.event.labels.report-created', [
             'event' => $this->entity,
-        ));
+        ]);
     }
     
 }

@@ -50,10 +50,10 @@ class AbstractNoteableController extends BaseController
     {
         $noteable = $this->noteable->find($noteable_id);
 
-        return view('maintenance::noteables.create', array(
+        return view('maintenance::noteables.create', [
             'title' => 'Create a Note',
             'noteable' => $noteable,
-        ));
+        ]);
     }
 
     /**

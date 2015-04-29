@@ -41,10 +41,10 @@ class WorkRequestController extends BaseController
     {
         $workRequests = $this->workRequest->get();
 
-        return view('maintenance::work-requests.index', array(
+        return view('maintenance::work-requests.index', [
             'title' => 'Work Requests',
             'workRequests' => $workRequests,
-        ));
+        ]);
     }
 
     /**
@@ -54,9 +54,9 @@ class WorkRequestController extends BaseController
      */
     public function create()
     {
-        return view('maintenance::work-requests.create', array(
+        return view('maintenance::work-requests.create', [
             'title' => 'Create a Work Request',
-        ));
+        ]);
     }
 
     /**
@@ -97,10 +97,10 @@ class WorkRequestController extends BaseController
     {
         $workRequest = $this->workRequest->find($id);
 
-        return view('maintenance::work-requests.show', array(
+        return view('maintenance::work-requests.show', [
             'title' => 'Viewing Work Request: '.$workRequest->subject,
             'workRequest' => $workRequest,
-        ));
+        ]);
     }
 
     public function edit($id)

@@ -39,10 +39,10 @@ class PriorityController extends BaseController
     {
         $priorities = $this->priority->get();
 
-        return view('maintenance::work-orders.priorities.index', array(
+        return view('maintenance::work-orders.priorities.index', [
             'title' => 'All Priorities',
             'priorities' => $priorities
-        ));
+        ]);
     }
 
     /**
@@ -52,9 +52,9 @@ class PriorityController extends BaseController
      */
     public function create()
     {
-        return view('maintenance::work-orders.priorities.create', array(
+        return view('maintenance::work-orders.priorities.create', [
             'title' => 'Create a Priority'
-        ));
+        ]);
     }
 
     /**
@@ -95,10 +95,10 @@ class PriorityController extends BaseController
     {
         $priority = $this->priority->find($id);
 
-        return view('maintenance::work-orders.priorities.edit', array(
+        return view('maintenance::work-orders.priorities.edit', [
             'title' => 'Editing Priority: ' . $priority->name,
             'priority' => $priority
-        ));
+        ]);
     }
 
     /**
@@ -120,11 +120,11 @@ class PriorityController extends BaseController
             } else {
                 $this->message = 'There was an error trying to create a priority. Please try again';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.priorities.edit', array($id));
+                $this->redirect = route('maintenance.work-orders.priorities.edit', [$id]);
             }
         } else {
             $this->errors = $this->priorityValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.priorities.edit', array($id));
+            $this->redirect = route('maintenance.work-orders.priorities.edit', [$id]);
         }
 
         return $this->response();

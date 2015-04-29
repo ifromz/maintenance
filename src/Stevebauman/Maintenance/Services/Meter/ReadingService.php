@@ -29,12 +29,12 @@ class ReadingService extends BaseModelService
 
         try {
 
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'meter_id' => $this->getInput('meter_id'),
                 'reading' => $this->getInput('reading'),
                 'comment' => $this->getInput('comment'),
-            );
+            ];
 
             $record = $this->model->create($insert);
 
@@ -58,10 +58,10 @@ class ReadingService extends BaseModelService
 
             $record = $this->find($id);
 
-            $insert = array(
+            $insert = [
                 'reading' => $this->getInput('reading'),
                 'comment' => $this->getInput('comment'),
-            );
+            ];
 
             if ($record->update($insert)) {
 

@@ -12,12 +12,12 @@ class MeterReading extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\MeterReadingViewer';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'meter_id',
         'reading',
         'comment',
-    );
+    ];
 
     /**
      * The belongsTo meter relationship

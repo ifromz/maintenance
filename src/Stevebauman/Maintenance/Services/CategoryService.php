@@ -20,7 +20,7 @@ class CategoryService extends BaseNestedSetModelService
      * @param array $select
      * @return mixed
      */
-    public function get($select = array('*'))
+    public function get($select = ['*'])
     {
         return $this->model->select($select)->where('belongs_to', $this->scoped_id)->get();
     }
@@ -31,10 +31,10 @@ class CategoryService extends BaseNestedSetModelService
 
         try {
 
-            $insert = array(
+            $insert = [
                 'name' => $this->getInput('name'),
                 'belongs_to' => $this->scoped_id,
-            );
+            ];
 
             $record = $this->model->create($insert);
 

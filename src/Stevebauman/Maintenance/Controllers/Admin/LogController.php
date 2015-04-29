@@ -45,10 +45,10 @@ class LogController extends BaseController
             $entries = $this->log->orderBy('date', 'desc');
         }
 
-        return view('maintenance::admin.logs.index', array(
+        return view('maintenance::admin.logs.index', [
             'title' => 'Log Entries',
             'entries' => $entries->paginate(15),
-        ));
+        ]);
     }
 
     /**
@@ -62,10 +62,10 @@ class LogController extends BaseController
 
         if($entry)
         {
-            return view('maintenance::admin.logs.show', array(
+            return view('maintenance::admin.logs.show', [
                 'title' => 'Viewing Log Entry',
                 'entry' => $entry,
-            ));
+            ]);
         }
 
         return App::abort(404);

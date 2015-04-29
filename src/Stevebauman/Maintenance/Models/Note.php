@@ -14,10 +14,10 @@ class Note extends BaseModel
 
     protected $table = 'notes';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'content',
-    );
+    ];
 
     /**
      * The morphedByMany assets relationship indicating that assets can have notes

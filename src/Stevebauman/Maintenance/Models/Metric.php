@@ -10,10 +10,10 @@ class Metric extends BaseModel
 {
     protected $table = 'metrics';
 
-    protected $fillable = array(
+    protected $fillable = [
         'name',
         'symbol'
-    );
+    ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\MetricViewer';
 }

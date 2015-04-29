@@ -55,10 +55,10 @@ class StockController extends BaseController
     {
         $item = $this->inventory->find($inventory_id);
 
-        return view('maintenance::inventory.stocks.index', array(
+        return view('maintenance::inventory.stocks.index', [
             'title' => 'Current Stocks for Item: ' . $item->name,
             'item' => $item,
-        ));
+        ]);
     }
 
     /**
@@ -71,10 +71,10 @@ class StockController extends BaseController
     {
         $item = $this->inventory->find($inventory_id);
 
-        return view('maintenance::inventory.stocks.create', array(
+        return view('maintenance::inventory.stocks.create', [
             'title' => 'Add Stock Location to: ' . $item->name,
             'item' => $item,
-        ));
+        ]);
 
     }
 
@@ -98,13 +98,13 @@ class StockController extends BaseController
             if ($record) {
                 $this->message = 'Successfully added stock to this item';
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.inventory.show', array($item->id));
+                $this->redirect = route('maintenance.inventory.show', [$item->id]);
 
             } else {
 
                 $this->message = 'There was an error trying to add stock to this item. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.show', array($item->id));
+                $this->redirect = route('maintenance.inventory.show', [$item->id]);
 
             }
 
@@ -130,12 +130,12 @@ class StockController extends BaseController
 
         $lastMovements = $stock->movements()->take(10)->get();
 
-        return view('maintenance::inventory.stocks.show', array(
+        return view('maintenance::inventory.stocks.show', [
             'title' => sprintf('Viewing Stock for item: %s inside Location: %s', $item->name, renderNode($stock->location)),
             'item' => $item,
             'stock' => $stock,
             'lastMovements' => $lastMovements,
-        ));
+        ]);
 
     }
 
@@ -152,11 +152,11 @@ class StockController extends BaseController
 
         $stock = $this->inventoryStock->find($stock_id);
 
-        return view('maintenance::inventory.stocks.edit', array(
+        return view('maintenance::inventory.stocks.edit', [
             'title' => sprintf('Update Stock for item: %s inside %s', $item->name, $stock->location->name),
             'stock' => $stock,
             'item' => $item
-        ));
+        ]);
     }
 
     /**
@@ -177,15 +177,15 @@ class StockController extends BaseController
             if ($stock) {
                 $this->message = 'Successfully updated stock for item: ' . $item->name;
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.inventory.show', array($item->id));
+                $this->redirect = route('maintenance.inventory.show', [$item->id]);
             } else {
                 $this->message = 'There was an error trying to update the stock for this item. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.show', array($item->id));
+                $this->redirect = route('maintenance.inventory.show', [$item->id]);
             }
 
         } else {
-            $this->redirect = route('maintenance.inventory.show', array($inventory_id));
+            $this->redirect = route('maintenance.inventory.show', [$inventory_id]);
             $this->errors = $this->inventoryStockValidator->getErrors();
         }
 
@@ -204,11 +204,11 @@ class StockController extends BaseController
         if ($this->inventoryStock->destroy($stock_id)) {
             $this->message = 'Successfully deleted stock';
             $this->messageType = 'success';
-            $this->redirect = route('maintenance.inventory.show', array($inventory_id));
+            $this->redirect = route('maintenance.inventory.show', [$inventory_id]);
         } else {
             $this->message = 'There was an error trying to delete the stock for this item. Please try again.';
             $this->messageType = 'danger';
-            $this->redirect = route('maintenance.inventory.show', array($inventory_id));
+            $this->redirect = route('maintenance.inventory.show', [$inventory_id]);
         }
 
         return $this->response();

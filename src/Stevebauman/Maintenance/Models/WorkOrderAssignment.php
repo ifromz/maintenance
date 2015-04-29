@@ -10,11 +10,11 @@ class WorkOrderAssignment extends BaseModel
 {
     protected $table = 'work_order_assignments';
 
-    protected $fillable = array(
+    protected $fillable = [
         'work_order_id',
         'by_user_id',
         'to_user_id'
-    );
+    ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrder\AssignmentViewer';
 

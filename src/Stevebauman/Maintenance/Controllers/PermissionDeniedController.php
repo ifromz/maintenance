@@ -17,9 +17,9 @@ class PermissionDeniedController extends BaseController {
                 
             } else{
             
-                return view('maintenance::permission-denied', array(
+                return view('maintenance::permission-denied', [
                     'title'=>'Permission Denied'
-                ));
+                ]);
             }
             
         } else {

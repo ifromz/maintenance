@@ -25,7 +25,7 @@ class RunMigrationsCommand extends Command {
      */
     public function fire()
     {
-        $this->call('migrate', array('--env' => $this->option('env'), '--package' => 'stevebauman/maintenance' ) );
+        $this->call('migrate', ['--env' => $this->option('env'), '--package' => 'stevebauman/maintenance']);
     }
 
 }

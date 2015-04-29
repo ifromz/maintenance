@@ -6,7 +6,7 @@
 
 use Illuminate\Support\Facades\View;
 
-View::composers(array(
+View::composers([
     'Stevebauman\Maintenance\Composers\MainLayoutComposer'      => 'maintenance::layouts.main',
     'Stevebauman\Maintenance\Composers\PublicLayoutComposer'    => 'maintenance::layouts.public',
     'Stevebauman\Maintenance\Composers\AdminLayoutComposer'     => 'maintenance::layouts.admin',
@@ -21,4 +21,4 @@ View::composers(array(
     'Stevebauman\Maintenance\Composers\RouteSelectComposer'     => 'maintenance::select.routes',
     'Stevebauman\Maintenance\Composers\GroupSelectComposer'     => 'maintenance::select.groups',
     'Stevebauman\Maintenance\Composers\MetricSelectComposer'    => 'maintenance::select.metric',
-));
+]);

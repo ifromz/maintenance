@@ -22,7 +22,7 @@ class NotificationService extends BaseModelService
 
         try {
 
-            $insert = array(
+            $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'work_order_id' => $this->getInput('work_order_id'),
                 'status' => $this->getInput('status', 0),
@@ -31,7 +31,7 @@ class NotificationService extends BaseModelService
                 'customer_updates' => $this->getInput('customer_updates', 0),
                 'technician_updates' => $this->getInput('technician_updates', 0),
                 'completion_report' => $this->getInput('completion_report', 0)
-            );
+            ];
 
             $record = $this->model->create($insert);
 
@@ -55,14 +55,14 @@ class NotificationService extends BaseModelService
 
             $record = $this->find($id);
 
-            $insert = array(
+            $insert = [
                 'status' => $this->getInput('status', 0),
                 'priority' => $this->getInput('priority', 0),
                 'parts' => $this->getInput('parts', 0),
                 'customer_updates' => $this->getInput('customer_updates', 0),
                 'technician_updates' => $this->getInput('technician_updates', 0),
                 'completion_report' => $this->getInput('completion_report', 0)
-            );
+            ];
 
             if ($record->update($insert)) {
 

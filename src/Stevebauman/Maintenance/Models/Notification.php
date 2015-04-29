@@ -15,14 +15,14 @@ class Notification extends BaseModel
 
     protected $table = 'notifications';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'notifiable_id',
         'notifiable_type',
         'message',
         'link',
         'read'
-    );
+    ];
 
     /**
      * The morphTo relationship allowing all models to have notifications

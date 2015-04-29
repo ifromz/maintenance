@@ -14,7 +14,7 @@ class WorkOrderNotification extends BaseModel
 
     protected $table = 'work_order_notifications';
 
-    protected $fillable = array(
+    protected $fillable = [
         'user_id',
         'work_order_id',
         'status',
@@ -23,7 +23,7 @@ class WorkOrderNotification extends BaseModel
         'customer_updates',
         'technician_updates',
         'completion_report',
-    );
+    ];
 
     /**
      * The hasOne work order relationship

@@ -43,16 +43,14 @@ class CreateAdminCommand extends Command {
      */
     public function fire()
     {
-        $user = array(
-
+        $user = [
             'first_name' => $this->askFirstName(),
             'last_name' => $this->askLastName(),
             'email' => $this->askEmail(),
             'username' => $this->askUsername(),
             'password' => $this->askPassword(),
-            'permissions' => array('superuser' => 1),
-
-        );
+            'permissions' => ['superuser' => 1],
+        ];
 
         $newUser = $this->sentry->createUser($user);
 
@@ -116,6 +114,4 @@ class CreateAdminCommand extends Command {
     {
         return $this->ask('What will you use as the administrators password? ');
     }
-
-
 }

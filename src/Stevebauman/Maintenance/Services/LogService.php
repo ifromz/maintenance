@@ -52,7 +52,7 @@ class LogService extends Service
      *
      * @var array
      */
-    protected $levels = array(
+    protected $levels = [
         'emergency',
         'alert',
         'critical',
@@ -61,7 +61,7 @@ class LogService extends Service
         'notice',
         'info',
         'debug',
-    );
+    ];
 
     /**
      * @param Filesystem $filesystem
@@ -80,7 +80,7 @@ class LogService extends Service
      */
     public function get()
     {
-        $entries = array();
+        $entries = [];
 
         foreach($this->getLogFiles() as $log)
         {
@@ -212,7 +212,7 @@ class LogService extends Service
      */
     private function parseLog($content, $allowedLevel = 'all')
     {
-        $log = array();
+        $log = [];
 
         // The regex pattern to match the logging format '[YYYY-MM-DD HH:MM:SS]'
         $pattern = "/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\].*/";
@@ -260,7 +260,7 @@ class LogService extends Service
      */
     private function getLogFiles()
     {
-        $data = array();
+        $data = [];
 
         $files = $this->getLogFileList();
 

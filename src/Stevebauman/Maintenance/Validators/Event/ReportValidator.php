@@ -11,8 +11,8 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
 class ReportValidator extends BaseValidator
 {
     
-    protected $rules = array(
+    protected $rules = [
         'description' => 'required|min:10'
-    );
+    ];
     
 }

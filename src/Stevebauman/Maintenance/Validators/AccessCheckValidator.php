@@ -9,8 +9,8 @@ namespace Stevebauman\Maintenance\Validators;
 class AccessCheckValidator extends BaseValidator
 {
     
-    protected $rules = array(
+    protected $rules = [
         'permission' => 'required'
-    );
+    ];
     
 }
