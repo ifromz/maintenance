@@ -13,7 +13,6 @@ use Stevebauman\Maintenance\Controllers\BaseController;
  */
 class AssetController extends BaseController
 {
-
     /**
      * @var AssetService
      */
