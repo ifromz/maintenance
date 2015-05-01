@@ -1,8 +1,7 @@
 <?php
 
-/**
- * The Location breadcrumbs registration file
- */
+use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
+
 Breadcrumbs::register('maintenance.locations.index', function($breadcrumbs)
 {
     $breadcrumbs->push('Locations', route('maintenance.locations.index'));

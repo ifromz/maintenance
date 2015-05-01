@@ -6,6 +6,7 @@ use Baum\Node;
 
 /**
  * Class Category
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class Category extends Node

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class BaseModel
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class BaseModel extends Eloquent
@@ -46,6 +47,7 @@ class BaseModel extends Eloquent
      * Formats the created_at timestamp
      *
      * @param string $created_at
+     *
      * @return string
      */
     public function getCreatedAtAttribute($created_at)
@@ -57,19 +59,22 @@ class BaseModel extends Eloquent
      * Formats the deleted_at timestamp
      *
      * @param string $deleted_at
-     * @return string
+     *
+     * @return string|null
      */
     public function getDeletedAtAttribute($deleted_at)
     {
         if(array_key_exists('deleted_at', $this->attributes)) {
             return Carbon::parse($deleted_at)->format('Y-m-d h:i A');
         }
+
+        return null;
     }
 
     /**
      * Accessor for retrieving a limited description for display on tables
      *
-     * @return mixed
+     * @return string
      */
     public function getLimitedDescriptionAttribute()
     {
@@ -82,14 +87,15 @@ class BaseModel extends Eloquent
             return str_limit(strip_tags($this->attributes['description']), 30);
         }
 
-        return NULL;
+        return null;
     }
 
     /**
      * Retrieves a valid operator from the specified string
      *
      * @param string $string
-     * @return boolean OR array
+     *
+     * @return boolean|array
      */
     protected function getOperator($string)
     {
@@ -115,6 +121,7 @@ class BaseModel extends Eloquent
      *
      * @param object $query
      * @param boolean $archived
+     *
      * @return object
      */
     public function scopeArchived($query, $archived = false)
@@ -122,6 +129,8 @@ class BaseModel extends Eloquent
         if ($archived) {
             return $query->onlyTrashed();
         }
+
+        return $query;
     }
 
     /**
@@ -131,6 +140,7 @@ class BaseModel extends Eloquent
      * @param object $query
      * @param string $field
      * @param string $sort
+     *
      * @return object
      */
     public function scopeSort($query, $field = NULL, $sort = NULL)
@@ -139,7 +149,6 @@ class BaseModel extends Eloquent
          * Make sure both the field and sort variables are present
          */
         if ($field && $sort) {
-
             /*
              * Retrieve all column names for the current model table
              */
@@ -166,7 +175,6 @@ class BaseModel extends Eloquent
          * Default order by created at field
          */
         return $query->orderBy('created_at', 'desc');
-
     }
 
     /**

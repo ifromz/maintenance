@@ -19,5 +19,4 @@ class EventReport extends BaseModel
         'user_id',
         'description',
     ];
-
 }

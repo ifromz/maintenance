@@ -23,6 +23,8 @@ class StatusSeeder extends Seeder
     protected $config;
 
     /**
+     * Constructor.
+     *
      * @param StatusService $status
      * @param ConfigService $config
      */
@@ -56,5 +58,4 @@ class StatusSeeder extends Seeder
     {
         return $this->config->get('seed.statuses');
     }
-
 }

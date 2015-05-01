@@ -1,8 +1,9 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
+
+namespace Stevebauman\Maintenance\Validators;
 
 class AssetValidator extends BaseValidator
 {
-
     protected $rules = [
         'name' => 'required|min:3|max:250',
         'condition' => 'required|integer',
@@ -11,5 +12,4 @@ class AssetValidator extends BaseValidator
         'location' => 'required',
         'location_id' => 'integer'
     ];
-
 }

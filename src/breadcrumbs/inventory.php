@@ -1,8 +1,6 @@
 <?php
 
-/**
- * The Inventory breadcrumbs registration file
- */
+use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
 
 /*
  * Inventory crumbs

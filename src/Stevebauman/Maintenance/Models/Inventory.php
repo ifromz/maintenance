@@ -113,7 +113,8 @@ class Inventory extends BaseModel
      * Filters query by the inputted inventory item name
      *
      * @param $query
-     * @param null $name
+     * @param string $name
+     *
      * @return mixed
      */
     public function scopeName($query, $name = NULL)
@@ -121,13 +122,16 @@ class Inventory extends BaseModel
         if ($name) {
             return $query->where('name', 'LIKE', '%' . $name . '%');
         }
+
+        return $query;
     }
 
     /**
      * Filters query by the inputted inventory item description
      *
      * @param $query
-     * @param null $description
+     * @param string $description
+     *
      * @return mixed
      */
     public function scopeDescription($query, $description = NULL)
@@ -136,13 +140,16 @@ class Inventory extends BaseModel
         {
             return $query->where('description', 'LIKE', '%' . $description . '%');
         }
+
+        return $query;
     }
     /**
      * Filters query by the inputted inventory item stock quantity
      *
      * @param $query
-     * @param null $operator
-     * @param null $stock
+     * @param string $operator
+     * @param string $stock
+     *
      * @return mixed
      */
     public function scopeStock($query, $operator = NULL, $stock = NULL)
@@ -160,13 +167,16 @@ class Inventory extends BaseModel
                 }
             });
         }
+
+        return $query;
     }
 
     /**
      * Filters query by the inputted inventory sku
      *
      * @param $query
-     * @param null $sku
+     * @param string $sku
+     *
      * @return mixed
      */
     public function scopeSku($query, $sku = NULL)
@@ -178,6 +188,8 @@ class Inventory extends BaseModel
                 return $query->where('code', 'LIKE', '%'.$sku.'%');
             });
         }
+
+        return $query;
     }
 
     /**
@@ -207,7 +219,6 @@ class Inventory extends BaseModel
             return $this->getMetricSymbol();
         }
 
-        return NULL;
+        return null;
     }
-
 }

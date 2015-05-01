@@ -1,8 +1,6 @@
 <?php
 
-/**
- * The Asset breadcrumbs registration file
- */
+use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
 
 /*
  * Asset crumbs

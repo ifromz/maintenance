@@ -31,5 +31,4 @@ class Group extends SentryGroup
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\User', 'users_groups', 'group_id', 'user_id');
     }
-
 }

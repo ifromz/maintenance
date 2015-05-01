@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Models;
+<?php
+
+namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Maintenance\Traits\HasCategoryTrait;
@@ -8,6 +10,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
  * Class Asset
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class Asset extends BaseModel
@@ -57,21 +60,41 @@ class Asset extends BaseModel
         'end_of_life' => 'End of Life',
     ];
 
+    /**
+     * The belongsToMany images relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function images()
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'asset_images', 'asset_id', 'attachment_id');
     }
 
+    /**
+     * The belongsToMany manuals relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function manuals()
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'asset_manuals', 'asset_id', 'attachment_id');
     }
 
+    /**
+     * The belongsToMany work orders relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function workOrders()
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\WorkOrder', 'work_order_assets', 'asset_id', 'work_order_id')->withTimestamps();
     }
 
+    /**
+     * The belongsToMany meters relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function meters()
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Meter', 'asset_meters', 'asset_id', 'meter_id')->withTimestamps();
@@ -85,6 +108,8 @@ class Asset extends BaseModel
         if ($name) {
             return $query->where('name', 'LIKE', '%' . $name . '%');
         }
+
+        return $query;
     }
 
     /*
@@ -95,17 +120,26 @@ class Asset extends BaseModel
         if ($condition) {
             return $query->where('condition', 'LIKE', '%' . $condition . '%');
         }
+
+        return $query;
     }
 
     /*
-     * Mutator for conversion of integer condition, to text condition through
-     * translator
+     * Mutator for conversion of integer condition,
+     * to text condition through translator.
+     *
+     * @return string
      */
     public function getConditionAttribute($attr)
     {
         return trans(sprintf('maintenance::assets.conditions.%s', $attr));
     }
 
+    /**
+     * Mutator for retrieving the condition number.
+     *
+     * @return mixed
+     */
     public function getConditionNumberAttribute()
     {
         return $this->attributes['condition'];
@@ -113,6 +147,8 @@ class Asset extends BaseModel
 
     /*
      * Mutator for displaying a pretty link label for display in work orders
+     *
+     * @return string.
      */
     public function getLabelAttribute()
     {
@@ -122,6 +158,4 @@ class Asset extends BaseModel
             $this->attributes['name']
         );
     }
-
-
 }

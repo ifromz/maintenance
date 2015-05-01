@@ -13,6 +13,7 @@ use Stevebauman\Maintenance\Traits\HasEventsTrait;
 
 /**
  * Class WorkOrder
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class WorkOrder extends BaseModel
@@ -158,10 +159,11 @@ class WorkOrder extends BaseModel
      */
     public function scopePriority($query, $priority = NULL)
     {
-
         if ($priority) {
             return $query->where('priority_id', $priority);
         }
+
+        return $query;
     }
 
     /**
@@ -174,6 +176,8 @@ class WorkOrder extends BaseModel
         if ($subject) {
             return $query->where('subject', 'LIKE', '%' . $subject . '%');
         }
+
+        return $query;
     }
 
     /**
@@ -186,6 +190,8 @@ class WorkOrder extends BaseModel
         if ($desc) {
             return $query->where('description', 'LIKE', '%' . $desc . '%');
         }
+
+        return $query;
     }
 
     /**
@@ -198,6 +204,8 @@ class WorkOrder extends BaseModel
         if ($status) {
             return $query->where('status_id', $status);
         }
+
+        return $query;
     }
 
     /**
@@ -212,11 +220,14 @@ class WorkOrder extends BaseModel
                 return $query->whereIn('asset_id', $assets);
             });
         }
+
+        return $query;
     }
 
     /**
      * @param $query
      * @param $user
+     *
      * @return mixed
      */
     public function scopeUserHours($query, $user)
@@ -226,11 +237,14 @@ class WorkOrder extends BaseModel
                 return $query->where('user_id', $user->id);
             });
         }
+
+        return $query;
     }
 
     /**
      * @param $query
      * @param $user_id
+     *
      * @return mixed
      */
     public function scopeAssignedUser($query, $user_id)
@@ -240,6 +254,8 @@ class WorkOrder extends BaseModel
                 return $query->where('to_user_id', $user_id);
             });
         }
+
+        return $query;
     }
 
     /**
@@ -247,10 +263,8 @@ class WorkOrder extends BaseModel
      */
     public function closeSessions()
     {
-        foreach($this->sessions as $session)
-        {
-            if(!$session->out)
-            {
+        foreach($this->sessions as $session) {
+            if(! $session->out) {
                 $session->out = Carbon::now()->toDateTimeString();
                 $session->save();
             }
@@ -342,7 +356,7 @@ class WorkOrder extends BaseModel
     /**
      * Set the default work order category id to null if the given value is empty
      *
-     * @param type $value
+     * @param int|string $value
      */
     public function setCategoryIdAttribute($value)
     {
@@ -352,7 +366,7 @@ class WorkOrder extends BaseModel
     /**
      * Set the default location id to null if the given value is empty
      *
-     * @param type $value
+     * @param int|string $value
      */
     public function setLocationIdAttribute($value)
     {

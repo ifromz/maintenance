@@ -23,6 +23,8 @@ class MetricSeeder extends Seeder
     protected $config;
 
     /**
+     * Constructor.
+     *
      * @param MetricService $metric
      * @param ConfigService $config
      */
@@ -56,5 +58,4 @@ class MetricSeeder extends Seeder
     {
         return $this->config->get('seed.metrics');
     }
-
 }

@@ -1,8 +1,6 @@
 <?php
 
-/**
- * The Work Request breadcrumbs registration file
- */
+use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
 
 /*
  * Work Request crumbs

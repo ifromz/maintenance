@@ -18,9 +18,11 @@
         </li>
         <!-- Menu Footer-->
         <li class="user-footer">
-            <div class="pull-left">
-                <a href="" class="btn btn-default btn-flat">Settings</a>
-            </div>
+            @if(Sentry::hasAccess('maintenance.admin.dashboard.index'))
+                <div class="pull-left">
+                    <a href="{{ route('maintenance.admin.dashboard.index') }}" class="btn btn-default btn-flat">Admin Dashboard</a>
+                </div>
+            @endif
             <div class="pull-right">
                 <a href="{{ route('maintenance.logout') }}" class="btn btn-default btn-flat">Sign out</a>
             </div>

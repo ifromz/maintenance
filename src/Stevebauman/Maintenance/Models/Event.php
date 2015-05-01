@@ -7,6 +7,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
  * Class Event
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class Event extends BaseModel
@@ -24,29 +25,53 @@ class Event extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Event\EventViewer';
 
+    /**
+     * The hasOne report relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function report()
     {
         return $this->hasOne('Stevebauman\Maintenance\Models\EventReport', 'event_id');
     }
 
+    /**
+     * The belongsTo parent event relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function parentEvent()
     {
         return $this->belongsTo('Stevebauman\Maintenance\Models\Event', 'parent_id');
     }
 
+    /**
+     * The morphedByMany assets relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function assets()
     {
         return $this->morphedByMany('Stevebauman\Maintenance\Models\Asset', 'eventable')->withTimestamps();
     }
 
+    /**
+     * The morphedByMany inventories relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function inventories()
     {
         return $this->morphedByMany('Stevebauman\Maintenance\Models\Inventory', 'eventable')->withTimestamps();
     }
 
+    /**
+     * The morphedByMany work orders relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function workOrders()
     {
         return $this->morphedByMany('Stevebauman\Maintenance\Models\WorkOrder', 'eventable')->withTimestamps();
     }
-
 }

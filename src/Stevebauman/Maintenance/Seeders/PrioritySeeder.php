@@ -23,6 +23,8 @@ class PrioritySeeder extends Seeder
     protected $config;
 
     /**
+     * Constructor.
+     *
      * @param PriorityService $priority
      */
     public function __construct(PriorityService $priority, ConfigService $config)
@@ -55,5 +57,4 @@ class PrioritySeeder extends Seeder
     {
         return $this->config->get('seed.priorities');
     }
-
 }

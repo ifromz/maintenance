@@ -101,7 +101,7 @@ class MaintenanceServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->app->missing(function($e)
+		$this->app->missing(function()
         {
 			return view('maintenance::404', [
 				'title' => '404 - Page Not Found'

@@ -79,19 +79,14 @@ class AssetController extends BaseController
             $record = $this->asset->setInput($this->inputAll())->create();
 
             if ($record) {
-
                 $this->redirect = route('maintenance.assets.index');
                 $this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', [$record->id]));
                 $this->messageType = 'success';
-
             } else {
-
                 $this->redirect = route('maintenance.asset.create');
                 $this->message = 'There was an error trying to create an asset. Please try again';
                 $this->messageType = 'danger';
-
             }
-
         } else {
             $this->redirect = route('maintenance.assets.create');
             $this->errors = $this->assetValidator->getErrors();
@@ -120,7 +115,6 @@ class AssetController extends BaseController
             'asset' => $asset,
             'workOrders' => $workOrders
         ]);
-
     }
 
     /**
@@ -147,13 +141,11 @@ class AssetController extends BaseController
     public function update($id)
     {
         if ($this->assetValidator->passes()) {
-
             $record = $this->asset->setInput($this->inputAll())->update($id);
 
             $this->redirect = route('maintenance.assets.show', [$record->id]);
             $this->message = sprintf('Successfully edited asset: %s', link_to_route('maintenance.assets.show', 'Show', [$record->id]));
             $this->messageType = 'success';
-
         } else {
             $this->redirect = route('maintenance.assets.edit', [$id]);
             $this->errors = $this->assetValidator->getErrors();
@@ -177,5 +169,4 @@ class AssetController extends BaseController
 
         return $this->response();
     }
-
 }

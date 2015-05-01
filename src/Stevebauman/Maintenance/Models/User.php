@@ -46,9 +46,9 @@ class User extends SentryUser
 
             $query->where('first_name', 'LIKE', '%' . $name . '%');
             $query->orWhere('last_name', 'LIKE', '%'. $name . '%');
-
-            return $query;
         }
+
+        return $query;
     }
 
     /**
@@ -64,6 +64,8 @@ class User extends SentryUser
         {
             return $query->where('username', 'LIKE', '%' . $username . '%');
         }
+
+        return $query;
     }
 
     /**
@@ -79,5 +81,7 @@ class User extends SentryUser
         {
             return $query->where('email', 'LIKE', '%' . $email . '%');
         }
+
+        return $query;
     }
 }
