@@ -6,6 +6,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
  * Class Status
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class Status extends BaseModel

@@ -21,7 +21,7 @@ class InventorySku extends BaseModel
     ];
 
     /**
-     * The belongsTo item trait
+     * The belongsTo item trait.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

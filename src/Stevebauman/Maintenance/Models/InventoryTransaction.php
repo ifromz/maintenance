@@ -22,7 +22,7 @@ class InventoryTransaction extends BaseModel implements StateableInterface
     protected $table = 'inventory_transactions';
 
     /**
-     * The belongsTo stock relationship
+     * The belongsTo stock relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -32,7 +32,7 @@ class InventoryTransaction extends BaseModel implements StateableInterface
     }
 
     /**
-     * The hasMany histories relationship
+     * The hasMany histories relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

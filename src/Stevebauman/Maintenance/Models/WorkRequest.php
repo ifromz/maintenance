@@ -6,6 +6,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
  * Class WorkRequest
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class WorkRequest extends BaseModel {
@@ -24,7 +25,7 @@ class WorkRequest extends BaseModel {
     protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkRequestViewer';
 
     /**
-     * The hasOne workOrder relationship
+     * The hasOne workOrder relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -34,7 +35,7 @@ class WorkRequest extends BaseModel {
     }
 
     /**
-     * The belongsToMany technician updates relationship
+     * The belongsToMany technician updates relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -42,5 +43,4 @@ class WorkRequest extends BaseModel {
     {
         return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_request_updates', 'work_request_id', 'update_id')->withTimestamps();
     }
-
 }

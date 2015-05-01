@@ -6,6 +6,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
  * Class WorkOrderSession
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class WorkOrderSession extends BaseModel
@@ -35,7 +36,7 @@ class WorkOrderSession extends BaseModel
     /**
      * Returns the number of hours a session lasted with decimals
      *
-     * @return null|number
+     * @return null|int
      */
     public function getHoursAttribute()
     {

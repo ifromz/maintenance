@@ -54,7 +54,7 @@ class WorkOrder extends BaseModel
     ];
 
     /**
-     * The belongsTo work request relationship
+     * The belongsTo work request relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -64,7 +64,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * The belongsToMany customer updates relationship
+     * The belongsToMany customer updates relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -74,7 +74,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * The hasOne status relationship
+     * The hasOne status relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -84,7 +84,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * The hasOne priority relationship
+     * The hasOne priority relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -94,7 +94,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * The belongsToMany assets relationship
+     * The belongsToMany assets relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -104,7 +104,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * The hasOne report relationship
+     * The hasOne report relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -114,7 +114,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * The hasMany assignments relationship
+     * The hasMany assignments relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -124,7 +124,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * The belongsToMany attachments relationship
+     * The belongsToMany attachments relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -134,7 +134,8 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * The belongsToMany inventory parts relationship
+     * The belongsToMany inventory parts relationship.
+     *
      * @return $this
      */
     public function parts()
@@ -143,7 +144,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * The hasMany sessions relationship
+     * The hasMany sessions relationship.
      *
      * @return mixed
      */
@@ -153,7 +154,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Filters work order results by priority
+     * Filters work order results by priority.
      *
      * @return object
      */
@@ -167,7 +168,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Filters work order results by subject
+     * Filters work order results by subject.
      *
      * @return object
      */
@@ -181,7 +182,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Filters work order results by description
+     * Filters work order results by description.
      *
      * @return object
      */
@@ -195,7 +196,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Filters work order results by status
+     * Filters work order results by status.
      *
      * @return object
      */
@@ -209,7 +210,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Filters work order results by assets that are included
+     * Filters work order results by assets that are included.
      *
      * @return object
      */

@@ -20,7 +20,7 @@ class MeterReading extends BaseModel
     ];
 
     /**
-     * The belongsTo meter relationship
+     * The belongsTo meter relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -28,5 +28,4 @@ class MeterReading extends BaseModel
     {
         return $this->belongsTo('Stevebauman\Maintenance\Models\Meter', 'meter_id');
     }
-
 }

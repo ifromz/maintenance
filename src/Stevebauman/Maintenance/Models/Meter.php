@@ -6,6 +6,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
  * Class Meter
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class Meter extends BaseModel
@@ -43,23 +44,26 @@ class Meter extends BaseModel
     }
 
     /**
-     * Returns the last reading amount
+     * Returns the last reading amount.
      *
-     * @return mixed
+     * @return string
      */
     public function getLastReadingAttribute()
     {
         if ($this->readings->count() > 0) return $this->readings->first()->reading;
+
+        return null;
     }
 
     /**
-     * Returns the last reading comment
+     * Returns the last reading comment.
      *
-     * @return mixed
+     * @return string
      */
     public function getLastCommentAttribute()
     {
         if ($this->readings->count() > 0) return $this->readings->first()->comment;
-    }
 
+        return null;
+    }
 }

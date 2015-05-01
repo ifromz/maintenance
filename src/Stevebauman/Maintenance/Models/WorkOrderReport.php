@@ -6,6 +6,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
  * Class WorkOrderReport
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class WorkOrderReport extends BaseModel
@@ -21,7 +22,7 @@ class WorkOrderReport extends BaseModel
     ];
 
     /**
-     * The hasOne work order trait
+     * The hasOne work order trait.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

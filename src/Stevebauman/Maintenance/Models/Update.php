@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Models;
+<?php
+
+namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 

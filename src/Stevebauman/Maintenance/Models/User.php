@@ -9,6 +9,7 @@ use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 
 /**
  * Class User
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class User extends SentryUser
@@ -43,7 +44,6 @@ class User extends SentryUser
     public function scopeName($query, $name = NULL)
     {
         if ($name) {
-
             $query->where('first_name', 'LIKE', '%' . $name . '%');
             $query->orWhere('last_name', 'LIKE', '%'. $name . '%');
         }
@@ -60,8 +60,7 @@ class User extends SentryUser
      */
     public function scopeUsername($query, $username = NULL)
     {
-        if($username)
-        {
+        if($username) {
             return $query->where('username', 'LIKE', '%' . $username . '%');
         }
 
@@ -77,8 +76,7 @@ class User extends SentryUser
      */
     public function scopeEmail($query, $email = NULL)
     {
-        if($email)
-        {
+        if($email) {
             return $query->where('email', 'LIKE', '%' . $email . '%');
         }
 

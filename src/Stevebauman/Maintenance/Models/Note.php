@@ -6,6 +6,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
  * Class Note
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class Note extends BaseModel
@@ -20,7 +21,7 @@ class Note extends BaseModel
     ];
 
     /**
-     * The morphedByMany assets relationship indicating that assets can have notes
+     * The morphedByMany assets relationship indicating that assets can have notes.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -30,7 +31,7 @@ class Note extends BaseModel
     }
 
     /**
-     * The morphedByMany assets relationship indicating that inventory items can have notes
+     * The morphedByMany assets relationship indicating that inventory items can have notes.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -40,7 +41,7 @@ class Note extends BaseModel
     }
 
     /**
-     * The morphedByMany assets relationship indicating that work orders can have notes
+     * The morphedByMany assets relationship indicating that work orders can have notes.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

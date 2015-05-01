@@ -4,6 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 /**
  * Class WorkOrderAttachment
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class WorkOrderAttachment extends BaseModel

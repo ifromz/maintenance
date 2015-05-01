@@ -30,7 +30,6 @@ class Priority extends BaseModel
             $this->attributes['color'],
             $this->attributes['name']
         );
-
     }
 
     /**

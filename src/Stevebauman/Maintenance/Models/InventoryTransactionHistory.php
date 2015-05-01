@@ -23,7 +23,7 @@ class InventoryTransactionHistory extends BaseModel
     protected $table = 'inventory_transaction_histories';
 
     /**
-     * The belongsTo transaction relationship
+     * The belongsTo transaction relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

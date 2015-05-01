@@ -7,6 +7,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
  * Class Notification
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class Notification extends BaseModel
@@ -25,7 +26,7 @@ class Notification extends BaseModel
     ];
 
     /**
-     * The morphTo relationship allowing all models to have notifications
+     * The morphTo relationship allowing all models to have notifications.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
@@ -35,9 +36,9 @@ class Notification extends BaseModel
     }
 
     /**
-     * Returns an html icon of the type of notification
+     * Returns an html icon of the type of notification.
      *
-     * @return string
+     * @return string|null
      */
     public function getIconAttribute()
     {
@@ -50,6 +51,7 @@ class Notification extends BaseModel
 
         if ($icon = $config->setPrefix('maintenance')->get("notifications.icons.$class")) return $icon;
 
-        return 'test';
+        //@todo Return default icon class
+        return null;
     }
 }

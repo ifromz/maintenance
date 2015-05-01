@@ -8,6 +8,7 @@ use Stevebauman\Inventory\Traits\InventoryStockTrait;
 
 /**
  * Class InventoryStock
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class InventoryStock extends BaseModel
@@ -45,7 +46,7 @@ class InventoryStock extends BaseModel
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockViewer';
 
     /*
-    * The belongsTo item relationship
+    * The belongsTo item relationship.
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     */
@@ -55,7 +56,7 @@ class InventoryStock extends BaseModel
     }
 
     /**
-     * The hasOne location relationship
+     * The hasOne location relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -65,7 +66,7 @@ class InventoryStock extends BaseModel
     }
 
     /**
-     * The hasMany transactions relationship
+     * The hasMany transactions relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -75,7 +76,7 @@ class InventoryStock extends BaseModel
     }
 
     /**
-     * The hasMany movements relationship
+     * The hasMany movements relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -85,7 +86,7 @@ class InventoryStock extends BaseModel
     }
 
     /**
-     * Accessor for viewing the last movement of the stock
+     * Accessor for viewing the last movement of the stock.
      *
      * @return null|string
      */
@@ -113,7 +114,7 @@ class InventoryStock extends BaseModel
 
     /**
      * Accessor for viewing the user responsible for the last
-     * movement
+     * movement.
      *
      * @return null|string
      */
@@ -130,7 +131,7 @@ class InventoryStock extends BaseModel
     }
 
     /**
-     * Accessor for viewing the quantity combined with the item metric
+     * Accessor for viewing the quantity combined with the item metric.
      *
      * @return string
      */
@@ -138,5 +139,4 @@ class InventoryStock extends BaseModel
     {
         return $this->attributes['quantity'] . ' ' . $this->item->metric->name;
     }
-
 }

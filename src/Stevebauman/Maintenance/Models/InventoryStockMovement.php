@@ -7,6 +7,7 @@ use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 
 /**
  * Class InventoryStockMovement
+ *
  * @package Stevebauman\Maintenance\Models
  */
 class InventoryStockMovement extends BaseModel
@@ -17,7 +18,7 @@ class InventoryStockMovement extends BaseModel
     protected $table = 'inventory_stock_movements';
 
     /**
-     * The fillable eloquent attribute array for allowing mass assignments
+     * The fillable eloquent attribute array for allowing mass assignments.
      *
      * @var array
      */
@@ -33,7 +34,7 @@ class InventoryStockMovement extends BaseModel
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockMovementViewer';
 
     /**
-     * The belongsTo stock relationship
+     * The belongsTo stock relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -43,9 +44,10 @@ class InventoryStockMovement extends BaseModel
     }
 
     /**
-     * Returns the cost of the movement. If no cost is available it will return 0.00
+     * Returns the cost of the movement. If no cost is available it will return 0.00.
      *
      * @param $cost
+     *
      * @return string
      */
     public function getCostAttribute($cost)
@@ -76,5 +78,4 @@ class InventoryStockMovement extends BaseModel
             return 'None';
         }
     }
-
 }
