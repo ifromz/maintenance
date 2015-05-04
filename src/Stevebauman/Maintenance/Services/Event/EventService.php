@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services\Event;
 
-use Stevebauman\Maintenance\Exceptions\EventNotFoundException;
+use Stevebauman\Maintenance\Exceptions\NotFound\EventNotFoundException;
 use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -10,11 +10,10 @@ use Stevebauman\Maintenance\Models\Event;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Handles interactions between the Event Model and the Event Api Service
+ * Handles interactions between the Event Model and the Event Api Service.
  */
 class EventService extends BaseModelService
 {
-
     /**
      * @var GoogleEventService
      */
@@ -31,6 +30,8 @@ class EventService extends BaseModelService
     protected $location;
 
     /**
+     * Constructor.
+     *
      * @param Event $model
      * @param GoogleEventService $google
      * @param SentryService $sentry
@@ -55,6 +56,7 @@ class EventService extends BaseModelService
      * Retrieves api events that are in the local database without recurrences
      *
      * @param array $select
+     *
      * @return \Stevebauman\EloquentTable\TableCollection
      */
     public function get($select = [])
@@ -71,6 +73,7 @@ class EventService extends BaseModelService
      *
      * @param array $apiIds
      * @param bool $recurrences
+     *
      * @return mixed|\Stevebauman\EloquentTable\TableCollection
      */
     public function getApiEvents($apiIds = [], $recurrences = false)
@@ -90,6 +93,7 @@ class EventService extends BaseModelService
      * Returns recurrences from the specified API ID
      *
      * @param string $api_id
+     *
      * @return mixed
      */
     public function getRecurrencesByApiId($api_id)
@@ -104,6 +108,7 @@ class EventService extends BaseModelService
      * Retrieves and returns an API event by it's API ID
      *
      * @param string $api_id
+     *
      * @return mixed
      */
     public function findByApiId($api_id)
@@ -314,13 +319,9 @@ class EventService extends BaseModelService
     public function sync($events)
     {
         foreach ($events as $event) {
-
             if ($event->status === 'cancelled') {
-
                 $this->model->where('api_id', $event->id)->delete();
-
             }
-
         }
     }
 
@@ -355,5 +356,4 @@ class EventService extends BaseModelService
 
         return $arrayEvents;
     }
-
 }

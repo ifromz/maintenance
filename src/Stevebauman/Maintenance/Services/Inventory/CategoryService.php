@@ -2,12 +2,13 @@
 
 namespace Stevebauman\Maintenance\Services\Inventory;
 
-use Stevebauman\Maintenance\Exceptions\InventoryCategoryNotFoundException;
+use Stevebauman\Maintenance\Exceptions\NotFound\Inventory\InventoryCategoryNotFoundException;
 use Stevebauman\Maintenance\Models\Category;
 use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 
 /**
  * Class CategoryService
+ *
  * @package Stevebauman\Maintenance\Services\Inventory
  */
 class CategoryService extends BaseCategoryService

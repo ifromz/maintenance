@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Exceptions\MetricNotFoundException;
+use Stevebauman\Maintenance\Exceptions\NotFound\MetricNotFoundException;
 use Stevebauman\Maintenance\Models\Metric;
 
 /**

@@ -2,24 +2,26 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Stevebauman\Maintenance\Exceptions\WorkOrderAssignmentNotFoundException;
+use Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder\WorkOrderAssignmentNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Models\WorkOrderAssignment;
 
 /**
  * Class AssignmentService
+ *
  * @package Stevebauman\Maintenance\Services\WorkOrder
  */
 class AssignmentService extends BaseModelService
 {
-
     /**
      * @var SentryService
      */
     protected $sentry;
 
     /**
+     * Constructor.
+     *
      * @param WorkOrderAssignment $assignment
      * @param SentryService $sentry
      * @param WorkOrderAssignmentNotFoundException $notFoundException
@@ -36,11 +38,9 @@ class AssignmentService extends BaseModelService
      */
     public function create()
     {
-
         $this->dbStartTransaction();
 
         try {
-
             $users = $this->getInput('users');
 
             if ($users) {
@@ -62,18 +62,14 @@ class AssignmentService extends BaseModelService
                 $this->dbCommitTransaction();
 
                 return $records;
-
             }
 
             return false;
 
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
-
     }
-
 }
