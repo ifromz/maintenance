@@ -28,7 +28,7 @@
         <label class="col-sm-2 control-label" for="location_name">Description</label>
 
         <div class="col-md-8">
-            {{ Form::textarea('description', NULL, array('class'=>'form-control')) }}
+            {{ Form::textarea('description', null, array('class'=>'form-control')) }}
         </div>
     </div>
 

@@ -46,9 +46,9 @@ class WorkRequestService extends BaseModelService {
         {
             $workRequest = new $this->model;
             $workRequest->user_id = $this->sentry->getCurrentUserId();
-            $workRequest->subject = $this->getInput('subject', NULL, true);
-            $workRequest->best_time = $this->getInput('best_time', NULL, true);
-            $workRequest->description = $this->getInput('description', NULL, true);
+            $workRequest->subject = $this->getInput('subject', null, true);
+            $workRequest->best_time = $this->getInput('best_time', null, true);
+            $workRequest->description = $this->getInput('description', null, true);
 
             if($workRequest->save())
             {

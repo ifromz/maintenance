@@ -17,7 +17,7 @@
             <div id="forgot-password-status"></div>
 
             <div class="form-group has-feedback">
-                {{ Form::text('email', NULL, array('class'=>'form-control', 'placeholder'=> 'Email / Username')) }}
+                {{ Form::text('email', null, array('class'=>'form-control', 'placeholder'=> 'Email / Username')) }}
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 

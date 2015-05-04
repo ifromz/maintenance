@@ -39,7 +39,7 @@ class NoteService extends BaseModelService
         {
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
-                'content' => $this->getInput('content', NULL, true),
+                'content' => $this->getInput('content', null, true),
             ];
 
             $record = $this->model->create($insert);

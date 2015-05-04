@@ -18,7 +18,7 @@
                         {{
                             Form::text(
                                     'id',
-                                    (Input::has('id') ? Input::get('id') : NULL),
+                                    (Input::has('id') ? Input::get('id') : null),
                                     array('class'=>'form-control', 'placeholder'=>'Enter User ID')
                                 )
                         }}
@@ -32,7 +32,7 @@
                         {{
                             Form::text(
                                     'name',
-                                    (Input::has('name') ? Input::get('name') : NULL),
+                                    (Input::has('name') ? Input::get('name') : null),
                                     array('class'=>'form-control', 'placeholder'=>'Enter Name')
                                 )
                         }}
@@ -46,7 +46,7 @@
                         {{
                             Form::text(
                                     'username',
-                                    (Input::has('username') ? Input::get('username') : NULL),
+                                    (Input::has('username') ? Input::get('username') : null),
                                     array('class'=>'form-control', 'placeholder'=>'Enter Username')
                                 )
                         }}
@@ -60,7 +60,7 @@
                         {{
                             Form::text(
                                     'email',
-                                    (Input::has('email') ? Input::get('email') : NULL),
+                                    (Input::has('email') ? Input::get('email') : null),
                                     array('class'=>'form-control', 'placeholder'=>'Enter Email')
                                 )
                         }}

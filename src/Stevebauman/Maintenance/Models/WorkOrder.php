@@ -158,7 +158,7 @@ class WorkOrder extends BaseModel
      *
      * @return object
      */
-    public function scopePriority($query, $priority = NULL)
+    public function scopePriority($query, $priority = null)
     {
         if ($priority) {
             return $query->where('priority_id', $priority);
@@ -172,7 +172,7 @@ class WorkOrder extends BaseModel
      *
      * @return object
      */
-    public function scopeSubject($query, $subject = NULL)
+    public function scopeSubject($query, $subject = null)
     {
         if ($subject) {
             return $query->where('subject', 'LIKE', '%' . $subject . '%');
@@ -186,7 +186,7 @@ class WorkOrder extends BaseModel
      *
      * @return object
      */
-    public function scopeDescription($query, $desc = NULL)
+    public function scopeDescription($query, $desc = null)
     {
         if ($desc) {
             return $query->where('description', 'LIKE', '%' . $desc . '%');
@@ -200,7 +200,7 @@ class WorkOrder extends BaseModel
      *
      * @return object
      */
-    public function scopeStatus($query, $status = NULL)
+    public function scopeStatus($query, $status = null)
     {
         if ($status) {
             return $query->where('status_id', $status);
@@ -214,7 +214,7 @@ class WorkOrder extends BaseModel
      *
      * @return object
      */
-    public function scopeAssets($query, $assets = NULL)
+    public function scopeAssets($query, $assets = null)
     {
         if ($assets) {
             return $query->whereHas('assets', function ($query) use ($assets) {
@@ -307,7 +307,7 @@ class WorkOrder extends BaseModel
         $record = $this->getCurrentSession();
 
         if ($record) {
-            if ($record->in && $record->out === NULL) {
+            if ($record->in && $record->out === null) {
                 return true;
             }
         }
@@ -361,7 +361,7 @@ class WorkOrder extends BaseModel
      */
     public function setCategoryIdAttribute($value)
     {
-        $this->attributes['category_id'] = $value ? $value : NULL;
+        $this->attributes['category_id'] = $value ? $value : null;
     }
 
     /**
@@ -371,6 +371,6 @@ class WorkOrder extends BaseModel
      */
     public function setLocationIdAttribute($value)
     {
-        $this->attributes['location_id'] = $value ? $value : NULL;
+        $this->attributes['location_id'] = $value ? $value : null;
     }
 }

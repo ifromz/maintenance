@@ -48,8 +48,8 @@ class PublicService extends BaseModelService
                 'status_id' => $status->id,
                 'priority_id' => $priority->id,
                 'user_id' => $this->sentry->getCurrentUserId(),
-                'subject' => $this->getInput('subject', NULL, true),
-                'description' => $this->getInput('description', NULL, true),
+                'subject' => $this->getInput('subject', null, true),
+                'description' => $this->getInput('description', null, true),
             ];
 
             $record = $this->model->create($insert);

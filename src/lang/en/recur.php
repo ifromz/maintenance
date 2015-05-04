@@ -4,7 +4,7 @@ return [
 
     'frequency' => [
 
-        NULL => 'None',
+        null => 'None',
         'WEEKLY' => 'Weekly',
         'DAILY' => 'Daily',
         'MONTHLY' => 'Monthly',

@@ -50,7 +50,7 @@ class EventApi extends BaseApi
             );
 
         } catch (RecordNotFoundException $e) {
-            return NULL;
+            return null;
         }
     }
 
@@ -71,7 +71,7 @@ class EventApi extends BaseApi
             ]);
 
         } catch (RecordNotFoundException $ex) {
-            return NULL;
+            return null;
         }
     }
 

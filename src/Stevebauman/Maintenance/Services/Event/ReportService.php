@@ -36,7 +36,7 @@ class ReportService extends BaseModelService
         $insert = [
             'user_id' => $this->sentry->getCurrentUserId(),
             'event_id' => $this->getInput('event_id'),
-            'description' => $this->getInput('description', NULL, true),
+            'description' => $this->getInput('description', null, true),
         ];
 
         $record = $this->model->create($insert);

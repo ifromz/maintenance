@@ -32,7 +32,7 @@
                     <label class="col-sm-2 control-label">Name</label>
 
                     <div class="col-md-10">
-                        {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'Enter a Name')) }}
+                        {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Enter a Name')) }}
                     </div>
                 </div>
 
@@ -40,7 +40,7 @@
                     <label class="col-sm-2 control-label">Reading</label>
 
                     <div class="col-md-10">
-                        {{ Form::text('reading', NULL, array('class'=>'form-control', 'placeholder'=>'Enter the Current Reading')) }}
+                        {{ Form::text('reading', null, array('class'=>'form-control', 'placeholder'=>'Enter the Current Reading')) }}
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
                     <label class="col-sm-2 control-label">Comment</label>
 
                     <div class="col-md-10">
-                        {{ Form::text('comment', NULL, array('class'=>'form-control', 'placeholder'=> 'Enter a Comment for Reading')) }}
+                        {{ Form::text('comment', null, array('class'=>'form-control', 'placeholder'=> 'Enter a Comment for Reading')) }}
                     </div>
                 </div>
 

@@ -35,6 +35,7 @@
                     'action' => 'Action'
                 ))
                 ->means('user', 'user.full_name')
+                ->means('reading', 'reading_with_metric')
                 ->modify('action', function($reading) use($asset)
                 {
                     return $reading->viewer()->btnActionsForAsset($asset);

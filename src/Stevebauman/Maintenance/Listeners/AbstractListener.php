@@ -22,7 +22,7 @@ abstract class AbstractListener
      * @param null $before
      * @param null $after
      */
-    public function createNotification($user_id, $object, $message, $link, $before = NULL, $after = NULL)
+    public function createNotification($user_id, $object, $message, $link, $before = null, $after = null)
     {
         $notification = Notification::create([
             'user_id' => $user_id,

@@ -28,4 +28,19 @@ class MeterReading extends BaseModel
     {
         return $this->belongsTo('Stevebauman\Maintenance\Models\Meter', 'meter_id');
     }
+
+    /**
+     * Accessor for retrieving the current meter reading
+     * with it's metric symbol. For example: '120.00 Gal'
+     *
+     * @return mixed|string
+     */
+    public function getReadingWithMetricAttribute()
+    {
+        if($this->meter && $this->meter->metric) {
+            return $this->reading . ' ' . $this->meter->metric->symbol;
+        }
+
+        return $this->reading;
+    }
 }

@@ -25,7 +25,7 @@ Breadcrumbs::register('maintenance.locations.edit', function($breadcrumbs, $loca
     $breadcrumbs->push('Edit', route('maintenance.locations.edit', [$locationId]));
 });
 
-Breadcrumbs::register('maintenance.locations.nodes.create', function($breadcrumbs, $locationId = NULL)
+Breadcrumbs::register('maintenance.locations.nodes.create', function($breadcrumbs, $locationId = null)
 {
     $breadcrumbs->parent('maintenance.locations.show', $locationId);
     $breadcrumbs->push('Create-Sub', route('maintenance.locations.nodes.create', [$locationId]));

@@ -2,7 +2,7 @@
     <label class="col-sm-2 control-label" for="location_name">Name</label>
 
     <div class="col-md-4">
-        {{ Form::text('name', (isset($category) ? $category->name : NULL), array('class'=>'form-control', 'placeholder'=>'ex. Electrical / Lighting')) }}
+        {{ Form::text('name', (isset($category) ? $category->name : null), array('class'=>'form-control', 'placeholder'=>'ex. Electrical / Lighting')) }}
     </div>
 </div>
 

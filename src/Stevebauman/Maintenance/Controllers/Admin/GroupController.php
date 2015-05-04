@@ -200,7 +200,7 @@ class GroupController extends BaseController
      *
      * @return array
      */
-    private function routesToPermissions($routes = NULL)
+    private function routesToPermissions($routes = null)
     {
         $permissions = [];
         

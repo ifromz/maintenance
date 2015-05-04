@@ -1,1 +1,1 @@
-{{ Form::select('recur_frequency', trans('maintenance::recur.frequency'), (isset($frequency) ? $frequency : NULL), array('class'=>'form-control select2')) }}
+{{ Form::select('recur_frequency', trans('maintenance::recur.frequency'), (isset($frequency) ? $frequency : null), ['class'=>'form-control select2']) }}

@@ -38,7 +38,7 @@ class InventoryService extends BaseModelService
      * @param null $archived
      * @return mixed
      */
-    public function getByPageWithFilter($archived = NULL)
+    public function getByPageWithFilter($archived = null)
     {
         return $this->model
             ->with([
@@ -78,8 +78,8 @@ class InventoryService extends BaseModelService
                 'category_id' => $this->getInput('category_id'),
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'metric_id' => $this->getInput('metric'),
-                'name' => $this->getInput('name', NULL, true),
-                'description' => $this->getInput('description', NULL, true),
+                'name' => $this->getInput('name', null, true),
+                'description' => $this->getInput('description', null, true),
             ];
 
             /*

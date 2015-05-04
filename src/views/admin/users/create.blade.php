@@ -22,7 +22,7 @@
                     <i class="fa fa-info"></i>
                 </div>
 
-                {{ Form::text('first_name', NULL, array('class'=>'form-control', 'placeholder' => 'Enter First Name')) }}
+                {{ Form::text('first_name', null, array('class'=>'form-control', 'placeholder' => 'Enter First Name')) }}
 
             </div>
         </div>
@@ -38,7 +38,7 @@
                     <i class="fa fa-info"></i>
                 </div>
 
-                {{ Form::text('last_name', NULL, array('class'=>'form-control', 'placeholder' => 'Enter Last Name')) }}
+                {{ Form::text('last_name', null, array('class'=>'form-control', 'placeholder' => 'Enter Last Name')) }}
 
             </div>
         </div>
@@ -55,7 +55,7 @@
                     <i class="fa fa-user"></i>
                 </div>
 
-                {{ Form::text('username', NULL, array('class'=>'form-control', 'placeholder' => 'Enter Username')) }}
+                {{ Form::text('username', null, array('class'=>'form-control', 'placeholder' => 'Enter Username')) }}
 
             </div>
         </div>
@@ -71,7 +71,7 @@
                     <i class="fa fa-envelope-o"></i>
                 </div>
 
-                {{ Form::text('email', NULL, array('class'=>'form-control', 'placeholder' => 'Enter Email')) }}
+                {{ Form::text('email', null, array('class'=>'form-control', 'placeholder' => 'Enter Email')) }}
 
             </div>
         </div>

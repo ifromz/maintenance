@@ -5,8 +5,8 @@
 
     <div class="col-md-4">
         @include('maintenance::select.inventory-category', array(
-            'category_name' => (isset($item) ? $item->category->name : NULL),
-            'category_id'=> (isset($item) ? $item->category->id : NULL)
+            'category_name' => (isset($item) ? $item->category->name : null),
+            'category_id'=> (isset($item) ? $item->category->id : null)
         ))
     </div>
 </div>
@@ -16,7 +16,7 @@
 
     <div class="col-md-4">
         @include('maintenance::select.metric', array(
-            'metric' => (isset($item) ? ($item->metric ?: $item->metric->id) : NULL)
+            'metric' => (isset($item) ? ($item->metric ?: $item->metric->id) : null)
         ))
     </div>
 </div>
@@ -25,7 +25,7 @@
     <label class="col-sm-2 control-label">Name</label>
 
     <div class="col-md-4">
-        {{ Form::text('name', (isset($item) ? $item->name : NULL), array('class'=>'form-control', 'placeholder'=>'Name')) }}
+        {{ Form::text('name', (isset($item) ? $item->name : null), array('class'=>'form-control', 'placeholder'=>'Name')) }}
     </div>
 </div>
 
@@ -33,7 +33,7 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-4">
-        {{ Form::textarea('description', (isset($item) ? htmlspecialchars($item->description) : NULL), array('class'=>'form-control', 'placeholder'=>'Description')) }}
+        {{ Form::textarea('description', (isset($item) ? htmlspecialchars($item->description) : null), array('class'=>'form-control', 'placeholder'=>'Description')) }}
     </div>
 </div>
 

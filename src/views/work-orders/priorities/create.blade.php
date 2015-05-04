@@ -17,7 +17,7 @@
         <label class="col-sm-2 control-label">Name</label>
 
         <div class="col-md-4">
-            {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'ex. Awaiting Parts / Supplies')) }}
+            {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'ex. Awaiting Parts / Supplies')) }}
         </div>
     </div>
 

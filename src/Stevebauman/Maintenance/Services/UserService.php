@@ -139,8 +139,8 @@ class UserService extends BaseModelService
             $ldapUser = $this->ldap->user($username);
 
             $fullName = explode(',', $ldapUser->name);
-            $lastName = (array_key_exists(0, $fullName) ? $fullName[0] : NULL);
-            $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : NULL);
+            $lastName = (array_key_exists(0, $fullName) ? $fullName[0] : null);
+            $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : null);
 
             $data = [
                 'email' => $ldapUser->email,

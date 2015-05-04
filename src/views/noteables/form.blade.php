@@ -6,7 +6,7 @@
         <label class="col-sm-1 control-label">Content</label>
 
         <div class="col-md-8">
-            {{ Form::textarea('content', (isset($note) ? htmlspecialchars($note->content) : NULL), array('class'=>'form-control')) }}
+            {{ Form::textarea('content', (isset($note) ? htmlspecialchars($note->content) : null), array('class'=>'form-control')) }}
         </div>
     </div>
 

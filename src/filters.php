@@ -38,7 +38,7 @@ Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $rou
      * Make sure the route we're on isn't allowing all users already, and if so we'll check to see
      * if the current user has access to it
      */
-    if(! in_array($route->getName(), config('maintenance::permissions.all_users')) && !Sentry::hasAccess($route->getName())) {
+    if(! in_array($route->getName(), config('maintenance::permissions.all_users')) && ! Sentry::hasAccess($route->getName())) {
 
         $message = 'You do not have access to do perform this function.';
         $messageType = 'danger';
@@ -47,34 +47,23 @@ Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $rou
          * If an ajax request is performed, return the response so the user knows what happened.
          */
         if (Request::ajax()) {
-
             return Response::json([
                 'message' => $message,
                 'messageType' => $messageType
             ]);
-
         } else {
-
             /*
             * Since the auth filter redirects to the dashboard, we will redirect a user to
             * their work requests if they do not have permission since this will mean they are a
             * regular user.
             */
-            if (!Sentry::hasAccess('maintenance.dashboard.index')) {
-
+            if (! Sentry::hasAccess('maintenance.dashboard.index')) {
                 return Redirect::route('maintenance.work-requests.index');
-
             } else {
-
                 return Redirect::route('maintenance.permission-denied.index')
                     ->with('message', $message)
                     ->with('messageType', $messageType);
-
             }
-
         }
-
     }
-
 });
-

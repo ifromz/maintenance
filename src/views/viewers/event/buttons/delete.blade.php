@@ -1,4 +1,4 @@
-<a href="{{ action(currentControllerAction('destroy'), array($event->id)) }}"
+<a href="{{ action(currentControllerAction('destroy'), [$event->id]) }}"
    data-method="delete"
    data-title="Delete event?"
    data-message="Are you sure you want to delete this event?"

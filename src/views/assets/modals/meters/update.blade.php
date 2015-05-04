@@ -10,12 +10,12 @@
             </div>
 
             {{
-                Form::open(array(
-                    'url'=>route('maintenance.assets.meters.readings.store', array($asset->id, $meter->id)),
+                Form::open([
+                    'url'=>route('maintenance.assets.meters.readings.store', [$asset->id, $meter->id]),
                     'class'=>'form-horizontal ajax-form-post',
-                    'data-status-target' => '#update-reading-modal-status-'.$meter->id,
+                    'data-status-target' => '#update-reading-modal-status-' . $meter->id,
                     'data-refresh-target' => '#asset-meters-table',
-                ))
+                ])
             }}
 
             <div class="modal-body">
@@ -26,7 +26,7 @@
 
                     <div class="col-md-10">
                         <div class="input-group">
-                            {{ Form::text('reading', $meter->last_reading, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
+                            {{ Form::text('reading', $meter->last_reading, ['class'=>'form-control', 'placeholder'=>'ex. 45']) }}
 
                             <span class="input-group-addon">{{ $meter->metric->symbol }}</span>
                         </div>
@@ -37,7 +37,7 @@
                     <label class="col-sm-2 control-label">Comment</label>
 
                     <div class="col-md-10">
-                        {{ Form::text('comment', NULL, array('class'=>'form-control')) }}
+                        {{ Form::text('comment', null, ['class'=>'form-control']) }}
                     </div>
                 </div>
 

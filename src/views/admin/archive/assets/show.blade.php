@@ -14,7 +14,7 @@
 
         <div class="panel-body">
 
-            <a href="{{ route('maintenance.admin.archive.assets.restore', array($asset->id)) }}"
+            <a href="{{ route('maintenance.admin.archive.assets.restore', [$asset->id]) }}"
                data-method="post"
                data-title="Restore Asset?"
                data-message="Are you sure you want to restore this asset?"

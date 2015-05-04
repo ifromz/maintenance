@@ -1,13 +1,13 @@
 {{
-    Form::select('mail_driver', array(
+    Form::select('mail_driver',[
         'smtp' => 'SMTP',
         'mail' => 'Mail',
         'sendmail' => 'SendMail',
         'mailgun' => 'Mailgun',
         'mandrill' => 'Mandrill',
         'log' => 'Log'
-    ), (isset($driver) ? $driver : NULL)
-    , array(
+    ], (isset($driver) ? $driver : null)
+    , [
         'class' => 'form-control'
-    ))
+    ])
 }}

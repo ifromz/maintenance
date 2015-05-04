@@ -109,7 +109,7 @@ class InventoryStock extends BaseModel
             }
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -127,7 +127,7 @@ class InventoryStock extends BaseModel
             if ($movement->user) return $movement->user->full_name;
         }
 
-        return NULL;
+        return null;
     }
 
     /**

@@ -44,7 +44,7 @@
             <label class="col-sm-2 control-label">Description / Details</label>
 
             <div class="col-md-6">
-                {{ Form::textarea('description', NULL, array('class'=>'form-control', 'style'=>'min-width:100%')) }}
+                {{ Form::textarea('description', null, array('class'=>'form-control', 'style'=>'min-width:100%')) }}
             </div>
         </div>
 

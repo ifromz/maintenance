@@ -47,7 +47,7 @@ abstract class AbstractNestedSetController extends BaseController
      * @param null $id
      * @return mixed
      */
-    public function create($id = NULL)
+    public function create($id = null)
     {
         if($id)
         {
@@ -77,7 +77,7 @@ abstract class AbstractNestedSetController extends BaseController
      * @param null $id
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    public function store($id = NULL)
+    public function store($id = null)
     {
         if($this->serviceValidator->passes())
         {
@@ -244,7 +244,7 @@ abstract class AbstractNestedSetController extends BaseController
 
             } else
             {
-                return NULL;
+                return null;
             }
         }
     }

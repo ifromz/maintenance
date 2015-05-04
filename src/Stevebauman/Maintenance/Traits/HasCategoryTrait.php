@@ -21,7 +21,7 @@ trait HasCategoryTrait
      *
      * @return object
      */
-    public function scopeCategory($query, $category_id = NULL)
+    public function scopeCategory($query, $category_id = null)
     {
         if ($category_id) {
             /*

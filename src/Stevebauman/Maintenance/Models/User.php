@@ -41,7 +41,7 @@ class User extends SentryUser
      * @param null $name
      * @return mixed
      */
-    public function scopeName($query, $name = NULL)
+    public function scopeName($query, $name = null)
     {
         if ($name) {
             $query->where('first_name', 'LIKE', '%' . $name . '%');
@@ -58,7 +58,7 @@ class User extends SentryUser
      * @param null $username
      * @return mixed
      */
-    public function scopeUsername($query, $username = NULL)
+    public function scopeUsername($query, $username = null)
     {
         if($username) {
             return $query->where('username', 'LIKE', '%' . $username . '%');
@@ -74,7 +74,7 @@ class User extends SentryUser
      * @param null $email
      * @return mixed
      */
-    public function scopeEmail($query, $email = NULL)
+    public function scopeEmail($query, $email = null)
     {
         if($email) {
             return $query->where('email', 'LIKE', '%' . $email . '%');

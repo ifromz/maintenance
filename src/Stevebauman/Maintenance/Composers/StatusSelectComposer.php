@@ -36,7 +36,7 @@ class StatusSelectComposer
         /*
          * Default selected None value
          */
-        $statuses[NULL] = 'Select a Status';
+        $statuses[null] = 'Select a Status';
 
         return $view->with('statuses', $statuses);
     }

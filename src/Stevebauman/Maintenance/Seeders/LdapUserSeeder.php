@@ -128,9 +128,9 @@ class LdapUserSeeder extends Seeder
      */
     private function userAllowed(User $user)
     {
-        if(!in_array($user->group, $this->getAllowedGroups())) return false;
+        if(! in_array($user->group, $this->getAllowedGroups())) return false;
 
-        if(!in_array($user->type, $this->getAllowedUserTypes())) return false;
+        if(! in_array($user->type, $this->getAllowedUserTypes())) return false;
 
         return true;
     }

@@ -56,7 +56,7 @@ class AssetService extends BaseModelService
      *
      * @return type Collection
      */
-    public function getByPageWithFilter($archived = NULL)
+    public function getByPageWithFilter($archived = null)
     {
         return $this->model
             ->id($this->getInput('id'))
@@ -76,7 +76,7 @@ class AssetService extends BaseModelService
      * @param type $make
      * @return type Collection
      */
-    public function getMakes($make = NULL)
+    public function getMakes($make = null)
     {
         return $this->model
             ->select('make')
@@ -92,7 +92,7 @@ class AssetService extends BaseModelService
      * @param type $model
      * @return type Collection
      */
-    public function getModels($model = NULL)
+    public function getModels($model = null)
     {
         return $this->model
             ->distinct()
@@ -108,7 +108,7 @@ class AssetService extends BaseModelService
      * @param type $serial
      * @return type Collection
      */
-    public function getSerials($serial = NULL)
+    public function getSerials($serial = null)
     {
         return $this->model
             ->distinct()
@@ -136,14 +136,14 @@ class AssetService extends BaseModelService
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'category_id' => $this->getInput('category_id'),
                 'location_id' => $this->getInput('location_id'),
-                'name' => $this->getInput('name', NULL, true),
+                'name' => $this->getInput('name', null, true),
                 'condition' => $this->getInput('condition'),
-                'vendor' => $this->getInput('vendor', NULL, true),
-                'make' => $this->getInput('make', NULL, true),
-                'model' => $this->getInput('model', NULL, true),
-                'size' => $this->getInput('size', NULL, true),
-                'weight' => $this->getInput('weight', NULL, true),
-                'serial' => $this->getInput('serial', NULL, true),
+                'vendor' => $this->getInput('vendor', null, true),
+                'make' => $this->getInput('make', null, true),
+                'model' => $this->getInput('model', null, true),
+                'size' => $this->getInput('size', null, true),
+                'weight' => $this->getInput('weight', null, true),
+                'serial' => $this->getInput('serial', null, true),
                 'acquired_at' => $this->formatDateWithTime($this->getInput('acquired_at')),
                 'end_of_life' => $this->formatDateWithTime($this->getInput('end_of_life')),
             ];

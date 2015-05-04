@@ -1,10 +1,11 @@
-{{ Form::open(array(
-           'url'=>route('maintenance.work-orders.assignments.destroy', array($assignment->workOrder->id, $assignment->id)),
-           'method'=>'DELETE',
-           'class'=>'ajax-form-post',
-           'data-refresh-target'=>'#assigned-workers',
-           'data-status-target' => '#workers-assigned-status'
-       ))
+{{
+    Form::open([
+       'url'=>route('maintenance.work-orders.assignments.destroy', [$assignment->workOrder->id, $assignment->id]),
+       'method'=>'DELETE',
+       'class'=>'ajax-form-post',
+       'data-refresh-target'=>'#assigned-workers',
+       'data-status-target' => '#workers-assigned-status'
+   ])
 }}
 
 <button

@@ -25,7 +25,7 @@
                     <label class="col-sm-2 control-label">Name</label>
 
                     <div class="col-md-4">
-                        {{ Form::text('name', NULL, array('class'=>'form-control', 'placeholder'=>'Kilometers')) }}
+                        {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Kilometers')) }}
                     </div>
                 </div>
 
@@ -33,7 +33,7 @@
                     <label class="col-sm-2 control-label">Symbol</label>
 
                     <div class="col-md-4">
-                        {{ Form::text('symbol', NULL, array('class'=>'form-control', 'placeholder'=>'Kms')) }}
+                        {{ Form::text('symbol', null, array('class'=>'form-control', 'placeholder'=>'Kms')) }}
                     </div>
                 </div>
 

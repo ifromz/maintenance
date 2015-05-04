@@ -15,7 +15,7 @@
     <label class="col-sm-2 control-label">Permission</label>
 
     <div class="col-md-4">
-        {{ Form::text('permission', NULL, array('class'=>'form-control')) }}
+        {{ Form::text('permission', null, array('class'=>'form-control')) }}
     </div>
 </div>
 

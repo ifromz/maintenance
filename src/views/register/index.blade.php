@@ -15,15 +15,15 @@
         <div class="login-box-body">
 
             <div class="form-group">
-                {{ Form::text('first_name', NULL, array('class'=>'form-control', 'placeholder'=>'First Name')) }}
+                {{ Form::text('first_name', null, array('class'=>'form-control', 'placeholder'=>'First Name')) }}
                 <span class="label label-danger">{{ $errors->first('first_name') }}</span>
             </div>
             <div class="form-group">
-                {{ Form::text('last_name', NULL, array('class'=>'form-control', 'placeholder'=>'Last Name')) }}
+                {{ Form::text('last_name', null, array('class'=>'form-control', 'placeholder'=>'Last Name')) }}
                 <span class="label label-danger">{{ $errors->first('last_name') }}</span>
             </div>
             <div class="form-group">
-                {{ Form::text('email', NULL, array('class'=>'form-control', 'placeholder'=>'Email Address')) }}
+                {{ Form::text('email', null, array('class'=>'form-control', 'placeholder'=>'Email Address')) }}
                 <span class="label label-danger">{{ $errors->first('email') }}</span>
             </div>
             <div class="form-group">

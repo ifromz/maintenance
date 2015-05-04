@@ -4,7 +4,7 @@
     <label class="col-sm-2 control-label">Title / Summary</label>
 
     <div class="col-md-4">
-        {{ Form::text('title', (isset($event) ? $event->title : NULL), array('class'=>'form-control', 'placeholder'=>'Enter Title')) }}
+        {{ Form::text('title', (isset($event) ? $event->title : null), array('class'=>'form-control', 'placeholder'=>'Enter Title')) }}
     </div>
 </div>
 
@@ -12,7 +12,7 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-4">
-        {{ Form::text('description', (isset($event) ? $event->description : NULL), array('class'=>'form-control', 'placeholder'=>'Enter Description')) }}
+        {{ Form::text('description', (isset($event) ? $event->description : null), array('class'=>'form-control', 'placeholder'=>'Enter Description')) }}
     </div>
 </div>
 
@@ -30,14 +30,14 @@
     <div class="col-md-2">
         @include('maintenance::select.date', array(
             'name' => 'start_date',
-            'value' => (isset($event) ? $event->viewer()->startDateFormatted : NULL)
+            'value' => (isset($event) ? $event->viewer()->startDateFormatted : null)
         ))
     </div>
 
     <div class="col-md-2">
         @include('maintenance::select.time', array(
             'name' => 'start_time',
-            'value' => (isset($event) ? $event->viewer()->startTimeFormatted : NULL)
+            'value' => (isset($event) ? $event->viewer()->startTimeFormatted : null)
         ))
     </div>
 </div>
@@ -48,13 +48,13 @@
     <div class="col-md-2">
         @include('maintenance::select.date', array(
             'name' => 'end_date',
-            'value' => (isset($event) ? $event->viewer()->endDateFormatted : NULL)
+            'value' => (isset($event) ? $event->viewer()->endDateFormatted : null)
         ))
     </div>
     <div class="col-md-2">
         @include('maintenance::select.time', array(
             'name' => 'end_time',
-            'value' => (isset($event) ? $event->viewer()->endTimeFormatted : NULL)
+            'value' => (isset($event) ? $event->viewer()->endTimeFormatted : null)
         ))
     </div>
 </div>
@@ -71,7 +71,7 @@
     <label class="col-sm-2 control-label">All Day</label>
 
     <div class="col-md-4">
-        {{ Form::checkbox('all_day', 'true', (isset($event) ? $event->all_day : NULL), array('class'=>'form-control')) }}
+        {{ Form::checkbox('all_day', 'true', (isset($event) ? $event->all_day : null), array('class'=>'form-control')) }}
     </div>
 </div>
 

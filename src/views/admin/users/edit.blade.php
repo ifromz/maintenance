@@ -23,7 +23,7 @@
                     <i class="fa fa-info"></i>
                 </div>
 
-                {{ Form::text('first_name', (isset($user) ? $user->first_name : NULL), array('class'=>'form-control', 'placeholder' => 'Enter First Name')) }}
+                {{ Form::text('first_name', (isset($user) ? $user->first_name : null), array('class'=>'form-control', 'placeholder' => 'Enter First Name')) }}
 
             </div>
         </div>
@@ -39,7 +39,7 @@
                     <i class="fa fa-info"></i>
                 </div>
 
-                {{ Form::text('last_name', (isset($user) ? $user->last_name : NULL), array('class'=>'form-control', 'placeholder' => 'Enter Last Name')) }}
+                {{ Form::text('last_name', (isset($user) ? $user->last_name : null), array('class'=>'form-control', 'placeholder' => 'Enter Last Name')) }}
 
             </div>
         </div>
@@ -56,7 +56,7 @@
                     <i class="fa fa-user"></i>
                 </div>
 
-                {{ Form::text('username', (isset($user) ? $user->username : NULL), array('class'=>'form-control', 'placeholder' => 'Enter Username')) }}
+                {{ Form::text('username', (isset($user) ? $user->username : null), array('class'=>'form-control', 'placeholder' => 'Enter Username')) }}
 
             </div>
         </div>
@@ -72,7 +72,7 @@
                     <i class="fa fa-envelope-o"></i>
                 </div>
 
-                {{ Form::text('email', (isset($user) ? $user->email : NULL), array('class'=>'form-control', 'placeholder' => 'Enter Email')) }}
+                {{ Form::text('email', (isset($user) ? $user->email : null), array('class'=>'form-control', 'placeholder' => 'Enter Email')) }}
 
             </div>
         </div>
@@ -89,7 +89,7 @@
                 </div>
 
                 @include('maintenance::select.routes', array(
-                    'routes' => (isset($user) ? $user->permissions : NULL)
+                    'routes' => (isset($user) ? $user->permissions : null)
                 ))
 
             </div>
@@ -107,7 +107,7 @@
                 </div>
 
                 @include('maintenance::select.groups', array(
-                    'groups' => (isset($user) ? $user->groups->lists('id', 'name') : NULL)
+                    'groups' => (isset($user) ? $user->groups->lists('id', 'name') : null)
                 ))
 
             </div>
@@ -121,7 +121,7 @@
 
             <div class="checkbox">
                 <label>
-                    {{ Form::checkbox('activated', '1', (isset($user) ? $user->activated : NULL)) }}
+                    {{ Form::checkbox('activated', '1', (isset($user) ? $user->activated : null)) }}
                 </label>
             </div>
 

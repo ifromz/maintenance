@@ -68,7 +68,7 @@ class WorkOrderService extends BaseModelService
      * @param null $archived
      * @return mixed
      */
-    public function getByPageWithFilter($archived = NULL)
+    public function getByPageWithFilter($archived = null)
     {
         return $this
             ->setPaginatedName('work-order-page')
@@ -122,8 +122,8 @@ class WorkOrderService extends BaseModelService
                 'location_id' => $this->getInput('location_id'),
                 'status_id' => $this->getInput('status'),
                 'priority_id' => $this->getInput('priority'),
-                'subject' => $this->getInput('subject', NULL, true),
-                'description' => $this->getInput('description', NULL, true),
+                'subject' => $this->getInput('subject', null, true),
+                'description' => $this->getInput('description', null, true),
                 'started_at' => $this->getInput('started_at'),
                 'completed_at' => $this->getInput('completed_at'),
             ];

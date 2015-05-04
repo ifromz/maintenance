@@ -117,7 +117,7 @@ class Inventory extends BaseModel
      *
      * @return mixed
      */
-    public function scopeName($query, $name = NULL)
+    public function scopeName($query, $name = null)
     {
         if ($name) {
             return $query->where('name', 'LIKE', '%' . $name . '%');
@@ -134,7 +134,7 @@ class Inventory extends BaseModel
      *
      * @return mixed
      */
-    public function scopeDescription($query, $description = NULL)
+    public function scopeDescription($query, $description = null)
     {
         if ($description)
         {
@@ -152,7 +152,7 @@ class Inventory extends BaseModel
      *
      * @return mixed
      */
-    public function scopeStock($query, $operator = NULL, $stock = NULL)
+    public function scopeStock($query, $operator = null, $stock = null)
     {
         if ($operator && $stock)
         {
@@ -179,7 +179,7 @@ class Inventory extends BaseModel
      *
      * @return mixed
      */
-    public function scopeSku($query, $sku = NULL)
+    public function scopeSku($query, $sku = null)
     {
         if ($sku)
         {

@@ -33,7 +33,7 @@ class MetricSelectComposer
     {
         $allMetrics = $this->metric->get()->lists('name', 'id');
 
-        $allMetrics[NULL] = 'Select a Metric';
+        $allMetrics[null] = 'Select a Metric';
 
         return $view->with('allMetrics', $allMetrics);
     }

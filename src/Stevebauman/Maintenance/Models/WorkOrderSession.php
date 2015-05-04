@@ -45,6 +45,6 @@ class WorkOrderSession extends BaseModel
 
             return $hours;
         }
-        return NULL;
+        return null;
     }
 }

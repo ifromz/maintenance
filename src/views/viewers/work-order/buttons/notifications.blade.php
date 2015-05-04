@@ -37,7 +37,7 @@
                     <label class="col-md-6 control-label">Status Changes</label>
 
                     <div class="col-md-6">
-                        {{ Form::checkbox('status', '1', ($workOrder->notify ? $workOrder->notify->status : NULL)) }}
+                        {{ Form::checkbox('status', '1', ($workOrder->notify ? $workOrder->notify->status : null)) }}
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                     <label class="col-md-6 control-label">Priority Changes</label>
 
                     <div class="col-md-6">
-                        {{ Form::checkbox('priority', '1', ($workOrder->notify ? $workOrder->notify->priority : NULL)) }}
+                        {{ Form::checkbox('priority', '1', ($workOrder->notify ? $workOrder->notify->priority : null)) }}
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
                     <label class="col-md-6 control-label">Parts Added</label>
 
                     <div class="col-md-6">
-                        {{ Form::checkbox('parts', '1', ($workOrder->notify ? $workOrder->notify->parts : NULL)) }}
+                        {{ Form::checkbox('parts', '1', ($workOrder->notify ? $workOrder->notify->parts : null)) }}
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@
                     <label class="col-md-6 control-label">Customer Updates are Added</label>
 
                     <div class="col-md-6">
-                        {{ Form::checkbox('customer_updates', '1', ($workOrder->notify ? $workOrder->notify->customer_updates : NULL)) }}
+                        {{ Form::checkbox('customer_updates', '1', ($workOrder->notify ? $workOrder->notify->customer_updates : null)) }}
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                     <label class="col-md-6 control-label">Technician Updates are Added</label>
 
                     <div class="col-md-6">
-                        {{ Form::checkbox('technician_updates', '1', ($workOrder->notify ? $workOrder->notify->technician_updates : NULL)) }}
+                        {{ Form::checkbox('technician_updates', '1', ($workOrder->notify ? $workOrder->notify->technician_updates : null)) }}
                     </div>
                 </div>
 
@@ -87,7 +87,7 @@
                     <label class="col-md-6 control-label">Completion Report is Created</label>
 
                     <div class="col-md-6">
-                        {{ Form::checkbox('completion_report', '1', ($workOrder->notify ? $workOrder->notify->completion_report : NULL)) }}
+                        {{ Form::checkbox('completion_report', '1', ($workOrder->notify ? $workOrder->notify->completion_report : null)) }}
                     </div>
                 </div>
 

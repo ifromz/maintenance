@@ -32,7 +32,7 @@
                     <label class="col-sm-2 control-label">Quantity</label>
 
                     <div class="input-group">
-                        {{ Form::text('quantity', NULL, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
+                        {{ Form::text('quantity', null, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
 
                         @if($stock->item->metric)
                             <span class="input-group-addon">{{ $stock->item->metric->symbol }}</span>

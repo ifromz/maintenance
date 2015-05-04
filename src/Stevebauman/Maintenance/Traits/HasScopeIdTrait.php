@@ -11,7 +11,7 @@ trait HasScopeIdTrait
      * @param integer /string $id
      * @return object
      */
-    public function scopeId($query, $id = NULL)
+    public function scopeId($query, $id = null)
     {
         if ($id) {
             return $query->where('id', $id);

@@ -36,7 +36,7 @@ class Meter extends BaseModel
     /**
      * The hasMany readings relationship
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function readings()
     {
@@ -46,11 +46,31 @@ class Meter extends BaseModel
     /**
      * Returns the last reading amount.
      *
-     * @return string
+     * @return string|null
      */
     public function getLastReadingAttribute()
     {
-        if ($this->readings->count() > 0) return $this->readings->first()->reading;
+        $reading = $this->readings->first();
+
+        if($reading) {
+            return $reading->reading;
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns the last reading amount with its metric symbol.
+     *
+     * @return string|null
+     */
+    public function getLastReadingWithMetricAttribute()
+    {
+        $reading = $this->readings->first();
+
+        if($reading) {
+            return $reading->reading_with_metric;
+        }
 
         return null;
     }

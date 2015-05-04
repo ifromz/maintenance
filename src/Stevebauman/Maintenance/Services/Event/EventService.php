@@ -61,7 +61,7 @@ class EventService extends BaseModelService
      */
     public function get($select = [])
     {
-        $records = $this->model->where('parent_id', NULL)->get();
+        $records = $this->model->where('parent_id', null)->get();
 
         $events = $this->eventApi->getOnly($records->lists('api_id'));
 
@@ -228,7 +228,7 @@ class EventService extends BaseModelService
             /*
              * No location was given, set it to null
              */
-            $location_id = NULL;
+            $location_id = null;
         }
 
         /*

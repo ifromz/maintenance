@@ -13,15 +13,11 @@ use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 class InventoryStockMovement extends BaseModel
 {
     use InventoryStockMovementTrait;
+
     use HasUserTrait;
 
     protected $table = 'inventory_stock_movements';
 
-    /**
-     * The fillable eloquent attribute array for allowing mass assignments.
-     *
-     * @var array
-     */
     protected $fillable = [
         'stock_id',
         'user_id',
@@ -52,7 +48,7 @@ class InventoryStockMovement extends BaseModel
      */
     public function getCostAttribute($cost)
     {
-        if ($cost == NULL) {
+        if ($cost == null) {
             return '0.00';
         }
 
@@ -60,20 +56,18 @@ class InventoryStockMovement extends BaseModel
     }
 
     /**
-     * Returns the change of a stock
+     * Returns the change of a stock.
+     *
+     * For example: '+ 25' or '- 25'
      *
      * @return string
      */
     public function getChangeAttribute()
     {
         if ($this->before > $this->after) {
-
             return sprintf('- %s', $this->before - $this->after);
-
         } else if($this->after > $this->before) {
-
             return sprintf('+ %s', $this->after - $this->before);
-
         } else {
             return 'None';
         }

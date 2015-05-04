@@ -35,7 +35,7 @@
                     <label class="col-sm-2 control-label">Subject</label>
 
                     <div class="col-md-4">
-                        {{ Form::text('subject', NULL, array('class'=>'form-control', 'placeholder'=>'Enter Subject')) }}
+                        {{ Form::text('subject', null, array('class'=>'form-control', 'placeholder'=>'Enter Subject')) }}
                     </div>
                 </div>
 
@@ -43,7 +43,7 @@
                     <label class="col-sm-2 control-label">Description / Details</label>
 
                     <div class="col-md-4">
-                        {{ Form::textarea('description', NULL, array('class'=>'form-control', 'style'=>'min-width:100%', 'placeholder'=>'ex. Added components')) }}
+                        {{ Form::textarea('description', null, array('class'=>'form-control', 'style'=>'min-width:100%', 'placeholder'=>'ex. Added components')) }}
                     </div>
                 </div>
 

@@ -1,9 +1,9 @@
 @extends('maintenance::layouts.pages.admin.panel')
 
 @section('panel.extra.top')
-    @include('maintenance::admin.users.modals.search', array(
+    @include('maintenance::admin.users.modals.search', [
         'url' => route('maintenance.admin.users.index'),
-    ))
+    ])
 @stop
 
 @section('panel.head.content')
@@ -21,32 +21,27 @@
 @stop
 
 @section('panel.body.content')
-<div class="text-center">{{ $users->links() }}</div>
+    <div class="text-center">{{ $users->links() }}</div>
 
-@if($users->count() > 0)
+    @if($users->count() > 0)
+        {{
+            $users->columns([
+                    'id' => 'ID',
+                    'name' => 'Name',
+                    'username' => 'Username',
+                    'email' => 'Email',
+                    'action' => 'Action'
+                ])
+                ->modify('name', function($user){
+                    return $user->full_name;
+                })
+                ->modify('action', function($user){
+                    return $user->viewer()->btnActions;
+                })
+                ->hidden(['name'])
+                ->render()
+        }}
+    @endif
 
-    {{
-        $users
-            ->columns(array(
-                'id' => 'ID',
-                'name' => 'Name',
-                'username' => 'Username',
-                'email' => 'Email',
-                'action' => 'Action'
-            ))
-            ->modify('name', function($user){
-                return $user->full_name;
-            })
-            ->modify('action', function($user){
-                return $user->viewer()->btnActions;
-            })
-            ->hidden(array(
-                'name'
-            ))
-            ->render()
-    }}
-
-@endif
-
-<div class="text-center">{{ $users->links() }}</div>
+    <div class="text-center">{{ $users->links() }}</div>
 @stop

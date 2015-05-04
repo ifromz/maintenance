@@ -25,7 +25,7 @@
                         {{
                             Form::text(
                                 'id',
-                                (Input::has('id') ? Input::get('id') : NULL),
+                                (Input::has('id') ? Input::get('id') : null),
                                 array('class'=>'form-control', 'placeholder'=>'Enter Item ID')
                             )
                         }}
@@ -39,7 +39,7 @@
                         {{
                             Form::text(
                                 'sku',
-                                (Input::has('sku') ? Input::get('sku') : NULL),
+                                (Input::has('sku') ? Input::get('sku') : null),
                                 array('class'=>'form-control', 'placeholder'=>'Enter SKU')
                             )
                         }}
@@ -53,7 +53,7 @@
                         {{
                             Form::text(
                                 'name',
-                                (Input::has('name') ? Input::get('name') : NULL),
+                                (Input::has('name') ? Input::get('name') : null),
                                 array('class'=>'form-control', 'placeholder'=>'Enter Name')
                             )
                         }}
@@ -67,7 +67,7 @@
                         {{
                             Form::text(
                                 'description',
-                                (Input::has('description') ? Input::get('description') : NULL),
+                                (Input::has('description') ? Input::get('description') : null),
                                 array('class'=>'form-control', 'placeholder'=>'Enter Description')
                             )
                         }}
@@ -86,14 +86,14 @@
                                     '>=' => 'Greater Than or Equal To',
                                     '<=' => 'Less Than or Equal To',
                                 ),
-                                (Input::has('operator') ? Input::get('operator') : NULL),
+                                (Input::has('operator') ? Input::get('operator') : null),
                                 array('class'=>'form-control')
                             )
                         }}
                     </div>
                     <div class="col-md-4">
                         {{
-                            Form::text('quantity', (Input::has('quantity') ? Input::get('quantity') : NULL), array('class'=>'form-control', 'placeholder'=>'Enter Quantity'))
+                            Form::text('quantity', (Input::has('quantity') ? Input::get('quantity') : null), array('class'=>'form-control', 'placeholder'=>'Enter Quantity'))
                         }}
                     </div>
                 </div>
@@ -103,8 +103,8 @@
 
                     <div class="col-md-10">
                         @include('maintenance::select.inventory-category', array(
-                            'category' => (Input::has('category_name') ? Input::get('category_name') : NULL),
-                            'category_id' => (Input::has('category_id') ? Input::get('category_id') : NULL)
+                            'category' => (Input::has('category_name') ? Input::get('category_name') : null),
+                            'category_id' => (Input::has('category_id') ? Input::get('category_id') : null)
                         ))
                     </div>
                 </div>

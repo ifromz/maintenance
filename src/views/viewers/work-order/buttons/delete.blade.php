@@ -1,4 +1,4 @@
-<a href="{{ route('maintenance.work-orders.destroy', array($workOrder->id)) }}"
+<a href="{{ route('maintenance.work-orders.destroy', [$workOrder->id]) }}"
    data-method="delete"
    data-title="Delete work order?"
    data-message="Are you sure you want to delete this work order? This work order will be archived. 

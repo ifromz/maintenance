@@ -137,7 +137,7 @@ class AuthController extends BaseController
              */
             $response = $this->auth->sentryAuthenticate(
                 array_only($data, ['email', 'password']),
-                (array_key_exists('remember', $data) ? $data['remember'] : NULL)
+                (array_key_exists('remember', $data) ? $data['remember'] : null)
             );
 
             /*

@@ -58,7 +58,7 @@ class ReportService extends BaseModelService
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'work_order_id' => $workOrder->id,
-                'description' => $this->getInput('description', NULL, true),
+                'description' => $this->getInput('description', null, true),
             ];
 
             /*
@@ -74,10 +74,10 @@ class ReportService extends BaseModelService
             /*
              * Update the work order with the completed at time since a work order
              * would be complete once a report has been filled out. If a started_at time exists
-             * then we'll throw NULL inside so it isn't updated, otherwise we'll throw in today's time
+             * then we'll throw null inside so it isn't updated, otherwise we'll throw in today's time
              */
             $update = [
-                'started_at' => ($workOrder->started_at ? NULL : $now),
+                'started_at' => ($workOrder->started_at ? null : $now),
                 'completed_at' => $now
             ];
 

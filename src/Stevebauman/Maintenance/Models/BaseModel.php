@@ -143,7 +143,7 @@ class BaseModel extends Eloquent
      *
      * @return object
      */
-    public function scopeSort($query, $field = NULL, $sort = NULL)
+    public function scopeSort($query, $field = null, $sort = null)
     {
         /*
          * Make sure both the field and sort variables are present

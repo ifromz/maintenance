@@ -21,7 +21,7 @@ trait HasLocationTrait
      *
      * @return object
      */
-    public function scopeLocation($query, $location_id = NULL)
+    public function scopeLocation($query, $location_id = null)
     {
         if ($location_id) {
             /*

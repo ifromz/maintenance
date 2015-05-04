@@ -111,8 +111,8 @@ class StockService extends BaseModelService
             }
 
             $quantity = $this->getInput('quantity', $record->quantity);
-            $reason = $this->getInput('reason', NULL, true);
-            $cost = $this->getInput('cost', NULL);
+            $reason = $this->getInput('reason', null, true);
+            $cost = $this->getInput('cost', null);
 
             /*
              * Update the stocks quantity

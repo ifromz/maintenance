@@ -1,4 +1,4 @@
-<a href="{{ route('maintenance.assets.meters.destroy', array($asset->id, $meter->i)) }}"
+<a href="{{ route('maintenance.assets.meters.destroy', [$asset->id, $meter->id]) }}"
    data-method="delete"
    data-title="Delete meter?"
    data-message="Are you sure you want to delete this meter? All readings will be lost."

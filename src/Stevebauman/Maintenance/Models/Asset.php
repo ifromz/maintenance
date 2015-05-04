@@ -103,7 +103,7 @@ class Asset extends BaseModel
     /*
      * Filters query by the inputted asset name
      */
-    public function scopeName($query, $name = NULL)
+    public function scopeName($query, $name = null)
     {
         if ($name) {
             return $query->where('name', 'LIKE', '%' . $name . '%');
@@ -115,7 +115,7 @@ class Asset extends BaseModel
     /*
      * Filters query by the inputted asset condition
      */
-    public function scopeCondition($query, $condition = NULL)
+    public function scopeCondition($query, $condition = null)
     {
         if ($condition) {
             return $query->where('condition', 'LIKE', '%' . $condition . '%');
