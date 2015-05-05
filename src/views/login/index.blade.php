@@ -49,7 +49,7 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign in</button>
+            <button id="btn-sign-in" type="submit" class="btn btn-primary btn-block btn-flat">Sign in</button>
         </div>
 
         {{ Form::close() }}
