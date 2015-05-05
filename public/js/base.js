@@ -84,17 +84,19 @@ $(document).ready(function () {
         btnDisable(btnSubmit);
 
         $(this).ajaxSubmit({
-            success: function (response, status, xhr, $form) {
+            success: function (response, status, xhr, $form)
+            {
                 showFormResponse(response, status, xhr, $form);
                 refreshContent(refreshTarget);
 
-                if (typeof refreshTarget != 'undefined') {
+                if (typeof refreshTarget != 'undefined')
+                {
                     refreshContent(refreshTarget);
                 }
 
                 btnEnable(btnSubmit);
             },
-            error: showErrorResponse
+            error: showFormResponse
         });
 
     });
@@ -186,8 +188,15 @@ $(document).ready(function () {
         });
     }
 
+    /**
+     * Opens a bootstrap modal confirmation dialog box when a link
+     * with the attribute data-method exists. The user will
+     * be prompted with an Ok or Cancel button. If Ok is clicked,
+     * submit the form.
+     */
     $(document).on('click', 'a[data-method]', function (e) {
         e.preventDefault();
+
         var link = $(this);
 
         var httpMethod = link.data('method').toUpperCase();
@@ -195,8 +204,10 @@ $(document).ready(function () {
         var msg = link.data('message');
         var title = link.data('title');
 
-        // If the data-method attribute is not PUT or DELETE,
-        // then we don't know what to do. Just ignore.
+        /**
+         * If the data method isn't inside the allowed
+         * methods, we'll return null.
+         */
         if ($.inArray(httpMethod, allowedMethods) === -1) {
             return;
         }
@@ -231,14 +242,17 @@ $(document).ready(function () {
                         } else {
                             form.append(hiddenInput).appendTo('body').submit();
                         }
-
                     }
                 }
             }
         });
-
     });
 
+    /**
+     * When a notification is clicked, it will send a PATCH
+     * request indicating that the notification has been read.
+     * The read status is then saved.
+     */
     $(document).on('click', '.notification', function (e) {
         e.preventDefault();
 
@@ -250,11 +264,11 @@ $(document).ready(function () {
             });
     });
 
-    /*
-     * Shows bootbox form from returned HTML to dynamically update stock locations
+    /**
+     * Shows bootbox form from returned HTML to
+     * dynamically update stock locations
      */
     $(document).on('click', '.update-stock', function (e) {
-
         e.preventDefault();
 
         var link = $(this);
@@ -268,15 +282,17 @@ $(document).ready(function () {
 
     });
 
+    /**
+     * If select2 is available, we'll instantiate it for any classes
+     * that contain 'select2' or 'select2-color'
+     */
     if ($.isFunction($().select2)) {
-
         $('.select2').select2();
 
         $('.select2-color').select2({
             formatResult: formatColor,
             formatSelection: formatColor
         });
-
     }
 
     /*
@@ -429,8 +445,9 @@ var showFormResponse = function (response, status, xhr, $form) {
          */
         showFormErrors(response.errors);
 
-    } else {
-        alert(response.error);
+    } else
+    {
+
     }
 }
 

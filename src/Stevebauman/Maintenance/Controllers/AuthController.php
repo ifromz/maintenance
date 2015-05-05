@@ -52,6 +52,8 @@ class AuthController extends BaseController
     protected $ldap;
 
     /**
+     * Constructor.
+     *
      * @param LoginValidator $loginValidator
      * @param RegisterValidator $registerValidator
      * @param ConfigService $config
@@ -89,7 +91,7 @@ class AuthController extends BaseController
     /**
      * Display a listing of the resource.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function getLogin()
     {
@@ -99,28 +101,24 @@ class AuthController extends BaseController
     }
 
     /**
-     * Processes logging in a user
+     * Processes logging in a user.
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function postLogin()
     {
-        if ($this->loginValidator->passes())
-        {
+        if ($this->loginValidator->passes()) {
             $data = $this->inputAll();
 
-            if ($this->config->get('site.ldap.enabled') === true)
-            {
+            if ($this->config->get('site.ldap.enabled') === true) {
                 /*
                  * Check if the user exists on active directory
                  */
-                if ($this->ldap->getUserEmail($data['email']))
-                {
+                if ($this->ldap->getUserEmail($data['email'])) {
                     /*
                      * Try authentication
                      */
-                    if ($this->auth->ldapAuthenticate($data))
-                    {
+                    if ($this->auth->ldapAuthenticate($data)) {
                         /*
                          * If authentication is good, update their
                          * web profile in case of a password update in AD
@@ -143,8 +141,7 @@ class AuthController extends BaseController
             /*
              * Check the authenticated response
              */
-            if ($response['authenticated'] === true)
-            {
+            if ($response['authenticated'] === true) {
                 /*
                  * Successfully logged in
                  */
@@ -152,8 +149,7 @@ class AuthController extends BaseController
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.dashboard.index');
 
-            } else
-            {
+            } else {
                 /*
                  * Login failed, return the response from Sentry
                  */
@@ -161,9 +157,7 @@ class AuthController extends BaseController
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.login');
             }
-
-        } else
-        {
+        } else {
             $this->errors = $this->loginValidator->getErrors();
             $this->redirect = route('maintenance.login');
         }
@@ -172,9 +166,9 @@ class AuthController extends BaseController
     }
 
     /**
-     * Show the form for registering
+     * Show the form for registering an account.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function getRegister()
     {
@@ -184,16 +178,21 @@ class AuthController extends BaseController
     }
 
     /**
-     * Processes registering for an account
+     * Processes registering for an account.
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function postRegister()
     {
         if ($this->registerValidator->passes())
         {
             $data = $this->inputAll();
-            $data['username'] = uniqid(); //Randomize username since username is only for LDAP logins
+
+            /*
+             * We'll create a random unique username since
+             * the username attribute is only for LDAP logins
+             */
+            $data['username'] = uniqid();
 
             if($this->sentry->createUser($data))
             {
@@ -216,9 +215,9 @@ class AuthController extends BaseController
     }
 
     /**
-     * Processes logging out a user
+     * Processes logging out a user.
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function getLogout()
     {
