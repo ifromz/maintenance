@@ -18,6 +18,8 @@ class MailService extends Service
     protected $mail;
 
     /**
+     * Constructor.
+     *
      * @param Mailer $mail
      */
     public function __construct(Mailer $mail)
@@ -28,10 +30,11 @@ class MailService extends Service
     /**
      * Sends an email using laravel's mailer
      *
-     * @param $views
-     * @param $data
+     * @param array|string $views
+     * @param mixed $data
      * @param $callback
-     * @return mixed
+     *
+     * @return bool
      */
     public function send($views, $data, $callback)
     {

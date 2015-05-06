@@ -23,8 +23,8 @@ class ReportController extends BaseController {
          */
         $this->reportValidator->addRule('description', sprintf('unique_event_report:%s', $event_id));
         
-        if($this->reportValidator->passes()) {
-            
+        if($this->reportValidator->passes())
+        {
             $event = $this->event->find($event_id);
             
             $data = $this->inputAll();
@@ -32,19 +32,19 @@ class ReportController extends BaseController {
             
             $report = $this->report->setInput($data)->create();
             
-            if($report) {
-                
+            if($report)
+            {
                 $this->message = 'Succesfully created report';
                 $this->messageType = 'success';
                 $this->redirect = routeBack('maintenance.events.show', [$event->id]);
-                
-            } else {
+            } else
+            {
                 $this->message = 'There was an error trying to create an report. Please try again';
                 $this->messageType = 'danger';
                 $this->redirect = routeBack('maintenance.events.show', [$event->id]);
             }
-            
-        } else {
+        } else
+        {
             $this->errors = $this->reportValidator->getErrors();
             $this->redirect = routeBack('maintenance.events.show', [$event_id]);
         }

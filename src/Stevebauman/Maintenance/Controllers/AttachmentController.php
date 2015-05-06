@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Response;
 use Stevebauman\Maintenance\Services\StorageService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 
@@ -24,6 +22,8 @@ class AttachmentController extends BaseController
     protected $storage;
 
     /**
+     * Constructor.
+     *
      * @param AttachmentService $attachment
      * @param StorageService $storage
      */
@@ -34,31 +34,29 @@ class AttachmentController extends BaseController
 	}
 
     /**
-     * Deletes the attachment with the specified ID
+     * Deletes the attachment with the specified ID.
      *
-     * @param $attachment_id
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @param int|string $attachmentId
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-	public function destroy($attachment_id)
+	public function destroy($attachmentId)
     {
-        $attachment = $this->attachment->find($attachment_id);
+        $attachment = $this->attachment->find($attachmentId);
 
-        if($attachment)
+        if ($this->storage->delete($attachment->file_path . $attachment->file_name))
         {
-            if ($this->storage->delete($attachment->file_path . $attachment->file_name)) {
-                $this->storage->deleteDirectory($attachment->file_path);
-                //rmdir($this->config->get('path.storage').$attachment->file_path);
-                $attachment->delete();
+            $this->storage->deleteDirectory($attachment->file_path);
+            $attachment->delete();
 
-                $this->message = 'Successfully deleted attachment';
-                $this->messageType = 'success';
+            $this->message = 'Successfully deleted attachment';
+            $this->messageType = 'success';
 
-            } else {
-                $this->message = 'Error deleting attachment';
-                $this->messageType = 'error';
-            }
-
-            return $this->response();
+        } else {
+            $this->message = 'Error deleting attachment';
+            $this->messageType = 'error';
         }
+
+        return $this->response();
 	}
 }

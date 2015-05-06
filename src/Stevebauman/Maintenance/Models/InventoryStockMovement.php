@@ -48,7 +48,7 @@ class InventoryStockMovement extends BaseModel
      */
     public function getCostAttribute($cost)
     {
-        if ($cost == null) {
+        if ($cost === null) {
             return '0.00';
         }
 

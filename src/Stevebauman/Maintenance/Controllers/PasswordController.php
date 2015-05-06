@@ -40,6 +40,8 @@ class PasswordController extends BaseController
     protected $passwordValidator;
 
     /**
+     * Constructor.
+     *
      * @param SentryService $sentry
      * @param MailService $mail
      * @param ConfigService $config

@@ -2,13 +2,19 @@
 
 namespace Stevebauman\Maintenance\Validators\Event;
 
+use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\Event\ReportService;
 
 /**
  * Class UniqueReportValidator
  * @package Stevebauman\Maintenance\Validators\Event
  */
-class UniqueReportValidator {
+class UniqueReportValidator
+{
+    /**
+     * @var EventService
+     */
+    protected $event;
 
     /**
      * @var ReportService
@@ -16,36 +22,41 @@ class UniqueReportValidator {
     protected $report;
 
     /**
+     * Constructor.
+     *
+     * @param EventService $event
      * @param ReportService $report
      */
-    public function __construct(ReportService $report)
+    public function __construct(EventService $event, ReportService $report)
     {
+        $this->event = $event;
         $this->report = $report;
     }
 
     /**
+     * Validates that the event only has one report.
+     *
      * @param $attribute
      * @param $value
      * @param $parameters
+     *
      * @return bool
      */
     public function validateUniqueReport($attribute, $value, $parameters)
     {
-        if(count($parameters) > 0) {
-            
-            if($this->report->where('event_id', $parameters[0])->first()) {
-                
-                /*
-                 * Report was found
-                 */
-                return false;
-            } else {
-                /*
-                 * No report found, must be unique
-                 */
+        if(is_array($parameters) && count($parameters) > 0)
+        {
+            // Make sure the event exists
+            $event = $this->event->find($parameters[0]);
+
+            if($event)
+            {
+                $report = $this->report->where('event_id', $parameters[0])->first();
+
+                if($report) return false;
+
                 return true;
             }
-            
         }
         
         return false;

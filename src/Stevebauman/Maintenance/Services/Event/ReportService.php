@@ -2,19 +2,24 @@
 
 namespace Stevebauman\Maintenance\Services\Event;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\EventReport;
+use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class ReportService
+ * @package Stevebauman\Maintenance\Services\Event
+ */
 class ReportService extends BaseModelService
 {
-
     /**
      * @var SentryService
      */
     protected $sentry;
 
     /**
+     * Constructor.
+     *
      * @param EventReport $report
      * @param SentryService $sentry
      */
@@ -25,7 +30,7 @@ class ReportService extends BaseModelService
     }
 
     /**
-     * Creates an event report
+     * Creates an event report.
      *
      * @return bool|static
      */
@@ -33,25 +38,27 @@ class ReportService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        $insert = [
-            'user_id' => $this->sentry->getCurrentUserId(),
-            'event_id' => $this->getInput('event_id'),
-            'description' => $this->getInput('description', null, true),
-        ];
+        try
+        {
+            $insert = [
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'event_id' => $this->getInput('event_id'),
+                'description' => $this->getInput('description', null, true),
+            ];
 
-        $record = $this->model->create($insert);
+            $record = $this->model->create($insert);
 
-        if ($record) {
+            if ($record)
+            {
+                $this->dbCommitTransaction();
 
-            $this->dbCommitTransaction();
-
-            return $record;
-
+                return $record;
+            }
+        } catch (\Exception $e)
+        {
+            $this->dbRollbackTransaction();
         }
-
-        $this->dbRollbackTransaction();
 
         return false;
     }
-
 }
