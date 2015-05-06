@@ -9,16 +9,43 @@ use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class PublicService
+ * @package Stevebauman\Maintenance\Services\WorkOrder
+ */
 class PublicService extends BaseModelService
 {
+    /**
+     * @var StatusService
+     */
+    protected $status;
 
+    /**
+     * @var PriorityService
+     */
+    protected $priority;
+
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * Constructor.
+     *
+     * @param WorkOrder $workOrder
+     * @param StatusService $status
+     * @param PriorityService $priority
+     * @param SentryService $sentry
+     * @param WorkRequestNotFoundException $notFoundException
+     */
     public function __construct(
         WorkOrder $workOrder,
         StatusService $status,
         PriorityService $priority,
         SentryService $sentry,
-        WorkRequestNotFoundException $notFoundException)
-    {
+        WorkRequestNotFoundException $notFoundException
+    ) {
         $this->model = $workOrder;
         $this->status = $status;
         $this->priority = $priority;
@@ -27,20 +54,25 @@ class PublicService extends BaseModelService
     }
 
     /**
-     * Returns an eloquent collection of the current logged in users
-     * work orders
+     * Returns an eloquent collection of the
+     * current logged in users work orders.
      */
     public function getByPageByUser()
     {
         return $this->model->where('user_id', $this->sentry->getCurrentUserId())->paginate(25);
     }
 
+    /**
+     * Creates a work order from a public work request.
+     *
+     * @return bool|WorkOrder
+     */
     public function create()
     {
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $status = $this->status->firstOrCreateRequest();
             $priority = $this->priority->firstOrCreateRequest();
 
@@ -54,24 +86,32 @@ class PublicService extends BaseModelService
 
             $record = $this->model->create($insert);
 
-            $this->dbCommitTransaction();
+            if($record)
+            {
+                $this->dbCommitTransaction();
 
-            return $record;
-
-        } catch (\Exception $e) {
-
+                return $record;
+            }
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
+    /**
+     * Updates the specified work order.
+     *
+     * @param int|string $id
+     * @return bool|mixed
+     */
     public function update($id)
     {
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $record = $this->find($id);
 
             $insert = [
@@ -79,48 +119,42 @@ class PublicService extends BaseModelService
                 'description' => $this->getInput('description', $record->description, true)
             ];
 
-            if ($record->update($insert)) {
-
+            if ($record->update($insert))
+            {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
-
-        } catch (\Exception $e) {
-
-            $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
     /**
-     * Only allow users to delete their own requests
+     * Deletes a work order. This will only allow a user to delete their own work orders.
      *
-     * @param integer $id
+     * @param int|string $id
+     *
+     * @return bool
      */
     public function destroy($id)
     {
         $record = $this->find($id);
 
         /*
-         * Make sure the current logged in User ID equals the work order
-         * user id
+         * Make sure the current logged in
+         * User ID equals the work order user id
          */
-        if ($record->user_id === $this->sentry->getCurrentUserId()) {
-
+        if ($record->user_id === $this->sentry->getCurrentUserId())
+        {
             $record->delete();
 
             return true;
-
         }
 
         return false;
-
     }
-
 }
