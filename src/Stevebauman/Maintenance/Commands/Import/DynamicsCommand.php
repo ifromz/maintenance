@@ -2,6 +2,8 @@
 
 namespace Stevebauman\Maintenance\Commands\Import;
 
+use Stevebauman\Maintenance\Exceptions\Commands\ComponentNotFoundException;
+use Stevebauman\Maintenance\Exceptions\Commands\ModelNotFoundException;
 use Stevebauman\Maintenance\Models\Category;
 use Stevebauman\Maintenance\Models\Location;
 use Stevebauman\Maintenance\Models\Asset;
@@ -101,7 +103,8 @@ class DynamicsCommand extends Command
     /**
      * Imports the specified records into the database
      *
-     * @param $records
+     * @param array $records
+     *
      * @return int
      */
     private function importAssets($records)
@@ -159,24 +162,39 @@ class DynamicsCommand extends Command
     }
 
     /**
-     * @param $model
+     * Verifies if the inserted model class exists.
+     *
+     * @param string $model
+     *
+     * @throws ModelNotFoundException
+     *
      * @return bool
      */
     private function verifyModel($model)
     {
         if(class_exists($model)) return true;
 
-        $this->error(sprintf('Model: %s does not exist', $model));
+        $message = sprintf('Model: %s does not exist', $model);
 
-        exit;
+        throw new ModelNotFoundException($message);
     }
 
+    /**
+     * Verifies if the inserted component
+     * exists inside the components array.
+     *
+     * @param string $component
+     *
+     * @throws ComponentNotFoundException
+     *
+     * @return bool
+     */
     private function verifyComponent($component)
     {
         if(array_key_exists($component, $this->components)) return true;
 
-        $this->error(sprintf('Component: %s does not exist.', $component));
+        $message = sprintf('Component: %s does not exist.', $component);
 
-        exit;
+        throw new ComponentNotFoundException($message);
     }
 }
