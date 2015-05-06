@@ -18,8 +18,8 @@ class GreaterThanNumberValidator
      * @param array $parameters
      * @return boolean
      */
-    public function validateGreaterThan($attribute, $number, $parameters){
-        
+    public function validateGreaterThan($attribute, $number, $parameters)
+    {
         if(is_numeric($number))
         {
             if($number > $parameters[0]) return true;
@@ -27,5 +27,4 @@ class GreaterThanNumberValidator
         
         return false;
     }
-    
 }

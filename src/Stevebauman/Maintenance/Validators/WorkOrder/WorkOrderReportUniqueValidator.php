@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\Validators;
+<?php
+
+namespace Stevebauman\Maintenance\Validators;
 
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Illuminate\Support\Facades\Route;
@@ -9,7 +11,6 @@ use Illuminate\Support\Facades\Route;
  */
 class WorkOrderReportUniqueValidator
 {
-
     /**
      * @var WorkOrderService
      */
@@ -24,23 +25,25 @@ class WorkOrderReportUniqueValidator
     }
 
     /**
-     * @param $attribute
-     * @param $location_id
+     * Validates that work order only contains one report.
+     *
+     * @param string $attribute
+     * @param int|string $locationId
      * @param $parameters
+     *
      * @return bool
      */
-    public function validateUniqueReport($attribute, $location_id, $parameters)
+    public function validateUniqueReport($attribute, $locationId, $parameters)
     {
-        $work_order_id = Route::getCurrentRoute()->getParameter('work_orders');
-         
-        if($workOrder = $this->workOrder->find($work_order_id))
-        {
-            if($workOrder->report) return false;
+        $workOrderId = Route::getCurrentRoute()->getParameter('work_orders');
+
+        if ($workOrder = $this->workOrder->find($workOrderId)) {
+            if ($workOrder->report) return false;
 
             return true;
-        } 
-        
+        }
+
         return false;
-        
-     }
+
+    }
 }

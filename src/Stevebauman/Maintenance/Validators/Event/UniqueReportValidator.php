@@ -36,8 +36,8 @@ class UniqueReportValidator
     /**
      * Validates that the event only has one report.
      *
-     * @param $attribute
-     * @param $value
+     * @param string $attribute
+     * @param string $value
      * @param $parameters
      *
      * @return bool
