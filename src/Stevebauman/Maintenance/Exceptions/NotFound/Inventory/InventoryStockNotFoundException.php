@@ -1,4 +1,6 @@
-<?php namespace Stevebauman\Maintenance\ExceptionsNotFound\Inventory;
+<?php
+
+namespace Stevebauman\Maintenance\Exceptions\NotFound\Inventory;
 
 use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;

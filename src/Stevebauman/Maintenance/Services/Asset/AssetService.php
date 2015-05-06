@@ -32,7 +32,10 @@ class AssetService extends BaseModelService
     }
 
     /**
-     * @param mixed $ids
+     * Returns found assets by the specified ID(s).
+     *
+     * @param int|string|array $ids
+     *
      * @return \Illuminate\Support\Collection|null|static
      */
     public function find($ids)
@@ -54,7 +57,7 @@ class AssetService extends BaseModelService
     /**
      * Returns all assets paginated
      *
-     * @return type Collection
+     * @return \Illuminate\Support\Collection
      */
     public function getByPageWithFilter($archived = null)
     {
@@ -73,8 +76,9 @@ class AssetService extends BaseModelService
      * Returns common makes that are inputted into the DB for
      * auto-complete functionality
      *
-     * @param type $make
-     * @return type Collection
+     * @param string $make
+     *
+     * @return \Illuminate\Support\Collection
      */
     public function getMakes($make = null)
     {
@@ -89,8 +93,9 @@ class AssetService extends BaseModelService
      * Returns common models that are inputted into the DB for
      * auto-complete functionality
      *
-     * @param type $model
-     * @return type Collection
+     * @param string $model
+     *
+     * @return \Illuminate\Support\Collection
      */
     public function getModels($model = null)
     {
@@ -102,11 +107,12 @@ class AssetService extends BaseModelService
     }
 
     /**
-     * Returns common serials that are inputted into the DB for
-     * auto-complete functionality
+     * Returns common serials that are inputted into
+     * the DB for auto-complete functionality
      *
-     * @param type $serial
-     * @return type Collection
+     * @param string $serial
+     *
+     * @return \Illuminate\Support\Collection
      */
     public function getSerials($serial = null)
     {
@@ -183,10 +189,11 @@ class AssetService extends BaseModelService
     }
 
     /**
-     * Updates an asset record
+     * Updates an asset record.
      *
-     * @param type $id
-     * @return boolean OR object
+     * @param int|string $id
+     *
+     * @return bool|Asset
      */
     public function update($id)
     {

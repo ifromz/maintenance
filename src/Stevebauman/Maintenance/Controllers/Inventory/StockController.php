@@ -13,7 +13,6 @@ use Stevebauman\Maintenance\Controllers\BaseController;
  */
 class StockController extends BaseController
 {
-
     /**
      * @var InventoryService
      */

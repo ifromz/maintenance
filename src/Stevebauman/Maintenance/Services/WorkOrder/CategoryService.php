@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Stevebauman\Maintenance\Exceptions\WorkOrderCategoryNotFoundException;
+use Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder\WorkOrderCategoryNotFoundException;
 use Stevebauman\Maintenance\Models\Category;
 use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 

@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Stevebauman\Maintenance\Exceptions\WorkRequestNotFoundException;
+use Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder\WorkRequestNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\PriorityService;
 use Stevebauman\Maintenance\Services\StatusService;
