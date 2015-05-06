@@ -4,12 +4,16 @@ namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
 
 use Stevebauman\Maintenance\Controllers\BaseController;
 
+/**
+ * Class ArchiveController
+ * @package Stevebauman\Maintenance\Controllers\Admin\Archive
+ */
 class ArchiveController extends BaseController
 {
     /**
      * Displays the Archives index.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function getIndex()
     {
@@ -17,5 +21,4 @@ class ArchiveController extends BaseController
             'title' => 'Archive'
         ]);
     }
-    
 }

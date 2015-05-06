@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Support\Facades\App;
+use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
@@ -36,7 +37,8 @@ class Notification extends BaseModel
     }
 
     /**
-     * Returns an html icon of the type of notification.
+     * Returns an html icon class of the type of
+     * notification by retrieving it from the configuration file.
      *
      * @return string|null
      */
@@ -45,13 +47,29 @@ class Notification extends BaseModel
         $class = $this->attributes['notifiable_type'];
 
         /*
-         * Resolve the configuration service from the IoC
+         * Resolve the configuration service from the IoC since
+         * we don't want to override the Notification models constructor
+         * to inject the service
          */
         $config = App::make('Stevebauman\Maintenance\Services\ConfigService');
 
-        if ($icon = $config->setPrefix('maintenance')->get("notifications.icons.$class")) return $icon;
+        // Make sure we have an instance of the ConfigService returned by the IoC
+        if($config instanceof ConfigService)
+        {
+            $icon = $config->setPrefix('maintenance')->get("notifications.icons.$class");
 
-        //@todo Return default icon class
+            // Return the models notification icon if it's found
+            if (is_string($icon) && ! empty($icon)) return $icon;
+
+            /*
+             * Looks like the notification icon could not be
+             * found, we'll return the default notification icon
+             */
+            $defaultIcon = $config->setPrefix('maintenance')->get("notifications.icons.default");
+
+            return $defaultIcon;
+        }
+
         return null;
     }
 }

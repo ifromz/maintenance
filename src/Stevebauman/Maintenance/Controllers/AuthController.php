@@ -89,7 +89,7 @@ class AuthController extends BaseController
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays the login page.
      *
      * @return \Illuminate\View\View
      */
@@ -158,10 +158,14 @@ class AuthController extends BaseController
                 $this->redirect = route('maintenance.login');
             }
         } else {
+            /*
+             * Validation failed, set errors and the redirect
+             */
             $this->errors = $this->loginValidator->getErrors();
             $this->redirect = route('maintenance.login');
         }
 
+        // Return the response
         return $this->response();
     }
 

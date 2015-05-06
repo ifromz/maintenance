@@ -23,6 +23,8 @@ class MailController extends BaseController
     protected $mailValidator;
 
     /**
+     * Constructor.
+     *
      * @param ConfigService $config
      * @param MailValidator $mailValidator
      */
@@ -33,7 +35,7 @@ class MailController extends BaseController
     }
 
     /**
-     * Displays the form for editing the mail configuration
+     * Displays the form for editing the mail configuration.
      *
      * @return mixed
      */
@@ -45,12 +47,14 @@ class MailController extends BaseController
     }
 
     /**
-     * Processes updating the mail configuration
+     * Processes updating the mail configuration.
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store()
     {
+        $this->redirect = routeBack('maintenance.admin.settings.mail.index');
+
         if($this->mailValidator->passes())
         {
             $result = $this->config->setInput($this->inputAll())->updateMail();
@@ -67,7 +71,6 @@ class MailController extends BaseController
         } else
         {
             $this->errors = $this->mailValidator->getErrors();
-            $this->redirect = routeBack('maintenance.admin.settings.index');
         }
 
         return $this->response();

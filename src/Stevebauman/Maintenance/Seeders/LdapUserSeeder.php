@@ -34,6 +34,8 @@ class LdapUserSeeder extends Seeder
     protected $config;
 
     /**
+     * Constructor.
+     *
      * @param LdapService $ldap
      * @param SentryService $sentry
      * @param ConfigService $config
@@ -69,7 +71,8 @@ class LdapUserSeeder extends Seeder
      * Creates a user with Sentry by the supplied corp user object
      *
      * @param User $user
-     * @return bool|mixed|User
+     *
+     * @return bool|User
      */
     private function createUser(User $user)
     {
@@ -80,8 +83,8 @@ class LdapUserSeeder extends Seeder
             $last_name = '';
 
             /*
-             * An LDAP user may not have a name, so we'll explode it by a comma to see if they have
-             * a fully separated name
+             * An LDAP user may not have a name, so we'll explode it
+             * by a comma to see if they have a fully separated name
              */
             if($user->name)
             {
@@ -121,9 +124,11 @@ class LdapUserSeeder extends Seeder
     }
 
     /**
-     * Check the returned values and make sure they are arrays and that they are enabled
+     * Check the returned values and make sure
+     * they are arrays and that they are enabled.
      *
      * @param User $user
+     *
      * @return bool
      */
     private function userAllowed(User $user)

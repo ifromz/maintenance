@@ -10,7 +10,6 @@ use Stevebauman\CoreHelper\Services\ConfigService as CoreHelperConfigService;
  */
 class ConfigService extends CoreHelperConfigService
 {
-
     /**
      * Updates the maintenance site configuration file
      *
@@ -32,11 +31,10 @@ class ConfigService extends CoreHelperConfigService
         $content = $this->replaceConfigEntry($content, 'assets', 'maintenance::site.calendars.assets', $this->getInput('asset_calendar'));
 
         /*
-         * Set put the content back inside the file
+         * Put the updated content back inside
+         * the config file and return the result
          */
-        if($this->setConfigFile($siteConfig, $content)) return true;
-
-        return false;
+        return $this->setConfigFile($siteConfig, $content);
     }
 
     /**
@@ -83,10 +81,9 @@ class ConfigService extends CoreHelperConfigService
         $content = $this->replaceConfigEntry($content, 'pretend', 'mail.pretend', $pretend, 'bool');
 
         /*
-         *  Put the content back inside the file
+         * Put the updated content back inside
+         * the config file and return the result
          */
-        if($this->setConfigFile($mailConfig, $content)) return true;
-
-        return false;
+        return $this->setConfigFile($mailConfig, $content);
     }
 }

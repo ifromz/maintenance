@@ -11,9 +11,9 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 class SettingsController extends BaseController
 {
     /**
-     * Displays all of the available setting groups
+     * Displays all of the available setting groups.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function index()
     {
