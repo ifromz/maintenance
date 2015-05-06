@@ -16,6 +16,8 @@ class NoteService extends BaseModelService
     protected $sentry;
 
     /**
+     * Constructor.
+     *
      * @param Note $note
      * @param SentryService $sentry
      */
@@ -27,7 +29,7 @@ class NoteService extends BaseModelService
     }
 
     /**
-     * Creates a note
+     * Creates a note.
      *
      * @return bool|static
      */
@@ -51,7 +53,7 @@ class NoteService extends BaseModelService
                 return $record;
             }
 
-        } catch(Exception $e)
+        } catch(\Exception $e)
         {
             $this->dbRollbackTransaction();
         }
