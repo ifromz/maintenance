@@ -11,13 +11,15 @@ namespace Stevebauman\Maintenance\Services\Asset;
 use Dmyers\Storage\Storage;
 use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class ManualService
+ * @package Stevebauman\Maintenance\Services\Asset
+ */
 class ManualService extends BaseModelService
 {
-
     /**
      * @var AssetService
      */
@@ -34,6 +36,8 @@ class ManualService extends BaseModelService
     protected $sentry;
 
     /**
+     * Constructor.
+     *
      * @param AssetService $asset
      * @param AttachmentService $attachment
      * @param SentryService $sentry
@@ -49,15 +53,14 @@ class ManualService extends BaseModelService
      * Creates attachment records, attaches them to the asset images pivot table,
      * and moves the uploaded file into it's stationary position (out of the temp folder)
      *
-     * @return boolean OR object
+     * @return bool|\Stevebauman\Maintenance\Models\Attachment
      */
     public function create()
     {
-
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             /*
              * Find the asset
              */
@@ -68,31 +71,28 @@ class ManualService extends BaseModelService
              */
             $files = $this->getInput('files');
 
-            if ($files) {
+            if ($files)
+            {
+                $records = [];
 
                 /*
-                 * For each file, create the attachment record, and sync asset image pivot table
+                 * For each file, create the attachment
+                 * record, and sync asset image pivot table
                  */
-                foreach ($files as $file) {
-
+                foreach ($files as $file)
+                {
                     $attributes = explode('|', $file);
 
                     $fileName = $attributes[0];
                     $fileOriginalName = $attributes[1];
 
-                    /*
-                     * Ex. files/assets/images/1/example.png
-                     */
+                    // Ex. files/assets/images/1/example.png
                     $movedFilePath = Config::get('maintenance::site.paths.assets.manuals') . sprintf('%s/', $asset->id);
 
-                    /*
-                     * Move the file
-                     */
+                    // Move the file
                     Storage::move(Config::get('maintenance::site.paths.temp') . $fileName, $movedFilePath . $fileName);
 
-                    /*
-                     * Set insert data
-                     */
+                    // Set insert data
                     $insert = [
                         'name' => $fileOriginalName,
                         'file_name' => $fileName,
@@ -100,41 +100,29 @@ class ManualService extends BaseModelService
                         'user_id' => $this->sentry->getCurrentUserId()
                     ];
 
-                    /*
-                     * Create the attachment record
-                     */
+                    // Create the attachment record
                     $record = $this->attachment->setInput($insert)->create();
 
-                    /*
-                     * Attach the attachment record to the asset images
-                     */
-                    $asset->manuals()->attach($record);
+                    if($record)
+                    {
+                        $asset->manuals()->attach($record);
+
+                        $records[] = $record;
+                    }
                 }
 
                 $this->dbCommitTransaction();
 
-                /*
-                 *  Return attachment record on success
-                 */
-                return $record;
-
+                // Return inserted attachment records on success
+                return $records;
             }
 
             $this->dbRollbackTransaction();
-
-            /*
-             * No Files were detected to be uploaded, return false
-             */
-            return false;
-
-
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
         }
 
+        return false;
     }
-
 }

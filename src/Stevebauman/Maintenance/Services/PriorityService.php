@@ -2,19 +2,22 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Priority;
-use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class PriorityService
+ * @package Stevebauman\Maintenance\Services
+ */
 class PriorityService extends BaseModelService
 {
-
     /**
      * @var SentryService
      */
     protected $sentry;
 
     /**
+     * Constructor.
+     *
      * @param Priority $priority
      * @param SentryService $sentry
      */
@@ -25,14 +28,16 @@ class PriorityService extends BaseModelService
     }
 
     /**
-     * @return mixed
+     * Creates a priority.
+     *
+     * @return bool|Priority
      */
     public function create()
     {
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'name' => $this->getInput('name'),
@@ -44,28 +49,27 @@ class PriorityService extends BaseModelService
             $this->dbCommitTransaction();
 
             return $record;
-
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
 
             return false;
         }
-
-
     }
 
     /**
+     * Updates the specified priority.
+     *
      * @param string $id
-     * @return mixed
+     *
+     * @return bool|Priority
      */
     public function update($id)
     {
-
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $record = $this->find($id);
 
             $insert = [
@@ -73,35 +77,31 @@ class PriorityService extends BaseModelService
                 'color' => $this->getInput('color')
             ];
 
-            if ($record->update($insert)) {
-
+            if ($record->update($insert))
+            {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
-
-        } catch (\Exception $e) {
-
-            $this->dbRollbackTransaction();
-
-            return false;
         }
 
+        return false;
     }
 
     /**
-     * @return mixed
+     * Creates or returns the default 'Requested' priority.
+     *
+     * @return bool|Priority
      */
     public function firstOrCreateRequest()
     {
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $insert = [
                 'name' => 'Requested',
                 'color' => 'default'
@@ -112,14 +112,11 @@ class PriorityService extends BaseModelService
             $this->dbCommitTransaction();
 
             return $record;
-
-        } catch (\Exception $e) {
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
 
             return false;
         }
     }
-
-
 }

@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Models\Notification;
 
 class NotificationService extends BaseModelService

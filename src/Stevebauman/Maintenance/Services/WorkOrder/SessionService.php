@@ -4,13 +4,32 @@ namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Carbon\Carbon;
 use Stevebauman\Maintenance\Models\WorkOrderSession;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class SessionService
+ * @package Stevebauman\Maintenance\Services\WorkOrder
+ */
 class SessionService extends BaseModelService
 {
+    /**
+     * @var WorkOrderService
+     */
+    protected $workOrder;
 
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * Constructor.
+     *
+     * @param WorkOrderSession $session
+     * @param WorkOrderService $workOrder
+     * @param SentryService $sentry
+     */
     public function __construct(WorkOrderSession $session, WorkOrderService $workOrder, SentryService $sentry)
     {
         $this->model = $session;
@@ -18,23 +37,27 @@ class SessionService extends BaseModelService
         $this->sentry = $sentry;
     }
 
+    /**
+     * Creates a new work order session.
+     *
+     * @return bool|WorkOrderSession
+     */
     public function create()
     {
-
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $workOrder = $this->workOrder->find($this->getInput('work_order_id'));
 
             $now = Carbon::now()->toDateTimeString();
 
             /*
-             * If this is the first session that is being created on the work order,
-             * set the started at property to now
+             * If this is the first session that is being created on
+             * the work order, set the started at property to now
              */
-            if ($workOrder->sessions->count() === 0) {
-
+            if ($workOrder->sessions->count() === 0)
+            {
                 $update = ['started_at' => $now];
 
                 $this->workOrder->setInput($update)->update($workOrder->id);
@@ -48,47 +71,51 @@ class SessionService extends BaseModelService
 
             $record = $this->model->create($insert);
 
-            $this->dbCommitTransaction();
+            if($record)
+            {
+                $this->dbCommitTransaction();
 
-            return $record;
-
-        } catch (\Exception $e) {
-
+                return $record;
+            }
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
+    /**
+     * Updates the specified work order session.
+     *
+     * @param int|string $id
+     *
+     * @return bool|WorkOrderSession
+     */
     public function update($id)
     {
 
         $this->dbStartTransaction();
 
-        try {
-
+        try
+        {
             $record = $this->model->find($id);
 
             $insert = [
                 'out' => Carbon::now()->toDateTimeString(),
             ];
 
-            if ($record->update($insert)) {
-
+            if ($record->update($insert))
+            {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-
+        } catch (\Exception $e)
+        {
             $this->dbRollbackTransaction();
-
-            return false;
-
-        } catch (\Exception $e) {
-
-            $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 }
