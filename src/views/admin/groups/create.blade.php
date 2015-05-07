@@ -20,7 +20,7 @@
             <div class="panel-body">
 
                 {{ Form::open(array(
-                        'url'=>route('maintenance.admin.groups.store'), 
+                        'url'=>route('maintenance.admin.groups.store'),
                         'class'=>'form-horizontal ajax-form-post clear-form'
                     ))
                 }}

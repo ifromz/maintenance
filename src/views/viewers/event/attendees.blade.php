@@ -1,6 +1,6 @@
 @if(count($event->attendees) > 0)
 
-    {{ 
+    {{
         $event->attendees
                 ->columns(array(
                     'email' => 'Email',
@@ -15,7 +15,7 @@
                 ->modify('action', function($attendee) {
                     return $attendee->viewer()->btnActions;
                 })
-                ->render() 
+                ->render()
     }}
 
 @else

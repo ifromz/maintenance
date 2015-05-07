@@ -20,8 +20,8 @@
             <div class="panel-body">
 
                 {{ Form::open(array(
-                        'url'=>route('maintenance.admin.groups.update', array($group->id)), 
-                        'class'=>'form-horizontal ajax-form-post', 
+                        'url'=>route('maintenance.admin.groups.update', array($group->id)),
+                        'class'=>'form-horizontal ajax-form-post',
                         'method'=>'PATCH'
                     ))
                 }}

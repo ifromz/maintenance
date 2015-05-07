@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
  * API Routes
  */
-Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function () {
-
+Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function ()
+{
     /*
      * Generic Events API
      */

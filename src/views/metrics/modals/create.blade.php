@@ -4,11 +4,11 @@
         <div class="modal-content">
 
             {{ Form::open(array(
-                        'url'=>route('maintenance.metrics.store'), 
+                        'url'=>route('maintenance.metrics.store'),
                         'class'=>'form-horizontal ajax-form-post clear-form',
                         'data-status-target' => '#metric-status',
                         'data-refresh-target'=>'#metric-select'
-                    )) 
+                    ))
             }}
 
             <div class="modal-header">

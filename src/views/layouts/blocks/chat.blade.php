@@ -1,5 +1,5 @@
 <div class="box box-solid">
-    {{-- 
+    {{--
         Body attributes need to be defined inside the child view because of blade
         rendering blank spaces
     --}}
