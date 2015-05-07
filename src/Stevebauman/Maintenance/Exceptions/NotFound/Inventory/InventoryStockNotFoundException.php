@@ -9,12 +9,12 @@ class InventoryStockNotFoundException extends BaseException
 {
     public function __construct()
     {
-        $this->message = trans('maintenance::errors.not-found', ['resource'=>'Inventory Stock']);
+        $this->message = trans('maintenance::errors.not-found', ['resource' => 'Inventory Stock']);
         $this->messageType = 'danger';
         $this->redirect = routeBack('maintenance.inventory.show', $this->getRouteParameter('inventory'));
     }
 }
 
-App::error(function(InventoryStockNotFoundException $e){
+App::error(function (InventoryStockNotFoundException $e) {
     return $e->response();
 });

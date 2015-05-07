@@ -9,12 +9,12 @@ class AssetEventNotFoundException extends BaseException
 {
     public function __construct()
     {
-        $this->message = trans('maintenance::errors.not-found', ['resource'=>'Asset Event']);
+        $this->message = trans('maintenance::errors.not-found', ['resource' => 'Asset Event']);
         $this->messageType = 'danger';
         $this->redirect = routeBack('maintenance.assets.show', $this->getRouteParameter('assets'));
     }
 }
 
-App::error(function(AssetEventNotFoundException $e){
+App::error(function (AssetEventNotFoundException $e) {
     return $e->response();
 });

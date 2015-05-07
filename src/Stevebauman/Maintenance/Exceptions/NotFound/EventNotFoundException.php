@@ -9,12 +9,12 @@ class EventNotFoundException extends BaseException
 {
     public function __construct()
     {
-        $this->message = trans('maintenance::errors.not-found', ['resource'=>'Event']);
+        $this->message = trans('maintenance::errors.not-found', ['resource' => 'Event']);
         $this->messageType = 'danger';
         $this->redirect = routeBack('maintenance.events.index');
     }
 }
 
-App::error(function(EventNotFoundException $e) {
+App::error(function (EventNotFoundException $e) {
     return $e->response();
 });

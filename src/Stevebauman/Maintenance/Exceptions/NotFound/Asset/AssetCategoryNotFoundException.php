@@ -9,12 +9,12 @@ class AssetCategoryNotFoundException extends BaseException
 {
     public function __construct()
     {
-        $this->message = trans('maintenance::errors.not-found', ['resource'=>'Asset Category']);
+        $this->message = trans('maintenance::errors.not-found', ['resource' => 'Asset Category']);
         $this->messageType = 'danger';
         $this->redirect = routeBack('maintenance.assets.categories.index');
     }
 }
 
-App::error(function(AssetEventNotFoundException $e){
+App::error(function (AssetEventNotFoundException $e) {
     return $e->response();
 });

@@ -9,13 +9,12 @@ class WorkOrderSessionNotFoundException extends BaseException
 {
     public function __construct()
     {
-        $this->message = trans('maintenance::errors.not-found', ['resource'=>'Work Order Session']);
+        $this->message = trans('maintenance::errors.not-found', ['resource' => 'Work Order Session']);
         $this->messageType = 'danger';
         $this->redirect = routeBack('maintenance.work-orders.show', $this->getRouteParameter('work_orders'));
     }
 }
 
-App::error(function(WorkOrderSessionNotFoundException $e) {
+App::error(function (WorkOrderSessionNotFoundException $e) {
     return $e->response();
 });
-

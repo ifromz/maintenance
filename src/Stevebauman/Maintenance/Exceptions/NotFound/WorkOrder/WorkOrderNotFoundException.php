@@ -9,12 +9,12 @@ class WorkOrderNotFoundException extends BaseException
 {
     public function __construct()
     {
-        $this->message = trans('maintenance::errors.not-found', ['resource'=>'Work Order']);
+        $this->message = trans('maintenance::errors.not-found', ['resource' => 'Work Order']);
         $this->messageType = 'danger';
         $this->redirect = routeBack('maintenance.work-orders.index');
     }
 }
 
-App::error(function(WorkOrderNotFoundException $e) {
+App::error(function (WorkOrderNotFoundException $e) {
     return $e->response();
 });

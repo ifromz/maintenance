@@ -9,12 +9,12 @@ class MetricNotFoundException extends BaseException
 {
     public function __construct()
     {
-        $this->message = trans('maintenance::errors.not-found', ['resource'=>'Metric']);
+        $this->message = trans('maintenance::errors.not-found', ['resource' => 'Metric']);
         $this->messageType = 'danger';
         $this->redirect = routeBack('maintenance.metrics.index');
     }
 }
 
-App::error(function(MetricNotFoundException $e) {
+App::error(function (MetricNotFoundException $e) {
     return $e->response();
 });
