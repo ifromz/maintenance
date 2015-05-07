@@ -3,14 +3,11 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class AccessCheckValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class AccessCheckValidator.
  */
 class AccessCheckValidator extends BaseValidator
 {
-    
     protected $rules = [
-        'permission' => 'required'
+        'permission' => 'required',
     ];
-    
 }

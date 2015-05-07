@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\PriorityService;
 use Illuminate\Database\Seeder;
 
 /**
- * Class PrioritySeeder
- * @package Stevebauman\Maintenance\Seeders
+ * Class PrioritySeeder.
  */
 class PrioritySeeder extends Seeder
 {
@@ -34,22 +33,19 @@ class PrioritySeeder extends Seeder
     }
 
     /**
-     * Runs the seeding operations
-     *
-     * @return void
+     * Runs the seeding operations.
      */
     public function run()
     {
         $priorities = $this->getSeedData();
 
-        foreach($priorities as $prioritiy)
-        {
+        foreach ($priorities as $prioritiy) {
             $this->priority->setInput($prioritiy)->firstOrCreate();
         }
     }
 
     /**
-     * Retrieves the seed data from the maintenance configuration
+     * Retrieves the seed data from the maintenance configuration.
      *
      * @return mixed
      */

@@ -7,8 +7,8 @@ use Stevebauman\Maintenance\Exceptions\Commands\DatabaseTableReservedException;
 use Stevebauman\Maintenance\Exceptions\Commands\DependencyNotFoundException;
 use Illuminate\Console\Command;
 
-class SchemaCheckCommand extends Command {
-
+class SchemaCheckCommand extends Command
+{
     /**
      * The console command name.
      *
@@ -24,16 +24,16 @@ class SchemaCheckCommand extends Command {
     protected $description = 'Checks the current database to make sure the required tables are present, and the reserved tables are not';
 
     /**
-     * Holds the database tables that must be present before install
+     * Holds the database tables that must be present before install.
      *
      * @var array
      */
     protected $dependencies = [
-        'users'         => 'sentry',
-        'users_groups'  => 'sentry',
-        'groups'        => 'sentry',
-        'throttle'      => 'sentry',
-        'revisions'     => 'revisionable',
+        'users' => 'sentry',
+        'users_groups' => 'sentry',
+        'groups' => 'sentry',
+        'throttle' => 'sentry',
+        'revisions' => 'revisionable',
         'inventories' => 'inventory',
         'inventory_stocks' => 'inventory',
         'inventory_stock_movements' => 'inventory',
@@ -43,27 +43,27 @@ class SchemaCheckCommand extends Command {
     ];
 
     /**
-     * Stores the commands to install the dependencies if available
+     * Stores the commands to install the dependencies if available.
      *
      * @var array
      */
     protected $supplierCommands = [
         'sentry' => [
             'type' => 'migrate',
-            'args' => ['--package' => 'cartalyst/sentry']
+            'args' => ['--package' => 'cartalyst/sentry'],
         ],
         'revisionable' => [
             'type' => 'migrate',
-            'args' => ['--package' => 'venturecraft/revisionable']
+            'args' => ['--package' => 'venturecraft/revisionable'],
         ],
         'inventory' => [
             'type' => 'migrate',
-            'args' => ['--package' => 'stevebauman/inventory']
+            'args' => ['--package' => 'stevebauman/inventory'],
         ],
     ];
 
     /**
-     * Holds the reserved database tables necessary to install
+     * Holds the reserved database tables necessary to install.
      *
      * @var array
      */
@@ -96,105 +96,96 @@ class SchemaCheckCommand extends Command {
     ];
 
     /**
-     * Executes the console command
+     * Executes the console command.
      *
      * @throws DatabaseTableReservedException
      * @throws DependencyNotFoundException
      */
     public function fire()
     {
-        if($this->checkDependencies()) {
+        if ($this->checkDependencies()) {
             $this->info('Schema dependencies are all good!');
         }
 
-        if($this->checkReserved()) {
+        if ($this->checkReserved()) {
             $this->info('Schema reserved tables are all good!');
         }
     }
 
     /**
-     * Checks the current database for dependencies
+     * Checks the current database for dependencies.
      *
      * @return bool
+     *
      * @throws DependencyNotFoundException
      */
     private function checkDependencies()
     {
-        foreach($this->dependencies as $table => $suppliedBy) {
-
-            if(!$this->tableExists($table)) {
-
+        foreach ($this->dependencies as $table => $suppliedBy) {
+            if (!$this->tableExists($table)) {
                 if (!$this->confirmInstallDependency($suppliedBy)) {
-
                     $message = sprintf('Table: %s does not exist, it is supplied by the package %s', $table, $suppliedBy);
 
                     throw new DependencyNotFoundException($message);
-
                 }
-
             }
-
         }
 
         return true;
     }
 
     /**
-     * Checks the current database for reserved tables
+     * Checks the current database for reserved tables.
      *
      * @return bool
+     *
      * @throws DatabaseTableReservedException
      */
     private function checkReserved()
     {
-        foreach($this->reserved as $table) {
-
-            if($this->tableExists($table)) {
-
+        foreach ($this->reserved as $table) {
+            if ($this->tableExists($table)) {
                 $message = sprintf('Table: %s already exists. This table is reserved. Please remove the database table to continue', $table);
 
                 throw new DatabaseTableReservedException($message);
-
             }
-
         }
 
         return true;
     }
 
     /**
-     * Runs the commands for a dependency that has not yet been installed
+     * Runs the commands for a dependency that has not yet been installed.
      *
      * @param string $dependency
-     * @return boolean
+     *
+     * @return bool
      */
     private function confirmInstallDependency($dependency)
     {
         $message = sprintf('It looks like the dependency: %s has not been migrated but it has been installed. Do you want me to migrate it for you? [yes|no]', ucfirst($dependency));
 
-        if($this->confirm($message)) {
+        if ($this->confirm($message)) {
 
             /*
              * Add environment option to the dependencies command if it's a migration
              */
-            if($this->supplierCommands[$dependency]['type'] === 'migrate') {
+            if ($this->supplierCommands[$dependency]['type'] === 'migrate') {
                 $this->supplierCommands[$dependency]['args']['--env'] = $this->option('env');
             }
 
             $this->call($this->supplierCommands[$dependency]['type'], $this->supplierCommands[$dependency]['args']);
 
             return true;
-
         } else {
-
             return false;
-
         }
     }
 
     /**
      * @param string $table
-     * @return boolean
+     *
+     * @return bool
      */
     private function tableExists($table)
     {

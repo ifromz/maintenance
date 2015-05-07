@@ -3,11 +3,9 @@
 namespace Stevebauman\Maintenance\Apis\v1;
 
 use Stevebauman\Maintenance\Services\Event\EventService;
-use Stevebauman\Maintenance\Apis\v1\BaseApi;
 
 class AbstractEventableApi extends BaseApi
 {
-
     /*
      * Holds Eventable Service
      */
@@ -38,5 +36,4 @@ class AbstractEventableApi extends BaseApi
 
         return $this->responseJson($this->event->parseEvents($apiEvents));
     }
-
 }

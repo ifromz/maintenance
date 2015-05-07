@@ -7,7 +7,7 @@ use Stevebauman\Maintenance\Models\Category;
 trait HasCategoryTrait
 {
     /**
-     * The has one category relationship
+     * The has one category relationship.
      *
      * @return mixed
      */
@@ -17,7 +17,7 @@ trait HasCategoryTrait
     }
 
     /**
-     * Filters results by specified category
+     * Filters results by specified category.
      *
      * @return object
      */
@@ -38,9 +38,9 @@ trait HasCategoryTrait
                 foreach ($categories as $category) {
                     $query->orWhere('category_id', $category->id);
                 }
+
                 return $query;
             });
         }
     }
-
 }

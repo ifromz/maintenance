@@ -3,15 +3,12 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class WorkOrderReportValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class WorkOrderReportValidator.
  */
 class WorkOrderReportValidator extends BaseValidator
 {
-	
-	protected $rules = [
+    protected $rules = [
         'status' => 'required|integer',
         'description' => 'required|min:5|unique_report',
     ];
-
 }

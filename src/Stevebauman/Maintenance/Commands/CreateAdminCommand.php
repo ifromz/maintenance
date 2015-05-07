@@ -5,8 +5,8 @@ namespace Stevebauman\Maintenance\Commands;
 use Stevebauman\Maintenance\Services\SentryService;
 use Illuminate\Console\Command;
 
-class CreateAdminCommand extends Command {
-
+class CreateAdminCommand extends Command
+{
     /**
      * The console command name.
      *
@@ -22,7 +22,7 @@ class CreateAdminCommand extends Command {
     protected $description = 'Creates a superuser for the maintenance application';
 
     /**
-     * The Sentry service for creating a new user
+     * The Sentry service for creating a new user.
      *
      * @var SentryService
      */
@@ -31,15 +31,15 @@ class CreateAdminCommand extends Command {
     /**
      * @param SentryService $sentry
      */
-    public function __construct(SentryService $sentry){
-
+    public function __construct(SentryService $sentry)
+    {
         $this->sentry = $sentry;
 
         parent::__construct();
     }
 
     /**
-     * Execute the command
+     * Execute the command.
      */
     public function fire()
     {
@@ -54,19 +54,15 @@ class CreateAdminCommand extends Command {
 
         $newUser = $this->sentry->createUser($user);
 
-        if($newUser) {
-
+        if ($newUser) {
             $this->info('Successfully created user');
-
         } else {
-
             $this->error('There was an error trying to create a user, please try again.');
-
         }
     }
 
     /**
-     * Ask for the administrators first name
+     * Ask for the administrators first name.
      *
      * @return string
      */
@@ -76,7 +72,7 @@ class CreateAdminCommand extends Command {
     }
 
     /**
-     * Ask for the administrators last name
+     * Ask for the administrators last name.
      *
      * @return string
      */
@@ -86,7 +82,7 @@ class CreateAdminCommand extends Command {
     }
 
     /**
-     * Ask for the administrators username
+     * Ask for the administrators username.
      *
      * @return string
      */
@@ -96,7 +92,7 @@ class CreateAdminCommand extends Command {
     }
 
     /**
-     * Ask for the administrators email
+     * Ask for the administrators email.
      *
      * @return string
      */
@@ -106,7 +102,7 @@ class CreateAdminCommand extends Command {
     }
 
     /**
-     * Ask for the administrators password
+     * Ask for the administrators password.
      *
      * @return string
      */

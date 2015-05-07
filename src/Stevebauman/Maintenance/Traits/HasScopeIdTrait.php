@@ -5,10 +5,11 @@ namespace Stevebauman\Maintenance\Traits;
 trait HasScopeIdTrait
 {
     /**
-     * Allows all tables extending from the base model to be scoped by ID
+     * Allows all tables extending from the base model to be scoped by ID.
      *
-     * @param object $query
-     * @param integer /string $id
+     * @param object      $query
+     * @param int /string $id
+     *
      * @return object
      */
     public function scopeId($query, $id = null)
@@ -17,5 +18,4 @@ trait HasScopeIdTrait
             return $query->where('id', $id);
         }
     }
-
 }

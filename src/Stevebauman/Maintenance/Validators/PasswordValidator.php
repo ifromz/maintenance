@@ -3,8 +3,7 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class PasswordValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class PasswordValidator.
  */
 class PasswordValidator extends BaseValidator
 {

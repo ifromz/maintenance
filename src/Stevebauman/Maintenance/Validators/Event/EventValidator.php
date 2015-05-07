@@ -5,12 +5,10 @@ namespace Stevebauman\Maintenance\Validators\Event;
 use Stevebauman\Maintenance\Validators\BaseValidator;
 
 /**
- * Class EventValidator
- * @package Stevebauman\Maintenance\Validators\Event
+ * Class EventValidator.
  */
 class EventValidator extends BaseValidator
 {
-
     protected $rules = [
         'title' => 'required|min:5|max:250',
         'description' => 'min:5|max:2000',
@@ -41,5 +39,4 @@ class EventValidator extends BaseValidator
 
         return parent::passes();
     }
-
 }

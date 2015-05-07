@@ -3,15 +3,12 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class PublicWorkOrderValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class PublicWorkOrderValidator.
  */
 class PublicWorkOrderValidator extends BaseValidator
 {
-    
     protected $rules = [
         'subject' => 'required|min:5|max:250',
-        'description' => 'min:10|max:2000'
+        'description' => 'min:10|max:2000',
     ];
-    
 }

@@ -5,8 +5,8 @@ namespace Stevebauman\Maintenance\Commands;
 use Stevebauman\Maintenance\Exceptions\Commands\DependencyNotFoundException;
 use Illuminate\Console\Command;
 
-class DependencyCheckCommand extends Command {
-
+class DependencyCheckCommand extends Command
+{
     /**
      * The console command name.
      *
@@ -22,7 +22,7 @@ class DependencyCheckCommand extends Command {
     protected $description = 'Checks installed packages that the maintenance application relies on';
 
     /**
-     * Holds the dependencies that maintenance depends on
+     * Holds the dependencies that maintenance depends on.
      *
      * @var array
      */
@@ -45,27 +45,28 @@ class DependencyCheckCommand extends Command {
     ];
 
     /**
-     * Fires the command
+     * Fires the command.
      *
      * @throws DependencyNotFoundException
      */
     public function fire()
     {
-        if($this->check()) {
+        if ($this->check()) {
             $this->info('Dependency check is all good!');
         }
     }
 
     /**
-     * Checks the current project to make sure all classes that maintenance
+     * Checks the current project to make sure all classes that maintenance.
      *
      * @return bool
+     *
      * @throws DependencyNotFoundException
      */
     private function check()
     {
-        foreach($this->dependencies as $class => $name) {
-            if(! class_exists($class)) {
+        foreach ($this->dependencies as $class => $name) {
+            if (!class_exists($class)) {
                 $message = sprintf('Dependency: %s (%s) not found. Please check your composer file', $name, $class);
 
                 throw new DependencyNotFoundException($message);

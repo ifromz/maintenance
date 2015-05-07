@@ -8,8 +8,7 @@ use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Apis\v1\AbstractEventableApi;
 
 /**
- * Class EventApi
- * @package Stevebauman\Maintenance\Apis\v1\Inventory
+ * Class EventApi.
  */
 class EventApi extends AbstractEventableApi
 {
@@ -20,8 +19,8 @@ class EventApi extends AbstractEventableApi
 
     /**
      * @param InventoryService $inventory
-     * @param EventService $event
-     * @param ConfigService $config
+     * @param EventService     $event
+     * @param ConfigService    $config
      */
     public function __construct(InventoryService $inventory, EventService $event, ConfigService $config)
     {
@@ -36,5 +35,4 @@ class EventApi extends AbstractEventableApi
          */
         $this->event->eventApi->setCalendar($this->config->get('site.calendars.inventories'));
     }
-
 }

@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Stevebauman\Maintenance\Models\Notification;
 
 /**
- * Class AbstractListener
- * @package Stevebauman\Maintenance\Listeners
+ * Class AbstractListener.
  */
 abstract class AbstractListener
 {
@@ -17,12 +16,12 @@ abstract class AbstractListener
      * Creates a notification.
      *
      * @param string $user_id
-     * @param Model $model
+     * @param Model  $model
      * @param string $message
      * @param string $link
      * @param string $link
-     * @param null $before
-     * @param null $after
+     * @param null   $before
+     * @param null   $after
      */
     public function createNotification($user_id, Model $model, $message, $link, $before = null, $after = null)
     {

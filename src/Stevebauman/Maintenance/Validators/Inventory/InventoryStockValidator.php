@@ -3,8 +3,7 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class InventoryStockValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class InventoryStockValidator.
  */
 class InventoryStockValidator extends BaseValidator
 {

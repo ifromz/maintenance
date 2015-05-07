@@ -8,8 +8,7 @@ use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Apis\v1\AbstractEventableApi;
 
 /**
- * Class EventApi
- * @package Stevebauman\Maintenance\Apis\v1\Asset
+ * Class EventApi.
  */
 class EventApi extends AbstractEventableApi
 {
@@ -19,8 +18,8 @@ class EventApi extends AbstractEventableApi
     protected $config;
 
     /**
-     * @param AssetService $asset
-     * @param EventService $event
+     * @param AssetService  $asset
+     * @param EventService  $event
      * @param ConfigService $config
      */
     public function __construct(AssetService $asset, EventService $event, ConfigService $config)
@@ -36,5 +35,4 @@ class EventApi extends AbstractEventableApi
          */
         $this->event->eventApi->setCalendar($this->config->get('site.calendars.assets'));
     }
-
 }

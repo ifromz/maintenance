@@ -5,14 +5,11 @@ namespace Stevebauman\Maintenance\Validators\Event;
 use Stevebauman\Maintenance\Validators\BaseValidator;
 
 /**
- * Class ReportValidator
- * @package Stevebauman\Maintenance\Validators\Event
+ * Class ReportValidator.
  */
 class ReportValidator extends BaseValidator
 {
-    
     protected $rules = [
-        'description' => 'required|min:10'
+        'description' => 'required|min:10',
     ];
-    
 }

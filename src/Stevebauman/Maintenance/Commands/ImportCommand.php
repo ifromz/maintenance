@@ -22,12 +22,12 @@ class ImportCommand extends Command
     protected $description = 'Imports data into the maintenance application';
 
     /**
-     * The available import sources
+     * The available import sources.
      *
      * @var array
      */
     protected $sources = [
-        'dynamics'
+        'dynamics',
     ];
 
     /**

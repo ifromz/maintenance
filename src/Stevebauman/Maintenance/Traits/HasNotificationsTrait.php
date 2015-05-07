@@ -2,11 +2,10 @@
 
 namespace Stevebauman\Maintenance\Traits;
 
-
 trait HasNotificationsTrait
 {
     /**
-     * Allows all models extending from BaseModel to have notifications
+     * Allows all models extending from BaseModel to have notifications.
      *
      * @return object
      */
@@ -14,5 +13,4 @@ trait HasNotificationsTrait
     {
         return $this->morphMany('Stevebauman\Maintenance\Models\Notification', 'notifiable');
     }
-
 }

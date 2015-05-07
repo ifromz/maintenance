@@ -9,20 +9,19 @@ use Stevebauman\Maintenance\Services\LdapService;
 use Illuminate\Database\Seeder;
 
 /**
- * Class LdapUserSeeder
- * @package Stevebauman\Maintenance\Seeders
+ * Class LdapUserSeeder.
  */
 class LdapUserSeeder extends Seeder
 {
     /**
-     * Holds the current LDAP instance
+     * Holds the current LDAP instance.
      *
      * @var LdapService
      */
     protected $ldap;
 
     /**
-     * Holds the current Sentry instance
+     * Holds the current Sentry instance.
      *
      * @var SentryService
      */
@@ -36,7 +35,7 @@ class LdapUserSeeder extends Seeder
     /**
      * Constructor.
      *
-     * @param LdapService $ldap
+     * @param LdapService   $ldap
      * @param SentryService $sentry
      * @param ConfigService $config
      */
@@ -48,19 +47,17 @@ class LdapUserSeeder extends Seeder
     }
 
     /**
-     * Runs the seeding operation
-     *
-     * @return void
+     * Runs the seeding operation.
      */
     public function run()
     {
         $users = $this->ldap->users();
 
-        foreach($users as $user)
-        {
-            if($this->syncFiltersEnabled())
-            {
-                if($this->userAllowed($user)) $this->createUser($user);
+        foreach ($users as $user) {
+            if ($this->syncFiltersEnabled()) {
+                if ($this->userAllowed($user)) {
+                    $this->createUser($user);
+                }
 
                 continue;
             }
@@ -68,7 +65,7 @@ class LdapUserSeeder extends Seeder
     }
 
     /**
-     * Creates a user with Sentry by the supplied corp user object
+     * Creates a user with Sentry by the supplied corp user object.
      *
      * @param User $user
      *
@@ -76,8 +73,7 @@ class LdapUserSeeder extends Seeder
      */
     private function createUser(User $user)
     {
-        if($user->username && $user->email)
-        {
+        if ($user->username && $user->email) {
             $first_name = '';
 
             $last_name = '';
@@ -86,17 +82,20 @@ class LdapUserSeeder extends Seeder
              * An LDAP user may not have a name, so we'll explode it
              * by a comma to see if they have a fully separated name
              */
-            if($user->name)
-            {
+            if ($user->name) {
                 $name = explode(',', $user->name);
 
-                if(array_key_exists(0, $name)) $last_name = $name[0];
+                if (array_key_exists(0, $name)) {
+                    $last_name = $name[0];
+                }
 
-                if(array_key_exists(1, $name)) $first_name = $name[1];
+                if (array_key_exists(1, $name)) {
+                    $first_name = $name[1];
+                }
             }
 
             $data = [
-                'email'    => $user->email,
+                'email' => $user->email,
                 'password' => str_random(20),
                 'username' => $user->username,
                 'last_name' => $last_name,
@@ -105,13 +104,11 @@ class LdapUserSeeder extends Seeder
 
             $groups = [];
 
-            if($user->group)
-            {
+            if ($user->group) {
                 $groups[] = $this->sentry->createOrUpdateGroup($user->group);
             }
 
-            if($user->type)
-            {
+            if ($user->type) {
                 $groups[] = $this->sentry->createOrUpdateGroup($user->type);
             }
 
@@ -133,15 +130,19 @@ class LdapUserSeeder extends Seeder
      */
     private function userAllowed(User $user)
     {
-        if(! in_array($user->group, $this->getAllowedGroups())) return false;
+        if (!in_array($user->group, $this->getAllowedGroups())) {
+            return false;
+        }
 
-        if(! in_array($user->type, $this->getAllowedUserTypes())) return false;
+        if (!in_array($user->type, $this->getAllowedUserTypes())) {
+            return false;
+        }
 
         return true;
     }
 
     /**
-     * Retrieves the allowed user group array from the maintenance config file
+     * Retrieves the allowed user group array from the maintenance config file.
      *
      * @return array
      */
@@ -151,7 +152,7 @@ class LdapUserSeeder extends Seeder
     }
 
     /**
-     * Retrieves the allows user types array from the maintenance config file
+     * Retrieves the allows user types array from the maintenance config file.
      *
      * @return array
      */
@@ -161,7 +162,7 @@ class LdapUserSeeder extends Seeder
     }
 
     /**
-     * Returns config option of whether or not sync filters are enabled
+     * Returns config option of whether or not sync filters are enabled.
      *
      * @return bool
      */
@@ -169,5 +170,4 @@ class LdapUserSeeder extends Seeder
     {
         return $this->config->get('site.ldap.user_sync.filters.enabled');
     }
-
 }

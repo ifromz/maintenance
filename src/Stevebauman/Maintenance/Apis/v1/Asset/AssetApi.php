@@ -21,17 +21,17 @@ class AssetApi extends BaseApi
     {
         $this->asset = $asset;
     }
-    
+
     public function get()
     {
         return $this->responseJson($this->asset->get());
     }
-    
+
     public function find($id)
     {
-        if(is_int($id)){
+        if (is_int($id)) {
             return $this->responseJson($this->asset->find($id));
-        } else{
+        } else {
             return $this->responseJson($this->asset->where('name', $id)->get());
         }
     }

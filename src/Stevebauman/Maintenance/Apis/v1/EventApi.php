@@ -6,11 +6,10 @@ use Stevebauman\Maintenance\Exceptions\RecordNotFoundException;
 use Stevebauman\Maintenance\Services\Event\EventService;
 
 /**
- * API for FullCalendar interactions
+ * API for FullCalendar interactions.
  */
 class EventApi extends BaseApi
 {
-
     public function __construct(EventService $event)
     {
         $this->event = $event;
@@ -37,7 +36,6 @@ class EventApi extends BaseApi
 
     public function store()
     {
-
     }
 
     public function show($id)
@@ -48,36 +46,30 @@ class EventApi extends BaseApi
             return $this->responseJson(
                 view('maintenance::apis.calendar.events.show', ['event' => $event])->render()
             );
-
         } catch (RecordNotFoundException $e) {
-            return null;
+            return;
         }
     }
 
     public function edit($id)
     {
-
     }
 
     public function update($id)
     {
         try {
-
             $this->event->setInput($this->inputAll())->updateDates($id);
 
             return $this->responseJson([
                 'message' => 'Successfully updated event',
                 'messageType' => 'success',
             ]);
-
         } catch (RecordNotFoundException $ex) {
-            return null;
+            return;
         }
     }
 
     public function destroy($id)
     {
-
     }
-
 }

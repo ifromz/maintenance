@@ -4,8 +4,8 @@ namespace Stevebauman\Maintenance\Commands;
 
 use Illuminate\Console\Command;
 
-class RunSeedsCommand extends Command {
-
+class RunSeedsCommand extends Command
+{
     /**
      * The console command name.
      *
@@ -34,10 +34,9 @@ class RunSeedsCommand extends Command {
     private function seedUserTableFromLdap()
     {
         $message = 'Do you want to seed the maintenance user table with active directory?'
-            . ' This requires that you have ldap fully enabled and configured. [yes|no]';
+            .' This requires that you have ldap fully enabled and configured. [yes|no]';
 
-        if($this->confirm($message)) {
-
+        if ($this->confirm($message)) {
             $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\LdapUserSeeder']);
 
             $this->info('Successfully seeded database with LDAP users');
@@ -47,10 +46,9 @@ class RunSeedsCommand extends Command {
     private function seedPrioritiesTable()
     {
         $message = 'Do you want to seed the maintenance work order priorities table?'
-            . ' You can customize the default data in the Seed config file. [yes|no]';
+            .' You can customize the default data in the Seed config file. [yes|no]';
 
-        if($this->confirm($message)) {
-
+        if ($this->confirm($message)) {
             $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\PrioritySeeder']);
 
             $this->info('Successfully seeded database with config priorities');
@@ -60,10 +58,9 @@ class RunSeedsCommand extends Command {
     private function seedStatusesTable()
     {
         $message = 'Do you want to seed the maintenance work order statuses table?'
-            . ' You can customize the default data in the Seed config file. [yes|no]';
+            .' You can customize the default data in the Seed config file. [yes|no]';
 
-        if($this->confirm($message)) {
-
+        if ($this->confirm($message)) {
             $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\StatusSeeder']);
 
             $this->info('Successfully seeded database with config statuses');
@@ -73,14 +70,12 @@ class RunSeedsCommand extends Command {
     private function seedMetricsTable()
     {
         $message = 'Do you want to seed the maintenance metrics table?'
-            . ' You can customize the default data in the Seed config file. [yes|no]';
+            .' You can customize the default data in the Seed config file. [yes|no]';
 
-        if($this->confirm($message)) {
-
+        if ($this->confirm($message)) {
             $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\MetricSeeder']);
 
             $this->info('Successfully seeded database with config metrics');
         }
     }
-
 }

@@ -5,12 +5,11 @@ namespace Stevebauman\Maintenance\Validators\Login;
 use Stevebauman\Maintenance\Validators\BaseValidator;
 
 /**
- * Class RequestResetValidator
- * @package Stevebauman\Maintenance\Validators\Login
+ * Class RequestResetValidator.
  */
 class RequestResetValidator extends BaseValidator
 {
     protected $rules = [
-        'email' => 'required'
+        'email' => 'required',
     ];
 }

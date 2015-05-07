@@ -3,13 +3,12 @@
 namespace Stevebauman\Maintenance\Traits;
 
 /**
- * Trait HasUserTrait
- * @package Stevebauman\Maintenance\Traits
+ * Trait HasUserTrait.
  */
 trait HasUserTrait
 {
     /**
-     * The has one user trait
+     * The has one user trait.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

@@ -10,6 +10,6 @@ class AssetValidator extends BaseValidator
         'category' => 'required',
         'category_id' => 'integer',
         'location' => 'required',
-        'location_id' => 'integer'
+        'location_id' => 'integer',
     ];
 }

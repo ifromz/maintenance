@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Validators\Config;
 use Stevebauman\Maintenance\Validators\BaseValidator;
 
 /**
- * Class MailValidator
- * @package Stevebauman\Maintenance\Validators\Config
+ * Class MailValidator.
  */
 class MailValidator extends BaseValidator
 {

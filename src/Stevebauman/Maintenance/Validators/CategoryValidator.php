@@ -3,14 +3,11 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class CategoryValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class CategoryValidator.
  */
 class CategoryValidator extends BaseValidator
 {
-	
-	protected $rules = [
-		'name' => 'required|max:250',
+    protected $rules = [
+        'name' => 'required|max:250',
     ];
-	
 }

@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\Event\ReportService;
 
 /**
- * Class UniqueReportValidator
- * @package Stevebauman\Maintenance\Validators\Event
+ * Class UniqueReportValidator.
  */
 class UniqueReportValidator
 {
@@ -24,7 +23,7 @@ class UniqueReportValidator
     /**
      * Constructor.
      *
-     * @param EventService $event
+     * @param EventService  $event
      * @param ReportService $report
      */
     public function __construct(EventService $event, ReportService $report)
@@ -44,21 +43,21 @@ class UniqueReportValidator
      */
     public function validateUniqueReport($attribute, $value, $parameters)
     {
-        if(is_array($parameters) && count($parameters) > 0)
-        {
+        if (is_array($parameters) && count($parameters) > 0) {
             // Make sure the event exists
             $event = $this->event->find($parameters[0]);
 
-            if($event)
-            {
+            if ($event) {
                 $report = $this->report->where('event_id', $parameters[0])->first();
 
-                if($report) return false;
+                if ($report) {
+                    return false;
+                }
 
                 return true;
             }
         }
-        
+
         return false;
     }
 }

@@ -7,7 +7,7 @@ use Stevebauman\Maintenance\Models\Location;
 trait HasLocationTrait
 {
     /**
-     * The has one location relationship
+     * The has one location relationship.
      *
      * @return mixed
      */
@@ -17,7 +17,7 @@ trait HasLocationTrait
     }
 
     /**
-     * Filters inventory results by specified location
+     * Filters inventory results by specified location.
      *
      * @return object
      */
@@ -38,10 +38,9 @@ trait HasLocationTrait
                 foreach ($locations as $location) {
                     $query->orWhere('location_id', $location->id);
                 }
+
                 return $query;
             });
         }
     }
-
-
 }

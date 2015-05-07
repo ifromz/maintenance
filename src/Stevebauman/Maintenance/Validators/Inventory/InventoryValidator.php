@@ -3,8 +3,7 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class InventoryValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class InventoryValidator.
  */
 class InventoryValidator extends BaseValidator
 {
@@ -13,6 +12,6 @@ class InventoryValidator extends BaseValidator
         'description' => 'max:1000',
         'category' => 'required',
         'category_id' => 'integer',
-        'metric' => 'required|integer'
+        'metric' => 'required|integer',
     ];
 }

@@ -27,7 +27,7 @@ class DynamicsCommand extends Command
     protected $description = 'Imports microsoft dynamics data into the maintenance application';
 
     /**
-     * The available components to import
+     * The available components to import.
      *
      * @var array
      */
@@ -50,7 +50,7 @@ class DynamicsCommand extends Command
 
         $limit = $this->askHowManyRecords();
 
-        $query = new $model;
+        $query = new $model();
 
         $query
             ->newQuery()
@@ -58,8 +58,7 @@ class DynamicsCommand extends Command
 
         $records = [];
 
-        switch($limit)
-        {
+        switch ($limit) {
             case 'None':
                 break;
             case 'All':
@@ -75,8 +74,7 @@ class DynamicsCommand extends Command
 
         $imported = 0;
 
-        switch($component)
-        {
+        switch ($component) {
             case 'assets':
                 $imported = $this->importAssets($records);
                 break;
@@ -85,7 +83,6 @@ class DynamicsCommand extends Command
         }
 
         $this->info(sprintf('Successfully imported: %s records.', $imported));
-
     }
 
     /**
@@ -101,7 +98,7 @@ class DynamicsCommand extends Command
     }
 
     /**
-     * Imports the specified records into the database
+     * Imports the specified records into the database.
      *
      * @param array $records
      *
@@ -111,15 +108,14 @@ class DynamicsCommand extends Command
     {
         $assets = [];
 
-        foreach($records as $record)
-        {
+        foreach ($records as $record) {
             $location = Location::firstOrCreate([
                 'name' => $record->location->{'STATEDESCR'},
             ]);
 
             $category = Category::firstOrCreate([
                 'name' => $record->{'Asset Class ID'},
-                'belongs_to' => 'assets'
+                'belongs_to' => 'assets',
             ]);
 
             $insert = [
@@ -128,7 +124,7 @@ class DynamicsCommand extends Command
                 'import_id' => $record->{'Asset ID'},
                 'name' => $record->{'Asset Description'},
                 'description' => $record->{'Extended Description'},
-                'acquired_at' => date("Y-m-d H:i:s", strtotime($record->{'Acquisition Date'})),
+                'acquired_at' => date('Y-m-d H:i:s', strtotime($record->{'Acquisition Date'})),
                 'price' => $record->{'Acquisition Cost (General)'},
                 'serial' => $record->{'Serial Number'},
                 'vendor' => $record->{'Manufacturer Name'},
@@ -142,7 +138,7 @@ class DynamicsCommand extends Command
     }
 
     /**
-     * Asks for the model to use for the import
+     * Asks for the model to use for the import.
      *
      * @return string
      */
@@ -152,7 +148,7 @@ class DynamicsCommand extends Command
     }
 
     /**
-     * Asks for the amount of records to import
+     * Asks for the amount of records to import.
      *
      * @return string
      */
@@ -172,7 +168,9 @@ class DynamicsCommand extends Command
      */
     private function verifyModel($model)
     {
-        if(class_exists($model)) return true;
+        if (class_exists($model)) {
+            return true;
+        }
 
         $message = sprintf('Model: %s does not exist', $model);
 
@@ -191,7 +189,9 @@ class DynamicsCommand extends Command
      */
     private function verifyComponent($component)
     {
-        if(array_key_exists($component, $this->components)) return true;
+        if (array_key_exists($component, $this->components)) {
+            return true;
+        }
 
         $message = sprintf('Component: %s does not exist.', $component);
 

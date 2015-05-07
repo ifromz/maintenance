@@ -2,11 +2,10 @@
 
 namespace Stevebauman\Maintenance\Traits;
 
-
 trait HasNotesTrait
 {
     /**
-     * The morph to many notes relationship allowing any model to contain notes
+     * The morph to many notes relationship allowing any model to contain notes.
      *
      * @return mixed
      */
@@ -14,5 +13,4 @@ trait HasNotesTrait
     {
         return $this->morphToMany('Stevebauman\Maintenance\Models\Note', 'noteable')->withTimestamps();
     }
-
 }

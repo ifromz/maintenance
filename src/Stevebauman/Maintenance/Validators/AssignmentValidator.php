@@ -3,14 +3,11 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class AssignmentValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class AssignmentValidator.
  */
 class AssignmentValidator extends BaseValidator
 {
-	
-	protected $rules = [
+    protected $rules = [
             'users' => 'required|user_assignment',
     ];
-	
 }

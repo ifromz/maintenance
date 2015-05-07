@@ -4,8 +4,8 @@ namespace Stevebauman\Maintenance\Commands;
 
 use Illuminate\Console\Command;
 
-class RunMigrationsCommand extends Command {
-
+class RunMigrationsCommand extends Command
+{
     /**
      * The console command name.
      *
@@ -21,11 +21,10 @@ class RunMigrationsCommand extends Command {
     protected $description = 'Runs the maintenance application migrations';
 
     /**
-     * Execute the command
+     * Execute the command.
      */
     public function fire()
     {
         $this->call('migrate', ['--env' => $this->option('env'), '--package' => 'stevebauman/maintenance']);
     }
-
 }

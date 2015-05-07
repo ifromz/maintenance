@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Services\LocationService;
 use Illuminate\Database\Seeder;
 
 /**
- * Class LocationSeeder
- * @package Stevebauman\Maintenance\Seeders
+ * Class LocationSeeder.
  */
 class LocationSeeder extends Seeder
 {

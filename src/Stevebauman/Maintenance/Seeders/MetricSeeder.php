@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\MetricService;
 use Illuminate\Database\Seeder;
 
 /**
- * Class MetricSeeder
- * @package Stevebauman\Maintenance\Seeders
+ * Class MetricSeeder.
  */
 class MetricSeeder extends Seeder
 {
@@ -35,22 +34,19 @@ class MetricSeeder extends Seeder
     }
 
     /**
-     * Runs the seeding operations
-     *
-     * @return void
+     * Runs the seeding operations.
      */
     public function run()
     {
         $metrics = $this->getSeedData();
 
-        foreach($metrics as $metric)
-        {
+        foreach ($metrics as $metric) {
             $this->metric->setInput($metric)->firstOrCreate();
         }
     }
 
     /**
-     * Retrieves the seed data from the maintenance configuration
+     * Retrieves the seed data from the maintenance configuration.
      *
      * @return mixed
      */

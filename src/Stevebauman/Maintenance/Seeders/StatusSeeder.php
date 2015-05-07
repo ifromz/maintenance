@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\StatusService;
 use Illuminate\Database\Seeder;
 
 /**
- * Class StatusSeeder
- * @package Stevebauman\Maintenance\Seeders
+ * Class StatusSeeder.
  */
 class StatusSeeder extends Seeder
 {
@@ -35,22 +34,19 @@ class StatusSeeder extends Seeder
     }
 
     /**
-     * Runs the seeding operations
-     *
-     * @return void
+     * Runs the seeding operations.
      */
     public function run()
     {
         $statuses = $this->getSeedData();
 
-        foreach($statuses as $status)
-        {
+        foreach ($statuses as $status) {
             $this->status->setInput($status)->firstOrCreate();
         }
     }
 
     /**
-     * Retrieves the seed data from the maintenance configuration
+     * Retrieves the seed data from the maintenance configuration.
      *
      * @return mixed
      */

@@ -3,15 +3,12 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class PriorityValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class PriorityValidator.
  */
 class PriorityValidator extends BaseValidator
 {
-	
-	protected $rules = [
+    protected $rules = [
         'name' => 'required|max:250',
-        'color' => 'required|max:250'
+        'color' => 'required|max:250',
     ];
-
 }

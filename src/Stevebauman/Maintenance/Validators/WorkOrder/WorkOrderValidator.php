@@ -3,12 +3,10 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class WorkOrderValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class WorkOrderValidator.
  */
 class WorkOrderValidator extends BaseValidator
 {
-
     protected $rules = [
         'category' => '',
         'category_id' => 'integer',
@@ -28,5 +26,4 @@ class WorkOrderValidator extends BaseValidator
         'completed_at_date' => '',
         'completed_at_time' => '',
     ];
-
 }

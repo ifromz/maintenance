@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Illuminate\Support\Facades\Route;
 
 /**
- * Class InventoryStockLocationValidator
- * @package Stevebauman\Maintenance\Validators
+ * Class InventoryStockLocationValidator.
  */
 class InventoryStockLocationValidator
 {
@@ -29,9 +28,9 @@ class InventoryStockLocationValidator
     /**
      * Validates that a stock does not exist on the specified location.
      *
-     * @param string $attribute
+     * @param string     $attribute
      * @param int|string $locationId
-     * @param array $parameters
+     * @param array      $parameters
      *
      * @return bool
      */
@@ -40,22 +39,22 @@ class InventoryStockLocationValidator
         $itemId = Route::getCurrentRoute()->getParameter('inventory');
         $stockId = Route::getCurrentRoute()->getParameter('stocks');
 
-        if(! empty($stockId))
-        {
+        if (!empty($stockId)) {
             $stocks = $this->inventoryStock
                 ->where('inventory_id', $itemId)
                 ->where('id', '!=', $stockId)
                 ->where('location_id', $locationId)
                 ->get();
-        } else
-        {
+        } else {
             $stocks = $this->inventoryStock
                 ->where('inventory_id', $itemId)
                 ->where('location_id', $locationId)
                 ->get();
         }
 
-        if($stocks->count() > 0) return false;
+        if ($stocks->count() > 0) {
+            return false;
+        }
 
         return true;
     }
