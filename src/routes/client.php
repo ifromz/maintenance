@@ -4,9 +4,6 @@
  * Maintenance Client Routes
  */
 
-Route::group(['namespace'=>'Client'], function()
-{
-
-
+Route::group(['namespace' => 'Client'], function () {
 
 });

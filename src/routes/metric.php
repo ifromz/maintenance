@@ -7,7 +7,7 @@ Route::resource('metrics', 'MetricController', [
         'store',
         'edit',
         'update',
-        'destroy'
+        'destroy',
     ],
     'names' => [
         'index' => 'maintenance.metrics.index',

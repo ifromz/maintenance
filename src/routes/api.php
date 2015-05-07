@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Route;
 /*
  * API Routes
  */
-Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function ()
-{
+Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function () {
     /*
      * Generic Events API
      */
@@ -52,7 +51,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function ()
         Route::resource('inventory.stocks', 'StockApi', [
             'only' => [
                 'edit',
-                'update'
+                'update',
             ],
             'names' => [
                 'edit' => 'maintenance.api.inventory.stocks.edit',
@@ -83,12 +82,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function ()
 
         Route::get('', [
             'as' => 'maintenance.api.v1.assets.get',
-            'uses' => 'AssetApi@get'
+            'uses' => 'AssetApi@get',
         ]);
 
         Route::get('find/{assets}', [
             'as' => 'maintenance.api.v1.assets.find',
-            'uses' => 'AssetApi@find'
+            'uses' => 'AssetApi@find',
         ]);
 
         /*

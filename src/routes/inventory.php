@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Inventory'], function () {
 
     Route::post('inventory/categories/move/{categories?}', [
         'as' => 'maintenance.inventory.categories.nodes.move',
-        'uses' => 'CategoryController@postMoveCategory'
+        'uses' => 'CategoryController@postMoveCategory',
     ]);
 
     Route::post('inventory/categories/create/{categories?}', [
@@ -127,7 +127,7 @@ Route::group(['namespace' => 'Inventory'], function () {
             'edit' => 'maintenance.inventory.events.edit',
             'update' => 'maintenance.inventory.events.update',
             'destroy' => 'maintenance.inventory.events.destroy',
-        ]
+        ],
     ]);
     /*
      * End Inventory Routes

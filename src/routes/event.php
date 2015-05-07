@@ -11,7 +11,7 @@ Route::group(['namespace' => 'Event'], function () {
             'edit' => 'maintenance.events.edit',
             'update' => 'maintenance.events.update',
             'destroy' => 'maintenance.events.destroy',
-        ]
+        ],
     ]);
 
     Route::resource('events.report', 'ReportController', [
@@ -19,14 +19,14 @@ Route::group(['namespace' => 'Event'], function () {
             'store',
             'edit',
             'update',
-            'destroy'
+            'destroy',
         ],
         'names' => [
             'store' => 'maintenance.events.report.store',
             'edit' => 'maintenance.events.report.edit',
             'update' => 'maintenance.events.report.update',
             'destroy' => 'maintenance.events.report.destroy',
-        ]
+        ],
     ]);
 
 });

@@ -3,8 +3,7 @@
 /*
  * Authentication Routes
  */
-Route::group(['prefix' => 'login', 'namespace' => 'Controllers', 'before' => 'maintenance.notauth'], function ()
-{
+Route::group(['prefix' => 'login', 'namespace' => 'Controllers', 'before' => 'maintenance.notauth'], function () {
     Route::get('', [
         'as' => 'maintenance.login',
         'uses' => 'AuthController@getLogin',
@@ -36,11 +35,9 @@ Route::group(['prefix' => 'login', 'namespace' => 'Controllers', 'before' => 'ma
     ]);
 });
 
-Route::group(['namespace' => 'Controllers', 'before' => 'maintenance.auth'], function ()
-{
+Route::group(['namespace' => 'Controllers', 'before' => 'maintenance.auth'], function () {
     Route::get('logout', [
         'as' => 'maintenance.logout',
         'uses' => 'AuthController@getLogout',
     ]);
 });
-   

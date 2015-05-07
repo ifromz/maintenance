@@ -7,7 +7,7 @@
 Route::resource('attachments', 'AttachmentController',
     [
         'only' => [
-            'destroy'
+            'destroy',
         ],
         'names' => [
             'destroy' => 'maintenance.attachments.destroy',

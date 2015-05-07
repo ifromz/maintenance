@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['namespace'=>'WorkRequest'], function()
-{
+Route::group(['namespace' => 'WorkRequest'], function () {
 
     Route::resource('work-requests', 'WorkRequestController', [
         'names' => [

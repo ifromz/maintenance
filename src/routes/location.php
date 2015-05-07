@@ -18,7 +18,7 @@ Route::get('locations/create/{categories?}', [
 
 Route::post('locations/move/{categories?}', [
     'as' => 'maintenance.locations.nodes.move',
-    'uses' => 'LocationController@postMoveCategory'
+    'uses' => 'LocationController@postMoveCategory',
 ]);
 
 Route::post('locations/create/{categories?}', [
