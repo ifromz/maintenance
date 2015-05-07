@@ -126,7 +126,7 @@ class WorkRequestService extends BaseModelService
      * Attaches an update to the work request pivot table
      *
      * @param WorkRequest $workRequest
-     * @param $update
+     * @param Update $update
      *
      * @return bool
      */

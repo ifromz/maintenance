@@ -7,6 +7,7 @@ use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\PriorityService;
 use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Models\WorkRequest;
 use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
@@ -159,11 +160,11 @@ class WorkOrderService extends BaseModelService
     /**
      * Creates a work order from the specified work request.
      *
-     * @param \Stevebauman\Maintenance\Models\WorkRequest $workRequest
+     * @param WorkRequest $workRequest
      *
-     * @return \Stevebauman\Maintenance\Models\WorkOrder|bool
+     * @return WorkOrder|bool
      */
-    public function createFromWorkRequest($workRequest)
+    public function createFromWorkRequest(WorkRequest $workRequest)
     {
         $this->dbStartTransaction();
 
