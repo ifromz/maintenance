@@ -6,13 +6,13 @@
 
 @section('panel.body.content')
     {{
-        Form::open(array(
-            'url'=> action(currentControllerAction('store'), array($parent->id)),
+        Form::open([
+            'url'=> action(currentControllerAction('store'), [$parent->id]),
             'class'=>'form-horizontal ajax-form-post clear-form'
-        ))
+        ])
     }}
 
-    @include('maintenance::categories.create')
+    @include('maintenance::categories.form')
 
     {{ Form::close() }}
 @stop

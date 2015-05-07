@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-class BaseNestedSetController extends AbstractNestedSetController {
-    
-    
-    
+class BaseNestedSetController extends AbstractNestedSetController
+{
 }
