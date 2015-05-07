@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
+use Stevebauman\Maintenance\Models\Update;
 use Stevebauman\Maintenance\Models\WorkRequest;
 
 /**
@@ -124,12 +125,12 @@ class WorkRequestService extends BaseModelService
     /**
      * Attaches an update to the work request pivot table
      *
-     * @param $workRequest
+     * @param WorkRequest $workRequest
      * @param $update
      *
      * @return bool
      */
-    public function saveUpdate($workRequest, $update)
+    public function saveUpdate(WorkRequest $workRequest, Update $update)
     {
         $this->dbStartTransaction();
 
