@@ -1,10 +1,10 @@
 @if($workOrder->isComplete())
-    <span class="btn btn-sm disabled btn-success">
+    <span class="label label-success">
         Yes
         <i class="fa fa-check"></i>
     </span>
 @else
-    <span class="btn btn-sm disabled btn-danger">
+    <span class="label label-danger">
         No
         <i class="fa fa-times"></i>
     </span>

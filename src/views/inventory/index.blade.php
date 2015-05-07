@@ -37,7 +37,10 @@
             ))
             ->means('category', 'category.trail')
             ->means('added_on', 'created_at')
-            ->modify('action', function($item){
+            ->modify('current_stock', function ($item) {
+                return $item->viewer()->lblCurrentStock;
+            })
+            ->modify('action', function ($item) {
                 return $item->viewer()->btnActions;
             })
             ->sortable(array(

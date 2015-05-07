@@ -92,4 +92,11 @@ class InventoryViewer extends BaseViewer
             'note' => $note,
         ]);
     }
+
+    public function lblCurrentStock()
+    {
+        return view('maintenance::viewers.inventory.labels.current-stock', [
+            'currentStock' => $this->entity->getTotalStock(),
+        ]);
+    }
 }
