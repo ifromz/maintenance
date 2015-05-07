@@ -39,7 +39,9 @@ class WorkRequestController extends BaseController
      */
     public function index()
     {
-        $workRequests = $this->workRequest->get();
+        $workRequests = $this->workRequest
+            ->setInput($this->inputAll())
+            ->getByPageWithFilter();
 
         return view('maintenance::work-requests.index', [
             'title' => 'Work Requests',
@@ -113,9 +115,28 @@ class WorkRequestController extends BaseController
 
     }
 
+    /**
+     * Deletes the specified work request.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
+        if($this->workRequest->destroy($id))
+        {
+            $this->message = 'Successfully deleted work request.';
+            $this->messageType = 'success';
+            $this->redirect = routeBack('maintenance.work-requests.index');
+        } else
+        {
+            $this->message = 'There was an issue deleting this work request. Please try again later.';
+            $this->messageType = 'danger';
+            $this->redirect = routeBack('maintenance.work-requests.show', [$id]);
+        }
 
+        return $this->response();
     }
 
 }

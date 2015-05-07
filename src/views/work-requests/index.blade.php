@@ -30,6 +30,7 @@
                 ->modify('action', function($workRequest){
                     return $workRequest->viewer()->btnActions;
                 })
+                ->sortable(['id'])
                 ->render()
         }}
 

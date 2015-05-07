@@ -9,8 +9,8 @@ use Stevebauman\Maintenance\Models\WorkRequest;
  * Class WorkRequest
  * @package Stevebauman\Maintenance\Services
  */
-class WorkRequestService extends BaseModelService {
-
+class WorkRequestService extends BaseModelService
+{
     /**
      * @var WorkOrderService
      */
@@ -22,6 +22,8 @@ class WorkRequestService extends BaseModelService {
     protected $sentry;
 
     /**
+     * Constructor.
+     *
      * @param WorkRequest $workRequest
      * @param WorkOrderService $workOrder
      * @param SentryService $sentry
@@ -34,9 +36,26 @@ class WorkRequestService extends BaseModelService {
     }
 
     /**
+     * Retrieves all the work requests paginated, with search filters.
+     *
+     * @param bool $archived
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getByPageWithFilter($archived = null)
+    {
+        return $this->model
+            ->with(['user'])
+            ->id($this->getInput('id'))
+            ->sort($this->getInput('field'), $this->getInput('sort'))
+            ->archived($archived)
+            ->paginate(25);
+    }
+
+    /**
      * Creates a work request
      *
-     * @return bool|mixed
+     * @return bool|WorkRequest
      */
     public function create()
     {
@@ -61,7 +80,6 @@ class WorkRequestService extends BaseModelService {
                     return $workRequest;
                 }
             }
-
         } catch(\Exception $e)
         {
             $this->dbRollbackTransaction();
@@ -74,7 +92,8 @@ class WorkRequestService extends BaseModelService {
      * Updates a work request
      *
      * @param int|string $id
-     * @return bool|mixed
+     *
+     * @return bool|WorkRequest
      */
     public function update($id)
     {
@@ -107,6 +126,7 @@ class WorkRequestService extends BaseModelService {
      *
      * @param $workRequest
      * @param $update
+     *
      * @return bool
      */
     public function saveUpdate($workRequest, $update)
@@ -134,5 +154,4 @@ class WorkRequestService extends BaseModelService {
 
         return false;
     }
-
 }

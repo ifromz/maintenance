@@ -4,6 +4,8 @@
  * Work Order Routes
  */
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['namespace' => 'WorkOrder'], function () {
 
     Route::get('work-orders/assigned', [
