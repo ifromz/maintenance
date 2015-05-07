@@ -6,12 +6,10 @@ use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\PriorityService;
 
 /**
- * Class PrioritySelectComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class PrioritySelectComposer.
  */
 class PrioritySelectComposer
 {
-
     /**
      * @var PriorityService
      */
@@ -27,6 +25,7 @@ class PrioritySelectComposer
 
     /**
      * @param $view
+     *
      * @return mixed
      */
     public function compose(View $view)
@@ -40,5 +39,4 @@ class PrioritySelectComposer
 
         return $view->with('priorities', $priorities);
     }
-
 }

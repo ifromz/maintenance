@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\View\View;
 
 /**
- * Class AdminLayoutComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class AdminLayoutComposer.
  */
 class AdminLayoutComposer
 {
@@ -33,5 +32,4 @@ class AdminLayoutComposer
 
         $view->with('siteTitle', $siteTitle);
     }
-
 }

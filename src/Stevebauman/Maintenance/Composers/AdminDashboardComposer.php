@@ -9,12 +9,10 @@ use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 
 /**
- * Class AdminDashboardComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class AdminDashboardComposer.
  */
 class AdminDashboardComposer
 {
-
     /**
      * @var UserService
      */
@@ -36,8 +34,8 @@ class AdminDashboardComposer
     protected $workOrder;
 
     /**
-     * @param UserService $user
-     * @param AssetService $asset
+     * @param UserService      $user
+     * @param AssetService     $asset
      * @param InventoryService $inventory
      * @param WorkOrderService $workOrder
      */
@@ -51,6 +49,7 @@ class AdminDashboardComposer
 
     /**
      * @param $view
+     *
      * @return mixed
      */
     public function compose(View $view)
@@ -61,5 +60,4 @@ class AdminDashboardComposer
             ->with('inventories', $this->inventory->get()->count())
             ->with('workOrders', $this->workOrder->get()->count());
     }
-
 }

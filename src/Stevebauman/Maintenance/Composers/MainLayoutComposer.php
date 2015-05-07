@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\View\View;
 
 /**
- * Class MainLayoutComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class MainLayoutComposer.
  */
 class MainLayoutComposer
 {
@@ -33,5 +32,4 @@ class MainLayoutComposer
 
         $view->with('siteTitle', $siteTitle);
     }
-
 }

@@ -6,12 +6,10 @@ use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\MetricService;
 
 /**
- * Class MetricSelectComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class MetricSelectComposer.
  */
 class MetricSelectComposer
 {
-
     /**
      * @var MetricService
      */
@@ -27,6 +25,7 @@ class MetricSelectComposer
 
     /**
      * @param $view
+     *
      * @return mixed
      */
     public function compose(View $view)
@@ -37,5 +36,4 @@ class MetricSelectComposer
 
         return $view->with('allMetrics', $allMetrics);
     }
-
 }

@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
 /**
- * Class RouteSelectComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class RouteSelectComposer.
  */
 class RouteSelectComposer
 {
@@ -27,6 +26,7 @@ class RouteSelectComposer
 
     /**
      * @param $view
+     *
      * @return mixed
      */
     public function compose(View $view)
@@ -42,7 +42,6 @@ class RouteSelectComposer
         $routes = Route::getRoutes();
 
         foreach ($routes as $route) {
-
             $routeName = $route->getName();
 
             /*
@@ -59,15 +58,13 @@ class RouteSelectComposer
                  * Make sure only routes guarded by the permission filter are shown
                  * in the route selection box
                  */
-                if (array_key_exists('maintenance.permission', $filters))
-                {
+                if (array_key_exists('maintenance.permission', $filters)) {
                     /*
                      * Explode the route into segments
                      */
                     $segments = explode('.', $routeName);
 
-                    if(count($segments) >= 1)
-                    {
+                    if (count($segments) >= 1) {
                         /*
                          * Pop the last segment off the route name
                          * so we can append a sentry wildcard to it ('*')
@@ -93,7 +90,6 @@ class RouteSelectComposer
                          * Insert the route into the allRoutes array
                          */
                         $allRoutes[$segments[0]][$routeStar] = $routeStar;
-
                     }
 
                     /*
@@ -101,7 +97,6 @@ class RouteSelectComposer
                      * for easier navigation
                      */
                     $allRoutes[$segments[0]][$routeName] = $routeName;
-
                 }
             }
         }
@@ -111,5 +106,4 @@ class RouteSelectComposer
          */
         return $view->with('allRoutes', $allRoutes);
     }
-
 }

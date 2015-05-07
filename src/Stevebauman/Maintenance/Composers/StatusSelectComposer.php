@@ -6,12 +6,10 @@ use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\StatusService;
 
 /**
- * Class StatusSelectComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class StatusSelectComposer.
  */
 class StatusSelectComposer
 {
-
     /**
      * @var StatusService
      */
@@ -27,6 +25,7 @@ class StatusSelectComposer
 
     /**
      * @param $view
+     *
      * @return mixed
      */
     public function compose(View $view)
@@ -40,5 +39,4 @@ class StatusSelectComposer
 
         return $view->with('statuses', $statuses);
     }
-
 }

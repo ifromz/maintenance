@@ -6,12 +6,10 @@ use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\UserService;
 
 /**
- * Class UserSelectComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class UserSelectComposer.
  */
 class UserSelectComposer
 {
-
     /**
      * @var UserService
      */
@@ -27,6 +25,7 @@ class UserSelectComposer
 
     /**
      * @param $view
+     *
      * @return mixed
      */
     public function compose(View $view)
@@ -35,5 +34,4 @@ class UserSelectComposer
 
         return $view->with('allUsers', $users);
     }
-
 }

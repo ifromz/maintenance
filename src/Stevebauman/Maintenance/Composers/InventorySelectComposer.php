@@ -6,12 +6,10 @@ use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 
 /**
- * Class InventorySelectComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class InventorySelectComposer.
  */
 class InventorySelectComposer
 {
-
     /**
      * @var InventoryService
      */
@@ -27,6 +25,7 @@ class InventorySelectComposer
 
     /**
      * @param $view
+     *
      * @return mixed
      */
     public function compose(View $view)
@@ -35,5 +34,4 @@ class InventorySelectComposer
 
         return $view->with('allInventories', $allInventories);
     }
-
 }

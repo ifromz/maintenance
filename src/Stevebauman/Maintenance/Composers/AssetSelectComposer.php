@@ -6,12 +6,10 @@ use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 
 /**
- * Class AssetSelectComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class AssetSelectComposer.
  */
 class AssetSelectComposer
 {
-
     /**
      * @var AssetService
      */
@@ -27,6 +25,7 @@ class AssetSelectComposer
 
     /**
      * @param $view
+     *
      * @return mixed
      */
     public function compose(View $view)
@@ -35,5 +34,4 @@ class AssetSelectComposer
 
         return $view->with('allAssets', $allAssets);
     }
-
 }

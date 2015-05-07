@@ -7,12 +7,10 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\NotificationService;
 
 /**
- * Class MainNotificationComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class MainNotificationComposer.
  */
 class MainNotificationComposer
 {
-
     /**
      * @var SentryService
      */
@@ -24,7 +22,7 @@ class MainNotificationComposer
     protected $notification;
 
     /**
-     * @param SentryService $sentry
+     * @param SentryService       $sentry
      * @param NotificationService $notification
      */
     public function __construct(SentryService $sentry, NotificationService $notification)
@@ -46,5 +44,4 @@ class MainNotificationComposer
 
         $view->with('notifications', $notifications);
     }
-
 }

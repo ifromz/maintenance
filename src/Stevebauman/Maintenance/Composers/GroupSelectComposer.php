@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Services\GroupService;
 use Illuminate\View\View;
 
 /**
- * Class GroupSelectComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class GroupSelectComposer.
  */
 class GroupSelectComposer
 {
@@ -26,6 +25,7 @@ class GroupSelectComposer
 
     /**
      * @param View $view
+     *
      * @return $this
      */
     public function compose(View $view)
@@ -34,5 +34,4 @@ class GroupSelectComposer
 
         return $view->with('allGroups', $groups);
     }
-
 }

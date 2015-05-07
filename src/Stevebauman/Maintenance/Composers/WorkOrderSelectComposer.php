@@ -6,12 +6,10 @@ use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 
 /**
- * Class WorkOrderSelectComposer
- * @package Stevebauman\Maintenance\Composers
+ * Class WorkOrderSelectComposer.
  */
 class WorkOrderSelectComposer
 {
-
     /**
      * @var WorkOrderService
      */
@@ -27,6 +25,7 @@ class WorkOrderSelectComposer
 
     /**
      * @param $view
+     *
      * @return mixed
      */
     public function compose(View $view)
@@ -35,5 +34,4 @@ class WorkOrderSelectComposer
 
         return $view->with('allWorkOrders', $allWorkOrders);
     }
-
 }
