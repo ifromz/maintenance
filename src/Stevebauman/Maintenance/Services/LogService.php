@@ -7,48 +7,47 @@ use Illuminate\Filesystem\Filesystem;
 use Stevebauman\CoreHelper\Services\Service;
 
 /**
- * Class LogService
- * @package Stevebauman\Maintenance\Services
+ * Class LogService.
  */
 class LogService extends Service
 {
     /**
-     * The laravel filesystem instance
+     * The laravel filesystem instance.
      *
      * @var Filesystem
      */
     protected $filesystem;
 
     /**
-     * The log file path
+     * The log file path.
      *
      * @var string
      */
     protected $path;
 
     /**
-     * Stores the direction to order the log entries in
+     * Stores the direction to order the log entries in.
      *
      * @var string
      */
     protected $orderBy = 'asc';
 
     /**
-     * Stores the current level to sort the log entries
+     * Stores the current level to sort the log entries.
      *
      * @var string
      */
     protected $level = 'all';
 
     /**
-     * Stores the date to search log files for
+     * Stores the date to search log files for.
      *
      * @var string
      */
     protected $date = 'none';
 
     /**
-     * The log levels
+     * The log levels.
      *
      * @var array
      */
@@ -74,7 +73,7 @@ class LogService extends Service
     }
 
     /**
-     * Returns a Laravel collection of log entries
+     * Returns a Laravel collection of log entries.
      *
      * @return Collection
      */
@@ -82,12 +81,10 @@ class LogService extends Service
     {
         $entries = [];
 
-        foreach($this->getLogFiles() as $log)
-        {
+        foreach ($this->getLogFiles() as $log) {
             $parsedLog = $this->parseLog($log, $this->getLevel());
 
-            foreach($parsedLog as $entry)
-            {
+            foreach ($parsedLog as $entry) {
                 $entries[] = new Collection($entry);
             }
         }
@@ -96,9 +93,10 @@ class LogService extends Service
     }
 
     /**
-     * Sets the level to sort the log entries by
+     * Sets the level to sort the log entries by.
      *
      * @param $level
+     *
      * @return $this
      */
     public function level($level)
@@ -109,9 +107,10 @@ class LogService extends Service
     }
 
     /**
-     * Sets the date to sort the log entries by
+     * Sets the date to sort the log entries by.
      *
      * @param $date
+     *
      * @return $this
      */
     public function date($date)
@@ -122,9 +121,10 @@ class LogService extends Service
     }
 
     /**
-     * Sets the direction to return the log entries in
+     * Sets the direction to return the log entries in.
      *
      * @param $direction
+     *
      * @return $this
      */
     public function orderBy($direction)
@@ -135,7 +135,7 @@ class LogService extends Service
     }
 
     /**
-     * Retrieves the orderBy property
+     * Retrieves the orderBy property.
      *
      * @return string
      */
@@ -145,7 +145,7 @@ class LogService extends Service
     }
 
     /**
-     * Retrieves the level property
+     * Retrieves the level property.
      *
      * @return string
      */
@@ -155,7 +155,7 @@ class LogService extends Service
     }
 
     /**
-     * Retrieves the date property
+     * Retrieves the date property.
      *
      * @return string
      */
@@ -165,7 +165,7 @@ class LogService extends Service
     }
 
     /**
-     * Sets the orderBy property to the specified direction
+     * Sets the orderBy property to the specified direction.
      *
      * @param $direction
      */
@@ -173,12 +173,14 @@ class LogService extends Service
     {
         $direction = strtolower($direction);
 
-        if($direction == 'desc' || $direction == 'asc') $this->orderBy = $direction;
+        if ($direction == 'desc' || $direction == 'asc') {
+            $this->orderBy = $direction;
+        }
     }
 
     /**
      * Sets the level property to the specified level
-     * if it exists inside the levels array
+     * if it exists inside the levels array.
      *
      * @param $level
      */
@@ -186,14 +188,13 @@ class LogService extends Service
     {
         $level = strtolower($level);
 
-        if(in_array($level, $this->levels))
-        {
+        if (in_array($level, $this->levels)) {
             $this->level = $level;
         }
     }
 
     /**
-     * Sets the date property to search the log files for
+     * Sets the date property to search the log files for.
      *
      * @param $date
      */
@@ -204,10 +205,11 @@ class LogService extends Service
 
     /**
      * Parses the content of the file separating the errors into
-     * a single array
+     * a single array.
      *
      * @param $content
      * @param string $allowedLevel
+     *
      * @return array
      */
     private function parseLog($content, $allowedLevel = 'all')
@@ -221,23 +223,17 @@ class LogService extends Service
 
         $data = preg_split($pattern, $content);
 
-        if ($data[0] < 1)
-        {
+        if ($data[0] < 1) {
             $trash = array_shift($data);
 
             unset($trash);
         }
 
-        foreach ($headings as $heading)
-        {
-            for ($i = 0, $j = count($heading); $i < $j; $i++)
-            {
-                foreach ($this->levels as $level)
-                {
-                    if ($level == $allowedLevel || $allowedLevel == 'all')
-                    {
-                        if (strpos(strtolower($heading[$i]), strtolower('.'.$level)))
-                        {
+        foreach ($headings as $heading) {
+            for ($i = 0, $j = count($heading); $i < $j; $i++) {
+                foreach ($this->levels as $level) {
+                    if ($level == $allowedLevel || $allowedLevel == 'all') {
+                        if (strpos(strtolower($heading[$i]), strtolower('.'.$level))) {
                             $log[] = ['level' => $level, 'header' => $heading[$i], 'stack' => $data[$i]];
                         }
                     }
@@ -254,7 +250,7 @@ class LogService extends Service
 
     /**
      * Retrieves all the data inside each log file
-     * from the log file list
+     * from the log file list.
      *
      * @return array|bool
      */
@@ -264,8 +260,7 @@ class LogService extends Service
 
         $files = $this->getLogFileList();
 
-        foreach($files as $file)
-        {
+        foreach ($files as $file) {
             $data[] = file_get_contents($file);
         }
 
@@ -273,18 +268,16 @@ class LogService extends Service
     }
 
     /**
-     * Returns an array of log file paths
+     * Returns an array of log file paths.
      *
      * @return array
      */
     private function getLogFileList()
     {
-        if($this->filesystem->isDirectory($this->path))
-        {
+        if ($this->filesystem->isDirectory($this->path)) {
             $logPath = sprintf('%s%s*.log', $this->path, DIRECTORY_SEPARATOR);
 
-            if($this->getDate() != 'none')
-            {
+            if ($this->getDate() != 'none') {
                 $logPath = sprintf('%s%slaravel-%s.log', $this->path, DIRECTORY_SEPARATOR, $this->getDate());
             }
 

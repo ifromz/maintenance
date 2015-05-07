@@ -8,7 +8,6 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 
 class ReadingService extends BaseModelService
 {
-
     public function __construct(MeterReading $meterReading, SentryService $sentry)
     {
         $this->model = $meterReading;
@@ -28,7 +27,6 @@ class ReadingService extends BaseModelService
         $this->dbStartTransaction();
 
         try {
-
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'meter_id' => $this->getInput('meter_id'),
@@ -41,9 +39,7 @@ class ReadingService extends BaseModelService
             $this->dbCommitTransaction();
 
             return $record;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
@@ -55,7 +51,6 @@ class ReadingService extends BaseModelService
         $this->dbStartTransaction();
 
         try {
-
             $record = $this->find($id);
 
             $insert = [
@@ -64,23 +59,18 @@ class ReadingService extends BaseModelService
             ];
 
             if ($record->update($insert)) {
-
                 $this->dbCommitTransaction();
 
                 return $record;
-
             }
 
             $this->dbRollbackTransaction();
 
             return false;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
     }
-
 }

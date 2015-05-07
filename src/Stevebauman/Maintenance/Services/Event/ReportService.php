@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class ReportService
- * @package Stevebauman\Maintenance\Services\Event
+ * Class ReportService.
  */
 class ReportService extends BaseModelService
 {
@@ -20,7 +19,7 @@ class ReportService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param EventReport $report
+     * @param EventReport   $report
      * @param SentryService $sentry
      */
     public function __construct(EventReport $report, SentryService $sentry)
@@ -38,8 +37,7 @@ class ReportService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'event_id' => $this->getInput('event_id'),
@@ -48,14 +46,12 @@ class ReportService extends BaseModelService
 
             $record = $this->model->create($insert);
 
-            if ($record)
-            {
+            if ($record) {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 

@@ -5,13 +5,12 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\CoreHelper\Services\ConfigService as CoreHelperConfigService;
 
 /**
- * Class ConfigService
- * @package Stevebauman\Maintenance\Services
+ * Class ConfigService.
  */
 class ConfigService extends CoreHelperConfigService
 {
     /**
-     * Updates the maintenance site configuration file
+     * Updates the maintenance site configuration file.
      *
      * @return bool
      */
@@ -38,7 +37,7 @@ class ConfigService extends CoreHelperConfigService
     }
 
     /**
-     * Updates the laravel mail configuration file
+     * Updates the laravel mail configuration file.
      *
      * @return bool
      */
@@ -76,7 +75,9 @@ class ConfigService extends CoreHelperConfigService
         $content = $this->replaceConfigEntry($content, 'encryption', 'mail.encryption', $this->getInput('encryption'));
 
         $pretend = false;
-        if($this->getInput('pretend')) $pretend = true;
+        if ($this->getInput('pretend')) {
+            $pretend = true;
+        }
 
         $content = $this->replaceConfigEntry($content, 'pretend', 'mail.pretend', $pretend, 'bool');
 

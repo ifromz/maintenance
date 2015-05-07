@@ -5,7 +5,8 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\CoreHelper\Services\StorageService as CoreHelperStorageService;
 
 /**
- * Class StorageService
- * @package Stevebauman\Maintenance\Services
+ * Class StorageService.
  */
-class StorageService extends CoreHelperStorageService{}
+class StorageService extends CoreHelperStorageService
+{
+}

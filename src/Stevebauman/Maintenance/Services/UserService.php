@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Models\User;
 
 /**
- * Class UserService
- * @package Stevebauman\Maintenance\Services
+ * Class UserService.
  */
 class UserService extends BaseModelService
 {
@@ -26,9 +25,9 @@ class UserService extends BaseModelService
     protected $config;
 
     /**
-     * @param User $user
+     * @param User          $user
      * @param SentryService $sentry
-     * @param LdapService $ldap
+     * @param LdapService   $ldap
      * @param ConfigService $config
      */
     public function __construct(
@@ -36,8 +35,7 @@ class UserService extends BaseModelService
         SentryService $sentry,
         LdapService $ldap,
         ConfigService $config
-    )
-    {
+    ) {
         $this->model = $user;
         $this->sentry = $sentry;
         $this->ldap = $ldap;
@@ -45,7 +43,7 @@ class UserService extends BaseModelService
     }
 
     /**
-     * Returns a filtered and paginated collection of users
+     * Returns a filtered and paginated collection of users.
      *
      * @return mixed
      */
@@ -60,7 +58,7 @@ class UserService extends BaseModelService
     }
 
     /**
-     * Creates a user through sentry
+     * Creates a user through sentry.
      *
      * @return bool|mixed
      */
@@ -68,8 +66,7 @@ class UserService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $activated = $this->getInput('activated');
 
             $insert = [
@@ -77,7 +74,7 @@ class UserService extends BaseModelService
                 'email' => $this->getInput('email'),
                 'password' => $this->getInput('password'),
                 'permissions' => $this->getInput('permissions', []),
-                'activated' => ($activated ? true : false)
+                'activated' => ($activated ? true : false),
             ];
 
             $record = $this->sentry->createUser($insert);
@@ -95,14 +92,12 @@ class UserService extends BaseModelService
 
             $modelRecord->update($insertAdditional);
 
-            if ($record)
-            {
+            if ($record) {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -110,12 +105,12 @@ class UserService extends BaseModelService
     }
 
     /**
-     * Create or Update a User for authentication for use with ldap
+     * Create or Update a User for authentication for use with ldap.
      *
      * @param $credentials
+     *
      * @return mixed
      */
-
     public function createOrUpdateLdapUser($credentials)
     {
         $loginAttribute = $this->config->get('cartalyst/sentry::users.login_attribute');
@@ -128,11 +123,9 @@ class UserService extends BaseModelService
          */
         $user = $this->model->where('username', $username)->first();
 
-        if ($user)
-        {
+        if ($user) {
             $this->sentry->updatePasswordById($user->id, $password);
-        } else
-        {
+        } else {
             /*
              * If a user is not found, create their web account
              */
@@ -146,8 +139,8 @@ class UserService extends BaseModelService
                 'email' => $ldapUser->email,
                 'password' => $password,
                 'username' => $username,
-                'last_name' => (string)$lastName,
-                'first_name' => (string)$firstName,
+                'last_name' => (string) $lastName,
+                'first_name' => (string) $firstName,
                 'activated' => 1,
             ];
 
@@ -164,15 +157,15 @@ class UserService extends BaseModelService
     }
 
     /**
-     * Processes updating a user
+     * Processes updating a user.
      *
      * @param int|string $id
+     *
      * @return bool|\Illuminate\Support\Collection|null|static
      */
     public function update($id)
     {
-        try
-        {
+        try {
             $this->dbStartTransaction();
 
             /*
@@ -188,22 +181,18 @@ class UserService extends BaseModelService
 
             $insert = [
                 'first_name' => $this->getInput('first_name'),
-                'last_name' => $this->getInput('last_name')
+                'last_name' => $this->getInput('last_name'),
             ];
 
-            if($user->update($insert))
-            {
+            if ($user->update($insert)) {
                 $this->dbCommitTransaction();
 
                 return $user;
             }
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
         return false;
     }
-
 }

@@ -7,8 +7,7 @@ use Illuminate\Mail\Mailer;
 use Stevebauman\CoreHelper\Services\Service;
 
 /**
- * Class MailService
- * @package Stevebauman\Maintenance\Services
+ * Class MailService.
  */
 class MailService extends Service
 {
@@ -28,23 +27,21 @@ class MailService extends Service
     }
 
     /**
-     * Sends an email using laravel's mailer
+     * Sends an email using laravel's mailer.
      *
      * @param array|string $views
-     * @param mixed $data
+     * @param mixed        $data
      * @param $callback
      *
      * @return bool
      */
     public function send($views, $data, $callback)
     {
-        try
-        {
+        try {
             $this->mail->send($views, $data, $callback);
 
             return true;
-        } catch(Swift_TransportException $e)
-        {
+        } catch (Swift_TransportException $e) {
             return false;
         }
     }

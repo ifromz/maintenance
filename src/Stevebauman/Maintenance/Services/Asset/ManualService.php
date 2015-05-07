@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Handles Asset Manual Uploads
+ * Handles Asset Manual Uploads.
  *
  * @author Steve Bauman <sbauman@bwbc.gc.ca>
  */
-
 namespace Stevebauman\Maintenance\Services\Asset;
 
 use Dmyers\Storage\Storage;
@@ -15,8 +14,7 @@ use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class ManualService
- * @package Stevebauman\Maintenance\Services\Asset
+ * Class ManualService.
  */
 class ManualService extends BaseModelService
 {
@@ -38,9 +36,9 @@ class ManualService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param AssetService $asset
+     * @param AssetService      $asset
      * @param AttachmentService $attachment
-     * @param SentryService $sentry
+     * @param SentryService     $sentry
      */
     public function __construct(AssetService $asset, AttachmentService $attachment, SentryService $sentry)
     {
@@ -51,7 +49,7 @@ class ManualService extends BaseModelService
 
     /**
      * Creates attachment records, attaches them to the asset images pivot table,
-     * and moves the uploaded file into it's stationary position (out of the temp folder)
+     * and moves the uploaded file into it's stationary position (out of the temp folder).
      *
      * @return bool|\Stevebauman\Maintenance\Models\Attachment
      */
@@ -59,8 +57,7 @@ class ManualService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             /*
              * Find the asset
              */
@@ -71,40 +68,37 @@ class ManualService extends BaseModelService
              */
             $files = $this->getInput('files');
 
-            if ($files)
-            {
+            if ($files) {
                 $records = [];
 
                 /*
                  * For each file, create the attachment
                  * record, and sync asset image pivot table
                  */
-                foreach ($files as $file)
-                {
+                foreach ($files as $file) {
                     $attributes = explode('|', $file);
 
                     $fileName = $attributes[0];
                     $fileOriginalName = $attributes[1];
 
                     // Ex. files/assets/images/1/example.png
-                    $movedFilePath = Config::get('maintenance::site.paths.assets.manuals') . sprintf('%s/', $asset->id);
+                    $movedFilePath = Config::get('maintenance::site.paths.assets.manuals').sprintf('%s/', $asset->id);
 
                     // Move the file
-                    Storage::move(Config::get('maintenance::site.paths.temp') . $fileName, $movedFilePath . $fileName);
+                    Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
 
                     // Set insert data
                     $insert = [
                         'name' => $fileOriginalName,
                         'file_name' => $fileName,
                         'file_path' => $movedFilePath,
-                        'user_id' => $this->sentry->getCurrentUserId()
+                        'user_id' => $this->sentry->getCurrentUserId(),
                     ];
 
                     // Create the attachment record
                     $record = $this->attachment->setInput($insert)->create();
 
-                    if($record)
-                    {
+                    if ($record) {
                         $asset->manuals()->attach($record);
 
                         $records[] = $record;
@@ -118,8 +112,7 @@ class ManualService extends BaseModelService
             }
 
             $this->dbRollbackTransaction();
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 

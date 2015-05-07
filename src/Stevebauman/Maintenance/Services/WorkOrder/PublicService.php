@@ -10,8 +10,7 @@ use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class PublicService
- * @package Stevebauman\Maintenance\Services\WorkOrder
+ * Class PublicService.
  */
 class PublicService extends BaseModelService
 {
@@ -33,10 +32,10 @@ class PublicService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param WorkOrder $workOrder
-     * @param StatusService $status
-     * @param PriorityService $priority
-     * @param SentryService $sentry
+     * @param WorkOrder                    $workOrder
+     * @param StatusService                $status
+     * @param PriorityService              $priority
+     * @param SentryService                $sentry
      * @param WorkRequestNotFoundException $notFoundException
      */
     public function __construct(
@@ -71,8 +70,7 @@ class PublicService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $status = $this->status->firstOrCreateRequest();
             $priority = $this->priority->firstOrCreateRequest();
 
@@ -86,14 +84,12 @@ class PublicService extends BaseModelService
 
             $record = $this->model->create($insert);
 
-            if($record)
-            {
+            if ($record) {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -104,29 +100,27 @@ class PublicService extends BaseModelService
      * Updates the specified work order.
      *
      * @param int|string $id
+     *
      * @return bool|mixed
      */
     public function update($id)
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $record = $this->find($id);
 
             $insert = [
                 'subject' => $this->getInput('subject', $record->subject, true),
-                'description' => $this->getInput('description', $record->description, true)
+                'description' => $this->getInput('description', $record->description, true),
             ];
 
-            if ($record->update($insert))
-            {
+            if ($record->update($insert)) {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -148,8 +142,7 @@ class PublicService extends BaseModelService
          * Make sure the current logged in
          * User ID equals the work order user id
          */
-        if ($record->user_id === $this->sentry->getCurrentUserId())
-        {
+        if ($record->user_id === $this->sentry->getCurrentUserId()) {
             $record->delete();
 
             return true;

@@ -12,8 +12,7 @@ use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class WorkOrderService
- * @package Stevebauman\Maintenance\Services\WorkOrder
+ * Class WorkOrderService.
  */
 class WorkOrderService extends BaseModelService
 {
@@ -40,11 +39,11 @@ class WorkOrderService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param WorkOrder $workOrder
-     * @param SentryService $sentry
-     * @param PriorityService $priority
-     * @param StatusService $status
-     * @param ConfigService $config
+     * @param WorkOrder                  $workOrder
+     * @param SentryService              $sentry
+     * @param PriorityService            $priority
+     * @param StatusService              $status
+     * @param ConfigService              $config
      * @param WorkOrderNotFoundException $notFoundException
      */
     public function __construct(
@@ -54,8 +53,7 @@ class WorkOrderService extends BaseModelService
         StatusService $status,
         ConfigService $config,
         WorkOrderNotFoundException $notFoundException
-    )
-    {
+    ) {
         $this->model = $workOrder;
         $this->sentry = $sentry;
         $this->priority = $priority;
@@ -120,8 +118,7 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'category_id' => $this->getInput('category_id'),
@@ -143,14 +140,13 @@ class WorkOrderService extends BaseModelService
             }
 
             $this->fireEvent('maintenance.work-orders.created', [
-                'workOrder' => $record
+                'workOrder' => $record,
             ]);
 
             $this->dbCommitTransaction();
 
             return $record;
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -172,10 +168,8 @@ class WorkOrderService extends BaseModelService
          * We'll make sure the work request doesn't already have a
          * work order attached to it before we try and create it
          */
-        if(! $workRequest->workOrder)
-        {
-            try
-            {
+        if (!$workRequest->workOrder) {
+            try {
                 // Retrieve the default submission status for work orders
                 $statusData = $this->config->get('rules.work-requests.submission_status');
 
@@ -207,15 +201,13 @@ class WorkOrderService extends BaseModelService
                 // Create the work order
                 $workOrder = $this->model->create($insert);
 
-                if($workOrder)
-                {
+                if ($workOrder) {
                     // Commit the transaction on success
                     $this->dbCommitTransaction();
 
                     return $workOrder;
                 }
-            } catch(\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $this->dbRollbackTransaction();
             }
         }
@@ -234,8 +226,7 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $record = $this->find($id);
 
             $insert = [
@@ -249,8 +240,7 @@ class WorkOrderService extends BaseModelService
                 'completed_at' => $this->getInput('completed_at', $record->completed_at),
             ];
 
-            if ($record->update($insert))
-            {
+            if ($record->update($insert)) {
                 $assets = $this->getInput('assets');
 
                 if ($assets) {
@@ -258,14 +248,13 @@ class WorkOrderService extends BaseModelService
                 }
 
                 $this->fireEvent('maintenance.work-orders.updated', [
-                    'workOrder' => $record
+                    'workOrder' => $record,
                 ]);
 
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-
         } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
@@ -284,21 +273,19 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $record = $this->find($id);
 
             $record->delete();
 
             $this->fireEvent('maintenance.work-orders.destroyed', [
-                'workOrder' => $record
+                'workOrder' => $record,
             ]);
 
             $this->dbCommitTransaction();
 
             return true;
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -306,9 +293,9 @@ class WorkOrderService extends BaseModelService
     }
 
     /**
-     * Attaches a stock item to a work order as a 'part'
+     * Attaches a stock item to a work order as a 'part'.
      *
-     * @param \Stevebauman\Maintenance\Models\WorkOrder $workOrder
+     * @param \Stevebauman\Maintenance\Models\WorkOrder      $workOrder
      * @param \Stevebauman\Maintenance\Models\InventoryStock $stock
      *
      * @return bool
@@ -317,13 +304,11 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             // Find if the stock ('part') is already attached to the work order
             $part = $workOrder->parts->find($stock->id);
 
-            if ($part)
-            {
+            if ($part) {
                 // Add on the quantity inputted to the existing record quantity
                 $newQuantity = $part->pivot->quantity + $this->getInput('quantity');
 
@@ -331,9 +316,7 @@ class WorkOrderService extends BaseModelService
                  * Update the existing pivot record
                  */
                 $workOrder->parts()->updateExistingPivot($part->id, ['quantity' => $newQuantity]);
-
-            } else
-            {
+            } else {
                 // Part Record does not exist, attach a new record with quantity inputted
                 $workOrder->parts()->attach($stock->id, ['quantity' => $this->getInput('quantity')]);
             }
@@ -349,9 +332,7 @@ class WorkOrderService extends BaseModelService
             $this->dbCommitTransaction();
 
             return true;
-
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -361,7 +342,7 @@ class WorkOrderService extends BaseModelService
     /**
      * Attaches an update to the work order pivot table.
      *
-     * @param WorkOrder $workOrder
+     * @param WorkOrder                              $workOrder
      * @param \Stevebauman\Maintenance\Models\Update $update
      *
      * @return bool
@@ -370,25 +351,21 @@ class WorkOrderService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
-            if ($workOrder->updates()->save($update))
-            {
+        try {
+            if ($workOrder->updates()->save($update)) {
                 $this->fireEvent('maintenance.work-orders.updates.created', [
                     'workOrder' => $workOrder,
-                    'update' => $update
+                    'update' => $update,
                 ]);
 
                 $this->dbCommitTransaction();
 
                 return true;
             }
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
         return false;
     }
 }
-

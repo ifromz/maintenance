@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Models\Note;
 
 /**
- * Class NoteService
- * @package Stevebauman\Maintenance\Services
+ * Class NoteService.
  */
 class NoteService extends BaseModelService
 {
@@ -18,7 +17,7 @@ class NoteService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param Note $note
+     * @param Note          $note
      * @param SentryService $sentry
      */
     public function __construct(Note $note, SentryService $sentry)
@@ -37,8 +36,7 @@ class NoteService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'content' => $this->getInput('content', null, true),
@@ -46,15 +44,12 @@ class NoteService extends BaseModelService
 
             $record = $this->model->create($insert);
 
-            if($record)
-            {
+            if ($record) {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 

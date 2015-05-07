@@ -6,7 +6,6 @@ use Stevebauman\Maintenance\Models\Notification;
 
 class NotificationService extends BaseModelService
 {
-
     public function __construct(Notification $notification)
     {
         $this->model = $notification;
@@ -17,7 +16,6 @@ class NotificationService extends BaseModelService
         $this->dbStartTransaction();
 
         try {
-
             $notification = $this->find($id);
 
             $insert = [
@@ -25,7 +23,6 @@ class NotificationService extends BaseModelService
             ];
 
             if ($notification->update($insert)) {
-
                 $this->dbCommitTransaction();
 
                 return $notification;
@@ -34,15 +31,10 @@ class NotificationService extends BaseModelService
             $this->dbRollbackTransaction();
 
             return false;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
-
-
     }
-
 }

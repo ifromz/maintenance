@@ -7,13 +7,10 @@ use Stevebauman\Maintenance\Models\Category;
 use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 
 /**
- * Class CategoryService
- *
- * @package Stevebauman\Maintenance\Services\Inventory
+ * Class CategoryService.
  */
 class CategoryService extends BaseCategoryService
 {
-
     protected $scoped_id = 'inventories';
 
     public function __construct(Category $inventoryCategory, InventoryCategoryNotFoundException $notFoundException)
@@ -21,5 +18,4 @@ class CategoryService extends BaseCategoryService
         $this->model = $inventoryCategory;
         $this->notFoundException = $notFoundException;
     }
-
 }

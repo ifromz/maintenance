@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Exceptions\NotFound\MetricNotFoundException;
 use Stevebauman\Maintenance\Models\Metric;
 
 /**
- * Class MetricService
- * @package Stevebauman\Maintenance\Services
+ * Class MetricService.
  */
 class MetricService extends BaseModelService
 {
@@ -17,8 +16,8 @@ class MetricService extends BaseModelService
     protected $sentry;
 
     /**
-     * @param Metric $metric
-     * @param SentryService $sentry
+     * @param Metric                  $metric
+     * @param SentryService           $sentry
      * @param MetricNotFoundException $notFoundException
      */
     public function __construct(Metric $metric, SentryService $sentry, MetricNotFoundException $notFoundException)
@@ -29,9 +28,10 @@ class MetricService extends BaseModelService
     }
 
     /**
-     * Retrieves all metrics
+     * Retrieves all metrics.
      *
      * @param array $select
+     *
      * @return mixed
      */
     public function get($select = [])
@@ -40,7 +40,7 @@ class MetricService extends BaseModelService
     }
 
     /**
-     * Processes creating a metric
+     * Processes creating a metric.
      *
      * @return bool|static
      */
@@ -48,12 +48,11 @@ class MetricService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'name' => $this->getInput('name'),
-                'symbol' => $this->getInput('symbol')
+                'symbol' => $this->getInput('symbol'),
             ];
 
             $record = $this->model->create($insert);
@@ -61,9 +60,7 @@ class MetricService extends BaseModelService
             $this->dbCommitTransaction();
 
             return $record;
-
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -71,32 +68,30 @@ class MetricService extends BaseModelService
     }
 
     /**
-     * Processes updating the specified metric
+     * Processes updating the specified metric.
      *
      * @param int|string $id
+     *
      * @return bool|mixed
      */
     public function update($id)
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $insert = [
                 'name' => $this->getInput('name'),
-                'symbol' => $this->getInput('symbol')
+                'symbol' => $this->getInput('symbol'),
             ];
 
             $record = $this->find($id);
 
-            if ($record->update($insert))
-            {
+            if ($record->update($insert)) {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 

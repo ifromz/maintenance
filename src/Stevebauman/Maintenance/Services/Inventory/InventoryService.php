@@ -8,20 +8,18 @@ use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class InventoryService
- * @package Stevebauman\Maintenance\Services\Inventory
+ * Class InventoryService.
  */
 class InventoryService extends BaseModelService
 {
-
     /**
      * @var SentryService
      */
     protected $sentry;
 
     /**
-     * @param Inventory $inventory
-     * @param SentryService $sentry
+     * @param Inventory                  $inventory
+     * @param SentryService              $sentry
      * @param InventoryNotFoundException $notFoundException
      */
     public function __construct(Inventory $inventory, SentryService $sentry, InventoryNotFoundException $notFoundException)
@@ -36,6 +34,7 @@ class InventoryService extends BaseModelService
      * as well as scopes for search.
      *
      * @param null $archived
+     *
      * @return mixed
      */
     public function getByPageWithFilter($archived = null)
@@ -61,7 +60,7 @@ class InventoryService extends BaseModelService
     }
 
     /**
-     * Creates an item record
+     * Creates an item record.
      *
      * @return mixed
      */
@@ -69,8 +68,7 @@ class InventoryService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             /*
              * Set input data
              */
@@ -87,13 +85,12 @@ class InventoryService extends BaseModelService
              */
             $record = $this->model->create($insert);
 
-            if ($record)
-            {
+            if ($record) {
                 /*
                  * Fire created event
                  */
                 $this->fireEvent('maintenance.inventory.created', [
-                    'item' => $record
+                    'item' => $record,
                 ]);
 
                 $this->dbCommitTransaction();
@@ -104,9 +101,7 @@ class InventoryService extends BaseModelService
             $this->dbRollbackTransaction();
 
             return false;
-
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -114,14 +109,14 @@ class InventoryService extends BaseModelService
     }
 
     /**
-     * Updates an item record
+     * Updates an item record.
      *
      * @param int|string $id
-     * @return boolean
+     *
+     * @return bool
      */
     public function update($id)
     {
-
         $this->dbStartTransaction();
 
         try {
@@ -150,26 +145,22 @@ class InventoryService extends BaseModelService
                  * Fire updated event
                  */
                 $this->fireEvent('maintenance.inventory.updated', [
-                    'item' => $record
+                    'item' => $record,
                 ]);
 
                 $this->dbCommitTransaction();
 
                 return $record;
-
             }
 
             $this->dbRollbackTransaction();
 
             return false;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
-
     }
 
     /*
@@ -177,7 +168,6 @@ class InventoryService extends BaseModelService
      */
     public function destroy($id)
     {
-
         $record = $this->find($id);
 
         $record->delete();
@@ -186,7 +176,7 @@ class InventoryService extends BaseModelService
          * Fire archived event
          */
         $this->fireEvent('maintenance.inventory.archived', [
-            'item' => $record
+            'item' => $record,
         ]);
 
         return true;

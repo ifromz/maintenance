@@ -9,8 +9,7 @@ use Stevebauman\Maintenance\Services\AttachmentService as BaseAttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class AttachmentService
- * @package Stevebauman\Maintenance\Services\WorkOrder
+ * Class AttachmentService.
  */
 class AttachmentService extends BaseModelService
 {
@@ -40,10 +39,10 @@ class AttachmentService extends BaseModelService
     protected $config;
 
     /**
-     * @param WorkOrderService $workOrder
+     * @param WorkOrderService      $workOrder
      * @param BaseAttachmentService $attachment
-     * @param SentryService $sentry
-     * @param ConfigService $config
+     * @param SentryService         $sentry
+     * @param ConfigService         $config
      */
     public function __construct(
         WorkOrderService $workOrder,
@@ -51,8 +50,7 @@ class AttachmentService extends BaseModelService
         SentryService $sentry,
         StorageService $storage,
         ConfigService $config
-    )
-    {
+    ) {
         $this->workOrder = $workOrder;
         $this->attachment = $attachment;
         $this->sentry = $sentry;
@@ -62,7 +60,7 @@ class AttachmentService extends BaseModelService
 
     /**
      * Creates attachment records, attaches them to the asset images pivot table,
-     * and moves the uploaded file into it's stationary position (out of the temp folder)
+     * and moves the uploaded file into it's stationary position (out of the temp folder).
      *
      * @return array|bool
      */
@@ -70,8 +68,7 @@ class AttachmentService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             /*
              * Find the work order
              */
@@ -82,15 +79,13 @@ class AttachmentService extends BaseModelService
              */
             $files = $this->getInput('files');
 
-            if ($files)
-            {
+            if ($files) {
                 $records = [];
 
                 /*
                  * For each file, create the attachment record, and sync asset image pivot table
                  */
-                foreach ($files as $file)
-                {
+                foreach ($files as $file) {
                     $attributes = explode('|', $file);
 
                     $fileName = $attributes[0];
@@ -100,14 +95,14 @@ class AttachmentService extends BaseModelService
                      * Ex. files/assets/images/1/example.png
                      */
                     $movedFilePath = $this->config->setPrefix('maintenance')->get('site.paths.work-orders.attachments')
-                        . sprintf('%s/', $workOrder->id);
+                        .sprintf('%s/', $workOrder->id);
 
                     /*
                      * Move the file
                      */
                     $this->storage->move(
-                        $this->config->setPrefix('core-helper')->get('temp-upload-path') . $fileName,
-                        $movedFilePath . $fileName
+                        $this->config->setPrefix('core-helper')->get('temp-upload-path').$fileName,
+                        $movedFilePath.$fileName
                     );
 
                     /*
@@ -117,7 +112,7 @@ class AttachmentService extends BaseModelService
                         'name' => $fileOriginalName,
                         'file_name' => $fileName,
                         'file_path' => $movedFilePath,
-                        'user_id' => $this->sentry->getCurrentUserId()
+                        'user_id' => $this->sentry->getCurrentUserId(),
                     ];
 
                     /*
@@ -125,17 +120,14 @@ class AttachmentService extends BaseModelService
                      */
                     $record = $this->attachment->setInput($insert)->create();
 
-                    if ($record)
-                    {
+                    if ($record) {
                         /*
                          * Attach the attachment record to the asset images
                          */
                         $workOrder->attachments()->attach($record);
 
                         $records[] = $record;
-
-                    } else
-                    {
+                    } else {
                         $this->dbRollbackTransaction();
                     }
                 }
@@ -146,15 +138,11 @@ class AttachmentService extends BaseModelService
                  *  Return attachment records on success
                  */
                 return $records;
-
             }
-
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
         return false;
     }
-
 }

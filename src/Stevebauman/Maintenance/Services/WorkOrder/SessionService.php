@@ -8,8 +8,7 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class SessionService
- * @package Stevebauman\Maintenance\Services\WorkOrder
+ * Class SessionService.
  */
 class SessionService extends BaseModelService
 {
@@ -28,7 +27,7 @@ class SessionService extends BaseModelService
      *
      * @param WorkOrderSession $session
      * @param WorkOrderService $workOrder
-     * @param SentryService $sentry
+     * @param SentryService    $sentry
      */
     public function __construct(WorkOrderSession $session, WorkOrderService $workOrder, SentryService $sentry)
     {
@@ -46,8 +45,7 @@ class SessionService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $workOrder = $this->workOrder->find($this->getInput('work_order_id'));
 
             $now = Carbon::now()->toDateTimeString();
@@ -56,8 +54,7 @@ class SessionService extends BaseModelService
              * If this is the first session that is being created on
              * the work order, set the started at property to now
              */
-            if ($workOrder->sessions->count() === 0)
-            {
+            if ($workOrder->sessions->count() === 0) {
                 $update = ['started_at' => $now];
 
                 $this->workOrder->setInput($update)->update($workOrder->id);
@@ -71,14 +68,12 @@ class SessionService extends BaseModelService
 
             $record = $this->model->create($insert);
 
-            if($record)
-            {
+            if ($record) {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -94,25 +89,21 @@ class SessionService extends BaseModelService
      */
     public function update($id)
     {
-
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $record = $this->model->find($id);
 
             $insert = [
                 'out' => Carbon::now()->toDateTimeString(),
             ];
 
-            if ($record->update($insert))
-            {
+            if ($record->update($insert)) {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 

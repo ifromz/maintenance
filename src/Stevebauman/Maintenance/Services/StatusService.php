@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Models\Status;
 
 /**
- * Class StatusService
- * @package Stevebauman\Maintenance\Services
+ * Class StatusService.
  */
 class StatusService extends BaseModelService
 {
@@ -16,7 +15,7 @@ class StatusService extends BaseModelService
     protected $sentry;
 
     /**
-     * @param Status $status
+     * @param Status        $status
      * @param SentryService $sentry
      */
     public function __construct(Status $status, SentryService $sentry)
@@ -30,11 +29,10 @@ class StatusService extends BaseModelService
         $this->dbStartTransaction();
 
         try {
-
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'name' => $this->getInput('name'),
-                'color' => $this->getInput('color')
+                'color' => $this->getInput('color'),
             ];
 
             $record = $this->model->create($insert);
@@ -42,9 +40,7 @@ class StatusService extends BaseModelService
             $this->dbCommitTransaction();
 
             return $record;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
@@ -53,20 +49,17 @@ class StatusService extends BaseModelService
 
     public function update($id)
     {
-
         $this->dbStartTransaction();
 
         try {
-
             $insert = [
                 'name' => $this->getInput('name'),
-                'color' => $this->getInput('color')
+                'color' => $this->getInput('color'),
             ];
 
             $record = $this->find($id);
 
             if ($record->update($insert)) {
-
                 $this->dbCommitTransaction();
 
                 return $record;
@@ -75,9 +68,7 @@ class StatusService extends BaseModelService
             $this->dbRollbackTransaction();
 
             return false;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
@@ -86,14 +77,12 @@ class StatusService extends BaseModelService
 
     public function firstOrCreateRequest()
     {
-
         $this->dbStartTransaction();
 
         try {
-
             $insert = [
                 'name' => 'Requested',
-                'color' => 'default'
+                'color' => 'default',
             ];
 
             $record = $this->model->firstOrCreate($insert);
@@ -101,13 +90,10 @@ class StatusService extends BaseModelService
             $this->dbCommitTransaction();
 
             return $record;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
     }
-
 }

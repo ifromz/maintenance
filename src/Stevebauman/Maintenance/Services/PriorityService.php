@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Models\Priority;
 
 /**
- * Class PriorityService
- * @package Stevebauman\Maintenance\Services
+ * Class PriorityService.
  */
 class PriorityService extends BaseModelService
 {
@@ -18,7 +17,7 @@ class PriorityService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param Priority $priority
+     * @param Priority      $priority
      * @param SentryService $sentry
      */
     public function __construct(Priority $priority, SentryService $sentry)
@@ -36,12 +35,11 @@ class PriorityService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'name' => $this->getInput('name'),
-                'color' => $this->getInput('color')
+                'color' => $this->getInput('color'),
             ];
 
             $record = $this->model->create($insert);
@@ -49,8 +47,7 @@ class PriorityService extends BaseModelService
             $this->dbCommitTransaction();
 
             return $record;
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
 
             return false;
@@ -68,23 +65,20 @@ class PriorityService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $record = $this->find($id);
 
             $insert = [
                 'name' => $this->getInput('name'),
-                'color' => $this->getInput('color')
+                'color' => $this->getInput('color'),
             ];
 
-            if ($record->update($insert))
-            {
+            if ($record->update($insert)) {
                 $this->dbCommitTransaction();
 
                 return $record;
             }
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -100,11 +94,10 @@ class PriorityService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             $insert = [
                 'name' => 'Requested',
-                'color' => 'default'
+                'color' => 'default',
             ];
 
             $record = $this->model->firstOrCreate($insert);
@@ -112,8 +105,7 @@ class PriorityService extends BaseModelService
             $this->dbCommitTransaction();
 
             return $record;
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
 
             return false;

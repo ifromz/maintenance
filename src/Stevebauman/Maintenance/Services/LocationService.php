@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\Maintenance\Models\Location;
 
 /**
- * Class LocationService
- * @package Stevebauman\Maintenance\Services
+ * Class LocationService.
  */
 class LocationService extends BaseNestedSetModelService
 {

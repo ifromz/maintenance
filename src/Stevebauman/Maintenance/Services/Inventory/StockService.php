@@ -7,12 +7,10 @@ use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class StockService
- * @package Stevebauman\Maintenance\Services\Inventory
+ * Class StockService.
  */
 class StockService extends BaseModelService
 {
-
     /**
      * @var StockMovementService
      */
@@ -22,21 +20,19 @@ class StockService extends BaseModelService
         InventoryStock $inventoryStock,
         StockMovementService $inventoryStockMovement,
         InventoryStockNotFoundException $notFoundException
-    )
-    {
+    ) {
         $this->model = $inventoryStock;
         $this->inventoryStockMovement = $inventoryStockMovement;
         $this->notFoundException = $notFoundException;
     }
 
     /**
-     * Creates a stock record as well as a first record movement
+     * Creates a stock record as well as a first record movement.
      *
      * @return bool|static
      */
     public function create()
     {
-
         $this->dbStartTransaction();
 
         try {
@@ -47,7 +43,7 @@ class StockService extends BaseModelService
             $insert = [
                 'inventory_id' => $this->getInput('inventory_id'),
                 'location_id' => $this->getInput('location_id'),
-                'quantity' => $this->getInput('quantity')
+                'quantity' => $this->getInput('quantity'),
             ];
 
             /*
@@ -61,7 +57,7 @@ class StockService extends BaseModelService
                  * Fire stock created event
                  */
                 $this->fireEvent('maintenance.inventory.stock.created', [
-                    'stock' => $record
+                    'stock' => $record,
                 ]);
 
                 $this->dbCommitTransaction();
@@ -72,14 +68,10 @@ class StockService extends BaseModelService
             $this->dbRollbackTransaction();
 
             return false;
-
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
-
         }
     }
 
@@ -88,15 +80,14 @@ class StockService extends BaseModelService
      * been updated.
      *
      * @param string|int $id
+     *
      * @return bool|static
      */
     public function update($id)
     {
-
         $this->dbStartTransaction();
 
         try {
-
             $record = $this->find($id);
 
             $location = $this->getInput('location_id');
@@ -105,9 +96,7 @@ class StockService extends BaseModelService
              * Move the stock if the location has changed
              */
             if ($location != $record->location->id) {
-
                 $record->moveTo($location);
-
             }
 
             $quantity = $this->getInput('quantity', $record->quantity);
@@ -123,7 +112,7 @@ class StockService extends BaseModelService
                  * Fire stock updated event
                  */
                 $this->fireEvent('maintenance.inventory.stock.updated', [
-                    'stock' => $record
+                    'stock' => $record,
                 ]);
 
                 $this->dbCommitTransaction();
@@ -132,7 +121,6 @@ class StockService extends BaseModelService
                  * Return updated stock record
                  */
                 return $record;
-
             }
 
             /*
@@ -141,9 +129,7 @@ class StockService extends BaseModelService
             $this->dbRollbackTransaction();
 
             return false;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
@@ -155,11 +141,11 @@ class StockService extends BaseModelService
      * effectively processing a "taking from stock" action.
      *
      * @param string|int $id
+     *
      * @return bool|static
      */
     public function take($id)
     {
-
         $this->dbStartTransaction();
 
         try {
@@ -177,7 +163,7 @@ class StockService extends BaseModelService
                  * Fire stock taken event
                  */
                 $this->fireEvent('maintenance.inventory.stock.taken', [
-                    'stock' => $record
+                    'stock' => $record,
                 ]);
 
                 $this->dbCommitTransaction();
@@ -191,14 +177,11 @@ class StockService extends BaseModelService
             $this->dbRollbackTransaction();
 
             return false;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
-
     }
 
     /**
@@ -206,11 +189,11 @@ class StockService extends BaseModelService
      * effectively processing a "putting into the stock" action.
      *
      * @param string|int $id
+     *
      * @return mixed
      */
     public function put($id)
     {
-
         $this->dbStartTransaction();
 
         try {
@@ -229,7 +212,7 @@ class StockService extends BaseModelService
                  * Fire stock put event
                  */
                 $this->fireEvent('maintenance.inventory.stock.put', [
-                    'stock' => $record
+                    'stock' => $record,
                 ]);
 
                 $this->dbCommitTransaction();
@@ -238,20 +221,15 @@ class StockService extends BaseModelService
                  * Return the record
                  */
                 return $record;
-
             }
 
             $this->dbRollbackTransaction();
 
             return false;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
-
     }
-
 }

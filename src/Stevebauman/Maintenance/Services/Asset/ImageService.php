@@ -9,12 +9,10 @@ use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class ImageService
- * @package Stevebauman\Maintenance\Services\Asset
+ * Class ImageService.
  */
 class ImageService extends BaseModelService
 {
-
     /**
      * @var AssetService
      */
@@ -46,8 +44,7 @@ class ImageService extends BaseModelService
         SentryService $sentry,
         StorageService $storage,
         ConfigService $config
-    )
-    {
+    ) {
         $this->asset = $asset;
         $this->attachment = $attachment;
         $this->sentry = $sentry;
@@ -57,7 +54,7 @@ class ImageService extends BaseModelService
 
     /**
      * Creates attachment records, attaches them to the asset images pivot table,
-     * and moves the uploaded file into it's stationary position (out of the temp folder)
+     * and moves the uploaded file into it's stationary position (out of the temp folder).
      *
      * @return mixed
      */
@@ -65,8 +62,7 @@ class ImageService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
+        try {
             /*
              * Find the asset
              */
@@ -77,15 +73,13 @@ class ImageService extends BaseModelService
              */
             $files = $this->getInput('files');
 
-            if ($files)
-            {
+            if ($files) {
                 $records = [];
 
                 /*
                  * For each file, create the attachment record, and sync asset image pivot table
                  */
-                foreach ($files as $file)
-                {
+                foreach ($files as $file) {
                     $attributes = explode('|', $file);
 
                     $fileName = $attributes[0];
@@ -94,14 +88,14 @@ class ImageService extends BaseModelService
                     /*
                      * Ex. files/assets/images/1/example.png
                      */
-                    $movedFilePath = $this->config->setPrefix('maintenance')->get('site.paths.assets.images') . sprintf('%s/', $asset->id);
+                    $movedFilePath = $this->config->setPrefix('maintenance')->get('site.paths.assets.images').sprintf('%s/', $asset->id);
 
                     /*
                      * Move the file
                      */
                     $this->storage->move(
-                        $this->config->setPrefix('core-helper')->get('temp-upload-path') . $fileName,
-                        $movedFilePath . $fileName
+                        $this->config->setPrefix('core-helper')->get('temp-upload-path').$fileName,
+                        $movedFilePath.$fileName
                     );
 
                     /*
@@ -111,7 +105,7 @@ class ImageService extends BaseModelService
                         'name' => $fileOriginalName,
                         'file_name' => $fileName,
                         'file_path' => $movedFilePath,
-                        'user_id' => $this->sentry->getCurrentUserId()
+                        'user_id' => $this->sentry->getCurrentUserId(),
                     ];
 
                     /*
@@ -123,7 +117,6 @@ class ImageService extends BaseModelService
                      * Attach the attachment record to the asset images
                      */
                     $asset->images()->attach(end($records));
-
                 }
 
                 $this->dbCommitTransaction();
@@ -132,7 +125,6 @@ class ImageService extends BaseModelService
                  *  Return attachment record on success
                  */
                 return $records;
-
             }
 
             $this->dbRollbackTransaction();
@@ -141,14 +133,10 @@ class ImageService extends BaseModelService
              * No Files were detected to be uploaded, return false
              */
             return false;
-
-
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
         return false;
     }
-
 }

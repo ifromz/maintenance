@@ -2,15 +2,13 @@
 
 namespace Stevebauman\Maintenance\Services\Asset;
 
-use Exception;
 use Stevebauman\Maintenance\Exceptions\NotFound\Asset\AssetNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Asset;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class AssetService
- * @package Stevebauman\Maintenance\Services\Asset
+ * Class AssetService.
  */
 class AssetService extends BaseModelService
 {
@@ -20,8 +18,8 @@ class AssetService extends BaseModelService
     protected $sentry;
 
     /**
-     * @param Asset $asset
-     * @param SentryService $sentry
+     * @param Asset                  $asset
+     * @param SentryService          $sentry
      * @param AssetNotFoundException $notFoundException
      */
     public function __construct(Asset $asset, SentryService $sentry, AssetNotFoundException $notFoundException)
@@ -49,13 +47,15 @@ class AssetService extends BaseModelService
             'images',
         ])->find($ids);
 
-        if($records) return $records;
+        if ($records) {
+            return $records;
+        }
 
-        throw new $this->notFoundException;
+        throw new $this->notFoundException();
     }
 
     /**
-     * Returns all assets paginated
+     * Returns all assets paginated.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -74,7 +74,7 @@ class AssetService extends BaseModelService
 
     /**
      * Returns common makes that are inputted into the DB for
-     * auto-complete functionality
+     * auto-complete functionality.
      *
      * @param string $make
      *
@@ -85,13 +85,13 @@ class AssetService extends BaseModelService
         return $this->model
             ->select('make')
             ->distinct()
-            ->where('make', 'LIKE', '%' . $make . '%')
+            ->where('make', 'LIKE', '%'.$make.'%')
             ->get();
     }
 
     /**
      * Returns common models that are inputted into the DB for
-     * auto-complete functionality
+     * auto-complete functionality.
      *
      * @param string $model
      *
@@ -102,13 +102,13 @@ class AssetService extends BaseModelService
         return $this->model
             ->distinct()
             ->select('model')
-            ->where('model', 'LIKE', '%' . $model . '%')
+            ->where('model', 'LIKE', '%'.$model.'%')
             ->get();
     }
 
     /**
      * Returns common serials that are inputted into
-     * the DB for auto-complete functionality
+     * the DB for auto-complete functionality.
      *
      * @param string $serial
      *
@@ -119,18 +119,17 @@ class AssetService extends BaseModelService
         return $this->model
             ->distinct()
             ->select('serial')
-            ->where('serial', 'LIKE', '%' . $serial . '%')
+            ->where('serial', 'LIKE', '%'.$serial.'%')
             ->get();
     }
 
     /**
-     * Creates an asset
+     * Creates an asset.
      *
-     * @return boolean OR object
+     * @return bool OR object
      */
     public function create()
     {
-
         $this->dbStartTransaction();
 
         try {
@@ -160,15 +159,13 @@ class AssetService extends BaseModelService
             $record = $this->model->create($insert);
 
             if ($record) {
-
                 $this->fireEvent('maintenance.assets.created', [
-                    'asset' => $record
+                    'asset' => $record,
                 ]);
 
                 $this->dbCommitTransaction();
 
                 return $record;
-
             }
 
             $this->dbRollbackTransaction();
@@ -177,14 +174,10 @@ class AssetService extends BaseModelService
              * Failed to create record, return false
              */
             return false;
-
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
-
         }
     }
 
@@ -197,7 +190,6 @@ class AssetService extends BaseModelService
      */
     public function update($id)
     {
-
         $this->dbStartTransaction();
 
         try {
@@ -229,9 +221,8 @@ class AssetService extends BaseModelService
              * Update the record and return it upon success
              */
             if ($record->update($insert)) {
-
                 $this->fireEvent('maintenance.assets.created', [
-                    'asset' => $record
+                    'asset' => $record,
                 ]);
 
                 $this->dbCommitTransaction();
@@ -245,14 +236,11 @@ class AssetService extends BaseModelService
              * Failed to update record, return false;
              */
             return false;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
-
     }
 
     public function destroy($id)
@@ -262,7 +250,7 @@ class AssetService extends BaseModelService
         $record->delete();
 
         $this->fireEvent('maintenance.assets.archived', [
-            'asset' => $record
+            'asset' => $record,
         ]);
 
         return true;

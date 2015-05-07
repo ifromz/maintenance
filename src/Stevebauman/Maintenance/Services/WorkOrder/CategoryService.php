@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Models\Category;
 use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 
 /**
- * Class CategoryService
- * @package Stevebauman\Maintenance\Services\WorkOrder
+ * Class CategoryService.
  */
 class CategoryService extends BaseCategoryService
 {
@@ -22,7 +21,7 @@ class CategoryService extends BaseCategoryService
     /**
      * Constructor.
      *
-     * @param Category $workOrderCategory
+     * @param Category                           $workOrderCategory
      * @param WorkOrderCategoryNotFoundException $notFoundException
      */
     public function __construct(Category $workOrderCategory, WorkOrderCategoryNotFoundException $notFoundException)

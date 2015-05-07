@@ -5,7 +5,8 @@ namespace Stevebauman\Maintenance\Services;
 use Stevebauman\CoreHelper\Services\Auth\AuthService as BaseAuthService;
 
 /**
- * Class AuthService
- * @package Stevebauman\Maintenance\Services
+ * Class AuthService.
  */
-class AuthService extends BaseAuthService {}
+class AuthService extends BaseAuthService
+{
+}

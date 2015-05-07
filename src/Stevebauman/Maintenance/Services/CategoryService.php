@@ -6,7 +6,6 @@ use Stevebauman\Maintenance\Models\Category;
 
 class CategoryService extends BaseNestedSetModelService
 {
-
     protected $scoped_id = '';
 
     public function __construct(Category $category)
@@ -15,9 +14,10 @@ class CategoryService extends BaseNestedSetModelService
     }
 
     /**
-     * Retrieves all categories scoped
+     * Retrieves all categories scoped.
      *
      * @param array $select
+     *
      * @return mixed
      */
     public function get($select = ['*'])
@@ -30,7 +30,6 @@ class CategoryService extends BaseNestedSetModelService
         $this->dbStartTransaction();
 
         try {
-
             $insert = [
                 'name' => $this->getInput('name'),
                 'belongs_to' => $this->scoped_id,
@@ -41,14 +40,10 @@ class CategoryService extends BaseNestedSetModelService
             $this->dbCommitTransaction();
 
             return $record;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
     }
-
-
 }

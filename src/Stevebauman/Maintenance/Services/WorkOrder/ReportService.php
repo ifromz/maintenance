@@ -8,12 +8,10 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
 /**
- * Class ReportService
- * @package Stevebauman\Maintenance\Services\WorkOrder
+ * Class ReportService.
  */
 class ReportService extends BaseModelService
 {
-
     /**
      * @var WorkOrderService
      */
@@ -25,9 +23,9 @@ class ReportService extends BaseModelService
     protected $sentry;
 
     /**
-     * @param WorkOrderReport $report
+     * @param WorkOrderReport  $report
      * @param WorkOrderService $workOrder
-     * @param SentryService $sentry
+     * @param SentryService    $sentry
      */
     public function __construct(WorkOrderReport $report, WorkOrderService $workOrder, SentryService $sentry)
     {
@@ -37,7 +35,7 @@ class ReportService extends BaseModelService
     }
 
     /**
-     * Creates a work order report
+     * Creates a work order report.
      *
      * @return bool|static
      */
@@ -78,7 +76,7 @@ class ReportService extends BaseModelService
              */
             $update = [
                 'started_at' => ($workOrder->started_at ? null : $now),
-                'completed_at' => $now
+                'completed_at' => $now,
             ];
 
             /*
@@ -95,7 +93,7 @@ class ReportService extends BaseModelService
              * Fire the work order report created event
              */
             $this->fireEvent('maintenance.work-orders.reports.created', [
-                'report' => $record
+                'report' => $record,
             ]);
 
             /*
@@ -107,13 +105,10 @@ class ReportService extends BaseModelService
              * Return the created report
              */
             return $record;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
     }
-
 }

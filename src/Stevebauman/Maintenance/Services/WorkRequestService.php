@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Models\Update;
 use Stevebauman\Maintenance\Models\WorkRequest;
 
 /**
- * Class WorkRequest
- * @package Stevebauman\Maintenance\Services
+ * Class WorkRequest.
  */
 class WorkRequestService extends BaseModelService
 {
@@ -25,9 +24,9 @@ class WorkRequestService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param WorkRequest $workRequest
+     * @param WorkRequest      $workRequest
      * @param WorkOrderService $workOrder
-     * @param SentryService $sentry
+     * @param SentryService    $sentry
      */
     public function __construct(WorkRequest $workRequest, WorkOrderService $workOrder, SentryService $sentry)
     {
@@ -54,7 +53,7 @@ class WorkRequestService extends BaseModelService
     }
 
     /**
-     * Creates a work request
+     * Creates a work request.
      *
      * @return bool|WorkRequest
      */
@@ -62,27 +61,23 @@ class WorkRequestService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
-            $workRequest = new $this->model;
+        try {
+            $workRequest = new $this->model();
             $workRequest->user_id = $this->sentry->getCurrentUserId();
             $workRequest->subject = $this->getInput('subject', null, true);
             $workRequest->best_time = $this->getInput('best_time', null, true);
             $workRequest->description = $this->getInput('description', null, true);
 
-            if($workRequest->save())
-            {
+            if ($workRequest->save()) {
                 $workOrder = $this->workOrder->createFromWorkRequest($workRequest);
 
-                if($workOrder)
-                {
+                if ($workOrder) {
                     $this->dbCommitTransaction();
 
                     return $workRequest;
                 }
             }
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -90,7 +85,7 @@ class WorkRequestService extends BaseModelService
     }
 
     /**
-     * Updates a work request
+     * Updates a work request.
      *
      * @param int|string $id
      *
@@ -102,20 +97,17 @@ class WorkRequestService extends BaseModelService
 
         $workRequest = $this->find($id);
 
-        try
-        {
+        try {
             $workRequest->subject = $this->getInput('subject', $workRequest->subject, true);
             $workRequest->best_time = $this->getInput('best_time', $workRequest->best_time, true);
             $workRequest->description = $this->getInput('description', $workRequest->description, true);
 
-            if($workRequest->save())
-            {
+            if ($workRequest->save()) {
                 $this->dbCommitTransaction();
 
                 return $workRequest;
             }
-        } catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 
@@ -123,10 +115,10 @@ class WorkRequestService extends BaseModelService
     }
 
     /**
-     * Attaches an update to the work request pivot table
+     * Attaches an update to the work request pivot table.
      *
      * @param WorkRequest $workRequest
-     * @param Update $update
+     * @param Update      $update
      *
      * @return bool
      */
@@ -134,22 +126,18 @@ class WorkRequestService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try
-        {
-            if ($workRequest->updates()->save($update))
-            {
+        try {
+            if ($workRequest->updates()->save($update)) {
                 $this->fireEvent('maintenance.work-requests.updates.created', [
                     'workRequest' => $workRequest,
-                    'update' => $update
+                    'update' => $update,
                 ]);
 
                 $this->dbCommitTransaction();
 
                 return true;
             }
-
-        } catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
 

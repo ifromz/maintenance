@@ -8,9 +8,7 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Models\WorkOrderAssignment;
 
 /**
- * Class AssignmentService
- *
- * @package Stevebauman\Maintenance\Services\WorkOrder
+ * Class AssignmentService.
  */
 class AssignmentService extends BaseModelService
 {
@@ -22,8 +20,8 @@ class AssignmentService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param WorkOrderAssignment $assignment
-     * @param SentryService $sentry
+     * @param WorkOrderAssignment                  $assignment
+     * @param SentryService                        $sentry
      * @param WorkOrderAssignmentNotFoundException $notFoundException
      */
     public function __construct(WorkOrderAssignment $assignment, SentryService $sentry, WorkOrderAssignmentNotFoundException $notFoundException)
@@ -44,19 +42,16 @@ class AssignmentService extends BaseModelService
             $users = $this->getInput('users');
 
             if ($users) {
-
                 $records = [];
 
                 foreach ($users as $user) {
-
                     $insert = [
                         'work_order_id' => $this->getInput('work_order_id'),
                         'by_user_id' => $this->sentry->getCurrentUserId(),
-                        'to_user_id' => $user
+                        'to_user_id' => $user,
                     ];
 
                     $records[] = $this->model->create($insert);
-
                 }
 
                 $this->dbCommitTransaction();
@@ -65,7 +60,6 @@ class AssignmentService extends BaseModelService
             }
 
             return false;
-
         } catch (\Exception $e) {
             $this->dbRollbackTransaction();
 

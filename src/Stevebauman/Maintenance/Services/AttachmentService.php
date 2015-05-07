@@ -6,7 +6,6 @@ use Stevebauman\Maintenance\Models\Attachment;
 
 class AttachmentService extends BaseModelService
 {
-
     /**
      * @param Attachment $attachment
      */
@@ -20,23 +19,18 @@ class AttachmentService extends BaseModelService
      */
     public function create()
     {
-
         $this->dbStartTransaction();
 
         try {
-
             $record = $this->model->create($this->input);
 
             $this->dbCommitTransaction();
 
             return $record;
-
         } catch (\Exception $e) {
-
             $this->dbRollbackTransaction();
 
             return false;
         }
     }
-
 }

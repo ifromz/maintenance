@@ -32,10 +32,10 @@ class EventService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param Event $model
-     * @param GoogleEventService $google
-     * @param SentryService $sentry
-     * @param LocationService $location
+     * @param Event                  $model
+     * @param GoogleEventService     $google
+     * @param SentryService          $sentry
+     * @param LocationService        $location
      * @param EventNotFoundException $notFoundException
      */
     public function __construct(
@@ -53,7 +53,7 @@ class EventService extends BaseModelService
     }
 
     /**
-     * Retrieves api events that are in the local database without recurrences
+     * Retrieves api events that are in the local database without recurrences.
      *
      * @param array $select
      *
@@ -69,19 +69,17 @@ class EventService extends BaseModelService
     }
 
     /**
-     * Returns a collection of all API events
+     * Returns a collection of all API events.
      *
      * @param array $apiIds
-     * @param bool $recurrences
+     * @param bool  $recurrences
      *
      * @return mixed|\Stevebauman\EloquentTable\TableCollection
      */
     public function getApiEvents($apiIds = [], $recurrences = false)
     {
         if (count($apiIds) > 0) {
-
             $events = $this->eventApi->setInput($this->input)->getOnly($apiIds, $recurrences);
-
         } else {
             $events = $this->eventApi->setInput($this->input)->get();
         }
@@ -90,7 +88,7 @@ class EventService extends BaseModelService
     }
 
     /**
-     * Returns recurrences from the specified API ID
+     * Returns recurrences from the specified API ID.
      *
      * @param string $api_id
      *
@@ -103,9 +101,8 @@ class EventService extends BaseModelService
         return $recurrences;
     }
 
-
     /**
-     * Retrieves and returns an API event by it's API ID
+     * Retrieves and returns an API event by it's API ID.
      *
      * @param string $api_id
      *
@@ -124,22 +121,20 @@ class EventService extends BaseModelService
              * record of it so we can attach reports to it.
              */
             if ($event->isRecurrence) {
-
                 $this->createRecurrence($event);
-
             }
 
             return $event;
         } else {
-            throw new $this->notFoundException;
+            throw new $this->notFoundException();
         }
-
     }
 
     /**
-     * Creates a local recurrence from the specified parent event
+     * Creates a local recurrence from the specified parent event.
      *
      * @param $event
+     *
      * @return mixed
      */
     public function createRecurrence($event)
@@ -177,9 +172,10 @@ class EventService extends BaseModelService
     }
 
     /**
-     * Retrieves the local database record of the API event
+     * Retrieves the local database record of the API event.
      *
      * @param string $api_id
+     *
      * @return mixed
      */
     public function findLocalByApiId($api_id)
@@ -192,15 +188,14 @@ class EventService extends BaseModelService
         if ($event) {
             return $event;
         } else {
-            throw new $this->notFoundException;
+            throw new $this->notFoundException();
         }
-
     }
 
     /**
      * Creates a google event and then creates a local database record
      * attaching it to whatever created it along with inserting
-     * the google event ID
+     * the google event ID.
      *
      * @return mixed
      */
@@ -213,7 +208,6 @@ class EventService extends BaseModelService
          * it can be seen on google calendar
          */
         if ($this->getInput('location_id')) {
-
             $location = $this->location->find($this->getInput('location_id'));
 
             $location_id = $location->id;
@@ -223,7 +217,6 @@ class EventService extends BaseModelService
              * and google does not display HTML formatting on their calendar
              */
             $data['location'] = strip_tags($location->trail);
-
         } else {
             /*
              * No location was given, set it to null
@@ -255,17 +248,16 @@ class EventService extends BaseModelService
             $this->model->create($insert);
 
             return $event;
-
         }
 
         return false;
     }
 
-
     /**
-     * Updates an event by the specified API ID
+     * Updates an event by the specified API ID.
      *
      * @param string $api_id
+     *
      * @return bool
      */
     public function updateByApiId($api_id)
@@ -286,9 +278,10 @@ class EventService extends BaseModelService
     }
 
     /**
-     * Updates the specified event dates
+     * Updates the specified event dates.
      *
      * @param $api_id
+     *
      * @return mixed
      */
     public function updateDates($api_id)
@@ -298,9 +291,10 @@ class EventService extends BaseModelService
 
     /**
      * Removes event from the local database calendar and then removes it from
-     * the API calendar
+     * the API calendar.
      *
      * @param $api_id
+     *
      * @return mixed
      */
     public function destroyByApiId($api_id)
@@ -312,7 +306,7 @@ class EventService extends BaseModelService
 
     /**
      * Removes local events from the database if the status is cancelled on the
-     * API service
+     * API service.
      *
      * @param $events
      */
@@ -327,9 +321,10 @@ class EventService extends BaseModelService
 
     /**
      * Parses a google collection of events into an array of events compatible
-     * with FullCalendar
+     * with FullCalendar.
      *
      * @param $events
+     *
      * @return array
      */
     public function parseEvents($events)
@@ -337,7 +332,6 @@ class EventService extends BaseModelService
         $arrayEvents = [];
 
         foreach ($events as $event) {
-
             $startDate = new \DateTime($event->start);
             $endDate = new \DateTime($event->end);
 
