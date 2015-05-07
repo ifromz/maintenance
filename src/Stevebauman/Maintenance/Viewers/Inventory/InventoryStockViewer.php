@@ -4,28 +4,28 @@ namespace Stevebauman\Maintenance\Viewers\Inventory;
 
 use Stevebauman\Maintenance\Viewers\BaseViewer;
 
-class InventoryStockViewer extends BaseViewer {
-
+class InventoryStockViewer extends BaseViewer
+{
     public function profile()
     {
-        return view('maintenance::viewers.inventory.stock.profile', ['stock'=>$this->entity]);
+        return view('maintenance::viewers.inventory.stock.profile', ['stock' => $this->entity]);
     }
 
     public function btnActions()
     {
-        return view('maintenance::viewers.inventory.stock.buttons.actions', ['stock'=>$this->entity]);
+        return view('maintenance::viewers.inventory.stock.buttons.actions', ['stock' => $this->entity]);
     }
 
     public function btnEdit()
     {
-        return view('maintenance::viewers.inventory.stock.buttons.edit', ['stock'=>$this->entity]);
+        return view('maintenance::viewers.inventory.stock.buttons.edit', ['stock' => $this->entity]);
     }
 
     public function btnDelete()
     {
-        return view('maintenance::viewers.inventory.stock.buttons.delete', ['stock'=>$this->entity]);
+        return view('maintenance::viewers.inventory.stock.buttons.delete', ['stock' => $this->entity]);
     }
-    
+
     public function btnAddForWorkOrder($workOrder)
     {
         return view('maintenance::viewers.inventory.stock.buttons.add-to-work-order', [
@@ -49,5 +49,4 @@ class InventoryStockViewer extends BaseViewer {
             'stock' => $this->entity,
         ]);
     }
-    
 }

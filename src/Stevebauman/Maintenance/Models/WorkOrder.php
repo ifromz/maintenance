@@ -12,9 +12,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
 
 /**
- * Class WorkOrder
- *
- * @package Stevebauman\Maintenance\Models
+ * Class WorkOrder.
  */
 class WorkOrder extends BaseModel
 {
@@ -185,7 +183,7 @@ class WorkOrder extends BaseModel
     public function scopeSubject($query, $subject = null)
     {
         if ($subject) {
-            return $query->where('subject', 'LIKE', '%' . $subject . '%');
+            return $query->where('subject', 'LIKE', '%'.$subject.'%');
         }
 
         return $query;
@@ -199,7 +197,7 @@ class WorkOrder extends BaseModel
     public function scopeDescription($query, $desc = null)
     {
         if ($desc) {
-            return $query->where('description', 'LIKE', '%' . $desc . '%');
+            return $query->where('description', 'LIKE', '%'.$desc.'%');
         }
 
         return $query;
@@ -270,12 +268,12 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Closes the sessions on the current work order
+     * Closes the sessions on the current work order.
      */
     public function closeSessions()
     {
-        foreach($this->sessions as $session) {
-            if(! $session->out) {
+        foreach ($this->sessions as $session) {
+            if (!$session->out) {
                 $session->out = Carbon::now()->toDateTimeString();
                 $session->save();
             }
@@ -284,33 +282,37 @@ class WorkOrder extends BaseModel
 
     /**
      * Checks if the current work order is complete by checking if a report
-     * has been filled out
+     * has been filled out.
      *
-     * @return boolean
+     * @return bool
      */
     public function isComplete()
     {
-        if ($this->report) return true;
+        if ($this->report) {
+            return true;
+        }
 
         return false;
     }
 
     /**
-     * Checks if the current work has workers assigned to it
+     * Checks if the current work has workers assigned to it.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasWorkersAssigned()
     {
-        if ($this->assignments->count() > 0) return true;
+        if ($this->assignments->count() > 0) {
+            return true;
+        }
 
         return false;
     }
 
     /**
-     * Checks if the user is currently checked into the current work order
+     * Checks if the user is currently checked into the current work order.
      *
-     * @return boolean
+     * @return bool
      */
     public function userCheckedIn()
     {
@@ -326,7 +328,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Returns the current users work order session record
+     * Returns the current users work order session record.
      *
      * @return object
      */
@@ -338,7 +340,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Alias for getUserNotificiations()
+     * Alias for getUserNotificiations().
      *
      * @return object
      */
@@ -348,7 +350,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Returns the current users work order notifications
+     * Returns the current users work order notifications.
      *
      * @return object
      */
@@ -360,7 +362,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Set the default work order category id to null if the given value is empty
+     * Set the default work order category id to null if the given value is empty.
      *
      * @param int|string $value
      */
@@ -370,7 +372,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Set the default location id to null if the given value is empty
+     * Set the default location id to null if the given value is empty.
      *
      * @param int|string $value
      */

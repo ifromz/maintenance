@@ -5,9 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class Status
- *
- * @package Stevebauman\Maintenance\Models
+ * Class Status.
  */
 class Status extends BaseModel
 {
@@ -20,11 +18,11 @@ class Status extends BaseModel
     protected $fillable = [
         'user_id',
         'name',
-        'color'
+        'color',
     ];
 
     /**
-     * Returns an html label with the color of the status
+     * Returns an html label with the color of the status.
      *
      * @return string
      */
@@ -38,7 +36,7 @@ class Status extends BaseModel
     }
 
     /**
-     * Compatibility with Revisionable
+     * Compatibility with Revisionable.
      *
      * @return string
      */

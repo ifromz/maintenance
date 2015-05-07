@@ -5,9 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class WorkOrderSession
- *
- * @package Stevebauman\Maintenance\Models
+ * Class WorkOrderSession.
  */
 class WorkOrderSession extends BaseModel
 {
@@ -20,11 +18,11 @@ class WorkOrderSession extends BaseModel
         'work_order_id',
         'in',
         'out',
-        'hours'
+        'hours',
     ];
 
     /**
-     * The hasOne work order relationship
+     * The hasOne work order relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -34,7 +32,7 @@ class WorkOrderSession extends BaseModel
     }
 
     /**
-     * Returns the number of hours a session lasted with decimals
+     * Returns the number of hours a session lasted with decimals.
      *
      * @return null|int
      */
@@ -45,6 +43,7 @@ class WorkOrderSession extends BaseModel
 
             return $hours;
         }
-        return null;
+
+        return;
     }
 }

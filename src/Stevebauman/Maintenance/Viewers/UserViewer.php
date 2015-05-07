@@ -3,8 +3,7 @@
 namespace Stevebauman\Maintenance\Viewers;
 
 /**
- * Class UserViewer
- * @package Stevebauman\Maintenance\Viewers
+ * Class UserViewer.
  */
 class UserViewer extends BaseViewer
 {
@@ -49,5 +48,4 @@ class UserViewer extends BaseViewer
             'user' => $this->entity,
         ]);
     }
-
 }

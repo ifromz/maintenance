@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class Update
- * @package Stevebauman\Maintenance\Models
+ * Class Update.
  */
 class Update extends BaseModel
 {

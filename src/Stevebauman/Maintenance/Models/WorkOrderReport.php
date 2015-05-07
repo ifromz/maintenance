@@ -5,9 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class WorkOrderReport
- *
- * @package Stevebauman\Maintenance\Models
+ * Class WorkOrderReport.
  */
 class WorkOrderReport extends BaseModel
 {
@@ -18,7 +16,7 @@ class WorkOrderReport extends BaseModel
     protected $fillable = [
         'user_id',
         'work_order_id',
-        'description'
+        'description',
     ];
 
     /**

@@ -8,7 +8,7 @@ class MeterReadingViewer extends BaseViewer
     {
         return view('maintenance::viewers.meter.reading.buttons.actions', [
             'asset' => $asset,
-            'reading'=>$this->entity
+            'reading' => $this->entity,
         ]);
     }
 }

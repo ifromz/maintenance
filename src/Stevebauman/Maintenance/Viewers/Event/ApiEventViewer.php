@@ -4,11 +4,11 @@ namespace Stevebauman\Maintenance\Viewers\Event;
 
 use Stevebauman\Maintenance\Viewers\BaseViewer;
 
-class ApiEventViewer extends BaseViewer {
-    
+class ApiEventViewer extends BaseViewer
+{
     /**
-     * Returns a view of the profile of the event
-     * 
+     * Returns a view of the profile of the event.
+     *
      * @return view
      */
     public function profile()
@@ -17,173 +17,171 @@ class ApiEventViewer extends BaseViewer {
             'event' => $this->entity,
         ]);
     }
-    
+
     public function recurrences($recurrences)
     {
         return view('maintenance::viewers.event.recurrences', [
             'event' => $this->entity,
-            'recurrences' => $recurrences
+            'recurrences' => $recurrences,
         ]);
     }
-    
+
     public function attendees()
     {
         return view('maintenance::viewers.event.attendees', [
-            'event' => $this->entity
+            'event' => $this->entity,
         ]);
     }
-    
+
     public function recurrenceWarning()
     {
         return view('maintenance::viewers.event.recurrence-warning', [
-            'event' => $this->entity
+            'event' => $this->entity,
         ]);
     }
-    
+
     /**
-     * Presents the correct date timestamp depending if the event is all day
-     * 
+     * Presents the correct date timestamp depending if the event is all day.
+     *
      * @return string
      */
     public function startFormatted()
     {
         $start = new \DateTime();
-        
+
         $start->setTimestamp(strtotime($this->entity->start));
-        
-        if($this->entity->all_day) {
-            return $start->format('M dS Y'); 
+
+        if ($this->entity->all_day) {
+            return $start->format('M dS Y');
         } else {
-            return $start->format('M dS Y - h:ia'); 
+            return $start->format('M dS Y - h:ia');
         }
     }
-    
+
     /**
-     * Presents the correct start date formatted for editing
-     * 
+     * Presents the correct start date formatted for editing.
+     *
      * @return string
      */
     public function startDateFormatted()
     {
         $start = new \DateTime();
-        
+
         $start->setTimestamp(strtotime($this->entity->start));
-        
-        return $start->format('m/d/Y'); 
+
+        return $start->format('m/d/Y');
     }
-    
+
     /**
-     * Presents the correct start time formatted for editing
-     * 
+     * Presents the correct start time formatted for editing.
+     *
      * @return type
      */
     public function startTimeFormatted()
     {
-        if(!$this->entity->all_day) {
+        if (!$this->entity->all_day) {
             $start = new \DateTime();
-        
+
             $start->setTimestamp(strtotime($this->entity->start));
 
-            return $start->format('H:i A'); 
+            return $start->format('H:i A');
         }
     }
-    
+
     /**
-     * Presents the correct date timestamp depending if the event is all day
-     * 
+     * Presents the correct date timestamp depending if the event is all day.
+     *
      * @return string
      */
     public function endFormatted()
     {
         $end = new \DateTime();
-        
+
         $end->setTimestamp(strtotime($this->entity->end));
-        
-        if($this->entity->all_day) {
-            return $end->format('M dS Y'); 
+
+        if ($this->entity->all_day) {
+            return $end->format('M dS Y');
         } else {
-            return $end->format('M dS Y - h:ia'); 
+            return $end->format('M dS Y - h:ia');
         }
     }
-    
+
     /**
-     * Presents the correct end date formatted for editing
-     * 
+     * Presents the correct end date formatted for editing.
+     *
      * @return string
      */
     public function endDateFormatted()
     {
         $end = new \DateTime();
-        
+
         $end->setTimestamp(strtotime($this->entity->start));
-        
-        return $end->format('m/d/Y'); 
+
+        return $end->format('m/d/Y');
     }
-    
+
     /**
-     * Presents the correct end time formatted for editing
-     * 
+     * Presents the correct end time formatted for editing.
+     *
      * @return string
      */
     public function endTimeFormatted()
     {
-        if(!$this->entity->all_day) {
+        if (!$this->entity->all_day) {
             $end = new \DateTime();
-            
+
             $end->setTimestamp(strtotime($this->entity->start));
 
-            return $end->format('H:i A'); 
+            return $end->format('H:i A');
         }
     }
-    
+
     public function recurFrequencyFormatted()
     {
-        if($this->recurFrequency()) {
+        if ($this->recurFrequency()) {
             return ucfirst(strtolower($this->recurFrequency()));
         } else {
             return 'None';
         }
     }
-    
+
     public function recurFrequency()
     {
-        if($this->entity->rruleArray && array_key_exists('FREQ', $this->entity->rruleArray)) {
-            
+        if ($this->entity->rruleArray && array_key_exists('FREQ', $this->entity->rruleArray)) {
             $freq = $this->entity->rruleArray['FREQ'];
-            
+
             return $freq;
         }
     }
-    
+
     public function recurDays()
     {
-        if($this->entity->rruleArray && array_key_exists('BYDAY', $this->entity->rruleArray)) {
-            
+        if ($this->entity->rruleArray && array_key_exists('BYDAY', $this->entity->rruleArray)) {
             $freq = $this->entity->rruleArray['BYDAY'];
-            
+
             return $freq;
         }
     }
-    
+
     public function lblRecurring()
     {
-        return view('maintenance::viewers.event.labels.recurring', ['event'=>$this->entity]);
+        return view('maintenance::viewers.event.labels.recurring', ['event' => $this->entity]);
     }
-    
+
     /**
-     * Returns a view of the all day label
-     * 
+     * Returns a view of the all day label.
+     *
      * @return type
      */
     public function lblAllDay()
     {
-        return view('maintenance::viewers.event.labels.all-day', ['event'=>$this->entity]);
+        return view('maintenance::viewers.event.labels.all-day', ['event' => $this->entity]);
     }
 
     public function btnEventableActions($eventable)
     {
         return view('maintenance::viewers.event.buttons.eventable-actions', [
-            'event'=>$this->entity,
+            'event' => $this->entity,
             'eventable' => $eventable,
         ]);
     }
@@ -206,17 +204,16 @@ class ApiEventViewer extends BaseViewer {
 
     public function btnActions()
     {
-        return view('maintenance::viewers.event.buttons.actions', ['event'=>$this->entity]);
+        return view('maintenance::viewers.event.buttons.actions', ['event' => $this->entity]);
     }
-    
+
     public function btnEdit()
     {
         return view('maintenance::viewers.event.buttons.edit', ['event' => $this->entity]);
     }
-    
+
     public function btnDelete()
     {
         return view('maintenance::viewers.event.buttons.delete', ['event' => $this->entity]);
     }
-    
 }

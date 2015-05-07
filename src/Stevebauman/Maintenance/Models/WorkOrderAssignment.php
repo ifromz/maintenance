@@ -3,9 +3,7 @@
 namespace Stevebauman\Maintenance\Models;
 
 /**
- * Class WorkOrderAssignment
- *
- * @package Stevebauman\Maintenance\Models
+ * Class WorkOrderAssignment.
  */
 class WorkOrderAssignment extends BaseModel
 {
@@ -14,13 +12,13 @@ class WorkOrderAssignment extends BaseModel
     protected $fillable = [
         'work_order_id',
         'by_user_id',
-        'to_user_id'
+        'to_user_id',
     ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrder\AssignmentViewer';
 
     /**
-     * The hasOne work order relationship
+     * The hasOne work order relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -30,7 +28,7 @@ class WorkOrderAssignment extends BaseModel
     }
 
     /**
-     * The hasOne by user relationship indicating who assigned the 'toUser'
+     * The hasOne by user relationship indicating who assigned the 'toUser'.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -40,7 +38,7 @@ class WorkOrderAssignment extends BaseModel
     }
 
     /**
-     * The hasOne to user relationship indicating who assigned user is
+     * The hasOne to user relationship indicating who assigned user is.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -50,7 +48,7 @@ class WorkOrderAssignment extends BaseModel
     }
 
     /**
-     * Returns an html label of the assigned user
+     * Returns an html label of the assigned user.
      *
      * @return string
      */

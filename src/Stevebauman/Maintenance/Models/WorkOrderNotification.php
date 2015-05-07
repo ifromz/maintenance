@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class WorkOrderNotification
- * @package Stevebauman\Maintenance\Models
+ * Class WorkOrderNotification.
  */
 class WorkOrderNotification extends BaseModel
 {
@@ -26,7 +25,7 @@ class WorkOrderNotification extends BaseModel
     ];
 
     /**
-     * The hasOne work order relationship
+     * The hasOne work order relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

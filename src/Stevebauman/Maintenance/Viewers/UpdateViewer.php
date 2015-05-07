@@ -11,7 +11,7 @@ class UpdateViewer extends BaseViewer
             'update' => $this->entity,
         ]);
     }
-    
+
     public function workOrder($workOrder)
     {
         return view('maintenance::viewers.update.work-order', [

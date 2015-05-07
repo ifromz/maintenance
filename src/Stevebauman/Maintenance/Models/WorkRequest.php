@@ -5,12 +5,10 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class WorkRequest
- *
- * @package Stevebauman\Maintenance\Models
+ * Class WorkRequest.
  */
-class WorkRequest extends BaseModel {
-
+class WorkRequest extends BaseModel
+{
     use HasUserTrait;
 
     protected $table = 'work_requests';
@@ -19,7 +17,7 @@ class WorkRequest extends BaseModel {
         'user_id',
         'subject',
         'description',
-        'best_time'
+        'best_time',
     ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkRequestViewer';
