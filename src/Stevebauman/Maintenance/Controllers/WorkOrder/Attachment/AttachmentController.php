@@ -9,8 +9,7 @@ use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class AttachmentController
- * @package Stevebauman\Maintenance\Controllers\WorkOrder\Attachment
+ * Class AttachmentController.
  */
 class AttachmentController extends BaseController
 {
@@ -35,18 +34,17 @@ class AttachmentController extends BaseController
     protected $storage;
 
     /**
-     * @param WorkOrderService $workOrder
+     * @param WorkOrderService           $workOrder
      * @param WorkOrderAttachmentService $workOrderAttachment
-     * @param AttachmentService $attachment
-     * @param StorageService $storage
+     * @param AttachmentService          $attachment
+     * @param StorageService             $storage
      */
     public function __construct(
         WorkOrderService $workOrder,
         WorkOrderAttachmentService $workOrderAttachment,
         AttachmentService $attachment,
         StorageService $storage
-    )
-    {
+    ) {
         $this->workOrder = $workOrder;
         $this->workOrderAttachment = $workOrderAttachment;
         $this->attachment = $attachment;
@@ -54,9 +52,10 @@ class AttachmentController extends BaseController
     }
 
     /**
-     * Displays a list of the work order attachments
+     * Displays a list of the work order attachments.
      *
      * @param $workOrder_id
+     *
      * @return mixed
      */
     public function index($workOrder_id)
@@ -65,14 +64,15 @@ class AttachmentController extends BaseController
 
         return view('maintenance::work-orders.attachments.index', [
             'title' => 'Work Order Attachments',
-            'workOrder' => $workOrder
+            'workOrder' => $workOrder,
         ]);
     }
 
     /**
-     * Displays the form to create work order attachments
+     * Displays the form to create work order attachments.
      *
      * @param $workOrder_id
+     *
      * @return mixed
      */
     public function create($workOrder_id)
@@ -81,14 +81,15 @@ class AttachmentController extends BaseController
 
         return view('maintenance::work-orders.attachments.create', [
             'title' => 'Add Attachments to Work Order',
-            'workOrder' => $workOrder
+            'workOrder' => $workOrder,
         ]);
     }
 
     /**
-     * Processes storing the attachment record
+     * Processes storing the attachment record.
      *
      * @param $workOrder_id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function store($workOrder_id)
@@ -98,13 +99,11 @@ class AttachmentController extends BaseController
         $data = $this->inputAll();
         $data['work_order_id'] = $workOrder->id;
 
-        if ($this->workOrderAttachment->setInput($data)->create())
-        {
+        if ($this->workOrderAttachment->setInput($data)->create()) {
             $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrder->id]);
             $this->message = 'Successfully added attachments';
             $this->messageType = 'success';
-        } else
-        {
+        } else {
             $this->redirect = route('maintenance.work-orders.attachments.create', [$workOrder->id]);
             $this->message = 'There was an error adding images to the asset, please try again';
             $this->messageType = 'danger';
@@ -114,10 +113,11 @@ class AttachmentController extends BaseController
     }
 
     /**
-     * Processes deleting an attachment record and the file itself
+     * Processes deleting an attachment record and the file itself.
      *
      * @param $workOrder_id
      * @param $attachment_id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($workOrder_id, $attachment_id)
@@ -125,8 +125,7 @@ class AttachmentController extends BaseController
         $workOrder = $this->workOrder->find($workOrder_id);
         $attachment = $this->attachment->find($attachment_id);
 
-        if ($this->storage->delete($attachment->file_path . $attachment->file_name))
-        {
+        if ($this->storage->delete($attachment->file_path.$attachment->file_name)) {
             /*
              * We'll try and remove the directory if it's empty
              */
@@ -137,15 +136,12 @@ class AttachmentController extends BaseController
             $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrder->id]);
             $this->message = 'Successfully deleted attachment';
             $this->messageType = 'success';
-        } else
-        {
+        } else {
             $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrder->id]);
             $this->message = 'There was an error deleting the attached file, please try again';
             $this->messageType = 'danger';
         }
 
         return $this->response();
-
     }
-
 }

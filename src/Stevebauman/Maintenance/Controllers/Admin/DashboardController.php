@@ -14,7 +14,7 @@ class DashboardController extends BaseController
     public function getIndex()
     {
         return view('maintenance::admin.dashboard.index', [
-            'title' => 'Administrator Dashboard'
+            'title' => 'Administrator Dashboard',
         ]);
     }
 }

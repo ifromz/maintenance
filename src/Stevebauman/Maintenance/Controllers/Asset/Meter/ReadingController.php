@@ -10,8 +10,7 @@ use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class ReadingController
- * @package Stevebauman\Maintenance\Controllers\Asset\Meter
+ * Class ReadingController.
  */
 class ReadingController extends BaseController
 {
@@ -41,20 +40,19 @@ class ReadingController extends BaseController
     protected $meterReadingValidator;
 
     /**
-     * @param AssetService $asset
-     * @param MeterService $meter
-     * @param ReadingService $meterReading
-     * @param ConfigService $config
+     * @param AssetService          $asset
+     * @param MeterService          $meter
+     * @param ReadingService        $meterReading
+     * @param ConfigService         $config
      * @param MeterReadingValidator $meterReadingValidator
      */
     public function __construct(
             AssetService $asset,
-            MeterService $meter, 
+            MeterService $meter,
             ReadingService $meterReading,
             ConfigService $config,
             MeterReadingValidator $meterReadingValidator
-    )
-    {
+    ) {
         $this->asset = $asset;
         $this->meter = $meter;
         $this->meterReading = $meterReading;
@@ -62,70 +60,63 @@ class ReadingController extends BaseController
 
         $this->config = $config->setPrefix('maintenance');
     }
-    
+
     public function store($asset_id, $meter_id)
     {
-        if($this->meterReadingValidator->passes())
-        {
+        if ($this->meterReadingValidator->passes()) {
             $asset = $this->asset->find($asset_id);
             $meter = $this->meter->find($meter_id);
-            
+
             $data = $this->inputAll();
             $data['meter_id'] = $meter->id;
 
             /*
              * Check if duplicate reading entries are enabled
              */
-            if($this->config->get('rules.meters.prevent_duplicate_entries'))
-            {
+            if ($this->config->get('rules.meters.prevent_duplicate_entries')) {
                 /*
                  * If the last reading is the same as the reading being inputted
                  */
-                if($this->input('reading') === $meter->last_reading)
-                {
+                if ($this->input('reading') === $meter->last_reading) {
                     /*
                      * Return warning message
                      */
                     $this->message = 'Please enter a reading different from the last reading';
                     $this->messageType = 'warning';
                     $this->redirect = route('maintenance.assets.meters.show', [$asset->id, $meter->id]);
-                    
+
                     return $this->response();
                 }
             }
-            
-            if($this->meterReading->setInput($data)->create())
-            {
+
+            if ($this->meterReading->setInput($data)->create()) {
                 $this->message = 'Successfully updated reading';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.assets.show', [$asset->id]);
-            } else
-            {
+            } else {
                 $this->message = 'There was an error trying to update this meter. Please try again';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.assets.show', [$asset->id]);
             }
-        } else
-        {
+        } else {
             $this->errors = $this->meterReadingValidator->getErrors();
         }
-        
+
         return $this->response();
     }
-    
+
     public function destroy($asset_id, $meter_id, $reading_id)
     {
         $asset = $this->asset->find($asset_id);
-        
+
         $meter = $this->meter->find($meter_id);
-        
+
         $this->meterReading->destroy($reading_id);
-        
+
         $this->message = 'Successfully deleted reading';
         $this->messageType = 'success';
         $this->redirect = route('maintenance.assets.meters.show', [$asset->id, $meter->id]);
-        
+
         return $this->response();
     }
-    
 }

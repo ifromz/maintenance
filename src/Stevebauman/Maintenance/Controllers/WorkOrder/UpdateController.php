@@ -8,8 +8,7 @@ use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class UpdateController
- * @package Stevebauman\Maintenance\Controllers\WorkOrder
+ * Class UpdateController.
  */
 class UpdateController extends BaseController
 {
@@ -31,9 +30,9 @@ class UpdateController extends BaseController
     /**
      * Constructor.
      *
-     * @param UpdateService $update
+     * @param UpdateService    $update
      * @param WorkOrderService $workOrder
-     * @param UpdateValidator $updateValidator
+     * @param UpdateValidator  $updateValidator
      */
     public function __construct(UpdateService $update, WorkOrderService $workOrder, UpdateValidator $updateValidator)
     {
@@ -81,7 +80,7 @@ class UpdateController extends BaseController
     {
         $workOrder = $this->workOrder->find($workOrderId);
 
-        if($this->update->destroy($updateId)) {
+        if ($this->update->destroy($updateId)) {
             $this->message = 'Successfully deleted update';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.show', [$workOrder->id, '#tab_updates']);

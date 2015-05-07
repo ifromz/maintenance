@@ -9,8 +9,7 @@ use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\Event\AbstractEventableController;
 
 /**
- * Class EventController
- * @package Stevebauman\Maintenance\Controllers\WorkOrder
+ * Class EventController.
  */
 class EventController extends AbstractEventableController
 {
@@ -21,17 +20,16 @@ class EventController extends AbstractEventableController
 
     /**
      * @param WorkOrderService $workOrder
-     * @param EventService $event
-     * @param ConfigService $config
-     * @param EventValidator $eventValidator
+     * @param EventService     $event
+     * @param ConfigService    $config
+     * @param EventValidator   $eventValidator
      */
     public function __construct(
         WorkOrderService $workOrder,
         EventService $event,
         ConfigService $config,
         EventValidator $eventValidator
-    )
-    {
+    ) {
         $this->eventable = $workOrder;
 
         $this->config = $config->setPrefix('maintenance');

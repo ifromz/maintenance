@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class WorkOrderController
- * @package Stevebauman\Maintenance\Controllers\WorkOrder
+ * Class WorkOrderController.
  */
 class WorkOrderController extends BaseController
 {
@@ -25,7 +24,7 @@ class WorkOrderController extends BaseController
     /**
      * Constructor.
      *
-     * @param WorkOrderService $workOrder
+     * @param WorkOrderService   $workOrder
      * @param WorkOrderValidator $workOrderValidator
      */
     public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator)
@@ -45,7 +44,7 @@ class WorkOrderController extends BaseController
 
         return view('maintenance::work-orders.index', [
             'title' => 'Work Orders',
-            'workOrders' => $workOrders
+            'workOrders' => $workOrders,
         ]);
     }
 
@@ -94,8 +93,8 @@ class WorkOrderController extends BaseController
         $workOrder = $this->workOrder->find($id);
 
         return view('maintenance::work-orders.show', [
-            'title' => 'Viewing Work Order: ' . $workOrder->subject,
-            'workOrder' => $workOrder
+            'title' => 'Viewing Work Order: '.$workOrder->subject,
+            'workOrder' => $workOrder,
         ]);
     }
 
@@ -111,7 +110,7 @@ class WorkOrderController extends BaseController
         $workOrder = $this->workOrder->find($id);
 
         return view('maintenance::work-orders.edit', [
-            'title' => 'Editing Work Order: ' . $workOrder->subject,
+            'title' => 'Editing Work Order: '.$workOrder->subject,
             'workOrder' => $workOrder,
         ]);
     }
@@ -143,6 +142,7 @@ class WorkOrderController extends BaseController
      * Deletes a work order.
      *
      * @param string|int $id
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy($id)

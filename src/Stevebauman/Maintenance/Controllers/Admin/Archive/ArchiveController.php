@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class ArchiveController
- * @package Stevebauman\Maintenance\Controllers\Admin\Archive
+ * Class ArchiveController.
  */
 class ArchiveController extends BaseController
 {
@@ -18,7 +17,7 @@ class ArchiveController extends BaseController
     public function getIndex()
     {
         return view('maintenance::admin.archive.index', [
-            'title' => 'Archive'
+            'title' => 'Archive',
         ]);
     }
 }

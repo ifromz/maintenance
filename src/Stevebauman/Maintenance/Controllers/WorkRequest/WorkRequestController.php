@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\WorkRequestService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class WorkRequest
- * @package Stevebauman\Maintenance\Controllers\WorkRequest
+ * Class WorkRequest.
  */
 class WorkRequestController extends BaseController
 {
@@ -23,7 +22,7 @@ class WorkRequestController extends BaseController
     protected $workRequestValidator;
 
     /**
-     * @param WorkRequestService $workRequest
+     * @param WorkRequestService   $workRequest
      * @param WorkRequestValidator $workRequestValidator
      */
     public function __construct(WorkRequestService $workRequest, WorkRequestValidator $workRequestValidator)
@@ -33,7 +32,7 @@ class WorkRequestController extends BaseController
     }
 
     /**
-     * Displays all work requests
+     * Displays all work requests.
      *
      * @return mixed
      */
@@ -50,7 +49,7 @@ class WorkRequestController extends BaseController
     }
 
     /**
-     * Displays the form to create a work request
+     * Displays the form to create a work request.
      *
      * @return mixed
      */
@@ -62,27 +61,23 @@ class WorkRequestController extends BaseController
     }
 
     /**
-     * Processes creating a work request
+     * Processes creating a work request.
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function store()
     {
-        if($this->workRequestValidator->passes())
-        {
+        if ($this->workRequestValidator->passes()) {
             $workRequest = $this->workRequest->setInput($this->inputAll())->create();
 
-            if($workRequest)
-            {
+            if ($workRequest) {
                 $this->message = 'Successfully created work request.';
                 $this->messageType = 'success';
-            } else
-            {
+            } else {
                 $this->message = 'There was an issue trying to create a work request. Please try again';
                 $this->messageType = 'danger';
             }
-        } else
-        {
+        } else {
             $this->errors = $this->workRequestValidator->getErrors();
         }
 
@@ -90,9 +85,10 @@ class WorkRequestController extends BaseController
     }
 
     /**
-     * Displays a work request by the specified ID
+     * Displays a work request by the specified ID.
      *
      * @param $id
+     *
      * @return mixed
      */
     public function show($id)
@@ -107,12 +103,10 @@ class WorkRequestController extends BaseController
 
     public function edit($id)
     {
-
     }
 
     public function update($id)
     {
-
     }
 
     /**
@@ -124,13 +118,11 @@ class WorkRequestController extends BaseController
      */
     public function destroy($id)
     {
-        if($this->workRequest->destroy($id))
-        {
+        if ($this->workRequest->destroy($id)) {
             $this->message = 'Successfully deleted work request.';
             $this->messageType = 'success';
             $this->redirect = routeBack('maintenance.work-requests.index');
-        } else
-        {
+        } else {
             $this->message = 'There was an issue deleting this work request. Please try again later.';
             $this->messageType = 'danger';
             $this->redirect = routeBack('maintenance.work-requests.show', [$id]);
@@ -138,5 +130,4 @@ class WorkRequestController extends BaseController
 
         return $this->response();
     }
-
 }

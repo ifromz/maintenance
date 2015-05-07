@@ -51,19 +51,15 @@ class SiteController extends BaseController
     {
         $this->redirect = routeBack('maintenance.admin.settings.site.index');
 
-        if($this->siteValidator->passes())
-        {
-            if($this->config->setInput($this->inputAll())->updateSite())
-            {
+        if ($this->siteValidator->passes()) {
+            if ($this->config->setInput($this->inputAll())->updateSite()) {
                 $this->message = 'Successfully updated site configuration';
                 $this->messageType = 'success';
-            } else
-            {
+            } else {
                 $this->message = 'There was an issue updating the site configuration. Please try again.';
                 $this->messageType = 'danger';
             }
-        } else
-        {
+        } else {
             $this->errors = $this->siteValidator->getErrors();
         }
 

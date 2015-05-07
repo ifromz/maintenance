@@ -21,7 +21,7 @@ class PriorityController extends BaseController
     /**
      * Constructor.
      *
-     * @param PriorityService $priority
+     * @param PriorityService   $priority
      * @param PriorityValidator $priorityValidator
      */
     public function __construct(PriorityService $priority, PriorityValidator $priorityValidator)
@@ -41,7 +41,7 @@ class PriorityController extends BaseController
 
         return view('maintenance::work-orders.priorities.index', [
             'title' => 'All Priorities',
-            'priorities' => $priorities
+            'priorities' => $priorities,
         ]);
     }
 
@@ -53,7 +53,7 @@ class PriorityController extends BaseController
     public function create()
     {
         return view('maintenance::work-orders.priorities.create', [
-            'title' => 'Create a Priority'
+            'title' => 'Create a Priority',
         ]);
     }
 
@@ -96,8 +96,8 @@ class PriorityController extends BaseController
         $priority = $this->priority->find($id);
 
         return view('maintenance::work-orders.priorities.edit', [
-            'title' => 'Editing Priority: ' . $priority->name,
-            'priority' => $priority
+            'title' => 'Editing Priority: '.$priority->name,
+            'priority' => $priority,
         ]);
     }
 

@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Services\WorkOrder\SessionService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class SessionController
- * @package Stevebauman\Maintenance\Controllers\WorkOrder
+ * Class SessionController.
  */
 class SessionController extends BaseController
 {
@@ -43,7 +42,7 @@ class SessionController extends BaseController
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.show', [$record->work_order_id]);
         } else {
-            $this->message = "There was an error trying to check you into this work order. Please try again";
+            $this->message = 'There was an error trying to check you into this work order. Please try again';
             $this->messageType = 'danger';
             $this->redirect = route('maintenance.work-orders.show', [$record->work_order_id]);
         }
@@ -67,11 +66,11 @@ class SessionController extends BaseController
         $record = $this->session->setInput($data)->update($session_id);
 
         if ($record) {
-            $this->message = "You have been checked out of this work order. Your hours have been logged.";
+            $this->message = 'You have been checked out of this work order. Your hours have been logged.';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.show', [$record->work_order_id]);
         } else {
-            $this->message = "There was an error trying to check you out of this work order. Please try again";
+            $this->message = 'There was an error trying to check you out of this work order. Please try again';
             $this->messageType = 'danger';
             $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
         }

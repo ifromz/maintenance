@@ -21,8 +21,7 @@ class StatusController extends BaseController
     /**
      * Constructor.
      *
-     * @param StatusService $status
-     *
+     * @param StatusService   $status
      * @param StatusValidator $statusValidator
      */
     public function __construct(StatusService $status, StatusValidator $statusValidator)
@@ -42,7 +41,7 @@ class StatusController extends BaseController
 
         return view('maintenance::work-orders.statuses.index', [
             'title' => 'All Statuses',
-            'statuses' => $statuses
+            'statuses' => $statuses,
         ]);
     }
 
@@ -55,7 +54,7 @@ class StatusController extends BaseController
     public function create()
     {
         return view('maintenance::work-orders.statuses.create', [
-            'title' => 'Create a Status'
+            'title' => 'Create a Status',
         ]);
     }
 
@@ -102,8 +101,8 @@ class StatusController extends BaseController
         $status = $this->status->find($id);
 
         return view('maintenance::work-orders.statuses.edit', [
-            'title' => 'Editing Status: ' . $status->name,
-            'status' => $status
+            'title' => 'Editing Status: '.$status->name,
+            'status' => $status,
         ]);
     }
 

@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Services\WorkRequestService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class WorkRequestController
- * @package Stevebauman\Maintenance\Controllers\Client
+ * Class WorkRequestController.
  */
 class WorkRequestController extends BaseController
 {
@@ -26,26 +25,21 @@ class WorkRequestController extends BaseController
 
     public function index()
     {
-
     }
 
     public function create()
     {
-
     }
 
     public function store()
     {
-
     }
 
     public function edit($id)
     {
-
     }
 
     public function update($id)
     {
-
     }
 }

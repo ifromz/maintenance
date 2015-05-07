@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class InventoryController
- * @package Stevebauman\Maintenance\Controllers\Inventory
+ * Class InventoryController.
  */
 class InventoryController extends BaseController
 {
@@ -23,7 +22,7 @@ class InventoryController extends BaseController
     protected $inventoryValidator;
 
     /**
-     * @param InventoryService $inventory
+     * @param InventoryService   $inventory
      * @param InventoryValidator $inventoryValidator
      */
     public function __construct(InventoryService $inventory, InventoryValidator $inventoryValidator)
@@ -33,7 +32,7 @@ class InventoryController extends BaseController
     }
 
     /**
-     * Display all inventory entries (paginated with search functionality)
+     * Display all inventory entries (paginated with search functionality).
      *
      * @return mixed
      */
@@ -48,7 +47,7 @@ class InventoryController extends BaseController
     }
 
     /**
-     * Show the form for creating an inventory
+     * Show the form for creating an inventory.
      *
      * @return mixed
      */
@@ -60,7 +59,7 @@ class InventoryController extends BaseController
     }
 
     /**
-     * Store a new inventory
+     * Store a new inventory.
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
@@ -68,88 +67,18 @@ class InventoryController extends BaseController
     {
         $this->inventoryValidator->unique('name', $this->inventory->getTableName(), 'name');
 
-        if ($this->inventoryValidator->passes())
-        {
+        if ($this->inventoryValidator->passes()) {
             $record = $this->inventory->setInput($this->inputAll())->create();
 
-            if ($record)
-            {
+            if ($record) {
                 $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', [$record->id]));
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.inventory.index');
-
-            } else
-            {
+            } else {
                 $this->message = 'There was an error adding this item to the inventory. Please try again.';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.inventory.create');
             }
-
-        } else
-        {
-            $this->errors = $this->inventoryValidator->getErrors();
-        }
-
-        return $this->response();
-    }
-
-    /**
-     * Display the specified inventory
-     *
-     * @param $id
-     * @return mixed
-     */
-    public function show($id)
-    {
-        $item = $this->inventory->find($id);
-
-        return view('maintenance::inventory.show', [
-            'title' => 'Viewing Inventory Item: ' . $item->name,
-            'item' => $item,
-        ]);
-    }
-
-    /**
-     * Displays the edit form for the specified inventory
-     *
-     * @param $id
-     * @return mixed
-     */
-    public function edit($id)
-    {
-        $item = $this->inventory->find($id);
-
-        return view('maintenance::inventory.edit', [
-            'title' => 'Editing Inventory Item: ' . $item->name,
-            'item' => $item,
-        ]);
-    }
-
-    /**
-     * Updates the specified inventory
-     *
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse|mixed
-     */
-    public function update($id)
-    {
-        $this->inventoryValidator->ignore('name', $this->inventory->getTableName(), 'name', $id);
-
-        if ($this->inventoryValidator->passes()) {
-
-            $item = $this->inventory->setInput($this->inputAll())->update($id);
-
-            if ($item) {
-                $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', [$item->id]));
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.inventory.show', [$item->id]);
-
-            } else {
-                $this->message = 'There was an error trying to update this item. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.edit', [$item->id]);
-            }
-
         } else {
             $this->errors = $this->inventoryValidator->getErrors();
         }
@@ -158,9 +87,74 @@ class InventoryController extends BaseController
     }
 
     /**
-     * Removes the specified inventory
+     * Display the specified inventory.
      *
      * @param $id
+     *
+     * @return mixed
+     */
+    public function show($id)
+    {
+        $item = $this->inventory->find($id);
+
+        return view('maintenance::inventory.show', [
+            'title' => 'Viewing Inventory Item: '.$item->name,
+            'item' => $item,
+        ]);
+    }
+
+    /**
+     * Displays the edit form for the specified inventory.
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function edit($id)
+    {
+        $item = $this->inventory->find($id);
+
+        return view('maintenance::inventory.edit', [
+            'title' => 'Editing Inventory Item: '.$item->name,
+            'item' => $item,
+        ]);
+    }
+
+    /**
+     * Updates the specified inventory.
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse|mixed
+     */
+    public function update($id)
+    {
+        $this->inventoryValidator->ignore('name', $this->inventory->getTableName(), 'name', $id);
+
+        if ($this->inventoryValidator->passes()) {
+            $item = $this->inventory->setInput($this->inputAll())->update($id);
+
+            if ($item) {
+                $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', [$item->id]));
+                $this->messageType = 'success';
+                $this->redirect = route('maintenance.inventory.show', [$item->id]);
+            } else {
+                $this->message = 'There was an error trying to update this item. Please try again.';
+                $this->messageType = 'danger';
+                $this->redirect = route('maintenance.inventory.edit', [$item->id]);
+            }
+        } else {
+            $this->errors = $this->inventoryValidator->getErrors();
+        }
+
+        return $this->response();
+    }
+
+    /**
+     * Removes the specified inventory.
+     *
+     * @param $id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($id)

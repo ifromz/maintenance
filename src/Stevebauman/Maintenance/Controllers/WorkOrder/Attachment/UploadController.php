@@ -9,13 +9,11 @@ use Stevebauman\Maintenance\Controllers\BaseUploadController;
 /**
  * Processes the upload from PLUpload and store's it inside a temporary location.
  * A json view response is definable here you can customize the layout of the dynamic uploads.
- *
  */
 class UploadController extends BaseUploadController
 {
-
     /**
-     * @param ConfigService $config
+     * @param ConfigService  $config
      * @param StorageService $storage
      */
     public function __construct(ConfigService $config, StorageService $storage)
@@ -24,5 +22,4 @@ class UploadController extends BaseUploadController
 
         $this->responseView = 'maintenance::partials.work-order-upload';
     }
-
 }

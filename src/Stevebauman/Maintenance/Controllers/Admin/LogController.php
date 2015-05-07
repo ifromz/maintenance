@@ -7,13 +7,12 @@ use Stevebauman\LogReader\LogReader;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class LogController
- * @package Stevebauman\Maintenance\Controllers\Admin
+ * Class LogController.
  */
 class LogController extends BaseController
 {
     /**
-     * Holds the current log instance
+     * Holds the current log instance.
      *
      * @var LogReader
      */
@@ -28,7 +27,7 @@ class LogController extends BaseController
     }
 
     /**
-     * Displays all the sites log entries
+     * Displays all the sites log entries.
      *
      * @return mixed
      */
@@ -37,11 +36,9 @@ class LogController extends BaseController
         $field = $this->input('field');
         $sort = $this->input('sort');
 
-        if($field && $sort)
-        {
+        if ($field && $sort) {
             $entries = $this->log->orderBy($field, $sort);
-        } else
-        {
+        } else {
             $entries = $this->log->orderBy('date', 'desc');
         }
 
@@ -52,7 +49,7 @@ class LogController extends BaseController
     }
 
     /**
-     * Displays the specified log entry
+     * Displays the specified log entry.
      *
      * @param $id
      */
@@ -60,8 +57,7 @@ class LogController extends BaseController
     {
         $entry = $this->log->includeRead()->find($id);
 
-        if($entry)
-        {
+        if ($entry) {
             return view('maintenance::admin.logs.show', [
                 'title' => 'Viewing Log Entry',
                 'entry' => $entry,
@@ -72,24 +68,22 @@ class LogController extends BaseController
     }
 
     /**
-     * Marks the specified entry as read
+     * Marks the specified entry as read.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function markRead($id)
     {
         $entry = $this->log->find($id);
 
-        if($entry)
-        {
-            if($entry->markRead())
-            {
+        if ($entry) {
+            if ($entry->markRead()) {
                 $this->message = '';
                 $this->messageType = 'success';
                 $this->redirect = routeBack('maintenance.admin.logs.index');
-            } else
-            {
+            } else {
                 $this->message = 'There was an error trying to mark this entry as read. Please try again.';
                 $this->messageType = 'danger';
                 $this->redirect = routeBack('maintenance.admin.logs.index');
@@ -102,12 +96,11 @@ class LogController extends BaseController
     }
 
     /**
-     * Destroys the specified entry
+     * Destroys the specified entry.
      *
      * @param $id
      */
     public function destroy($id)
     {
-
     }
 }

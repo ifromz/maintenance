@@ -27,8 +27,8 @@ class ReportController extends BaseController
     /**
      * Constructor.
      *
-     * @param WorkOrderService $workOrder
-     * @param ReportService $report
+     * @param WorkOrderService         $workOrder
+     * @param ReportService            $report
      * @param WorkOrderReportValidator $reportValidator
      */
     public function __construct(WorkOrderService $workOrder, ReportService $report, WorkOrderReportValidator $reportValidator)
@@ -52,7 +52,7 @@ class ReportController extends BaseController
 
         return view('maintenance::work-orders.report.create', [
             'title' => 'Create a Work Order Report',
-            'workOrder' => $workOrder
+            'workOrder' => $workOrder,
         ]);
     }
 
@@ -66,20 +66,17 @@ class ReportController extends BaseController
     public function store($workOrder_id)
     {
         if ($this->reportValidator->passes()) {
-
             $workOrder = $this->workOrder->find($workOrder_id);
 
             $data = $this->inputAll();
             $data['work_order_id'] = $workOrder->id;
 
             if ($this->report->setInput($data)->create()) {
-
                 $this->workOrder->setInput($data)->update($workOrder->id);
 
                 $this->message = 'Successfully created work order report';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
-
             } else {
                 $this->message = 'There was an error creating a work order report. Please try again.';
                 $this->messageType = 'danger';
@@ -101,7 +98,6 @@ class ReportController extends BaseController
      */
     public function show($workOrder_id, $report_id)
     {
-
     }
 
     /**
@@ -112,7 +108,6 @@ class ReportController extends BaseController
      */
     public function edit($workOrder_id, $report_id)
     {
-
     }
 
     /**
@@ -123,7 +118,6 @@ class ReportController extends BaseController
      */
     public function update($workOrder_id, $report_id)
     {
-
     }
 
     /**
@@ -134,6 +128,5 @@ class ReportController extends BaseController
      */
     public function destroy($workOrder_id, $report_id)
     {
-
     }
 }

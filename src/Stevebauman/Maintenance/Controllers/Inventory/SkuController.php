@@ -6,8 +6,7 @@ use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class SkuController
- * @package Stevebauman\Maintenance\Controllers\Inventory
+ * Class SkuController.
  */
 class SkuController extends BaseController
 {
@@ -25,22 +24,21 @@ class SkuController extends BaseController
     }
 
     /**
-     * Regenerates the SKU for the specified item
+     * Regenerates the SKU for the specified item.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function regenerate($id)
     {
         $item = $this->inventory->find($id);
 
-        if($item->regenerateSku())
-        {
+        if ($item->regenerateSku()) {
             $this->message = 'Successfully regenerated SKU for this item.';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.inventory.show', [$item->id]);
-        } else
-        {
+        } else {
             $this->message = 'There was an issue regenerating an SKU. Please try again.';
             $this->messageType = 'danger';
             $this->redirect = route('maintenance.inventory.show', [$item->id]);

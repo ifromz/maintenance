@@ -11,8 +11,7 @@ use Stevebauman\Maintenance\Services\LdapService;
 use Stevebauman\Maintenance\Services\AuthService;
 
 /**
- * Class AuthController
- * @package Stevebauman\Maintenance\Controllers
+ * Class AuthController.
  */
 class AuthController extends BaseController
 {
@@ -54,13 +53,13 @@ class AuthController extends BaseController
     /**
      * Constructor.
      *
-     * @param LoginValidator $loginValidator
+     * @param LoginValidator    $loginValidator
      * @param RegisterValidator $registerValidator
-     * @param ConfigService $config
-     * @param SentryService $sentry
-     * @param UserService $user
-     * @param AuthService $auth
-     * @param LdapService $ldap
+     * @param ConfigService     $config
+     * @param SentryService     $sentry
+     * @param UserService       $user
+     * @param AuthService       $auth
+     * @param LdapService       $ldap
      */
     public function __construct(
         LoginValidator $loginValidator,
@@ -70,8 +69,7 @@ class AuthController extends BaseController
         UserService $user,
         AuthService $auth,
         LdapService $ldap
-    )
-    {
+    ) {
         /*
          * Setup validators
          */
@@ -148,7 +146,6 @@ class AuthController extends BaseController
                 $this->message = 'Successfully logged in. Redirecting...';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.dashboard.index');
-
             } else {
                 /*
                  * Login failed, return the response from Sentry
@@ -188,8 +185,7 @@ class AuthController extends BaseController
      */
     public function postRegister()
     {
-        if ($this->registerValidator->passes())
-        {
+        if ($this->registerValidator->passes()) {
             $data = $this->inputAll();
 
             /*
@@ -198,19 +194,16 @@ class AuthController extends BaseController
              */
             $data['username'] = uniqid();
 
-            if($this->sentry->createUser($data))
-            {
+            if ($this->sentry->createUser($data)) {
                 $this->message = 'Successfully created account. You can now login.';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.login');
-            } else
-            {
+            } else {
                 $this->message = 'There was an error registering for an account. Please try again.';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.register');
             }
-        } else
-        {
+        } else {
             $this->errors = $this->registerValidator->getErrors();
             $this->redirect = route('maintenance.register');
         }

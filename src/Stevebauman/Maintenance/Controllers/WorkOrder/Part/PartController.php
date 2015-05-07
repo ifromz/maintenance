@@ -8,7 +8,6 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 
 class PartController extends BaseController
 {
-
     public function __construct(WorkOrderService $workOrder, InventoryService $inventory)
     {
         $this->workOrder = $workOrder;
@@ -27,11 +26,9 @@ class PartController extends BaseController
         $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
 
         return view('maintenance::work-orders.parts.index', [
-            'title' => 'Add parts to Work Order: ' . $workOrder->subject,
+            'title' => 'Add parts to Work Order: '.$workOrder->subject,
             'workOrder' => $workOrder,
             'items' => $items,
         ]);
-
     }
-
 }

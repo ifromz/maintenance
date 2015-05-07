@@ -12,7 +12,6 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 
 class StockController extends BaseController
 {
-
     public function __construct(
         WorkOrderService $workOrder,
         InventoryService $inventory,
@@ -35,6 +34,7 @@ class StockController extends BaseController
      *
      * @param string|int $workOrder_id
      * @param string|int $inventory_id
+     *
      * @return type Response
      */
     public function index($workOrder_id, $inventory_id)
@@ -45,7 +45,7 @@ class StockController extends BaseController
         return view('maintenance::work-orders.parts.stocks.index', [
             'title' => 'Choose a Stock Location',
             'workOrder' => $workOrder,
-            'item' => $item
+            'item' => $item,
         ]);
     }
 
@@ -56,6 +56,7 @@ class StockController extends BaseController
      * @param string|int $workOrder_id
      * @param string|int $inventory_id
      * @param string|int $stock_id
+     *
      * @return type Response
      */
     public function create($workOrder_id, $inventory_id, $stock_id)
@@ -65,26 +66,25 @@ class StockController extends BaseController
         $stock = $this->inventoryStock->find($stock_id);
 
         return view('maintenance::work-orders.parts.stocks.create', [
-            'title' => "Enter Quantity Used",
+            'title' => 'Enter Quantity Used',
             'workOrder' => $workOrder,
             'item' => $item,
-            'stock' => $stock
+            'stock' => $stock,
         ]);
     }
 
     /**
-     * Process the quantity the user is taking from the stock location
+     * Process the quantity the user is taking from the stock location.
      *
      * @param string|int $workOrder_id
      * @param string|int $inventory_id
      * @param string|int $stock_id
+     *
      * @return type Response
      */
     public function store($workOrder_id, $inventory_id, $stock_id)
     {
-
         if ($this->workOrderPartTakeValidator->passes()) {
-
             $workOrder = $this->workOrder->find($workOrder_id);
             $item = $this->inventory->find($inventory_id);
             $stock = $this->inventoryStock->find($stock_id);
@@ -122,12 +122,10 @@ class StockController extends BaseController
 
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.parts.index', [$workOrder->id]);
-
         } else {
-
             $this->errors = $this->workOrderPartTakeValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.parts.stocks.create', [
-                $workOrder_id, $inventory_id, $stock_id
+                $workOrder_id, $inventory_id, $stock_id,
             ]);
         }
 
@@ -142,11 +140,11 @@ class StockController extends BaseController
      * @param string|int $workOrder_id
      * @param string|int $inventory_id
      * @param string|int $stock_id
+     *
      * @return type Response
      */
     public function postPutBack($workOrder_id, $inventory_id, $stock_id)
     {
-
         $workOrder = $this->workOrder->find($workOrder_id);
         $item = $this->inventory->find($inventory_id);
         $stock = $this->inventoryStock->find($stock_id);
@@ -161,7 +159,7 @@ class StockController extends BaseController
          */
         $data = [
             'reason' => sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id])),
-            'quantity' => $record->pivot->quantity
+            'quantity' => $record->pivot->quantity,
         ];
 
         /*
@@ -196,7 +194,7 @@ class StockController extends BaseController
          * Add less than rule so users must enter a number below the quantity that
          * was taken for the work order
          */
-        $this->workOrderPartPutBackValidator->addRule('quantity', 'less_than:' . $part->pivot->quantity);
+        $this->workOrderPartPutBackValidator->addRule('quantity', 'less_than:'.$part->pivot->quantity);
 
         if ($this->workOrderPartPutBackValidator->passes()) {
 
@@ -205,7 +203,7 @@ class StockController extends BaseController
              */
             $data = [
                 'reason' => sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id])),
-                'quantity' => $this->input('quantity')
+                'quantity' => $this->input('quantity'),
             ];
 
             /*
@@ -226,15 +224,11 @@ class StockController extends BaseController
             $this->message = sprintf('Successfully put back %s into the inventory', $item->name);
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
-
         } else {
-
             $this->errors = $this->workOrderPartPutBackValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.parts.stocks.index', [$workOrder_id, $inventory_id]);
-
         }
 
         return $this->response();
     }
-
 }

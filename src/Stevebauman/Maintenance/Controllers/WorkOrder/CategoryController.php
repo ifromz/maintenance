@@ -11,7 +11,7 @@ class CategoryController extends AbstractNestedSetController
     /**
      * Constructor.
      *
-     * @param CategoryService $categoryService
+     * @param CategoryService            $categoryService
      * @param WorkOrderCategoryValidator $categoryValidator
      */
     public function __construct(CategoryService $categoryService, WorkOrderCategoryValidator $categoryValidator)

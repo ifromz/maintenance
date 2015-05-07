@@ -28,7 +28,7 @@ class AssignedController extends BaseController
 
         return view('maintenance::work-orders.assigned.index', [
             'title' => 'Assigned Work Orders',
-            'workOrders' => $workOrders
+            'workOrders' => $workOrders,
         ]);
     }
 }

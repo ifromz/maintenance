@@ -16,9 +16,9 @@ class EventController extends AbstractEventableController
     protected $config;
 
     /**
-     * @param AssetService $asset
-     * @param EventService $event
-     * @param ConfigService $config
+     * @param AssetService   $asset
+     * @param EventService   $event
+     * @param ConfigService  $config
      * @param EventValidator $eventValidator
      */
     public function __construct(
@@ -26,8 +26,7 @@ class EventController extends AbstractEventableController
         EventService $event,
         ConfigService $config,
         EventValidator $eventValidator
-    )
-    {
+    ) {
         $this->eventable = $asset;
         $this->config = $config->setPrefix('maintenance');
 
@@ -38,5 +37,4 @@ class EventController extends AbstractEventableController
          */
         parent::__construct($event, $eventValidator);
     }
-
 }

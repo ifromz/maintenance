@@ -8,15 +8,14 @@ use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Controllers\AbstractNoteableController;
 
 /**
- * Class NoteController
- * @package Stevebauman\Maintenance\Controllers\Inventory
+ * Class NoteController.
  */
 class NoteController extends AbstractNoteableController
 {
     /**
      * @param InventoryService $inventory
-     * @param NoteService $note
-     * @param NoteValidator $noteValidator
+     * @param NoteService      $note
+     * @param NoteValidator    $noteValidator
      */
     public function __construct(InventoryService $inventory, NoteService $note, NoteValidator $noteValidator)
     {

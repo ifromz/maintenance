@@ -8,8 +8,7 @@ use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class UpdateController
- * @package Stevebauman\Maintenance\Controllers\WorkRequest
+ * Class UpdateController.
  */
 class UpdateController extends BaseController
 {
@@ -29,9 +28,9 @@ class UpdateController extends BaseController
     protected $updateValidator;
 
     /**
-     * @param UpdateService $update
+     * @param UpdateService      $update
      * @param WorkRequestService $workRequest
-     * @param UpdateValidator $updateValidator
+     * @param UpdateValidator    $updateValidator
      */
     public function __construct(UpdateService $update, WorkRequestService $workRequest, UpdateValidator $updateValidator)
     {
@@ -41,15 +40,15 @@ class UpdateController extends BaseController
     }
 
     /**
-     * Creates a new work order customer update
+     * Creates a new work order customer update.
      *
      * @param int $workRequestId
+     *
      * @return mixed
      */
     public function store($workRequestId)
     {
-        if ($this->updateValidator->passes())
-        {
+        if ($this->updateValidator->passes()) {
             $workRequest = $this->workRequest->find($workRequestId);
 
             $update = $this->update->setInput($this->inputAll())->create();
@@ -59,8 +58,7 @@ class UpdateController extends BaseController
             $this->message = 'Successfully added update';
             $this->messageType = 'success';
             $this->redirect = routeBack('maintenance.work-orders.show', [$workRequest->id]);
-        } else
-        {
+        } else {
             $this->errors = $this->updateValidator->getErrors();
             $this->redirect = routeBack('maintenance.work-orders.show', [$workRequestId]);
         }
@@ -69,23 +67,22 @@ class UpdateController extends BaseController
     }
 
     /**
-     * Processes deleting a work order update
+     * Processes deleting a work order update.
      *
      * @param $workRequestId
      * @param $updateId
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($workRequestId, $updateId)
     {
         $workRequest = $this->workRequest->find($workRequestId);
 
-        if($this->update->destroy($updateId))
-        {
+        if ($this->update->destroy($updateId)) {
             $this->message = 'Successfully deleted update';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.show', [$workRequest->id, '#tab_updates']);
-        } else
-        {
+        } else {
             $this->message = 'There was an error trying to delete this update. Please try again.';
             $this->messageType = 'danger';
             $this->redirect = route('maintenance.work-orders.show', [$workRequest->id, '#tab_updates']);
@@ -93,5 +90,4 @@ class UpdateController extends BaseController
 
         return $this->response();
     }
-
 }

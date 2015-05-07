@@ -27,8 +27,8 @@ class AssignmentController extends BaseController
     /**
      * Constructor.
      *
-     * @param AssignmentService $assignment
-     * @param WorkOrderService $workOrder
+     * @param AssignmentService   $assignment
+     * @param WorkOrderService    $workOrder
      * @param AssignmentValidator $assignmentValidator
      */
     public function __construct(AssignmentService $assignment, WorkOrderService $workOrder, AssignmentValidator $assignmentValidator)
@@ -45,7 +45,6 @@ class AssignmentController extends BaseController
      */
     public function index($workOrder_id)
     {
-
     }
 
     /**
@@ -55,7 +54,6 @@ class AssignmentController extends BaseController
      */
     public function create($workOrder_id)
     {
-
     }
 
     /**
@@ -68,7 +66,6 @@ class AssignmentController extends BaseController
     public function store($workOrder_id)
     {
         if ($this->assignmentValidator->passes()) {
-
             $workOrder = $this->workOrder->find($workOrder_id);
 
             $data = $this->inputAll();
@@ -85,7 +82,6 @@ class AssignmentController extends BaseController
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
             }
-
         } else {
             $this->errors = $this->assignmentValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);

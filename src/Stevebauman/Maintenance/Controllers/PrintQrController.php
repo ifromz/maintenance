@@ -2,22 +2,20 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
-class PrintQrController extends BaseController {
-    
+class PrintQrController extends BaseController
+{
     public function generate()
     {
         $qr = $this->input('qr');
-        
-        if($qr){
-            
+
+        if ($qr) {
             return view('maintenance::qr.generate', [
-                'qr' => $qr
+                'qr' => $qr,
             ]);
-            
-        } else{
+        } else {
             $this->redirect = route('maintenance.dashboard.index');
+
             return $this->response();
         }
     }
-    
 }

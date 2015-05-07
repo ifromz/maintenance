@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Stevebauman\Maintenance\Controllers;
 
@@ -6,15 +6,14 @@ use Stevebauman\Maintenance\Services\StorageService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 
 /**
- * Class AttachmentController
- * @package Stevebauman\Maintenance\Controllers
+ * Class AttachmentController.
  */
 class AttachmentController extends BaseController
 {
     /**
      * @var AttachmentService
      */
-	protected $attachment;
+    protected $attachment;
 
     /**
      * @var StorageService
@@ -25,13 +24,13 @@ class AttachmentController extends BaseController
      * Constructor.
      *
      * @param AttachmentService $attachment
-     * @param StorageService $storage
+     * @param StorageService    $storage
      */
-	public function __construct(AttachmentService $attachment, StorageService $storage)
+    public function __construct(AttachmentService $attachment, StorageService $storage)
     {
-		$this->attachment = $attachment;
+        $this->attachment = $attachment;
         $this->storage = $storage;
-	}
+    }
 
     /**
      * Deletes the attachment with the specified ID.
@@ -40,23 +39,21 @@ class AttachmentController extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-	public function destroy($attachmentId)
+    public function destroy($attachmentId)
     {
         $attachment = $this->attachment->find($attachmentId);
 
-        if ($this->storage->delete($attachment->file_path . $attachment->file_name))
-        {
+        if ($this->storage->delete($attachment->file_path.$attachment->file_name)) {
             $this->storage->deleteDirectory($attachment->file_path);
             $attachment->delete();
 
             $this->message = 'Successfully deleted attachment';
             $this->messageType = 'success';
-
         } else {
             $this->message = 'Error deleting attachment';
             $this->messageType = 'error';
         }
 
         return $this->response();
-	}
+    }
 }

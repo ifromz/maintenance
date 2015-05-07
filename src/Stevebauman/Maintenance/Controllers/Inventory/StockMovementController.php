@@ -8,12 +8,10 @@ use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class StockMovementController
- * @package Stevebauman\Maintenance\Controllers\Inventory
+ * Class StockMovementController.
  */
 class StockMovementController extends BaseController
 {
-
     /**
      * @var InventoryService
      */
@@ -30,8 +28,8 @@ class StockMovementController extends BaseController
     protected $inventoryStockMovement;
 
     /**
-     * @param InventoryService $inventory
-     * @param StockService $inventoryStock
+     * @param InventoryService     $inventory
+     * @param StockService         $inventoryStock
      * @param StockMovementService $inventoryStockMovement
      */
     public function __construct(InventoryService $inventory, StockService $inventoryStock, StockMovementService $inventoryStockMovement)
@@ -43,10 +41,11 @@ class StockMovementController extends BaseController
 
     /**
      * Displays all the stock movement entries for the specified stock for the
-     * specified inventory
+     * specified inventory.
      *
      * @param $inventory_id
      * @param $stock_id
+     *
      * @return mixed
      */
     public function index($inventory_id, $stock_id)
@@ -60,16 +59,15 @@ class StockMovementController extends BaseController
         $movements = $this->inventoryStockMovement->setInput($data)->getByPageWithFilter();
 
         return view('maintenance::inventory.stocks.movements.index', [
-            'title' => "Viewing Stock Movements for Item: $item->name in Location: " . renderNode($stock->location),
+            'title' => "Viewing Stock Movements for Item: $item->name in Location: ".renderNode($stock->location),
             'item' => $item,
             'stock' => $stock,
             'movements' => $movements,
         ]);
-
     }
 
     /**
-     * Displays a stock movement record
+     * Displays a stock movement record.
      *
      * @param $inventory_id
      * @param $stock_id
@@ -90,11 +88,12 @@ class StockMovementController extends BaseController
     }
 
     /**
-     * Rolls back an inventory stock movement
+     * Rolls back an inventory stock movement.
      *
      * @param $inventory_id
      * @param $stock_id
      * @param $movement_id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function rollback($inventory_id, $stock_id, $movement_id)
@@ -103,25 +102,20 @@ class StockMovementController extends BaseController
         $stock = $this->inventoryStock->find($stock_id);
         $movement = $this->inventoryStockMovement->find($movement_id);
 
-        if($stock->rollback($movement)) {
-
+        if ($stock->rollback($movement)) {
             $this->message = 'Successfully rolled back movement';
             $this->messageType = 'success';
             $this->redirect = routeBack('maintenance.inventory.stock.movements.index', [
-                $item->id, $stock->id
+                $item->id, $stock->id,
             ]);
-
         } else {
-
             $this->message = 'There was an error trying to roll back this movement. Please try again.';
             $this->messageType = 'success';
             $this->redirect = routeBack('maintenance.inventory.stock.movements.index', [
-                $item->id, $stock->id
+                $item->id, $stock->id,
             ]);
-
         }
 
         return $this->response();
     }
-
 }

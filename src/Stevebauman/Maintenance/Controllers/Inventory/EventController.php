@@ -9,8 +9,7 @@ use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Controllers\Event\AbstractEventableController;
 
 /**
- * Class EventController
- * @package Stevebauman\Maintenance\Controllers\Inventory
+ * Class EventController.
  */
 class EventController extends AbstractEventableController
 {
@@ -21,17 +20,16 @@ class EventController extends AbstractEventableController
 
     /**
      * @param InventoryService $inventory
-     * @param EventService $event
-     * @param ConfigService $config
-     * @param EventValidator $eventValidator
+     * @param EventService     $event
+     * @param ConfigService    $config
+     * @param EventValidator   $eventValidator
      */
     public function __construct(
         InventoryService $inventory,
         EventService $event,
         ConfigService $config,
         EventValidator $eventValidator
-    )
-    {
+    ) {
         $this->eventable = $inventory;
 
         $this->config = $config->setPrefix('maintenance');
@@ -40,5 +38,4 @@ class EventController extends AbstractEventableController
 
         parent::__construct($event, $eventValidator);
     }
-
 }

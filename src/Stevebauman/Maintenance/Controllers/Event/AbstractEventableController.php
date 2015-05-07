@@ -6,8 +6,8 @@ use Stevebauman\Maintenance\Validators\Event\EventValidator;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
-abstract class AbstractEventableController extends BaseController {
-
+abstract class AbstractEventableController extends BaseController
+{
     /*
      * Holds the eventable resource
      */
@@ -27,13 +27,14 @@ abstract class AbstractEventableController extends BaseController {
          * If the eventableCalendarId is set from the child controller, we'll set the calendar ID for the API
          * so all operations on the API go to the right calendar
          */
-        if($this->eventableCalendarId) {
+        if ($this->eventableCalendarId) {
             $this->event->eventApi->setCalendar($this->eventableCalendarId);
         }
     }
 
     /**
      * @param string $eventable_id
+     *
      * @return mixed
      */
     public function index($eventable_id)
@@ -51,6 +52,7 @@ abstract class AbstractEventableController extends BaseController {
 
     /**
      * @param string $eventable_id
+     *
      * @return mixed
      */
     public function create($eventable_id)
@@ -65,18 +67,17 @@ abstract class AbstractEventableController extends BaseController {
 
     /**
      * @param string $eventable_id
+     *
      * @return \Illuminate\Support\Facades\Response
      */
     public function store($eventable_id)
     {
-        if($this->eventValidator->passes()) {
-
+        if ($this->eventValidator->passes()) {
             $eventable = $this->eventable->find($eventable_id);
 
             $event = $this->event->setInput($this->inputAll())->create();
 
-            if($event) {
-
+            if ($event) {
                 $localEvent = $this->event->findLocalByApiId($event->id);
 
                 $eventable->events()->attach($localEvent);
@@ -84,17 +85,12 @@ abstract class AbstractEventableController extends BaseController {
                 $this->message = sprintf('Successfully created event. %s', link_to_action(currentControllerAction('show'), 'Show', [$eventable->id, $event->id]));
                 $this->messageType = 'success';
                 $this->redirect = action(currentControllerAction('show'), [$eventable->id, $event->id]);
-
             } else {
-
                 $this->message = 'There was an error trying to create an event. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect =  action(currentControllerAction('create'), [$eventable->id]);
-
+                $this->redirect = action(currentControllerAction('create'), [$eventable->id]);
             }
-
         } else {
-
             $this->redirect = action(currentControllerAction('create'), [$eventable_id]);
             $this->errors = $this->eventValidator->getErrors();
         }
@@ -105,6 +101,7 @@ abstract class AbstractEventableController extends BaseController {
     /**
      * @param string $eventable_id
      * @param string $api_id
+     *
      * @return mixed
      */
     public function show($eventable_id, $api_id)
@@ -137,6 +134,7 @@ abstract class AbstractEventableController extends BaseController {
     /**
      * @param string $eventable_id
      * @param string $api_id
+     *
      * @return mixed
      */
     public function edit($eventable_id, $api_id)
@@ -158,31 +156,23 @@ abstract class AbstractEventableController extends BaseController {
      */
     public function update($eventable_id, $api_id)
     {
-        if($this->eventValidator->passes()) {
-
+        if ($this->eventValidator->passes()) {
             $eventable = $this->eventable->find($eventable_id);
 
             $event = $this->event->setInput($this->inputAll())->updateByApiId($api_id);
 
-            if($event) {
-
+            if ($event) {
                 $this->message = sprintf('Successfully updated event. %s', link_to_action(currentControllerAction('show'), 'Show', [$eventable->id, $event->id]));
                 $this->messageType = 'success';
                 $this->redirect = action(currentControllerAction('show'), [$eventable->id, $event->id]);
-
             } else {
-
                 $this->message = 'There was an error trying to udpdate this event. Please try again.';
                 $this->messageType = 'danger';
                 $this->redirect = action(currentControllerAction('edit'), [$eventable->id, $event->id]);
-
             }
-
         } else {
-
             $this->redirect = action(currentControllerAction('edit'), [$eventable_id]);
             $this->errors = $this->eventValidator->getErrors();
-
         }
 
         return $this->response();
@@ -194,21 +184,16 @@ abstract class AbstractEventableController extends BaseController {
      */
     public function destroy($eventable_id, $api_id)
     {
-        if($this->event->destroyByApiId($api_id)) {
-
+        if ($this->event->destroyByApiId($api_id)) {
             $this->message = 'Successfully deleted event';
             $this->messageType = 'success';
             $this->redirect = action(currentControllerAction('index'), [$eventable_id]);
-
         } else {
-
             $this->message = 'There was an error trying to delete this event. Please try again.';
             $this->messageType = 'danger';
             $this->redirect = action(currentControllerAction('show'), [$eventable_id, $api_id]);
-
         }
 
         return $this->response();
     }
-
 }

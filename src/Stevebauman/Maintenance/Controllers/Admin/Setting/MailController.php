@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class MailController
- * @package Stevebauman\Maintenance\Controllers\Admin\Setting
+ * Class MailController.
  */
 class MailController extends BaseController
 {
@@ -42,7 +41,7 @@ class MailController extends BaseController
     public function index()
     {
         return view('maintenance::admin.settings.mail.index', [
-            'title' => 'Edit Mail Settings'
+            'title' => 'Edit Mail Settings',
         ]);
     }
 
@@ -55,21 +54,17 @@ class MailController extends BaseController
     {
         $this->redirect = routeBack('maintenance.admin.settings.mail.index');
 
-        if($this->mailValidator->passes())
-        {
+        if ($this->mailValidator->passes()) {
             $result = $this->config->setInput($this->inputAll())->updateMail();
 
-            if($result)
-            {
+            if ($result) {
                 $this->message = 'Successfully updated mail configuration';
                 $this->messageType = 'success';
-            } else
-            {
+            } else {
                 $this->message = 'There was an issue updating the configuration. Please try again.';
                 $this->messageType = 'danger';
             }
-        } else
-        {
+        } else {
             $this->errors = $this->mailValidator->getErrors();
         }
 

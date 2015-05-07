@@ -6,13 +6,12 @@ use Stevebauman\Maintenance\Validators\NoteValidator;
 use Stevebauman\Maintenance\Services\NoteService;
 
 /**
- * Class AbstractNoteableController
- * @package Stevebauman\Maintenance\Controllers
+ * Class AbstractNoteableController.
  */
 class AbstractNoteableController extends BaseController
 {
     /**
-     * Holds the note service
+     * Holds the note service.
      *
      * @var NoteService
      */
@@ -24,14 +23,14 @@ class AbstractNoteableController extends BaseController
     protected $noteable;
 
     /**
-     * Holds the note validator
+     * Holds the note validator.
      *
      * @var NoteValidator
      */
     protected $noteValidator;
 
     /**
-     * @param NoteService $note
+     * @param NoteService   $note
      * @param NoteValidator $noteValidator
      */
     public function __construct(NoteService $note, NoteValidator $noteValidator)
@@ -41,9 +40,10 @@ class AbstractNoteableController extends BaseController
     }
 
     /**
-     * Displays the form for creating a note
+     * Displays the form for creating a note.
      *
      * @param string|int $noteable_id
+     *
      * @return mixed
      */
     public function create($noteable_id)
@@ -57,65 +57,58 @@ class AbstractNoteableController extends BaseController
     }
 
     /**
-     * Creates a note
+     * Creates a note.
      *
      * @param string|int $noteable_id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function store($noteable_id)
     {
-        if ($this->noteValidator->passes())
-        {
+        if ($this->noteValidator->passes()) {
             $noteable = $this->noteable->find($noteable_id);
 
             $note = $this->note->setInput($this->inputAll())->create();
 
-            if ($note)
-            {
+            if ($note) {
                 $noteable->notes()->attach($note);
 
                 $this->message = 'Successfully created note';
                 $this->messageType = 'success';
-            } else
-            {
+            } else {
                 $this->message = 'There was an error creating a note, please try again later.';
                 $this->messageType = 'danger';
             }
-        } else
-        {
+        } else {
             $this->errors = $this->noteValidator->getErrors();
         }
 
         return $this->response();
-
     }
 
     public function edit($noteable_id, $note_id)
     {
-
     }
 
     public function update($noteable_id, $note_id)
     {
-
     }
 
     /**
-     * Deletes the specified note
+     * Deletes the specified note.
      *
      * @param string|int $noteable_id
      * @param $note_id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($noteable_id, $note_id)
     {
-        if ($this->note->destroy($note_id))
-        {
+        if ($this->note->destroy($note_id)) {
             $this->message = 'Successfully deleted note';
             $this->messageType = 'success';
             $this->redirect = '';
-        } else
-        {
+        } else {
             $this->message = 'There was an error trying to delete this note, please try again later.';
             $this->messageType = 'danger';
             $this->redirect = '';
@@ -123,5 +116,4 @@ class AbstractNoteableController extends BaseController
 
         return $this->response();
     }
-
 }

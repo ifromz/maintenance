@@ -8,8 +8,7 @@ use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class StockController
- * @package Stevebauman\Maintenance\Controllers\Inventory
+ * Class StockController.
  */
 class StockController extends BaseController
 {
@@ -29,25 +28,25 @@ class StockController extends BaseController
     protected $inventoryStockValidator;
 
     /**
-     * @param InventoryService $inventory
-     * @param StockService $inventoryStock
+     * @param InventoryService        $inventory
+     * @param StockService            $inventoryStock
      * @param InventoryStockValidator $inventoryStockValidator
      */
     public function __construct(
         InventoryService $inventory,
         StockService $inventoryStock,
         InventoryStockValidator $inventoryStockValidator
-    )
-    {
+    ) {
         $this->inventory = $inventory;
         $this->inventoryStock = $inventoryStock;
         $this->inventoryStockValidator = $inventoryStockValidator;
     }
 
     /**
-     * Displays all inventory stock entries
+     * Displays all inventory stock entries.
      *
      * @param $inventory_id
+     *
      * @return mixed
      */
     public function index($inventory_id)
@@ -55,15 +54,16 @@ class StockController extends BaseController
         $item = $this->inventory->find($inventory_id);
 
         return view('maintenance::inventory.stocks.index', [
-            'title' => 'Current Stocks for Item: ' . $item->name,
+            'title' => 'Current Stocks for Item: '.$item->name,
             'item' => $item,
         ]);
     }
 
     /**
-     * Displays the form for creating a new stock entry for the inventory
+     * Displays the form for creating a new stock entry for the inventory.
      *
      * @param $inventory_id
+     *
      * @return mixed
      */
     public function create($inventory_id)
@@ -71,22 +71,21 @@ class StockController extends BaseController
         $item = $this->inventory->find($inventory_id);
 
         return view('maintenance::inventory.stocks.create', [
-            'title' => 'Add Stock Location to: ' . $item->name,
+            'title' => 'Add Stock Location to: '.$item->name,
             'item' => $item,
         ]);
-
     }
 
     /**
-     * Create a new stock entry for the inventory
+     * Create a new stock entry for the inventory.
      *
      * @param $inventory_id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function store($inventory_id)
     {
         if ($this->inventoryStockValidator->passes()) {
-
             $item = $this->inventory->find($inventory_id);
 
             $data = $this->inputAll();
@@ -98,15 +97,11 @@ class StockController extends BaseController
                 $this->message = 'Successfully added stock to this item';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.inventory.show', [$item->id]);
-
             } else {
-
                 $this->message = 'There was an error trying to add stock to this item. Please try again.';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.inventory.show', [$item->id]);
-
             }
-
         } else {
             $this->errors = $this->inventoryStockValidator->getErrors();
         }
@@ -115,10 +110,11 @@ class StockController extends BaseController
     }
 
     /**
-     * Displays the specified stock entry for the specified inventory
+     * Displays the specified stock entry for the specified inventory.
      *
      * @param $inventory_id
      * @param $stock_id
+     *
      * @return mixed
      */
     public function show($inventory_id, $stock_id)
@@ -135,14 +131,14 @@ class StockController extends BaseController
             'stock' => $stock,
             'lastMovements' => $lastMovements,
         ]);
-
     }
 
     /**
-     * Displays the edit form for the specified stock for the specified inventory
+     * Displays the edit form for the specified stock for the specified inventory.
      *
      * @param $inventory_id
      * @param $stock_id
+     *
      * @return mixed
      */
     public function edit($inventory_id, $stock_id)
@@ -154,27 +150,27 @@ class StockController extends BaseController
         return view('maintenance::inventory.stocks.edit', [
             'title' => sprintf('Update Stock for item: %s inside %s', $item->name, $stock->location->name),
             'stock' => $stock,
-            'item' => $item
+            'item' => $item,
         ]);
     }
 
     /**
-     * Updates the specified stock for the specified inventory
+     * Updates the specified stock for the specified inventory.
      *
      * @param $inventory_id
      * @param $stock_id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function update($inventory_id, $stock_id)
     {
         if ($this->inventoryStockValidator->passes()) {
-
             $item = $this->inventory->find($inventory_id);
 
             $stock = $this->inventoryStock->setInput($this->inputAll())->update($stock_id);
 
             if ($stock) {
-                $this->message = 'Successfully updated stock for item: ' . $item->name;
+                $this->message = 'Successfully updated stock for item: '.$item->name;
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.inventory.show', [$item->id]);
             } else {
@@ -182,7 +178,6 @@ class StockController extends BaseController
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.inventory.show', [$item->id]);
             }
-
         } else {
             $this->redirect = route('maintenance.inventory.show', [$inventory_id]);
             $this->errors = $this->inventoryStockValidator->getErrors();
@@ -192,10 +187,11 @@ class StockController extends BaseController
     }
 
     /**
-     * Removes the specified stock from the specified inventory
+     * Removes the specified stock from the specified inventory.
      *
      * @param $inventory_id
      * @param $stock_id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function destroy($inventory_id, $stock_id)

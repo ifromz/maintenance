@@ -9,8 +9,7 @@ use Stevebauman\Maintenance\Services\MailService;
 use Stevebauman\Maintenance\Services\SentryService;
 
 /**
- * Class ResetPasswordController
- * @package Stevebauman\Maintenance\Controllers\Client
+ * Class ResetPasswordController.
  */
 class PasswordController extends BaseController
 {
@@ -42,11 +41,11 @@ class PasswordController extends BaseController
     /**
      * Constructor.
      *
-     * @param SentryService $sentry
-     * @param MailService $mail
-     * @param ConfigService $config
+     * @param SentryService         $sentry
+     * @param MailService           $mail
+     * @param ConfigService         $config
      * @param RequestResetValidator $requestResetValidator
-     * @param PasswordValidator $passwordValidator
+     * @param PasswordValidator     $passwordValidator
      */
     public function __construct(
         SentryService $sentry,
@@ -54,8 +53,7 @@ class PasswordController extends BaseController
         ConfigService $config,
         RequestResetValidator $requestResetValidator,
         PasswordValidator $passwordValidator
-    )
-    {
+    ) {
         $this->sentry = $sentry;
         $this->mail = $mail;
         $this->config = $config;
@@ -64,7 +62,7 @@ class PasswordController extends BaseController
     }
 
     /**
-     * Requests for a password reset
+     * Requests for a password reset.
      */
     public function getRequest()
     {
@@ -74,21 +72,18 @@ class PasswordController extends BaseController
     }
 
     /**
-     * Sends an email to the user with their password reset link
+     * Sends an email to the user with their password reset link.
      */
     public function postRequest()
     {
-        if($this->requestResetValidator->passes())
-        {
+        if ($this->requestResetValidator->passes()) {
             $user = $this->sentry->findUserByLogin($this->input('email'));
 
-            if($user)
-            {
+            if ($user) {
                 $sent = $this->mail->send('maintenance::emails.reset-password', [
                     'user' => $user,
                     'code' => $user->getResetPasswordCode(),
-                ], function($message) use ($user)
-                {
+                ], function ($message) use ($user) {
                     $adminEmail = $this->config->get('mail.from.address');
                     $adminName = $this->config->get('mail.from.name');
 
@@ -98,25 +93,21 @@ class PasswordController extends BaseController
                         ->subject('Reset Your Password');
                 });
 
-                if($sent)
-                {
+                if ($sent) {
                     $this->message = "We've sent you an email to reset your password.";
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.login.forgot-password');
-                } else
-                {
-                    $this->message = "There was an issue trying to send your password reset request. Please try again later.";
+                } else {
+                    $this->message = 'There was an issue trying to send your password reset request. Please try again later.';
                     $this->messageType = 'danger';
                     $this->redirect = route('maintenance.login.forgot-password');
                 }
-            } else
-            {
+            } else {
                 $this->message = 'The email/username you entered does not exist, please try again';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.login.forgot-password');
             }
-        } else
-        {
+        } else {
             $this->errors = $this->requestResetValidator->getErrors();
             $this->redirect = route('maintenance.login.forgot-password');
         }
@@ -125,25 +116,24 @@ class PasswordController extends BaseController
     }
 
     /**
-     * Displays the form for updating a user password
+     * Displays the form for updating a user password.
      *
      * @param string|int $id
      * @param string|int $key
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function getReset($id, $key)
     {
         $user = $this->sentry->findUserById($id);
 
-        if($user->checkResetPasswordCode($key))
-        {
+        if ($user->checkResetPasswordCode($key)) {
             return view('maintenance::login.password.reset', [
                 'title' => 'Reset Your Password',
                 'user' => $user,
-                'code' => $key
+                'code' => $key,
             ]);
-        } else
-        {
+        } else {
             $this->redirect = route('maintenance.login');
 
             return $this->response();
@@ -151,41 +141,36 @@ class PasswordController extends BaseController
     }
 
     /**
-     * Processes the password update
+     * Processes the password update.
      *
      * @param string|int $id
      * @param string|int $key
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function postReset($id, $key)
     {
-        if($this->passwordValidator->passes())
-        {
+        if ($this->passwordValidator->passes()) {
             $user = $this->sentry->findUserById($id);
 
-            if ($user->checkResetPasswordCode($key))
-            {
-                if ($user->attemptResetPassword($key, $this->input('password')))
-                {
+            if ($user->checkResetPasswordCode($key)) {
+                if ($user->attemptResetPassword($key, $this->input('password'))) {
                     $link = link_to_route('maintenance.login', 'login');
 
                     $this->message = "Successfully updated your password, you can now $link.";
                     $this->messageType = 'success';
                     $this->redirect = route('maintenance.login');
-                } else
-                {
+                } else {
                     $this->message = 'You have already updated your password.';
                     $this->messageType = 'danger';
                     $this->redirect = route('maintenance.login');
                 }
-            } else
-            {
+            } else {
                 $this->message = 'You have already reset your password.';
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.login');
             }
-        } else
-        {
+        } else {
             $this->errors = $this->passwordValidator->getErrors();
             $this->redirect = route('maintenance.login');
         }

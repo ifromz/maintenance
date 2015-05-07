@@ -25,10 +25,10 @@ class AssetController extends BaseController
     public function index()
     {
         $assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter(true);
-        
+
         return view('maintenance::admin.archive.assets.index', [
             'title' => 'Archived Assets',
-            'assets'=> $assets
+            'assets' => $assets,
         ]);
     }
 
@@ -42,10 +42,10 @@ class AssetController extends BaseController
     public function show($id)
     {
         $asset = $this->asset->findArchived($id);
-        
+
         return view('maintenance::admin.archive.assets.show', [
             'title' => 'Viewing Archived Asset: '.$asset->name,
-            'asset' => $asset
+            'asset' => $asset,
         ]);
     }
 
@@ -59,11 +59,11 @@ class AssetController extends BaseController
     public function destroy($id)
     {
         $this->asset->destroyArchived($id);
-       
+
         $this->message = 'Successfully deleted asset';
         $this->messageType = 'success';
         $this->redirect = route('maintenance.admin.archive.assets.index');
-        
+
         return $this->response();
     }
 
@@ -76,17 +76,16 @@ class AssetController extends BaseController
      */
     public function restore($id)
     {
-        if($this->asset->restoreArchived($id)){
+        if ($this->asset->restoreArchived($id)) {
             $this->message = sprintf('Successfully restored asset. %s', link_to_route('maintenance.assets.show', 'Show', $id));
             $this->messageType = 'success';
             $this->redirect = route('maintenance.admin.archive.assets.index');
-        } else{
+        } else {
             $this->message = 'There was an error trying to restore this asset, please try again';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.admin.archive.assets.index');
         }
-        
+
         return $this->response();
     }
-    
 }

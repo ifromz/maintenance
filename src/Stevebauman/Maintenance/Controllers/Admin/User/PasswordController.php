@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class PasswordController
- * @package Stevebauman\Maintenance\Controllers\Admin\User
+ * Class PasswordController.
  */
 class PasswordController extends BaseController
 {
@@ -33,28 +32,25 @@ class PasswordController extends BaseController
     }
 
     /**
-     * Updates the specified users password
+     * Updates the specified users password.
      *
      * @param $id
+     *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function update($id)
     {
-        if($this->passwordValidator->passes())
-        {
-            if($this->sentry->updatePasswordById($id, $this->input('password')))
-            {
+        if ($this->passwordValidator->passes()) {
+            if ($this->sentry->updatePasswordById($id, $this->input('password'))) {
                 $this->message = 'Successfully updated password';
                 $this->messageType = 'success';
                 $this->redirect = routeBack('maintenance.admin.users.show', [$id]);
-            } else
-            {
+            } else {
                 $this->message = 'There was an issue resseting this users password. Please try again';
                 $this->messageType = 'danger';
                 $this->redirect = routeBack('maintenance.admin.users.show', [$id]);
             }
-        } else
-        {
+        } else {
             $this->errors = $this->passwordValidator->getErrors();
             $this->redirect = route('maintenance.admin.users.show', [$id]);
         }

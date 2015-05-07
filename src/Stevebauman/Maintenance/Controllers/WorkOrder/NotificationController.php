@@ -27,16 +27,15 @@ class NotificationController extends BaseController
     /**
      * Constructor.
      *
-     * @param WorkOrderService $workOrder
-     * @param NotificationService $workOrderNotification
+     * @param WorkOrderService               $workOrder
+     * @param NotificationService            $workOrderNotification
      * @param WorkOrderNotificationValidator $workOrderNotificationValidator
      */
     public function __construct(
         WorkOrderService $workOrder,
         NotificationService $workOrderNotification,
         WorkOrderNotificationValidator $workOrderNotificationValidator
-    )
-    {
+    ) {
         $this->workOrderNotification = $workOrderNotification;
         $this->workOrderNotificationValidator = $workOrderNotificationValidator;
         $this->workOrder = $workOrder;
@@ -51,9 +50,7 @@ class NotificationController extends BaseController
      */
     public function store($workOrder_id)
     {
-
         if ($this->workOrderNotificationValidator->passes()) {
-
             $workOrder = $this->workOrder->find($workOrder_id);
 
             $data = $this->inputAll();
@@ -70,7 +67,6 @@ class NotificationController extends BaseController
         }
 
         return $this->response();
-
     }
 
     /**
@@ -84,7 +80,6 @@ class NotificationController extends BaseController
     public function update($workOrder_id, $notification_id)
     {
         if ($this->workOrderNotificationValidator->passes()) {
-
             $workOrder = $this->workOrder->find($workOrder_id);
 
             $notifications = $this->workOrderNotification->find($notification_id);
@@ -97,7 +92,6 @@ class NotificationController extends BaseController
             $this->message = 'Successfully updated notifications';
             $this->messageType = 'success';
             $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
-
         } else {
             $this->errors = $this->workOrderNotificationValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);

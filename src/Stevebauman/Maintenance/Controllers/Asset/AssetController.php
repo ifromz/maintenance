@@ -8,8 +8,7 @@ use Stevebauman\Maintenance\Validators\AssetValidator;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class AssetController
- * @package Stevebauman\Maintenance\Controllers\Asset
+ * Class AssetController.
  */
 class AssetController extends BaseController
 {
@@ -29,8 +28,8 @@ class AssetController extends BaseController
     protected $assetValidator;
 
     /**
-     * @param AssetService $asset
-     * @param AssetValidator $assetValidator
+     * @param AssetService     $asset
+     * @param AssetValidator   $assetValidator
      * @param WorkOrderService $workOrder
      */
     public function __construct(AssetService $asset, AssetValidator $assetValidator, WorkOrderService $workOrder)
@@ -41,7 +40,7 @@ class AssetController extends BaseController
     }
 
     /**
-     * Show the index of all assets
+     * Show the index of all assets.
      *
      * @return mixed
      */
@@ -51,31 +50,30 @@ class AssetController extends BaseController
 
         return view('maintenance::assets.index', [
             'title' => 'All Assets',
-            'assets' => $assets
+            'assets' => $assets,
         ]);
     }
 
     /**
-     * Show the create form for assets
+     * Show the create form for assets.
      *
      * @return mixed
      */
     public function create()
     {
         return view('maintenance::assets.create', [
-            'title' => 'Create an Asset'
+            'title' => 'Create an Asset',
         ]);
     }
 
     /**
-     * Process and store the creation of the asset
+     * Process and store the creation of the asset.
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function store()
     {
         if ($this->assetValidator->passes()) {
-
             $record = $this->asset->setInput($this->inputAll())->create();
 
             if ($record) {
@@ -96,9 +94,10 @@ class AssetController extends BaseController
     }
 
     /**
-     * Show the asset
+     * Show the asset.
      *
      * @param $id
+     *
      * @return mixed
      */
     public function show($id)
@@ -111,16 +110,17 @@ class AssetController extends BaseController
         $workOrders = $this->workOrder->setInput($data)->getByPageWithFilter();
 
         return view('maintenance::assets.show', [
-            'title' => 'Viewing Asset: ' . $asset->name,
+            'title' => 'Viewing Asset: '.$asset->name,
             'asset' => $asset,
-            'workOrders' => $workOrders
+            'workOrders' => $workOrders,
         ]);
     }
 
     /**
-     * Show the edit form
+     * Show the edit form.
      *
      * @param $id
+     *
      * @return mixed
      */
     public function edit($id)
@@ -128,13 +128,13 @@ class AssetController extends BaseController
         $asset = $this->asset->find($id);
 
         return view('maintenance::assets.edit', [
-            'title' => 'Editing asset: ' . $asset->name,
+            'title' => 'Editing asset: '.$asset->name,
             'asset' => $asset,
         ]);
     }
 
     /**
-     * Process the edit form and update the record
+     * Process the edit form and update the record.
      *
      * @return $this->response (object or json response)
      */
@@ -155,7 +155,7 @@ class AssetController extends BaseController
     }
 
     /**
-     * Delete an asset record
+     * Delete an asset record.
      *
      * @return $this->response (object or json response)
      */

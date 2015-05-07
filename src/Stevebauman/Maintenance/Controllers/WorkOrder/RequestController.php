@@ -7,8 +7,7 @@ use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class RequestController
- * @package Stevebauman\Maintenance\Controllers\WorkOrder
+ * Class RequestController.
  */
 class RequestController extends BaseController
 {
@@ -25,7 +24,7 @@ class RequestController extends BaseController
     /**
      * Constructor.
      *
-     * @param WorkOrderService $workOrder
+     * @param WorkOrderService   $workOrder
      * @param WorkRequestService $workRequest
      */
     public function __construct(WorkOrderService $workOrder, WorkRequestService $workRequest)
@@ -68,8 +67,7 @@ class RequestController extends BaseController
          * If a work order already exists for this request, we'll return
          * an error and let the user know
          */
-        if($workRequest->workOrder)
-        {
+        if ($workRequest->workOrder) {
             $link = link_to_route('maintenance.work-orders.show', 'Show Work Order', [$workRequest->workOrder->id]);
 
             $this->message = "A work order already exists for this work request. $link";
@@ -81,15 +79,13 @@ class RequestController extends BaseController
 
         $workOrder = $this->workOrder->createFromWorkRequest($workRequest);
 
-        if($workOrder)
-        {
+        if ($workOrder) {
             $link = link_to_route('maintenance.work-orders.show', 'Show', [$workOrder->id]);
 
             $this->message = "Successfully generated work order. $link";
             $this->messageType = 'success';
             $this->redirect = routeBack('maintenance.work-orders.show', [$workOrder->id]);
-        } else
-        {
+        } else {
             $message = 'There was an issue trying to generate a work order for this request.
             If a work order was deleted that was attached to this request, it will have to be removed/recovered by
             an administrator before generating another work order.';
