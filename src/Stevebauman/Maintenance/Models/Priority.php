@@ -19,7 +19,7 @@ class Priority extends BaseModel
     ];
 
     /**
-     * Returns a pretty label of the work order priority
+     * Returns a pretty label of the work order priority.
      *
      * @return string
      */
@@ -33,7 +33,7 @@ class Priority extends BaseModel
     }
 
     /**
-     * Compatibility with Revisionable
+     * Compatibility with Revisionable.
      *
      * @return string
      */

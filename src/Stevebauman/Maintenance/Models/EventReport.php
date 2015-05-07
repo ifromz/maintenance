@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class EventReport
- * @package Stevebauman\Maintenance\Models
+ * Class EventReport.
  */
 class EventReport extends BaseModel
 {

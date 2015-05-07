@@ -11,9 +11,7 @@ use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class BaseModel
- *
- * @package Stevebauman\Maintenance\Models
+ * Class BaseModel.
  */
 class BaseModel extends Eloquent
 {
@@ -44,7 +42,7 @@ class BaseModel extends Eloquent
     protected $dontKeepRevisionOf = ['deleted_at'];
 
     /**
-     * Formats the created_at timestamp
+     * Formats the created_at timestamp.
      *
      * @param string $created_at
      *
@@ -56,7 +54,7 @@ class BaseModel extends Eloquent
     }
 
     /**
-     * Formats the deleted_at timestamp
+     * Formats the deleted_at timestamp.
      *
      * @param string $deleted_at
      *
@@ -64,15 +62,15 @@ class BaseModel extends Eloquent
      */
     public function getDeletedAtAttribute($deleted_at)
     {
-        if(array_key_exists('deleted_at', $this->attributes)) {
+        if (array_key_exists('deleted_at', $this->attributes)) {
             return Carbon::parse($deleted_at)->format('Y-m-d h:i A');
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Accessor for retrieving a limited description for display on tables
+     * Accessor for retrieving a limited description for display on tables.
      *
      * @return string
      */
@@ -87,15 +85,15 @@ class BaseModel extends Eloquent
             return str_limit(strip_tags($this->attributes['description']), 30);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Retrieves a valid operator from the specified string
+     * Retrieves a valid operator from the specified string.
      *
      * @param string $string
      *
-     * @return boolean|array
+     * @return bool|array
      */
     protected function getOperator($string)
     {
@@ -103,24 +101,24 @@ class BaseModel extends Eloquent
 
         $output = preg_split("/[\[\]]/", $string);
 
-        if (is_array($output))
-        {
-            if (array_key_exists('1', $output) && array_key_exists('2', $output))
-            {
-                if (in_array($output[1], $allowed_operators)) return [$output[1], $output[2]];
-            } else
-            {
+        if (is_array($output)) {
+            if (array_key_exists('1', $output) && array_key_exists('2', $output)) {
+                if (in_array($output[1], $allowed_operators)) {
+                    return [$output[1], $output[2]];
+                }
+            } else {
                 return $output;
             }
         }
+
         return false;
     }
 
     /**
-     * Scopes a query to show only soft deleted records
+     * Scopes a query to show only soft deleted records.
      *
      * @param object $query
-     * @param boolean $archived
+     * @param bool   $archived
      *
      * @return object
      */
@@ -135,7 +133,7 @@ class BaseModel extends Eloquent
 
     /**
      * Allows all columns on the current database table to be sorted through
-     * query scope
+     * query scope.
      *
      * @param object $query
      * @param string $field
@@ -178,7 +176,7 @@ class BaseModel extends Eloquent
     }
 
     /**
-     * Returns the current models database table
+     * Returns the current models database table.
      *
      * @return string
      */

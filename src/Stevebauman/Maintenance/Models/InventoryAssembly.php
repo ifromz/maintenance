@@ -3,9 +3,7 @@
 namespace Stevebauman\Maintenance\Models;
 
 /**
- * Class InventoryAssembly
- *
- * @package Stevebauman\Maintenance\Models
+ * Class InventoryAssembly.
  */
 class InventoryAssembly extends BaseModel
 {

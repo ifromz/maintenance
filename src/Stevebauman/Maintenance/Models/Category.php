@@ -5,9 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Baum\Node;
 
 /**
- * Class Category
- *
- * @package Stevebauman\Maintenance\Models
+ * Class Category.
  */
 class Category extends Node
 {
@@ -25,7 +23,7 @@ class Category extends Node
     ];
 
     /**
-     * Returns a single lined string with arrows indicating depth of the current category
+     * Returns a single lined string with arrows indicating depth of the current category.
      *
      * @return string
      */
@@ -35,7 +33,7 @@ class Category extends Node
     }
 
     /**
-     * Compatibility with Revisionable
+     * Compatibility with Revisionable.
      *
      * @return string
      */

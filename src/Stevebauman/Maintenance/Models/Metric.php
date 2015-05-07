@@ -3,9 +3,7 @@
 namespace Stevebauman\Maintenance\Models;
 
 /**
- * Class Metric
- *
- * @package Stevebauman\Maintenance\Models
+ * Class Metric.
  */
 class Metric extends BaseModel
 {
@@ -13,7 +11,7 @@ class Metric extends BaseModel
 
     protected $fillable = [
         'name',
-        'symbol'
+        'symbol',
     ];
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\MetricViewer';

@@ -9,9 +9,7 @@ use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class Asset
- *
- * @package Stevebauman\Maintenance\Models
+ * Class Asset.
  */
 class Asset extends BaseModel
 {
@@ -106,7 +104,7 @@ class Asset extends BaseModel
     public function scopeName($query, $name = null)
     {
         if ($name) {
-            return $query->where('name', 'LIKE', '%' . $name . '%');
+            return $query->where('name', 'LIKE', '%'.$name.'%');
         }
 
         return $query;
@@ -118,7 +116,7 @@ class Asset extends BaseModel
     public function scopeCondition($query, $condition = null)
     {
         if ($condition) {
-            return $query->where('condition', 'LIKE', '%' . $condition . '%');
+            return $query->where('condition', 'LIKE', '%'.$condition.'%');
         }
 
         return $query;

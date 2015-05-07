@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Models\Dynamics;
 use Stevebauman\Maintenance\Models\BaseModel;
 
 /**
- * Class FixedAsset
- * @package Stevebauman\Maintenance\Models\Dynamics
+ * Class FixedAsset.
  */
 class FixedAsset extends BaseModel
 {
@@ -15,7 +14,7 @@ class FixedAsset extends BaseModel
     protected $table = 'dbo.FixedAssets';
 
     /**
-     * The hasOne location relationship
+     * The hasOne location relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

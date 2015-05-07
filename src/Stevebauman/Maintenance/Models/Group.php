@@ -7,8 +7,7 @@ use Stevebauman\Viewer\Traits\ViewableTrait;
 use Cartalyst\Sentry\Groups\Eloquent\Group as SentryGroup;
 
 /**
- * Class Group
- * @package Stevebauman\Maintenance\Models
+ * Class Group.
  */
 class Group extends SentryGroup
 {
@@ -23,7 +22,7 @@ class Group extends SentryGroup
     protected $viewer = 'Stevebauman\Maintenance\Viewers\GroupViewer';
 
     /**
-     * The belongsToMany users relationship
+     * The belongsToMany users relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

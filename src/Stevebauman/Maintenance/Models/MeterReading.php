@@ -31,14 +31,14 @@ class MeterReading extends BaseModel
 
     /**
      * Accessor for retrieving the current meter reading
-     * with it's metric symbol. For example: '120.00 Gal'
+     * with it's metric symbol. For example: '120.00 Gal'.
      *
      * @return mixed|string
      */
     public function getReadingWithMetricAttribute()
     {
-        if($this->meter && $this->meter->metric) {
-            return $this->reading . ' ' . $this->meter->metric->symbol;
+        if ($this->meter && $this->meter->metric) {
+            return $this->reading.' '.$this->meter->metric->symbol;
         }
 
         return $this->reading;

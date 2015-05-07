@@ -7,9 +7,7 @@ use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class Notification
- *
- * @package Stevebauman\Maintenance\Models
+ * Class Notification.
  */
 class Notification extends BaseModel
 {
@@ -23,7 +21,7 @@ class Notification extends BaseModel
         'notifiable_type',
         'message',
         'link',
-        'read'
+        'read',
     ];
 
     /**
@@ -54,22 +52,23 @@ class Notification extends BaseModel
         $config = App::make('Stevebauman\Maintenance\Services\ConfigService');
 
         // Make sure we have an instance of the ConfigService returned by the IoC
-        if($config instanceof ConfigService)
-        {
+        if ($config instanceof ConfigService) {
             $icon = $config->setPrefix('maintenance')->get("notifications.icons.$class");
 
             // Return the models notification icon if it's found
-            if (is_string($icon) && ! empty($icon)) return $icon;
+            if (is_string($icon) && !empty($icon)) {
+                return $icon;
+            }
 
             /*
              * Looks like the notification icon could not be
              * found, we'll return the default notification icon
              */
-            $defaultIcon = $config->setPrefix('maintenance')->get("notifications.icons.default");
+            $defaultIcon = $config->setPrefix('maintenance')->get('notifications.icons.default');
 
             return $defaultIcon;
         }
 
-        return null;
+        return;
     }
 }

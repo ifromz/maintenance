@@ -6,9 +6,7 @@ use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class Event
- *
- * @package Stevebauman\Maintenance\Models
+ * Class Event.
  */
 class Event extends BaseModel
 {

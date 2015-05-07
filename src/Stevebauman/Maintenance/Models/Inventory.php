@@ -12,8 +12,7 @@ use Stevebauman\Maintenance\Traits\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\HasEventsTrait;
 
 /**
- * Class Inventory
- * @package Stevebauman\Maintenance\Models
+ * Class Inventory.
  */
 class Inventory extends BaseModel
 {
@@ -26,14 +25,14 @@ class Inventory extends BaseModel
     use HasUserTrait;
     use HasNotesTrait;
     /**
-     * The database table to store inventory records
+     * The database table to store inventory records.
      *
      * @var string
      */
     protected $table = 'inventories';
 
     /**
-     * The fillable eloquent attribute array for allowing mass assignments
+     * The fillable eloquent attribute array for allowing mass assignments.
      *
      * @var array
      */
@@ -47,7 +46,7 @@ class Inventory extends BaseModel
     ];
 
     /**
-     * Revisionable field names
+     * Revisionable field names.
      *
      * @var array
      */
@@ -60,7 +59,7 @@ class Inventory extends BaseModel
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryViewer';
 
     /**
-     * The hasOne metric relationship
+     * The hasOne metric relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -70,7 +69,7 @@ class Inventory extends BaseModel
     }
 
     /**
-     * The hasOne SKU relationship
+     * The hasOne SKU relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -80,7 +79,7 @@ class Inventory extends BaseModel
     }
 
     /**
-     * The hasMany stocks relationship
+     * The hasMany stocks relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -90,7 +89,7 @@ class Inventory extends BaseModel
     }
 
     /**
-     * The hasMany assemblies relationship
+     * The hasMany assemblies relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -100,7 +99,7 @@ class Inventory extends BaseModel
     }
 
     /**
-     * The hasMany suppliers relationship
+     * The hasMany suppliers relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -110,7 +109,7 @@ class Inventory extends BaseModel
     }
 
     /**
-     * Filters query by the inputted inventory item name
+     * Filters query by the inputted inventory item name.
      *
      * @param $query
      * @param string $name
@@ -120,14 +119,14 @@ class Inventory extends BaseModel
     public function scopeName($query, $name = null)
     {
         if ($name) {
-            return $query->where('name', 'LIKE', '%' . $name . '%');
+            return $query->where('name', 'LIKE', '%'.$name.'%');
         }
 
         return $query;
     }
 
     /**
-     * Filters query by the inputted inventory item description
+     * Filters query by the inputted inventory item description.
      *
      * @param $query
      * @param string $description
@@ -136,15 +135,14 @@ class Inventory extends BaseModel
      */
     public function scopeDescription($query, $description = null)
     {
-        if ($description)
-        {
-            return $query->where('description', 'LIKE', '%' . $description . '%');
+        if ($description) {
+            return $query->where('description', 'LIKE', '%'.$description.'%');
         }
 
         return $query;
     }
     /**
-     * Filters query by the inputted inventory item stock quantity
+     * Filters query by the inputted inventory item stock quantity.
      *
      * @param $query
      * @param string $operator
@@ -154,15 +152,11 @@ class Inventory extends BaseModel
      */
     public function scopeStock($query, $operator = null, $stock = null)
     {
-        if ($operator && $stock)
-        {
-            return $query->whereHas('stocks', function ($query) use ($operator, $stock)
-            {
-                if ($output = $this->getOperator($operator))
-                {
+        if ($operator && $stock) {
+            return $query->whereHas('stocks', function ($query) use ($operator, $stock) {
+                if ($output = $this->getOperator($operator)) {
                     return $query->where('quantity', $output[0], $stock);
-                } else
-                {
+                } else {
                     return $query;
                 }
             });
@@ -172,7 +166,7 @@ class Inventory extends BaseModel
     }
 
     /**
-     * Filters query by the inputted inventory sku
+     * Filters query by the inputted inventory sku.
      *
      * @param $query
      * @param string $sku
@@ -181,10 +175,8 @@ class Inventory extends BaseModel
      */
     public function scopeSku($query, $sku = null)
     {
-        if ($sku)
-        {
-            return $query->whereHas('sku', function($query) use($sku)
-            {
+        if ($sku) {
+            return $query->whereHas('sku', function ($query) use ($sku) {
                 return $query->where('code', 'LIKE', '%'.$sku.'%');
             });
         }
@@ -193,7 +185,7 @@ class Inventory extends BaseModel
     }
 
     /**
-     * Mutator for showing the total current stock of the inventory item
+     * Mutator for showing the total current stock of the inventory item.
      *
      * @return int|string
      */
@@ -209,7 +201,7 @@ class Inventory extends BaseModel
     }
 
     /**
-     * Mutator for showing the inventories metric symbol
+     * Mutator for showing the inventories metric symbol.
      *
      * @return null|string
      */
@@ -219,6 +211,6 @@ class Inventory extends BaseModel
             return $this->getMetricSymbol();
         }
 
-        return null;
+        return;
     }
 }

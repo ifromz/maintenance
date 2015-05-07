@@ -5,8 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Baum\Node;
 
 /**
- * Class Location
- * @package Stevebauman\Inventory\Models
+ * Class Location.
  */
 class Location extends Node
 {
@@ -21,7 +20,7 @@ class Location extends Node
     ];
 
     /**
-     * Returns a single lined string with arrows indicating depth of the current category
+     * Returns a single lined string with arrows indicating depth of the current category.
      *
      * @return string
      */
@@ -31,7 +30,7 @@ class Location extends Node
     }
 
     /**
-     * Compatibility with Revisionable
+     * Compatibility with Revisionable.
      *
      * @return string
      */

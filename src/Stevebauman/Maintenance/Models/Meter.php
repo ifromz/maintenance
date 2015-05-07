@@ -5,9 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class Meter
- *
- * @package Stevebauman\Maintenance\Models
+ * Class Meter.
  */
 class Meter extends BaseModel
 {
@@ -20,11 +18,11 @@ class Meter extends BaseModel
     protected $fillable = [
         'user_id',
         'metric_id',
-        'name'
+        'name',
     ];
 
     /**
-     * The hasOne meter relationship
+     * The hasOne meter relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -34,7 +32,7 @@ class Meter extends BaseModel
     }
 
     /**
-     * The hasMany readings relationship
+     * The hasMany readings relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -52,11 +50,11 @@ class Meter extends BaseModel
     {
         $reading = $this->readings->first();
 
-        if($reading) {
+        if ($reading) {
             return $reading->reading;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -68,11 +66,11 @@ class Meter extends BaseModel
     {
         $reading = $this->readings->first();
 
-        if($reading) {
+        if ($reading) {
             return $reading->reading_with_metric;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -82,8 +80,10 @@ class Meter extends BaseModel
      */
     public function getLastCommentAttribute()
     {
-        if ($this->readings->count() > 0) return $this->readings->first()->comment;
+        if ($this->readings->count() > 0) {
+            return $this->readings->first()->comment;
+        }
 
-        return null;
+        return;
     }
 }

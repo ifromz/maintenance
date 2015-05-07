@@ -7,9 +7,7 @@ use Stevebauman\Maintenance\Traits\HasLocationTrait;
 use Stevebauman\Inventory\Traits\InventoryStockTrait;
 
 /**
- * Class InventoryStock
- *
- * @package Stevebauman\Maintenance\Models
+ * Class InventoryStock.
  */
 class InventoryStock extends BaseModel
 {
@@ -18,14 +16,14 @@ class InventoryStock extends BaseModel
     use HasLocationTrait;
 
     /**
-     * The database table to store inventory stock records
+     * The database table to store inventory stock records.
      *
      * @var string
      */
     protected $table = 'inventory_stocks';
 
     /**
-     * The fillable eloquent attribute array for allowing mass assignments
+     * The fillable eloquent attribute array for allowing mass assignments.
      *
      * @var array
      */
@@ -92,24 +90,19 @@ class InventoryStock extends BaseModel
      */
     public function getLastMovementAttribute()
     {
-        if ($this->movements->count() > 0)
-        {
+        if ($this->movements->count() > 0) {
             $movement = $this->movements->first();
 
-            if ($movement->after > $movement->before)
-            {
+            if ($movement->after > $movement->before) {
                 return sprintf('<b>%s</b> (Stock was added - %s) - <b>Reason:</b> %s', $movement->change, $movement->created_at, $movement->reason);
-            } else if ($movement->before > $movement->after)
-            {
+            } elseif ($movement->before > $movement->after) {
                 return sprintf('<b>%s</b> (Stock was removed - %s) - <b>Reason:</b> %s', $movement->change, $movement->created_at, $movement->reason);
-            }
-            else
-            {
+            } else {
                 return sprintf('<b>%s</b> (No Change - %s) - <b>Reason:</b> %s', $movement->change, $movement->created_at, $movement->reason);
             }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -120,14 +113,15 @@ class InventoryStock extends BaseModel
      */
     public function getLastMovementByAttribute()
     {
-        if ($this->movements->count() > 0)
-        {
+        if ($this->movements->count() > 0) {
             $movement = $this->movements->first();
 
-            if ($movement->user) return $movement->user->full_name;
+            if ($movement->user) {
+                return $movement->user->full_name;
+            }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -137,6 +131,6 @@ class InventoryStock extends BaseModel
      */
     public function getQuantityMetricAttribute()
     {
-        return $this->attributes['quantity'] . ' ' . $this->item->metric->name;
+        return $this->attributes['quantity'].' '.$this->item->metric->name;
     }
 }

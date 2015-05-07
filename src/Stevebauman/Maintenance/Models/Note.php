@@ -5,9 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\HasUserTrait;
 
 /**
- * Class Note
- *
- * @package Stevebauman\Maintenance\Models
+ * Class Note.
  */
 class Note extends BaseModel
 {

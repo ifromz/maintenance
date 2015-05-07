@@ -3,8 +3,7 @@
 namespace Stevebauman\Maintenance\Models;
 
 /**
- * Class AssetManual
- * @package Stevebauman\Maintenance\Models
+ * Class AssetManual.
  */
 class AssetManual extends BaseModel
 {

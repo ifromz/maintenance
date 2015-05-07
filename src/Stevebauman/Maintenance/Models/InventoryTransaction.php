@@ -6,8 +6,7 @@ use Stevebauman\Inventory\Interfaces\StateableInterface;
 use Stevebauman\Inventory\Traits\InventoryTransactionTrait;
 
 /**
- * Class InventoryTransaction
- * @package Stevebauman\Maintenance\Models
+ * Class InventoryTransaction.
  */
 class InventoryTransaction extends BaseModel implements StateableInterface
 {

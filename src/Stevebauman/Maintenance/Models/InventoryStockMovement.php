@@ -6,9 +6,7 @@ use Stevebauman\Maintenance\Traits\HasUserTrait;
 use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 
 /**
- * Class InventoryStockMovement
- *
- * @package Stevebauman\Maintenance\Models
+ * Class InventoryStockMovement.
  */
 class InventoryStockMovement extends BaseModel
 {
@@ -66,7 +64,7 @@ class InventoryStockMovement extends BaseModel
     {
         if ($this->before > $this->after) {
             return sprintf('- %s', $this->before - $this->after);
-        } else if($this->after > $this->before) {
+        } elseif ($this->after > $this->before) {
             return sprintf('+ %s', $this->after - $this->before);
         } else {
             return 'None';
