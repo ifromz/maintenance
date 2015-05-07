@@ -172,9 +172,9 @@ class BaseModel extends Eloquent
         }
 
         /*
-         * Default order by created at field
+         * Default to latest scope
          */
-        return $query->orderBy('created_at', 'desc');
+        return $query->latest();
     }
 
     /**

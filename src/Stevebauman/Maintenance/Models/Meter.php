@@ -40,7 +40,7 @@ class Meter extends BaseModel
      */
     public function readings()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\MeterReading', 'meter_id')->orderBy('created_at', 'DESC');
+        return $this->hasMany('Stevebauman\Maintenance\Models\MeterReading', 'meter_id')->latest();
     }
 
     /**

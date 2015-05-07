@@ -82,7 +82,7 @@ class InventoryStock extends BaseModel
      */
     public function movements()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStockMovement', 'stock_id')->orderBy('created_at', 'DESC');
+        return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStockMovement', 'stock_id')->latest();
     }
 
     /**

@@ -150,7 +150,17 @@ class WorkOrder extends BaseModel
      */
     public function sessions()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderSession', 'work_order_id')->orderBy('created_at', 'DESC');
+        return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderSession', 'work_order_id')->latest();
+    }
+
+    /**
+     * The hasMany notifiable users relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function notifiableUsers()
+    {
+        return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderNotification', 'work_order_id', 'id');
     }
 
     /**
@@ -347,11 +357,6 @@ class WorkOrder extends BaseModel
         $record = $this->notifiableUsers()->where('user_id', Sentry::getUser()->id)->first();
 
         return $record;
-    }
-
-    public function notifiableUsers()
-    {
-        return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderNotification', 'work_order_id', 'id');
     }
 
     /**
