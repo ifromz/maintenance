@@ -5,15 +5,11 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCalendarTables extends Migration
 {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-
         Schema::create('events', function (Blueprint $table) {
 
             $table->increments('id');
@@ -73,8 +69,6 @@ class CreateCalendarTables extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
@@ -82,5 +76,4 @@ class CreateCalendarTables extends Migration
         Schema::drop('eventables');
         Schema::drop('events');
     }
-
 }

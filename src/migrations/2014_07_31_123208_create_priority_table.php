@@ -5,11 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePriorityTable extends Migration
 {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -30,12 +27,9 @@ class CreatePriorityTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::drop('priorities');
     }
-
 }

@@ -5,16 +5,12 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateWorkOrderTables extends Migration
 {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        Schema::create('work_requests', function (Blueprint $table)
-        {
+        Schema::create('work_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
@@ -28,8 +24,7 @@ class CreateWorkOrderTables extends Migration
                 ->onDelete('set null');
         });
 
-        Schema::create('work_request_updates', function (Blueprint $table)
-        {
+        Schema::create('work_request_updates', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('update_id')->unsigned();
@@ -44,8 +39,7 @@ class CreateWorkOrderTables extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('work_orders', function (Blueprint $table)
-        {
+        Schema::create('work_orders', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
@@ -93,8 +87,7 @@ class CreateWorkOrderTables extends Migration
 
         });
 
-        Schema::create('work_order_notifications', function (Blueprint $table)
-        {
+        Schema::create('work_order_notifications', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned();
@@ -116,8 +109,7 @@ class CreateWorkOrderTables extends Migration
 
         });
 
-        Schema::create('work_order_reports', function (Blueprint $table)
-        {
+        Schema::create('work_order_reports', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned();
@@ -133,8 +125,7 @@ class CreateWorkOrderTables extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('work_order_updates', function (Blueprint $table)
-        {
+        Schema::create('work_order_updates', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('update_id')->unsigned();
@@ -149,8 +140,7 @@ class CreateWorkOrderTables extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('work_order_sessions', function (Blueprint $table)
-        {
+        Schema::create('work_order_sessions', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned();
@@ -168,8 +158,7 @@ class CreateWorkOrderTables extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('work_order_attachments', function (Blueprint $table)
-        {
+        Schema::create('work_order_attachments', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('work_order_id')->unsigned();
@@ -185,8 +174,7 @@ class CreateWorkOrderTables extends Migration
 
         });
 
-        Schema::create('work_order_assets', function (Blueprint $table)
-        {
+        Schema::create('work_order_assets', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('work_order_id')->unsigned();
@@ -201,8 +189,7 @@ class CreateWorkOrderTables extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('work_order_parts', function (Blueprint $table)
-        {
+        Schema::create('work_order_parts', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('work_order_id')->unsigned();
@@ -218,8 +205,7 @@ class CreateWorkOrderTables extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('work_order_assignments', function (Blueprint $table)
-        {
+        Schema::create('work_order_assignments', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('work_order_id')->unsigned();
@@ -242,8 +228,6 @@ class CreateWorkOrderTables extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
@@ -259,5 +243,4 @@ class CreateWorkOrderTables extends Migration
         Schema::drop('work_request_updates');
         Schema::drop('work_requests');
     }
-
 }

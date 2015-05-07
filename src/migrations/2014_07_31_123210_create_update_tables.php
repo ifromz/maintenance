@@ -5,11 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateUpdateTables extends Migration
 {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -29,12 +26,9 @@ class CreateUpdateTables extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::drop('updates');
     }
-
 }

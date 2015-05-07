@@ -5,11 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateNoteTables extends Migration
 {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -43,13 +40,10 @@ class CreateNoteTables extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::drop('noteables');
         Schema::drop('notes');
     }
-
 }

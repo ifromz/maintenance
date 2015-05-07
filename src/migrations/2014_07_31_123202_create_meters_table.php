@@ -5,11 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMetersTable extends Migration
 {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -53,13 +50,10 @@ class CreateMetersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::drop('meter_readings');
         Schema::drop('meters');
     }
-
 }

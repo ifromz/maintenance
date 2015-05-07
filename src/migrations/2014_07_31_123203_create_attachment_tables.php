@@ -5,11 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAttachmentTables extends Migration
 {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -31,12 +28,9 @@ class CreateAttachmentTables extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::drop('attachments');
     }
-
 }

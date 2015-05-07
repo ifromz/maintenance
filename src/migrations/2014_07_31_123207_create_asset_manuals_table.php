@@ -5,11 +5,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAssetManualsTable extends Migration
 {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -52,13 +49,10 @@ class CreateAssetManualsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::drop('asset_images');
         Schema::drop('asset_manuals');
     }
-
 }
