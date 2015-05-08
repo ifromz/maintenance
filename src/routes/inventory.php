@@ -33,11 +33,18 @@ Route::group(['namespace' => 'Inventory'], function () {
     );
 
     Route::resource('inventory/categories', 'CategoryController', [
+        'only' => [
+            'index',
+            'create',
+            'store',
+            'edit',
+            'update',
+            'destroy',
+        ],
         'names' => [
             'index' => 'maintenance.inventory.categories.index',
             'create' => 'maintenance.inventory.categories.create',
             'store' => 'maintenance.inventory.categories.store',
-            'show' => 'maintenance.inventory.categories.show',
             'edit' => 'maintenance.inventory.categories.edit',
             'update' => 'maintenance.inventory.categories.update',
             'destroy' => 'maintenance.inventory.categories.destroy',

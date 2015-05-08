@@ -28,11 +28,18 @@ Route::post('locations/create/{categories?}', [
 );
 
 Route::resource('locations', 'LocationController', [
+    'only' => [
+        'index',
+        'create',
+        'store',
+        'edit',
+        'update',
+        'destroy',
+    ],
     'names' => [
         'index' => 'maintenance.locations.index',
         'create' => 'maintenance.locations.create',
         'store' => 'maintenance.locations.store',
-        'show' => 'maintenance.locations.show',
         'edit' => 'maintenance.locations.edit',
         'update' => 'maintenance.locations.update',
         'destroy' => 'maintenance.locations.destroy',

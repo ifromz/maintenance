@@ -34,11 +34,18 @@ Route::group(['namespace' => 'Asset'], function () {
     );
 
     Route::resource('assets/categories', 'CategoryController', [
+        'only' => [
+            'index',
+            'create',
+            'store',
+            'edit',
+            'update',
+            'destroy',
+        ],
         'names' => [
             'index' => 'maintenance.assets.categories.index',
             'create' => 'maintenance.assets.categories.create',
             'store' => 'maintenance.assets.categories.store',
-            'show' => 'maintenance.assets.categories.show',
             'edit' => 'maintenance.assets.categories.edit',
             'update' => 'maintenance.assets.categories.update',
             'destroy' => 'maintenance.assets.categories.destroy',

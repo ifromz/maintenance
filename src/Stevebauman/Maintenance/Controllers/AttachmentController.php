@@ -44,15 +44,17 @@ class AttachmentController extends BaseController
         $attachment = $this->attachment->find($attachmentId);
 
         if ($this->storage->delete($attachment->file_path.$attachment->file_name)) {
-            $this->storage->deleteDirectory($attachment->file_path);
-            $attachment->delete();
 
-            $this->message = 'Successfully deleted attachment';
-            $this->messageType = 'success';
-        } else {
-            $this->message = 'Error deleting attachment';
-            $this->messageType = 'error';
+            $this->storage->deleteDirectory($attachment->file_path);
+
+            if($attachment->delete()) {
+                $this->message = 'Successfully deleted attachment';
+                $this->messageType = 'success';
+            }
         }
+
+        $this->message = 'There was an issue deleting this attachment. Please try again.';
+        $this->messageType = 'danger';
 
         return $this->response();
     }

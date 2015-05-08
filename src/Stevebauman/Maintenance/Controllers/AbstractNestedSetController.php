@@ -2,6 +2,8 @@
 
 namespace Stevebauman\Maintenance\Controllers;
 
+use Illuminate\Support\Facades\App;
+
 /**
  * Class AbstractNestedSetController.
  */
@@ -20,13 +22,15 @@ abstract class AbstractNestedSetController extends BaseController
     /*
      * Holds the title of the nested set resource.
      * Ex. Categories or Locations
+     *
+     * @var string
      */
     public $resource;
 
     /**
      * Displays a list of all categories.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -43,12 +47,13 @@ abstract class AbstractNestedSetController extends BaseController
      * Shows the form for creating a new category
      * or category node if an ID is supplied.
      *
-     * @param null $id
+     * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function create($id = null)
     {
+        // If an ID is supplied then we're creating a child category
         if ($id) {
             $category = $this->service->find($id);
 
@@ -59,21 +64,21 @@ abstract class AbstractNestedSetController extends BaseController
                     'resource' => $this->resource,
                 ]);
             }
-        } else {
-            return view('maintenance::categories.create', [
-                'title' => "Create a $this->resource",
-                'resource' => $this->resource,
-            ]);
         }
+
+        return view('maintenance::categories.create', [
+            'title' => "Create a $this->resource",
+            'resource' => $this->resource,
+        ]);
     }
 
     /**
      * Processes storing a new category or storing a new category
      * underneath another if an ID is specified.
      *
-     * @param null $id
+     * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store($id = null)
     {
@@ -83,7 +88,7 @@ abstract class AbstractNestedSetController extends BaseController
             if ($id) {
                 $parent = $this->service->find($id);
 
-                $category->makeChildOf($parent);
+                if($parent) $category->makeChildOf($parent);
             }
 
             $this->message = "Successfully created $this->resource";
@@ -96,21 +101,11 @@ abstract class AbstractNestedSetController extends BaseController
     }
 
     /**
-     * Showing categories currently not implemented.
-     *
-     * @return mixed
-     */
-    public function show()
-    {
-        return \App::abort(404);
-    }
-
-    /**
      * Show the form for editing the specified category.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
@@ -126,9 +121,9 @@ abstract class AbstractNestedSetController extends BaseController
     /**
      * Processes updating the specified category.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function update($id)
     {
@@ -149,9 +144,9 @@ abstract class AbstractNestedSetController extends BaseController
     /**
      * Processes removing the specified category.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -167,7 +162,7 @@ abstract class AbstractNestedSetController extends BaseController
     /**
      * Processes moving the specified category.
      *
-     * @param $id
+     * @param int|string $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -176,23 +171,23 @@ abstract class AbstractNestedSetController extends BaseController
         $category = $this->service->find($id);
 
         if ($category) {
-            $parent = $this->input('parent_id');
+            $parentId = $this->input('parent_id');
 
             /*
              * If the parent ID is an empty hash, we
              * must be moving it into the root
              */
-            if ($parent == '#') {
+            if ($parentId == '#') {
                 $category->makeRoot();
 
                 return $this->responseJson([
                     'categoryMoved' => true,
                 ]);
             } else {
-                $parent_category = $this->service->find($parent);
+                $parent = $this->service->find($parentId);
 
-                if ($parent_category) {
-                    $category->makeChildOf($parent_category);
+                if ($parent) {
+                    $category->makeChildOf($parent);
 
                     return $this->responseJson([
                         'categoryMoved' => true,
@@ -200,6 +195,11 @@ abstract class AbstractNestedSetController extends BaseController
                 }
             }
         }
+
+        // Category wasn't found, return false
+        return $this->responseJson([
+            'categoryMoved' => false,
+        ]);
     }
 
     /**
@@ -231,6 +231,8 @@ abstract class AbstractNestedSetController extends BaseController
             } else {
                 return;
             }
+        } else {
+            return App::abort(404);
         }
     }
 }

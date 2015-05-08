@@ -77,11 +77,18 @@ Route::group(['namespace' => 'WorkOrder'], function () {
     );
 
     Route::resource('work-orders/categories', 'CategoryController', [
+        'only' => [
+            'index',
+            'create',
+            'store',
+            'edit',
+            'update',
+            'destroy',
+        ],
         'names' => [
             'index' => 'maintenance.work-orders.categories.index',
             'create' => 'maintenance.work-orders.categories.create',
             'store' => 'maintenance.work-orders.categories.store',
-            'show' => 'maintenance.work-orders.categories.show',
             'edit' => 'maintenance.work-orders.categories.edit',
             'update' => 'maintenance.work-orders.categories.update',
             'destroy' => 'maintenance.work-orders.categories.destroy',
