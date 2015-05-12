@@ -33,6 +33,8 @@ class WorkOrderListener extends AbstractListener
     protected $config;
 
     /**
+     * Constructor.
+     *
      * @param WorkOrderService    $workOrder
      * @param NotificationService $workOrderNotification
      * @param SentryService       $sentry
