@@ -17,7 +17,6 @@
         "stevebauman/inventory": "1.6.*",
         "stevebauman/calendar-helper": "0.1.*",
         "stevebauman/log-reader": "1.0.*",
-        "stevebauman/purify": "1.0.*",
         "cartalyst/sentry": "2.1.*",
         "arcanedev/no-captcha": "1.2.*",
         "baum/baum": "1.0.*",
