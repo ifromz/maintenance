@@ -48,7 +48,7 @@ class InstallCommand extends Command
         }
 
         if ($this->confirm('Do you want to create an administrator? [yes|no]', true)) {
-            $this->call('maintenance::create-admin');
+            $this->call('maintenance:create-admin');
         }
     }
 }
