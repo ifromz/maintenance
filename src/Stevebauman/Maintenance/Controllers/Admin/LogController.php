@@ -51,7 +51,9 @@ class LogController extends BaseController
     /**
      * Displays the specified log entry.
      *
-     * @param $id
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -70,7 +72,7 @@ class LogController extends BaseController
     /**
      * Marks the specified entry as read.
      *
-     * @param $id
+     * @param int|string $id
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
@@ -80,9 +82,9 @@ class LogController extends BaseController
 
         if ($entry) {
             if ($entry->markRead()) {
-                $this->message = '';
+                $this->message = 'Successfully marked entry as read.';
                 $this->messageType = 'success';
-                $this->redirect = routeBack('maintenance.admin.logs.index');
+                $this->redirect = route('maintenance.admin.logs.index');
             } else {
                 $this->message = 'There was an error trying to mark this entry as read. Please try again.';
                 $this->messageType = 'danger';
@@ -98,9 +100,28 @@ class LogController extends BaseController
     /**
      * Destroys the specified entry.
      *
-     * @param $id
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
+        $entry = $this->log->find($id);
+
+        if($entry) {
+            if($entry->delete()) {
+                $this->message = 'Successfully deleted entry.';
+                $this->messageType = 'success';
+                $this->redirect = route('maintenance.admin.logs.index');
+            } else {
+                $this->message = 'There was an error trying to delete this entry. Please try again.';
+                $this->messageType = 'danger';
+                $this->redirect = routeBack('maintenance.admin.logs.index');
+            }
+
+            return $this->response();
+        }
+
+        return App::abort(404);
     }
 }
