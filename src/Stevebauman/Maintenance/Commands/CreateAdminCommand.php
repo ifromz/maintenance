@@ -49,6 +49,7 @@ class CreateAdminCommand extends Command
             'email' => $this->askEmail(),
             'username' => $this->askUsername(),
             'password' => $this->askPassword(),
+            'activated' => true,
             'permissions' => ['superuser' => 1],
         ];
 
