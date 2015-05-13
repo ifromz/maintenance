@@ -140,7 +140,6 @@ class InventoryService extends BaseModelService
              * Update the record, return it upon success
              */
             if ($record->update($insert)) {
-
                 /*
                  * Fire updated event
                  */

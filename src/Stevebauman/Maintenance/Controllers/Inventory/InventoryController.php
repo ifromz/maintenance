@@ -141,7 +141,7 @@ class InventoryController extends BaseController
             } else {
                 $this->message = 'There was an error trying to update this item. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.edit', [$item->id]);
+                $this->redirect = route('maintenance.inventory.edit', [$id]);
             }
         } else {
             $this->errors = $this->inventoryValidator->getErrors();
