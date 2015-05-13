@@ -5,6 +5,16 @@
 @stop
 
 @section('panel.body.content')
+
+    @if(Sentry::getUser()->id === $user->id)
+        <div class="alert alert-warning">
+            Heads up! You're editing yourself. Changing your username or email can cause your session to expire,
+            or you could accidentally remove yourself from administration privileges if you edit permissions, groups or activation.
+
+            Edit with severe caution!
+        </div>
+    @endif
+
     {{
         Form::open(array(
             'url' => route('maintenance.admin.users.update', array($user->id)),
