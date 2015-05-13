@@ -88,7 +88,9 @@ abstract class AbstractNestedSetController extends BaseController
             if ($id) {
                 $parent = $this->service->find($id);
 
-                if($parent) $category->makeChildOf($parent);
+                if ($parent) {
+                    $category->makeChildOf($parent);
+                }
             }
 
             $this->message = "Successfully created $this->resource";
