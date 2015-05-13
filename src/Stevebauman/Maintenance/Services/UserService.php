@@ -80,8 +80,8 @@ class UserService extends BaseModelService
             $record = $this->sentry->createUser($insert);
 
             /*
-             * Due to sentry restrictions, we'll update the additional user
-             * information manually
+             * Due to sentry restrictions, we'll update
+             * the additional user information manually
              */
             $modelRecord = $this->model->find($record->id);
 
@@ -113,7 +113,7 @@ class UserService extends BaseModelService
      */
     public function createOrUpdateLdapUser($credentials)
     {
-        $loginAttribute = $this->config->get('cartalyst/sentry::users.login_attribute');
+        $loginAttribute = $this->config->setPrefix('cartalyst/sentry')->get('users.login_attribute');
 
         $username = $credentials[$loginAttribute];
         $password = $credentials['password'];
