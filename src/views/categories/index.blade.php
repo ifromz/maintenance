@@ -42,51 +42,11 @@
 @stop
 
 @section('panel.body.content')
-<div class="category-tree"></div>
 
 <div class="row">
     <div class="col-md-12">
-        <div class="tree"></div>
+        {{-- Dynamic getJson method for allowing mutliple nested set resources to use this view --}}
+        <div class="tree" data-src="{{ action(currentControllerAction('getJson')) }}"></div>
     </div>
-
-    <script>
-        $(document).ready(function (e) {
-            var json_category_tree = null;
-
-            $.get("{{ action(currentControllerAction('getJson')) }}", function (data) {
-                json_category_tree = data;
-            }).done(function () {
-                if (json_category_tree != null) {
-                    $('.tree').on('changed.jstree', function (e, data) {
-
-                        $('#edit-category').css('display', 'inline-block');
-                        $('#create-sub-category').css('display', 'inline-block');
-                        $('#delete-sub-category').css('display', 'inline-block');
-
-                        for (i = 0, j = data.selected.length; i < j; i++) {
-                            $('#edit-category').attr('href', window.location.href.toString() + "/" + data.instance.get_node(data.selected[i]).id + "/edit");
-                            $('#create-sub-category').attr('href', window.location.href.toString() + "/create/" + data.instance.get_node(data.selected[i]).id);
-                            $('#delete-sub-category').attr('href', window.location.href.toString() + "/" + data.instance.get_node(data.selected[i]).id);
-                        }
-                    }).jstree({
-                        "plugins": ["core", "json_data", "themes", "ui", "dnd", "crrm"],
-                        'core': {
-                            'data': json_category_tree,
-                            'check_callback': true
-                        }
-                    }).bind("loaded.jstree", function (event, data) {
-                        $(this).jstree("open_all");
-                    }).bind("move_node.jstree", function (e, data) {
-                        $.post(
-                                window.location.href.toString() + "/move/" + data.node.id,
-                                {
-                                    "parent_id": data.node.parent
-                                }
-                        );
-                    });
-                }
-            });
-        });
-    </script>
 </div>
 @stop

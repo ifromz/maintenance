@@ -18,6 +18,8 @@ class InventoryService extends BaseModelService
     protected $sentry;
 
     /**
+     * Constructor.
+     *
      * @param Inventory                  $inventory
      * @param SentryService              $sentry
      * @param InventoryNotFoundException $notFoundException

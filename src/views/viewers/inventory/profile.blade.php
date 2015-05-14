@@ -29,7 +29,7 @@
     <p></p>
 
     <dt>Description:</dt>
-    <dd class="pad bg-gray">
+    <dd class="well">
         @if($item->description)
             {{ $item->description }}
         @else
@@ -43,4 +43,17 @@
     <dd>{{ renderNode($item->category) }}</dd>
 
     <p></p>
+
+    <dt>QR Code:</dt>
+    <dd>
+        <a class="btn btn-xs btn-primary" data-toggle="collapse" href="#qr-code" aria-expanded="false" aria-controls="collapse-qr-code">
+            Show / Hide QR
+        </a>
+
+        <div class="collapse" id="qr-code">
+            <div class="well">
+                {{ QrCode::size(200)->generate(Request::url()); }}
+            </div>
+        </div>
+    </dd>
 </dl>

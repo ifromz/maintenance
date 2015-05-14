@@ -1,42 +1,52 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
 @section('tab.head.content')
-    <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
-    <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
-    <li><a href="#tab_notes" data-toggle="tab">Notes</a></li>
-    <li><a href="#tab_history" data-toggle="tab">History</a></li>
+    <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
+    <li><a href="#tab-notes" data-toggle="tab">Notes</a></li>
+    <li><a href="#tab-history" data-toggle="tab">History</a></li>
 @stop
 
 @section('tab.body.content')
-    <div class="tab-pane active" id="tab_profile">
+    <div class="tab-pane active" id="tab-profile">
+        <div class="row">
+            <div class="col-md-12">
+                {{ $item->viewer()->btnEvents }}
 
-        {{ $item->viewer()->btnQrCode }}
+                {{ $item->viewer()->btnAddStock }}
 
-        {{ $item->viewer()->btnEvents }}
+                {{ $item->viewer()->btnRegenerateSku }}
 
-        {{ $item->viewer()->btnAddStock }}
+                {{ $item->viewer()->btnEdit }}
 
-        {{ $item->viewer()->btnRegenerateSku }}
+                {{ $item->viewer()->btnDelete }}
 
-        {{ $item->viewer()->btnEdit }}
+                <hr>
+            </div>
 
-        {{ $item->viewer()->btnDelete }}
+            <div class="clear-fix"></div>
 
-        <legend>Profile</legend>
+            <div class="col-md-6">
+                <h2>Profile</h2>
 
-        {{ $item->viewer()->profile }}
+                {{ $item->viewer()->profile }}
+            </div>
 
-        <legend>Current Stocks</legend>
+            <div class="clear-fix"></div>
 
-        {{ $item->viewer()->stock }}
+            <div class="col-md-12">
+                <h2>Stocks</h2>
 
+                {{ $item->viewer()->stock }}
+            </div>
+        </div>
     </div>
 
-    <div class="tab-pane" id="tab_calendar">
+    <div class="tab-pane" id="tab-calendar">
         {{ $item->viewer()->calendar }}
     </div>
 
-    <div class="tab-pane" id="tab_notes">
+    <div class="tab-pane" id="tab-notes">
         {{ $item->viewer()->btnAddNote }}
 
         <hr>
@@ -44,7 +54,7 @@
         {{ $item->viewer()->notes }}
     </div>
 
-    <div class="tab-pane" id="tab_history">
+    <div class="tab-pane" id="tab-history">
         {{ $item->viewer()->history }}
     </div>
 @stop

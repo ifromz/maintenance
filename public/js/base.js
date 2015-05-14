@@ -1,16 +1,16 @@
 // JavaScript Document
 
 /*
- * Set ajax cache to false to prevent back button from
- * spewing json responses
+ * Set ajax cache to false to prevent back
+ * button from spewing json responses
  */
 $.ajaxSetup({cache: false});
 
 $(document).ready(function () {
 
     /*
-     * Tab Pane Hash Fix - Automatically opens a tab in a tab-panel if the
-     * hash id matches the id of a panel
+     * Tab Pane Hash Fix - Automatically opens a tab
+     * in a tab-panel if the hash id matches the id of a panel
      */
     $(function () {
         var hash = window.location.hash;
@@ -29,9 +29,7 @@ $(document).ready(function () {
      */
     CKEDITOR.replaceAll();
 
-    /*
-     * Sorts a table listing by ajax
-     */
+    // Sorts a table listing by ajax
     $(document).on('click', '.link-sort', function (e) {
         e.preventDefault();
 
@@ -306,6 +304,55 @@ $(document).ready(function () {
         closest.val('');
     });
 
+    var tree = $('.tree');
+
+    // Check if any tree instances exist
+    if(tree.length > 0) {
+        var jsonCategoryTree = null;
+
+        var dataSrc = tree.data('src');
+
+        $.get(dataSrc, function (data) {
+            jsonCategoryTree = data;
+        }).done(function () {
+            if (jsonCategoryTree != null) {
+                tree.on('changed.jstree', function (e, data) {
+
+                    var btnEditCategory = $('#edit-category').css('display', 'inline-block');
+                    var btnCreateSubCategory = $('#create-sub-category').css('display', 'inline-block');
+                    var btnDeleteSubCategory = $('#delete-sub-category').css('display', 'inline-block');
+
+                    for (i = 0, j = data.selected.length; i < j; i++) {
+                        if(btnEditCategory) {
+                            btnEditCategory.attr('href', window.location.href.toString() + "/" + data.instance.get_node(data.selected[i]).id + "/edit");
+                        }
+
+                        if(btnCreateSubCategory) {
+                            btnCreateSubCategory.attr('href', window.location.href.toString() + "/create/" + data.instance.get_node(data.selected[i]).id);
+                        }
+
+                        if(btnDeleteSubCategory) {
+                            btnDeleteSubCategory.attr('href', window.location.href.toString() + "/" + data.instance.get_node(data.selected[i]).id);
+                        }
+                    }
+                }).jstree({
+                    "plugins": ["core", "json_data", "themes", "ui", "dnd", "crrm"],
+                    'core': {
+                        'data': jsonCategoryTree,
+                        'check_callback': true
+                    }
+                }).bind("loaded.jstree", function (event, data) {
+                    $(this).jstree("open_all");
+                }).bind("move_node.jstree", function (e, data) {
+                    $.post(
+                        window.location.href.toString() + "/move/" + data.node.id, {
+                            "parent_id": data.node.parent
+                        }
+                    );
+                });
+            }
+        });
+    }
 });
 
 /**
@@ -400,7 +447,6 @@ var showStatusMessage = function (message, type, container) {
     } else {
         $(html).prependTo(container).hide().fadeIn(fadeTime);
     }
-
 };
 
 /**

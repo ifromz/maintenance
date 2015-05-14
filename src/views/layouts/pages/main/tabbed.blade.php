@@ -8,7 +8,7 @@
 
         @section('tab.head')
 
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs" role="tablist">
 
                 @yield('tab.head.content')
 

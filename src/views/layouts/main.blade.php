@@ -40,12 +40,6 @@
             </a>
             <ul class="treeview-menu">
 
-                <li class="{{ activeMenuLink('maintenance.work-orders.assigned') }}">
-                    <a href="{{ route('maintenance.work-orders.assigned.index') }}">
-                        <i class="fa fa-book"></i> Assigned Work Orders
-                    </a>
-                </li>
-
                 @if(Sentry::hasAccess('maintenance.work-requests.index'))
                     <li class="{{ activeMenuLink('maintenance.work-requests') }}">
                         <a href="{{ route('maintenance.work-requests.index') }}">
@@ -54,7 +48,7 @@
                     </li>
                 @endif
 
-                @if(Sentry::hasAccess('maintenance.work-orders.index'))
+                @if(Sentry::hasAccess('maintenance.work-orders.*'))
                     <li class="{{ activeMenuLink('maintenance.work-orders') }}">
                         <a href="{{ route('maintenance.work-orders.index') }}">
                             <i class="fa fa-briefcase"></i> Work Orders
@@ -63,10 +57,16 @@
 
                         <ul class="treeview-menu">
 
+                            <li class="{{ activeMenuLink('maintenance.work-orders.assigned') }}">
+                                <a href="{{ route('maintenance.work-orders.assigned.index') }}">
+                                    <i class="fa fa-user"></i> Assigned
+                                </a>
+                            </li>
+
                             @if(Sentry::hasAccess('maintenance.work-orders.index'))
                                 <li class="{{ activeMenuLink('maintenance.work-orders.index') }}">
                                     <a href="{{ route('maintenance.work-orders.index') }}">
-                                        <i class="fa fa-book"></i> Work Orders
+                                        <i class="fa fa-list"></i> All
                                     </a>
                                 </li>
                             @endif
@@ -112,7 +112,7 @@
                 @if(Sentry::hasAccess('maintenance.inventory.index'))
                     <li class="{{ activeMenuLink('maintenance.inventory') }}">
                         <a href="{{ route('maintenance.inventory.index') }}">
-                            <i class="fa fa-gears"></i> All Items
+                            <i class="fa fa-list"></i> All Items
                         </a>
                     </li>
                 @endif
@@ -137,7 +137,7 @@
             <ul class="treeview-menu">
                 <li class="{{ activeMenuLink('maintenance.assets') }}">
                     <a href="{{ route('maintenance.assets.index') }}">
-                        <i class="fa fa-book"></i> All Assets
+                        <i class="fa fa-list"></i> All Assets
                     </a>
                 </li>
                 @if(Sentry::hasAccess('maintenance.assets.categories.index'))

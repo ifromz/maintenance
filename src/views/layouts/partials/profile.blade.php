@@ -7,14 +7,14 @@
 
         <!-- Menu Body -->
         <li class="user-body">
-            <dl class="dl-horizontal">
+            <h3 class="text-center">Profile</h3>
 
-                <dt>Logged In As:</dt>
-                <dd>{{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}</dd>
+            <hr>
 
-                <p></p>
-
-            </dl>
+            <ul class="text-center list-unstyled">
+                <li><b>Name:</b> {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}</li>
+                <li><b>Last Logged In:</b> {{ Sentry::getUser()->last_login }}</li>
+            </ul>
         </li>
         <!-- Menu Footer-->
         <li class="user-footer">

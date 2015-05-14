@@ -41,15 +41,6 @@ class InventoryViewer extends BaseViewer
         return view('maintenance::viewers.inventory.buttons.regenerate-sku', ['item' => $this->entity]);
     }
 
-    public function btnQrCode()
-    {
-        return view('maintenance::viewers.partials.buttons.qr-code', [
-            'id' => 'qr-modal',
-            'title' => 'QR Code',
-            'content' => route('maintenance.inventory.show', [$this->entity->id]),
-        ]);
-    }
-
     public function btnEvents()
     {
         return view('maintenance::viewers.inventory.buttons.events', ['item' => $this->entity]);
