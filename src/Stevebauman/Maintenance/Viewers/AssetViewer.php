@@ -74,15 +74,6 @@ class AssetViewer extends BaseViewer
         return view('maintenance::viewers.asset.buttons.restore', ['asset' => $this->entity]);
     }
 
-    public function btnQrCode()
-    {
-        return view('maintenance::viewers.partials.buttons.qr-code', [
-            'id' => 'qr-modal',
-            'title' => 'QR Code',
-            'content' => route('maintenance.assets.show', [$this->entity->id]),
-        ]);
-    }
-
     public function btnActions()
     {
         return view('maintenance::viewers.asset.buttons.actions', ['asset' => $this->entity]);

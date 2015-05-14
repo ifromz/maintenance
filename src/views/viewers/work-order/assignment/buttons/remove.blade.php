@@ -10,7 +10,7 @@
 
 <button
     type="submit"
-    class="btn btn-primary confirm"
+    class="btn btn-sm btn-primary confirm"
     data-confirm-message="{{ sprintf('Are you sure you want to remove <b>%s</b> from this work order?', $assignment->toUser->full_name) }}"
     ><i class="fa fa-trash-o"></i> Remove
 </button>

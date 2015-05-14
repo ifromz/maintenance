@@ -35,4 +35,11 @@
 
     <dt>Category:</dt>
     <dd>{{ $asset->category->trail }}</dd>
+
+    <p></p>
+
+    <dt>Condition:</dt>
+    <dd>{{ $asset->condition }}</dd>
+
+    <p></p>
 </dl>

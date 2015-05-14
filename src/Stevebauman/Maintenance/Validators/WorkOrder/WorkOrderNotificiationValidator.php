@@ -2,9 +2,7 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-class WorkOrderNotificiationValidator extends BaseValidator
+class WorkOrderNotificationValidator extends BaseValidator
 {
-    protected $rules = [
-        '',
-    ];
+    protected $rules = [];
 }

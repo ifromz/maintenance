@@ -1,4 +1,4 @@
-<legend class="margin-top-10">Item Information</legend>
+<legend>Item Information</legend>
 
 <div class="form-group">
     <label class="col-sm-2 control-label">Category</label>

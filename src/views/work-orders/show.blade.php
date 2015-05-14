@@ -1,27 +1,23 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
 @section('tab.head.content')
-    <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
-    <li><a href="#tab_details" data-toggle="tab">Details</a></li>
-    <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
-    <li><a href="#tab_history" data-toggle="tab">History</a></li>
-    <li><a href="#tab_parts" data-toggle="tab">Parts / Supplies</a></li>
-    <li><a href="#tab_attachments" data-toggle="tab">Attachments</a></li>
-    <li><a href="#tab_updates" data-toggle="tab">Updates</a></li>
+    <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab-details" data-toggle="tab">Details</a></li>
+    <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
+    <li><a href="#tab-history" data-toggle="tab">History</a></li>
+    <li><a href="#tab-parts" data-toggle="tab">Parts / Supplies</a></li>
+    <li><a href="#tab-attachments" data-toggle="tab">Attachments</a></li>
+    <li><a href="#tab-updates" data-toggle="tab">Updates</a></li>
 @stop
 
 @section('tab.body.content')
-    <div class="tab-pane active" id="tab_profile">
-
-        <legend>Profile</legend>
+    <div class="tab-pane active" id="tab-profile">
 
         {{ $workOrder->viewer()->btnCheckIn }}
 
         {{ $workOrder->viewer()->btnEvents }}
 
-        <!-- ERROR HERE -->
         {{ $workOrder->viewer()->btnWorkers }}
-        <!-- ERROR STOP -->
 
         {{ $workOrder->viewer()->btnNotifications }}
 
@@ -31,19 +27,28 @@
 
         {{ $workOrder->viewer()->btnDelete }}
 
-        <div class="clearfix"></div>
+        <div class="row">
 
-        <hr>
+            <div class="col-md-6">
+                <h2>Profile</h2>
 
-        {{ $workOrder->viewer()->profile }}
+                <hr>
 
-        <legend>Work Request</legend>
+                {{ $workOrder->viewer()->profile }}
+            </div>
 
-        {{ $workOrder->viewer()->workRequest }}
+            <div class="col-md-6">
+                <h2>Work Request</h2>
 
+                <hr>
+
+                {{ $workOrder->viewer()->workRequest }}
+            </div>
+
+        </div>
     </div>
 
-    <div class="tab-pane" id="tab_details">
+    <div class="tab-pane" id="tab-details">
 
         {{ $workOrder->viewer()->report }}
 
@@ -51,44 +56,44 @@
 
     </div>
 
-    <div class="tab-pane" id="tab_calendar">
+    <div class="tab-pane" id="tab-calendar">
 
         {{ $workOrder->viewer()->calendar }}
 
     </div>
 
-    <div class="tab-pane" id="tab_history">
+    <div class="tab-pane" id="tab-history">
 
         {{ $workOrder->viewer()->history }}
 
     </div>
 
-    <div class="tab-pane" id="tab_parts">
-
-        <legend>Parts / Supplies</legend>
+    <div class="tab-pane" id="tab-parts">
 
         {{ $workOrder->viewer()->btnAddParts }}
 
         <hr>
 
+        <h2>Parts / Supplies</h2>
+
         {{ $workOrder->viewer()->parts }}
 
     </div>
 
-    <div class="tab-pane" id="tab_attachments">
-
-        <legend>Attachments</legend>
+    <div class="tab-pane" id="tab-attachments">
 
         {{ $workOrder->viewer()->btnAddAttachments }}
 
         <hr>
 
+        <h2>Attachments</h2>
+
         {{ $workOrder->viewer()->attachments }}
     </div>
 
-    <div class="tab-pane" id="tab_updates">
+    <div class="tab-pane" id="tab-updates">
 
-        <legend>Updates</legend>
+        <h2>Updates</h2>
 
         {{ $workOrder->viewer()->updates }}
     </div>

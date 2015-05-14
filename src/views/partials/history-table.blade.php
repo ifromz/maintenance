@@ -1,5 +1,5 @@
 @if(isset($record))
-    <legend>History</legend>
+    <h2>History</h2>
 
     @if($record->revisionHistory->count() > 0)
 

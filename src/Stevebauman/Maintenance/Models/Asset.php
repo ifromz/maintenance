@@ -143,6 +143,7 @@ class Asset extends BaseModel
         return $this->attributes['condition'];
     }
 
+
     /*
      * Mutator for displaying a pretty link label for display in work orders
      *

@@ -9,10 +9,10 @@ class WorkOrderValidator extends BaseValidator
 {
     protected $rules = [
         'category' => '',
-        'category_id' => 'integer',
+        'category_id' => 'integer|min:1',
 
         'location' => '',
-        'location_id' => 'integer',
+        'location_id' => 'integer|min:1',
 
         'status' => 'required|integer',
         'priority' => 'required|integer',

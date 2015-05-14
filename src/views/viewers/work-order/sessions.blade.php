@@ -1,4 +1,4 @@
-<legend>Sessions & Hours</legend>
+<h2>Sessions & Hours</h2>
 
 @if($workOrder->sessions->count() > 0)
 

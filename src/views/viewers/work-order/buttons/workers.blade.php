@@ -22,14 +22,14 @@
                 <div id="assigned-workers">
                     @if($workOrder->hasWorkersAssigned())
 
-                        <legend>Current Assigned Workers</legend>
+                        <legend>Assigned Workers</legend>
 
                         {{
-                            $workOrder->assignments->columns(array(
+                            $workOrder->assignments->columns([
                                 'name' => 'Name',
                                 'created_at' => 'Assigned',
                                 'remove' => 'Remove',
-                            ))
+                            ])
                             ->means('name', 'toUser.full_name')
                             ->modify('remove', function($assignment) {
                                 return $assignment->viewer()->btnRemove;
@@ -48,12 +48,12 @@
                 <legend>Assign Workers</legend>
 
                 {{
-                    Form::open(array(
-                        'url'=>route('maintenance.work-orders.assignments.store', array($workOrder->id)),
+                    Form::open([
+                        'url'=>route('maintenance.work-orders.assignments.store', [$workOrder->id]),
                         'class'=>'ajax-form-post',
                         'data-refresh-target'=>'#assigned-workers',
                         'data-status-target'=>'#workers-assigned-status'
-                    ))
+                    ])
                 }}
 
                 <label>Enter Names</label>
@@ -65,6 +65,7 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
+
             {{ Form::close() }}
 
         </div>

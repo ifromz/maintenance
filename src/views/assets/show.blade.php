@@ -13,10 +13,6 @@
 
     <div class="tab-pane active" id="tab_asset">
 
-        <legend>Profile</legend>
-
-        {{ $asset->viewer()->btnQrCode }}
-
         {{ $asset->viewer()->btnEvents }}
 
         {{ $asset->viewer()->btnAddImages }}
@@ -27,17 +23,27 @@
 
         {{ $asset->viewer()->btnDelete }}
 
-        <hr>
+        <div class="clear-fix"></div>
 
-        <div class="col-md-9">
-            {{ $asset->viewer()->profile }}
+        <div class="row">
+
+            <div class="col-md-6">
+                <h2>Profile</h2>
+
+                <hr>
+
+                {{ $asset->viewer()->profile }}
+            </div>
+
+            <div class="col-md-6">
+                <h2>Images</h2>
+
+                <hr>
+
+                {{ $asset->viewer()->slideshow }}
+            </div>
+
         </div>
-
-        <div class="col-md-3">
-            {{ $asset->viewer()->slideshow }}
-        </div>
-
-        <div class="clearfix"></div>
 
     </div>
 

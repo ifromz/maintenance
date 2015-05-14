@@ -41,7 +41,7 @@
 
     @if($workOrder->description)
         <dt>Description:</dt>
-        <dd>{{ $workOrder->description }}</dd>
+        <dd class="well">{{ $workOrder->description }}</dd>
 
         <p></p>
     @endif
