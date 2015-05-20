@@ -5,11 +5,11 @@ namespace Stevebauman\Maintenance\Models;
 use Carbon\Carbon;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use Stevebauman\Maintenance\Traits\HasCategoryTrait;
-use Stevebauman\Maintenance\Traits\HasNotesTrait;
-use Stevebauman\Maintenance\Traits\HasLocationTrait;
-use Stevebauman\Maintenance\Traits\HasUserTrait;
-use Stevebauman\Maintenance\Traits\HasEventsTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasNotesTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 
 /**
  * Class WorkOrder.

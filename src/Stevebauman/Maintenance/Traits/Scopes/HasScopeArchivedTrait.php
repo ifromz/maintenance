@@ -1,21 +1,23 @@
 <?php
 
-namespace Stevebauman\Maintenance\Traits;
+namespace Stevebauman\Maintenance\Traits\Scopes;
 
 trait HasScopeArchivedTrait
 {
     /**
      * Scopes a query to show only soft deleted records.
      *
-     * @param object $query
+     * @param mixed $query
      * @param bool   $archived
      *
-     * @return object
+     * @return mixed
      */
     public function scopeArchived($query, $archived = false)
     {
         if ($archived) {
-            return $query->onlyTrashed();
+            $query->onlyTrashed();
         }
+
+        return $query;
     }
 }

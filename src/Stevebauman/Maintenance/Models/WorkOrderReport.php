@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Traits\HasUserTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
 /**
  * Class WorkOrderReport.

@@ -34,7 +34,9 @@ class AssetService extends BaseModelService
      *
      * @param int|string|array $ids
      *
-     * @return \Illuminate\Support\Collection|null|static
+     * @return Asset|\Illuminate\Support\Collection
+     *
+     * @throws \Stevebauman\Maintenance\Exceptions\NotFound\RecordNotFoundException
      */
     public function find($ids)
     {
@@ -126,7 +128,7 @@ class AssetService extends BaseModelService
     /**
      * Creates an asset.
      *
-     * @return bool OR object
+     * @return bool|Asset
      */
     public function create()
     {
@@ -243,6 +245,15 @@ class AssetService extends BaseModelService
         }
     }
 
+    /**
+     * Deletes the specified asset.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     *
+     * @throws \Stevebauman\Maintenance\Exceptions\NotFound\RecordNotFoundException
+     */
     public function destroy($id)
     {
         $record = $this->find($id);

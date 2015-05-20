@@ -2,13 +2,17 @@
 
 namespace Stevebauman\Maintenance\Controllers\Asset\Image;
 
-use Dmyers\Storage\Storage;
+use Illuminate\Filesystem\Filesystem;
+use Stevebauman\Maintenance\Validators\ImageValidator;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\Asset\ImageService;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Controllers\AbstractUploadController;
 
-class ImageController extends BaseController
+/**
+ * Class ImageController
+ */
+class ImageController extends AbstractUploadController
 {
     /**
      * @var AssetService
@@ -21,20 +25,48 @@ class ImageController extends BaseController
     protected $assetImage;
 
     /**
+     * @var ImageValidator
+     */
+    protected $imageValidator;
+
+    /**
      * @var AttachmentService
      */
     protected $attachment;
 
     /**
+     * @var FileSystem
+     */
+    protected $file;
+
+    /**
+     * {inheritDoc}
+     *
+     * @var string
+     */
+    protected $fileStorageLocation = 'assets/images/';
+
+    /**
+     * Constructor.
+     *
      * @param AssetService      $asset
      * @param ImageService      $assetImage
+     * @param ImageValidator    $imageValidator
      * @param AttachmentService $attachment
+     * @param FileSystem        $fileSystem
      */
-    public function __construct(AssetService $asset, ImageService $assetImage, AttachmentService $attachment)
-    {
+    public function __construct(
+        AssetService $asset,
+        ImageService $assetImage,
+        ImageValidator $imageValidator,
+        AttachmentService $attachment,
+        FileSystem $fileSystem
+    ) {
         $this->asset = $asset;
         $this->assetImage = $assetImage;
+        $this->imageValidator = $imageValidator;
         $this->attachment = $attachment;
+        $this->fileSystem = $fileSystem;
     }
 
     /**
@@ -49,9 +81,9 @@ class ImageController extends BaseController
         $asset = $this->asset->find($asset_id);
 
         return view('maintenance::assets.images.index', [
-                'title' => 'Viewing Asset Images for: '.$asset->name,
-                'asset' => $asset,
-            ]);
+            'title' => 'Viewing Asset Images for: '.$asset->name,
+            'asset' => $asset,
+        ]);
     }
 
     /**
@@ -66,33 +98,40 @@ class ImageController extends BaseController
         $asset = $this->asset->find($asset_id);
 
         return view('maintenance::assets.images.create', [
-                    'title' => 'Adding Asset Images for: '.$asset->name,
-                    'asset' => $asset,
-            ]);
+            'title' => 'Adding Asset Images for: '.$asset->name,
+            'asset' => $asset,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param $asset_id
+     * @param $assetId
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    public function store($asset_id)
+    public function store($assetId)
     {
-        $asset = $this->asset->find($asset_id);
+        if($this->imageValidator->passes()) {
+            $files = $this->uploadFiles();
 
-        $data = $this->inputAll();
-        $data['asset_id'] = $asset->id;
+            $data = $this->inputAll();
+            $data['asset_id'] = $assetId;
+            $data['file_path'] = $this->getUploadDirectory();
+            $data['files'] = $files;
 
-        if ($this->assetImage->setInput($data)->create()) {
-            $this->redirect = route('maintenance.assets.images.index', [$asset->id]);
-            $this->message = 'Successfully added images';
-            $this->messageType = 'success';
+            if ($this->assetImage->setInput($data)->create()) {
+                $this->redirect = route('maintenance.assets.images.index', [$assetId]);
+                $this->message = 'Successfully added images';
+                $this->messageType = 'success';
+            } else {
+                $this->redirect = route('maintenance.assets.images.create', [$assetId]);
+                $this->message = 'There was an error adding images to the asset, please try again';
+                $this->messageType = 'danger';
+            }
         } else {
-            $this->redirect = route('maintenance.assets.images.create', [$asset->id]);
-            $this->message = 'There was an error adding images to the asset, please try again';
-            $this->messageType = 'danger';
+            $this->redirect = route('maintenance.assets.images.create', [$assetId]);
+            $this->errors = $this->imageValidator->getErrors();
         }
 
         return $this->response();
@@ -113,30 +152,10 @@ class ImageController extends BaseController
         $attachment = $this->attachment->find($attachment_id);
 
         return view('maintenance::assets.images.show', [
-                'title' => 'Viewing Asset Image',
-                'asset' => $asset,
-                'image' => $attachment,
-            ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param $id
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param $id
-     */
-    public function update($id)
-    {
-        //
+            'title' => 'Viewing Asset Image',
+            'asset' => $asset,
+            'image' => $attachment,
+        ]);
     }
 
     /**
@@ -152,7 +171,7 @@ class ImageController extends BaseController
         $asset = $this->asset->find($asset_id);
         $attachment = $this->attachment->find($attachment_id);
 
-        if (Storage::delete($attachment->file_path.$attachment->file_name)) {
+        if ($this->fileSystem->delete($attachment->file_path)) {
             $attachment->delete();
 
             $this->redirect = route('maintenance.assets.images.index', [$asset->id]);

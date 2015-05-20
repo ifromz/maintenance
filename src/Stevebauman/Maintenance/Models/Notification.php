@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Traits\HasUserTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
 /**
  * Class Notification.

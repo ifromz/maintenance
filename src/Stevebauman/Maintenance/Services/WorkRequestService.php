@@ -22,17 +22,28 @@ class WorkRequestService extends BaseModelService
     protected $sentry;
 
     /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
      * Constructor.
      *
      * @param WorkRequest      $workRequest
      * @param WorkOrderService $workOrder
      * @param SentryService    $sentry
+     * @param ConfigService    $config
      */
-    public function __construct(WorkRequest $workRequest, WorkOrderService $workOrder, SentryService $sentry)
-    {
+    public function __construct(
+        WorkRequest $workRequest,
+        WorkOrderService $workOrder,
+        SentryService $sentry,
+        ConfigService $config
+    ) {
         $this->model = $workRequest;
         $this->workOrder = $workOrder;
         $this->sentry = $sentry;
+        $this->config = $config;
     }
 
     /**
@@ -69,13 +80,14 @@ class WorkRequestService extends BaseModelService
             $workRequest->description = $this->getInput('description', null, true);
 
             if ($workRequest->save()) {
-                $workOrder = $this->workOrder->createFromWorkRequest($workRequest);
 
-                if ($workOrder) {
-                    $this->dbCommitTransaction();
+                $autoGenerate = $this->config->setPrefix('maintenance')->get('rules.work-orders.auto_generate_from_request', true);
 
-                    return $workRequest;
-                }
+                if($autoGenerate) $this->workOrder->createFromWorkRequest($workRequest);
+
+                $this->dbCommitTransaction();
+
+                return $workRequest;
             }
         } catch (\Exception $e) {
             $this->dbRollbackTransaction();

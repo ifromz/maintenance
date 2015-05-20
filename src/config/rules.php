@@ -1,8 +1,8 @@
 <?php
 
 /**
- * The maintenance application rules. The rules indicate the result of certain
- * functionality throughout the application.
+ * The maintenance application rules. The rules indicate
+ * the result of certain functionality throughout the application.
  */
 return [
 
@@ -63,7 +63,13 @@ return [
         'prevent_spam_updates' => [
             'enabled' => 'true',
             'minutes_apart' => '5'
-        ]
+        ],
+
+        /*
+         * Set this to true if you'd like to automatically generate
+         * a work order from a submitted work request.
+         */
+        'auto_generate_from_request' => true,
 
     ],
 

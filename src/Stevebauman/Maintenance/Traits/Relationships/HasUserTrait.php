@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Traits;
+namespace Stevebauman\Maintenance\Traits\Relationships;
 
 /**
  * Trait HasUserTrait.
@@ -8,7 +8,7 @@ namespace Stevebauman\Maintenance\Traits;
 trait HasUserTrait
 {
     /**
-     * The has one user trait.
+     * The hasOne user trait.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

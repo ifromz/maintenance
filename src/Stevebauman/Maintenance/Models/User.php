@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Traits\HasScopeIdTrait;
+use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
 use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;

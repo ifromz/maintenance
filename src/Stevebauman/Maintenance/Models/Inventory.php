@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Inventory\Traits\InventoryTrait;
-use Stevebauman\Maintenance\Traits\HasScopeArchivedTrait;
-use Stevebauman\Maintenance\Traits\HasNotesTrait;
-use Stevebauman\Maintenance\Traits\HasScopeIdTrait;
-use Stevebauman\Maintenance\Traits\HasUserTrait;
-use Stevebauman\Maintenance\Traits\HasCategoryTrait;
-use Stevebauman\Maintenance\Traits\HasEventsTrait;
+use Stevebauman\Maintenance\Traits\Scopes\HasScopeArchivedTrait;
+use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasNotesTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 
 /**
  * Class Inventory.
@@ -24,6 +24,7 @@ class Inventory extends BaseModel
     use HasEventsTrait;
     use HasUserTrait;
     use HasNotesTrait;
+
     /**
      * The database table to store inventory records.
      *

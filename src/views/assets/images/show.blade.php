@@ -6,6 +6,6 @@
 
 @section('panel.body.content')
     <div class="col-md-12">
-        <img class="img-responsive" src="{{ Storage::url($image->file_path.$image->file_name) }}">
+        <img class="img-responsive" src="{{ asset($image->file_path) }}">
     </div>
 @stop

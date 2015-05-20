@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Traits;
+namespace Stevebauman\Maintenance\Traits\Relationships;
 
 use Stevebauman\Maintenance\Models\Category;
 

@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Venturecraft\Revisionable\RevisionableTrait;
-use Stevebauman\Maintenance\Traits\HasScopeIdTrait;
+use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
 use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;

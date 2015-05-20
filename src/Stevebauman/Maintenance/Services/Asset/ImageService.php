@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services\Asset;
 
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\StorageService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
@@ -29,27 +27,17 @@ class ImageService extends BaseModelService
     protected $sentry;
 
     /**
-     * @var StorageService
+     * Constructor.
+     *
+     * @param AssetService $asset
+     * @param AttachmentService $attachment
+     * @param SentryService $sentry
      */
-    protected $storage;
-
-    /**
-     * @var ConfigService
-     */
-    protected $config;
-
-    public function __construct(
-        AssetService $asset,
-        AttachmentService $attachment,
-        SentryService $sentry,
-        StorageService $storage,
-        ConfigService $config
-    ) {
+    public function __construct(AssetService $asset, AttachmentService $attachment, SentryService $sentry)
+    {
         $this->asset = $asset;
         $this->attachment = $attachment;
         $this->sentry = $sentry;
-        $this->storage = $storage;
-        $this->config = $config;
     }
 
     /**
@@ -63,76 +51,40 @@ class ImageService extends BaseModelService
         $this->dbStartTransaction();
 
         try {
-            /*
-             * Find the asset
-             */
+            // Find the asset
             $asset = $this->asset->find($this->getInput('asset_id'));
 
-            /*
-             * Check if any files have been uploaded
-             */
+            $uploadDir = $this->getInput('file_path');
+
+            // Check if any files have been uploaded
             $files = $this->getInput('files');
 
-            if ($files) {
+            if ($uploadDir && $files) {
                 $records = [];
 
-                /*
-                 * For each file, create the attachment record, and sync asset image pivot table
-                 */
+                // For each file, create the attachment record, and sync asset image pivot table
                 foreach ($files as $file) {
-                    $attributes = explode('|', $file);
-
-                    $fileName = $attributes[0];
-                    $fileOriginalName = $attributes[1];
-
-                    /*
-                     * Ex. files/assets/images/1/example.png
-                     */
-                    $movedFilePath = $this->config->setPrefix('maintenance')->get('site.paths.assets.images').sprintf('%s/', $asset->id);
-
-                    /*
-                     * Move the file
-                     */
-                    $this->storage->move(
-                        $this->config->setPrefix('core-helper')->get('temp-upload-path').$fileName,
-                        $movedFilePath.$fileName
-                    );
-
-                    /*
-                     * Set insert data
-                     */
                     $insert = [
-                        'name' => $fileOriginalName,
-                        'file_name' => $fileName,
-                        'file_path' => $movedFilePath,
+                        'file_name' => $file,
+                        'file_path' => $uploadDir.$file,
                         'user_id' => $this->sentry->getCurrentUserId(),
                     ];
 
-                    /*
-                     * Create the attachment record
-                     */
-                    $records[] = $this->attachment->setInput($insert)->create();
+                    // Create the attachment record
+                    $image = $this->attachment->setInput($insert)->create();
 
-                    /*
-                     * Attach the attachment record to the asset images
-                     */
-                    $asset->images()->attach(end($records));
+                    // Attach the attachment record to the asset images
+                    $asset->images()->attach($image);
+
+                    $records[] = $image;
                 }
 
                 $this->dbCommitTransaction();
 
-                /*
-                 *  Return attachment record on success
-                 */
+                // Return attachment record on success
                 return $records;
             }
 
-            $this->dbRollbackTransaction();
-
-            /*
-             * No Files were detected to be uploaded, return false
-             */
-            return false;
         } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }

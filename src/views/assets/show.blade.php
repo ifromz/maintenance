@@ -1,17 +1,17 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
 @section('tab.head.content')
-    <li class="active"><a href="#tab_asset" data-toggle="tab">Profile</a></li>
-    <li><a href="#tab_history" data-toggle="tab">History</a></li>
-    <li><a href="#tab_meters" data-toggle="tab">Meters & Readings</a></li>
-    <li><a href="#tab_calendar" data-toggle="tab">Calendar</a></li>
-    <li><a href="#tab_work_orders" data-toggle="tab">Work Orders</a></li>
-    <li><a href="#tab_manuals" data-toggle="tab">Manuals</a></li>
+    <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab-history" data-toggle="tab">History</a></li>
+    <li><a href="#tab-meters" data-toggle="tab">Meters & Readings</a></li>
+    <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
+    <li><a href="#tab-work-orders" data-toggle="tab">Work Orders</a></li>
+    <li><a href="#tab-manuals" data-toggle="tab">Manuals</a></li>
 @stop
 
 @section('tab.body.content')
 
-    <div class="tab-pane active" id="tab_asset">
+    <div class="tab-pane active" id="tab-profile">
 
         {{ $asset->viewer()->btnEvents }}
 
@@ -47,38 +47,38 @@
 
     </div>
 
-    <div class="tab-pane" id="tab_meters">
-
-        <legend>Meters & Readings</legend>
+    <div class="tab-pane" id="tab-meters">
 
         {{ $asset->viewer()->btnAddMeter }}
 
         <hr>
 
+        <h2>Meters & Readings</h2>
+
         {{ $asset->viewer()->meters }}
 
     </div>
 
-    <div class="tab-pane" id="tab_history">
+    <div class="tab-pane" id="tab-history">
         {{ $asset->viewer()->history }}
     </div>
 
-    <div class="tab-pane" id="tab_calendar">
-        <legend>Calendar</legend>
+    <div class="tab-pane" id="tab-calendar">
+        <h2>Calendar</h2>
 
         {{ $asset->viewer()->calendar }}
     </div>
 
-    <div class="tab-pane" id="tab_work_orders">
+    <div class="tab-pane" id="tab-work-orders">
 
-        <legend>Work Orders</legend>
+        <h2>Work Orders</h2>
 
         {{ $asset->viewer()->workOrders($workOrders) }}
 
     </div>
 
-    <div class="tab-pane" id="tab_manuals">
-        <legend>Manuals</legend>
+    <div class="tab-pane" id="tab-manuals">
+
 
         {{ $asset->viewer()->btnAddManuals }}
 

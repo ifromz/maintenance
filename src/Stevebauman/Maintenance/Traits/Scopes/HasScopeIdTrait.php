@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Traits;
+namespace Stevebauman\Maintenance\Traits\Scopes;
 
 trait HasScopeIdTrait
 {
@@ -14,8 +14,10 @@ trait HasScopeIdTrait
      */
     public function scopeId($query, $id = null)
     {
-        if ($id) {
-            return $query->where('id', $id);
+        if ( ! is_null($id)) {
+            $query->where('id', $id);
         }
+
+        return $query;
     }
 }

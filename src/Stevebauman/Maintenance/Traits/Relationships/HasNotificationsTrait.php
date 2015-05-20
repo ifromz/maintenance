@@ -1,13 +1,13 @@
 <?php
 
-namespace Stevebauman\Maintenance\Traits;
+namespace Stevebauman\Maintenance\Traits\Relationships;
 
 trait HasNotificationsTrait
 {
     /**
      * Allows all models extending from BaseModel to have notifications.
      *
-     * @return object
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function notifications()
     {

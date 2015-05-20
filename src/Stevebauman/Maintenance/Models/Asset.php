@@ -3,10 +3,10 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
-use Stevebauman\Maintenance\Traits\HasCategoryTrait;
-use Stevebauman\Maintenance\Traits\HasEventsTrait;
-use Stevebauman\Maintenance\Traits\HasLocationTrait;
-use Stevebauman\Maintenance\Traits\HasUserTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
 /**
  * Class Asset.
