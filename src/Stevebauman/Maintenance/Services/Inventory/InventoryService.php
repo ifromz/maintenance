@@ -37,10 +37,10 @@ class InventoryService extends BaseModelService
     }
 
     /**
-     * Returns all inventory items paginated, with eager loaded relationships,
-     * as well as scopes for search.
+     * Returns all inventory items paginated, with eager
+     * loaded relationships, as well as scopes for search.
      *
-     * @param null $archived
+     * @param bool $archived
      *
      * @return \Stevebauman\EloquentTable\TableCollection
      */
@@ -77,9 +77,7 @@ class InventoryService extends BaseModelService
         $this->dbStartTransaction();
 
         try {
-            /*
-             * Set input data
-             */
+            // Set insert data
             $insert = [
                 'category_id' => $this->getInput('category_id'),
                 'user_id' => $this->sentry->getCurrentUserId(),
@@ -88,15 +86,11 @@ class InventoryService extends BaseModelService
                 'description' => $this->getInput('description', null, true),
             ];
 
-            /*
-             * If the record is created, return it, otherwise return false
-             */
+            // If the record is created, return it, otherwise return false
             $record = $this->model->create($insert);
 
             if ($record) {
-                /*
-                 * Fire created event
-                 */
+                // Fire created event
                 $this->fireEvent('maintenance.inventory.created', [
                     'item' => $record,
                 ]);
@@ -105,10 +99,6 @@ class InventoryService extends BaseModelService
 
                 return $record;
             }
-
-            $this->dbRollbackTransaction();
-
-            return false;
         } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }
@@ -152,15 +142,10 @@ class InventoryService extends BaseModelService
         $this->dbStartTransaction();
 
         try {
-
-            /*
-             * Find the item record
-             */
+            // Find the item record
             $record = $this->find($id);
 
-            /*
-             * Set update data
-             */
+            // Set update data
             $insert = [
                 'category_id' => $this->getInput('category_id', $record->category_id),
                 'metric_id' => $this->getInput('metric'),
@@ -168,13 +153,10 @@ class InventoryService extends BaseModelService
                 'description' => $this->getInput('description', $record->description, true),
             ];
 
-            /*
-             * Update the record, return it upon success
-             */
+            // Update the record, return it upon success
             if ($record->update($insert)) {
-                /*
-                 * Fire updated event
-                 */
+
+                // Fire updated event
                 $this->fireEvent('maintenance.inventory.updated', [
                     'item' => $record,
                 ]);
@@ -183,15 +165,11 @@ class InventoryService extends BaseModelService
 
                 return $record;
             }
-
-            $this->dbRollbackTransaction();
-
-            return false;
         } catch (\Exception $e) {
             $this->dbRollbackTransaction();
-
-            return false;
         }
+
+        return false;
     }
 
     /*

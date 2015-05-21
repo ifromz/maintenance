@@ -22,6 +22,8 @@ class InventoryController extends BaseController
     protected $inventoryValidator;
 
     /**
+     * Constructor.
+     *
      * @param InventoryService   $inventory
      * @param InventoryValidator $inventoryValidator
      */
@@ -34,7 +36,7 @@ class InventoryController extends BaseController
     /**
      * Display all inventory entries (paginated with search functionality).
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function index()
     {
@@ -49,7 +51,7 @@ class InventoryController extends BaseController
     /**
      * Show the form for creating an inventory.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -87,7 +89,7 @@ class InventoryController extends BaseController
     /**
      * Display the specified inventory.
      *
-     * @param $id
+     * @param int|string $id
      *
      * @return mixed
      */
@@ -104,7 +106,7 @@ class InventoryController extends BaseController
     /**
      * Displays the edit form for the specified inventory.
      *
-     * @param $id
+     * @param int|string $id
      *
      * @return mixed
      */
@@ -121,7 +123,7 @@ class InventoryController extends BaseController
     /**
      * Updates the specified inventory.
      *
-     * @param $id
+     * @param int|string $id
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
@@ -149,7 +151,7 @@ class InventoryController extends BaseController
     /**
      * Removes the specified inventory.
      *
-     * @param $id
+     * @param int|string $id
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
