@@ -13,6 +13,8 @@ use Stevebauman\Maintenance\Controllers\AbstractNoteableController;
 class NoteController extends AbstractNoteableController
 {
     /**
+     * Constructor.
+     *
      * @param InventoryService $inventory
      * @param NoteService      $note
      * @param NoteValidator    $noteValidator

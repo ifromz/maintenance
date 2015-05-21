@@ -1,70 +1,65 @@
-<dl class="dl-horizontal">
+<table class="table">
+    <tbody>
+        <tr>
+            <th>ID</th>
+            <td>{{ $workOrder->id }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ $workOrder->status->label }}</td>
+        </tr>
+        <tr>
+            <th>Priority:</th>
+            <td>{{ $workOrder->priority->label }}</td>
+        </tr>
+        <tr>
+            <th>Created By</th>
+            <td>{{ $workOrder->user->full_name }}</td>
+        </tr>
+        <tr>
+            <th>Subject</th>
+            <td>{{ $workOrder->subject }}</td>
+        </tr>
 
-    <dt>ID:</dt>
-    <dd>{{ $workOrder->id }}</dd>
+        @if($workOrder->category)
+            <tr>
+                <th>Category:</th>
+                <td>{{ $workOrder->category->trail }}</td>
+            </tr>
+        @endif
 
-    <p></p>
+        @if($workOrder->location)
+            <tr>
+                <th>Location:</th>
+                <td>{{ $workOrder->location->trail }}</td>
+            </tr>
+        @endif
 
-    <dt>Status:</dt>
-    <dd>{{ $workOrder->status->label }}</dd>
+        @if($workOrder->description)
+            <tr>
+                <th>Description:</th>
+                <td>{{ $workOrder->description }}</td>
+            </tr>
+        @endif
 
-    <p></p>
+        @if($workOrder->assets->count() > 0)
+            <tr>
+                <th>Assets Involved</th>
+                <td>
+                    @foreach($workOrder->assets as $asset)
+                        {{ $asset->label }}
+                    @endforeach
+                </td>
+            </tr>
+        @endif
 
-    <dt>Priority:</dt>
-    <dd>{{ $workOrder->priority->label }}</dd>
-
-    <p></p>
-
-    <dt>Created By:</dt>
-    <dd>{{ $workOrder->user->full_name }}</dd>
-
-    <p></p>
-
-    <dt>Subject:</dt>
-    <dd>{{ $workOrder->subject }}</dd>
-
-    <p></p>
-
-    @if($workOrder->category)
-        <dt>Category:</dt>
-        <dd>{{ $workOrder->category->trail }}</dd>
-
-        <p></p>
-    @endif
-
-    @if($workOrder->location)
-        <dt>Location:</dt>
-        <dd>{{ $workOrder->location->trail }}</dd>
-
-        <p></p>
-    @endif
-
-    @if($workOrder->description)
-        <dt>Description:</dt>
-        <dd class="well">{{ $workOrder->description }}</dd>
-
-        <p></p>
-    @endif
-
-    @if($workOrder->assets->count() > 0)
-        <dt>Assets Involved:</dt>
-        <dd>
-            @foreach($workOrder->assets as $asset)
-                {{ $asset->label }}
-            @endforeach
-        </dd>
-
-        <p></p>
-    @endif
-
-    <dt>Started At:</dt>
-    <dd>{{ $workOrder->viewer()->lblStartedAt }}</dd>
-
-    <p></p>
-
-    <dt>Completed At:</dt>
-    <dd>{{ $workOrder->viewer()->lblCompletedAt }}</dd>
-
-    <p></p>
-
-</dl>
+        <tr>
+            <th>Started At</th>
+            <td>{{ $workOrder->viewer()->lblStartedAt }}</td>
+        </tr>
+        <tr>
+            <th>Completed At</th>
+            <td>{{ $workOrder->viewer()->lblCompletedAt }}</td>
+        </tr>
+    </tbody>
+</table>
