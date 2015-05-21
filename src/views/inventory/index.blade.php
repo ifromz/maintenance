@@ -2,9 +2,9 @@
 
 @section('panel.extra.top')
 
-    @include('maintenance::inventory.modals.search', array(
-        'url' => route('maintenance.inventory.index', Input::only('field', 'sort'))
-    ))
+    @include('maintenance::inventory.modals.search', [
+        'url' => route('maintenance.inventory.index', Input::only('field', 'sort', 'per_page'))
+    ])
 
 @stop
 
@@ -18,6 +18,10 @@
             <i class="fa fa-search"></i>
             Search
         </a>
+
+        <div class="col-md-2 pull-right">
+            @include('maintenance::select.records-per-page')
+        </div>
     </div>
 @stop
 

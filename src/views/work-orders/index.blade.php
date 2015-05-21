@@ -18,6 +18,10 @@
             <i class="fa fa-search"></i>
             Search
         </a>
+
+        <div class="col-md-2 pull-right">
+            @include('maintenance::select.records-per-page')
+        </div>
     </div>
 @stop
 
