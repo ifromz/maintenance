@@ -10,7 +10,7 @@
     "license": "GPL-2.0+",
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*",
+        "illuminate/support": "4.* | 5.*",
         "stevebauman/corp": "1.0.*",
         "stevebauman/core-helper": "1.0.*",
         "stevebauman/eloquenttable": "1.1.*",
@@ -18,7 +18,7 @@
         "stevebauman/calendar-helper": "0.1.*",
         "stevebauman/log-reader": "1.0.*",
         "cartalyst/sentry": "2.1.*",
-        "arcanedev/no-captcha": "1.2.*",
+        "anhskohbo/no-captcha": "1.* | 2.*",
         "baum/baum": "1.0.* | 1.1.*",
         "simplesoftwareio/simple-qrcode": "1.1.* | 1.2.*",
         "davejamesmiller/laravel-breadcrumbs": "2.3.* | 3.0.*",
