@@ -24,7 +24,7 @@ class AssetSelectComposer
     }
 
     /**
-     * @param $view
+     * @param View $view
      *
      * @return mixed
      */
