@@ -60,16 +60,6 @@ Route::group(['namespace' => 'Asset'], function () {
      */
     Route::group(['namespace' => 'Image'], function () {
 
-        Route::post('assets/images/uploads', [
-            'as' => 'maintenance.assets.images.uploads.store',
-            'uses' => 'UploadController@store',
-        ]);
-
-        Route::post('assets/images/uploads/destroy', [
-            'as' => 'maintenance.assets.images.uploads.destroy',
-            'uses' => 'UploadController@destroy',
-        ]);
-
         Route::resource('assets.images', 'ImageController', [
             'only' => [
                 'index',
@@ -134,20 +124,6 @@ Route::group(['namespace' => 'Asset'], function () {
      * Asset Manual Upload Routes
      */
     Route::group(['namespace' => 'Manual'], function () {
-
-        Route::group(['prefix' => 'assets/manuals/uploads'], function () {
-
-            Route::post('', [
-                'as' => 'maintenance.assets.manuals.uploads.store',
-                'uses' => 'UploadController@store',
-            ]);
-
-            Route::post('destroy', [
-                'as' => 'maintenance.assets.manuals.uploads.destroy',
-                'uses' => 'UploadController@destroy',
-            ]);
-
-        });
 
         Route::resource('assets.manuals', 'ManualController', [
             'only' => [

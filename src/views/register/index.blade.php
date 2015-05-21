@@ -54,7 +54,5 @@
 
         {{ Form::close() }}
 
-        {{ Captcha::script() }}
-
     </div>
 @stop

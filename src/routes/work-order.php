@@ -246,16 +246,6 @@ Route::group(['namespace' => 'WorkOrder'], function () {
      */
     Route::group(['namespace' => 'Attachment'], function () {
 
-        Route::post('work-orders/attachments/uploads', [
-            'as' => 'maintenance.work-orders.attachments.uploads.store',
-            'uses' => 'UploadController@store',
-        ]);
-
-        Route::post('work-orders/attachments/uploads/destroy', [
-            'as' => 'maintenance.work-orders.attachments.uploads.destroy',
-            'uses' => 'UploadController@destroy',
-        ]);
-
         Route::resource('work-orders.attachments', 'AttachmentController', [
             'only' => [
                 'index',
