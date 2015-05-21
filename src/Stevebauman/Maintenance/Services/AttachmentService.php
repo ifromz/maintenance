@@ -4,9 +4,19 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Attachment;
 
+/**
+ * Class AttachmentService
+ */
 class AttachmentService extends BaseModelService
 {
     /**
+     * @var Attachment
+     */
+    protected $model;
+
+    /**
+     * Constructor.
+     *
      * @param Attachment $attachment
      */
     public function __construct(Attachment $attachment)
@@ -15,6 +25,8 @@ class AttachmentService extends BaseModelService
     }
 
     /**
+     * Creates a new attachment record.
+     *
      * @return bool|static
      */
     public function create()

@@ -13,6 +13,11 @@ use Stevebauman\Maintenance\Models\WorkOrderAssignment;
 class AssignmentService extends BaseModelService
 {
     /**
+     * @var WorkOrderAssignment
+     */
+    protected $model;
+
+    /**
      * @var SentryService
      */
     protected $sentry;

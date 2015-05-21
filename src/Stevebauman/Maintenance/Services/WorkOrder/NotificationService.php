@@ -6,14 +6,40 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\WorkOrderNotification;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class NotificationService
+ */
 class NotificationService extends BaseModelService
 {
+    /**
+     * @var WorkOrderNotification
+     */
+    protected $model;
+
+    /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * Constructor.
+     *
+     * @param WorkOrderNotification $model
+     * @param SentryService $sentry
+     */
     public function __construct(WorkOrderNotification $model, SentryService $sentry)
     {
         $this->model = $model;
         $this->sentry = $sentry;
     }
 
+    /**
+     * Creates a notification record for a user
+     * indicating what they would like to be notified
+     * about.
+     *
+     * @return bool|static
+     */
     public function create()
     {
         $this->dbStartTransaction();
@@ -42,6 +68,15 @@ class NotificationService extends BaseModelService
         }
     }
 
+    /**
+     * Updates the notification record for a user
+     * indicating what they would like to be notified
+     * about.
+     *
+     * @param int|string $id
+     *
+     * @return bool|mixed
+     */
     public function update($id)
     {
         $this->dbStartTransaction();

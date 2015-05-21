@@ -6,8 +6,22 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\MeterReading;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
+/**
+ * Class ReadingService
+ */
 class ReadingService extends BaseModelService
 {
+    /**
+     * @var MeterReading
+     */
+    protected $model;
+
+    /**
+     * Constructor.
+     *
+     * @param MeterReading $meterReading
+     * @param SentryService $sentry
+     */
     public function __construct(MeterReading $meterReading, SentryService $sentry)
     {
         $this->model = $meterReading;

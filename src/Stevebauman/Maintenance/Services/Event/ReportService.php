@@ -12,6 +12,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class ReportService extends BaseModelService
 {
     /**
+     * @var EventReport
+     */
+    protected $model;
+
+    /**
      * @var SentryService
      */
     protected $sentry;

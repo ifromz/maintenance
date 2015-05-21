@@ -13,6 +13,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class InventoryService extends BaseModelService
 {
     /**
+     * @var Inventory
+     */
+    protected $model;
+
+    /**
      * @var SentryService
      */
     protected $sentry;

@@ -15,6 +15,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class EventService extends BaseModelService
 {
     /**
+     * @var Event
+     */
+    protected $model;
+
+    /**
      * @var GoogleEventService
      */
     public $eventApi;

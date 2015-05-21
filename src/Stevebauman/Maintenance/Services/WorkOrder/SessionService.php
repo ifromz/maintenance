@@ -13,6 +13,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class SessionService extends BaseModelService
 {
     /**
+     * @var WorkOrderSession
+     */
+    protected $model;
+
+    /**
      * @var WorkOrderService
      */
     protected $workOrder;

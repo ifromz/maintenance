@@ -13,6 +13,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class StockMovementService extends BaseModelService
 {
     /**
+     * @var InventoryStockMovement
+     */
+    protected $model;
+
+    /**
      * @var SentryService
      */
     protected $sentry;

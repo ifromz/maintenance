@@ -17,6 +17,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class WorkOrderService extends BaseModelService
 {
     /**
+     * @var WorkOrder
+     */
+    protected $model;
+
+    /**
      * @var SentryService
      */
     protected $sentry;

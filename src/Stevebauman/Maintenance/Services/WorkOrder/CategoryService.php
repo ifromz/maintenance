@@ -12,6 +12,11 @@ use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 class CategoryService extends BaseCategoryService
 {
     /**
+     * @var Category
+     */
+    protected $model;
+
+    /**
      * The nested set scope ID.
      *
      * @var string

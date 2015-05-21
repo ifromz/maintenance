@@ -13,6 +13,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class ReportService extends BaseModelService
 {
     /**
+     * @var WorkOrderReport
+     */
+    protected $model;
+
+    /**
      * @var WorkOrderService
      */
     protected $workOrder;
@@ -23,6 +28,8 @@ class ReportService extends BaseModelService
     protected $sentry;
 
     /**
+     * Constructor.
+     *
      * @param WorkOrderReport  $report
      * @param WorkOrderService $workOrder
      * @param SentryService    $sentry

@@ -15,6 +15,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class PublicService extends BaseModelService
 {
     /**
+     * @var WorkOrder
+     */
+    protected $model;
+
+    /**
      * @var StatusService
      */
     protected $status;

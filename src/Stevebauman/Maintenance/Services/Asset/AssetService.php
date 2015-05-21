@@ -13,6 +13,11 @@ use Stevebauman\Maintenance\Services\BaseModelService;
 class AssetService extends BaseModelService
 {
     /**
+     * @var Asset
+     */
+    protected $model;
+
+    /**
      * @var SentryService
      */
     protected $sentry;
