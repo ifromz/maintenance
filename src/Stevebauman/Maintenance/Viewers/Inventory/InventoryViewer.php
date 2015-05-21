@@ -11,6 +11,11 @@ class InventoryViewer extends BaseViewer
         return view('maintenance::viewers.inventory.profile', ['item' => $this->entity]);
     }
 
+    public function variants()
+    {
+        return view('maintenance::viewers.inventory.variants', ['item' => $this->entity]);
+    }
+
     public function calendar()
     {
         return view('maintenance::viewers.inventory.calendar', ['item' => $this->entity]);
@@ -84,10 +89,23 @@ class InventoryViewer extends BaseViewer
         ]);
     }
 
+    public function btnCreateVariant()
+    {
+        return view('maintenance::viewers.inventory.buttons.create-variant', [
+            'item' => $this->entity,
+        ]);
+    }
+
     public function lblCurrentStock()
     {
+        $stock = $this->entity->getTotalStock();
+        $variantStock = $this->entity->getTotalVariantStock();
+
+        $totalStock = (float) $stock + (float) $variantStock;
+
         return view('maintenance::viewers.inventory.labels.current-stock', [
-            'currentStock' => $this->entity->getTotalStock(),
+            'currentStock' => $totalStock,
+            'currentVariantStock' => $variantStock,
         ]);
     }
 }

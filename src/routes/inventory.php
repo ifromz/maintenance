@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
  * Inventory Routes
  */
@@ -136,6 +138,18 @@ Route::group(['namespace' => 'Inventory'], function () {
             'destroy' => 'maintenance.inventory.events.destroy',
         ],
     ]);
+
+    Route::resource('inventory.variants', 'VariantController', [
+        'only' => [
+            'create',
+            'store',
+        ],
+        'names' => [
+            'create' => 'maintenance.inventory.variants.create',
+            'store' => 'maintenance.inventory.variants.store',
+        ],
+    ]);
+
     /*
      * End Inventory Routes
      */

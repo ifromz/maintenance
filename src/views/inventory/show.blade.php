@@ -2,6 +2,7 @@
 
 @section('tab.head.content')
     <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab-variants" data-toggle="tab">Variants</a></li>
     <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
     <li><a href="#tab-notes" data-toggle="tab">Notes</a></li>
     <li><a href="#tab-history" data-toggle="tab">History</a></li>
@@ -14,6 +15,8 @@
                 {{ $item->viewer()->btnEvents }}
 
                 {{ $item->viewer()->btnAddStock }}
+
+                {{ $item->viewer()->btnCreateVariant }}
 
                 {{ $item->viewer()->btnRegenerateSku }}
 
@@ -40,6 +43,10 @@
                 {{ $item->viewer()->stock }}
             </div>
         </div>
+    </div>
+
+    <div class="tab-pane" id="tab-variants">
+        {{ $item->viewer()->variants }}
     </div>
 
     <div class="tab-pane" id="tab-calendar">

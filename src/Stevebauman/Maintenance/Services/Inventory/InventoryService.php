@@ -37,7 +37,7 @@ class InventoryService extends BaseModelService
      *
      * @param null $archived
      *
-     * @return mixed
+     * @return \Stevebauman\EloquentTable\TableCollection
      */
     public function getByPageWithFilter($archived = null)
     {
@@ -57,6 +57,7 @@ class InventoryService extends BaseModelService
                 $this->getInput('quantity')
             )
             ->archived($archived)
+            ->noVariants()
             ->sort($this->getInput('field'), $this->getInput('sort'))
             ->paginate(25);
     }
@@ -64,7 +65,7 @@ class InventoryService extends BaseModelService
     /**
      * Creates an item record.
      *
-     * @return mixed
+     * @return Inventory
      */
     public function create()
     {
@@ -111,11 +112,35 @@ class InventoryService extends BaseModelService
     }
 
     /**
+     * Creates a variant of the specified item.
+     *
+     * @param int|string $id
+     *
+     * @return bool|Inventory
+     */
+    public function createVariant($id)
+    {
+        $item = $this->find($id);
+
+        if($item) {
+            $variant = $this->create();
+
+            if($variant) {
+                $variant->makeVariantOf($item);
+
+                return $variant;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Updates an item record.
      *
      * @param int|string $id
      *
-     * @return bool
+     * @return bool|Inventory
      */
     public function update($id)
     {
@@ -166,6 +191,8 @@ class InventoryService extends BaseModelService
 
     /*
      * Archives an item record
+     *
+     * @return bool
      */
     public function destroy($id)
     {

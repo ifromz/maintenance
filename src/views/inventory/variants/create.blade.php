@@ -1,20 +1,21 @@
 @extends('maintenance::layouts.pages.main.panel')
 
 @section('panel.head.content')
-    Add an Item
+    Create Item Variant
 @stop
 
 @section('panel.body.content')
+
     @include('maintenance::metrics.modals.create')
 
     {{
         Form::open([
-            'url'=>route('maintenance.inventory.store'),
-            'class'=>'form-horizontal ajax-form-post clear-form'
+            'url'=>route('maintenance.inventory.variants.store', [$item->id]),
+            'class'=>'form-horizontal ajax-form-post',
         ])
     }}
 
-    @include('maintenance::inventory.form')
+    @include('maintenance::inventory.form', compact('item'))
 
     {{ Form::close() }}
 @stop

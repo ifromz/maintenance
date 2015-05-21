@@ -26,7 +26,7 @@
     @if($items->count() > 0)
 
         {{
-            $items->columns(array(
+            $items->columns([
                 'id' => 'ID',
                 'name' => 'Name',
                 'category' => 'Category',
@@ -34,7 +34,7 @@
                 'description' => 'Description',
                 'added_on' => 'Added On',
                 'action'  => 'Action'
-            ))
+            ])
             ->means('category', 'category.trail')
             ->means('added_on', 'created_at')
             ->modify('current_stock', function ($item) {
@@ -43,13 +43,13 @@
             ->modify('action', function ($item) {
                 return $item->viewer()->btnActions;
             })
-            ->sortable(array(
+            ->sortable([
                 'id',
                 'name',
                 'category' => 'category_id',
                 'added_on' => 'created_at',
-            ))
-            ->hidden(array('id', 'added_on', 'description'))
+            ])
+            ->hidden(['id', 'added_on', 'description'])
             ->showPages()
             ->render()
         }}

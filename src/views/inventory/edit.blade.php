@@ -9,11 +9,11 @@
         @include('maintenance::metrics.modals.create')
 
         {{
-            Form::open(array(
-                'url'=>route('maintenance.inventory.update', array($item->id)),
+            Form::open([
+                'url'=>route('maintenance.inventory.update', [$item->id]),
                 'method'=>'PATCH',
                 'class'=>'form-horizontal ajax-form-post',
-            ))
+            ])
         }}
 
         @include('maintenance::inventory.form', compact('item'))
