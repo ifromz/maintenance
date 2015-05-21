@@ -20,4 +20,5 @@ View::composers([
     'Stevebauman\Maintenance\Composers\RouteSelectComposer' => 'maintenance::select.routes',
     'Stevebauman\Maintenance\Composers\GroupSelectComposer' => 'maintenance::select.groups',
     'Stevebauman\Maintenance\Composers\MetricSelectComposer' => 'maintenance::select.metric',
+    'Stevebauman\Maintenance\Composers\RecordsPerPageSelectComposer' => 'maintenance::select.records-per-page',
 ]);
