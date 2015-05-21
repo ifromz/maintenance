@@ -3,14 +3,14 @@
 namespace Stevebauman\Maintenance\Validators;
 
 /**
- * Class ImageValidator.
+ * Class DocumentValidator.
  */
-class ImageValidator extends FileValidator
+class DocumentValidator extends FileValidator
 {
     /**
      * {@inheritDoc}
      */
     protected $rules = [
-        'files' => 'required|mimes:jpeg,jpg,png,gif,bmp,svg',
+        'files' => 'required|mimes:pdf,doc,docx,xls,xlsx',
     ];
 }

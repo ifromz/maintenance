@@ -8,7 +8,7 @@ trait HasScopeArchivedTrait
      * Scopes a query to show only soft deleted records.
      *
      * @param mixed $query
-     * @param bool   $archived
+     * @param bool  $archived
      *
      * @return mixed
      */

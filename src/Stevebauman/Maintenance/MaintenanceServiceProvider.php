@@ -39,7 +39,7 @@ class MaintenanceServiceProvider extends ServiceProvider
              * our configuration file to be publishable
              */
             $this->publishes([
-                __DIR__ . '/../../config/config.php' => config_path('maintenance.php'),
+                __DIR__.'/../../config/config.php' => config_path('maintenance.php'),
             ], 'config');
 
             /*
@@ -53,13 +53,13 @@ class MaintenanceServiceProvider extends ServiceProvider
              * Allow the views to be publishable
              */
             $this->publishes([
-                __DIR__ . '/../../views' => base_path('resources/views/stevebauman/maintenance'),
+                __DIR__.'/../../views' => base_path('resources/views/stevebauman/maintenance'),
             ], 'views');
 
             /*
              * Load our views
              */
-            $this->loadViewsFrom(__DIR__ . '/../../views', 'maintenance');
+            $this->loadViewsFrom(__DIR__.'/../../views', 'maintenance');
 
             $this::$configSeparator = '.';
         }

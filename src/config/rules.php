@@ -18,7 +18,6 @@ return [
         'require_activation_by_email' => false,
     ],
 
-
     /*
      * Notification rules
      */
@@ -62,7 +61,7 @@ return [
          */
         'prevent_spam_updates' => [
             'enabled' => 'true',
-            'minutes_apart' => '5'
+            'minutes_apart' => '5',
         ],
 
         /*

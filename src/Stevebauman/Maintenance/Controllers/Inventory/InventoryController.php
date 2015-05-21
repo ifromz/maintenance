@@ -39,7 +39,7 @@ class InventoryController extends BaseController
     public function index()
     {
         $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
-        
+
         return view('maintenance::inventory.index', [
             'title' => 'Inventory',
             'items' => $items,

@@ -2,8 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services\Asset;
 
-use Dmyers\Storage\Storage;
-use Illuminate\Support\Facades\Config;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
@@ -53,61 +51,39 @@ class ManualService extends BaseModelService
         $this->dbStartTransaction();
 
         try {
-            /*
-             * Find the asset
-             */
+            // Find the asset
             $asset = $this->asset->find($this->getInput('asset_id'));
 
-            /*
-             * Check if any files have been uploaded
-             */
+            $uploadDir = $this->getInput('file_path');
+
+            // Check if any files have been uploaded
             $files = $this->getInput('files');
 
-            if ($files) {
+            if ($uploadDir && $files) {
                 $records = [];
 
-                /*
-                 * For each file, create the attachment
-                 * record, and sync asset image pivot table
-                 */
+                // For each file, create the attachment record, and sync asset image pivot table
                 foreach ($files as $file) {
-                    $attributes = explode('|', $file);
-
-                    $fileName = $attributes[0];
-                    $fileOriginalName = $attributes[1];
-
-                    // Ex. files/assets/images/1/example.png
-                    $movedFilePath = Config::get('maintenance::site.paths.assets.manuals').sprintf('%s/', $asset->id);
-
-                    // @TODO Remove Storage dependency
-                    // Move the file
-                    Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
-
-                    // Set insert data
                     $insert = [
-                        'name' => $fileOriginalName,
-                        'file_name' => $fileName,
-                        'file_path' => $movedFilePath,
+                        'file_name' => $file,
+                        'file_path' => $uploadDir.$file,
                         'user_id' => $this->sentry->getCurrentUserId(),
                     ];
 
                     // Create the attachment record
-                    $record = $this->attachment->setInput($insert)->create();
+                    $manual = $this->attachment->setInput($insert)->create();
 
-                    if ($record) {
-                        $asset->manuals()->attach($record);
+                    // Attach the attachment record to the asset images
+                    $asset->manuals()->attach($manual);
 
-                        $records[] = $record;
-                    }
+                    $records[] = $manual;
                 }
 
                 $this->dbCommitTransaction();
 
-                // Return inserted attachment records on success
+                // Return attachment record on success
                 return $records;
             }
-
-            $this->dbRollbackTransaction();
         } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }

@@ -3,12 +3,16 @@
 namespace Stevebauman\Maintenance\Controllers\Asset\Manual;
 
 use Illuminate\Filesystem\Filesystem;
+use Stevebauman\Maintenance\Validators\DocumentValidator;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\Asset\ManualService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Controllers\AbstractUploadController;
 
-class ManualController extends BaseController
+/**
+ * Class ManualController.
+ */
+class ManualController extends AbstractUploadController
 {
     /**
      * @var AssetService
@@ -21,6 +25,11 @@ class ManualController extends BaseController
     protected $assetManual;
 
     /**
+     * @var DocumentValidator
+     */
+    protected $documentValidator;
+
+    /**
      * @var AttachmentService
      */
     protected $attachment;
@@ -31,32 +40,43 @@ class ManualController extends BaseController
     protected $filesystem;
 
     /**
+     * {@inheritDoc}
+     */
+    protected $fileStorageLocation = 'assets/manuals/';
+
+    /**
+     * Constructor.
+     *
      * @param AssetService      $asset
      * @param ManualService     $assetManual
+     * @param DocumentValidator $documentValidator
      * @param AttachmentService $attachment
+     * @param Filesystem        $filesystem
      */
     public function __construct(
         AssetService $asset,
         ManualService $assetManual,
+        DocumentValidator $documentValidator,
         AttachmentService $attachment,
         Filesystem $filesystem
     ) {
         $this->asset = $asset;
         $this->assetManual = $assetManual;
+        $this->documentValidator = $documentValidator;
         $this->attachment = $attachment;
         $this->filesystem = $filesystem;
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays all of the specified asset manuals.
      *
-     * @param $asset_id
+     * @param $assetId
      *
      * @return mixed
      */
-    public function index($asset_id)
+    public function index($assetId)
     {
-        $asset = $this->asset->find($asset_id);
+        $asset = $this->asset->find($assetId);
 
         return view('maintenance::assets.manuals.index', [
                     'title' => 'Viewing Asset Manuals for: '.$asset->name,
@@ -67,13 +87,13 @@ class ManualController extends BaseController
     /**
      * Show the form for creating a new resource.
      *
-     * @param $asset_id
+     * @param $assetId
      *
      * @return mixed
      */
-    public function create($asset_id)
+    public function create($assetId)
     {
-        $asset = $this->asset->find($asset_id);
+        $asset = $this->asset->find($assetId);
 
         return view('maintenance::assets.manuals.create', [
                     'title' => 'Upload Asset Manuals for: '.$asset->name,
@@ -84,25 +104,32 @@ class ManualController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param $asset_id
+     * @param $assetId
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    public function store($asset_id)
+    public function store($assetId)
     {
-        $asset = $this->asset->find($asset_id);
+        if ($this->documentValidator->passes()) {
+            $files = $this->uploadFiles();
 
-        $data = $this->inputAll();
-        $data['asset_id'] = $asset->id;
+            $data = $this->inputAll();
+            $data['asset_id'] = $assetId;
+            $data['file_path'] = $this->getUploadDirectory();
+            $data['files'] = $files;
 
-        if ($this->assetManual->setInput($data)->create()) {
-            $this->redirect = route('maintenance.assets.manuals.index', [$asset->id]);
-            $this->message = 'Successfully added manual(s)';
-            $this->messageType = 'success';
+            if ($this->assetManual->setInput($data)->create()) {
+                $this->redirect = route('maintenance.assets.manuals.index', [$assetId]);
+                $this->message = 'Successfully added manual(s)';
+                $this->messageType = 'success';
+            } else {
+                $this->redirect = route('maintenance.assets.manuals.create', [$assetId]);
+                $this->message = 'There was an error adding manuals to the asset, please try again';
+                $this->messageType = 'danger';
+            }
         } else {
-            $this->redirect = route('maintenance.assets.manuals.create', [$asset->id]);
-            $this->message = 'There was an error adding manuals to the asset, please try again';
-            $this->messageType = 'danger';
+            $this->redirect = route('maintenance.assets.manuals.create', [$assetId]);
+            $this->errors = $this->documentValidator->getErrors();
         }
 
         return $this->response();
@@ -111,15 +138,15 @@ class ManualController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param $asset_id
-     * @param $attachment_id
+     * @param $assetId
+     * @param $attachmentId
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    public function destroy($asset_id, $attachment_id)
+    public function destroy($assetId, $attachmentId)
     {
-        $asset = $this->asset->find($asset_id);
-        $attachment = $this->attachment->find($attachment_id);
+        $asset = $this->asset->find($assetId);
+        $attachment = $this->attachment->find($attachmentId);
 
         if ($this->filesystem->delete($attachment->file_path)) {
             $attachment->delete();

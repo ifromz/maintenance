@@ -80,10 +80,11 @@ class WorkRequestService extends BaseModelService
             $workRequest->description = $this->getInput('description', null, true);
 
             if ($workRequest->save()) {
-
                 $autoGenerate = $this->config->setPrefix('maintenance')->get('rules.work-orders.auto_generate_from_request', true);
 
-                if($autoGenerate) $this->workOrder->createFromWorkRequest($workRequest);
+                if ($autoGenerate) {
+                    $this->workOrder->createFromWorkRequest($workRequest);
+                }
 
                 $this->dbCommitTransaction();
 

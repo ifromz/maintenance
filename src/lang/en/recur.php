@@ -18,7 +18,7 @@ return [
         'TU' => 'Tuesday',
         'WE' => 'Wednesday',
         'TH' => 'Thursday',
-        'FR' => 'Friday'
+        'FR' => 'Friday',
 
     ],
 

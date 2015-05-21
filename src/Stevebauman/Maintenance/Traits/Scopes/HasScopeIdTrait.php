@@ -14,7 +14,7 @@ trait HasScopeIdTrait
      */
     public function scopeId($query, $id = null)
     {
-        if ( ! is_null($id)) {
+        if (!is_null($id)) {
             $query->where('id', $id);
         }
 

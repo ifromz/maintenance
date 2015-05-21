@@ -6,32 +6,30 @@ use Illuminate\Support\Facades\Route;
 /*
  * Maintenance Application Routes
  */
-Route::group(['prefix' => Config::get('maintenance::site.prefix'), 'namespace' => 'Stevebauman\Maintenance'], function ()
-{
+Route::group(['prefix' => Config::get('maintenance::site.prefix'), 'namespace' => 'Stevebauman\Maintenance'], function () {
     /*
      * Authentication Routes
      */
-    include('routes/auth.php');
+    include 'routes/auth.php';
 
     /*
      * Registration Routes
      */
-    include('routes/register.php');
+    include 'routes/register.php';
 
     /*
      * Permission Routes (not allowed redirect)
      */
-    include('routes/permission.php');
+    include 'routes/permission.php';
 
     /*
      * Main Client Controller Group
      */
-    Route::group(['prefix' => 'client', 'namespace' => 'Controllers', 'before'=> 'maintenance.auth'], function()
-    {
+    Route::group(['prefix' => 'client', 'namespace' => 'Controllers', 'before' => 'maintenance.auth'], function () {
         /*
          * Client Routes
          */
-        include('routes/client.php');
+        include 'routes/client.php';
     });
 
     /*
@@ -42,74 +40,71 @@ Route::group(['prefix' => Config::get('maintenance::site.prefix'), 'namespace' =
      * Auth         - Only Allows logged in users
      * Permission   - Only Allows users with correct permissions
      */
-    Route::group(['prefix' => 'management', 'namespace' => 'Controllers', 'before' => 'maintenance.auth|maintenance.permission'], function ()
-    {
+    Route::group(['prefix' => 'management', 'namespace' => 'Controllers', 'before' => 'maintenance.auth|maintenance.permission'], function () {
         /*
          * Dashboard Routes
          */
-        include('routes/dashboard.php');
+        include 'routes/dashboard.php';
 
         /*
          * Event Routes
          */
-        include('routes/event.php');
+        include 'routes/event.php';
 
         /*
          * Work Request Routes
          */
-        include('routes/work-request.php');
+        include 'routes/work-request.php';
 
         /*
          * Work Order Routes
          */
-        include('routes/work-order.php');
+        include 'routes/work-order.php';
 
         /*
          * Asset Routes
          */
-        include('routes/asset.php');
+        include 'routes/asset.php';
 
         /*
          * Inventory Routes
          */
-        include('routes/inventory.php');
+        include 'routes/inventory.php';
 
         /*
          * Attachment Routes (used for all attachments throughout the application)
          */
-        include('routes/attachment.php');
+        include 'routes/attachment.php';
 
         /*
          * Location Routes
          */
-        include('routes/location.php');
+        include 'routes/location.php';
 
         /*
          * Metric Routes
          */
-        include('routes/metric.php');
+        include 'routes/metric.php';
 
         /*
          * Administration Route Group
          */
-        Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function ()
-        {
+        Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             /*
              * Amdministration Routes
              */
-            include('routes/admin.php');
+            include 'routes/admin.php';
         });
     });
 
     /*
      * API Route Group
      */
-    Route::group(['prefix' => 'api', 'namespace' => 'Apis'], function ()
-    {
+    Route::group(['prefix' => 'api', 'namespace' => 'Apis'], function () {
         /*
          * API Routes
          */
-        include('routes/api.php');
+        include 'routes/api.php';
     });
 
 }); /* End Maintenance Routes */

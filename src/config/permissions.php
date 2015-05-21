@@ -268,7 +268,6 @@ return [
         'maintenance.api.v1.assets.events.index',
         'maintenance.api.v1.assets.events.show',
 
-
     ],
 
     'managers' => [

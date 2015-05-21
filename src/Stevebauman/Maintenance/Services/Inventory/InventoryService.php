@@ -122,10 +122,10 @@ class InventoryService extends BaseModelService
     {
         $item = $this->find($id);
 
-        if($item) {
+        if ($item) {
             $variant = $this->create();
 
-            if($variant) {
+            if ($variant) {
                 $variant->makeVariantOf($item);
 
                 return $variant;

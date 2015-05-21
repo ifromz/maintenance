@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Maintenance Application Site Configuration
+ * Maintenance Application Site Configuration.
  */
 
 return [
@@ -15,7 +15,7 @@ return [
      */
     'title' => [
         'main' => 'Maintenance',
-        'admin' => 'Admin Panel'
+        'admin' => 'Admin Panel',
     ],
 
     /*
@@ -78,7 +78,7 @@ return [
         ],
 
         'work-orders' => [
-            'attachments' => 'work-orders/attachments/'
+            'attachments' => 'work-orders/attachments/',
         ],
     ],
 ];

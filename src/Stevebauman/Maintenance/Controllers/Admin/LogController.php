@@ -108,8 +108,8 @@ class LogController extends BaseController
     {
         $entry = $this->log->find($id);
 
-        if($entry) {
-            if($entry->delete()) {
+        if ($entry) {
+            if ($entry->delete()) {
                 $this->message = 'Successfully deleted entry.';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.admin.logs.index');

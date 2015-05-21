@@ -7,7 +7,7 @@
 @section('panel.body.content')
     {{
         Form::open([
-            'url'=>route('maintenance.assets.images.store', array($asset->id)),
+            'url'=>route('maintenance.assets.images.store', [$asset->id]),
             'files' => true,
         ])
     }}
@@ -17,6 +17,6 @@
     </div>
 
     <div class="form-group">
-        {{ Form::submit('Save', array('class'=>'btn btn-success')) }}
+        {{ Form::submit('Save', ['class'=>'btn btn-success']) }}
     </div>
 @stop

@@ -10,7 +10,7 @@ use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Controllers\AbstractUploadController;
 
 /**
- * Class ImageController
+ * Class ImageController.
  */
 class ImageController extends AbstractUploadController
 {
@@ -35,14 +35,12 @@ class ImageController extends AbstractUploadController
     protected $attachment;
 
     /**
-     * @var FileSystem
+     * @var Filesystem
      */
-    protected $file;
+    protected $filesystem;
 
     /**
-     * {inheritDoc}
-     *
-     * @var string
+     * {@inheritDoc}
      */
     protected $fileStorageLocation = 'assets/images/';
 
@@ -112,7 +110,7 @@ class ImageController extends AbstractUploadController
      */
     public function store($assetId)
     {
-        if($this->imageValidator->passes()) {
+        if ($this->imageValidator->passes()) {
             $files = $this->uploadFiles();
 
             $data = $this->inputAll();
@@ -122,7 +120,7 @@ class ImageController extends AbstractUploadController
 
             if ($this->assetImage->setInput($data)->create()) {
                 $this->redirect = route('maintenance.assets.images.index', [$assetId]);
-                $this->message = 'Successfully added images';
+                $this->message = 'Successfully added image(s)';
                 $this->messageType = 'success';
             } else {
                 $this->redirect = route('maintenance.assets.images.create', [$assetId]);

@@ -29,9 +29,9 @@ class ImageService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param AssetService $asset
+     * @param AssetService      $asset
      * @param AttachmentService $attachment
-     * @param SentryService $sentry
+     * @param SentryService     $sentry
      */
     public function __construct(AssetService $asset, AttachmentService $attachment, SentryService $sentry)
     {
@@ -84,7 +84,6 @@ class ImageService extends BaseModelService
                 // Return attachment record on success
                 return $records;
             }
-
         } catch (\Exception $e) {
             $this->dbRollbackTransaction();
         }

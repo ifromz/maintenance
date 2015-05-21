@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Illuminate\Support\Facades\File;
 
 /**
- * Class AbstractUploadController
+ * Class AbstractUploadController.
  */
 class AbstractUploadController extends BaseController
 {
@@ -46,15 +46,16 @@ class AbstractUploadController extends BaseController
 
         $files = $this->inputFile($this->fileInputName);
 
-        if(is_array($files) && count($files) > 0) {
-            foreach($files as $file) {
+        if (is_array($files) && count($files) > 0) {
+            foreach ($files as $file) {
                 $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
 
                 try {
-                    if($file->move($this->getCompleteUploadDirectory(), $fileName)) {
+                    if ($file->move($this->getCompleteUploadDirectory(), $fileName)) {
                         $uploaded[] = $fileName;
                     }
-                } catch (FileException $e) {}
+                } catch (FileException $e) {
+                }
             }
         }
 

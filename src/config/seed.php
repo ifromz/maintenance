@@ -2,13 +2,13 @@
 
 return [
 
-    /**
+    /*
      * The maintenance application installation seeds. They are completely optional.
      */
     'priorities' => [
         [
             'name' => 'Low',
-            'color' => 'default'
+            'color' => 'default',
         ],
         [
             'name' => 'Medium',
@@ -20,7 +20,7 @@ return [
         ],
         [
             'name' => 'Requested',
-            'color' => 'default'
+            'color' => 'default',
         ],
     ],
 
@@ -31,15 +31,15 @@ return [
         ],
         [
             'name' => 'Closed',
-            'color' => 'success'
+            'color' => 'success',
         ],
         [
             'name' => 'In Progress',
-            'color' => 'warning'
+            'color' => 'warning',
         ],
         [
             'name' => 'Requested',
-            'color' => 'default'
+            'color' => 'default',
         ],
     ],
 

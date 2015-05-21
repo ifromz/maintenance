@@ -26,7 +26,7 @@ trait HasLocationTrait
      */
     public function scopeLocation($query, $locationId = null)
     {
-        if ( ! is_null($locationId)) {
+        if (!is_null($locationId)) {
 
             // Get descendants and self inventory category nodes
             $locations = Location::find($locationId)->getDescendantsAndSelf();

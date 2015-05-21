@@ -7,7 +7,7 @@ use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
- * Class VariantController
+ * Class VariantController.
  */
 class VariantController extends BaseController
 {
@@ -24,7 +24,7 @@ class VariantController extends BaseController
     /**
      * Constructor.
      *
-     * @param InventoryService $inventory
+     * @param InventoryService   $inventory
      * @param InventoryValidator $inventoryValidator
      */
     public function __construct(InventoryService $inventory, InventoryValidator $inventoryValidator)
@@ -61,7 +61,7 @@ class VariantController extends BaseController
      */
     public function store($inventoryId)
     {
-        if($this->inventoryValidator->passes()) {
+        if ($this->inventoryValidator->passes()) {
             $record = $this->inventory->setInput($this->inputAll())->createVariant($inventoryId);
 
             if ($record) {
