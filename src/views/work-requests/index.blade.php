@@ -19,18 +19,19 @@
 
         {{
             $workRequests
-                ->columns(array(
+                ->columns([
                     'id' => 'ID',
+                    'created_at' => 'Created At',
                     'user' => 'Created By',
                     'subject' => 'Subject',
                     'description' => 'Description',
                     'action' => 'Action',
-                ))
+                ])
                 ->means('user', 'user.full_name')
                 ->modify('action', function($workRequest){
                     return $workRequest->viewer()->btnActions;
                 })
-                ->sortable(['id'])
+                ->sortable(['id', 'created_at'])
                 ->render()
         }}
 

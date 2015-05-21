@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers\Asset\Manual;
 
-use Dmyers\Storage\Storage;
+use Illuminate\Filesystem\Filesystem;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\Asset\ManualService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
@@ -26,15 +26,25 @@ class ManualController extends BaseController
     protected $attachment;
 
     /**
+     * @var Filesystem
+     */
+    protected $filesystem;
+
+    /**
      * @param AssetService      $asset
      * @param ManualService     $assetManual
      * @param AttachmentService $attachment
      */
-    public function __construct(AssetService $asset, ManualService $assetManual, AttachmentService $attachment)
-    {
+    public function __construct(
+        AssetService $asset,
+        ManualService $assetManual,
+        AttachmentService $attachment,
+        Filesystem $filesystem
+    ) {
         $this->asset = $asset;
         $this->assetManual = $assetManual;
         $this->attachment = $attachment;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -111,7 +121,7 @@ class ManualController extends BaseController
         $asset = $this->asset->find($asset_id);
         $attachment = $this->attachment->find($attachment_id);
 
-        if (Storage::delete($attachment->file_path.$attachment->file_name)) {
+        if ($this->filesystem->delete($attachment->file_path)) {
             $attachment->delete();
 
             $this->redirect = routeBack('maintenance.assets.manuals.index', [$asset->id]);

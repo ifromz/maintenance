@@ -29,7 +29,7 @@
                     @foreach($asset->images as $image)
                         <div class="item @if($asset->images->first()->id == $image->id) active @endif">
                             <div
-                                    style="background:url({{ Storage::url($image->file_path.$image->file_name) }}) center center; background-size:cover;"
+                                    style="background:url({{ asset($image->file_path) }}) center center; background-size:cover;"
                                     class="slider-size">
                             </div>
                         </div>

@@ -53,20 +53,20 @@ class ImageController extends AbstractUploadController
      * @param ImageService      $assetImage
      * @param ImageValidator    $imageValidator
      * @param AttachmentService $attachment
-     * @param FileSystem        $fileSystem
+     * @param Filesystem        $filesystem
      */
     public function __construct(
         AssetService $asset,
         ImageService $assetImage,
         ImageValidator $imageValidator,
         AttachmentService $attachment,
-        FileSystem $fileSystem
+        Filesystem $filesystem
     ) {
         $this->asset = $asset;
         $this->assetImage = $assetImage;
         $this->imageValidator = $imageValidator;
         $this->attachment = $attachment;
-        $this->fileSystem = $fileSystem;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -171,7 +171,7 @@ class ImageController extends AbstractUploadController
         $asset = $this->asset->find($asset_id);
         $attachment = $this->attachment->find($attachment_id);
 
-        if ($this->fileSystem->delete($attachment->file_path)) {
+        if ($this->filesystem->delete($attachment->file_path)) {
             $attachment->delete();
 
             $this->redirect = route('maintenance.assets.images.index', [$asset->id]);

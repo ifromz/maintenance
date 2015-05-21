@@ -29,6 +29,17 @@ Breadcrumbs::register('maintenance.inventory.edit', function (Generator $breadcr
  */
 
 /*
+ * Inventory Variant crumbs
+ */
+Breadcrumbs::register('maintenance.inventory.variants.create', function (Generator $breadcrumbs, $inventoryId) {
+    $breadcrumbs->parent('maintenance.inventory.show', $inventoryId);
+    $breadcrumbs->push('Create Variant');
+});
+/*
+ * End Inventory Variant crumbs
+ */
+
+/*
  * Inventory Stock crumbs
  */
 Breadcrumbs::register('maintenance.inventory.stocks.index', function (Generator $breadcrumbs, $inventoryId) {

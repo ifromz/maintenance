@@ -13,7 +13,7 @@
         @foreach($workOrder->attachments as $attachment)
             <tr>
                 <td width="200">
-                    <a href="{{ Storage::url($attachment->file_path.$attachment->file_name) }}">{{ $attachment->file_name }}</a>
+                    <a href="{{ asset($attachment->file_path) }}">{{ $attachment->file_name }}</a>
                 </td>
                 <td>{{ $attachment->name }}</td>
                 <td class="hidden-xs">{{ $attachment->file_name }}</td>

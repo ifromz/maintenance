@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Handles Asset Manual Uploads.
- *
- * @author Steve Bauman <sbauman@bwbc.gc.ca>
- */
 namespace Stevebauman\Maintenance\Services\Asset;
 
 use Dmyers\Storage\Storage;
@@ -84,6 +79,7 @@ class ManualService extends BaseModelService
                     // Ex. files/assets/images/1/example.png
                     $movedFilePath = Config::get('maintenance::site.paths.assets.manuals').sprintf('%s/', $asset->id);
 
+                    // @TODO Remove Storage dependency
                     // Move the file
                     Storage::move(Config::get('maintenance::site.paths.temp').$fileName, $movedFilePath.$fileName);
 
