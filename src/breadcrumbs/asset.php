@@ -55,16 +55,37 @@ Breadcrumbs::register('maintenance.assets.events.edit', function (Generator $bre
  */
 
 /*
+ * Asset Images crumbs
+ */
+Breadcrumbs::register('maintenance.assets.images.index', function (Generator $breadcrumbs, $assetId) {
+    $breadcrumbs->parent('maintenance.assets.show', $assetId);
+    $breadcrumbs->push('Images', route('maintenance.assets.images.index', [$assetId]));
+});
+
+Breadcrumbs::register('maintenance.assets.images.create', function (Generator $breadcrumbs, $assetId) {
+    $breadcrumbs->parent('maintenance.assets.images.index', $assetId);
+    $breadcrumbs->push('Create', route('maintenance.assets.images.create', [$assetId]));
+});
+
+Breadcrumbs::register('maintenance.assets.images.show', function (Generator $breadcrumbs, $assetId, $attachmentId) {
+    $breadcrumbs->parent('maintenance.assets.images.index', $assetId);
+    $breadcrumbs->push('ID: '.$attachmentId, route('maintenance.assets.images.show', [$assetId, $attachmentId]));
+});
+/*
+ * End Asset Images crumbs
+ */
+
+/*
  * Asset Manual crumbs
  */
 Breadcrumbs::register('maintenance.assets.manuals.index', function (Generator $breadcrumbs, $assetId) {
     $breadcrumbs->parent('maintenance.assets.show', $assetId);
-    $breadcrumbs->push('Manuals', route('maintenance.assets.events.index', [$assetId]));
+    $breadcrumbs->push('Manuals', route('maintenance.assets.manuals.index', [$assetId]));
 });
 
 Breadcrumbs::register('maintenance.assets.manuals.create', function (Generator $breadcrumbs, $assetId) {
     $breadcrumbs->parent('maintenance.assets.manuals.index', $assetId);
-    $breadcrumbs->push('Create', route('maintenance.assets.events.create', [$assetId]));
+    $breadcrumbs->push('Create', route('maintenance.assets.manuals.create', [$assetId]));
 });
 /*
  * End Asset Manual crumbs
