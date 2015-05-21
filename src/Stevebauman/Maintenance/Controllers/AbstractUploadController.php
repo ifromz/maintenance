@@ -3,6 +3,8 @@
 namespace Stevebauman\Maintenance\Controllers;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 
 /**
@@ -48,13 +50,30 @@ class AbstractUploadController extends BaseController
 
         if (is_array($files) && count($files) > 0) {
             foreach ($files as $file) {
-                $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
+                if($file instanceof UploadedFile) {
+                    $fileName = $file->getClientOriginalName();
+                    $fileExt = $file->getClientOriginalExtension();
 
-                try {
-                    if ($file->move($this->getCompleteUploadDirectory(), $fileName)) {
-                        $uploaded[] = $fileName;
+                    // Remove the client file extension to retrieve just the file name
+                    $prefix = str_replace('.'.$fileExt, null, $fileName.'-');
+
+                    // Create the date suffix
+                    $suffix = Carbon::now()->format('Y-m-d');
+
+                    // Create the unique identifier for possibility of same uploaded file names
+                    $uniqueId = uniqid('-');
+
+                    // Create the new file name
+                    $newFileName = sprintf('%s.%s', $prefix.$suffix.$uniqueId, $fileExt);
+
+                    try {
+                        // Try and move the file to the upload directory with the new file name
+                        if ($file->move($this->getCompleteUploadDirectory(), $newFileName)) {
+                            // Move was a success, we'll add it to the uploaded files array
+                            $uploaded[] = $newFileName;
+                        }
+                    } catch (FileException $e) {
                     }
-                } catch (FileException $e) {
                 }
             }
         }
