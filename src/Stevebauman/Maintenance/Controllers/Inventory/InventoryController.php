@@ -65,8 +65,6 @@ class InventoryController extends BaseController
      */
     public function store()
     {
-        $this->inventoryValidator->unique('name', $this->inventory->getTableName(), 'name');
-
         if ($this->inventoryValidator->passes()) {
             $record = $this->inventory->setInput($this->inputAll())->create();
 
@@ -129,8 +127,6 @@ class InventoryController extends BaseController
      */
     public function update($id)
     {
-        $this->inventoryValidator->ignore('name', $this->inventory->getTableName(), 'name', $id);
-
         if ($this->inventoryValidator->passes()) {
             $item = $this->inventory->setInput($this->inputAll())->update($id);
 
