@@ -3,12 +3,12 @@
         <div class="modal-content">
 
             {{
-                Form::open(array(
-                    'url'=>$url,
+                Form::open([
+                    'url' => $url,
                     'method'=>'GET',
                     'class'=>'form-horizontal ajax-form-get',
                     'data-refresh-target'=>'#resource-paginate'
-                ))
+                ])
             }}
 
             <div class="modal-header">

@@ -18,6 +18,7 @@
             $asset->images
                 ->columns([
                     'image' => 'Image',
+                    'created_at' => 'Uploaded',
                     'file_name' => 'File Name',
                     'action' => 'Action',
                 ])

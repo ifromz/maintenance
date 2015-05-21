@@ -3,7 +3,7 @@
 @section('panel.head.content')
 
     <div class="btn-toolbar">
-        <a href="{{ route('maintenance.assets.manuals.create', array($asset->id)) }}" class="btn btn-primary"
+        <a href="{{ route('maintenance.assets.manuals.create', [$asset->id]) }}" class="btn btn-primary"
            data-toggle="tooltip" title="Upload Asset Manuals">
             <i class="fa fa-plus"></i>
             Upload Manuals
@@ -18,11 +18,11 @@
 
         {{
             $asset->manuals
-                ->columns(array(
-                    'name' => 'Name',
+                ->columns([
                     'file_name' => 'File Name',
+                    'created_at' => 'Uploaded',
                     'action' => 'Action',
-                ))
+                ])
                 ->modify('action', function($manual) use($asset) {
                     return $manual->viewer()->btnActionsForAssetManual($asset);
                 })

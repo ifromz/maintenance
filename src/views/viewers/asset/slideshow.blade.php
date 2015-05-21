@@ -1,40 +1,24 @@
 @if($asset->images->count() > 0)
-    <style>
-        .slider-size {
-            height: 200px;
-            width: 300px;
-        }
 
-        .carousel {
-            width: 100%;
-            margin: 0 auto;
-        }
-    </style>
-
-    <div class="slider-size">
+    <div class="col-md-8">
         <div id="asset-image-carousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 @if($asset->images->count() > 1)
                     @foreach($asset->images as $image)
                         @if($asset->images->first()->id == $image->id)
-                            <li data-target="#asset-image-carousel" data-slide-to="" class="active"></li>
+                            <li data-target="#asset-image-carousel" class="active"></li>
                         @else
-                            <li data-target="#asset-image-carousel" data-slide-to="" class=""></li>
+                            <li data-target="#asset-image-carousel"></li>
                         @endif
                     @endforeach
                 @endif
             </ol>
             <div class="carousel-inner">
-                @if($asset->images->count() > 0)
-                    @foreach($asset->images as $image)
-                        <div class="item @if($asset->images->first()->id == $image->id) active @endif">
-                            <div
-                                    style="background:url({{ asset($image->file_path) }}) center center; background-size:cover;"
-                                    class="slider-size">
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
+                @foreach($asset->images as $image)
+                    <div class="item @if($asset->images->first()->id == $image->id) active @endif">
+                        <img class="img-responsive img-center" src="{{ asset($image->file_path) }}">
+                    </div>
+                @endforeach
             </div>
             @if($asset->images->count() > 1)
                 <a class="left carousel-control" href="#asset-image-carousel" data-slide="prev">

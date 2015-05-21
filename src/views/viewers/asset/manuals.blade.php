@@ -2,8 +2,8 @@
     {{
         $asset->manuals
             ->columns([
-                'name' => 'Name',
                 'file_name' => 'File Name',
+                'created_at' => 'Uploaded',
                 'action' => 'Action'
             ])
             ->modify('action', function($manual) use ($asset) {

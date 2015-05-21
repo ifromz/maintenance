@@ -9,8 +9,8 @@
 
     {{
         Form::open([
-            'url'=>route('maintenance.inventory.store'),
-            'class'=>'form-horizontal ajax-form-post clear-form'
+            'url' => route('maintenance.inventory.store'),
+            'class' => 'form-horizontal ajax-form-post clear-form'
         ])
     }}
 

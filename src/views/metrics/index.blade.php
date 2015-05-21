@@ -14,24 +14,24 @@
     @if($metrics->count() > 0)
 
         {{
-            $metrics->columns(array(
+            $metrics->columns([
                 'name' => 'Name',
                 'symbol' => 'Symbol',
                 'created_by' => 'Created By',
                 'created_at' => 'Created At',
                 'action' => 'Action',
-            ))
+            ])
             ->means('created_by', 'user.full_name')
             ->modify('action', function($metric) {
                 return $metric->viewer()->btnActions;
             })
-            ->hidden(array('created_by', 'created_at'))
-            ->sortable(array(
+            ->hidden(['created_by', 'created_at'])
+            ->sortable([
                 'name',
                 'symbol',
                 'created_by',
                 'created_at',
-            ))
+            ])
             ->render()
         }}
 
