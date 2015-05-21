@@ -15,11 +15,54 @@ class MaintenanceServiceProvider extends ServiceProvider
     protected $defer = false;
 
     /**
+     * The configuration separator for packages.
+     * Allows compatibility with Laravel 4 and 5.
+     *
+     * @var string
+     */
+    public static $configSeparator = '::';
+
+    /**
      * Bootstrap the application events.
      */
     public function boot()
     {
-        $this->package('stevebauman/maintenance');
+        if (method_exists($this, 'package')) {
+            /*
+             * Looks like we're using Laravel 4, let's use the
+             * package method to easily register everything
+             */
+            $this->package('stevebauman/maintenance');
+        } else {
+            /*
+             * Looks like we're using Laravel 5, let's set
+             * our configuration file to be publishable
+             */
+            $this->publishes([
+                __DIR__ . '/../../config/config.php' => config_path('maintenance.php'),
+            ], 'config');
+
+            /*
+             * Assign the migrations as publishable, and tag it as 'migrations'
+             */
+            $this->publishes([
+                __DIR__.'../../../migrations/' => base_path('database/migrations'),
+            ], 'migrations');
+
+            /*
+             * Allow the views to be publishable
+             */
+            $this->publishes([
+                __DIR__ . '/../../views' => base_path('resources/views/stevebauman/maintenance'),
+            ], 'views');
+
+            /*
+             * Load our views
+             */
+            $this->loadViewsFrom(__DIR__ . '/../../views', 'maintenance');
+
+            $this::$configSeparator = '.';
+        }
 
         $this->bootCommands();
 
