@@ -39,12 +39,17 @@ class MaintenanceServiceProvider extends ServiceProvider
              */
             $this->package('stevebauman/maintenance');
         } else {
+
+            $config = __DIR__.'/../../config/config.php';
+
+            $this->mergeConfigFrom($config, 'maintenance');
+
             /*
              * Looks like we're using Laravel 5, let's set
              * our configuration file to be publishable
              */
             $this->publishes([
-                __DIR__.'/../../config/config.php' => config_path('maintenance.php'),
+                $config => config_path('maintenance.php'),
             ], 'config');
 
             /*
