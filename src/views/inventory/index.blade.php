@@ -36,11 +36,10 @@
                 'category' => 'Category',
                 'current_stock' => 'Current Stock',
                 'description' => 'Description',
-                'added_on' => 'Added On',
+                'created_at' => 'Added On',
                 'action'  => 'Action'
             ])
             ->means('category', 'category.trail')
-            ->means('added_on', 'created_at')
             ->modify('current_stock', function ($item) {
                 return $item->viewer()->lblCurrentStock;
             })
