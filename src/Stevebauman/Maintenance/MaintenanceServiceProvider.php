@@ -87,6 +87,8 @@ class MaintenanceServiceProvider extends ServiceProvider
         $this->bootCommands();
 
         $this->bootRequiredFiles();
+
+        $this->registerServiceAliases();
     }
 
     /**
@@ -152,9 +154,91 @@ class MaintenanceServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
+     * Register the service providers.
      */
     public function register()
+    {
+        $this->registerServiceProviders();
+
+        $this->registerErrorHandlers();
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['maintenance'];
+    }
+
+    /**
+     * Registers the service providers that the
+     * maintenance application relies on.
+     */
+    private function registerServiceProviders()
+    {
+        // Breadcrumbs
+        $this->app->register('DaveJamesMiller\Breadcrumbs\ServiceProvider');
+
+        // No Captcha
+        $this->app->register('Arcanedev\NoCaptcha\Laravel\ServiceProvider');
+
+        // Authentication
+        $this->app->register('Cartalyst\Sentry\SentryServiceProvider');
+
+        // LDAP Auth
+        $this->app->register('Stevebauman\Corp\CorpServiceProvider');
+
+        // Nested Set Helper
+        $this->app->register('Baum\BaumServiceProvider');
+
+        // QR Code Generator
+        $this->app->register('SimpleSoftwareIO\QrCode\QrCodeServiceProvider');
+
+        // Core Helper
+        $this->app->register('Stevebauman\CoreHelper\CoreHelperServiceProvider');
+
+        // Dynamic Table Generation
+        $this->app->register('Stevebauman\EloquentTable\PaginationServiceProvider');
+        $this->app->register('Stevebauman\EloquentTable\EloquentTableServiceProvider');
+
+        // Calendar API Helper
+        $this->app->register('Stevebauman\CalendarHelper\CalendarHelperServiceProvider');
+
+        // Inventory Provider
+        $this->app->register('Stevebauman\Inventory\InventoryServiceProvider');
+
+        // Log Reader / Manager
+        $this->app->register('Stevebauman\LogReader\LogReaderServiceProvider');
+
+        // HTML Input Purifier
+        $this->app->register('Stevebauman\Purify\PurifyServiceProvider');
+    }
+
+    /**
+     * Registers the laravel facades for easy access
+     * for use in the maintenance application.
+     */
+    private function registerServiceAliases()
+    {
+        $this->app->alias('Sentry', 'Cartalyst\Sentry\Facades\Laravel\Sentry');
+        $this->app->alias('QrCode', 'SimpleSoftwareIO\QrCode\Facades\QrCode');
+        $this->app->alias('Breadcrumbs', 'DaveJamesMiller\Breadcrumbs\Facade');
+        $this->app->alias('Captcha', 'Arcanedev\NoCaptcha\Laravel\Facade');
+
+        $this->app->alias('Corp', 'Stevebauman\Corp\Facades\Corp');
+        $this->app->alias('CalendarHelper', 'Stevebauman\CalendarHelper\Facades\CalendarHelper');
+        $this->app->alias('LogReader', 'Stevebauman\LogReader\Facades\LogReader');
+        $this->app->alias('Purify', 'Stevebauman\Purify\Facades\Purify');
+    }
+
+    /**
+     * Registers the errors handlers for the
+     * maintenance application.
+     */
+    private function registerErrorHandlers()
     {
         $this->app->missing(function () {
             return view('maintenance::404', [
@@ -180,15 +264,5 @@ class MaintenanceServiceProvider extends ServiceProvider
                     ->withErrors($messageBag);
             }
         });
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return ['maintenance'];
     }
 }
