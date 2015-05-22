@@ -1,17 +1,18 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\WorkOrder\Attachment;
+namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Services\StorageService;
+use Stevebauman\Maintenance\Validators\DocumentValidator;
+use Stevebauman\Maintenance\Validators\ImageValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrder\AttachmentService as WorkOrderAttachmentService;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Controllers\AbstractUploadController;
 
 /**
  * Class AttachmentController.
  */
-class AttachmentController extends BaseController
+class AttachmentController extends AbstractUploadController
 {
     /**
      * @var WorkOrderService
@@ -29,26 +30,41 @@ class AttachmentController extends BaseController
     protected $attachment;
 
     /**
-     * @var StorageService
+     * @var ImageValidator
      */
-    protected $storage;
+    protected $imageValidator;
 
     /**
+     * @var DocumentValidator
+     */
+    protected $documentValidator;
+
+    /**
+     * {@inheritDoc}
+     */
+    protected $fileStorageLocation = 'work-orders/attachments/';
+
+    /**
+     * Constructor.
+     *
      * @param WorkOrderService           $workOrder
      * @param WorkOrderAttachmentService $workOrderAttachment
      * @param AttachmentService          $attachment
-     * @param StorageService             $storage
+     * @param ImageValidator             $imageValidator
+     * @param DocumentValidator          $documentValidator
      */
     public function __construct(
         WorkOrderService $workOrder,
         WorkOrderAttachmentService $workOrderAttachment,
         AttachmentService $attachment,
-        StorageService $storage
+        ImageValidator $imageValidator,
+        DocumentValidator $documentValidator
     ) {
         $this->workOrder = $workOrder;
         $this->workOrderAttachment = $workOrderAttachment;
         $this->attachment = $attachment;
-        $this->storage = $storage;
+        $this->imageValidator = $imageValidator;
+        $this->documentValidator = $documentValidator;
     }
 
     /**
@@ -88,25 +104,41 @@ class AttachmentController extends BaseController
     /**
      * Processes storing the attachment record.
      *
-     * @param $workOrder_id
+     * @param $workOrderId
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    public function store($workOrder_id)
+    public function store($workOrderId)
     {
-        $workOrder = $this->workOrder->find($workOrder_id);
+        // Validate that the uploaded files are either documents or images
+        if($this->imageValidator->passes() OR $this->documentValidator->passes()) {
+            $files = $this->uploadFiles();
 
-        $data = $this->inputAll();
-        $data['work_order_id'] = $workOrder->id;
+            $data = $this->inputAll();
+            $data['work_order_id'] = $workOrderId;
+            $data['file_path'] = $this->getUploadDirectory();
+            $data['files'] = $files;
 
-        if ($this->workOrderAttachment->setInput($data)->create()) {
-            $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrder->id]);
-            $this->message = 'Successfully added attachments';
-            $this->messageType = 'success';
+            if ($this->workOrderAttachment->setInput($data)->create()) {
+                $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrderId]);
+                $this->message = 'Successfully added attachments';
+                $this->messageType = 'success';
+            } else {
+                $this->redirect = route('maintenance.work-orders.attachments.create', [$workOrderId]);
+                $this->message = 'There was an error adding images to the asset, please try again';
+                $this->messageType = 'danger';
+            }
         } else {
-            $this->redirect = route('maintenance.work-orders.attachments.create', [$workOrder->id]);
-            $this->message = 'There was an error adding images to the asset, please try again';
-            $this->messageType = 'danger';
+            $this->redirect = route('maintenance.work-orders.attachments.create', [$workOrderId]);
+
+            $imageErrors = $this->imageValidator->getErrors();
+
+            $documentErrors = $this->documentValidator->getErrors();
+
+            // We need to merge message bags together if both validators contain errors
+            if($imageErrors instanceof \Illuminate\Support\MessageBag && $documentErrors instanceof \Illuminate\Support\MessageBag) {
+                $this->errors = $imageErrors->merge($documentErrors);
+            }
         }
 
         return $this->response();

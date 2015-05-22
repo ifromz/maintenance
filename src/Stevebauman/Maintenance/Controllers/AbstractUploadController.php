@@ -51,6 +51,7 @@ class AbstractUploadController extends BaseController
         if (is_array($files) && count($files) > 0) {
             foreach ($files as $file) {
                 if($file instanceof UploadedFile) {
+                    // Retrieve the uploaded files details
                     $fileName = $file->getClientOriginalName();
                     $fileExt = $file->getClientOriginalExtension();
 

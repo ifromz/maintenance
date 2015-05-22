@@ -241,29 +241,20 @@ Route::group(['namespace' => 'WorkOrder'], function () {
 
     });
 
-    /*
-     * Work Order Attachment Upload Routes
-     */
-    Route::group(['namespace' => 'Attachment'], function () {
-
-        Route::resource('work-orders.attachments', 'AttachmentController', [
-            'only' => [
-                'index',
-                'create',
-                'store',
-                'show',
-                'destroy',
-            ],
-            'names' => [
-                'index' => 'maintenance.work-orders.attachments.index',
-                'create' => 'maintenance.work-orders.attachments.create',
-                'store' => 'maintenance.work-orders.attachments.store',
-                'show' => 'maintenance.work-orders.attachments.show',
-                'destroy' => 'maintenance.work-orders.attachments.destroy',
-            ],
-        ]);
-
-    });
+    Route::resource('work-orders.attachments', 'AttachmentController', [
+        'only' => [
+            'index',
+            'create',
+            'store',
+            'destroy',
+        ],
+        'names' => [
+            'index' => 'maintenance.work-orders.attachments.index',
+            'create' => 'maintenance.work-orders.attachments.create',
+            'store' => 'maintenance.work-orders.attachments.store',
+            'destroy' => 'maintenance.work-orders.attachments.destroy',
+        ],
+    ]);
 
     Route::resource('work-orders.notifications', 'NotificationController', [
         'only' => [
