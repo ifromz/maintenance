@@ -4,12 +4,17 @@ namespace Stevebauman\Maintenance;
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Illuminate\Session\TokenMismatchException;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class MaintenanceServiceProvider
+ * @package Stevebauman\Maintenance
+ */
 class MaintenanceServiceProvider extends ServiceProvider
 {
     /**
@@ -87,8 +92,6 @@ class MaintenanceServiceProvider extends ServiceProvider
         $this->bootCommands();
 
         $this->bootRequiredFiles();
-
-        $this->registerServiceAliases();
     }
 
     /**
@@ -160,6 +163,8 @@ class MaintenanceServiceProvider extends ServiceProvider
     {
         $this->registerServiceProviders();
 
+        $this->registerServiceAliases();
+
         $this->registerErrorHandlers();
     }
 
@@ -223,15 +228,17 @@ class MaintenanceServiceProvider extends ServiceProvider
      */
     private function registerServiceAliases()
     {
-        $this->app->alias('Sentry', 'Cartalyst\Sentry\Facades\Laravel\Sentry');
-        $this->app->alias('QrCode', 'SimpleSoftwareIO\QrCode\Facades\QrCode');
-        $this->app->alias('Breadcrumbs', 'DaveJamesMiller\Breadcrumbs\Facade');
-        $this->app->alias('Captcha', 'Arcanedev\NoCaptcha\Laravel\Facade');
+        $loader = AliasLoader::getInstance();
 
-        $this->app->alias('Corp', 'Stevebauman\Corp\Facades\Corp');
-        $this->app->alias('CalendarHelper', 'Stevebauman\CalendarHelper\Facades\CalendarHelper');
-        $this->app->alias('LogReader', 'Stevebauman\LogReader\Facades\LogReader');
-        $this->app->alias('Purify', 'Stevebauman\Purify\Facades\Purify');
+        $loader->alias('Sentry', 'Cartalyst\Sentry\Facades\Laravel\Sentry');
+        $loader->alias('QrCode', 'SimpleSoftwareIO\QrCode\Facades\QrCode');
+        $loader->alias('Breadcrumbs', 'DaveJamesMiller\Breadcrumbs\Facade');
+        $loader->alias('Captcha', 'Arcanedev\NoCaptcha\Laravel\Facade');
+
+        $loader->alias('Corp', 'Stevebauman\Corp\Facades\Corp');
+        $loader->alias('CalendarHelper', 'Stevebauman\CalendarHelper\Facades\CalendarHelper');
+        $loader->alias('LogReader', 'Stevebauman\LogReader\Facades\LogReader');
+        $loader->alias('Purify', 'Stevebauman\Purify\Facades\Purify');
     }
 
     /**
