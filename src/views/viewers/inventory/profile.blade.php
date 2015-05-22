@@ -1,59 +1,48 @@
-<dl class="dl-horizontal">
-    @if($item->user)
-        <dt>Created By:</dt>
-        <dd>{{ $item->user->full_name }}</dd>
-
-        <p></p>
-    @endif
-
-    <dt>Added:</dt>
-    <dd>{{ $item->created_at }}</dd>
-
-    <p></p>
-
-    <dt>Name:</dt>
-    <dd>{{ $item->name }}</dd>
-
-    <p></p>
-
-    @if($item->hasSku())
-        <dt>SKU:</dt>
-        <dd>{{ $item->getSku() }}</dd>
-
-        <p></p>
-    @endif
-
-    <dt>Metric:</dt>
-    <dd>{{ $item->metric->name }}</dd>
-
-    <p></p>
-
-    <dt>Description:</dt>
-    <dd class="well">
-        @if($item->description)
-            {{ $item->description }}
-        @else
-            <em>None</em>
+<table class="table">
+    <tbody>
+        @if($item->user)
+            <tr>
+                <th>Created By</th>
+                <td>{{ $item->user->full_name }}</td>
+            </tr>
         @endif
-    </dd>
+        <tr>
+            <th>Added</th>
+            <td>{{ $item->created_at }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ $item->name }}</td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td>{{ renderNode($item->category) }}</td>
+        </tr>
+        @if($item->hasSku())
+            <tr>
+                <th>SKU</th>
+                <td>{{ $item->getSku() }}</td>
+            </tr>
+        @endif
+        <tr>
+            <th>Metric</th>
+            <td>{{ $item->metric->name }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ $item->description }}</td>
+        </tr>
+        <tr>
+            <th>QR Code</th>
+            <td>
+                <a class="btn btn-xs btn-primary" data-toggle="collapse" href="#qr-code" aria-expanded="false" aria-controls="collapse-qr-code">
+                    Show / Hide QR
+                </a>
 
-    <p></p>
-
-    <dt>Category:</dt>
-    <dd>{{ renderNode($item->category) }}</dd>
-
-    <p></p>
-
-    <dt>QR Code:</dt>
-    <dd>
-        <a class="btn btn-xs btn-primary" data-toggle="collapse" href="#qr-code" aria-expanded="false" aria-controls="collapse-qr-code">
-            Show / Hide QR
-        </a>
-
-        <div class="collapse" id="qr-code">
-            <div class="well">
-                {{ QrCode::size(200)->generate(Request::url()); }}
-            </div>
-        </div>
-    </dd>
-</dl>
+                <div class="collapse" id="qr-code">
+                    {{ QrCode::size(200)->generate(Request::url()); }}
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

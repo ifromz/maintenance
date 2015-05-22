@@ -1,47 +1,17 @@
 @if($workOrder->attachments->count() > 0)
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Attachment</th>
-            <th>Name</th>
-            <th class="hidden-xs">File Name</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($workOrder->attachments as $attachment)
-            <tr>
-                <td width="200">
-                    <a href="{{ asset($attachment->file_path) }}">{{ $attachment->file_name }}</a>
-                </td>
-                <td>{{ $attachment->name }}</td>
-                <td class="hidden-xs">{{ $attachment->file_name }}</td>
-                <td>
-                    <div class="btn-group">
-                        <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-                            Action
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="{{ route('maintenance.work-orders.attachments.show', array($workOrder->id, $attachment->id)) }}">
-                                    <i class="fa fa-search"></i> View Attachment
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('maintenance.work-orders.attachments.destroy', array($workOrder->id, $attachment->id)) }}"
-                                   data-method="delete" data-message="Are you sure you want to delete this image?">
-                                    <i class="fa fa-trash-o"></i> Delete Attachment
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    {{
+       $workOrder->attachments
+           ->columns([
+               'created_at' => 'Added',
+               'file_name' => 'File Name',
+               'action' => 'Action'
+           ])
+           ->modify('action', function($attachment) use($workOrder) {
+               return $attachment->viewer()->btnActionsForWorkOrderAttachment($workOrder);
+           })
+           ->render()
+   }}
 
 @else
 

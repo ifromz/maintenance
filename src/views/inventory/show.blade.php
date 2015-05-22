@@ -12,19 +12,23 @@
     <div class="tab-pane active" id="tab-profile">
         <div class="row">
             <div class="col-md-12">
-                {{ $item->viewer()->btnEvents }}
 
-                {{ $item->viewer()->btnAddStock }}
+                <div class="pull-left">
+                    {{ $item->viewer()->btnEvents }}
 
-                {{ $item->viewer()->btnCreateVariant }}
+                    {{ $item->viewer()->btnAddStock }}
 
-                {{ $item->viewer()->btnRegenerateSku }}
+                    {{ $item->viewer()->btnCreateVariant }}
 
-                {{ $item->viewer()->btnEdit }}
+                    {{ $item->viewer()->btnRegenerateSku }}
+                </div>
 
-                {{ $item->viewer()->btnDelete }}
+                <div class="pull-right">
+                    {{ $item->viewer()->btnEdit }}
 
-                <hr>
+                    {{ $item->viewer()->btnDelete }}
+                </div>
+
             </div>
 
             <div class="clear-fix"></div>

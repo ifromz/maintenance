@@ -13,34 +13,37 @@
 @section('tab.body.content')
     <div class="tab-pane active" id="tab-profile">
 
-        {{ $workOrder->viewer()->btnCheckIn }}
+        <div class="col-md-12">
+            <div class="pull-left">
+                {{ $workOrder->viewer()->btnCheckIn }}
 
-        {{ $workOrder->viewer()->btnEvents }}
+                {{ $workOrder->viewer()->btnEvents }}
 
-        {{ $workOrder->viewer()->btnWorkers }}
+                {{ $workOrder->viewer()->btnWorkers }}
 
-        {{ $workOrder->viewer()->btnNotifications }}
+                {{ $workOrder->viewer()->btnNotifications }}
 
-        {{ $workOrder->viewer()->btnComplete }}
+                {{ $workOrder->viewer()->btnComplete }}
 
-        {{ $workOrder->viewer()->btnEdit }}
+            </div>
 
-        {{ $workOrder->viewer()->btnDelete }}
+            <div class="pull-right">
+                {{ $workOrder->viewer()->btnEdit }}
+
+                {{ $workOrder->viewer()->btnDelete }}
+            </div>
+        </div>
 
         <div class="row">
 
             <div class="col-md-6">
                 <h2>Profile</h2>
 
-                <hr>
-
                 {{ $workOrder->viewer()->profile }}
             </div>
 
             <div class="col-md-6">
                 <h2>Work Request</h2>
-
-                <hr>
 
                 {{ $workOrder->viewer()->workRequest }}
             </div>
@@ -72,8 +75,6 @@
 
         {{ $workOrder->viewer()->btnAddParts }}
 
-        <hr>
-
         <h2>Parts / Supplies</h2>
 
         {{ $workOrder->viewer()->parts }}
@@ -83,8 +84,6 @@
     <div class="tab-pane" id="tab-attachments">
 
         {{ $workOrder->viewer()->btnAddAttachments }}
-
-        <hr>
 
         <h2>Attachments</h2>
 
