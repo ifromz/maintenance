@@ -19,7 +19,7 @@
         "stevebauman/calendar-helper": "0.1.*",
         "stevebauman/log-reader": "1.0.*",
         "cartalyst/sentry": "2.1.*",
-        "anhskohbo/no-captcha": "1.* | 2.*",
+        "arcanedev/no-captcha": "1.* | 2.*",
         "baum/baum": "1.0.* | 1.1.*",
         "simplesoftwareio/simple-qrcode": "1.1.* | 1.2.*",
         "davejamesmiller/laravel-breadcrumbs": "2.3.* | 3.0.*",
