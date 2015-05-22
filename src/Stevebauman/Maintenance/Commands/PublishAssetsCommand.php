@@ -60,10 +60,6 @@ class PublishAssetsCommand extends Command
         ]);
 
         $this->call($command, [
-            'package' => 'stevebauman/calendar-helper',
-        ]);
-
-        $this->call($command, [
             'package' => 'arcanedev/no-captcha',
         ]);
     }
