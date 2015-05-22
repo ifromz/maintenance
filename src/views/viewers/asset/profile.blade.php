@@ -1,45 +1,32 @@
-<dl class="dl-horizontal">
-    <dt>Name:</dt>
-    <dd>{{ $asset->name }}</dd>
-
-    <p></p>
-
-    <dt>Added:</dt>
-    <dd>{{ $asset->created_at }}</dd>
-
-    <p></p>
-
-    <dt>Added By:</dt>
-    <dd>
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Name</th>
+            <td>{{ $asset->name }}</td>
+        </tr>
+        <tr>
+            <th>Added</th>
+            <td>{{ $asset->created_at }}</td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td>{{ $asset->category->trail }}</td>
+        </tr>
+        <tr>
+            <th>Condition</th>
+            <td>{{ $asset->condition }}</td>
+        </tr>
         @if($asset->user)
-            {{ $asset->user->full_name }}
-        @else
-            <em>None</em>
+            <tr>
+                <th>Added By</th>
+                <td>{{ $asset->user->full_name }}</td>
+            </tr>
         @endif
-    </dd>
-
-    <p></p>
-
-    <dt>Acquired At:</dt>
-    <dd>{{ ($asset->acquired_at ? $asset->acquired_at : '<em>None</em>') }}</dd>
-
-    @if($asset->location)
-        <p></p>
-        <dt>Location:</dt>
-        <dd>
-            {{ $asset->location->trail }}
-        </dd>
-    @endif
-
-    <p></p>
-
-    <dt>Category:</dt>
-    <dd>{{ $asset->category->trail }}</dd>
-
-    <p></p>
-
-    <dt>Condition:</dt>
-    <dd>{{ $asset->condition }}</dd>
-
-    <p></p>
-</dl>
+        @if($asset->acquired_at)
+            <tr>
+                <th>Acquired_at</th>
+                <td>{{ $asset->acquired_at }}</td>
+            </tr>
+        @endif
+    </tbody>
+</table>

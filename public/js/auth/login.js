@@ -14,6 +14,7 @@ $(document).ready(function() {
 			type: "POST",
 			url: $(this).attr('action'),
 			data: {
+                "_token": $('input[name="_token"]').val(),
                 "email" : $('input[name="email"]').val(),
                 "password" : $('input[name="password"]').val(),
                 "remember" : $('input[name="remember"]').val()

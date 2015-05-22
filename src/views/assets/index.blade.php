@@ -2,9 +2,9 @@
 
 @section('panel.extra.top')
 
-    @include('maintenance::assets.modals.search', array(
+    @include('maintenance::assets.modals.search', [
         'url' => route('maintenance.assets.index', Input::only('field', 'sort'))
-    ))
+    ])
 
 @stop
 
@@ -28,7 +28,7 @@
     @if($assets->count() > 0)
 
         {{
-            $assets->columns(array(
+            $assets->columns([
                     'id' => 'ID',
                     'name' => 'Name',
                     'location' => 'Location',
@@ -36,22 +36,22 @@
                     'condition' => 'Condition',
                     'added_on' => 'Added On',
                     'action' => 'Action'
-            ))
+            ])
             ->means('location', 'location.trail')
             ->means('category', 'category.trail')
             ->means('added_on', 'created_at')
             ->modify('action', function($asset){
                 return $asset->viewer()->btnActions;
             })
-            ->sortable(array(
+            ->sortable([
                 'id',
                 'name',
                 'location' => 'location_id',
                 'category' => 'category_id',
                 'condition',
                 'added_on' => 'created_at',
-            ))
-            ->hidden(array('id', 'added_on', 'location', 'condition'))
+            ])
+            ->hidden(['id', 'added_on', 'location', 'condition'])
             ->showPages()
             ->render()
         }}

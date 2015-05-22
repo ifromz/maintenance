@@ -24,6 +24,11 @@ class AssetViewer extends BaseViewer
         return view('maintenance::viewers.asset.calendar', ['asset' => $this->entity]);
     }
 
+    public function images()
+    {
+        return view('maintenance::viewers.asset.images', ['asset' => $this->entity]);
+    }
+
     public function manuals()
     {
         return view('maintenance::viewers.asset.manuals', ['asset' => $this->entity]);

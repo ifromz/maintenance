@@ -14,10 +14,12 @@
             <th>Name</th>
             <td>{{ $item->name }}</td>
         </tr>
-        <tr>
-            <th>Category</th>
-            <td>{{ renderNode($item->category) }}</td>
-        </tr>
+        @if($item->category)
+            <tr>
+                <th>Category</th>
+                <td>{{ $item->category->trail }}</td>
+            </tr>
+        @endif
         @if($item->hasSku())
             <tr>
                 <th>SKU</th>

@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
+// Enable CSRF protection on all post / put / delete routes
+Route::when('*', 'csrf', 'post', 'put', 'delete');
+
 /*
  * Maintenance Application Routes
  */

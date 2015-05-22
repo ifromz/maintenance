@@ -3,6 +3,11 @@
 namespace Stevebauman\Maintenance;
 
 use Stevebauman\Maintenance\Services\SentryService;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 
 class MaintenanceServiceProvider extends ServiceProvider
@@ -140,6 +145,25 @@ class MaintenanceServiceProvider extends ServiceProvider
             return view('maintenance::404', [
                 'title' => '404 - Page Not Found',
             ]);
+        });
+
+        $this->app->error(function(TokenMismatchException $exception) {
+            $message = "It looks like there was a problem with the request you've sent.
+                Please refresh and try again.";
+            if(Request::ajax()) {
+                return Response::json([
+                    'message' => $message,
+                    'messageType' => 'danger',
+                ]);
+            } else {
+
+                $messageBag = new MessageBag();
+                $messageBag->add('error', $message);
+
+                return Redirect::back()
+                    ->withInput()
+                    ->withErrors($messageBag);
+            }
         });
     }
 

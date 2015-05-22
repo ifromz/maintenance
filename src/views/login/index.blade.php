@@ -9,10 +9,10 @@
         <div class="login-logo">{{ $title }}</div>
 
         {{
-            Form::open(array(
+            Form::open([
                 'url' => route('maintenance.login'),
                 'id' => 'maintenance-login'
-            ))
+            ])
         }}
 
         <div class="login-box-body">
