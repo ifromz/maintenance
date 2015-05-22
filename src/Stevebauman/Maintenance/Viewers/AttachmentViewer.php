@@ -18,6 +18,14 @@ class AttachmentViewer extends BaseViewer
         ]);
     }
 
+    public function btnActionsForWorkOrderAttachment($workOrder)
+    {
+        return view('maintenance::viewers.attachments.buttons.actions-work-order-attachment', [
+            'workOrder' => $workOrder,
+            'attachment' => $this->entity,
+        ]);
+    }
+
     public function btnActionsForAssetManual($asset)
     {
         return view('maintenance::viewers.attachments.buttons.actions-asset-manual', [
