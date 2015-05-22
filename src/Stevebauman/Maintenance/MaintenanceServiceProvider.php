@@ -103,6 +103,10 @@ class MaintenanceServiceProvider extends ServiceProvider
             return new Commands\InstallCommand();
         });
 
+        $this->app->bind('maintenance:publish', function () {
+            return new Commands\PublishAssetsCommand();
+        });
+
         $this->app->bind('maintenance:run-migrations', function () {
             return new Commands\RunMigrationsCommand();
         });
@@ -133,6 +137,7 @@ class MaintenanceServiceProvider extends ServiceProvider
 
         $this->commands([
             'maintenance:install',
+            'maintenance:publish',
             'maintenance:run-migrations',
             'maintenance:run-seeds',
             'maintenance:check-depends',
