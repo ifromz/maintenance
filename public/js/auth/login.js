@@ -9,16 +9,13 @@ $(document).ready(function() {
 
 		var statusContainer = '#maintenance-login-status';
 
+        var sArray = $(this).serialize();
+
         // Prepare and send the request
 		$.ajax({
 			type: "POST",
 			url: $(this).attr('action'),
-			data: {
-                "_token": $('input[name="_token"]').val(),
-                "email" : $('input[name="email"]').val(),
-                "password" : $('input[name="password"]').val(),
-                "remember" : $('input[name="remember"]').val()
-            },
+			data: sArray,
 			dataType: "json",
 			beforeSend: function() {
                 /*
@@ -27,6 +24,8 @@ $(document).ready(function() {
                  * form has been sent
                  */
 				showStatusMessage('Logging In...', 'info', statusContainer);
+
+                // Disable the login button until a response is received
                 btnDisable(btnSignIn);
 			}
 		}).done(function(result) {
