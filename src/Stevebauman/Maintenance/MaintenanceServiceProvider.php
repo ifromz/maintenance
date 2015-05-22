@@ -39,17 +39,19 @@ class MaintenanceServiceProvider extends ServiceProvider
              */
             $this->package('stevebauman/maintenance');
         } else {
-
-            $config = __DIR__.'/../../config/config.php';
-
-            $this->mergeConfigFrom($config, 'maintenance');
+            $config = __DIR__.'/../../config/';
 
             /*
              * Looks like we're using Laravel 5, let's set
              * our configuration file to be publishable
              */
             $this->publishes([
-                $config => config_path('maintenance.php'),
+                $config.'colors' => config_path('maintenance/colors.php'),
+                $config.'notifications' => config_path('maintenance/notifications.php'),
+                $config.'permissions' => config_path('maintenance/permissions.php'),
+                $config.'rules' => config_path('maintenance/rules.php'),
+                $config.'seed' => config_path('maintenance/seed.php'),
+                $config.'site' => config_path('maintenance/site.php'),
             ], 'config');
 
             /*
@@ -65,6 +67,14 @@ class MaintenanceServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../../views' => base_path('resources/views/stevebauman/maintenance'),
             ], 'views');
+
+
+            /*
+             * Allow assets to be publishable
+             */
+            $this->publishes([
+                __DIR__.'/../../../public' => public_path('stevebauman/maintenance'),
+            ], 'public');
 
             /*
              * Load our views
