@@ -195,6 +195,9 @@ class MaintenanceServiceProvider extends ServiceProvider
         // No Captcha
         $this->app->register('Arcanedev\NoCaptcha\Laravel\ServiceProvider');
 
+        // Core Helper
+        $this->app->register('Stevebauman\CoreHelper\CoreHelperServiceProvider');
+
         // Authentication
         $this->app->register('Cartalyst\Sentry\SentryServiceProvider');
 
@@ -207,12 +210,12 @@ class MaintenanceServiceProvider extends ServiceProvider
         // QR Code Generator
         $this->app->register('SimpleSoftwareIO\QrCode\QrCodeServiceProvider');
 
-        // Core Helper
-        $this->app->register('Stevebauman\CoreHelper\CoreHelperServiceProvider');
+        // Forget Pagination Provider for eloquent table replacement
+        $this->app->forceRegister('Illuminate\Pagination\PaginationServiceProvider');
 
         // Dynamic Table Generation
-        $this->app->register('Stevebauman\EloquentTable\PaginationServiceProvider');
-        $this->app->register('Stevebauman\EloquentTable\EloquentTableServiceProvider');
+        $this->app->register('Stevebauman\EloquentTable\PaginationServiceProvider', [], true);
+        $this->app->register('Stevebauman\EloquentTable\EloquentTableServiceProvider', [], true);
 
         // Calendar API Helper
         $this->app->register('Stevebauman\CalendarHelper\CalendarHelperServiceProvider');
