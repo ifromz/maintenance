@@ -8,6 +8,7 @@
 
     <a href="{{ route('maintenance.admin.logs.mark-read', [$entry->id]) }}"
        data-method="POST"
+       data-token="{{ csrf_token() }}"
        data-title="Are you sure?"
        data-message="Are you sure you want to mark this entry as read?"
        class="btn btn-app no-print"
@@ -17,6 +18,7 @@
 
     <a href="{{ route('maintenance.admin.logs.destroy', [$entry->id]) }}"
        data-method="DELETE"
+       data-token="{{ csrf_token() }}"
        data-title="Are you sure?"
        data-message="Are you sure you want to delete this log entry? It cannot be recovered."
        class="btn btn-app no-print"

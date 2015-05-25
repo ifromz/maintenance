@@ -19,6 +19,7 @@
         <a
             href="{{ route('maintenance.inventory.stocks.destroy', array($stock->item->id, $stock->id)) }}"
             data-method="delete"
+            data-token="{{ csrf_token() }}"
             data-message="Are you sure you want to delete this stock and all of it's movements?">
             <i class="fa fa-trash-o"></i> Delete Stock
         </a>

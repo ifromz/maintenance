@@ -235,11 +235,20 @@ $(document).ready(function () {
                                 'value': link.data('method')
                             });
 
+                        var csrfInput =
+                            $('<input>', {
+                                'name': '_token',
+                                'type': 'hidden',
+                                'value': link.data('token')
+                            });
+
                         if (link.data('method') === "POST") {
-                            form.appendTo('body').submit();
+                            form.appendTo('body');
                         } else {
-                            form.append(hiddenInput).appendTo('body').submit();
+                            form.append(hiddenInput).appendTo('body');
                         }
+
+                        form.append(csrfInput).submit();
                     }
                 }
             }

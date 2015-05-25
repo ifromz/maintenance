@@ -26,6 +26,7 @@
                 }}
                 "
                 data-method="post"
+                data-token="{{ csrf_token() }}"
                 data-message="Are you sure you want to roll back this movement?">
             <i class="fa fa-refresh"></i> Rollback Movement
         </a>

@@ -16,6 +16,7 @@
 
             <a href="{{ route('maintenance.admin.archive.assets.restore', [$asset->id]) }}"
                data-method="post"
+               data-token="{{ csrf_token() }}"
                data-title="Restore Asset?"
                data-message="Are you sure you want to restore this asset?"
                class="btn btn-app">
@@ -24,6 +25,7 @@
 
             <a href="{{ route('maintenance.admin.archive.assets.destroy', array($asset->id)) }}"
                data-method="delete"
+               data-token="{{ csrf_token() }}"
                data-title="Delete asset?"
                data-message="Are you sure you want to delete this asset? All data for this asset will be lost, and won't be recoverable."
                class="btn btn-app">

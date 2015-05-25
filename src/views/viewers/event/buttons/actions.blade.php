@@ -12,7 +12,9 @@
         </a>
     </li>
     <li>
-        <a href="{{ action(currentControllerAction('destroy'), array($event->id)) }}" data-method="delete"
+        <a href="{{ action(currentControllerAction('destroy'), array($event->id)) }}"
+           data-method="delete"
+           data-token="{{ csrf_token() }}"
            data-message="Are you sure you want to delete this event?">
             <i class="fa fa-trash-o"></i> Delete Event
         </a>

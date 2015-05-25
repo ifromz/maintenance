@@ -15,6 +15,7 @@
         <a
                 href="{{ route('maintenance.inventory.destroy', array($item->id)) }}"
                 data-method="delete"
+                data-token="{{ csrf_token() }}"
                 data-message="Are you sure you want to delete this item? It will be archived.">
             <i class="fa fa-trash-o"></i> Delete Item
         </a>

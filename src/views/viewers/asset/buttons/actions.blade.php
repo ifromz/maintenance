@@ -14,6 +14,7 @@
     <li>
         <a href="{{ route('maintenance.assets.destroy', array($asset->id)) }}"
            data-method="delete"
+           data-token="{{ csrf_token() }}"
            data-message="Are you sure you want to delete this asset? It will be archived.">
             <i class="fa fa-trash-o"></i> Delete Asset
         </a>

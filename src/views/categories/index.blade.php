@@ -25,6 +25,7 @@
             <a
                     href="{{ action(currentControllerAction('destroy')) }}"
                     data-method="delete"
+                    data-token="{{ csrf_token() }}"
                     data-message="
                         Are you sure you want to delete this {{ $resource }}? This can have a large cascade effect.
                         Anything attached to this {{ $resource }} will be deleted, as well as {{ str_plural($resource) }} below the selected {{ $resource }}.

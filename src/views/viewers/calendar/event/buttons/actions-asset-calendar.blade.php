@@ -16,6 +16,7 @@
         <a
                 href="{{ route('maintenance.assets.calendars.events.destroy', array($asset->id, $calendar->id, $event->id)) }}"
                 data-method="delete"
+                data-token="{{ csrf_token() }}"
                 data-title="Are you sure?"
                 data-message="Are you sure you want to delete this event? Deleting this event will also remove all recurrences."
                 >

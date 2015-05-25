@@ -43,6 +43,7 @@
 
             <a href="{{ route('maintenance.work-requests.destroy', array($workOrder->id)) }}"
                data-method="delete"
+               data-token="{{ csrf_token() }}"
                data-title="Delete your work request?"
                data-message="Are you sure you want to delete this work request?"
                class="btn btn-app">

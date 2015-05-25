@@ -37,18 +37,8 @@ class GroupSeeder extends Seeder
     {
         $groups = $this->getSeedData();
 
-        foreach($groups as $groupName => $routes)
+        foreach($groups as $groupName => $permissions)
         {
-            $permissions = [];
-
-            if(count($routes) > 0)
-            {
-                foreach($routes as $route)
-                {
-                    $permissions[$route] = 1;
-                }
-            }
-
             $this->sentry->createOrUpdateGroup($groupName, $permissions);
         }
     }

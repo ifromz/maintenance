@@ -13,7 +13,9 @@
     </li>
     <li>
         <a href="{{ route('maintenance.assets.calendars.destroy', array($asset->id, $calendar->id)) }}"
-           data-method="delete" data-message="Are you sure you want to delete this calendar?">
+           data-method="delete"
+           data-token="{{ csrf_token() }}"
+           data-message="Are you sure you want to delete this calendar?">
             <i class="fa fa-trash-o"></i> Delete Calendar
         </a>
     </li>

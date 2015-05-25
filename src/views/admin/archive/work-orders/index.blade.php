@@ -36,8 +36,9 @@
             ->means('category', 'category.trail')
             ->means('created_by', 'user.full_name')
             ->means('description', 'limited_description')
-            ->modify('action', function($workOrder){
-                return $workOrder->viewer()->btnActionsArchive;
+            ->modify('action', function($workOrder)
+            {
+                return $workOrder->viewer()->btnActionsArchive();
             })
             ->render()
         }}

@@ -15,6 +15,7 @@
         <div class="panel-body">
             <a href="{{ route('maintenance.admin.archive.inventory.restore', array($item->id)) }}"
                data-method="post"
+               data-token="{{ csrf_token() }}"
                data-title="Restore Item?"
                data-message="Are you sure you want to restore this item?"
                class="btn btn-app">
@@ -23,6 +24,7 @@
 
             <a href="{{ route('maintenance.admin.archive.inventory.destroy', array($item->id)) }}"
                data-method="delete"
+               data-token="{{ csrf_token() }}"
                data-title="Delete Item?"
                data-message="Are you sure you want to delete this item? All data for this item will be lost, and won't be recoverable."
                class="btn btn-app">
