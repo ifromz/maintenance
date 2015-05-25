@@ -194,7 +194,8 @@ class AuthController extends BaseController
              */
             $data['username'] = uniqid();
 
-            if ($this->sentry->createUser($data)) {
+            // Create the user with default permissions of all users and customers
+            if ($this->sentry->createUser($data, ['all_users', 'customers'])) {
                 $this->message = 'Successfully created account. You can now login.';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.login');

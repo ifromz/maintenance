@@ -144,13 +144,7 @@ class UserService extends BaseModelService
                 'activated' => 1,
             ];
 
-            $user = $this->sentry->createUser($data);
-
-            $groupPermissions = $this->config->setPrefix('maintenance')->get('permissions.workers');
-
-            $group = $this->sentry->createOrUpdateGroup('Workers', $groupPermissions);
-
-            $user->addGroup($group);
+            $user = $this->sentry->createUser($data, ['all_users', 'customers', 'workers']);
         }
 
         return $user;

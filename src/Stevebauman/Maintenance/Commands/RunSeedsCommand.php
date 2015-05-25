@@ -20,6 +20,9 @@ class RunSeedsCommand extends Command
      */
     protected $description = 'Runs seeds for the maintenance application';
 
+    /**
+     * Runs the command and fires each seed command.
+     */
     public function fire()
     {
         $this->seedUserTableFromLdap();
@@ -29,8 +32,13 @@ class RunSeedsCommand extends Command
         $this->seedStatusesTable();
 
         $this->seedMetricsTable();
+
+        $this->seedGroupsTable();
     }
 
+    /**
+     * Seeds the user table from LDAP user entries.
+     */
     private function seedUserTableFromLdap()
     {
         $message = 'Do you want to seed the maintenance user table with active directory?'
@@ -43,6 +51,9 @@ class RunSeedsCommand extends Command
         }
     }
 
+    /**
+     * Seeds the priority table.
+     */
     private function seedPrioritiesTable()
     {
         $message = 'Do you want to seed the maintenance work order priorities table?'
@@ -55,6 +66,9 @@ class RunSeedsCommand extends Command
         }
     }
 
+    /**
+     * Seeds the statuses table.
+     */
     private function seedStatusesTable()
     {
         $message = 'Do you want to seed the maintenance work order statuses table?'
@@ -67,6 +81,9 @@ class RunSeedsCommand extends Command
         }
     }
 
+    /**
+     * Seeds the metrics table.
+     */
     private function seedMetricsTable()
     {
         $message = 'Do you want to seed the maintenance metrics table?'
@@ -76,6 +93,21 @@ class RunSeedsCommand extends Command
             $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\MetricSeeder']);
 
             $this->info('Successfully seeded database with config metrics');
+        }
+    }
+
+    /**
+     * Seeds the groups and permissions table.
+     */
+    private function seedGroupsTable()
+    {
+        $message = 'Do you want to seed the maintenance groups table?'
+            .' You can customize the default data in the permissions config file. [yes|no]';
+
+        if ($this->confirm($message)) {
+            $this->call('db:seed', ['--class' => 'Stevebauman\Maintenance\Seeders\GroupSeeder']);
+
+            $this->info('Successfully seeded database with config groups and permissions');
         }
     }
 }

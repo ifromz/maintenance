@@ -3,13 +3,13 @@
 return [
 
     /*
-     * The default maintenance application permissions during installation.
+     *  Administrator permissions
      */
-    'default' => [
+    'administrators' => [
         /*
          * Allows access to all site functions
          */
-        'superuser' => 'superuser',
+        'superuser',
     ],
 
     /*
@@ -32,13 +32,13 @@ return [
      */
     'customers' => [
 
-        'maintenance.my-work-requests.index',
-        'maintenance.my-work-requests.create',
-        'maintenance.my-work-requests.store',
-        'maintenance.my-work-requests.show',
-        'maintenance.my-work-requests.edit',
-        'maintenance.my-work-requests.update',
-        'maintenance.my-work-requests.destroy',
+        'maintenance.work-requests.index',
+        'maintenance.work-requests.create',
+        'maintenance.work-requests.store',
+        'maintenance.work-requests.show',
+        'maintenance.work-requests.edit',
+        'maintenance.work-requests.update',
+        'maintenance.work-requests.destroy',
 
     ],
 
@@ -47,19 +47,18 @@ return [
      */
     'workers' => [
 
-        'maintenance.dashboard.index' => 1,
+        'maintenance.dashboard.index',
 
-        'maintenance.events.index' => 1,
-        'maintenance.events.create' => 1,
-        'maintenance.events.store' => 1,
-        'maintenance.events.show' => 1,
-        'maintenance.events.edit' => 1,
-        'maintenance.events.update' => 1,
-        'maintenance.events.destroy' => 1,
-        'maintenance.events.report.store' => 1,
-        'maintenance.events.report.edit' => 1,
-        'maintenance.events.report.update' => 1,
-        'maintenance.events.report.destroy' => 0,
+        'maintenance.events.index',
+        'maintenance.events.create',
+        'maintenance.events.store',
+        'maintenance.events.show',
+        'maintenance.events.edit',
+        'maintenance.events.update',
+        'maintenance.events.destroy',
+        'maintenance.events.report.store',
+        'maintenance.events.report.edit',
+        'maintenance.events.report.update',
 
         'maintenance.work-orders.assigned.index',
 
@@ -276,40 +275,6 @@ return [
         'maintenance.work-orders.assignments.create',
         'maintenance.work-orders.assignments.store',
         'maintenance.work-orders.assignments.destroy',
-
-    ],
-
-    'administrators' => [
-
-        'maintenance.admin.dashboard.index',
-        'maintenance.admin.users.index',
-        'maintenance.admin.users.create',
-        'maintenance.admin.users.store',
-        'maintenance.admin.users.show',
-        'maintenance.admin.users.edit',
-        'maintenance.admin.users.update',
-        'maintenance.admin.users.destroy',
-        'maintenance.admin.users.check-access',
-        'maintenance.admin.groups.index',
-        'maintenance.admin.groups.create',
-        'maintenance.admin.groups.store',
-        'maintenance.admin.groups.show',
-        'maintenance.admin.groups.edit',
-        'maintenance.admin.groups.update',
-        'maintenance.admin.groups.destroy',
-        'maintenance.admin.archive.index',
-        'maintenance.admin.archive.assets.restore',
-        'maintenance.admin.archive.assets.index',
-        'maintenance.admin.archive.assets.show',
-        'maintenance.admin.archive.assets.destroy',
-        'maintenance.admin.archive.work-orders.restore',
-        'maintenance.admin.archive.work-orders.index',
-        'maintenance.admin.archive.work-orders.show',
-        'maintenance.admin.archive.work-orders.destroy',
-        'maintenance.admin.archive.inventory.restore',
-        'maintenance.admin.archive.inventory.index',
-        'maintenance.admin.archive.inventory.show',
-        'maintenance.admin.archive.inventory.destroy',
 
     ],
 
