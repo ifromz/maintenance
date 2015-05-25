@@ -106,58 +106,37 @@ class AuthController extends BaseController
     public function postLogin()
     {
         if ($this->loginValidator->passes()) {
-            $data = $this->inputAll();
+            $credentials = $this->inputAll();
 
+            // Check if LDAP authentication is enabled
             if ($this->config->get('site.ldap.enabled') === true) {
-                /*
-                 * Check if the user exists on active directory
-                 */
-                if ($this->ldap->getUserEmail($data['email'])) {
-                    /*
-                     * Try authentication
-                     */
-                    if ($this->auth->ldapAuthenticate($data)) {
-                        /*
-                         * If authentication is good, update their
-                         * web profile in case of a password update in AD
-                         */
-                        $user = $this->user->createOrUpdateLdapUser($data);
+                $user = $this->ldapAuthenticate($credentials);
 
-                        $data['email'] = $user->email;
-                    }
+                if($user) {
+                    $credentials['email'] = $user->email;
                 }
             }
 
-            /*
-             * Authenticate with sentry
-             */
+            // Authenticate with sentry
             $response = $this->auth->sentryAuthenticate(
-                array_only($data, ['email', 'password']),
-                (array_key_exists('remember', $data) ? $data['remember'] : null)
+                array_only($credentials, ['email', 'password']),
+                (array_key_exists('remember', $credentials) ? $credentials['remember'] : null)
             );
 
-            /*
-             * Check the authenticated response
-             */
+            // Check the authenticated response
             if ($response['authenticated'] === true) {
-                /*
-                 * Successfully logged in
-                 */
+                // Successfully logged in
                 $this->message = 'Successfully logged in. Redirecting...';
                 $this->messageType = 'success';
-                $this->redirect = route('maintenance.dashboard.index');
+                $this->redirect = route('maintenance.work-requests.index');
             } else {
-                /*
-                 * Login failed, return the response from Sentry
-                 */
+                // Login failed, return the response from Sentry
                 $this->message = $response['message'];
                 $this->messageType = 'danger';
                 $this->redirect = route('maintenance.login');
             }
         } else {
-            /*
-             * Validation failed, set errors and the redirect
-             */
+            // Validation failed, set errors and the redirect
             $this->errors = $this->loginValidator->getErrors();
             $this->redirect = route('maintenance.login');
         }
@@ -226,5 +205,33 @@ class AuthController extends BaseController
         $this->redirect = route('maintenance.login');
 
         return $this->response();
+    }
+
+    /**
+     * Performs LDAP authentication with the specified
+     * credentials. If authentication is passed, the LDAP
+     * user is then created with their entered password.
+     * Their web account will password will also be updated
+     * on the fly in case of a change in active directory.
+     *
+     * @param array $credentials
+     *
+     * @return bool|\Cartalyst\Sentry\Users\Eloquent\User
+     */
+    private function ldapAuthenticate(array $credentials)
+    {
+        // Check if the user exists on active directory
+        if ($this->ldap->getUserEmail($credentials['email'])) {
+            // Try LDAP authentication
+            if ($this->auth->ldapAuthenticate($credentials)) {
+                /*
+                 * If authentication is passed, update their
+                 * web profile in case of a password update in AD
+                 */
+                return $this->user->createOrUpdateLdapUser($credentials);
+            }
+        }
+
+        return false;
     }
 }
