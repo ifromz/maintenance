@@ -2,6 +2,8 @@
 
 namespace Stevebauman\Maintenance\Viewers;
 
+use Illuminate\Database\Eloquent\Collection;
+
 class WorkOrderViewer extends BaseViewer
 {
     public function profile()
@@ -24,9 +26,13 @@ class WorkOrderViewer extends BaseViewer
         return view('maintenance::viewers.work-order.report', ['workOrder' => $this->entity]);
     }
 
-    public function sessions()
+    public function sessions(Collection $sessions)
     {
-        return view('maintenance::viewers.work-order.sessions', ['workOrder' => $this->entity]);
+        return view('maintenance::viewers.work-order.sessions', [
+                'workOrder' => $this->entity,
+                'sessions' => $sessions,
+            ]
+        );
     }
 
     public function attachments()

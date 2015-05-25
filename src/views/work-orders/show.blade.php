@@ -55,7 +55,7 @@
 
         {{ $workOrder->viewer()->report }}
 
-        {{ $workOrder->viewer()->sessions }}
+        {{ $workOrder->viewer()->sessions($sessions) }}
 
     </div>
 

@@ -38,11 +38,14 @@ class WorkOrderSession extends BaseModel
      */
     public function getHoursAttribute()
     {
-        if ($this->attributes['out']) {
-            $hours = abs(round((strtotime($this->attributes['in']) - strtotime($this->attributes['out'])) / 3600, 2));
+        if(array_key_exists('out', $this->attributes)) {
+            if ($this->attributes['out']) {
+                $hours = abs(round((strtotime($this->attributes['in']) - strtotime($this->attributes['out'])) / 3600, 2));
 
-            return $hours;
+                return $hours;
+            }
         }
+
 
         return;
     }
