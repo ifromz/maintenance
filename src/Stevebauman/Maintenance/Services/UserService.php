@@ -107,11 +107,11 @@ class UserService extends BaseModelService
     /**
      * Create or Update a User for authentication for use with ldap.
      *
-     * @param $credentials
+     * @param array $credentials
      *
-     * @return mixed
+     * @return \Cartalyst\Sentry\Users\Eloquent\User
      */
-    public function createOrUpdateLdapUser($credentials)
+    public function createOrUpdateLdapUser(array $credentials)
     {
         $loginAttribute = $this->config->setPrefix('cartalyst/sentry')->get('users.login_attribute');
 
