@@ -1,12 +1,15 @@
 <?php
 
+use Cartalyst\Sentry\Facades\Laravel\Sentry;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 
 /*
  * Filter to protect against unauthorized users
  * Redirects users to main login
- *
- * @author Steve Bauman
  */
 Route::filter('maintenance.auth', function () {
     if (!Sentry::check()) {
@@ -17,10 +20,8 @@ Route::filter('maintenance.auth', function () {
 });
 
 /*
- * Filter to prevent users from visiting the login/register pages when logged in
- * Redirects user to main dashboard
- *
- * @author Steve Bauman
+ * Filter to prevent users from visiting the login/register pages
+ * when logged in. Redirects user to main dashboard
  */
 Route::filter('maintenance.notauth', function () {
     if (Sentry::check()) {
@@ -30,16 +31,16 @@ Route::filter('maintenance.notauth', function () {
 
 /*
  * Filter to protect routes to make sure the current user has access to it.
- *
- * @author Steve Bauman
  */
-Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $route) {
+Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $route)
+{
+    $user = Sentry::getUser();
 
     /*
      * Make sure the route we're on isn't allowing all users already, and if so we'll check to see
      * if the current user has access to it
      */
-    if (!in_array($route->getName(), config('maintenance::permissions.all_users')) && !Sentry::hasAccess($route->getName())) {
+    if (!in_array($route->getName(), config('maintenance::permissions.all_users')) && !$user->hasAccess($route->getName())) {
         $message = 'You do not have access to do perform this function.';
         $messageType = 'danger';
 
@@ -52,18 +53,15 @@ Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $rou
                 'messageType' => $messageType,
             ]);
         } else {
-            /*
-            * Since the auth filter redirects to the dashboard, we will redirect a user to
-            * their work requests if they do not have permission since this will mean they are a
-            * regular user.
-            */
-            if (!Sentry::hasAccess('maintenance.dashboard.index')) {
-                return Redirect::route('maintenance.work-requests.index');
+            $previousUrl = URL::previous();
+
+            if($previousUrl) {
+                $redirect = $previousUrl;
             } else {
-                return Redirect::route('maintenance.permission-denied.index')
-                    ->with('message', $message)
-                    ->with('messageType', $messageType);
+                $redirect = '/';
             }
+
+            return Redirect::to($redirect);
         }
     }
 });
