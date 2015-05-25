@@ -9,16 +9,26 @@
         <li class="user-body">
             <h3 class="text-center">Profile</h3>
 
-            <hr>
-
-            <ul class="text-center list-unstyled">
-                <li><b>Name:</b> {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}</li>
-                <li><b>Last Logged In:</b> {{ Sentry::getUser()->last_login }}</li>
-            </ul>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ $currentUser->first_name }} {{ $currentUser->last_name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ $currentUser->email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Last Login</th>
+                        <td>{{ $currentUser->last_login }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </li>
         <!-- Menu Footer-->
         <li class="user-footer">
-            @if(Sentry::hasAccess('maintenance.admin.dashboard.index'))
+            @if($currentUser->hasAccess('maintenance.admin.dashboard.index'))
                 <div class="pull-left">
                     <a href="{{ route('maintenance.admin.dashboard.index') }}" class="btn btn-default btn-flat">Admin Dashboard</a>
                 </div>
