@@ -66,7 +66,7 @@ class SessionService extends BaseModelService
             }
 
             $insert = [
-                'user_id' => $this->sentry->getCurrentUser()->id,
+                'user_id' => $this->sentry->getCurrentUserId(),
                 'work_order_id' => $workOrder->id,
                 'in' => $now,
             ];

@@ -4,6 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 use Carbon\Carbon;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasNotesTrait;
@@ -144,7 +145,7 @@ class WorkOrder extends BaseModel
     /**
      * The hasMany sessions relationship.
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function sessions()
     {
@@ -359,6 +360,24 @@ class WorkOrder extends BaseModel
         $record = $this->notifiableUsers()->where('user_id', Sentry::getUser()->id)->first();
 
         return $record;
+    }
+
+    /**
+     * Retrieves all of the users work order
+     * sessions grouped by each user.
+     *
+     * @return mixed
+     */
+    public function getUniqueSessions()
+    {
+        $select = "TRUNCATE(ABS(SUM(TIME_TO_SEC(TIMEDIFF(work_order_sessions.in, work_order_sessions.out)) / 3600)), 2) as total_hours";
+
+        $records = $this->sessions()
+            ->select('user_id', DB::raw($select))
+            ->groupBy('user_id')
+            ->get();
+
+        return $records;
     }
 
     /**

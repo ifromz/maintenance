@@ -92,9 +92,12 @@ class WorkOrderController extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
+        $sessions = $workOrder->getUniqueSessions();
+
         return view('maintenance::work-orders.show', [
             'title' => 'Viewing Work Order: '.$workOrder->subject,
             'workOrder' => $workOrder,
+            'sessions' => $sessions,
         ]);
     }
 
