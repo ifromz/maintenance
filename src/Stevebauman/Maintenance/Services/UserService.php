@@ -25,6 +25,8 @@ class UserService extends BaseModelService
     protected $config;
 
     /**
+     * Constructor.
+     *
      * @param User          $user
      * @param SentryService $sentry
      * @param LdapService   $ldap
