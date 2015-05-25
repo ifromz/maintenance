@@ -61,7 +61,7 @@ Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $rou
                 $redirect = '/';
             }
 
-            return Redirect::to($redirect);
+            return Redirect::to($redirect)->withErrors($message);
         }
     }
 });
