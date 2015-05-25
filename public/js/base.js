@@ -355,7 +355,8 @@ $(document).ready(function () {
                 }).bind("move_node.jstree", function (e, data) {
                     $.post(
                         window.location.href.toString() + "/move/" + data.node.id, {
-                            "parent_id": data.node.parent
+                            "parent_id": data.node.parent,
+                            "_token": tree.data('token')
                         }
                     );
                 });
