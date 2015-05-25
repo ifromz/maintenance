@@ -47,7 +47,7 @@
 <div class="row">
     <div class="col-md-12">
         {{-- Dynamic getJson method for allowing mutliple nested set resources to use this view --}}
-        <div class="tree" data-src="{{ action(currentControllerAction('getJson')) }}"></div>
+        <div class="tree" data-token="{{ csrf_token() }}" data-src="{{ action(currentControllerAction('getJson')) }}"></div>
     </div>
 </div>
 @stop
