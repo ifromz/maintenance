@@ -112,7 +112,7 @@ class AuthController extends BaseController
             if ($this->config->get('site.ldap.enabled') === true) {
                 $user = $this->ldapAuthenticate($credentials);
 
-                if($user) {
+                if(is_a($user, 'Cartalyst\Sentry\Users\Eloquent\User')) {
                     $credentials['email'] = $user->email;
                 }
             }
@@ -173,8 +173,8 @@ class AuthController extends BaseController
              */
             $data['username'] = uniqid();
 
-            // Create the user with default permissions of all users and customers
-            if ($this->sentry->createUser($data, ['all_users', 'customers'])) {
+            // Create the user with default groups of all users and customers
+            if ($this->sentry->registerUser($data, ['all_users', 'customers'])) {
                 $this->message = 'Successfully created account. You can now login.';
                 $this->messageType = 'success';
                 $this->redirect = route('maintenance.login');
