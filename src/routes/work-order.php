@@ -13,6 +13,11 @@ Route::group(['namespace' => 'WorkOrder'], function () {
         'uses' => 'AssignedController@index',
     ]);
 
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Work Order Priority Routes
+    |--------------------------------------------------------------------------
+    */
     Route::resource('work-orders/priorities', 'PriorityController', [
         'only' => [
             'index',
@@ -33,6 +38,11 @@ Route::group(['namespace' => 'WorkOrder'], function () {
         ],
     ]);
 
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Work Order Status Routes
+    |--------------------------------------------------------------------------
+    */
     Route::resource('work-orders/statuses', 'StatusController', [
         'only' => [
             'index',
@@ -53,6 +63,12 @@ Route::group(['namespace' => 'WorkOrder'], function () {
         ],
     ]);
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Work Order Category Routes
+    |--------------------------------------------------------------------------
+    */
     Route::get('work-orders/categories/json', [
             'as' => 'maintenance.work-orders.categories.json',
             'uses' => 'CategoryController@getJson',
@@ -97,15 +113,16 @@ Route::group(['namespace' => 'WorkOrder'], function () {
 
     /*
     |--------------------------------------------------------------------------
-    | Maintenance Work Order Routes
+    | Maintenance Work Order Session Routes
     |--------------------------------------------------------------------------
     */
-    Route::post('work-orders/{work_orders}/start-session', [
+
+    Route::post('work-orders/{work_orders}/sessions/start', [
         'as' => 'maintenance.work-orders.session.start',
         'uses' => 'SessionController@postStart',
     ]);
 
-    Route::post('work-orders/{work_orders}/end-session/{session}', [
+    Route::post('work-orders/{work_orders}/sessions/{sessions}/end', [
         'as' => 'maintenance.work-orders.session.end',
         'uses' => 'SessionController@postEnd',
     ]);
