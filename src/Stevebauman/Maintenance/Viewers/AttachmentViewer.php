@@ -2,8 +2,16 @@
 
 namespace Stevebauman\Maintenance\Viewers;
 
+use Stevebauman\Maintenance\Models\Asset;
+use Stevebauman\Maintenance\Models\WorkOrder;
+
 class AttachmentViewer extends BaseViewer
 {
+    /**
+     * Returns the attachments HTML image tag view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function tagImage()
     {
         return view('maintenance::viewers.attachments.tags.image', [
@@ -11,6 +19,11 @@ class AttachmentViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the attachments HTML image thumbnail tag view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function tagImageThumbnail()
     {
         return view('maintenance::viewers.attachments.tags.image-thumbnail', [
@@ -18,7 +31,15 @@ class AttachmentViewer extends BaseViewer
         ]);
     }
 
-    public function btnActionsForWorkOrderAttachment($workOrder)
+    /**
+     * Returns the attachment actions button
+     * view for the specified work order.
+     *
+     * @param WorkOrder $workOrder
+     *
+     * @return \Illuminate\View\View
+     */
+    public function btnActionsForWorkOrderAttachment(WorkOrder $workOrder)
     {
         return view('maintenance::viewers.attachments.buttons.actions-work-order-attachment', [
             'workOrder' => $workOrder,
@@ -26,7 +47,15 @@ class AttachmentViewer extends BaseViewer
         ]);
     }
 
-    public function btnActionsForAssetManual($asset)
+    /**
+     * Returns the attachment actions button
+     * view for the specified asset manual.
+     *
+     * @param Asset $asset
+     *
+     * @return \Illuminate\View\View
+     */
+    public function btnActionsForAssetManual(Asset $asset)
     {
         return view('maintenance::viewers.attachments.buttons.actions-asset-manual', [
             'asset' => $asset,
@@ -34,7 +63,15 @@ class AttachmentViewer extends BaseViewer
         ]);
     }
 
-    public function btnActionsForAssetImage($asset)
+    /**
+     * Returns the attachment actions button
+     * view for the specified asset image.
+     *
+     * @param Asset $asset
+     *
+     * @return \Illuminate\View\View
+     */
+    public function btnActionsForAssetImage(Asset $asset)
     {
         return view('maintenance::viewers.attachments.buttons.actions-asset-image', [
             'asset' => $asset,
