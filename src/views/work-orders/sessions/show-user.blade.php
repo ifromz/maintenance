@@ -11,7 +11,8 @@
         {{
             $sessions->columns([
                     'in' => 'In',
-                    'out' => 'Out'
+                    'out' => 'Out',
+                    'hours' => 'Hours'
                 ])
                 ->sortable(['in', 'out'])
                 ->showPages()

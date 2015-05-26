@@ -68,7 +68,7 @@ class SessionService extends BaseModelService
         return $this->model
             ->where('work_order_id', $workOrderId)
             ->where('user_id', $userId)
-            ->sort($this->getInput('sort'), $this->getInput('field'))
+            ->sort($this->getInput('field'), $this->getInput('sort'))
             ->paginate(25);
     }
 
