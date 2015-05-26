@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services;
 
+use Stevebauman\Maintenance\Exceptions\NotFound\UserNotFoundException;
 use Stevebauman\Maintenance\Models\User;
 
 /**
@@ -25,23 +26,31 @@ class UserService extends BaseModelService
     protected $config;
 
     /**
+     * @var UserNotFoundException
+     */
+    protected $notFoundException;
+
+    /**
      * Constructor.
      *
-     * @param User          $user
-     * @param SentryService $sentry
-     * @param LdapService   $ldap
-     * @param ConfigService $config
+     * @param User                  $user
+     * @param SentryService         $sentry
+     * @param LdapService           $ldap
+     * @param ConfigService         $config
+     * @param UserNotFoundException $notFoundException
      */
     public function __construct(
         User $user,
         SentryService $sentry,
         LdapService $ldap,
-        ConfigService $config
+        ConfigService $config,
+        UserNotFoundException $notFoundException
     ) {
         $this->model = $user;
         $this->sentry = $sentry;
         $this->ldap = $ldap;
         $this->config = $config;
+        $this->notFoundException = $notFoundException;
     }
 
     /**

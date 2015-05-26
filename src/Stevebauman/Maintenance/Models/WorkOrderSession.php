@@ -11,8 +11,25 @@ class WorkOrderSession extends BaseModel
 {
     use HasUserTrait;
 
+    /**
+     * The work order sessions table.
+     *
+     * @var string
+     */
     protected $table = 'work_order_sessions';
 
+    /**
+     * The work order session viewer.
+     *
+     * @var string
+     */
+    protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrder\SessionViewer';
+
+    /**
+     * The fillable work order session attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'work_order_id',
@@ -46,7 +63,6 @@ class WorkOrderSession extends BaseModel
             }
         }
 
-
-        return;
+        return null;
     }
 }

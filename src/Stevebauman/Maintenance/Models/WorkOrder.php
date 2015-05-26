@@ -24,10 +24,25 @@ class WorkOrder extends BaseModel
     use HasEventsTrait;
     use HasCategoryTrait;
 
+    /**
+     * The work orders table.
+     *
+     * @var string
+     */
     protected $table = 'work_orders';
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrderViewer';
+    /**
+     * The work orders viewer class.
+     *
+     * @var string
+     */
+    protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrder\WorkOrderViewer';
 
+    /**
+     * The work orders fillable attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'location_id',
@@ -41,6 +56,12 @@ class WorkOrder extends BaseModel
         'completed_at',
     ];
 
+    /**
+     * The work orders revisionable
+     * formatted field names.
+     *
+     * @var array
+     */
     protected $revisionFormattedFieldNames = [
         'location_id' => 'Location',
         'category_id' => 'Work Order Category',
@@ -360,6 +381,18 @@ class WorkOrder extends BaseModel
         $record = $this->notifiableUsers()->where('user_id', Sentry::getUser()->id)->first();
 
         return $record;
+    }
+
+    /**
+     * Returns the current work order
+     * sessions for the specified user.
+     *
+     * @param int|string $userId
+     * @return mixed
+     */
+    public function getUserSessions($userId)
+    {
+        return $this->sessions()->where('user_id', $userId)->get();
     }
 
     /**

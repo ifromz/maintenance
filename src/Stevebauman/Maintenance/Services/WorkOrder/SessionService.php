@@ -53,6 +53,25 @@ class SessionService extends BaseModelService
         $this->notFoundException = $notFoundException;
     }
 
+
+    /**
+     * Returns the sessions for the
+     * specified work order and user.
+     *
+     * @param int|string $workOrderId
+     * @param int|string $userId
+     *
+     * @return \Stevebauman\EloquentTable\TableCollection
+     */
+    public function getSessionsForWorkOrderAndUser($workOrderId, $userId)
+    {
+        return $this->model
+            ->where('work_order_id', $workOrderId)
+            ->where('user_id', $userId)
+            ->sort($this->getInput('sort'), $this->getInput('field'))
+            ->paginate(25);
+    }
+
     /**
      * Creates a new work order session.
      *

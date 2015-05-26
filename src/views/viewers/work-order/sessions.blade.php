@@ -1,39 +1,30 @@
 <h2>Sessions & Hours</h2>
 
-@if(isset($sessions) AND count($sessions) > 0)
+@if(isset($sessions) && count($sessions) > 0)
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>
-                Worker
-            </th>
-            <th>
-                Total Hours
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($sessions as $session)
-            <tr>
-                <td>
-                    {{ $session->user->fullname }}
-                </td>
-                <td>
-                    @if($session->total_hours)
-                        {{ $session->total_hours }}
-                    @else
-                        0
-                    @endif
-                </td>
-            </tr>
-        @endforeach
-        <tr>
-            <td class="text-underline"><b>Total:</b></td>
-            <td>{{ $sessions->sum('total_hours') }}</td>
-        </tr>
-        </tbody>
-    </table>
+    {{
+        $sessions
+            ->columns([
+                'user' => 'Worker',
+                'total_hours' => 'Total Hours'
+            ])
+            ->means('user', 'user.full_name')
+            ->modify('total_hours', function($session) {
+                return $session->viewer()->totalHours();
+            })
+            ->render()
+    }}
+
+    <div class="row">
+
+        <div class="col-md-12 text-center">
+            <b>Worker Total Hours Spent: {{ $sessions->sum('total_hours') }}</b>
+        </div>
+
+    </div>
+
+    <div class="clear-fix"></div>
+
 @else
 
     <h5>No workers have checked into this work order.</h5>

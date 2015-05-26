@@ -4,6 +4,7 @@ namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\WorkOrder\SessionValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\SessionService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**
@@ -11,6 +12,11 @@ use Stevebauman\Maintenance\Controllers\BaseController;
  */
 class SessionController extends BaseController
 {
+    /**
+     * @var WorkOrderService
+     */
+    protected $workOrder;
+
     /**
      * @var SessionService
      */
@@ -22,12 +28,56 @@ class SessionController extends BaseController
     protected $sessionValidator;
 
     /**
-     * @param SessionService $session
+     * Constructor.
+     *
+     * @param WorkOrderService $workOrder
+     * @param SessionService   $session
+     * @param SessionValidator $sessionValidator
      */
-    public function __construct(SessionService $session, SessionValidator $sessionValidator)
-    {
+    public function __construct(
+        WorkOrderService $workOrder,
+        SessionService $session,
+        SessionValidator $sessionValidator
+    ) {
+        $this->workOrder = $workOrder;
         $this->session = $session;
         $this->sessionValidator = $sessionValidator;
+    }
+
+    /**
+     * Displays the sessions for the specified
+     * user for the specified work order.
+     *
+     * @param int|string $workOrderId
+     * @param int|string $userId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showUser($workOrderId, $userId)
+    {
+        $workOrder = $this->workOrder->find($workOrderId);
+
+        $sessions = $this->session
+            ->setInput($this->inputAll())
+            ->getSessionsForWorkOrderAndUser($workOrderId, $userId);
+
+        if($sessions->count() === 0) {
+            $message = "This user either does not exist or does not have any sessions for this work order.";
+
+            $this->message = $message;
+            $this->messageType = 'danger';
+            $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
+
+            return $this->response();
+        }
+
+        $user = $sessions->first()->user;
+
+        return view('maintenance::work-orders.sessions.show-user', [
+            'title' => "Work Order Sessions",
+            'sessions' => $sessions,
+            'user' => $user,
+        ]);
     }
 
     /**

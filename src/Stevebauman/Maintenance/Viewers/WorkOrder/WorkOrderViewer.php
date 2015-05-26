@@ -1,8 +1,9 @@
 <?php
 
-namespace Stevebauman\Maintenance\Viewers;
+namespace Stevebauman\Maintenance\Viewers\WorkOrder;
 
 use Illuminate\Database\Eloquent\Collection;
+use Stevebauman\Maintenance\Viewers\BaseViewer;
 
 class WorkOrderViewer extends BaseViewer
 {
