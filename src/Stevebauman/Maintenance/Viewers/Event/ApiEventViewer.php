@@ -2,14 +2,16 @@
 
 namespace Stevebauman\Maintenance\Viewers\Event;
 
+use Illuminate\Database\Eloquent\Model;
+use Stevebauman\EloquentTable\TableCollection;
 use Stevebauman\Maintenance\Viewers\BaseViewer;
 
 class ApiEventViewer extends BaseViewer
 {
     /**
-     * Returns a view of the profile of the event.
+     * Returns the API events profile view.
      *
-     * @return view
+     * @return \Illuminate\View\View
      */
     public function profile()
     {
@@ -18,7 +20,15 @@ class ApiEventViewer extends BaseViewer
         ]);
     }
 
-    public function recurrences($recurrences)
+    /**
+     * Returns the API events recurrences
+     * view with the specified recurrences.
+     *
+     * @param TableCollection $recurrences
+     *
+     * @return \Illuminate\View\View
+     */
+    public function recurrences(TableCollection $recurrences)
     {
         return view('maintenance::viewers.event.recurrences', [
             'event' => $this->entity,
@@ -26,6 +36,11 @@ class ApiEventViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the API events attendees view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function attendees()
     {
         return view('maintenance::viewers.event.attendees', [
@@ -33,6 +48,11 @@ class ApiEventViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the API events recurrence warning view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function recurrenceWarning()
     {
         return view('maintenance::viewers.event.recurrence-warning', [
@@ -75,7 +95,7 @@ class ApiEventViewer extends BaseViewer
     /**
      * Presents the correct start time formatted for editing.
      *
-     * @return type
+     * @return string|null
      */
     public function startTimeFormatted()
     {
@@ -86,6 +106,8 @@ class ApiEventViewer extends BaseViewer
 
             return $start->format('H:i A');
         }
+
+        return null;
     }
 
     /**
@@ -101,9 +123,9 @@ class ApiEventViewer extends BaseViewer
 
         if ($this->entity->all_day) {
             return $end->format('M dS Y');
-        } else {
-            return $end->format('M dS Y - h:ia');
         }
+
+        return $end->format('M dS Y - h:ia');
     }
 
     /**
@@ -123,7 +145,7 @@ class ApiEventViewer extends BaseViewer
     /**
      * Presents the correct end time formatted for editing.
      *
-     * @return string
+     * @return string|null
      */
     public function endTimeFormatted()
     {
@@ -134,17 +156,29 @@ class ApiEventViewer extends BaseViewer
 
             return $end->format('H:i A');
         }
+
+        return null;
     }
 
+    /**
+     * Presents the API events recurrence frequency in a nicer format.
+     *
+     * @return string
+     */
     public function recurFrequencyFormatted()
     {
         if ($this->recurFrequency()) {
             return ucfirst(strtolower($this->recurFrequency()));
-        } else {
-            return 'None';
         }
+
+        return 'None';
     }
 
+    /**
+     * Returns the API events actual recurrence frequency array.
+     *
+     * @return array|null
+     */
     public function recurFrequency()
     {
         if ($this->entity->rruleArray && array_key_exists('FREQ', $this->entity->rruleArray)) {
@@ -152,8 +186,15 @@ class ApiEventViewer extends BaseViewer
 
             return $freq;
         }
+
+        return null;
     }
 
+    /**
+     * Returns the API events actual recurring days array.
+     *
+     * @return array|null
+     */
     public function recurDays()
     {
         if ($this->entity->rruleArray && array_key_exists('BYDAY', $this->entity->rruleArray)) {
@@ -161,24 +202,39 @@ class ApiEventViewer extends BaseViewer
 
             return $freq;
         }
+
+        return null;
     }
 
+    /**
+     * Returns the API events recurring label view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function lblRecurring()
     {
         return view('maintenance::viewers.event.labels.recurring', ['event' => $this->entity]);
     }
 
     /**
-     * Returns a view of the all day label.
+     * Returns the API events all day label view.
      *
-     * @return type
+     * @return \Illuminate\View\View
      */
     public function lblAllDay()
     {
         return view('maintenance::viewers.event.labels.all-day', ['event' => $this->entity]);
     }
 
-    public function btnEventableActions($eventable)
+    /**
+     * Returns events actions button view
+     * for the specified eventable model.
+     *
+     * @param Model $eventable
+     *
+     * @return \Illuminate\View\View
+     */
+    public function btnEventableActions(Model $eventable)
     {
         return view('maintenance::viewers.event.buttons.eventable-actions', [
             'event' => $this->entity,
@@ -186,7 +242,15 @@ class ApiEventViewer extends BaseViewer
         ]);
     }
 
-    public function btnEventableEdit($eventable)
+    /**
+     * Returns events edit button view
+     * for the specified eventable model.
+     *
+     * @param Model $eventable
+     *
+     * @return \Illuminate\View\View
+     */
+    public function btnEventableEdit(Model $eventable)
     {
         return view('maintenance::viewers.event.buttons.eventable-edit', [
             'event' => $this->entity,
@@ -194,7 +258,15 @@ class ApiEventViewer extends BaseViewer
         ]);
     }
 
-    public function btnEventableDelete($eventable)
+    /**
+     * Returns events actions delete button view
+     * for the specified eventable model.
+     *
+     * @param Model $eventable
+     *
+     * @return \Illuminate\View\View
+     */
+    public function btnEventableDelete(Model $eventable)
     {
         return view('maintenance::viewers.event.buttons.eventable-delete', [
             'event' => $this->entity,
@@ -202,18 +274,33 @@ class ApiEventViewer extends BaseViewer
         ]);
     }
 
-    public function btnActions()
-    {
-        return view('maintenance::viewers.event.buttons.actions', ['event' => $this->entity]);
-    }
-
+    /**
+     * Returns the events edit button view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function btnEdit()
     {
         return view('maintenance::viewers.event.buttons.edit', ['event' => $this->entity]);
     }
 
+    /**
+     * Returns the events delete button view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function btnDelete()
     {
         return view('maintenance::viewers.event.buttons.delete', ['event' => $this->entity]);
+    }
+
+    /**
+     * Returns the events action buttons view.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function btnActions()
+    {
+        return view('maintenance::viewers.event.buttons.actions', ['event' => $this->entity]);
     }
 }

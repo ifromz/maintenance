@@ -7,6 +7,11 @@ namespace Stevebauman\Maintenance\Viewers;
  */
 class UserViewer extends BaseViewer
 {
+    /**
+     * Returns the users profile view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function profile()
     {
         return view('maintenance::viewers.user.profile', [
@@ -14,6 +19,11 @@ class UserViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the users permissions checker form view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function permissionChecker()
     {
         return view('maintenance::viewers.user.permission-checker', [
@@ -21,6 +31,11 @@ class UserViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the users edit button view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function btnEdit()
     {
         return view('maintenance::viewers.user.buttons.edit', [
@@ -28,6 +43,11 @@ class UserViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the users delete button view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function btnDelete()
     {
         return view('maintenance::viewers.user.buttons.delete', [
@@ -35,6 +55,11 @@ class UserViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the users update password button view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function btnUpdatePassword()
     {
         return view('maintenance::viewers.user.buttons.update-password', [
@@ -42,6 +67,11 @@ class UserViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the users action buttons view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function btnActions()
     {
         return view('maintenance::viewers.user.buttons.actions', [

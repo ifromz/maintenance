@@ -6,6 +6,11 @@ use Stevebauman\Maintenance\Viewers\BaseViewer;
 
 class EventViewer extends BaseViewer
 {
+    /**
+     * Returns the events tags view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function tags()
     {
         /*
@@ -23,6 +28,11 @@ class EventViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the events report view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function report()
     {
         return view('maintenance::viewers.event.report', [
@@ -30,6 +40,11 @@ class EventViewer extends BaseViewer
         ]);
     }
 
+    /**
+     * Returns the events report created label view.
+     *
+     * @return \Illuminate\View\View
+     */
     public function lblReportCreated()
     {
         return view('maintenance::viewers.event.labels.report-created', [
