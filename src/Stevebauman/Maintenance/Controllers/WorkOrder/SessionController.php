@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
+use Stevebauman\Maintenance\Validators\WorkOrder\SessionValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\SessionService;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
@@ -16,11 +17,17 @@ class SessionController extends BaseController
     protected $session;
 
     /**
+     * @var SessionValidator
+     */
+    protected $sessionValidator;
+
+    /**
      * @param SessionService $session
      */
-    public function __construct(SessionService $session)
+    public function __construct(SessionService $session, SessionValidator $sessionValidator)
     {
         $this->session = $session;
+        $this->sessionValidator = $sessionValidator;
     }
 
     /**
@@ -35,15 +42,22 @@ class SessionController extends BaseController
         $data = $this->inputAll();
         $data['work_order_id'] = $workOrderId;
 
-        $record = $this->session->setInput($data)->create();
+        $this->sessionValidator->addRule('work_order_id', 'session_start');
 
-        if ($record) {
-            $this->message = "You have been checked into this work order. Don't forget to checkout!";
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
+        if($this->sessionValidator->setInput($data)->passes()) {
+            $record = $this->session->setInput($data)->create();
+
+            if ($record) {
+                $this->message = "You have been checked into this work order. Don't forget to checkout!";
+                $this->messageType = 'success';
+                $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
+            } else {
+                $this->message = 'There was an error trying to check you into this work order. Please try again';
+                $this->messageType = 'danger';
+                $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
+            }
         } else {
-            $this->message = 'There was an error trying to check you into this work order. Please try again';
-            $this->messageType = 'danger';
+            $this->errors = $this->sessionValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
         }
 
@@ -53,8 +67,8 @@ class SessionController extends BaseController
     /**
      * Ends a maintenance workers session on a work order.
      *
-     * @param string|int $workOrderId
-     * @param string|int $session_id
+     * @param int|string $workOrderId
+     * @param int|string $session_id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -63,15 +77,22 @@ class SessionController extends BaseController
         $data = $this->inputAll();
         $data['work_order_id'] = $workOrderId;
 
-        $record = $this->session->setInput($data)->update($session_id);
+        $this->sessionValidator->addRule('work_order_id', 'session_end');
 
-        if ($record) {
-            $this->message = 'You have been checked out of this work order. Your hours have been logged.';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
+        if($this->sessionValidator->setInput($data)->passes()) {
+            $record = $this->session->setInput($data)->update($session_id);
+
+            if ($record) {
+                $this->message = 'You have been checked out of this work order. Your hours have been logged.';
+                $this->messageType = 'success';
+                $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
+            } else {
+                $this->message = 'There was an error trying to check you out of this work order. Please try again';
+                $this->messageType = 'danger';
+                $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
+            }
         } else {
-            $this->message = 'There was an error trying to check you out of this work order. Please try again';
-            $this->messageType = 'danger';
+            $this->errors = $this->sessionValidator->getErrors();
             $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Validators;
+namespace Stevebauman\Maintenance\Validators\WorkOrder;
 
 use Illuminate\Support\Facades\Route;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
@@ -8,7 +8,7 @@ use Stevebauman\Maintenance\Services\Inventory\StockService;
 /**
  * Class WorkOrderPartStockQuantityValidator.
  */
-class WorkOrderPartStockQuantityValidator
+class PartStockQuantityValidator
 {
     /**
      * @var StockService

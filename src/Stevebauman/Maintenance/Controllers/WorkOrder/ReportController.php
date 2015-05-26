@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Validators\WorkOrderReportValidator;
+use Stevebauman\Maintenance\Validators\WorkOrder\ReportValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\ReportService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Controllers\BaseController;
@@ -20,18 +20,18 @@ class ReportController extends BaseController
     protected $report;
 
     /**
-     * @var WorkOrderReportValidator
+     * @var ReportValidator
      */
     protected $reportValidator;
 
     /**
      * Constructor.
      *
-     * @param WorkOrderService         $workOrder
-     * @param ReportService            $report
-     * @param WorkOrderReportValidator $reportValidator
+     * @param WorkOrderService $workOrder
+     * @param ReportService    $report
+     * @param ReportValidator  $reportValidator
      */
-    public function __construct(WorkOrderService $workOrder, ReportService $report, WorkOrderReportValidator $reportValidator)
+    public function __construct(WorkOrderService $workOrder, ReportService $report, ReportValidator $reportValidator)
     {
         $this->workOrder = $workOrder;
         $this->report = $report;
@@ -42,7 +42,7 @@ class ReportController extends BaseController
      * Displays the form for creating a report
      * for the specified work order.
      *
-     * @param string|int $workOrder_id
+     * @param int|string $workOrder_id
      *
      * @return \Illuminate\View\View
      */
@@ -59,7 +59,7 @@ class ReportController extends BaseController
     /**
      * Creates a new report for the specified work order.
      *
-     * @param string|int $workOrder_id
+     * @param int|string $workOrder_id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

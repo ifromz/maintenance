@@ -1,14 +1,14 @@
 <?php
 
-namespace Stevebauman\Maintenance\Validators;
+namespace Stevebauman\Maintenance\Validators\WorkOrder;
 
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Illuminate\Support\Facades\Route;
 
 /**
- * Class WorkOrderReportUniqueValidator.
+ * Class ReportUniqueValidator.
  */
-class WorkOrderReportUniqueValidator
+class ReportUniqueValidator
 {
     /**
      * @var WorkOrderService

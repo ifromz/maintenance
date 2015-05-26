@@ -29,7 +29,7 @@ Validator::replacer('stock_location', function ($message, $attribute, $rule, $pa
  * Validates the Adding of parts to a work order to make sure
  * there's enough quantity in the inventory that the user has entered.
  */
-Validator::extend('enough_quantity', 'Stevebauman\Maintenance\Validators\WorkOrderPartStockQuantityValidator@validateEnoughQuantity');
+Validator::extend('enough_quantity', 'Stevebauman\Maintenance\Validators\WorkOrder\PartStockQuantityValidator@validateEnoughQuantity');
 
 Validator::replacer('enough_quantity', function ($message, $attribute, $rule, $parameters) {
     return 'The amount you entered is greater than the available stock.';
@@ -38,7 +38,7 @@ Validator::replacer('enough_quantity', function ($message, $attribute, $rule, $p
 /*
  * Validates Work Order Reports to make sure only one is filled out.
  */
-Validator::extend('unique_report', 'Stevebauman\Maintenance\Validators\WorkOrderReportUniqueValidator@validateUniqueReport');
+Validator::extend('unique_report', 'Stevebauman\Maintenance\Validators\WorkOrder\ReportUniqueValidator@validateUniqueReport');
 
 Validator::replacer('unique_report', function ($message, $attribute, $rule, $parameters) {
     return 'This work order already has a completion report.';
@@ -78,4 +78,22 @@ Validator::extend('less_than', 'Stevebauman\Maintenance\Validators\LessThanNumbe
 
 Validator::replacer('less_than', function ($message, $attribute, $rule, $parameters) {
     return sprintf('The %s must be less than %s', $attribute, $parameters[0]);
+});
+
+/*
+ * Validates that the current user only has one session open
+ */
+Validator::extend('session_start', 'Stevebauman\Maintenance\Validators\WorkOrder\SessionStartValidator@validateSessionStart');
+
+Validator::replacer('session_start', function () {
+    return "You already have an open session, you must close it to begin a new one.";
+});
+
+/*
+ * Validates that the current user can only close their session once
+ */
+Validator::extend('session_end', 'Stevebauman\Maintenance\Validators\WorkOrder\SessionEndValidator@validateSessionEnd');
+
+Validator::replacer('session_end', function () {
+    return "This session has already ended. You must create a new session.";
 });

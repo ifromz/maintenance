@@ -1,11 +1,13 @@
 <?php
 
-namespace Stevebauman\Maintenance\Validators;
+namespace Stevebauman\Maintenance\Validators\WorkOrder;
+
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
 /**
  * Class WorkOrderPartTakeValidator.
  */
-class WorkOrderPartTakeValidator extends BaseValidator
+class PartTakeValidator extends BaseValidator
 {
     protected $rules = [
         'quantity' => 'required|positive|greater_than:0|enough_quantity',

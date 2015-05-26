@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Validators\WorkOrderNotificationValidator;
+use Stevebauman\Maintenance\Validators\WorkOrder\NotificationValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrder\NotificationService;
 use Stevebauman\Maintenance\Controllers\BaseController;
@@ -15,7 +15,7 @@ class NotificationController extends BaseController
     protected $workOrderNotification;
 
     /**
-     * @var WorkOrderNotificationValidator
+     * @var NotificationValidator
      */
     protected $workOrderNotificationValidator;
 
@@ -29,12 +29,12 @@ class NotificationController extends BaseController
      *
      * @param WorkOrderService               $workOrder
      * @param NotificationService            $workOrderNotification
-     * @param WorkOrderNotificationValidator $workOrderNotificationValidator
+     * @param NotificationValidator          $workOrderNotificationValidator
      */
     public function __construct(
         WorkOrderService $workOrder,
         NotificationService $workOrderNotification,
-        WorkOrderNotificationValidator $workOrderNotificationValidator
+        NotificationValidator $workOrderNotificationValidator
     ) {
         $this->workOrderNotification = $workOrderNotification;
         $this->workOrderNotificationValidator = $workOrderNotificationValidator;

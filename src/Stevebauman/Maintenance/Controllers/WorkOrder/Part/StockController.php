@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Controllers\WorkOrder\Part;
 
-use Stevebauman\Maintenance\Validators\WorkOrderPartPutBackValidator;
-use Stevebauman\Maintenance\Validators\WorkOrderPartTakeValidator;
+use Stevebauman\Maintenance\Validators\WorkOrder\PartPutBackValidator;
+use Stevebauman\Maintenance\Validators\WorkOrder\PartTakeValidator;
 use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
@@ -12,14 +12,54 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 
 class StockController extends BaseController
 {
+    /**
+     * @var WorkOrderService
+     */
+    protected $workOrder;
+
+    /**
+     * @var InventoryService
+     */
+    protected $inventory;
+
+    /**
+     * @var StockService
+     */
+    protected $inventoryStock;
+
+    /**
+     * @var StockMovementService
+     */
+    protected $inventoryStockMovement;
+
+    /**
+     * @var PartTakeValidator
+     */
+    protected $workOrderPartTakeValidator;
+
+    /**
+     * @var PartPutBackValidator
+     */
+    protected $workOrderPartPutBackValidator;
+
+    /**
+     * Constructor.
+     *
+     * @param WorkOrderService $workOrder
+     * @param InventoryService $inventory
+     * @param StockService $inventoryStock
+     * @param StockMovementService $inventoryStockMovement
+     * @param PartTakeValidator $workOrderPartTakeValidator
+     * @param PartPutBackValidator $workOrderPartPutBackValidator
+     */
     public function __construct(
         WorkOrderService $workOrder,
         InventoryService $inventory,
         StockService $inventoryStock,
         StockMovementService $inventoryStockMovement,
-        WorkOrderPartTakeValidator $workOrderPartTakeValidator,
-        WorkOrderPartPutBackValidator $workOrderPartPutBackValidator)
-    {
+        PartTakeValidator $workOrderPartTakeValidator,
+        PartPutBackValidator $workOrderPartPutBackValidator
+    ) {
         $this->workOrder = $workOrder;
         $this->inventory = $inventory;
         $this->inventoryStock = $inventoryStock;
@@ -29,13 +69,13 @@ class StockController extends BaseController
     }
 
     /**
-     * Display Inventory item stocks per location available to transfer into the
-     * work order.
+     * Display Inventory item stocks per location
+     * available to transfer into the work order.
      *
-     * @param string|int $workOrder_id
-     * @param string|int $inventory_id
+     * @param int|string $workOrder_id
+     * @param int|string $inventory_id
      *
-     * @return type Response
+     * @return \Illuminate\View\View
      */
     public function index($workOrder_id, $inventory_id)
     {
@@ -50,14 +90,14 @@ class StockController extends BaseController
     }
 
     /**
-     * Display the form to update the quantity the user is taking from the inventory
-     * for the work order.
+     * Display the form to update the quantity the
+     * user is taking from the inventory for the work order.
      *
-     * @param string|int $workOrder_id
-     * @param string|int $inventory_id
-     * @param string|int $stock_id
+     * @param int|string $workOrder_id
+     * @param int|string $inventory_id
+     * @param int|string $stock_id
      *
-     * @return type Response
+     * @return \Illuminate\View\View
      */
     public function create($workOrder_id, $inventory_id, $stock_id)
     {
@@ -76,11 +116,11 @@ class StockController extends BaseController
     /**
      * Process the quantity the user is taking from the stock location.
      *
-     * @param string|int $workOrder_id
-     * @param string|int $inventory_id
-     * @param string|int $stock_id
+     * @param int|string $workOrder_id
+     * @param int|string $inventory_id
+     * @param int|string $stock_id
      *
-     * @return type Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store($workOrder_id, $inventory_id, $stock_id)
     {
@@ -137,11 +177,11 @@ class StockController extends BaseController
      * then returns the quantity back to the stock and creates a movement indicating
      * that the quantity of the item was put back from a work order.
      *
-     * @param string|int $workOrder_id
-     * @param string|int $inventory_id
-     * @param string|int $stock_id
+     * @param int|string $workOrder_id
+     * @param int|string $inventory_id
+     * @param int|string $stock_id
      *
-     * @return type Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function postPutBack($workOrder_id, $inventory_id, $stock_id)
     {
@@ -179,6 +219,16 @@ class StockController extends BaseController
         return $this->response();
     }
 
+    /**
+     * Processes a put back some operation on the specified
+     * inventory stock from the specified work order.
+     *
+     * @param int|string $workOrder_id
+     * @param int|string $inventory_id
+     * @param int|string $stock_id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function postPutBackSome($workOrder_id, $inventory_id, $stock_id)
     {
         $workOrder = $this->workOrder->find($workOrder_id);

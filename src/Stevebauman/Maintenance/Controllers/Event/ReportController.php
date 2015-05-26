@@ -9,6 +9,28 @@ use Stevebauman\Maintenance\Controllers\BaseController;
 
 class ReportController extends BaseController
 {
+    /**
+     * @var EventService
+     */
+    protected $event;
+
+    /**
+     * @var ReportService
+     */
+    protected $report;
+
+    /**
+     * @var ReportValidator
+     */
+    protected $reportValidator;
+
+    /**
+     * Constructor.
+     *
+     * @param EventService $event
+     * @param ReportService $report
+     * @param ReportValidator $reportValidator
+     */
     public function __construct(EventService $event, ReportService $report, ReportValidator $reportValidator)
     {
         $this->event = $event;
@@ -16,6 +38,13 @@ class ReportController extends BaseController
         $this->reportValidator = $reportValidator;
     }
 
+    /**
+     * Creates a new report on the specified event.
+     *
+     * @param int|string $event_id
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function store($event_id)
     {
         /*

@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Carbon\Carbon;
+use Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder\WorkOrderSessionNotFoundException;
 use Stevebauman\Maintenance\Models\WorkOrderSession;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
@@ -28,17 +29,28 @@ class SessionService extends BaseModelService
     protected $sentry;
 
     /**
+     * @var WorkOrderSessionNotFoundException
+     */
+    protected $notFoundException;
+
+    /**
      * Constructor.
      *
-     * @param WorkOrderSession $session
-     * @param WorkOrderService $workOrder
-     * @param SentryService    $sentry
+     * @param WorkOrderSession                  $session
+     * @param WorkOrderService                  $workOrder
+     * @param SentryService                     $sentry
+     * @param WorkOrderSessionNotFoundException $notFoundException
      */
-    public function __construct(WorkOrderSession $session, WorkOrderService $workOrder, SentryService $sentry)
-    {
+    public function __construct(
+        WorkOrderSession $session,
+        WorkOrderService $workOrder,
+        SentryService $sentry,
+        WorkOrderSessionNotFoundException $notFoundException
+    ) {
         $this->model = $session;
         $this->workOrder = $workOrder;
         $this->sentry = $sentry;
+        $this->notFoundException = $notFoundException;
     }
 
     /**
@@ -96,20 +108,23 @@ class SessionService extends BaseModelService
     {
         $this->dbStartTransaction();
 
-        try {
-            $record = $this->model->find($id);
+        $record = $this->find($id);
 
-            $insert = [
-                'out' => Carbon::now()->toDateTimeString(),
-            ];
+        // Validate that the current user is the session holder
+        if($record->user_id === $this->sentry->getCurrentUserId()) {
+            try {
+                $insert = [
+                    'out' => Carbon::now()->toDateTimeString(),
+                ];
 
-            if ($record->update($insert)) {
-                $this->dbCommitTransaction();
+                if ($record->update($insert)) {
+                    $this->dbCommitTransaction();
 
-                return $record;
+                    return $record;
+                }
+            } catch (\Exception $e) {
+                $this->dbRollbackTransaction();
             }
-        } catch (\Exception $e) {
-            $this->dbRollbackTransaction();
         }
 
         return false;
