@@ -32,11 +32,11 @@
                     'email' => 'Email',
                     'action' => 'Action'
                 ])
-                ->modify('name', function($user){
+                ->modify('name', function($user) {
                     return $user->full_name;
                 })
-                ->modify('action', function($user){
-                    return $user->viewer()->btnActions;
+                ->modify('action', function($user) {
+                    return $user->viewer()->btnActions();
                 })
                 ->hidden(['name'])
                 ->render()
