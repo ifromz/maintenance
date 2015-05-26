@@ -9,7 +9,7 @@
         ])
         ->means('name', 'full_name')
         ->modify('action', function($user){
-            return $user->viewer()->btnActions;
+            return $user->viewer()->btnActions();
         })
         ->render()
     }}

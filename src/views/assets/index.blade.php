@@ -41,7 +41,7 @@
             ->means('category', 'category.trail')
             ->means('added_on', 'created_at')
             ->modify('action', function($asset){
-                return $asset->viewer()->btnActions;
+                return $asset->viewer()->btnActions();
             })
             ->sortable([
                 'id',

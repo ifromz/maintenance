@@ -13,7 +13,7 @@
             ->means('priority', 'priority.label')
             ->means('description', 'limited_description')
             ->modify('action', function($workOrder){
-                return $workOrder->viewer()->btnActions;
+                return $workOrder->viewer()->btnActions();
             })
             ->showPages()
             ->render()

@@ -1,6 +1,6 @@
 @if($workOrder->request)
 
-    {{ $workOrder->request->viewer()->profile }}
+    {{ $workOrder->request->viewer()->profile() }}
 
 @else
 

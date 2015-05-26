@@ -23,7 +23,7 @@
             ])
             ->means('created_by', 'user.full_name')
             ->modify('action', function($metric) {
-                return $metric->viewer()->btnActions;
+                return $metric->viewer()->btnActions();
             })
             ->hidden(['created_by', 'created_at'])
             ->sortable([

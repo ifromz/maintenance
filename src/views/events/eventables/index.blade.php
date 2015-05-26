@@ -24,16 +24,16 @@
                     'actions' => 'Actions',
                 ))
                 ->modify('recurring', function($record){
-                    return $record->viewer()->lblRecurring;
+                    return $record->viewer()->lblRecurring();
                 })
                 ->modify('start', function($record) {
-                    return $record->viewer()->startFormatted;
+                    return $record->viewer()->startFormatted();
                 })
                 ->modify('end', function($record){
-                    return $record->viewer()->endFormatted;
+                    return $record->viewer()->endFormatted();
                 })
                 ->modify('all_day', function($record) {
-                    return $record->viewer()->lblAllDay;
+                    return $record->viewer()->lblAllDay();
                 })
                 ->modify('actions', function($record) use($eventable) {
                     return $record->viewer()->btnEventableActions($eventable);

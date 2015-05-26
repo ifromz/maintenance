@@ -6,12 +6,12 @@
 
 @section('panel.body.content')
 
-    {{ $workOrder->viewer()->btnRestore }}
+    {{ $workOrder->viewer()->btnRestore() }}
 
-    {{ $workOrder->viewer()->btnDeleteArchive }}
+    {{ $workOrder->viewer()->btnDeleteArchive() }}
 
     <hr>
 
-    {{ $workOrder->viewer()->profile }}
+    {{ $workOrder->viewer()->profile() }}
 
 @stop

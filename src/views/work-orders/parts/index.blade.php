@@ -14,7 +14,7 @@
     <h2>Parts Added</h2>
 
     @if($workOrder->parts->count() > 0)
-        {{ $workOrder->viewer()->parts }}
+        {{ $workOrder->viewer()->parts() }}
     @else
         <h5>There are currently no parts/supplies attached to this work order.</h5>
     @endif

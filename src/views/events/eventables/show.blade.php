@@ -15,11 +15,11 @@
 
         <hr>
 
-        {{ $event->viewer()->profile }}
+        {{ $event->viewer()->profile() }}
     </div>
 
     <div class="tab-pane" id="tab_report">
-        {{ $localEvent->viewer()->report }}
+        {{ $localEvent->viewer()->report() }}
     </div>
 
     <div class="tab-pane" id="tab_recurrences">

@@ -41,10 +41,10 @@
             ])
             ->means('category', 'category.trail')
             ->modify('current_stock', function ($item) {
-                return $item->viewer()->lblCurrentStock;
+                return $item->viewer()->lblCurrentStock();
             })
             ->modify('action', function ($item) {
-                return $item->viewer()->btnActions;
+                return $item->viewer()->btnActions();
             })
             ->sortable([
                 'id',

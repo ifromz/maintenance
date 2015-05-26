@@ -3,19 +3,19 @@
 @if(count($recurrences) > 0)
 
     {{
-        $recurrences->columns(array(
+        $recurrences->columns([
                 'start' => 'Start',
                 'end' => 'End',
-                'action' => 'Action'
-            ))
+                'action' => 'Action',
+            ])
             ->modify('start', function($event){
-                return $event->viewer()->startFormatted;
+                return $event->viewer()->startFormatted();
             })
             ->modify('end', function($event){
-                return $event->viewer()->endFormatted;
+                return $event->viewer()->endFormatted();
             })
             ->modify('action', function($event) {
-                return $event->viewer()->btnActions;
+                return $event->viewer()->btnActions();
             })
             ->render()
     }}

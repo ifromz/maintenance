@@ -17,11 +17,11 @@
 @section('chat.foot.content')
 
     {{
-        Form::open(array(
-            'url'=>route('maintenance.work-requests.updates.store', array($workRequest->id)),
+        Form::open([
+            'url'=>route('maintenance.work-requests.updates.store', [$workRequest->id]),
             'class'=>'ajax-form-post clear-form',
             'data-refresh-target'=>'#updates-box'
-        ))
+        ])
     }}
 
     <div class="input-group">

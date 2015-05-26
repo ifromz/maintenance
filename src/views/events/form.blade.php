@@ -4,7 +4,7 @@
     <label class="col-sm-2 control-label">Title / Summary</label>
 
     <div class="col-md-4">
-        {{ Form::text('title', (isset($event) ? $event->title : null), array('class'=>'form-control', 'placeholder'=>'Enter Title')) }}
+        {{ Form::text('title', (isset($event) ? $event->title : null), ['class'=>'form-control', 'placeholder'=>'Enter Title']) }}
     </div>
 </div>
 
@@ -12,7 +12,7 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-4">
-        {{ Form::text('description', (isset($event) ? $event->description : null), array('class'=>'form-control', 'placeholder'=>'Enter Description')) }}
+        {{ Form::text('description', (isset($event) ? $event->description : null), ['class'=>'form-control', 'placeholder'=>'Enter Description']) }}
     </div>
 </div>
 
@@ -28,17 +28,17 @@
     <label class="col-sm-2 control-label">Start Date & Time</label>
 
     <div class="col-md-2">
-        @include('maintenance::select.date', array(
+        @include('maintenance::select.date', [
             'name' => 'start_date',
-            'value' => (isset($event) ? $event->viewer()->startDateFormatted : null)
-        ))
+            'value' => (isset($event) ? $event->viewer()->startDateFormatted() : null)
+        ])
     </div>
 
     <div class="col-md-2">
-        @include('maintenance::select.time', array(
+        @include('maintenance::select.time', [
             'name' => 'start_time',
-            'value' => (isset($event) ? $event->viewer()->startTimeFormatted : null)
-        ))
+            'value' => (isset($event) ? $event->viewer()->startTimeFormatted() : null)
+        ])
     </div>
 </div>
 
@@ -46,16 +46,16 @@
     <label class="col-sm-2 control-label">End Date & Time</label>
 
     <div class="col-md-2">
-        @include('maintenance::select.date', array(
+        @include('maintenance::select.date', [
             'name' => 'end_date',
-            'value' => (isset($event) ? $event->viewer()->endDateFormatted : null)
-        ))
+            'value' => (isset($event) ? $event->viewer()->endDateFormatted() : null)
+        ])
     </div>
     <div class="col-md-2">
-        @include('maintenance::select.time', array(
+        @include('maintenance::select.time', [
             'name' => 'end_time',
-            'value' => (isset($event) ? $event->viewer()->endTimeFormatted : null)
-        ))
+            'value' => (isset($event) ? $event->viewer()->endTimeFormatted() : null)
+        ])
     </div>
 </div>
 
@@ -71,7 +71,7 @@
     <label class="col-sm-2 control-label">All Day</label>
 
     <div class="col-md-4">
-        {{ Form::checkbox('all_day', 'true', (isset($event) ? $event->all_day : null), array('class'=>'form-control')) }}
+        {{ Form::checkbox('all_day', 'true', (isset($event) ? $event->all_day : null), ['class'=>'form-control']) }}
     </div>
 </div>
 
@@ -97,9 +97,9 @@
             <label class="col-sm-2 control-label" for="name">Frequency</label>
 
             <div class="col-md-4">
-                @include('maintenance::select.recur_frequency', array(
-                    'frequency' => $event->viewer()->recurFrequency
-                ))
+                @include('maintenance::select.recur_frequency', [
+                    'frequency' => $event->viewer()->recurFrequency()
+                ])
             </div>
         </div>
 
@@ -107,9 +107,9 @@
             <label class="col-sm-2 control-label" for="name">Specific Days</label>
 
             <div class="col-md-4">
-                @include('maintenance::select.recur_days', array(
-                    'days' => $event->viewer()->recurDays
-                ))
+                @include('maintenance::select.recur_days', [
+                    'days' => $event->viewer()->recurDays()
+                ])
             </div>
         </div>
 
@@ -153,6 +153,6 @@
 
 <div class="form-group">
     <div class="col-md-4 col-md-offset-2">
-        {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+        {{ Form::submit('Save', ['class'=>'btn btn-primary']) }}
     </div>
 </div>

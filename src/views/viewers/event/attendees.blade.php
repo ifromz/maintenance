@@ -2,18 +2,18 @@
 
     {{
         $event->attendees
-                ->columns(array(
+                ->columns([
                     'email' => 'Email',
                     'name' => 'Name',
                     'status' => 'Status',
                     'comment' => 'Comment',
                     'action' => 'Action'
-                ))
+                ])
                 ->modify('status', function($attendee){
-                    return $attendee->viewer()->status;
+                    return $attendee->viewer()->status();
                 })
                 ->modify('action', function($attendee) {
-                    return $attendee->viewer()->btnActions;
+                    return $attendee->viewer()->btnActions();
                 })
                 ->render()
     }}

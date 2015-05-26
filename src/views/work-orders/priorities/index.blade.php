@@ -14,19 +14,19 @@
     @if($priorities->count() > 0)
 
         {{
-            $priorities->columns(array(
+            $priorities->columns([
                 'name' => 'Name',
                 'color' => 'Color',
                 'label' => 'Displayed As',
                 'created_by' => 'Created By',
                 'created_at' => 'Created At',
                 'action' => 'Action',
-            ))
+            ])
             ->means('created_by', 'user.full_name')
             ->modify('action', function($priority) {
-                return $priority->viewer()->btnActions;
+                return $priority->viewer()->btnActions();
             })
-            ->hidden(array('color', 'created_by', 'created_at', 'name'))
+            ->hidden(['color', 'created_by', 'created_at', 'name'])
             ->render()
         }}
 

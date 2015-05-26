@@ -12,7 +12,7 @@
 
         <hr>
 
-        {{ $movement->viewer()->profile }}
+        {{ $movement->viewer()->profile() }}
     </div>
 
 @stop

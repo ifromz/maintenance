@@ -6,7 +6,7 @@
 
             @foreach($event->assets as $asset)
 
-                {{ $asset->viewer()->btnEventTag }}
+                {{ $asset->viewer()->btnEventTag() }}
 
             @endforeach
 
@@ -16,7 +16,7 @@
 
             @foreach($event->inventories as $item)
 
-                {{ $item->viewer()->btnEventTag }}
+                {{ $item->viewer()->btnEventTag() }}
 
             @endforeach
 
@@ -26,7 +26,7 @@
 
             @foreach($event->workOrders as $workOrder)
 
-                {{ $workOrder->viewer()->btnEventTag }}
+                {{ $workOrder->viewer()->btnEventTag() }}
 
             @endforeach
 

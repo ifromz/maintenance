@@ -14,7 +14,7 @@
     @if($movements->count() > 0)
 
         {{
-            $movements->columns(array(
+            $movements->columns([
                 'id' => 'ID',
                 'user' => 'User',
                 'before' => 'Before Quantity',
@@ -24,7 +24,7 @@
                 'reason' => 'Reason',
                 'created_at' => 'Date',
                 'action' => 'Action'
-            ))
+            ])
             ->means('user', 'user.full_name')
             ->modify('change', function($movement) use($item) {
                 return $movement->change . ' ' . $item->metric->name;
@@ -32,15 +32,15 @@
             ->modify('action', function($movement) use($item, $stock){
                 return $movement->viewer()->btnActions($item, $stock);
             })
-            ->hidden(array('before', 'after', 'reason'))
-            ->sortable(array(
+            ->hidden(['before', 'after', 'reason'])
+            ->sortable([
                 'id',
                 'user' => 'user_id',
                 'before',
                 'after',
                 'cost',
                 'created_at',
-            ))
+            ])
             ->showPages()
             ->render()
         }}

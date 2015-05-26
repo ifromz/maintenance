@@ -28,7 +28,7 @@
                 return count($group->users);
             })
             ->modify('action', function($group){
-                return $group->viewer()->btnActions;
+                return $group->viewer()->btnActions();
             })
             ->render()
         }}

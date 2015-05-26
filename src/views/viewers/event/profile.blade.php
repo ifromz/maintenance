@@ -20,27 +20,27 @@
     @endif
 
     <dt>All Day:</dt>
-    <dd>{{ $event->viewer()->lblAllDay }}</dd>
+    <dd>{{ $event->viewer()->lblAllDay() }}</dd>
 
     <p></p>
 
     <dt>Starts:</dt>
-    <dd>{{ $event->viewer()->startFormatted }}</dd>
+    <dd>{{ $event->viewer()->startFormatted() }}</dd>
 
     <p></p>
 
     <dt>Ends:</dt>
-    <dd>{{ $event->viewer()->endFormatted }}</dd>
+    <dd>{{ $event->viewer()->endFormatted() }}</dd>
 
     <p></p>
 
     <dt>Recurring:</dt>
-    <dd>{{ $event->viewer()->lblRecurring }}</dd>
+    <dd>{{ $event->viewer()->lblRecurring() }}</dd>
 
     <p></p>
 
     <dt>Frequency:</dt>
-    <dd>{{ $event->viewer()->recurFrequencyFormatted }}</dd>
+    <dd>{{ $event->viewer()->recurFrequencyFormatted() }}</dd>
 
     <p></p>
 

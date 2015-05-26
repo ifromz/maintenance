@@ -9,7 +9,7 @@
                 'action' => 'Action',
             ])
             ->modify('image', function($image) {
-                return $image->viewer()->tagImageThumbnail;
+                return $image->viewer()->tagImageThumbnail();
             })
             ->modify('action', function($image) use ($asset) {
                 return $image->viewer()->btnActionsForAssetImage($asset);

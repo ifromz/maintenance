@@ -29,7 +29,7 @@
                 ])
                 ->means('user', 'user.full_name')
                 ->modify('action', function($workRequest){
-                    return $workRequest->viewer()->btnActions;
+                    return $workRequest->viewer()->btnActions();
                 })
                 ->sortable(['id', 'created_at'])
                 ->render()

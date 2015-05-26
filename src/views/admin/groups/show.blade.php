@@ -8,14 +8,14 @@
 
 @section('tab.body.content')
     <div class="tab-pane active" id="tab_1">
-        {{ $group->viewer()->profile  }}
+        {{ $group->viewer()->profile()  }}
     </div>
 
     <div class="tab-pane" id="tab_2">
-        {{ $group->viewer()->users }}
+        {{ $group->viewer()->users() }}
     </div>
 
     <div class="tab-pane" id="tab_3">
-        {{ $group->viewer()->permissions }}
+        {{ $group->viewer()->permissions() }}
     </div>
 @stop

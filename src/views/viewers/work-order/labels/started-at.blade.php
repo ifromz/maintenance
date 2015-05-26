@@ -1,7 +1,7 @@
 @if($workOrder->started_at)
     <span class="label label-success">
         <i class="fa fa-check"></i>
-        {{ $workOrder->viewer()->startedAtFormatted }}
+        {{ $workOrder->viewer()->startedAtFormatted() }}
     </span>
 @else
     <span class="label label-danger">

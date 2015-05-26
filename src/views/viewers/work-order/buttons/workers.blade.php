@@ -32,7 +32,7 @@
                             ])
                             ->means('name', 'toUser.full_name')
                             ->modify('remove', function($assignment) {
-                                return $assignment->viewer()->btnRemove;
+                                return $assignment->viewer()->btnRemove();
                             })
                             ->render()
                         }}

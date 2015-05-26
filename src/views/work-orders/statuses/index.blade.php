@@ -14,18 +14,18 @@
     @if($statuses->count() > 0)
 
         {{
-            $statuses->columns(array(
+            $statuses->columns([
                 'name' => 'Name',
                 'label' => 'Displayed As',
                 'created_by' => 'Created By',
                 'created_at' => 'Created At',
                 'action' => 'Action',
-            ))
+            ])
             ->means('created_by', 'user.full_name')
             ->modify('action', function($status) {
-                return $status->viewer()->btnActions;
+                return $status->viewer()->btnActions();
             })
-            ->hidden(array('name', 'created_by', 'created_at'))
+            ->hidden(['name', 'created_by', 'created_at'])
             ->render()
         }}
 

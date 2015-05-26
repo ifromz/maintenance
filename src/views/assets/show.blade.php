@@ -19,30 +19,30 @@
             <div class="col-md-12">
 
                 <div class="pull-left">
-                    {{ $asset->viewer()->btnEvents }}
+                    {{ $asset->viewer()->btnEvents() }}
 
-                    {{ $asset->viewer()->btnAddImages }}
+                    {{ $asset->viewer()->btnAddImages() }}
 
-                    {{ $asset->viewer()->btnViewImages }}
+                    {{ $asset->viewer()->btnViewImages() }}
                 </div>
 
                 <div class="pull-right">
-                    {{ $asset->viewer()->btnEdit }}
+                    {{ $asset->viewer()->btnEdit() }}
 
-                    {{ $asset->viewer()->btnDelete }}
+                    {{ $asset->viewer()->btnDelete() }}
                 </div>
             </div>
 
             <div class="col-md-6">
                 <h2>Profile</h2>
 
-                {{ $asset->viewer()->profile }}
+                {{ $asset->viewer()->profile() }}
             </div>
 
             <div class="col-md-6">
                 <h2>Images</h2>
 
-                {{ $asset->viewer()->slideshow }}
+                {{ $asset->viewer()->slideshow() }}
             </div>
         </div>
 
@@ -50,23 +50,23 @@
 
     <div class="tab-pane" id="tab-meters">
 
-        {{ $asset->viewer()->btnAddMeter }}
+        {{ $asset->viewer()->btnAddMeter() }}
 
         <h2>Meters & Readings</h2>
 
-        {{ $asset->viewer()->meters }}
+        {{ $asset->viewer()->meters() }}
 
     </div>
 
     <div class="tab-pane" id="tab-history">
-        {{ $asset->viewer()->history }}
+        {{ $asset->viewer()->history() }}
     </div>
 
     <div class="tab-pane" id="tab-calendar">
 
         <h2>Calendar</h2>
 
-        {{ $asset->viewer()->calendar }}
+        {{ $asset->viewer()->calendar() }}
     </div>
 
     <div class="tab-pane" id="tab-work-orders">
@@ -79,21 +79,21 @@
 
     <div class="tab-pane" id="tab-images">
 
-        {{ $asset->viewer()->btnAddImages }}
+        {{ $asset->viewer()->btnAddImages() }}
 
         <h2>Images</h2>
 
-        {{ $asset->viewer()->images }}
+        {{ $asset->viewer()->images() }}
 
     </div>
 
     <div class="tab-pane" id="tab-manuals">
 
-        {{ $asset->viewer()->btnAddManuals }}
+        {{ $asset->viewer()->btnAddManuals() }}
 
         <h2>Manuals</h2>
 
-        {{ $asset->viewer()->manuals }}
+        {{ $asset->viewer()->manuals() }}
 
     </div>
 

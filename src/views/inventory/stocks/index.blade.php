@@ -24,7 +24,7 @@
            ))
            ->means('location', 'location.trail')
            ->modify('action', function($stock){
-               return $stock->viewer()->btnActions;
+               return $stock->viewer()->btnActions();
            })
            ->hidden(array('last_movement', 'last_movement_by'))
            ->render()
