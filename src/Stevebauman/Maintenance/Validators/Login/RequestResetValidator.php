@@ -9,6 +9,11 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
  */
 class RequestResetValidator extends BaseValidator
 {
+    /**
+     * The reset validation rules.
+     *
+     * @var array
+     */
     protected $rules = [
         'email' => 'required',
     ];

@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Controllers\Asset;
 
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Validators\AssetValidator;
+use Stevebauman\Maintenance\Validators\Asset\AssetValidator;
 use Stevebauman\Maintenance\Controllers\BaseController;
 
 /**

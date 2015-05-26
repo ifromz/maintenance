@@ -19,7 +19,7 @@ Validator::resolver(function ($translator, $data, $rules, $messages) {
 /*
  * Validates Stock Locations to make sure that only one stock can be added per location
  */
-Validator::extend('stock_location', 'Stevebauman\Maintenance\Validators\InventoryStockLocationValidator@validateStockLocation');
+Validator::extend('stock_location', 'Stevebauman\Maintenance\Validators\Inventory\StockLocationValidator@validateStockLocation');
 
 Validator::replacer('stock_location', function ($message, $attribute, $rule, $parameters) {
     return 'This location already has a stock entry for this item.';

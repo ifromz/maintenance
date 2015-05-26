@@ -9,6 +9,11 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
  */
 class RegisterValidator extends BaseValidator
 {
+    /**
+     * The register validation rules.
+     *
+     * @var array
+     */
     protected $rules = [
         'first_name' => 'required|max:100',
         'last_name' => 'required|max:100',

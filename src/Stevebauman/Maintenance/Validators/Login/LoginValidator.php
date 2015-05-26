@@ -9,8 +9,13 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
  */
 class LoginValidator extends BaseValidator
 {
+    /**
+     * The login validation rules.
+     *
+     * @var array
+     */
     protected $rules = [
         'email' => 'required',
-          'password' => 'required',
+        'password' => 'required',
     ];
 }

@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Validators\InventoryStockValidator;
+use Stevebauman\Maintenance\Validators\Inventory\StockValidator;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Controllers\BaseController;
@@ -23,19 +23,19 @@ class StockController extends BaseController
     protected $inventoryStock;
 
     /**
-     * @var InventoryStockValidator
+     * @var StockValidator
      */
     protected $inventoryStockValidator;
 
     /**
-     * @param InventoryService        $inventory
-     * @param StockService            $inventoryStock
-     * @param InventoryStockValidator $inventoryStockValidator
+     * @param InventoryService $inventory
+     * @param StockService     $inventoryStock
+     * @param StockValidator   $inventoryStockValidator
      */
     public function __construct(
         InventoryService $inventory,
         StockService $inventoryStock,
-        InventoryStockValidator $inventoryStockValidator
+        StockValidator $inventoryStockValidator
     ) {
         $this->inventory = $inventory;
         $this->inventoryStock = $inventoryStock;

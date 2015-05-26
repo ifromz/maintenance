@@ -6,6 +6,11 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
 
 class SiteValidator extends BaseValidator
 {
+    /**
+     * The site validation rules.
+     *
+     * @var array
+     */
     protected $rules = [
         'title' => 'required|max:30',
         'admin_title' => 'required|max:30',

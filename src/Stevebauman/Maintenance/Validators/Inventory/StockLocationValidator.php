@@ -1,14 +1,14 @@
 <?php
 
-namespace Stevebauman\Maintenance\Validators;
+namespace Stevebauman\Maintenance\Validators\Inventory;
 
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Illuminate\Support\Facades\Route;
 
 /**
- * Class InventoryStockLocationValidator.
+ * Class StockLocationValidator.
  */
-class InventoryStockLocationValidator
+class StockLocationValidator
 {
     /**
      * @var StockService

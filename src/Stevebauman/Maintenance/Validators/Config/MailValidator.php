@@ -9,6 +9,11 @@ use Stevebauman\Maintenance\Validators\BaseValidator;
  */
 class MailValidator extends BaseValidator
 {
+    /**
+     * The mail validation rules.
+     *
+     * @var array
+     */
     protected $rules = [
         'mail_driver' => 'required',
         'host_ip' => 'required|ip',

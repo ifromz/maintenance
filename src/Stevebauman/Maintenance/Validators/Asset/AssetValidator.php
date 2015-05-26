@@ -1,9 +1,16 @@
 <?php
 
-namespace Stevebauman\Maintenance\Validators;
+namespace Stevebauman\Maintenance\Validators\Asset;
+
+use Stevebauman\Maintenance\Validators\BaseValidator;
 
 class AssetValidator extends BaseValidator
 {
+    /**
+     * The asset validation rules.
+     *
+     * @var array
+     */
     protected $rules = [
         'name' => 'required|min:3|max:250',
         'condition' => 'required|integer|max:5|min:1',
