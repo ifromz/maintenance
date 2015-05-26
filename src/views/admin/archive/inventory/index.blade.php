@@ -20,27 +20,27 @@
 
     @if($items->count() > 0)
         {{
-           $items->columns(array(
+           $items->columns([
                'id' => 'ID',
                'name' => 'Name',
                'category' => 'Category',
                'current_stock' => 'Current Stock',
                'description' => 'Description',
                'added_on' => 'Added On',
-               'action'  => 'Action'
-           ))
+               'action'  => 'Action',
+           ])
            ->means('category', 'category.trail')
            ->means('added_on', 'created_at')
-           ->modify('action', function($item){
-               return $item->viewer()->btnActions();
+           ->modify('action', function($item) {
+               return $item->viewer()->btnActionsArchive();
            })
-           ->sortable(array(
+           ->sortable([
                'id',
                'name',
                'category' => 'category_id',
                'added_on' => 'created_at',
-           ))
-           ->hidden(array('id', 'added_on', 'description'))
+           ])
+           ->hidden(['id', 'added_on', 'description'])
            ->showPages()
            ->render()
        }}

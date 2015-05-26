@@ -15,12 +15,13 @@
                 <h4 class="modal-title" id="myModalLabel">Put Back Item: {{ $stock->item->name }} Into Inventory?</h4>
             </div>
 
-            {{ Form::open(array(
-                        'url'=>route('maintenance.work-orders.parts.stocks.put-back', array($workOrder->id, $stock->item->id, $stock->id)),
-                        'class'=>'ajax-form-post',
-                        'data-status-target' => sprintf("#put-back-items-modal-status-%s-%s", $stock->item->id, $stock->id),
-                        'data-refresh-target'=>'#parts-table'
-                    ))
+            {{
+                Form::open([
+                    'url'=>route('maintenance.work-orders.parts.stocks.put-back', [$workOrder->id, $stock->item->id, $stock->id]),
+                    'class'=>'ajax-form-post',
+                    'data-status-target' => sprintf("#put-back-items-modal-status-%s-%s", $stock->item->id, $stock->id),
+                    'data-refresh-target'=>'#parts-table'
+                ])
             }}
 
             <div class="modal-body">

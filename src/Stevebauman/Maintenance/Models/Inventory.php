@@ -61,6 +61,11 @@ class Inventory extends BaseModel
         'name' => 'Name',
     ];
 
+    /**
+     * The inventory viewer class.
+     *
+     * @var string
+     */
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryViewer';
 
     /**

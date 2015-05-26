@@ -66,6 +66,11 @@ class InventoryViewer extends BaseViewer
         return view('maintenance::viewers.inventory.buttons.actions', ['item' => $this->entity]);
     }
 
+    public function btnActionsArchive()
+    {
+        return view('maintenance::viewers.inventory.buttons.actions-archive', ['item' => $this->entity]);
+    }
+
     public function btnSelectForWorkOrder($workOrder)
     {
         return view('maintenance::viewers.inventory.buttons.select-work-order', [

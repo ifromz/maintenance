@@ -52,7 +52,7 @@ class InventoryController extends BaseController
     /**
      * Deletes the specified archived inventory item.
      *
-     * @param string|int $id
+     * @param int|string $id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -41,6 +41,11 @@ class InventoryStock extends BaseModel
         'quantity' => 'Quantity',
     ];
 
+    /**
+     * The inventory stock viewer class.
+     *
+     * @var string
+     */
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockViewer';
 
     /*
