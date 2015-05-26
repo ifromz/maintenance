@@ -1,6 +1,6 @@
 {
   "name": "AdminLTE",
-  "version": "2.0.5",
+  "version": "2.1.1",
   "homepage": "http://almsaeedstudio.com",
   "authors": [
     "Abdullah Almsaeed <almasaeed2010@gmail.com>"
@@ -29,15 +29,15 @@
     "node_modules",
     "bower_components",
     "composer.json",
-    "documentaion"
+    "documentation"
   ],
-  "_release": "2.0.5",
+  "_release": "2.1.1",
   "_resolution": {
     "type": "version",
-    "tag": "v2.0.5",
-    "commit": "c25a8710f419a1be142f9b46037be00388a7272c"
+    "tag": "2.1.1",
+    "commit": "e55c2b85aa037e9ecd4ef30f913104dde91a2826"
   },
   "_source": "git://github.com/almasaeed2010/AdminLTE.git",
-  "_target": "2.0.*",
+  "_target": "2.1.*",
   "_originalSource": "adminlte"
 }

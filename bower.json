@@ -12,6 +12,6 @@
     "jquery-ui": "~1.11.2",
     "moment": "~2.9.0",
     "fontawesome": "4.3.*",
-    "adminlte": "2.0.*"
+    "adminlte": "2.1.*"
   }
 }
