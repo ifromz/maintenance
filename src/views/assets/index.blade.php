@@ -27,7 +27,7 @@
 
     @if($assets->count() > 0)
 
-        {{
+        {!!
             $assets->columns([
                     'id' => 'ID',
                     'name' => 'Name',
@@ -54,7 +54,7 @@
             ->hidden(['id', 'added_on', 'location', 'condition'])
             ->showPages()
             ->render()
-        }}
+        !!}
 
     @else
         <h5>There are no assets to display.</h5>

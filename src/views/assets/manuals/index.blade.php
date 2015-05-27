@@ -16,7 +16,7 @@
 
     @if($asset->manuals->count() > 0)
 
-        {{
+        {!!
             $asset->manuals
                 ->columns([
                     'file_name' => 'File Name',
@@ -27,7 +27,7 @@
                     return $manual->viewer()->btnActionsForAssetManual($asset);
                 })
                 ->render()
-        }}
+        !!}
 
     @else
 

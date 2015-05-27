@@ -5,14 +5,14 @@
 @stop
 
 @section('panel.body.content')
-{{
-    Form::open(array(
-        'url'=>route('maintenance.assets.store'),
-        'class'=>'form-horizontal ajax-form-post clear-form'
-    ))
-}}
+{!!
+    Form::open([
+        'url' => route('maintenance.assets.store'),
+        'class' => 'form-horizontal ajax-form-post clear-form'
+    ])
+!!}
 
     @include('maintenance::assets.form')
 
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

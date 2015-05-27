@@ -12,6 +12,6 @@
 
 @section('panel.body.content')
 
-    {{ $asset->viewer()->images()  }}
+    {!! $asset->viewer()->images() !!}
 
 @stop
