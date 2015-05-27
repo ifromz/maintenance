@@ -23,7 +23,7 @@
                 <i class="fa fa-refresh"></i> Restore
             </a>
 
-            <a href="{{ route('maintenance.admin.archive.assets.destroy', array($asset->id)) }}"
+            <a href="{{ route('maintenance.admin.archive.assets.destroy', [$asset->id]) }}"
                data-method="delete"
                data-token="{{ csrf_token() }}"
                data-title="Delete asset?"
@@ -35,7 +35,7 @@
             <hr>
 
             <div class="col-md-9">
-                @include('maintenance::assets.tabs.profile.description', array('asset'=>$asset))
+                @include('maintenance::assets.tabs.profile.description', ['asset'=>$asset])
 
                 <legend>More Information:</legend>
 
@@ -58,7 +58,7 @@
             </div>
 
             <div class="col-md-3">
-                @include('maintenance::assets.tabs.profile.images', array('asset'=>$asset))
+                @include('maintenance::assets.tabs.profile.images', ['asset'=>$asset])
             </div>
         </div>
 

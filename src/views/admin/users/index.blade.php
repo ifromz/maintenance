@@ -24,7 +24,7 @@
     <div class="text-center">{{ $users->links() }}</div>
 
     @if($users->count() > 0)
-        {{
+        {!!
             $users->columns([
                     'id' => 'ID',
                     'name' => 'Name',
@@ -40,8 +40,8 @@
                 })
                 ->hidden(['name'])
                 ->render()
-        }}
+        !!}
     @endif
 
-    <div class="text-center">{{ $users->links() }}</div>
+    <div class="text-center">{!! $users->links() !!}</div>
 @stop

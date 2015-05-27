@@ -15,12 +15,12 @@
         </div>
     @endif
 
-    {{
-        Form::open(array(
-            'url' => route('maintenance.admin.users.update', array($user->id)),
+    {!!
+        Form::open([
+            'url' => route('maintenance.admin.users.update', [$user->id]),
             'class' => 'form-horizontal ajax-form-post',
             'method' => 'PUT'
-        ))
+        ])
     }}
 
     <div class="form-group">
@@ -33,7 +33,7 @@
                     <i class="fa fa-info"></i>
                 </div>
 
-                {{ Form::text('first_name', (isset($user) ? $user->first_name : null), array('class'=>'form-control', 'placeholder' => 'Enter First Name')) }}
+                {!! Form::text('first_name', (isset($user) ? $user->first_name : null), ['class'=>'form-control', 'placeholder' => 'Enter First Name']) !!}
 
             </div>
         </div>
@@ -49,7 +49,7 @@
                     <i class="fa fa-info"></i>
                 </div>
 
-                {{ Form::text('last_name', (isset($user) ? $user->last_name : null), array('class'=>'form-control', 'placeholder' => 'Enter Last Name')) }}
+                {!! Form::text('last_name', (isset($user) ? $user->last_name : null), ['class'=>'form-control', 'placeholder' => 'Enter Last Name']) !!}
 
             </div>
         </div>
@@ -66,7 +66,7 @@
                     <i class="fa fa-user"></i>
                 </div>
 
-                {{ Form::text('username', (isset($user) ? $user->username : null), array('class'=>'form-control', 'placeholder' => 'Enter Username')) }}
+                {!! Form::text('username', (isset($user) ? $user->username : null), ['class'=>'form-control', 'placeholder' => 'Enter Username']) !!}
 
             </div>
         </div>
@@ -82,7 +82,7 @@
                     <i class="fa fa-envelope-o"></i>
                 </div>
 
-                {{ Form::text('email', (isset($user) ? $user->email : null), array('class'=>'form-control', 'placeholder' => 'Enter Email')) }}
+                {!! Form::text('email', (isset($user) ? $user->email : null), ['class'=>'form-control', 'placeholder' => 'Enter Email']) }}
 
             </div>
         </div>
@@ -98,9 +98,9 @@
                     <i class="fa fa-key"></i>
                 </div>
 
-                @include('maintenance::select.routes', array(
+                @include('maintenance::select.routes', [
                     'routes' => (isset($user) ? $user->permissions : null)
-                ))
+                ])
 
             </div>
         </div>
@@ -116,9 +116,9 @@
                     <i class="fa fa-users"></i>
                 </div>
 
-                @include('maintenance::select.groups', array(
+                @include('maintenance::select.groups', [
                     'groups' => (isset($user) ? $user->groups->lists('id', 'name') : null)
-                ))
+                ])
 
             </div>
         </div>
@@ -131,7 +131,7 @@
 
             <div class="checkbox">
                 <label>
-                    {{ Form::checkbox('activated', '1', (isset($user) ? $user->activated : null)) }}
+                    {!! Form::checkbox('activated', '1', (isset($user) ? $user->activated : null)) !!}
                 </label>
             </div>
 
@@ -140,9 +140,9 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+            {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
         </div>
     </div>
 
-    {{ Form::close() }}
+    {!! Form::close() !!}
 @stop

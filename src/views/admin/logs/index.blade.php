@@ -5,13 +5,13 @@
 @stop
 
 @section('panel.body.content')
-    {{
-        $entries->columns(array(
+    {!!
+        $entries->columns([
             'level' => 'Level',
             'date' => 'Date',
             'header' => 'Header',
             'action' => 'Action'
-        ))
+        ])
         ->modify('level', function($entry)
         {
             return view('maintenance::viewers.log.labels.level', compact('entry'));
@@ -24,14 +24,14 @@
         {
             return view('maintenance::viewers.log.buttons.actions', compact('entry'));
         })
-        ->sortable(array(
+        ->sortable([
             'level',
             'date',
-        ))
-        ->hidden(array(
+        ])
+        ->hidden([
             'header',
-        ))
+        ])
         ->showPages()
         ->render()
-    }}
+    !!}
 @stop

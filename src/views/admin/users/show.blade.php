@@ -8,17 +8,17 @@
 
     <div class="tab-pane active" id="tab_profile">
 
-        {{ $user->viewer()->btnUpdatePassword() }}
+        {!! $user->viewer()->btnUpdatePassword() !!}
 
-        {{ $user->viewer()->btnEdit() }}
+        {!! $user->viewer()->btnEdit() !!}
 
-        {{ $user->viewer()->btnDelete() }}
+        {!! $user->viewer()->btnDelete() !!}
 
         <hr>
 
-        {{ $user->viewer()->profile() }}
+        {!! $user->viewer()->profile() !!}
 
-        {{ $user->viewer()->permissionChecker() }}
+        {!! $user->viewer()->permissionChecker() !!}
 
     </div>
 

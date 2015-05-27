@@ -17,21 +17,21 @@
 @section('panel.body.content')
     @if($groups->count() > 0)
 
-        {{
-            $groups->columns(array(
+        {!!
+            $groups->columns([
                 'id' => 'ID',
                 'name' => 'Name',
                 'members' => '# of Members',
                 'action' => 'Action',
-            ))
-            ->modify('members', function($group){
+            ])
+            ->modify('members', function($group) {
                 return count($group->users);
             })
-            ->modify('action', function($group){
+            ->modify('action', function($group) {
                 return $group->viewer()->btnActions();
             })
             ->render()
-        }}
+        !!}
 
     @else
         <h5>There are current no groups to show</h5>

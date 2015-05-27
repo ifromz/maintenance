@@ -5,12 +5,12 @@
 @stop
 
 @section('panel.body.content')
-    {{
-        Form::open(array(
+    {!!
+        Form::open([
             'url' => route('maintenance.admin.users.store'),
             'class' => 'form-horizontal ajax-form-post clear-form'
-        ))
-    }}
+        ])
+    !!}
 
     <div class="form-group">
         <label class="col-sm-2 control-label">First Name:</label>
@@ -22,7 +22,7 @@
                     <i class="fa fa-info"></i>
                 </div>
 
-                {{ Form::text('first_name', null, array('class'=>'form-control', 'placeholder' => 'Enter First Name')) }}
+                {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder' => 'Enter First Name']) !!}
 
             </div>
         </div>
@@ -38,7 +38,7 @@
                     <i class="fa fa-info"></i>
                 </div>
 
-                {{ Form::text('last_name', null, array('class'=>'form-control', 'placeholder' => 'Enter Last Name')) }}
+                {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder' => 'Enter Last Name']) !!}
 
             </div>
         </div>
@@ -55,7 +55,7 @@
                     <i class="fa fa-user"></i>
                 </div>
 
-                {{ Form::text('username', null, array('class'=>'form-control', 'placeholder' => 'Enter Username')) }}
+                {!! Form::text('username', null, ['class'=>'form-control', 'placeholder' => 'Enter Username']) !!}
 
             </div>
         </div>
@@ -71,7 +71,7 @@
                     <i class="fa fa-envelope-o"></i>
                 </div>
 
-                {{ Form::text('email', null, array('class'=>'form-control', 'placeholder' => 'Enter Email')) }}
+                {!! Form::text('email', null, ['class'=>'form-control', 'placeholder' => 'Enter Email']) !!}
 
             </div>
         </div>
@@ -87,7 +87,7 @@
                     <i class="fa fa-lock"></i>
                 </div>
 
-                {{ Form::password('password', array('class'=>'form-control', 'placeholder' => 'Enter Password')) }}
+                {!! Form::password('password', ['class'=>'form-control', 'placeholder' => 'Enter Password']) !!}
 
             </div>
         </div>
@@ -103,7 +103,7 @@
                     <i class="fa fa-lock"></i>
                 </div>
 
-                {{ Form::password('password_confirmation', array('class'=>'form-control', 'placeholder' => 'Confirm Above Password')) }}
+                {!! Form::password('password_confirmation', ['class'=>'form-control', 'placeholder' => 'Confirm Above Password']) !!}
 
             </div>
         </div>
@@ -149,7 +149,7 @@
 
             <div class="checkbox">
                 <label>
-                    {{ Form::checkbox('activated', '1') }}
+                    {!! Form::checkbox('activated', '1') !!}
                 </label>
             </div>
 
@@ -158,9 +158,9 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+            {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
         </div>
     </div>
 
-    {{ Form::close() }}
+    {!! Form::close() !!}
 @stop

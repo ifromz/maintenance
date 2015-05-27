@@ -18,8 +18,8 @@
 
 @section('panel.body.content')
     @if($workOrders->count() > 0)
-        {{
-            $workOrders->columns(array(
+        {!!
+            $workOrders->columns([
                 'id' => 'ID',
                 'completed' => 'Completed',
                 'status' => 'Status',
@@ -30,7 +30,7 @@
                 'created_by' => 'Created By',
                 'created_at' => 'Created At',
                 'action' => 'Action',
-            ))
+            ])
             ->means('status', 'status.label')
             ->means('priority', 'priority.label')
             ->means('category', 'category.trail')
@@ -41,7 +41,7 @@
                 return $workOrder->viewer()->btnActionsArchive();
             })
             ->render()
-        }}
+        !!}
     @else
         <h5>There are no archived work orders to display.</h5>
     @endif

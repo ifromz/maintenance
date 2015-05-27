@@ -19,7 +19,7 @@
 @section('panel.body.content')
 
     @if($items->count() > 0)
-        {{
+        {!!
            $items->columns([
                'id' => 'ID',
                'name' => 'Name',
@@ -43,7 +43,7 @@
            ->hidden(['id', 'added_on', 'description'])
            ->showPages()
            ->render()
-       }}
+       !!}
     @else
         <h5>There are no archived inventory items to display.</h5>
     @endif

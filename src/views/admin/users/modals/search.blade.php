@@ -2,7 +2,14 @@
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            {{ Form::open(array('url'=>$url, 'method'=>'GET', 'class'=>'form-horizontal ajax-form-get', 'data-refresh-target'=>'#resource-paginate')) }}
+            {!!
+                Form::open([
+                    'url' => $url,
+                    'method' => 'GET',
+                    'class' => 'form-horizontal ajax-form-get',
+                    'data-refresh-target' => '#resource-paginate'
+                ])
+            !!}
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
@@ -15,13 +22,13 @@
                     <label class="col-sm-2 control-label">ID</label>
 
                     <div class="col-md-10">
-                        {{
+                        {!!
                             Form::text(
-                                    'id',
-                                    (Input::has('id') ? Input::get('id') : null),
-                                    array('class'=>'form-control', 'placeholder'=>'Enter User ID')
-                                )
-                        }}
+                                'id',
+                                (Input::has('id') ? Input::get('id') : null),
+                                ['class'=>'form-control', 'placeholder'=>'Enter User ID']
+                            )
+                        !!}
                     </div>
                 </div>
 
@@ -29,13 +36,13 @@
                     <label class="col-sm-2 control-label">Name</label>
 
                     <div class="col-md-10">
-                        {{
+                        {!!
                             Form::text(
-                                    'name',
-                                    (Input::has('name') ? Input::get('name') : null),
-                                    array('class'=>'form-control', 'placeholder'=>'Enter Name')
-                                )
-                        }}
+                                'name',
+                                (Input::has('name') ? Input::get('name') : null),
+                                ['class'=>'form-control', 'placeholder'=>'Enter Name']
+                            )
+                        !!}
                     </div>
                 </div>
 
@@ -43,13 +50,13 @@
                     <label class="col-sm-2 control-label">Username</label>
 
                     <div class="col-md-10">
-                        {{
+                        {!!
                             Form::text(
-                                    'username',
-                                    (Input::has('username') ? Input::get('username') : null),
-                                    array('class'=>'form-control', 'placeholder'=>'Enter Username')
-                                )
-                        }}
+                                'username',
+                                (Input::has('username') ? Input::get('username') : null),
+                                ['class'=>'form-control', 'placeholder'=>'Enter Username']
+                            )
+                        !!}
                     </div>
                 </div>
 
@@ -57,13 +64,13 @@
                     <label class="col-sm-2 control-label">Email</label>
 
                     <div class="col-md-10">
-                        {{
+                        {!!
                             Form::text(
-                                    'email',
-                                    (Input::has('email') ? Input::get('email') : null),
-                                    array('class'=>'form-control', 'placeholder'=>'Enter Email')
-                                )
-                        }}
+                                'email',
+                                (Input::has('email') ? Input::get('email') : null),
+                                ['class'=>'form-control', 'placeholder'=>'Enter Email']
+                            )
+                        !!}
                     </div>
                 </div>
 
@@ -75,6 +82,6 @@
             </div>
         </div>
 
-        {{ Form::close() }}
+        {!! Form::close() !!}
     </div>
 </div>

@@ -5,20 +5,20 @@
 @stop
 
 @section('panel.body.content')
-    {{
-        Form::open(array(
-            'url'=>route('maintenance.admin.settings.mail.store'),
-            'class'=>'form-horizontal ajax-form-post',
-        ))
-    }}
+    {!!
+        Form::open([
+            'url' => route('maintenance.admin.settings.mail.store'),
+            'class' => 'form-horizontal ajax-form-post',
+        ])
+    !!}
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Mail Driver:</label>
 
         <div class="col-md-4">
-            @include('maintenance::select.mail-driver', array(
+            @include('maintenance::select.mail-driver', [
                 'driver' => config('mail.driver')
-            ))
+            ])
         </div>
     </div>
 
@@ -32,7 +32,7 @@
                     <i class="fa fa-user"></i>
                 </div>
 
-                {{ Form::text('smtp_username', config('mail.username'), array('class'=>'form-control')) }}
+                {!! Form::text('smtp_username', config('mail.username'), ['class'=>'form-control']) !!}
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
                     <i class="fa fa-key"></i>
                 </div>
 
-                {{ Form::password('smtp_password', array('class'=>'form-control')) }}
+                {!! Form::password('smtp_password', ['class'=>'form-control']) !!}
             </div>
         </div>
     </div>
@@ -62,7 +62,7 @@
                     <i class="fa fa-laptop"></i>
                 </div>
 
-                {{ Form::text('host_ip', config('mail.host'), array('class'=>'form-control', 'maxlength'=>'45')) }}
+                {!! Form::text('host_ip', config('mail.host'), ['class'=>'form-control', 'maxlength'=>'45']) }}
             </div>
         </div>
     </div>
@@ -77,7 +77,7 @@
                     <i class="fa fa-ellipsis-v"></i>
                 </div>
 
-                {{ Form::text('host_port', config('mail.port'), array('class'=>'form-control', 'maxlength' => '5')) }}
+                {!! Form::text('host_port', config('mail.port'), ['class'=>'form-control', 'maxlength' => '5']) !!}
 
             </div>
         </div>
@@ -94,7 +94,7 @@
                     <i class="fa fa-envelope-o"></i> E-Mail
                 </div>
 
-                {{ Form::email('global_email', config('mail.from.address'), array('class'=>'form-control')) }}
+                {!! Form::email('global_email', config('mail.from.address'), ['class'=>'form-control']) !!}
             </div>
 
         </div>
@@ -107,7 +107,7 @@
                     <i class="fa fa-user"></i> Name
                 </div>
 
-                {{ Form::text('global_name', config('mail.from.name'), array('class'=>'form-control')) }}
+                {!! Form::text('global_name', config('mail.from.name'), ['class'=>'form-control']) }}
             </div>
 
         </div>
@@ -123,7 +123,7 @@
                     <i class="fa fa-lock"></i>
                 </div>
 
-                {{ Form::text('encryption', config('mail.encryption'), array('class'=>'form-control')) }}
+                {!! Form::text('encryption', config('mail.encryption'), ['class'=>'form-control']) !!}
 
             </div>
         </div>
@@ -136,7 +136,7 @@
 
             <div class="checkbox">
                 <label>
-                    {{ Form::checkbox('pretend', 'true', config('mail.pretend')) }}
+                    {!! Form::checkbox('pretend', 'true', config('mail.pretend')) !!}
                 </label>
             </div>
 
@@ -145,9 +145,9 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+            {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
         </div>
     </div>
 
-    {{ Form::close() }}
+    {!! Form::close() !!}
 @stop

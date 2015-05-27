@@ -5,18 +5,18 @@
 @stop
 
 @section('panel.body.content')
-    {{
-       Form::open(array(
-           'url'=>route('maintenance.admin.settings.site.store'),
-           'class'=>'form-horizontal ajax-form-post',
-       ))
+    {!!
+       Form::open([
+           'url' => route('maintenance.admin.settings.site.store'),
+           'class' => 'form-horizontal ajax-form-post',
+       ])
    }}
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Main Site Title:</label>
 
         <div class="col-md-4">
-            {{ Form::text('title', config('maintenance::site.title.main'), array('class'=>'form-control')) }}
+            {!! Form::text('title', config('maintenance.site.title.main'), ['class'=>'form-control']) !!}
         </div>
     </div>
 
@@ -24,7 +24,7 @@
         <label class="col-sm-2 control-label">Administrator Site Title:</label>
 
         <div class="col-md-4">
-            {{ Form::text('admin_title', config('maintenance::site.title.admin'), array('class'=>'form-control')) }}
+            {!! Form::text('admin_title', config('maintenance.site.title.admin'), ['class'=>'form-control']) !!}
         </div>
     </div>
 
@@ -38,7 +38,7 @@
                     <i class="fa fa-calendar-o"></i>
                 </div>
 
-                {{ Form::text('work_order_calendar', config('maintenance::site.calendars.work-orders'), array('class'=>'form-control')) }}
+                {!! Form::text('work_order_calendar', config('maintenance,site.calendars.work-orders'), ['class'=>'form-control']) !!}
 
             </div>
         </div>
@@ -54,7 +54,7 @@
                     <i class="fa fa-calendar-o"></i>
                 </div>
 
-                {{ Form::text('inventory_calendar', config('maintenance::site.calendars.inventories'), array('class'=>'form-control')) }}
+                {!! Form::text('inventory_calendar', config('maintenance.site.calendars.inventories'), ['class'=>'form-control']) !!}
 
             </div>
         </div>
@@ -71,7 +71,7 @@
                     <i class="fa fa-calendar-o"></i>
                 </div>
 
-                {{ Form::text('asset_calendar', config('maintenance::site.calendars.assets'), array('class'=>'form-control')) }}
+                {!! Form::text('asset_calendar', config('maintenance.site.calendars.assets'), ['class'=>'form-control']) !!}
 
             </div>
         </div>
@@ -79,9 +79,9 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+            {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
         </div>
     </div>
 
-    {{ Form::close() }}
+    {!! Form::close() !!}
 @stop
