@@ -5,15 +5,15 @@
 @stop
 
 @section('panel.body.content')
-{{
-    Form::open(array(
-        'url'=>action(currentControllerAction('update'), array($category->id)),
+{!!
+    Form::open([
+        'url' => action(currentControllerAction('update'), [$category->id]),
         'class'=>'form-horizontal ajax-form-post',
         'method' => 'PATCH',
-    ))
-}}
+    )
+!!}
 
 @include('maintenance::categories.form', compact('category'))
 
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

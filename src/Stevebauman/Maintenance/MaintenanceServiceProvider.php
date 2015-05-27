@@ -170,10 +170,6 @@ class MaintenanceServiceProvider extends ServiceProvider
         // QR Code Generator
         $this->app->register('SimpleSoftwareIO\QrCode\QrCodeServiceProvider');
 
-        // Dynamic Table Generation
-        $this->app->register('Stevebauman\EloquentTable\PaginationServiceProvider', [], true);
-        $this->app->register('Stevebauman\EloquentTable\EloquentTableServiceProvider', [], true);
-
         // Calendar API Helper
         $this->app->register('Stevebauman\CalendarHelper\CalendarHelperServiceProvider');
 

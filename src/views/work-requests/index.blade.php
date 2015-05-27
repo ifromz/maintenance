@@ -31,6 +31,7 @@
                 ->modify('action', function($workRequest){
                     return $workRequest->viewer()->btnActions();
                 })
+                ->showPages()
                 ->sortable(['id', 'created_at'])
                 ->render()
         !!}
