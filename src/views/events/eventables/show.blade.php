@@ -9,21 +9,21 @@
 @section('tab.body.content')
 
     <div class="tab-pane active" id="tab_profile">
-        {{ $event->viewer()->btnEventableEdit($eventable) }}
+        {!! $event->viewer()->btnEventableEdit($eventable) !!}
 
-        {{ $event->viewer()->btnEventableDelete($eventable) }}
+        {!! $event->viewer()->btnEventableDelete($eventable) !!}
 
         <hr>
 
-        {{ $event->viewer()->profile() }}
+        {!! $event->viewer()->profile() !!}
     </div>
 
     <div class="tab-pane" id="tab_report">
-        {{ $localEvent->viewer()->report() }}
+        {!! $localEvent->viewer()->report() !!}
     </div>
 
     <div class="tab-pane" id="tab_recurrences">
-        {{ $event->viewer()->recurrences($recurrences) }}
+        {!! $event->viewer()->recurrences($recurrences) !!}
     </div>
 
 @stop

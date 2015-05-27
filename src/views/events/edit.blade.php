@@ -5,17 +5,17 @@
 @stop
 
 @section('panel.body.content')
-    {{
-        Form::open(array(
-            'url'=>route('maintenance.events.update', array($event->id)),
+    {!!
+        Form::open([
+            'url' => route('maintenance.events.update', [$event->id]),
             'method' => 'PATCH',
-            'class'=>'form-horizontal ajax-form-post'
-        ))
-    }}
+            'class' => 'form-horizontal ajax-form-post'
+        ])
+    !!}
 
-    @include('maintenance::events.form', array(
+    @include('maintenance::events.form', [
         'event' => $event
-    ))
+    ])
 
-    {{ Form::close() }}
+    {!! Form::close() !!}
 @stop

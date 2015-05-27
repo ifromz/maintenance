@@ -13,8 +13,8 @@
 
     @if($events->count() > 0)
 
-        {{
-            $events->columns(array(
+        {!!
+            $events->columns([
                     'title' => 'Title / Summary',
                     'description' => 'Description',
                     'reccuring' => 'Is Reccuring',
@@ -22,7 +22,7 @@
                     'start' => 'Start',
                     'end' => 'End',
                     'actions' => 'Actions',
-                ))
+                ])
                 ->modify('reccuring', function($record){
                     return $record->viewer()->lblRecurring();
                 })
@@ -39,7 +39,7 @@
                     return $record->viewer()->btnActions();
                 })
                 ->render()
-        }}
+        !!}
 
     @else
 

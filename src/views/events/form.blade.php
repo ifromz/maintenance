@@ -4,7 +4,7 @@
     <label class="col-sm-2 control-label">Title / Summary</label>
 
     <div class="col-md-4">
-        {{ Form::text('title', (isset($event) ? $event->title : null), ['class'=>'form-control', 'placeholder'=>'Enter Title']) }}
+        {!! Form::text('title', (isset($event) ? $event->title : null), ['class'=>'form-control', 'placeholder'=>'Enter Title']) !!}
     </div>
 </div>
 
@@ -12,7 +12,7 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-4">
-        {{ Form::text('description', (isset($event) ? $event->description : null), ['class'=>'form-control', 'placeholder'=>'Enter Description']) }}
+        {!! Form::text('description', (isset($event) ? $event->description : null), ['class'=>'form-control', 'placeholder'=>'Enter Description']) !!}
     </div>
 </div>
 
@@ -71,7 +71,7 @@
     <label class="col-sm-2 control-label">All Day</label>
 
     <div class="col-md-4">
-        {{ Form::checkbox('all_day', 'true', (isset($event) ? $event->all_day : null), ['class'=>'form-control']) }}
+        {!! Form::checkbox('all_day', 'true', (isset($event) ? $event->all_day : null), ['class'=>'form-control']) !!}
     </div>
 </div>
 
@@ -153,6 +153,6 @@
 
 <div class="form-group">
     <div class="col-md-4 col-md-offset-2">
-        {{ Form::submit('Save', ['class'=>'btn btn-primary']) }}
+        {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
     </div>
 </div>

@@ -5,14 +5,14 @@
 @stop
 
 @section('panel.body.content')
-    {{
-        Form::open(array(
-            'url'=>action(currentControllerAction('store'), array($eventable->id)),
+    {!!
+        Form::open([
+            'url'=>action(currentControllerAction('store'), [$eventable->id]),
             'class'=>'form-horizontal ajax-form-post clear-form'
-        ))
-    }}
+        ])
+    !!}
 
     @include('maintenance::events.form')
 
-    {{ Form::close() }}
+    {!! Form::close() !!}
 @stop

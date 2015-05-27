@@ -10,10 +10,9 @@
             <div class="box box-primary">
                 <div class="box-body no-padding">
 
-                    {{ HTML::script('packages/stevebauman/maintenance/js/calendar/full.js') }}
+                    {!! HTML::script('packages/stevebauman/maintenance/js/calendar/full.js') !!}
 
-                    <div id="calendar" data-event-url="{{ route('maintenance.api.calendar.events.index') }}"
-                         class="fc fc-ltr"></div>
+                    <div id="calendar" data-event-url="{{ route('maintenance.api.calendar.events.index') }}" class="fc fc-ltr"></div>
 
                 </div>
             </div>
