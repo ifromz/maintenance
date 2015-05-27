@@ -199,7 +199,7 @@ class MaintenanceServiceProvider extends ServiceProvider
         $this->app->register('Stevebauman\CoreHelper\CoreHelperServiceProvider');
 
         // Authentication
-        $this->app->register('Cartalyst\Sentry\SentryServiceProvider');
+        $this->app->register('Cartalyst\Sentinel\Laravel\SentinelServiceProvider');
 
         // LDAP Auth
         $this->app->register('Stevebauman\Corp\CorpServiceProvider');
@@ -211,7 +211,7 @@ class MaintenanceServiceProvider extends ServiceProvider
         $this->app->register('SimpleSoftwareIO\QrCode\QrCodeServiceProvider');
 
         // Forget Pagination Provider for eloquent table replacement
-        $this->app->forceRegister('Illuminate\Pagination\PaginationServiceProvider');
+        $this->app->forgetInstance('Illuminate\Pagination\PaginationServiceProvider');
 
         // Dynamic Table Generation
         $this->app->register('Stevebauman\EloquentTable\PaginationServiceProvider', [], true);
@@ -238,7 +238,11 @@ class MaintenanceServiceProvider extends ServiceProvider
     {
         $loader = AliasLoader::getInstance();
 
-        $loader->alias('Sentry', 'Cartalyst\Sentry\Facades\Laravel\Sentry');
+        // Authentication
+        $loader->alias('Activation', 'Cartalyst\Sentinel\Laravel\Facades\Activation');
+        $loader->alias('Reminder', 'Cartalyst\Sentinel\Laravel\Facades\Reminder');
+        $loader->alias('Sentry', 'Cartalyst\Sentinel\Laravel\Facades\Sentinel');
+
         $loader->alias('QrCode', 'SimpleSoftwareIO\QrCode\Facades\QrCode');
         $loader->alias('Breadcrumbs', 'DaveJamesMiller\Breadcrumbs\Facade');
         $loader->alias('Captcha', 'Arcanedev\NoCaptcha\Laravel\Facade');
