@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Exceptions\NotFound;
 
-use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;
 
 class EventNotFoundException extends BaseException
@@ -14,7 +13,3 @@ class EventNotFoundException extends BaseException
         $this->redirect = routeBack('maintenance.events.index');
     }
 }
-
-App::error(function (EventNotFoundException $e) {
-    return $e->response();
-});

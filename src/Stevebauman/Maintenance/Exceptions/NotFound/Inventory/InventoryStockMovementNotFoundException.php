@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Exceptions\NotFound\Inventory;
 
-use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;
 
 class InventoryStockMovementNotFoundException extends BaseException
@@ -14,7 +13,3 @@ class InventoryStockMovementNotFoundException extends BaseException
         $this->redirect = routeBack('maintenance.inventory.stocks.show', $this->getRouteParameter('inventory'), $this->getRouteParameter('stocks'));
     }
 }
-
-App::error(function (InventoryStockMovementNotFoundException $e) {
-    return $e->response();
-});

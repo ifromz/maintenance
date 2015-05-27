@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Exceptions\NotFound;
 
-use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;
 
 class UserNotFoundException extends BaseException
@@ -17,7 +16,3 @@ class UserNotFoundException extends BaseException
         $this->redirect = routeBack('maintenance.admin.users.index');
     }
 }
-
-App::error(function (UserNotFoundException $e) {
-    return $e->response();
-});

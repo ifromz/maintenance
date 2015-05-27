@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Exceptions\NotFound\Asset;
 
-use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;
 
 class AssetNotFoundException extends BaseException
@@ -14,7 +13,3 @@ class AssetNotFoundException extends BaseException
         $this->redirect = routeBack('maintenance.assets.index');
     }
 }
-
-App::error(function (AssetNotFoundException $e) {
-    return $e->response();
-});

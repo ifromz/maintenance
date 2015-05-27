@@ -3,17 +3,11 @@
 namespace Stevebauman\Maintenance;
 
 use Stevebauman\Maintenance\Services\SentryService;
-use Illuminate\Session\TokenMismatchException;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\MessageBag;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class MaintenanceServiceProvider
- * @package Stevebauman\Maintenance
  */
 class MaintenanceServiceProvider extends ServiceProvider
 {
@@ -25,69 +19,34 @@ class MaintenanceServiceProvider extends ServiceProvider
     protected $defer = false;
 
     /**
-     * The configuration separator for packages.
-     * Allows compatibility with Laravel 4 and 5.
-     *
-     * @var string
-     */
-    public static $configSeparator = '::';
-
-    /**
      * Bootstrap the application events.
      */
     public function boot()
     {
-        if (method_exists($this, 'package')) {
-            /*
-             * Looks like we're using Laravel 4, let's use the
-             * package method to easily register everything
-             */
-            $this->package('stevebauman/maintenance');
-        } else {
-            $config = __DIR__.'/../../config/';
+        $config = __DIR__.'../../../config/';
 
-            /*
-             * Looks like we're using Laravel 5, let's set
-             * our configuration file to be publishable
-             */
-            $this->publishes([
-                $config.'colors' => config_path('maintenance/colors.php'),
-                $config.'notifications' => config_path('maintenance/notifications.php'),
-                $config.'permissions' => config_path('maintenance/permissions.php'),
-                $config.'rules' => config_path('maintenance/rules.php'),
-                $config.'seed' => config_path('maintenance/seed.php'),
-                $config.'site' => config_path('maintenance/site.php'),
-            ], 'config');
+        $this->publishes([
+            $config.'colors.php' => config_path('maintenance/colors.php'),
+            $config.'notifications.php' => config_path('maintenance/notifications.php'),
+            $config.'permissions.php' => config_path('maintenance/permissions.php'),
+            $config.'rules.php' => config_path('maintenance/rules.php'),
+            $config.'seed.php' => config_path('maintenance/seed.php'),
+            $config.'site.php' => config_path('maintenance/site.php'),
+        ], 'config');
 
-            /*
-             * Assign the migrations as publishable, and tag it as 'migrations'
-             */
-            $this->publishes([
-                __DIR__.'../../../migrations/' => base_path('database/migrations'),
-            ], 'migrations');
+        $this->publishes([
+            __DIR__.'../../../migrations/' => base_path('database/migrations'),
+        ], 'migrations');
 
-            /*
-             * Allow the views to be publishable
-             */
-            $this->publishes([
-                __DIR__.'/../../views' => base_path('resources/views/stevebauman/maintenance'),
-            ], 'views');
+        $this->publishes([
+            __DIR__.'/../../views' => base_path('resources/views/stevebauman/maintenance'),
+        ], 'views');
 
+        $this->publishes([
+            __DIR__.'/../../../public' => public_path('stevebauman/maintenance'),
+        ], 'public');
 
-            /*
-             * Allow assets to be publishable
-             */
-            $this->publishes([
-                __DIR__.'/../../../public' => public_path('stevebauman/maintenance'),
-            ], 'public');
-
-            /*
-             * Load our views
-             */
-            $this->loadViewsFrom(__DIR__.'/../../views', 'maintenance');
-
-            $this::$configSeparator = '.';
-        }
+        $this->loadViewsFrom(__DIR__.'/../../views', 'maintenance');
 
         $this->bootCommands();
 
@@ -169,8 +128,6 @@ class MaintenanceServiceProvider extends ServiceProvider
         $this->registerServiceProviders();
 
         $this->registerServiceAliases();
-
-        $this->registerErrorHandlers();
     }
 
     /**
@@ -189,6 +146,9 @@ class MaintenanceServiceProvider extends ServiceProvider
      */
     private function registerServiceProviders()
     {
+        // HTML
+        $this->app->register('Illuminate\Html\HtmlServiceProvider');
+
         // Breadcrumbs
         $this->app->register('DaveJamesMiller\Breadcrumbs\ServiceProvider');
 
@@ -199,19 +159,16 @@ class MaintenanceServiceProvider extends ServiceProvider
         $this->app->register('Stevebauman\CoreHelper\CoreHelperServiceProvider');
 
         // Authentication
-        $this->app->register('Cartalyst\Sentinel\Laravel\SentinelServiceProvider');
+        $this->app->register('Cartalyst\Sentry\SentryServiceProvider');
 
         // LDAP Auth
         $this->app->register('Stevebauman\Corp\CorpServiceProvider');
 
         // Nested Set Helper
-        $this->app->register('Baum\BaumServiceProvider');
+        $this->app->register('Baum\Providers\BaumServiceProvider');
 
         // QR Code Generator
         $this->app->register('SimpleSoftwareIO\QrCode\QrCodeServiceProvider');
-
-        // Forget Pagination Provider for eloquent table replacement
-        $this->app->forgetInstance('Illuminate\Pagination\PaginationServiceProvider');
 
         // Dynamic Table Generation
         $this->app->register('Stevebauman\EloquentTable\PaginationServiceProvider', [], true);
@@ -238,10 +195,12 @@ class MaintenanceServiceProvider extends ServiceProvider
     {
         $loader = AliasLoader::getInstance();
 
+        // HTML Helpers
+        $loader->alias('Form', 'Illuminate\Html\FormFacade');
+        $loader->alias('HTML', 'Illuminate\Html\HtmlFacade');
+
         // Authentication
-        $loader->alias('Activation', 'Cartalyst\Sentinel\Laravel\Facades\Activation');
-        $loader->alias('Reminder', 'Cartalyst\Sentinel\Laravel\Facades\Reminder');
-        $loader->alias('Sentry', 'Cartalyst\Sentinel\Laravel\Facades\Sentinel');
+        $loader->alias('Sentry', 'Cartalyst\Sentry\Facades\Laravel\Sentry');
 
         $loader->alias('QrCode', 'SimpleSoftwareIO\QrCode\Facades\QrCode');
         $loader->alias('Breadcrumbs', 'DaveJamesMiller\Breadcrumbs\Facade');
@@ -251,37 +210,5 @@ class MaintenanceServiceProvider extends ServiceProvider
         $loader->alias('CalendarHelper', 'Stevebauman\CalendarHelper\Facades\CalendarHelper');
         $loader->alias('LogReader', 'Stevebauman\LogReader\Facades\LogReader');
         $loader->alias('Purify', 'Stevebauman\Purify\Facades\Purify');
-    }
-
-    /**
-     * Registers the errors handlers for the
-     * maintenance application.
-     */
-    private function registerErrorHandlers()
-    {
-        $this->app->missing(function () {
-            return view('maintenance::404', [
-                'title' => '404 - Page Not Found',
-            ]);
-        });
-
-        $this->app->error(function(TokenMismatchException $exception) {
-            $message = "It looks like there was a problem with the request you've sent.
-                Please refresh and try again.";
-            if(Request::ajax()) {
-                return Response::json([
-                    'message' => $message,
-                    'messageType' => 'danger',
-                ]);
-            } else {
-
-                $messageBag = new MessageBag();
-                $messageBag->add('error', $message);
-
-                return Redirect::back()
-                    ->withInput()
-                    ->withErrors($messageBag);
-            }
-        });
     }
 }

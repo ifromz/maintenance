@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Exceptions\NotFound;
 
-use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;
 
 class MetricNotFoundException extends BaseException
@@ -17,7 +16,3 @@ class MetricNotFoundException extends BaseException
         $this->redirect = routeBack('maintenance.metrics.index');
     }
 }
-
-App::error(function (MetricNotFoundException $e) {
-    return $e->response();
-});

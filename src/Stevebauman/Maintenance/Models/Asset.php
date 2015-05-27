@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
@@ -13,7 +13,7 @@ use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
  */
 class Asset extends BaseModel
 {
-    use SoftDeletingTrait;
+    use SoftDeletes;
     use HasUserTrait;
     use HasEventsTrait;
     use HasLocationTrait;

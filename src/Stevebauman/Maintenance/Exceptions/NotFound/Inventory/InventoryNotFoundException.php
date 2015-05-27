@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Exceptions\NotFound\Inventory;
 
-use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;
 
 class InventoryNotFoundException extends BaseException
@@ -14,7 +13,3 @@ class InventoryNotFoundException extends BaseException
         $this->redirect = routeBack('maintenance.inventory.index');
     }
 }
-
-App::error(function (InventoryNotFoundException $e) {
-    return $e->response();
-});

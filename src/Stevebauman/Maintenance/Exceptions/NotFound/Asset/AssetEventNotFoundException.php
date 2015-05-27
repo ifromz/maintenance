@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Exceptions\NotFound\Asset;
 
-use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;
 
 class AssetEventNotFoundException extends BaseException
@@ -14,7 +13,3 @@ class AssetEventNotFoundException extends BaseException
         $this->redirect = routeBack('maintenance.assets.show', $this->getRouteParameter('assets'));
     }
 }
-
-App::error(function (AssetEventNotFoundException $e) {
-    return $e->response();
-});

@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder;
 
-use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Exceptions\BaseException;
 
 class WorkOrderReportNotFoundException extends BaseException
@@ -14,7 +13,3 @@ class WorkOrderReportNotFoundException extends BaseException
         $this->redirect = routeBack('maintenance.work-orders.show', $this->getRouteParameter('work_orders'));
     }
 }
-
-App::error(function (WorkOrderReportNotFoundException $e) {
-    return $e->response();
-});

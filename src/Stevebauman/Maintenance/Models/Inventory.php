@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Stevebauman\Inventory\Traits\InventoryTrait;
 use Stevebauman\Inventory\Traits\InventoryVariantTrait;
 use Stevebauman\Maintenance\Traits\Scopes\HasScopeArchivedTrait;
@@ -17,7 +17,7 @@ use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
  */
 class Inventory extends BaseModel
 {
-    use SoftDeletingTrait;
+    use SoftDeletes;
 
     use InventoryTrait;
     use InventoryVariantTrait;
