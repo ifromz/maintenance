@@ -1,4 +1,4 @@
-{{
+{!!
     Form::select(
         'groups[]',
         $allGroups,
@@ -9,4 +9,4 @@
             'multiple'=>true
         )
     )
-}}
+!!}

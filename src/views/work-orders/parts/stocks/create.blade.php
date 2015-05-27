@@ -26,18 +26,20 @@
 
     <hr>
 
-    {{ Form::open(array(
-                'url'=>route('maintenance.work-orders.parts.stocks.store', array($workOrder->id, $item->id, $stock->id)),
-                'class'=>'form-horizontal ajax-form-post clear-form',
-                'data-refresh-target'=>'#quantity-refresh'
-            ))
-    }}
+    {!!
+        Form::open([
+            'url' => route('maintenance.work-orders.parts.stocks.store', [$workOrder->id, $item->id, $stock->id]),
+            'class' => 'form-horizontal ajax-form-post clear-form',
+            'data-refresh-target' => '#quantity-refresh'
+        ])
+    !!}
+
     <div class="form-group">
         <label class="col-sm-2 control-label">Quantity Taken / Used</label>
 
         <div class="col-md-4">
             <div class="input-group">
-                {{ Form::text('quantity', null, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
+                {!! Form::text('quantity', null, ['class'=>'form-control', 'placeholder'=>'ex. 45']) !!}
                 <span class="input-group-addon">{{ $item->metric->symbol }}</span>
             </div>
         </div>
@@ -45,9 +47,9 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+            {!! Form::submit('Save', array('class'=>'btn btn-primary')) !!}
         </div>
     </div>
 
-    {{ Form::close() }}
+    {!! Form::close() !!}
 @stop

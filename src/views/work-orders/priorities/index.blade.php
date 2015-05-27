@@ -13,7 +13,7 @@
 
     @if($priorities->count() > 0)
 
-        {{
+        {!!
             $priorities->columns([
                 'name' => 'Name',
                 'color' => 'Color',
@@ -28,7 +28,7 @@
             })
             ->hidden(['color', 'created_by', 'created_at', 'name'])
             ->render()
-        }}
+        !!}
 
     @else
         <h5>There are no priorities to display.</h5>

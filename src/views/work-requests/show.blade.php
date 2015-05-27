@@ -10,7 +10,7 @@
 
         <legend>Profile</legend>
 
-        {{ $workRequest->viewer()->profile() }}
+        {!! $workRequest->viewer()->profile() !!}
 
     </div>
 
@@ -18,7 +18,7 @@
 
         <legend>Updates</legend>
 
-        {{ $workRequest->viewer()->updates() }}
+        {!! $workRequest->viewer()->updates() !!}
 
     </div>
 @stop

@@ -68,7 +68,7 @@
                     @show
 
                     @section('breadcrumb')
-                        {{ Breadcrumbs::renderIfExists() }}
+                        {!! Breadcrumbs::renderIfExists() !!}
                     @show
                 </section>
 

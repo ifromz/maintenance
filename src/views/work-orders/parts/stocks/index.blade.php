@@ -6,7 +6,7 @@
 
 @section('panel.body.content')
 
-    {{ $item->viewer()->btnAddStock() }}
+    {!! $item->viewer()->btnAddStock() !!}
 
     <h2>Stocks</h2>
 
@@ -14,7 +14,7 @@
 
     @if($item->stocks->count() > 0)
 
-            {{
+            {!!
                 $item->stocks
                     ->columns([
                         'location' => 'Location',
@@ -26,7 +26,7 @@
                         return $stock->viewer()->btnAddForWorkOrder($workOrder);
                     })
                     ->render()
-            }}
+            !!}
 
     @else
         <h5>There is no stock for this item.</h5>
@@ -39,7 +39,7 @@
 
     @if($item->variants->count() > 0)
 
-        {{
+        {!!
             $item->variants
                 ->columns([
                     'id' => 'ID',
@@ -58,7 +58,7 @@
                     return $item->viewer()->btnSelectForWorkOrder($workOrder);
                 })
                 ->render()
-        }}
+        !!}
 
     @else
         <h5>There are no variants for this item.</h5>

@@ -7,7 +7,7 @@
 @section('panel.body.content')
     @if($workOrders->count() > 0)
 
-        {{
+        {!!
             $workOrders->columns([
                 'id' => 'ID',
                 'status' => 'Status',
@@ -39,7 +39,7 @@
             ->hidden(['id', 'description', 'category', 'created_by', 'created_at'])
             ->showPages()
             ->render()
-        }}
+        !!}
 
     @else
 

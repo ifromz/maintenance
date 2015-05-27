@@ -8,7 +8,7 @@
 
     @if($sessions->count() > 0)
 
-        {{
+        {!!
             $sessions->columns([
                     'in' => 'In',
                     'out' => 'Out',
@@ -17,7 +17,7 @@
                 ->sortable(['in', 'out'])
                 ->showPages()
                 ->render()
-        }}
+        !!}
 
     @else
         <h5>There are no sessions to display for this user.</h5>

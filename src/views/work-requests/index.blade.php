@@ -17,7 +17,7 @@
 
     @if($workRequests->count() > 0)
 
-        {{
+        {!!
             $workRequests
                 ->columns([
                     'id' => 'ID',
@@ -33,7 +33,7 @@
                 })
                 ->sortable(['id', 'created_at'])
                 ->render()
-        }}
+        !!}
 
     @else
 

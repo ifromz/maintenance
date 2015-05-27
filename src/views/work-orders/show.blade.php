@@ -15,22 +15,22 @@
 
         <div class="col-md-12">
             <div class="pull-left">
-                {{ $workOrder->viewer()->btnCheckIn() }}
+                {!! $workOrder->viewer()->btnCheckIn() !!}
 
-                {{ $workOrder->viewer()->btnEvents() }}
+                {!! $workOrder->viewer()->btnEvents() !!}
 
-                {{ $workOrder->viewer()->btnWorkers() }}
+                {!! $workOrder->viewer()->btnWorkers() !!}
 
-                {{ $workOrder->viewer()->btnNotifications() }}
+                {!! $workOrder->viewer()->btnNotifications() !!}
 
-                {{ $workOrder->viewer()->btnComplete() }}
+                {!! $workOrder->viewer()->btnComplete() !!}
 
             </div>
 
             <div class="pull-right">
-                {{ $workOrder->viewer()->btnEdit() }}
+                {!! $workOrder->viewer()->btnEdit() !!}
 
-                {{ $workOrder->viewer()->btnDelete() }}
+                {!! $workOrder->viewer()->btnDelete() !!}
             </div>
         </div>
 
@@ -39,13 +39,13 @@
             <div class="col-md-6">
                 <h2>Profile</h2>
 
-                {{ $workOrder->viewer()->profile() }}
+                {!! $workOrder->viewer()->profile() !!}
             </div>
 
             <div class="col-md-6">
                 <h2>Work Request</h2>
 
-                {{ $workOrder->viewer()->workRequest() }}
+                {!! $workOrder->viewer()->workRequest() !!}
             </div>
 
         </div>
@@ -53,47 +53,47 @@
 
     <div class="tab-pane" id="tab-details">
 
-        {{ $workOrder->viewer()->report() }}
+        {!! $workOrder->viewer()->report() !!}
 
-        {{ $workOrder->viewer()->sessions($sessions) }}
+        {!! $workOrder->viewer()->sessions($sessions) !!}
 
     </div>
 
     <div class="tab-pane" id="tab-calendar">
 
-        {{ $workOrder->viewer()->calendar() }}
+        {!! $workOrder->viewer()->calendar() !!}
 
     </div>
 
     <div class="tab-pane" id="tab-history">
 
-        {{ $workOrder->viewer()->history() }}
+        {!! $workOrder->viewer()->history() !!}
 
     </div>
 
     <div class="tab-pane" id="tab-parts">
 
-        {{ $workOrder->viewer()->btnAddParts() }}
+        {!! $workOrder->viewer()->btnAddParts() !!}
 
         <h2>Parts / Supplies</h2>
 
-        {{ $workOrder->viewer()->parts() }}
+        {!! $workOrder->viewer()->parts() !!}
 
     </div>
 
     <div class="tab-pane" id="tab-attachments">
 
-        {{ $workOrder->viewer()->btnAddAttachments() }}
+        {!! $workOrder->viewer()->btnAddAttachments() !!}
 
         <h2>Attachments</h2>
 
-        {{ $workOrder->viewer()->attachments() }}
+        {!! $workOrder->viewer()->attachments() !!}
     </div>
 
     <div class="tab-pane" id="tab-updates">
 
         <h2>Updates</h2>
 
-        {{ $workOrder->viewer()->updates() }}
+        {!! $workOrder->viewer()->updates() !!}
     </div>
 @stop

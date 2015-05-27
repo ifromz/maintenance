@@ -1,4 +1,4 @@
-{{
+{!!
     Form::select('mail_driver',[
         'smtp' => 'SMTP',
         'mail' => 'Mail',
@@ -10,4 +10,4 @@
     , [
         'class' => 'form-control'
     ])
-}}
+!!}

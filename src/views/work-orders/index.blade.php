@@ -29,7 +29,7 @@
 
     @if($workOrders->count() > 0)
 
-        {{
+        {!!
             $workOrders->columns([
                 'id' => 'ID',
                 'completed' => 'Completed',
@@ -65,7 +65,7 @@
             ->hidden(['id', 'description', 'category', 'created_by', 'created_at'])
             ->showPages()
             ->render()
-        }}
+        !!}
 
     @else
 

@@ -6,7 +6,7 @@
     <label class="col-sm-2 control-label">Subject</label>
 
     <div class="col-md-6">
-        {{ Form::text('subject', (isset($workRequest) ? $workRequest->subject : null), array('class'=>'form-control', 'placeholder'=>'Enter Subject', 'disabled'=>true)) }}
+        {!! Form::text('subject', (isset($workRequest) ? $workRequest->subject : null), ['class'=>'form-control', 'placeholder'=>'Enter Subject', 'disabled'=>true]) !!}
     </div>
 </div>
 
@@ -14,7 +14,7 @@
     <label class="col-sm-2 control-label">Best Time</label>
 
     <div class="col-md-6">
-        {{ Form::text('best_time', (isset($workRequest) ? $workRequest->best_time : null), array('class'=>'form-control', 'placeholder'=>'Enter Best Time', 'disabled'=>true)) }}
+        {!! Form::text('best_time', (isset($workRequest) ? $workRequest->best_time : null), ['class'=>'form-control', 'placeholder'=>'Enter Best Time', 'disabled'=>true]) !!}
     </div>
 </div>
 
@@ -22,12 +22,12 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-6">
-        {{ Form::textarea('description', (isset($workRequest) ? $workRequest->description : null), array('disabled'=>true)) }}
+        {!! Form::textarea('description', (isset($workRequest) ? $workRequest->description : null), ['disabled'=>true]) !!}
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-        {{ Form::submit('Create Work Order', array('class'=>'btn btn-primary')) }}
+        {!! Form::submit('Create Work Order', ['class'=>'btn btn-primary']) !!}
     </div>
 </div>

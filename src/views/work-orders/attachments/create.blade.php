@@ -5,18 +5,18 @@
 @stop
 
 @section('panel.body.content')
-    {{
+    {!!
         Form::open([
             'url' => route('maintenance.work-orders.attachments.store', [$workOrder->id]),
             'files' => true,
         ])
-    }}
+    !!}
 
     <div class="form-group">
-        {{ Form::file('files[]', ['multiple' => true]) }}
+        {!! Form::file('files[]', ['multiple' => true]) !!}
     </div>
 
     <div class="form-group">
-        {{ Form::submit('Save', ['class'=>'btn btn-success']) }}
+        {!! Form::submit('Save', ['class'=>'btn btn-success']) !!}
     </div>
 @stop

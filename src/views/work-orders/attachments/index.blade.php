@@ -12,6 +12,6 @@
 
 @section('panel.body.content')
 
-    {{ $workOrder->viewer()->attachments() }}
+    {!! $workOrder->viewer()->attachments() !!}
 
 @stop

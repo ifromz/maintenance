@@ -14,7 +14,7 @@
     <h2>Parts Added</h2>
 
     @if($workOrder->parts->count() > 0)
-        {{ $workOrder->viewer()->parts() }}
+        {!! $workOrder->viewer()->parts() !!}
     @else
         <h5>There are currently no parts/supplies attached to this work order.</h5>
     @endif
@@ -25,7 +25,7 @@
 
     @if($items->count() > 0)
 
-        {{
+        {!!
             $items->columns([
                 'id' => 'ID',
                 'name' => 'Name',
@@ -42,7 +42,7 @@
             })
             ->showPages()
             ->render()
-        }}
+        !!}
 
     @else
         <h5>There are no inventory items to display.</h5>

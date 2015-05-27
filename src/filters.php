@@ -40,7 +40,9 @@ Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $rou
      * Make sure the route we're on isn't allowing all users already, and if so we'll check to see
      * if the current user has access to it
      */
-    if (!in_array($route->getName(), config('maintenance::permissions.all_users')) && !$user->hasAccess($route->getName())) {
+    $allUserPermissions = config('maintenance.permissions.all_users');
+
+    if (!in_array($route->getName(), $allUserPermissions) && !$user->hasAccess($route->getName())) {
         $message = 'You do not have access to do perform this function.';
         $messageType = 'danger';
 

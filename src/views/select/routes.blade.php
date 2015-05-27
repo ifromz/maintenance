@@ -1,4 +1,4 @@
-{{
+{!!
     Form::select(
         'routes[]',
         $allRoutes,
@@ -9,4 +9,4 @@
             'multiple'=>true
         )
     )
-}}
+!!}

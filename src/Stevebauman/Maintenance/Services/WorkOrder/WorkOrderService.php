@@ -78,7 +78,6 @@ class WorkOrderService extends BaseModelService
     public function getByPageWithFilter($archived = null)
     {
         return $this
-            ->setPaginatedName('work-order-page')
             ->model
             ->with([
                 'category',

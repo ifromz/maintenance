@@ -1,14 +1,14 @@
 <div class="modal fade" id="search-modal" tabindex="-1 " role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            {{
+            {!!
                 Form::open([
                     'url' => $url,
                     'method' => 'GET',
                     'class' => 'form-horizontal ajax-form-get',
                     'data-refresh-target' => '#resource-paginate'
                 ])
-            }}
+            !!}
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
@@ -21,13 +21,13 @@
                     <label class="col-sm-2 control-label">ID</label>
 
                     <div class="col-md-10">
-                        {{
+                        {!!
                             Form::text(
                                 'id',
                                 (Input::has('id') ? Input::get('id') : null),
                                 ['class'=>'form-control', 'placeholder'=>'Enter Work Order ID']
                             )
-                        }}
+                        !!}
                     </div>
                 </div>
 
@@ -35,13 +35,13 @@
                     <label class="col-sm-2 control-label">Subject</label>
 
                     <div class="col-md-10">
-                        {{
+                        {!!
                             Form::text(
                                 'subject',
                                 (Input::has('subject') ? Input::get('subject') : null),
                                 ['class'=>'form-control', 'placeholder'=>'Enter Subject']
                             )
-                        }}
+                        !!}
                     </div>
                 </div>
 
@@ -49,13 +49,13 @@
                     <label class="col-sm-2 control-label">Description</label>
 
                     <div class="col-md-10">
-                        {{
+                        {!!
                             Form::text(
                                 'description',
                                 (Input::has('description') ? Input::get('description') : null),
                                 ['class'=>'form-control', 'placeholder'=>'Enter Description']
                             )
-                        }}
+                        !!}
                     </div>
                 </div>
 
@@ -108,6 +108,6 @@
             </div>
         </div>
 
-        {{ Form::close() }}
+        {!! Form::close() !!}
     </div>
 </div>

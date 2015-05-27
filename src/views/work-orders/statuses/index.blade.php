@@ -13,7 +13,7 @@
 
     @if($statuses->count() > 0)
 
-        {{
+        {!!
             $statuses->columns([
                 'name' => 'Name',
                 'label' => 'Displayed As',
@@ -27,7 +27,7 @@
             })
             ->hidden(['name', 'created_by', 'created_at'])
             ->render()
-        }}
+        !!}
 
     @else
         <h5>There are no statuses to display.</h5>

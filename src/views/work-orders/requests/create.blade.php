@@ -5,17 +5,17 @@
 @stop
 
 @section('panel.body.content')
-    {{
-        Form::open(array(
-            'url'=>route('maintenance.work-orders.requests.store', array($workRequest->id)),
-            'class'=>'form-horizontal ajax-form-post clear-form',
+    {!!
+        Form::open([
+            'url' => route('maintenance.work-orders.requests.store', [$workRequest->id]),
+            'class' => 'form-horizontal ajax-form-post clear-form',
             'method' => 'PUT'
-        ))
-    }}
+        ])
+    !!}
 
-    @include('maintenance::work-orders.requests.form', array(
+    @include('maintenance::work-orders.requests.form', [
         'workRequest' => $workRequest,
-    ))
+    ])
 
-    {{ Form::close() }}
+    {!! Form::close() !!}
 @stop
