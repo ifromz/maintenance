@@ -25,11 +25,12 @@ it is complete.
 * Robust reporting
 * Customizable user dashboard
 * Implement Print view for QR codes as well as all other data
-* Upgrade to Laravel 5.0
 * Tests
 * Revamp the way uploads are handled
 
 ##Done
+* May 28th 2015 - Upgrade to Laravel 5.0
+* May 22nd 2015 - Revamp the way uploads are handled
 * Feb 26th 2015 - Better breadcrumb management ([Laravel Breadcrumbs](https://github.com/davejamesmiller/laravel-breadcrumbs))
 * Feb 26th 2015 - Restrict multiple submits through ajax requests & more optimizations
 * Feb 24th 2015 - Optimize views
