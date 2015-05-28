@@ -43,7 +43,7 @@ class MaintenanceServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
-            __DIR__.'/../../../public' => public_path('stevebauman/maintenance'),
+            __DIR__.'/../../../public' => public_path('assets/stevebauman/maintenance'),
         ], 'public');
 
         $this->loadViewsFrom(__DIR__.'/../../views', 'maintenance');
@@ -161,6 +161,9 @@ class MaintenanceServiceProvider extends ServiceProvider
         // Authentication
         $this->app->register('Cartalyst\Sentry\SentryServiceProvider');
 
+        // DataGrid
+        $this->app->register('Cartalyst\DataGrid\Laravel\DataGridServiceProvider');
+
         // LDAP Auth
         $this->app->register('Stevebauman\Corp\CorpServiceProvider');
 
@@ -197,6 +200,8 @@ class MaintenanceServiceProvider extends ServiceProvider
 
         // Authentication
         $loader->alias('Sentry', 'Cartalyst\Sentry\Facades\Laravel\Sentry');
+
+        $loader->alias('DataGrid', 'Cartalyst\DataGrid\Laravel\Facades\DataGrid');
 
         $loader->alias('QrCode', 'SimpleSoftwareIO\QrCode\Facades\QrCode');
         $loader->alias('Breadcrumbs', 'DaveJamesMiller\Breadcrumbs\Facade');

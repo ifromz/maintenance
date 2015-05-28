@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {!! HTML::script('stevebauman/maintenance/js/auth/login.js') !!}
+    {!! HTML::script('assets/stevebauman/maintenance/js/auth/login.js') !!}
 
     <div class="login-box">
 

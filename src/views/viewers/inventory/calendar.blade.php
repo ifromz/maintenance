@@ -1,4 +1,4 @@
-{!! HTML::script('stevebauman/maintenance/js/calendar/view.js') !!}
+{!! HTML::script('assets/stevebauman/maintenance/js/calendar/view.js') !!}
 
 <script>
     //Boostrap Tab Fix

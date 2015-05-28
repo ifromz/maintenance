@@ -19,15 +19,15 @@ class ConfigService extends CoreHelperConfigService
         /*
          * Set the site configuration path
          */
-        $siteConfig = 'config/packages/stevebauman/maintenance/site.php';
+        $siteConfig = 'config/maintenance/site.php';
 
         $content = $this->getConfigFile($siteConfig);
 
-        $content = $this->replaceConfigEntry($content, 'main', 'maintenance::site.title.main', $this->getInput('title'));
-        $content = $this->replaceConfigEntry($content, 'admin', 'maintenance::site.title.admin', $this->getInput('admin_title'));
-        $content = $this->replaceConfigEntry($content, 'work-orders', 'maintenance::site.calendars.work-orders', $this->getInput('work_order_calendar'));
-        $content = $this->replaceConfigEntry($content, 'inventories', 'maintenance::site.calendars.inventories', $this->getInput('inventory_calendar'));
-        $content = $this->replaceConfigEntry($content, 'assets', 'maintenance::site.calendars.assets', $this->getInput('asset_calendar'));
+        $content = $this->replaceConfigEntry($content, 'main', 'maintenance.site.title.main', $this->getInput('title'));
+        $content = $this->replaceConfigEntry($content, 'admin', 'maintenance.site.title.admin', $this->getInput('admin_title'));
+        $content = $this->replaceConfigEntry($content, 'work-orders', 'maintenance.site.calendars.work-orders', $this->getInput('work_order_calendar'));
+        $content = $this->replaceConfigEntry($content, 'inventories', 'maintenance.site.calendars.inventories', $this->getInput('inventory_calendar'));
+        $content = $this->replaceConfigEntry($content, 'assets', 'maintenance.site.calendars.assets', $this->getInput('asset_calendar'));
 
         /*
          * Put the updated content back inside
