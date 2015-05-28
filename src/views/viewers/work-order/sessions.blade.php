@@ -2,7 +2,7 @@
 
 @if(isset($sessions) && count($sessions) > 0)
 
-    {{
+    {!!
         $sessions
             ->columns([
                 'user' => 'Worker',
@@ -13,7 +13,7 @@
                 return $session->viewer()->totalHours();
             })
             ->render()
-    }}
+    !!}
 
     <div class="row">
 

@@ -15,14 +15,14 @@
                 <h4 class="modal-title" id="myModalLabel">Put Back Item: {{ $stock->item->name }} Into Inventory?</h4>
             </div>
 
-            {{
+            {!!
                 Form::open([
                     'url'=>route('maintenance.work-orders.parts.stocks.put-back', [$workOrder->id, $stock->item->id, $stock->id]),
                     'class'=>'ajax-form-post',
                     'data-status-target' => sprintf("#put-back-items-modal-status-%s-%s", $stock->item->id, $stock->id),
                     'data-refresh-target'=>'#parts-table'
                 ])
-            }}
+            !!}
 
             <div class="modal-body">
                 <div id="put-back-items-modal-status-{{ $stock->item->id }}-{{ $stock->id }}"></div>
@@ -42,7 +42,7 @@
                 <button type="submit" class="btn btn-primary">Put Back</button>
             </div>
 
-            {{ Form::close() }}
+            {!! Form::close() !!}
 
         </div>
 

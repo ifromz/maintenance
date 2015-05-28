@@ -42,7 +42,7 @@
                 </a>
 
                 <div class="collapse" id="qr-code">
-                    {{ QrCode::size(200)->generate(Request::url()); }}
+                    {!! QrCode::size(200)->generate(Request::url()); !!}
                 </div>
             </td>
         </tr>

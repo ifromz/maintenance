@@ -6,37 +6,37 @@
 
         <div class="login-logo">{{ $title }}</div>
 
-        {{
+        {!!
             Form::open([
-                'url'=>route('maintenance.register'),
+                'url' => route('maintenance.register'),
             ])
-        }}
+        !!}
 
         <div class="login-box-body">
 
             <div class="form-group">
-                {{ Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'First Name']) }}
+                {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'First Name']) !!}
                 <span class="label label-danger">{{ $errors->first('first_name') }}</span>
             </div>
             <div class="form-group">
-                {{ Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Last Name']) }}
+                {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Last Name']) !!}
                 <span class="label label-danger">{{ $errors->first('last_name') }}</span>
             </div>
             <div class="form-group">
-                {{ Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'Email Address']) }}
+                {!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'Email Address']) !!}
                 <span class="label label-danger">{{ $errors->first('email') }}</span>
             </div>
             <div class="form-group">
-                {{ Form::password('password', ['class'=>'form-control', 'placeholder'=>'Password']) }}
+                {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Password']) !!}
                 <span class="label label-danger">{{ $errors->first('password') }}</span>
             </div>
             <div class="form-group">
-                {{ Form::password('password_confirmation', ['class'=>'form-control', 'placeholder'=>'Confirm Password']) }}
+                {!! Form::password('password_confirmation', ['class'=>'form-control', 'placeholder'=>'Confirm Password']) !!}
                 <span class="label label-danger">{{ $errors->first('password_confirmation') }}</span>
             </div>
 
             <div class="form-group">
-                {{ Form::captcha() }}
+                {!! Form::captcha() !!}
                 <span class="label label-danger">{{ $errors->first('g-recaptcha-response') }}</span>
             </div>
 
@@ -52,9 +52,9 @@
             <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
         </div>
 
-        {{ Form::close() }}
+        {!! Form::close() !!}
 
     </div>
 
-    {{ Captcha::script() }}
+    {!! Captcha::script() !!}
 @stop

@@ -13,7 +13,7 @@
 
     @if($metrics->count() > 0)
 
-        {{
+        {!!
             $metrics->columns([
                 'name' => 'Name',
                 'symbol' => 'Symbol',
@@ -33,7 +33,7 @@
                 'created_at',
             ])
             ->render()
-        }}
+        !!}
 
     @else
         <h5>There are no metrics to display.</h5>

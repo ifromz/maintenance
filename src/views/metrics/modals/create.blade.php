@@ -3,13 +3,14 @@
 
         <div class="modal-content">
 
-            {{ Form::open(array(
-                        'url'=>route('maintenance.metrics.store'),
-                        'class'=>'form-horizontal ajax-form-post clear-form',
-                        'data-status-target' => '#metric-status',
-                        'data-refresh-target'=>'#metric-select'
-                    ))
-            }}
+            {!!
+                Form::open([
+                    'url' => route('maintenance.metrics.store'),
+                    'class' => 'form-horizontal ajax-form-post clear-form',
+                    'data-status-target' => '#metric-status',
+                    'data-refresh-target' => '#metric-select'
+                ])
+            !!}
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
@@ -25,7 +26,7 @@
                     <label class="col-sm-2 control-label">Name</label>
 
                     <div class="col-md-4">
-                        {{ Form::text('name', null, array('class'=>'form-control', 'placeholder'=>'Kilometers')) }}
+                        {!! Form::text('name', null, ['class'=>'form-control', 'placeholder'=>'Kilometers']) !!}
                     </div>
                 </div>
 
@@ -33,7 +34,7 @@
                     <label class="col-sm-2 control-label">Symbol</label>
 
                     <div class="col-md-4">
-                        {{ Form::text('symbol', null, array('class'=>'form-control', 'placeholder'=>'Kms')) }}
+                        {!! Form::text('symbol', null, ['class'=>'form-control', 'placeholder'=>'Kms']) !!}
                     </div>
                 </div>
 
@@ -44,7 +45,7 @@
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
 
-            {{ Form::close() }}
+            {!! Form::close() !!}
 
         </div>
 

@@ -23,14 +23,14 @@
 
             </div>
 
-            {{
+            {!!
                 Form::open([
-                    'url'=>route('maintenance.work-orders.parts.stocks.put-back-some', [$workOrder->id, $stock->item->id, $stock->id]),
-                    'class'=>'ajax-form-post',
+                    'url' => route('maintenance.work-orders.parts.stocks.put-back-some', [$workOrder->id, $stock->item->id, $stock->id]),
+                    'class' => 'ajax-form-post',
                     'data-status-target' => sprintf("#put-back-some-items-modal-status-%s-%s", $stock->item->id, $stock->id),
-                    'data-refresh-target'=>'#parts-table'
+                    'data-refresh-target' => '#parts-table'
                 ])
-            }}
+            !!}
 
             <div class="modal-body">
                 <div id="put-back-some-items-modal-status-{{ $stock->item->id }}-{{ $stock->id }}"></div>
@@ -40,7 +40,7 @@
                     <label class="col-sm-2 control-label">Quantity</label>
 
                     <div class="input-group">
-                        {{ Form::text('quantity', null, ['class'=>'form-control', 'placeholder'=>'ex. 45']) }}
+                        {!! Form::text('quantity', null, ['class'=>'form-control', 'placeholder'=>'ex. 45']) !!}
 
                         @if($stock->item->metric)
                             <span class="input-group-addon">{{ $stock->item->metric->symbol }}</span>
@@ -55,7 +55,7 @@
                 <button type="submit" class="btn btn-primary">Put Back</button>
             </div>
 
-            {{ Form::close() }}
+            {!! Form::close() !!}
 
         </div>
 

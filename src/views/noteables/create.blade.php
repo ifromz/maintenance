@@ -7,14 +7,14 @@
 @stop
 
 @section('panel.body.content')
-    {{
-        Form::open(array(
-            'url'=>action(currentControllerAction('store'), array($noteable->id)),
-            'class'=>'form-horizontal ajax-form-post clear-form'
-        ))
-    }}
+    {!!
+        Form::open([
+            'url' => action(currentControllerAction('store'), [$noteable->id]),
+            'class' => 'form-horizontal ajax-form-post clear-form'
+        ])
+    !!}
 
     @include('maintenance::noteables.form')
 
-    {{ Form::close() }}
+    {!! Form::close() !!}
 @stop

@@ -1,6 +1,6 @@
 @if($asset->images->count() > 0)
 
-    {{
+    {!!
         $asset->images
             ->columns([
                 'image' => 'Image',
@@ -15,7 +15,7 @@
                 return $image->viewer()->btnActionsForAssetImage($asset);
             })
             ->render();
-    }}
+    !!}
 
 @else
 

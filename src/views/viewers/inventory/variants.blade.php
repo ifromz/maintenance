@@ -1,6 +1,6 @@
 @if($item->variants->count())
 
-    {{
+    {!!
         $item->variants
             ->columns([
                 'id' => 'ID',
@@ -21,7 +21,7 @@
             })
             ->hidden(['id', 'added_on', 'description'])
             ->render()
-    }}
+    !!}
 
 @else
     <h5>There are no item variants to list.</h5>

@@ -1,12 +1,12 @@
-{{
+{!!
     Form::open([
-       'url'=>route('maintenance.work-orders.assignments.destroy', [$assignment->workOrder->id, $assignment->id]),
-       'method'=>'DELETE',
-       'class'=>'ajax-form-post',
-       'data-refresh-target'=>'#assigned-workers',
+       'url' => route('maintenance.work-orders.assignments.destroy', [$assignment->workOrder->id, $assignment->id]),
+       'method' => 'DELETE',
+       'class' => 'ajax-form-post',
+       'data-refresh-target' => '#assigned-workers',
        'data-status-target' => '#workers-assigned-status'
    ])
-}}
+!!}
 
 <button
     type="submit"
@@ -15,4 +15,4 @@
     ><i class="fa fa-trash-o"></i> Remove
 </button>
 
-{{ Form::close() }}
+{!! Form::close() !!}

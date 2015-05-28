@@ -55,11 +55,11 @@
 
         <tr>
             <th>Started At</th>
-            <td>{{ $workOrder->viewer()->lblStartedAt() }}</td>
+            <td>{!! $workOrder->viewer()->lblStartedAt() !!}</td>
         </tr>
         <tr>
             <th>Completed At</th>
-            <td>{{ $workOrder->viewer()->lblCompletedAt() }}</td>
+            <td>{!! $workOrder->viewer()->lblCompletedAt() !!}</td>
         </tr>
     </tbody>
 </table>

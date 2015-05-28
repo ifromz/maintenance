@@ -20,7 +20,7 @@
     @endif
 
     <dt>All Day:</dt>
-    <dd>{{ $event->viewer()->lblAllDay() }}</dd>
+    <dd>{!! $event->viewer()->lblAllDay() !!}</dd>
 
     <p></p>
 
@@ -35,7 +35,7 @@
     <p></p>
 
     <dt>Recurring:</dt>
-    <dd>{{ $event->viewer()->lblRecurring() }}</dd>
+    <dd>{!! $event->viewer()->lblRecurring() !!}</dd>
 
     <p></p>
 

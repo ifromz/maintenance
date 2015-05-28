@@ -2,7 +2,7 @@
 
     <div id="parts-table">
 
-        {{
+        {!!
             $workOrder->parts->columns([
                 'item_id' => 'Item ID',
                 'item' => 'Item',
@@ -25,7 +25,7 @@
             })
             ->hidden(['item_id', 'taken_from', 'put_back'])
             ->render()
-        }}
+        !!}
 
     </div>
 

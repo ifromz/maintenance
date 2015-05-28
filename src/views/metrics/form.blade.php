@@ -2,7 +2,7 @@
     <label class="col-sm-2 control-label">Name</label>
 
     <div class="col-md-4">
-        {{ Form::text('name', (isset($metric) ? $metric->name : null), array('class'=>'form-control', 'placeholder'=>'ex. Kilometers')) }}
+        {!! Form::text('name', (isset($metric) ? $metric->name : null), ['class'=>'form-control', 'placeholder'=>'ex. Kilometers']) !!}
     </div>
 </div>
 
@@ -10,12 +10,12 @@
     <label class="col-sm-2 control-label">Symbol</label>
 
     <div class="col-md-4">
-        {{ Form::text('symbol', (isset($metric) ? $metric->symbol : null), array('class'=>'form-control', 'placeholder'=>'Kms')) }}
+        {!! Form::text('symbol', (isset($metric) ? $metric->symbol : null), ['class'=>'form-control', 'placeholder'=>'Kms']) !!}
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-        {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+        {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
     </div>
 </div>

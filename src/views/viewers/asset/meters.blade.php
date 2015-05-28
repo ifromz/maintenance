@@ -1,6 +1,6 @@
 <div id="asset-meters-table">
     @if($asset->meters->count() > 0)
-        {{
+        {!!
             $asset->meters->columns([
                 'name' => 'Name',
                 'last_reading' => 'Last Reading',
@@ -14,7 +14,7 @@
                 return $meter->viewer()->btnActionsForAsset($asset);
             })
             ->render()
-        }}
+        !!}
     @else
         <h5>There are no meters to display for this asset.</h5>
     @endif

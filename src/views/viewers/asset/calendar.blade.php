@@ -1,4 +1,4 @@
-{{ HTML::script('packages/stevebauman/maintenance/js/calendar/view.js') }}
+{!! HTML::script('packages/stevebauman/maintenance/js/calendar/view.js') !!}
 
 <script>
     //Boostrap Tab Fix
@@ -9,4 +9,4 @@
     });
 </script>
 
-<div id="calendar" data-event-url="{{ route('maintenance.api.v1.assets.events.show', array($asset->id)) }}"></div>
+<div id="calendar" data-event-url="{{ route('maintenance.api.v1.assets.events.show', [$asset->id]) }}"></div>

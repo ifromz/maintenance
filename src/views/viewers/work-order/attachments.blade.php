@@ -1,6 +1,6 @@
 @if($workOrder->attachments->count() > 0)
 
-    {{
+    {!!
        $workOrder->attachments
            ->columns([
                'created_at' => 'Added',
@@ -11,7 +11,7 @@
                return $attachment->viewer()->btnActionsForWorkOrderAttachment($workOrder);
            })
            ->render()
-   }}
+   !!}
 
 @else
 

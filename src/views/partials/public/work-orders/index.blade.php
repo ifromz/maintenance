@@ -27,9 +27,9 @@
 
         <div id="resource-paginate" class="panel-body">
             @if($workOrders->count() > 0)
-                @include('maintenance::public.work-orders.table', array(
-                    'workOrders'=>$workOrders
-                ))
+                @include('maintenance::public.work-orders.table', [
+                    'workOrders' => $workOrders
+                ])
             @else
                 <h5>You have no submitted work requests to display.</h5>
             @endif

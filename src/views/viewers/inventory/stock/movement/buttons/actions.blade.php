@@ -4,11 +4,11 @@
     <li>
         <a href="
         {{
-            route('maintenance.inventory.stocks.movements.show', array(
+            route('maintenance.inventory.stocks.movements.show', [
                 $item->id,
                 $stock->id,
                 $movement->id
-            ))
+            ])
         }}
         ">
             <i class="fa fa-search"></i> View Movement
@@ -18,11 +18,11 @@
         <a
                 href="
                 {{
-                    route('maintenance.inventory.stocks.movements.rollback', array(
+                    route('maintenance.inventory.stocks.movements.rollback', [
                         $item->id,
                         $stock->id,
                         $movement->id
-                    ))
+                    ])
                 }}
                 "
                 data-method="post"

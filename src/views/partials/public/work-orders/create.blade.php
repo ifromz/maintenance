@@ -25,17 +25,18 @@
             </div>
             <div class="panel-body">
 
-                {{ Form::open(array(
-                            'url'=>route('maintenance.work-requests.store'),
-                            'class'=>'form-horizontal ajax-form-post clear-form'
-                        ))
-                }}
+                {!!
+                    Form::open([
+                        'url'=>route('maintenance.work-requests.store'),
+                        'class'=>'form-horizontal ajax-form-post clear-form'
+                    ])
+                !!}
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Subject</label>
 
                     <div class="col-md-4">
-                        {{ Form::text('subject', null, array('class'=>'form-control', 'placeholder'=>'Enter Subject')) }}
+                        {!! Form::text('subject', null, ['class'=>'form-control', 'placeholder'=>'Enter Subject']) !!}
                     </div>
                 </div>
 
@@ -43,17 +44,17 @@
                     <label class="col-sm-2 control-label">Description / Details</label>
 
                     <div class="col-md-4">
-                        {{ Form::textarea('description', null, array('class'=>'form-control', 'style'=>'min-width:100%', 'placeholder'=>'ex. Added components')) }}
+                        {!! Form::textarea('description', null, ['class'=>'form-control', 'style'=>'min-width:100%', 'placeholder'=>'ex. Added components']) !!}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+                        {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
                     </div>
                 </div>
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
 
             </div>
 

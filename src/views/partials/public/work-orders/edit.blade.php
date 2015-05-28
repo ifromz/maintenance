@@ -12,7 +12,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('maintenance.work-requests.show', array($workOrder->id)) }}">
+        <a href="{{ route('maintenance.work-requests.show', [$workOrder->id]) }}">
             {{ $workOrder->subject }}
         </a>
     </li>
@@ -30,18 +30,19 @@
             </div>
             <div class="panel-body">
 
-                {{ Form::open(array(
-                            'url'=>route('maintenance.work-requests.update', array($workOrder->id)),
-                            'method'=>'PATCH',
-                            'class'=>'form-horizontal ajax-form-post'
-                        ))
-                }}
+                {!!
+                    Form::open([
+                        'url' => route('maintenance.work-requests.update', [$workOrder->id]),
+                        'method' => 'PATCH',
+                        'class' => 'form-horizontal ajax-form-post'
+                    ])
+                !!}
 
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Subject</label>
 
                     <div class="col-md-4">
-                        {{ Form::text('subject', $workOrder->subject, array('class'=>'form-control', 'placeholder'=>'Enter Subject')) }}
+                        {!! Form::text('subject', $workOrder->subject, ['class'=>'form-control', 'placeholder'=>'Enter Subject']) !!}
                     </div>
                 </div>
 
@@ -49,17 +50,17 @@
                     <label class="col-sm-2 control-label">Description / Details</label>
 
                     <div class="col-md-4">
-                        {{ Form::textarea('description', htmlspecialchars($workOrder->description), array('class'=>'form-control', 'style'=>'min-width:100%')) }}
+                        {!! Form::textarea('description', htmlspecialchars($workOrder->description), ['class'=>'form-control', 'style'=>'min-width:100%']) !!}
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+                        {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
                     </div>
                 </div>
 
-                {{ Form::close() }}
+                {!! Form::close() !!}
 
             </div>
 

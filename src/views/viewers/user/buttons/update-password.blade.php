@@ -15,14 +15,14 @@
                 <h4 class="modal-title">Update Password</h4>
             </div>
 
-            {{
-                Form::open(array(
-                    'url'=>route('maintenance.admin.users.password.update', array($user->id)),
+            {!!
+                Form::open([
+                    'url' => route('maintenance.admin.users.password.update', [$user->id]),
                     'method' => 'PATCH',
-                    'class'=>'form-horizontal ajax-form-post clear-form',
+                    'class' => 'form-horizontal ajax-form-post clear-form',
                     'data-status-target' => '#reset-password-status'
-                ))
-            }}
+                ])
+            !!}
 
             <div class="modal-body">
 
@@ -32,7 +32,7 @@
                     <label class="col-sm-2 control-label">Password:</label>
 
                     <div class="col-md-10">
-                        {{ Form::password('password', array('class'=>'form-control', 'placeholder' => 'Enter Password')) }}
+                        {!! Form::password('password', ['class'=>'form-control', 'placeholder' => 'Enter Password']) !!}
                     </div>
                 </div>
 
@@ -40,7 +40,7 @@
                     <label class="col-sm-2 control-label">Confirm Password:</label>
 
                     <div class="col-md-10">
-                        {{ Form::password('password_confirmation', array('class'=>'form-control', 'placeholder' => 'Confirm Above Password')) }}
+                        {!! Form::password('password_confirmation', ['class'=>'form-control', 'placeholder' => 'Confirm Above Password']) !!}
                     </div>
                 </div>
 
@@ -53,7 +53,7 @@
 
             </div>
 
-            {{ Form::close() }}
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

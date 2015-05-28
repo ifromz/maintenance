@@ -36,12 +36,12 @@
                 Notifications
             </a>
 
-            <a href="{{ route('maintenance.work-requests.edit', array($workOrder->id)) }}" class="btn btn-app">
+            <a href="{{ route('maintenance.work-requests.edit', [$workOrder->id]) }}" class="btn btn-app">
                 <i class="fa fa-edit"></i>
                 Edit
             </a>
 
-            <a href="{{ route('maintenance.work-requests.destroy', array($workOrder->id)) }}"
+            <a href="{{ route('maintenance.work-requests.destroy', [$workOrder->id]) }}"
                data-method="delete"
                data-token="{{ csrf_token() }}"
                data-title="Delete your work request?"
@@ -74,6 +74,6 @@
 
     </div>
 
-    @include('maintenance::work-orders.partials.update-box', array('workOrder'=>$workOrder))
+    @include('maintenance::work-orders.partials.update-box', ['workOrder'=>$workOrder])
 
 @stop
