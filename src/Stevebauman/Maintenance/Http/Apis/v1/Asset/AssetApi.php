@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Apis\v1\Asset;
 
 use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Apis\v1\BaseApi;
+use Stevebauman\Maintenance\Http\Apis\v1\BaseApi;
 
 class AssetApi extends BaseApi
 {

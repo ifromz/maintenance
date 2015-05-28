@@ -1,8 +1,8 @@
 <?php
 
-namespace Stevebauman\Maintenance\Apis\v1;
+namespace Stevebauman\Maintenance\Http\Apis\v1;
 
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class BaseApi extends BaseController
 {

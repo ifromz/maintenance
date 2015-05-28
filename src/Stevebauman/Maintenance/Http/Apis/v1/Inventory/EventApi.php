@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Apis\v1\Inventory;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\Event\EventService;
-use Stevebauman\Maintenance\Apis\v1\AbstractEventableApi;
+use Stevebauman\Maintenance\Http\Apis\v1\AbstractEventableApi;
 
 /**
  * Class EventApi.

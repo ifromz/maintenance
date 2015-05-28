@@ -3,20 +3,20 @@
 namespace Stevebauman\Maintenance\Http\Controllers\WorkRequest;
 
 use Stevebauman\Maintenance\Http\Requests\WorkRequest\Request;
-use Stevebauman\Maintenance\Repositories\WorkRequestRepository;
+use Stevebauman\Maintenance\Repositories\WorkRequest\Repository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
     /**
-     * @var WorkRequestRepository
+     * @var Repository
      */
     protected $workRequest;
 
     /**
-     * @param WorkRequestRepository $workRequest
+     * @param Repository $workRequest
      */
-    public function __construct(WorkRequestRepository $workRequest)
+    public function __construct(Repository $workRequest)
     {
         $this->workRequest = $workRequest;
     }

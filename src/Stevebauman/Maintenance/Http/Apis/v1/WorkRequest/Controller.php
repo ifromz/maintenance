@@ -1,22 +1,23 @@
 <?php
 
-use Stevebauman\Maintenance\Apis\v1\Controller as BaseController;
+namespace Stevebauman\Maintenance\Http\Apis\v1\WorkRequest;
 
-use Stevebauman\Maintenance\Repositories\WorkRequestRepository;
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
+use Stevebauman\Maintenance\Repositories\WorkRequest\Repository;
 
 class Controller extends BaseController
 {
     /**
-     * @var WorkRequestRepository
+     * @var Repository
      */
     protected $workRequest;
 
     /**
      * Constructor.
      *
-     * @param WorkRequestRepository $workRequest
+     * @param Repository $workRequest
      */
-    public function __construct(WorkRequestRepository $workRequest)
+    public function __construct(Repository $workRequest)
     {
         $this->workRequest = $workRequest;
     }
@@ -42,7 +43,9 @@ class Controller extends BaseController
 
         $transformer = function($element)
         {
+            $element->view_url = route('maintenance.work-requests.show', [$element->id]);
 
+            return $element;
         };
 
         return $this->workRequest->grid($columns, $settings, $transformer);

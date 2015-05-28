@@ -2,35 +2,25 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Validators\WorkOrderValidator;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\Request;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-/**
- * Class WorkOrderController.
- */
-class WorkOrderController extends Controller
+class Controller extends BaseController
 {
     /**
-     * @var WorkOrderService
+     * @var Repository
      */
     protected $workOrder;
 
     /**
-     * @var WorkOrderValidator
-     */
-    protected $workOrderValidator;
-
-    /**
      * Constructor.
      *
-     * @param WorkOrderService   $workOrder
-     * @param WorkOrderValidator $workOrderValidator
+     * @param Repository $workOrder
      */
-    public function __construct(WorkOrderService $workOrder, WorkOrderValidator $workOrderValidator)
+    public function __construct(Repository $workOrder)
     {
         $this->workOrder = $workOrder;
-        $this->workOrderValidator = $workOrderValidator;
     }
 
     /**
@@ -40,12 +30,7 @@ class WorkOrderController extends Controller
      */
     public function index()
     {
-        $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter();
-
-        return view('maintenance::work-orders.index', [
-            'title' => 'Work Orders',
-            'workOrders' => $workOrders,
-        ]);
+        return view('maintenance::work-orders.index');
     }
 
     /**
@@ -55,9 +40,7 @@ class WorkOrderController extends Controller
      */
     public function create()
     {
-        return view('maintenance::work-orders.create', [
-            'title' => 'Create a Work Order',
-        ]);
+        return view('maintenance::work-orders.create');
     }
 
     /**

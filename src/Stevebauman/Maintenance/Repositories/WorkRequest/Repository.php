@@ -1,14 +1,21 @@
 <?php
 
-namespace Stevebauman\Maintenance\Repositories;
+namespace Stevebauman\Maintenance\Repositories\WorkRequest;
 
 use Stevebauman\Maintenance\Http\Requests\WorkRequest\Request;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Models\WorkRequest;
+use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
 
-class WorkRequestRepository extends Repository
+class Repository extends BaseRepository
 {
+    /**
+     * @var WorkOrderRepository
+     */
+    protected $workOrder;
+
     /**
      * @var SentryService
      */
@@ -22,11 +29,13 @@ class WorkRequestRepository extends Repository
     /**
      * Constructor.
      *
-     * @param SentryService $sentry
-     * @param ConfigService $config
+     * @param WorkOrderRepository $workOrder
+     * @param SentryService       $sentry
+     * @param ConfigService       $config
      */
-    public function __construct(SentryService $sentry, ConfigService $config)
+    public function __construct(WorkOrderRepository $workOrder, SentryService $sentry, ConfigService $config)
     {
+        $this->workOrder = $workOrder;
         $this->sentry = $sentry;
         $this->config = $config;
     }
@@ -59,7 +68,7 @@ class WorkRequestRepository extends Repository
             $autoGenerate = $this->config->setPrefix('maintenance')->get('rules.work-orders.auto_generate_from_request', true);
 
             if($autoGenerate) {
-
+                $this->workOrder->createFromWorkRequest($workRequest);
             }
 
             return $workRequest;

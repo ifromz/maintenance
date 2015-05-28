@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Apis\v1\Inventory;
 
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Apis\v1\BaseApi;
+use Stevebauman\Maintenance\Http\Apis\v1\BaseApi;
 
 class StockApi extends BaseApi
 {

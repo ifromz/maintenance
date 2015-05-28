@@ -14,7 +14,7 @@
         </tr>
         <tr>
             <th>Description</th>
-            <td>{{ $workRequest->description }}</td>
+            <td>{!! $workRequest->description !!}</td>
         </tr>
     </tbody>
 </table>

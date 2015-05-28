@@ -6,8 +6,6 @@
 
 @section('content')
 
-    <h2>@yield('grid.title')</h2>
-
     {{-- Grid --}}
     <section class="panel panel-default panel-grid">
 
@@ -37,7 +35,7 @@
                                     </a>
                                 </li>
 
-                                <li class="dropdown disabled">
+                                <li class="dropdown">
                                     <a href="#" data-grid-exporter class="dropdown-toggle tip" data-toggle="dropdown" role="button" aria-expanded="false" data-original-title="{{{ trans('action.export') }}}">
                                         <i class="fa fa-download"></i> <span class="visible-xs-inline">{{{ trans('action.export') }}}</span>
                                     </a>

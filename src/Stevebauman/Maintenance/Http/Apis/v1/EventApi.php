@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Apis\v1;
+namespace Stevebauman\Maintenance\Http\Apis\v1;
 
 use Stevebauman\Maintenance\Services\Event\EventService;
 
