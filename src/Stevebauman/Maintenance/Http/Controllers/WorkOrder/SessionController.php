@@ -5,12 +5,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 use Stevebauman\Maintenance\Validators\WorkOrder\SessionValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\SessionService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class SessionController.
  */
-class SessionController extends BaseController
+class SessionController extends Controller
 {
     /**
      * @var WorkOrderService

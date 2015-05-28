@@ -6,12 +6,12 @@ use Stevebauman\Maintenance\Validators\MeterValidator;
 use Stevebauman\Maintenance\Services\Meter\ReadingService;
 use Stevebauman\Maintenance\Services\Meter\MeterService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /*
  * Handles asset meter creation and updating
  */
-class MeterController extends BaseController
+class MeterController extends Controller
 {
     /**
      * @var AssetService

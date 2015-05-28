@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Admin\Setting;
 
 use Stevebauman\Maintenance\Validators\Config\MailValidator;
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class MailController.
  */
-class MailController extends BaseController
+class MailController extends Controller
 {
     /**
      * @var ConfigService

@@ -3,12 +3,12 @@
 namespace Stevebauman\Maintenance\Http\Controllers\Client;
 
 use Stevebauman\Maintenance\Services\WorkRequestService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class WorkRequestController.
  */
-class WorkRequestController extends BaseController
+class WorkRequestController extends Controller
 {
     /**
      * @var WorkRequestService

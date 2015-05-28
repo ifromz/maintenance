@@ -3,12 +3,12 @@
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class SkuController.
  */
-class SkuController extends BaseController
+class SkuController extends Controller
 {
     /**
      * @var InventoryService

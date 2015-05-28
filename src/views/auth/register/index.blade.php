@@ -1,10 +1,12 @@
 @extends('maintenance::layouts.public')
 
+@section('title', 'Register')
+
 @section('content')
 
     <div class="login-box">
 
-        <div class="login-logo">{{ $title }}</div>
+        <div class="login-logo">Register</div>
 
         {!!
             Form::open([

@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\Archive;
 
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class InventoryController extends BaseController
+class InventoryController extends Controller
 {
     /**
      * Constructor.

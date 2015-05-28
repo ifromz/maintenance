@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\Event;
 use Stevebauman\Maintenance\Validators\Event\ReportValidator;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\Event\ReportService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class ReportController extends BaseController
+class ReportController extends Controller
 {
     /**
      * @var EventService

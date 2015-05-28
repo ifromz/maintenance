@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Admin\User;
 
 use Stevebauman\Maintenance\Validators\AccessCheckValidator;
 use Stevebauman\Maintenance\Services\UserService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class AccessController.
  */
-class AccessController extends BaseController
+class AccessController extends Controller
 {
     /**
      * @var UserService

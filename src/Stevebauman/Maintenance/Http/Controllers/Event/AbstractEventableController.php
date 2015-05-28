@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
 use Stevebauman\Maintenance\Validators\Event\EventValidator;
 use Stevebauman\Maintenance\Services\Event\EventService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-abstract class AbstractEventableController extends BaseController
+abstract class AbstractEventableController extends Controller
 {
     /*
      * Holds the eventable resource

@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 
-class PermissionDeniedController extends BaseController
+class PermissionDeniedController extends Controller
 {
     public function getIndex()
     {

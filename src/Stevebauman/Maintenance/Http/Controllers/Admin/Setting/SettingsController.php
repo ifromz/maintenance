@@ -2,12 +2,12 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\Setting;
 
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class SettingsController.
  */
-class SettingsController extends BaseController
+class SettingsController extends Controller
 {
     /**
      * Displays all of the available setting groups.

@@ -1,5 +1,6 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Create a Work Request')
 
 @section('panel.head.content')
     Create a new Work Request
@@ -7,10 +8,10 @@
 
 @section('panel.body.content')
     {!!
-        Form::open(array(
-            'url'=>route('maintenance.work-requests.store'),
-            'class'=>'form-horizontal ajax-form-post clear-form'
-        ))
+        Form::open([
+            'url' => route('maintenance.work-requests.store'),
+            'class'=>'form-horizontal'
+        ])
     !!}
 
     @include('maintenance::work-requests.form')

@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Services\WorkRequestService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class RequestController.
  */
-class RequestController extends BaseController
+class RequestController extends Controller
 {
     /**
      * @var WorkOrderService

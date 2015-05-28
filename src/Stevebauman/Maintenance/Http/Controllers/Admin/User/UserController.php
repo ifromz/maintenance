@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Admin\User;
 
 use Stevebauman\Maintenance\Validators\UserValidator;
 use Stevebauman\Maintenance\Services\UserService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class UserController.
  */
-class UserController extends BaseController
+class UserController extends Controller
 {
     /**
      * @var UserService

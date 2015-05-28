@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin;
 
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class DashboardController extends BaseController
+class DashboardController extends Controller
 {
     /**
      * Dispalys the Administrator index.

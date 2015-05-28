@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder\WorkOrderAssignmentNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Models\WorkOrderAssignment;
@@ -27,13 +26,11 @@ class AssignmentService extends BaseModelService
      *
      * @param WorkOrderAssignment                  $assignment
      * @param SentryService                        $sentry
-     * @param WorkOrderAssignmentNotFoundException $notFoundException
      */
-    public function __construct(WorkOrderAssignment $assignment, SentryService $sentry, WorkOrderAssignmentNotFoundException $notFoundException)
+    public function __construct(WorkOrderAssignment $assignment, SentryService $sentry)
     {
         $this->model = $assignment;
         $this->sentry = $sentry;
-        $this->notFoundException = $notFoundException;
     }
 
     /**

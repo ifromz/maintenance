@@ -5,12 +5,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class StockMovementController.
  */
-class StockMovementController extends BaseController
+class StockMovementController extends Controller
 {
     /**
      * @var InventoryService

@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
-class PrintQrController extends BaseController
+class PrintQrController extends Controller
 {
     public function generate()
     {

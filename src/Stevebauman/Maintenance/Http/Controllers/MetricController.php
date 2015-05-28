@@ -8,7 +8,7 @@ use Stevebauman\Maintenance\Services\MetricService;
 /**
  * Class MetricController
  */
-class MetricController extends BaseController
+class MetricController extends Controller
 {
     /**
      * Constructor.

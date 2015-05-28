@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\App;
 /**
  * Class AbstractNestedSetController.
  */
-abstract class AbstractNestedSetController extends BaseController
+abstract class AbstractNestedSetController extends Controller
 {
     /*
      * Holds the service for querying the specific nested set

@@ -7,12 +7,12 @@ use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\Meter\ReadingService;
 use Stevebauman\Maintenance\Services\Meter\MeterService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class ReadingController.
  */
-class ReadingController extends BaseController
+class ReadingController extends Controller
 {
     /**
      * @var AssetService

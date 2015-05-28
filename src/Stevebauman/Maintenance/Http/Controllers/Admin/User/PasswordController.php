@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Admin\User;
 
 use Stevebauman\Maintenance\Validators\PasswordValidator;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class PasswordController.
  */
-class PasswordController extends BaseController
+class PasswordController extends Controller
 {
     /**
      * @var SentryService

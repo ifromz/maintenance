@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<title>{{ strip_tags($siteTitle) }} | {{ $title }}</title>
+<title>@yield('title') | {{ strip_tags($siteTitle) }}</title>
 <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
 <!-- Shortcut Icon -->

@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Admin;
 
 use Stevebauman\Maintenance\Validators\GroupValidator;
 use Stevebauman\Maintenance\Services\GroupService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class GroupController.
  */
-class GroupController extends BaseController
+class GroupController extends Controller
 {
     /**
      * @var GroupService

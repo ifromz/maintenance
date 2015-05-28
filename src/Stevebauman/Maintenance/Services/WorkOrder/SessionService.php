@@ -3,7 +3,6 @@
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Carbon\Carbon;
-use Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder\WorkOrderSessionNotFoundException;
 use Stevebauman\Maintenance\Models\WorkOrderSession;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
@@ -29,28 +28,20 @@ class SessionService extends BaseModelService
     protected $sentry;
 
     /**
-     * @var WorkOrderSessionNotFoundException
-     */
-    protected $notFoundException;
-
-    /**
      * Constructor.
      *
      * @param WorkOrderSession                  $session
      * @param WorkOrderService                  $workOrder
      * @param SentryService                     $sentry
-     * @param WorkOrderSessionNotFoundException $notFoundException
      */
     public function __construct(
         WorkOrderSession $session,
         WorkOrderService $workOrder,
-        SentryService $sentry,
-        WorkOrderSessionNotFoundException $notFoundException
+        SentryService $sentry
     ) {
         $this->model = $session;
         $this->workOrder = $workOrder;
         $this->sentry = $sentry;
-        $this->notFoundException = $notFoundException;
     }
 
 

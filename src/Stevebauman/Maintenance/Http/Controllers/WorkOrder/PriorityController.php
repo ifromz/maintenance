@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\PriorityValidator;
 use Stevebauman\Maintenance\Services\PriorityService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class PriorityController extends BaseController
+class PriorityController extends Controller
 {
     /**
      * @var PriorityService

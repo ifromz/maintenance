@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Http\Controllers;
 /**
  * Class MaintenanceController.
  */
-class MaintenanceController extends BaseController
+class MaintenanceController extends Controller
 {
     /**
      * Displays the maintenance management dashboard.

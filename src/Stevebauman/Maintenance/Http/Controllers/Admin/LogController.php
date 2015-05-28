@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\App;
 use Stevebauman\LogReader\LogReader;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class LogController.
  */
-class LogController extends BaseController
+class LogController extends Controller
 {
     /**
      * Holds the current log instance.

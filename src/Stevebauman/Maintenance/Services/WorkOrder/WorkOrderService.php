@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder\WorkOrderNotFoundException;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\PriorityService;
 use Stevebauman\Maintenance\Services\StatusService;
@@ -49,22 +48,19 @@ class WorkOrderService extends BaseModelService
      * @param PriorityService            $priority
      * @param StatusService              $status
      * @param ConfigService              $config
-     * @param WorkOrderNotFoundException $notFoundException
      */
     public function __construct(
         WorkOrder $workOrder,
         SentryService $sentry,
         PriorityService $priority,
         StatusService $status,
-        ConfigService $config,
-        WorkOrderNotFoundException $notFoundException
+        ConfigService $config
     ) {
         $this->model = $workOrder;
         $this->sentry = $sentry;
         $this->priority = $priority;
         $this->status = $status;
         $this->config = $config->setPrefix('maintenance');
-        $this->notFoundException = $notFoundException;
     }
 
     /**

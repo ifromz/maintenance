@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class AssignedController extends BaseController
+class AssignedController extends Controller
 {
     /**
      * Constructor.

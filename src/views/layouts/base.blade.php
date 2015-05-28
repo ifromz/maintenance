@@ -6,6 +6,8 @@
 
     @include('maintenance::layouts.partials.head')
 
+    @yield('styles')
+
     @yield('head')
 
     </head>
@@ -64,7 +66,7 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     @section('header')
-                        <h1>{{ $title }}</h1>
+                        <h1>@yield('title')</h1>
                     @show
 
                     @section('breadcrumb')
@@ -90,6 +92,8 @@
         @include('maintenance::layouts.partials.foot')
 
         @yield('foot')
+
+        @yield('scripts')
 
     </body>
 

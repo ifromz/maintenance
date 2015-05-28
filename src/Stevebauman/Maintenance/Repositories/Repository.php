@@ -49,6 +49,22 @@ abstract class Repository
     }
 
     /**
+     * Retrieves all of the current users inventory items.
+     *
+     * @param array    $columns
+     * @param array    $settings
+     * @param \Closure $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function grid(array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->model();
+
+        return $this->newGrid($model, $columns, $settings, $transformer);
+    }
+
+    /**
      * Constructs a new data grid instance with the
      * specified resource, columns and settings.
      *
@@ -59,7 +75,7 @@ abstract class Repository
      *
      * @return \Cartalyst\DataGrid\DataGrid
      */
-    public function grid($data, array $columns = [], array $settings = [], $transformer = null)
+    public function newGrid($data, array $columns = [], array $settings = [], $transformer = null)
     {
         return DataGrid::make($data, $columns, $settings, $transformer);
     }

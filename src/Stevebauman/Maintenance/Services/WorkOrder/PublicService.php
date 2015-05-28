@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Stevebauman\Maintenance\Exceptions\NotFound\WorkOrder\WorkRequestNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\PriorityService;
 use Stevebauman\Maintenance\Services\StatusService;
@@ -41,20 +40,17 @@ class PublicService extends BaseModelService
      * @param StatusService                $status
      * @param PriorityService              $priority
      * @param SentryService                $sentry
-     * @param WorkRequestNotFoundException $notFoundException
      */
     public function __construct(
         WorkOrder $workOrder,
         StatusService $status,
         PriorityService $priority,
-        SentryService $sentry,
-        WorkRequestNotFoundException $notFoundException
+        SentryService $sentry
     ) {
         $this->model = $workOrder;
         $this->status = $status;
         $this->priority = $priority;
         $this->sentry = $sentry;
-        $this->notFoundException = $notFoundException;
     }
 
     /**

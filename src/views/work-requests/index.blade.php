@@ -1,45 +1,38 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.pages.main.grid')
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a href="{{ route('maintenance.work-requests.create') }}" class="btn btn-primary">
-            <i class="fa fa-plus"></i>
-            New Work Request
+@section('title', 'Work Requests')
+
+@section('grid.title', 'Work Requests')
+
+@section('grid.actions.create')
+    <li class="primary">
+        <a href="{{ route('maintenance.work-requests.create') }}" data-toggle="tooltip" data-original-title="Create">
+            <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
         </a>
-        <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
-            <i class="fa fa-search"></i>
-            Search
-        </a>
-    </div>
+    </li>
 @stop
 
-@section('panel.body.content')
+@section('grid.table')
 
-    @if($workRequests->count() > 0)
+    <table id="data-grid" class="results table table-hover" data-source="{{ route('management.metrics.grid') }}" data-grid="main">
 
-        {!!
-            $workRequests
-                ->columns([
-                    'id' => 'ID',
-                    'created_at' => 'Created At',
-                    'user' => 'Created By',
-                    'subject' => 'Subject',
-                    'description' => 'Description',
-                    'action' => 'Action',
-                ])
-                ->means('user', 'user.full_name')
-                ->modify('action', function($workRequest){
-                    return $workRequest->viewer()->btnActions();
-                })
-                ->showPages()
-                ->sortable(['id', 'created_at'])
-                ->render()
-        !!}
+        <thead>
+            <tr>
+                <th><input data-grid-checkbox="all" type="checkbox"></th>
+                <th class="sortable" data-sort="name">Name</th>
+                <th class="sortable" data-sort="symbol">Symbol</th>
+                <th class="sortable" data-sort="created_at">Created</th>
+            </tr>
+        </thead>
 
-    @else
+        <tbody></tbody>
 
-        <h5>There are no work requests to display.</h5>
+    </table>
+@stop
 
-    @endif
-
+@section('grid.results')
+    @include('pages.management.metrics.grid.no-results')
+    @include('pages.management.metrics.grid.results')
+    @include('pages.management.metrics.grid.pagination')
+    @include('pages.management.metrics.grid.filters')
 @stop

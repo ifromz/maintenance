@@ -11,7 +11,7 @@ use Stevebauman\Maintenance\Services\SentryService;
 /**
  * Class ResetPasswordController.
  */
-class PasswordController extends BaseController
+class PasswordController extends Controller
 {
     /**
      * @var SentryService

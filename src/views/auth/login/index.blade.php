@@ -1,12 +1,12 @@
 @extends('maintenance::layouts.public')
 
-@section('content')
+@section('title', 'Login')
 
-    {!! HTML::script('assets/stevebauman/maintenance/js/auth/login.js') !!}
+@section('content')
 
     <div class="login-box">
 
-        <div class="login-logo">{{ $title }}</div>
+        <div class="login-logo">Login</div>
 
         {!!
             Form::open([
@@ -16,22 +16,19 @@
         !!}
 
         <div class="login-box-body">
-            @if (Session::has('message'))
-                <div class="status-message alert alert-{!! Session::get('messageType') !!}">
-                    {!! Session::get('message') !!}
-                </div>
-            @endif
 
             <div id="maintenance-login-status"></div>
 
-            <div class="form-group has-feedback">
+            <div class="form-group{{ $errors->first('email', ' has-error') }}">
                 {!! Form::text('email', null, array('class' => 'form-control', 'placeholder' => 'Email / Username')) !!}
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+
+                <span class="label label-danger">{{ $errors->first('email', ':message') }}</span>
             </div>
 
-            <div class="form-group has-feedback">
+            <div class="form-group{{ $errors->first('password', ' has-error') }}">
                 {!! Form::password('password', array('class' => 'form-control', 'placeholder' => 'Password')) !!}
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+
+                <span class="label label-danger">{{ $errors->first('password', ':message') }}</span>
             </div>
 
             <div class="form-group">

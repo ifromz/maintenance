@@ -8,9 +8,9 @@ use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class StockController extends BaseController
+class StockController extends Controller
 {
     /**
      * @var WorkOrderService

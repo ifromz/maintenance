@@ -8,7 +8,7 @@ use Stevebauman\Maintenance\Services\NoteService;
 /**
  * Class AbstractNoteableController.
  */
-class AbstractNoteableController extends BaseController
+class AbstractNoteableController extends Controller
 {
     /**
      * Holds the note service.

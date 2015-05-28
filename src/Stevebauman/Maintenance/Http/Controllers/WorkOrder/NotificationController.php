@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 use Stevebauman\Maintenance\Validators\WorkOrder\NotificationValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrder\NotificationService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class NotificationController extends BaseController
+class NotificationController extends Controller
 {
     /**
      * @var NotificationService

@@ -48,63 +48,7 @@ class MaintenanceServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../../views', 'maintenance');
 
-        $this->bootCommands();
-
         $this->bootRequiredFiles();
-    }
-
-    /**
-     * Registers all the maintenance commands.
-     */
-    private function bootCommands()
-    {
-        $this->app->bind('maintenance:install', function () {
-            return new Commands\InstallCommand();
-        });
-
-        $this->app->bind('maintenance:publish', function () {
-            return new Commands\PublishAssetsCommand();
-        });
-
-        $this->app->bind('maintenance:run-migrations', function () {
-            return new Commands\RunMigrationsCommand();
-        });
-
-        $this->app->bind('maintenance:run-seeds', function () {
-            return new Commands\RunSeedsCommand();
-        });
-
-        $this->app->bind('maintenance:check-depends', function () {
-            return new Commands\DependencyCheckCommand();
-        });
-
-        $this->app->bind('maintenance:check-schema', function () {
-            return new Commands\SchemaCheckCommand();
-        });
-
-        $this->app->bind('maintenance:create-admin', function () {
-            return new Commands\CreateAdminCommand(new SentryService());
-        });
-
-        $this->app->bind('maintenance:import', function () {
-            return new Commands\ImportCommand();
-        });
-
-        $this->app->bind('maintenance:import-dynamics', function () {
-            return new Commands\Import\DynamicsCommand();
-        });
-
-        $this->commands([
-            'maintenance:install',
-            'maintenance:publish',
-            'maintenance:run-migrations',
-            'maintenance:run-seeds',
-            'maintenance:check-depends',
-            'maintenance:check-schema',
-            'maintenance:create-admin',
-            'maintenance:import',
-            'maintenance:import-dynamics',
-        ]);
     }
 
     /**
@@ -113,6 +57,7 @@ class MaintenanceServiceProvider extends ServiceProvider
     private function bootRequiredFiles()
     {
         include __DIR__.'/../../routes.php';
+        include __DIR__.'/../../api.php';
         include __DIR__.'/../../filters.php';
         include __DIR__.'/../../composers.php';
         include __DIR__.'/../../validators.php';

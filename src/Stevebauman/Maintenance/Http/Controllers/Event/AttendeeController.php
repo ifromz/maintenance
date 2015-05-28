@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 use Stevebauman\Maintenance\Services\Event\EventService;
 
-class AttendeeController extends BaseController
+class AttendeeController extends Controller
 {
     public function __construct(EventService $event)
     {

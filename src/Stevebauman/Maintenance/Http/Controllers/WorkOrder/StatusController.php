@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\StatusValidator;
 use Stevebauman\Maintenance\Services\StatusService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class StatusController extends BaseController
+class StatusController extends Controller
 {
     /**
      * @var StatusService

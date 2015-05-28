@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\Event;
 use Stevebauman\Maintenance\Validators\Event\EventValidator;
 use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\Maintenance\Services\Event\EventService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class EventController extends BaseController
+class EventController extends Controller
 {
     public function __construct(EventService $event, LocationService $location, EventValidator $eventValidator)
     {

@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 use Stevebauman\Maintenance\Validators\WorkOrder\ReportValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\ReportService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class ReportController extends BaseController
+class ReportController extends Controller
 {
     /**
      * @var WorkOrderService

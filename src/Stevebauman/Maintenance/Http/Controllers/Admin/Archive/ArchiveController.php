@@ -2,12 +2,12 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\Archive;
 
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class ArchiveController.
  */
-class ArchiveController extends BaseController
+class ArchiveController extends Controller
 {
     /**
      * Displays the Archives index.

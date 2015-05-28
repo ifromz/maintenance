@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\Admin\Setting;
 
 use Stevebauman\Maintenance\Validators\Config\SiteValidator;
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class SiteController extends BaseController
+class SiteController extends Controller
 {
     /**
      * @var ConfigService

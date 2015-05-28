@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
 use Stevebauman\Maintenance\Validators\InventoryValidator;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
  * Class InventoryController.
  */
-class InventoryController extends BaseController
+class InventoryController extends Controller
 {
     /**
      * @var InventoryService

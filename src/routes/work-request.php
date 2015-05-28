@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'WorkRequest'], function () {
 
-    Route::resource('work-requests', 'WorkRequestController', [
+    Route::resource('work-requests', 'Controller', [
         'names' => [
             'index' => 'maintenance.work-requests.index',
             'create' => 'maintenance.work-requests.create',

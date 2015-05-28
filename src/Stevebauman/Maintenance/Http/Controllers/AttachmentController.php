@@ -8,7 +8,7 @@ use Stevebauman\Maintenance\Services\AttachmentService;
 /**
  * Class AttachmentController.
  */
-class AttachmentController extends BaseController
+class AttachmentController extends Controller
 {
     /**
      * @var AttachmentService

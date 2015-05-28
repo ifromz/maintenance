@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder\Part;
 
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class PartController extends BaseController
+class PartController extends Controller
 {
     public function __construct(WorkOrderService $workOrder, InventoryService $inventory)
     {

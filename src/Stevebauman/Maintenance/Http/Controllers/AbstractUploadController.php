@@ -9,7 +9,7 @@ use Carbon\Carbon;
 /**
  * Class AbstractUploadController.
  */
-class AbstractUploadController extends BaseController
+class AbstractUploadController extends Controller
 {
     /**
      * The name of the HTML file input.

@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
+@section('title', 'Viewing Work Request: '.$workRequest->subject)
+
 @section('tab.head.content')
     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab_updates" data-toggle="tab">Updates</a></li>

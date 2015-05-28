@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\Archive;
 
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-class WorkOrderController extends BaseController
+class WorkOrderController extends Controller
 {
     public function __construct(WorkOrderService $workOrder)
     {
