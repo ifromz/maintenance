@@ -8,14 +8,14 @@
                 <h4 class="modal-title" id="myModalLabel">Add new Stock Location</h4>
             </div>
 
-            {{
-                Form::open(array(
-                    'url'=>route('maintenance.inventory.stocks.store', array($item->id)),
-                    'class'=>'form-horizontal ajax-form-post clear-form',
+            {!!
+                Form::open([
+                    'url' => route('maintenance.inventory.stocks.store', [$item->id]),
+                    'class' => 'form-horizontal ajax-form-post clear-form',
                     'data-status-target' => '#stock-location-status',
                     'data-refresh-target' => '#inventory-stocks-table',
-                ))
-            }}
+                ])
+            !!}
 
             <div class="modal-body">
 
@@ -34,7 +34,7 @@
 
                     <div class="col-md-10">
                         <div class="input-group">
-                            {{ Form::text('quantity', null, array('class'=>'form-control', 'placeholder'=>'ex. 45')) }}
+                            {!! Form::text('quantity', null, ['class'=>'form-control', 'placeholder'=>'ex. 45']) !!}
 
                             @if($item->metric)
                                 <span class="input-group-addon">{{ $item->metric->symbol }}</span>
@@ -50,7 +50,7 @@
 
                         <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            {{ Form::text('cost', null, array('class'=>'form-control', 'placeholder'=>'ex. 15.00')) }}
+                            {!! Form::text('cost', null, ['class'=>'form-control', 'placeholder'=>'ex. 15.00']) !!}
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
 
             </div>
 
-            {{ Form::close() }}
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

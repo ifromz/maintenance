@@ -29,7 +29,7 @@
 
     @if($items->count() > 0)
 
-        {{
+        {!!
             $items->columns([
                 'id' => 'ID',
                 'name' => 'Name',
@@ -55,7 +55,7 @@
             ->hidden(['id', 'added_on', 'description'])
             ->showPages()
             ->render()
-        }}
+        !!}
 
     @else
 

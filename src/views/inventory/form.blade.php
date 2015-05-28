@@ -25,7 +25,7 @@
     <label class="col-sm-2 control-label">Name</label>
 
     <div class="col-md-4">
-        {{ Form::text('name', (isset($item) ? $item->name : null), array('class'=>'form-control', 'placeholder'=>'Name')) }}
+        {!! Form::text('name', (isset($item) ? $item->name : null), ['class'=>'form-control', 'placeholder'=>'Name']) }}
     </div>
 </div>
 
@@ -33,12 +33,12 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-4">
-        {{ Form::textarea('description', (isset($item) ? htmlspecialchars($item->description) : null), array('class'=>'form-control', 'placeholder'=>'Description')) }}
+        {!! Form::textarea('description', (isset($item) ? htmlspecialchars($item->description) : null), ['class'=>'form-control', 'placeholder'=>'Description']) !!}
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-        {{ Form::submit('Save', array('class'=>'btn btn-primary')) }}
+        {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
     </div>
 </div>
