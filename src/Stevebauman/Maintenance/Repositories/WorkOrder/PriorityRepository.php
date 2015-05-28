@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Priority;
-use Stevebauman\Maintenance\Repositories\Repository;
+use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
 
-class PriorityRepository extends Repository
+class PriorityRepository extends BaseRepository
 {
     /**
      * @var SentryService

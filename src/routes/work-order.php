@@ -176,7 +176,7 @@ Route::group(['namespace' => 'WorkOrder'], function () {
     | Maintenance Work Order Routes
     |--------------------------------------------------------------------------
     */
-    Route::resource('work-orders', 'WorkOrderController', [
+    Route::resource('work-orders', 'Controller', [
         'names' => [
             'index' => 'maintenance.work-orders.index',
             'create' => 'maintenance.work-orders.create',

@@ -128,4 +128,39 @@ class Repository extends BaseRepository
 
         return false;
     }
+
+    /**
+     * Updates a work order.
+     *
+     * @param Request    $request
+     * @param int|string $id
+     *
+     * @return bool|WorkOrder
+     */
+    public function update(Request $request, $id)
+    {
+        $workOrder = $this->model()->findOrFail($id);
+
+        $workOrder->category_id = $request->input('category_id', $workOrder->category_id);
+        $workOrder->location_id = $request->input('location_id', $workOrder->location_id);
+        $workOrder->status_id = $request->input('status_id', $workOrder->status_id);
+        $workOrder->priority_id = $request->input('priority_id', $workOrder->priority_id);
+        $workOrder->subject = $request->input('subject', $workOrder->subject);
+        $workOrder->description = $request->clean($request->input('description', $workOrder->description));
+        $workOrder->started_at = $request->input('started_at', $workOrder->started_at);
+        $workOrder->completed_at = $request->input('completed_at', $workOrder->completed_at);
+
+        if($workOrder->save()) {
+
+            $assets = $request->input('assets', $workOrder->assets);
+
+            if(count($assets) > 0) {
+                $workOrder->assets()->attach($assets);
+            }
+
+            return $workOrder;
+        }
+
+        return false;
+    }
 }
