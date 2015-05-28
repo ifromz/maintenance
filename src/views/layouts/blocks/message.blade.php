@@ -1,6 +1,6 @@
 <div class="item">
 
-    <img src="{{ asset('packages/stevebauman/maintenance/img/user.jpg') }}" alt="user image" class="online"/>
+    <img src="{{ asset('stevebauman/maintenance/img/user.jpg') }}" alt="user image" class="online"/>
 
     <p class="message">
         @yield('message.body.content')
