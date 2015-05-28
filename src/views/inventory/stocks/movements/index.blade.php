@@ -13,7 +13,7 @@
 
     @if($movements->count() > 0)
 
-        {{
+        {!!
             $movements->columns([
                 'id' => 'ID',
                 'user' => 'User',
@@ -43,7 +43,7 @@
             ])
             ->showPages()
             ->render()
-        }}
+        !!}
 
     @else
         <h5>There are currently no stock movements for this item</h5>

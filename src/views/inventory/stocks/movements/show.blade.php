@@ -8,11 +8,11 @@
 
     <div class="tab-pane active" id="tab_profile">
 
-        {{ $movement->viewer()->btnRollback($item, $stock) }}
+        {!! $movement->viewer()->btnRollback($item, $stock) !!}
 
         <hr>
 
-        {{ $movement->viewer()->profile() }}
+        {!! $movement->viewer()->profile() !!}
     </div>
 
 @stop
