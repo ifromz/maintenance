@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Stevebauman\Maintenance\Validators\PasswordValidator;
 use Stevebauman\Maintenance\Validators\Login\RequestResetValidator;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin;
+namespace Stevebauman\Maintenance\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\App;
 use Stevebauman\LogReader\LogReader;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class LogController.

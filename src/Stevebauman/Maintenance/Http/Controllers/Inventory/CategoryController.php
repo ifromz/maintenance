@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Inventory;
+namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
 use Stevebauman\Maintenance\Services\Inventory\CategoryService;
 use Stevebauman\Maintenance\Validators\CategoryValidator;
-use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractNestedSetController;
 
 class CategoryController extends AbstractNestedSetController
 {

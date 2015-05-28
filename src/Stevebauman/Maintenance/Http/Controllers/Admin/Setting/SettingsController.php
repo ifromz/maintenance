@@ -1,8 +1,8 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin\Setting;
+namespace Stevebauman\Maintenance\Http\Controllers\Admin\Setting;
 
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class SettingsController.

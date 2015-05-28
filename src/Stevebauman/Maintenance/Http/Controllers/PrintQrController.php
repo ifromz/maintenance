@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Http\Controllers;
 
 class PrintQrController extends BaseController
 {

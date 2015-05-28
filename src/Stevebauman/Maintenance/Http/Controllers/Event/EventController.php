@@ -1,11 +1,11 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Event;
+namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
 use Stevebauman\Maintenance\Validators\Event\EventValidator;
 use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\Maintenance\Services\Event\EventService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class EventController extends BaseController
 {

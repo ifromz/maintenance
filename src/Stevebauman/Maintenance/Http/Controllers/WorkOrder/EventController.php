@@ -1,12 +1,12 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\WorkOrder;
+namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\Event\EventValidator;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Controllers\Event\AbstractEventableController;
+use Stevebauman\Maintenance\Http\Controllers\Event\AbstractEventableController;
 
 /**
  * Class EventController.

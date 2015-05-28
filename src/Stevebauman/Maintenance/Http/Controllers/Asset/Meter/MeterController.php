@@ -1,12 +1,12 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Asset\Meter;
+namespace Stevebauman\Maintenance\Http\Controllers\Asset\Meter;
 
 use Stevebauman\Maintenance\Validators\MeterValidator;
 use Stevebauman\Maintenance\Services\Meter\ReadingService;
 use Stevebauman\Maintenance\Services\Meter\MeterService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /*
  * Handles asset meter creation and updating

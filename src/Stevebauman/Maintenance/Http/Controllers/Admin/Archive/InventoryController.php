@@ -1,9 +1,9 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
+namespace Stevebauman\Maintenance\Http\Controllers\Admin\Archive;
 
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class InventoryController extends BaseController
 {

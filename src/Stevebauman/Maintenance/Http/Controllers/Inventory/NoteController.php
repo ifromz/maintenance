@@ -1,11 +1,11 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Inventory;
+namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
 use Stevebauman\Maintenance\Validators\NoteValidator;
 use Stevebauman\Maintenance\Services\NoteService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Controllers\AbstractNoteableController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractNoteableController;
 
 /**
  * Class NoteController.

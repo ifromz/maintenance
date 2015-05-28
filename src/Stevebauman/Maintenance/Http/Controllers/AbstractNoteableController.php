@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Stevebauman\Maintenance\Validators\NoteValidator;
 use Stevebauman\Maintenance\Services\NoteService;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Inventory;
+namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class SkuController.

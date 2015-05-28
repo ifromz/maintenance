@@ -1,8 +1,8 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin\Archive;
+namespace Stevebauman\Maintenance\Http\Controllers\Admin\Archive;
 
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 
 class AssetController extends BaseController

@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\WorkOrder\Part;
+namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder\Part;
 
 use Stevebauman\Maintenance\Validators\WorkOrder\PartPutBackValidator;
 use Stevebauman\Maintenance\Validators\WorkOrder\PartTakeValidator;
@@ -8,7 +8,7 @@ use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class StockController extends BaseController
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Asset;
+namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
 use Stevebauman\Maintenance\Validators\Event\EventValidator;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Controllers\Event\AbstractEventableController;
+use Stevebauman\Maintenance\Http\Controllers\Event\AbstractEventableController;
 
 class EventController extends AbstractEventableController
 {

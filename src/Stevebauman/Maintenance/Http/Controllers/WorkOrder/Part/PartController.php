@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\WorkOrder\Part;
+namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder\Part;
 
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class PartController extends BaseController
 {

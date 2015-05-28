@@ -1,13 +1,13 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Asset\Manual;
+namespace Stevebauman\Maintenance\Http\Controllers\Asset\Manual;
 
 use Illuminate\Filesystem\Filesystem;
 use Stevebauman\Maintenance\Validators\DocumentValidator;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\Asset\ManualService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Controllers\AbstractUploadController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
 
 /**
  * Class ManualController.

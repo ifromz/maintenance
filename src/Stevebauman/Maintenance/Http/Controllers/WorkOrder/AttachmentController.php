@@ -1,13 +1,13 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\WorkOrder;
+namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\DocumentValidator;
 use Stevebauman\Maintenance\Validators\ImageValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\WorkOrder\AttachmentService as WorkOrderAttachmentService;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Controllers\AbstractUploadController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
 
 /**
  * Class AttachmentController.

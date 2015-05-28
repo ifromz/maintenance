@@ -1,8 +1,8 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Event;
+namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 use Stevebauman\Maintenance\Services\Event\EventService;
 
 class AttendeeController extends BaseController

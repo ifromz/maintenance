@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin\Setting;
+namespace Stevebauman\Maintenance\Http\Controllers\Admin\Setting;
 
 use Stevebauman\Maintenance\Validators\Config\SiteValidator;
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class SiteController extends BaseController
 {

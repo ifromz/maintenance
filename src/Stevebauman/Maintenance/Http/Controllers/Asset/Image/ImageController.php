@@ -1,13 +1,13 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Asset\Image;
+namespace Stevebauman\Maintenance\Http\Controllers\Asset\Image;
 
 use Illuminate\Filesystem\Filesystem;
 use Stevebauman\Maintenance\Validators\ImageValidator;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\Asset\ImageService;
 use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Controllers\AbstractUploadController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
 
 /**
  * Class ImageController.

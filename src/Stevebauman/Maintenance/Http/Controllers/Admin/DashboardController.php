@@ -1,8 +1,8 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin;
+namespace Stevebauman\Maintenance\Http\Controllers\Admin;
 
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class DashboardController extends BaseController
 {

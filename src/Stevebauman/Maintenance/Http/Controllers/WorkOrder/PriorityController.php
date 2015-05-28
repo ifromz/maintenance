@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\WorkOrder;
+namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\PriorityValidator;
 use Stevebauman\Maintenance\Services\PriorityService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class PriorityController extends BaseController
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\WorkRequest;
+namespace Stevebauman\Maintenance\Http\Controllers\WorkRequest;
 
 use Stevebauman\Maintenance\Validators\WorkRequestValidator;
 use Stevebauman\Maintenance\Services\WorkRequestService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class WorkRequest.

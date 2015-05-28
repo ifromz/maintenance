@@ -1,9 +1,9 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Client;
+namespace Stevebauman\Maintenance\Http\Controllers\Client;
 
 use Stevebauman\Maintenance\Services\WorkRequestService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class WorkRequestController.

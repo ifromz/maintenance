@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin\User;
+namespace Stevebauman\Maintenance\Http\Controllers\Admin\User;
 
 use Stevebauman\Maintenance\Validators\AccessCheckValidator;
 use Stevebauman\Maintenance\Services\UserService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class AccessController.

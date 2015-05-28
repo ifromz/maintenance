@@ -1,11 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers;
+namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\File;
 
 /**
  * Class AbstractUploadController.

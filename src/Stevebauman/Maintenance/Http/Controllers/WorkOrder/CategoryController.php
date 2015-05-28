@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\WorkOrder;
+namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Services\WorkOrder\CategoryService;
 use Stevebauman\Maintenance\Validators\WorkOrder\CategoryValidator;
-use Stevebauman\Maintenance\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Http\Controllers\AbstractNestedSetController;
 
 class CategoryController extends AbstractNestedSetController
 {

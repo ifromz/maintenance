@@ -1,13 +1,13 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Asset\Meter;
+namespace Stevebauman\Maintenance\Http\Controllers\Asset\Meter;
 
 use Stevebauman\Maintenance\Validators\Meter\ReadingValidator;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\Meter\ReadingService;
 use Stevebauman\Maintenance\Services\Meter\MeterService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class ReadingController.

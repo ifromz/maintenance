@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin;
+namespace Stevebauman\Maintenance\Http\Controllers\Admin;
 
 use Stevebauman\Maintenance\Validators\GroupValidator;
 use Stevebauman\Maintenance\Services\GroupService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class GroupController.

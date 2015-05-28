@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Admin\User;
+namespace Stevebauman\Maintenance\Http\Controllers\Admin\User;
 
 use Stevebauman\Maintenance\Validators\PasswordValidator;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class PasswordController.

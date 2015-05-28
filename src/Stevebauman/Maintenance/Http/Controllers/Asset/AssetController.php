@@ -1,11 +1,11 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Asset;
+namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Validators\Asset\AssetValidator;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 /**
  * Class AssetController.

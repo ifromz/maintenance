@@ -1,11 +1,11 @@
 <?php
 
-namespace Stevebauman\Maintenance\Controllers\Event;
+namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
 use Stevebauman\Maintenance\Validators\Event\ReportValidator;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\Event\ReportService;
-use Stevebauman\Maintenance\Controllers\BaseController;
+use Stevebauman\Maintenance\Http\Controllers\BaseController;
 
 class ReportController extends BaseController
 {
