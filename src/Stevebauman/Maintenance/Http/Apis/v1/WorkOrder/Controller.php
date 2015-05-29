@@ -8,6 +8,11 @@ use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 class Controller extends BaseController
 {
     /**
+     * @var Repository
+     */
+    protected $workOrder;
+
+    /**
      * @param Repository $workOrder
      */
     public function __construct(Repository $workOrder)

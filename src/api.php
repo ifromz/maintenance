@@ -11,6 +11,10 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         {
             Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.grid', 'uses' => 'Controller@grid']);
 
+            Route::group(['prefix' => 'statuses'], function() {
+                Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.statuses.grid', 'uses' => 'StatusController@grid']);
+            });
+
             // Work Order Category Api Routes
             Route::group(['prefix' => 'categories'], function()
             {
@@ -24,6 +28,18 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         Route::group(['namespace' => 'WorkRequest', 'prefix' => 'work-requests'], function()
         {
             Route::get('grid', ['as' => 'maintenance.api.v1.work-requests.grid', 'uses' => 'Controller@grid']);
+        });
+
+        // Asset Api Routes
+        Route::group(['namespace' => 'Asset', 'prefix' => 'assets'], function()
+        {
+            // Asset Category Api Routes
+            Route::group(['prefix' => 'categories'], function()
+            {
+                Route::get('grid', ['as' => 'maintenance.api.v1.assets.categories.grid', 'uses' => 'CategoryController@grid']);
+
+                Route::post('move/{id?}', ['as' => 'maintenance.api.v1.assets.categories.move', 'uses' => 'CategoryController@move']);
+            });
         });
     });
 

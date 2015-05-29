@@ -25,6 +25,7 @@
         "dompdf/dompdf": "0.6.*",
         "simplesoftwareio/simple-qrcode": "1.2.*",
         "davejamesmiller/laravel-breadcrumbs": "3.0.*",
+        "venturecraft/revisionable": "1.*",
         "google/apiclient": "1.1.*"
     },
     "archive": {

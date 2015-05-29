@@ -2,32 +2,23 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Validators\StatusValidator;
-use Stevebauman\Maintenance\Services\StatusService;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\StatusRequest;
+use Stevebauman\Maintenance\Repositories\WorkOrder\StatusRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class StatusController extends Controller
 {
     /**
-     * @var StatusService
+     * @var StatusRepository
      */
     protected $status;
 
     /**
-     * @var StatusValidator
+     * @param StatusRepository $status
      */
-    protected $statusValidator;
-
-    /**
-     * Constructor.
-     *
-     * @param StatusService   $status
-     * @param StatusValidator $statusValidator
-     */
-    public function __construct(StatusService $status, StatusValidator $statusValidator)
+    public function __construct(StatusRepository $status)
     {
         $this->status = $status;
-        $this->statusValidator = $statusValidator;
     }
 
     /**
@@ -37,12 +28,7 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $statuses = $this->status->get();
-
-        return view('maintenance::work-orders.statuses.index', [
-            'title' => 'All Statuses',
-            'statuses' => $statuses,
-        ]);
+        return view('maintenance::work-orders.statuses.index');
     }
 
     /**
@@ -53,39 +39,29 @@ class StatusController extends Controller
      */
     public function create()
     {
-        return view('maintenance::work-orders.statuses.create', [
-            'title' => 'Create a Status',
-        ]);
+        return view('maintenance::work-orders.statuses.create');
     }
 
     /**
      * Creates a new work order status.
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @param StatusRequest $request
+     *
+     * @return mixed
      */
-    public function store()
+    public function store(StatusRequest $request)
     {
-        /*
-         * Make sure the inputted status name is unique
-         */
-        $this->statusValidator->unique('name', 'statuses', 'name');
+        $status = $this->status->create($request);
 
-        if ($this->statusValidator->passes()) {
-            if ($this->status->setInput($this->inputAll())->create()) {
-                $this->message = 'Successfully created status';
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.work-orders.statuses.index');
-            } else {
-                $this->message = 'There was an error trying to create a status. Please try again';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.statuses.create');
-            }
+        if($status) {
+            $message = 'Successfully created status.';
+
+            return redirect()->route('maintenance.work-orders.statuses.index')->withSuccess($message);
         } else {
-            $this->errors = $this->statusValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.statuses.create');
-        }
+            $message = 'There was an issue creating this status. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.statuses.create')->withErrors($message);
+        }
     }
 
     /**
@@ -100,43 +76,30 @@ class StatusController extends Controller
     {
         $status = $this->status->find($id);
 
-        return view('maintenance::work-orders.statuses.edit', [
-            'title' => 'Editing Status: '.$status->name,
-            'status' => $status,
-        ]);
+        return view('maintenance::work-orders.statuses.edit', compact('status'));
     }
 
     /**
      * Updates the specified work order status.
      *
-     * @param string|int $id
+     * @param StatusRequest $request
+     * @param string|int    $id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update($id)
+    public function update(StatusRequest $request, $id)
     {
-        /*
-         * Ignores the current status ID but makes
-         *  sure the name is still unique
-         */
-        $this->statusValidator->ignore('name', 'statuses', 'name', $id);
+        $status = $this->status->update($request, $id);
 
-        if ($this->statusValidator->passes()) {
-            if ($this->status->setInput($this->inputAll())->update($id)) {
-                $this->message = 'Successfully updated status';
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.work-orders.statuses.index');
-            } else {
-                $this->message = 'There was an error trying to update this status. Please try again';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.statuses.edit', [$id]);
-            }
+        if($status) {
+            $message = 'Successfully updated status.';
+
+            return redirect()->route('maintenance.work-orders.statuses.show', [$status->id])->withSuccess($message);
         } else {
-            $this->errors = $this->statusValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.statuses.edit', [$id]);
-        }
+            $message = 'There was an issue updating this status. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.statuses.edit', [$id])->withErrors($message);
+        }
     }
 
     /**
@@ -148,12 +111,14 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        $this->status->destroy($id);
+        if($this->status->delete($id)) {
+            $message = 'Successfully deleted status.';
 
-        $this->message = 'Successfully deleted status';
-        $this->messageType = 'success';
-        $this->redirect = route('maintenance.work-orders.statuses.index');
+            return redirect()->route('maintenance.work-orders.statuses.index')->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this status. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.statuses.show', [$id])->withErrors($message);
+        }
     }
 }

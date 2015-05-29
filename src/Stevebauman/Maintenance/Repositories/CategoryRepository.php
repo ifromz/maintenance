@@ -75,7 +75,7 @@ class CategoryRepository extends Repository
         $category = $this->find($id);
 
         if($category) {
-            $category->name = $request->input('name');
+            $category->name = $request->input('name', $category->name);
 
             if($category->save()) {
                 return $category;

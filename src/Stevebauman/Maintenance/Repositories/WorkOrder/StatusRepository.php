@@ -2,17 +2,55 @@
 
 namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\StatusRequest;
+
+use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Status;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
 
 class StatusRepository extends BaseRepository
 {
     /**
+     * @var SentryService
+     */
+    protected $sentry;
+
+    /**
+     * @param SentryService $sentry
+     */
+    public function __construct(SentryService $sentry)
+    {
+        $this->sentry = $sentry;
+    }
+
+    /**
      * @return Status
      */
     public function model()
     {
         return new Status();
+    }
+
+    /**
+     * Creates a new status.
+     *
+     * @param StatusRequest $request
+     *
+     * @return bool|Status
+     */
+    public function create(StatusRequest $request)
+    {
+        $status = $this->model();
+
+        $status->user_id = $this->sentry->getCurrentUserId();
+        $status->name = $request->input('name');
+        $status->color = $request->input('color');
+
+        if($status->save()) {
+            return $status;
+        }
+
+        return false;
     }
 
     /**
@@ -29,6 +67,30 @@ class StatusRepository extends BaseRepository
 
         if($status) {
             return $status;
+        }
+
+        return false;
+    }
+
+    /**
+     * Updates a status.
+     *
+     * @param StatusRequest $request
+     * @param int|string    $id
+     *
+     * @return bool|Status
+     */
+    public function update(StatusRequest $request, $id)
+    {
+        $status = $this->find($id);
+
+        if($status) {
+            $status->name = $request->input('name', $status->name);
+            $status->color = $request->input('color', $status->color);
+
+            if($status->save()) {
+                return $status;
+            }
         }
 
         return false;

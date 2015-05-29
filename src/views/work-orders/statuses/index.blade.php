@@ -1,36 +1,37 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.pages.main.grid')
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a href="{{ route('maintenance.work-orders.statuses.create') }}" class="btn btn-primary">
-            <i class="fa fa-plus"></i>
-            New Status
+@section('title', 'Statuses')
+
+@section('grid.actions.create')
+    <li class="primary">
+        <a href="{{ route('maintenance.work-orders.statuses.create') }}" data-toggle="tooltip" data-original-title="Create">
+            <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
         </a>
-    </div>
+    </li>
 @stop
 
-@section('panel.body.content')
+@section('grid.table')
 
-    @if($statuses->count() > 0)
+    <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.work-orders.statuses.grid') }}" data-grid="main">
 
-        {!!
-            $statuses->columns([
-                'name' => 'Name',
-                'label' => 'Displayed As',
-                'created_by' => 'Created By',
-                'created_at' => 'Created At',
-                'action' => 'Action',
-            ])
-            ->means('created_by', 'user.full_name')
-            ->modify('action', function($status) {
-                return $status->viewer()->btnActions();
-            })
-            ->hidden(['name', 'created_by', 'created_at'])
-            ->render()
-        !!}
+        <thead>
+            <tr>
+                <th><input data-grid-checkbox="all" type="checkbox"></th>
+                <th class="sortable" data-sort="name">Name</th>
+                <th class="sortable" data-sort="color">Color</th>
+                <th class="sortable" data-sort="created_at">Created At</th>
+                <th class="sortable" data-sort="user_id">Created By</th>
+            </tr>
+        </thead>
 
-    @else
-        <h5>There are no statuses to display.</h5>
-    @endif
+        <tbody></tbody>
 
+    </table>
+@stop
+
+@section('grid.results')
+    @include('maintenance::work-orders.statuses.grid.no-results')
+    @include('maintenance::work-orders.statuses.grid.results')
+    @include('maintenance::work-orders.statuses.grid.pagination')
+    @include('maintenance::work-orders.statuses.grid.filters')
 @stop
