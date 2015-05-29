@@ -13,14 +13,29 @@ class Event extends BaseModel
     use HasLocationTrait;
     use HasUserTrait;
 
+    /**
+     * The events table.
+     *
+     * @var string
+     */
     protected $table = 'events';
 
+    /**
+     * The fillable event attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'parent_id',
         'api_id',
     ];
 
+    /**
+     * The event viewer.
+     *
+     * @var string
+     */
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Event\EventViewer';
 
     /**

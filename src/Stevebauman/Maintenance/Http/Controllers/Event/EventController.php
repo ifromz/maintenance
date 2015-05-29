@@ -2,66 +2,63 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
-use Stevebauman\Maintenance\Validators\Event\EventValidator;
-use Stevebauman\Maintenance\Services\LocationService;
-use Stevebauman\Maintenance\Services\Event\EventService;
+use Stevebauman\Maintenance\Http\Requests\Event\Request;
+use Stevebauman\Maintenance\Repositories\EventRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class EventController extends Controller
 {
-    public function __construct(EventService $event, LocationService $location, EventValidator $eventValidator)
+    /**
+     * @var EventRepository
+     */
+    protected $event;
+
+    /**
+     * @param EventRepository $event
+     */
+    public function __construct(EventRepository $event)
     {
         $this->event = $event;
-        $this->location = $location;
-        $this->eventValidator = $eventValidator;
     }
 
     /**
-     * @return mixed
+     * Displays all current events.
+     *
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $events = $this->event->get();
-
-        return view('maintenance::events.index', [
-            'title' => 'Events',
-            'events' => $events,
-        ]);
+        return view('maintenance::events.index');
     }
 
     /**
-     * @return mixed
+     * Displays the form for creating a new event.
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
-        return view('maintenance::events.create', [
-            'title' => 'Create an Event',
-        ]);
+        return view('maintenance::events.create');
     }
 
     /**
+     * Creates a new event.
+     *
      * @return \Illuminate\Support\Facades\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        if ($this->eventValidator->passes()) {
-            $event = $this->event->setInput($this->inputAll())->create();
+        $event = $this->event->create($request);
 
-            if ($event) {
-                $this->message = sprintf('Successfully created event. %s', link_to_route('maintenance.events.show', 'Show', [$event->id]));
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.events.index');
-            } else {
-                $this->message = 'There was an error trying to create an event. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.events.create');
-            }
+        if($event) {
+            $message = 'Successfully created event.';
+
+            return redirect()->route('maintenance.events.index')->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.events.create');
-            $this->errors = $this->eventValidator->getErrors();
-        }
+            $message = 'There was an issue creating an event. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.events.create')->withErrors($message);
+        }
     }
 
     /**

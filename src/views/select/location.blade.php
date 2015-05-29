@@ -33,7 +33,7 @@
     $(document).ready(function (e) {
         var json_category_tree = null;
 
-        $.get("{{ route('maintenance.locations.json') }}", function (data) {
+        $.get("{{ route('maintenance.api.v1.locations.grid') }}", function (data) {
             json_category_tree = data;
         }).done(function () {
             if (json_category_tree != null) {

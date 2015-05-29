@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Edit Event')
+
 @section('panel.head.content')
     Edit Event
 @stop
@@ -9,7 +11,7 @@
         Form::open([
             'url' => route('maintenance.events.update', [$event->id]),
             'method' => 'PATCH',
-            'class' => 'form-horizontal ajax-form-post'
+            'class' => 'form-horizontal'
         ])
     !!}
 

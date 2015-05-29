@@ -1,50 +1,37 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.pages.main.grid')
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a class="btn btn-primary" href="{{ action(currentControllerAction('create')) }}">
-            <i class="fa fa-plus-circle"></i>
-            New Event
+@section('title', 'Events')
+
+@section('grid.actions.create')
+    <li class="primary">
+        <a href="{{ route('maintenance.events.create') }}" data-toggle="tooltip" data-original-title="Create">
+            <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
         </a>
-    </div>
+    </li>
 @stop
 
-@section('panel.body.content')
+@section('grid.table')
 
-    @if($events->count() > 0)
+    <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.events.grid') }}" data-grid="main">
 
-        {!!
-            $events->columns([
-                    'title' => 'Title / Summary',
-                    'description' => 'Description',
-                    'reccuring' => 'Is Reccuring',
-                    'all_day' => 'All Day',
-                    'start' => 'Start',
-                    'end' => 'End',
-                    'actions' => 'Actions',
-                ])
-                ->modify('reccuring', function($record){
-                    return $record->viewer()->lblRecurring();
-                })
-                ->modify('start', function($record) {
-                    return $record->viewer()->startFormatted();
-                })
-                ->modify('end', function($record){
-                    return $record->viewer()->endFormatted();
-                })
-                ->modify('all_day', function($record) {
-                    return $record->viewer()->lblAllDay();
-                })
-                ->modify('actions', function($record) {
-                    return $record->viewer()->btnActions();
-                })
-                ->render()
-        !!}
+        <thead>
+            <tr>
+                <th><input data-grid-checkbox="all" type="checkbox"></th>
+                <th>Title / Summary</th>
+                <th class="sortable" data-sort="location_id">Location</th>
+                <th>Start</th>
+                <th>End</th>
+            </tr>
+        </thead>
 
-    @else
+        <tbody></tbody>
 
-        <h5>There are no events to display.</h5>
+    </table>
+@stop
 
-    @endif
-
+@section('grid.results')
+    @include('maintenance::events.grid.no-results')
+    @include('maintenance::events.grid.results')
+    @include('maintenance::events.grid.pagination')
+    @include('maintenance::events.grid.filters')
 @stop

@@ -48,6 +48,8 @@ class MaintenanceServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../../views', 'maintenance');
 
+        $this->loadTranslationsFrom(__DIR__.'/../../lang', 'maintenance');
+
         $this->bootRequiredFiles();
     }
 

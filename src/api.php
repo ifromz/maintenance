@@ -6,6 +6,12 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
     // Api v1 Routes
     Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function()
     {
+        // Event Api Routes
+        Route::group(['prefix' => 'events'], function()
+        {
+            Route::get('grid', ['as' => 'maintenance.api.v1.events.grid', 'uses' => 'EventController@grid']);
+        });
+
         // Work Order Api Routes
         Route::group(['namespace' => 'WorkOrder', 'prefix' => 'work-orders'], function()
         {
