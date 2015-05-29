@@ -13,13 +13,21 @@ use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 class User extends SentryUser
 {
     use ViewableTrait;
-
     use TableTrait;
-
     use HasScopeIdTrait;
 
+    /**
+     * The users table.
+     *
+     * @var string
+     */
     protected $table = 'users';
 
+    /**
+     * The users viewer class.
+     *
+     * @var string
+     */
     protected $viewer = 'Stevebauman\Maintenance\Viewers\UserViewer';
 
     /**

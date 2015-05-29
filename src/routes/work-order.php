@@ -69,22 +69,11 @@ Route::group(['namespace' => 'WorkOrder'], function () {
     | Maintenance Work Order Category Routes
     |--------------------------------------------------------------------------
     */
-    Route::get('work-orders/categories/json', [
-            'as' => 'maintenance.work-orders.categories.json',
-            'uses' => 'CategoryController@getJson',
-        ]
-    );
-
     Route::get('work-orders/categories/create/{categories?}', [
             'as' => 'maintenance.work-orders.categories.nodes.create',
             'uses' => 'CategoryController@create',
         ]
     );
-
-    Route::post('work-orders/categories/move/{categories?}', [
-        'as' => 'maintenance.work-orders.categories.nodes.move',
-        'uses' => 'CategoryController@postMoveCategory',
-    ]);
 
     Route::post('work-orders/categories/create/{categories?}', [
             'as' => 'maintenance.work-orders.categories.nodes.store',

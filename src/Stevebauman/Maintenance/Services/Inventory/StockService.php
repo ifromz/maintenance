@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services\Inventory;
 
-use Stevebauman\Maintenance\Exceptions\NotFound\Inventory\InventoryStockNotFoundException;
 use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
@@ -26,16 +25,13 @@ class StockService extends BaseModelService
      *
      * @param InventoryStock $inventoryStock
      * @param StockMovementService $inventoryStockMovement
-     * @param InventoryStockNotFoundException $notFoundException
      */
     public function __construct(
         InventoryStock $inventoryStock,
-        StockMovementService $inventoryStockMovement,
-        InventoryStockNotFoundException $notFoundException
+        StockMovementService $inventoryStockMovement
     ) {
         $this->model = $inventoryStock;
         $this->inventoryStockMovement = $inventoryStockMovement;
-        $this->notFoundException = $notFoundException;
     }
 
     /**

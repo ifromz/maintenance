@@ -34,7 +34,7 @@
     $(document).ready(function (e) {
         var json_category_tree = null;
 
-        $.get("{{ route('maintenance.work-orders.categories.json') }}", function (data) {
+        $.get("{{ route('maintenance.api.v1.work-orders.categories.grid') }}", function (data) {
             json_category_tree = data;
         }).done(function () {
             if (json_category_tree != null) {

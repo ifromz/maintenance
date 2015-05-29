@@ -159,4 +159,14 @@ class WorkOrderViewer extends BaseViewer
     {
         return view('maintenance::viewers.work-order.labels.check-completed', ['workOrder' => $this->entity]);
     }
+
+    public function lblPriority()
+    {
+        return view('maintenance::viewers.work-order.labels.priority', ['workOrder' => $this->entity])->render();
+    }
+
+    public function lblStatus()
+    {
+        return view('maintenance::viewers.work-order.labels.status', ['workOrder' => $this->entity])->render();
+    }
 }

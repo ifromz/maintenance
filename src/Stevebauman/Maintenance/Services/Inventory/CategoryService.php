@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services\Inventory;
 
-use Stevebauman\Maintenance\Exceptions\NotFound\Inventory\InventoryCategoryNotFoundException;
 use Stevebauman\Maintenance\Models\Category;
 use Stevebauman\Maintenance\Services\CategoryService as BaseCategoryService;
 
@@ -20,11 +19,9 @@ class CategoryService extends BaseCategoryService
 
     /**
      * @param Category $inventoryCategory
-     * @param InventoryCategoryNotFoundException $notFoundException
      */
-    public function __construct(Category $inventoryCategory, InventoryCategoryNotFoundException $notFoundException)
+    public function __construct(Category $inventoryCategory)
     {
         $this->model = $inventoryCategory;
-        $this->notFoundException = $notFoundException;
     }
 }

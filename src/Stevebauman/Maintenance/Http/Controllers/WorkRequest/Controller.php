@@ -43,7 +43,7 @@ class Controller extends BaseController
     /**
      * Processes creating a work request.
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return  \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -65,7 +65,7 @@ class Controller extends BaseController
      *
      * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
@@ -94,7 +94,7 @@ class Controller extends BaseController
      * @param Request $request
      * @param int|string $id
      *
-     * @return $this
+     * @return  \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -116,7 +116,7 @@ class Controller extends BaseController
      *
      * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

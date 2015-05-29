@@ -36,7 +36,7 @@ class Controller extends BaseController
     /**
      * Displays the form to create a work order.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -46,22 +46,23 @@ class Controller extends BaseController
     /**
      * Creates a new work order.
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store()
+    public function store(Request $request)
     {
-        if ($this->workOrderValidator->passes()) {
-            $workOrder = $this->workOrder->setInput($this->inputAll())->create();
+        $workOrder = $this->workOrder->create($request);
 
-            $this->redirect = route('maintenance.work-orders.index');
-            $this->message = sprintf('Successfully created work order. %s', link_to_route('maintenance.work-orders.show', 'Show', [$workOrder->id]));
-            $this->messageType = 'success';
+        if($workOrder) {
+            $message = sprintf('Successfully created work order. %s', link_to_route('maintenance.work-orders.show', 'Show', [$workOrder->id]));
+
+            return redirect()->route('maintenance.work-orders.index')->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.work-orders.create');
-            $this->errors = $this->workOrderValidator->getErrors();
-        }
+            $message = "There was an issue creating this work order. Please try again.";
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.index')->withSuccess($message);
+        }
     }
 
     /**
@@ -77,11 +78,7 @@ class Controller extends BaseController
 
         $sessions = $workOrder->getUniqueSessions();
 
-        return view('maintenance::work-orders.show', [
-            'title' => 'Viewing Work Order: '.$workOrder->subject,
-            'workOrder' => $workOrder,
-            'sessions' => $sessions,
-        ]);
+        return view('maintenance::work-orders.show', compact('workOrder', 'sessions'));
     }
 
     /**

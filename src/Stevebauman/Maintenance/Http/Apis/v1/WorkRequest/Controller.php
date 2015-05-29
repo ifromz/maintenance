@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkRequest;
 
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Repositories\WorkRequest\Repository;
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -43,9 +43,13 @@ class Controller extends BaseController
 
         $transformer = function($element)
         {
-            $element->view_url = route('maintenance.work-requests.show', [$element->id]);
-
-            return $element;
+            return [
+                'id' => $element->id,
+                'subject' => $element->subject,
+                'best_time' => $element->best_time,
+                'created_at' => $element->created_at,
+                'view_url' => route('maintenance.work-requests.show', [$element->id]),
+            ];
         };
 
         return $this->workRequest->grid($columns, $settings, $transformer);

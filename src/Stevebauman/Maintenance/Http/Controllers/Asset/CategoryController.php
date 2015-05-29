@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
 use Stevebauman\Maintenance\Services\Asset\CategoryService;
 use Stevebauman\Maintenance\Validators\CategoryValidator;
-use Stevebauman\Maintenance\Http\Controllers\AbstractNestedSetController;
+use Stevebauman\Maintenance\Http\Controllers\NestedSetController;
 
 /**
  * Class CategoryController.
  */
-class CategoryController extends AbstractNestedSetController
+class CategoryController extends NestedSetController
 {
     /**
      * @param CategoryService   $assetCategory

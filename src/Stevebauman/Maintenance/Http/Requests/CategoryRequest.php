@@ -1,8 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Http\Requests\WorkOrder;
-
-use Stevebauman\Maintenance\Http\Requests\Request;
+namespace Stevebauman\Maintenance\Http\Requests;
 
 class CategoryRequest extends Request
 {
@@ -14,12 +12,12 @@ class CategoryRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:50',
+            'name' => 'required|max:50'
         ];
     }
 
     /**
-     * Authorizes all users to create categories.
+     * Allows all users to create categories.
      *
      * @return bool
      */

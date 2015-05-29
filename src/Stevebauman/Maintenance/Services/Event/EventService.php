@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services\Event;
 
-use Stevebauman\Maintenance\Exceptions\NotFound\EventNotFoundException;
 use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -41,20 +40,17 @@ class EventService extends BaseModelService
      * @param GoogleEventService     $google
      * @param SentryService          $sentry
      * @param LocationService        $location
-     * @param EventNotFoundException $notFoundException
      */
     public function __construct(
         Event $model,
         GoogleEventService $google,
         SentryService $sentry,
-        LocationService $location,
-        EventNotFoundException $notFoundException)
+        LocationService $location)
     {
         $this->model = $model;
         $this->eventApi = $google;
         $this->sentry = $sentry;
         $this->location = $location;
-        $this->notFoundException = $notFoundException;
     }
 
     /**

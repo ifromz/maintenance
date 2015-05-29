@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services\Asset;
 
-use Stevebauman\Maintenance\Exceptions\NotFound\Asset\AssetNotFoundException;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Asset;
 use Stevebauman\Maintenance\Services\BaseModelService;
@@ -25,13 +24,11 @@ class AssetService extends BaseModelService
     /**
      * @param Asset                  $asset
      * @param SentryService          $sentry
-     * @param AssetNotFoundException $notFoundException
      */
-    public function __construct(Asset $asset, SentryService $sentry, AssetNotFoundException $notFoundException)
+    public function __construct(Asset $asset, SentryService $sentry)
     {
         $this->model = $asset;
         $this->sentry = $sentry;
-        $this->notFoundException = $notFoundException;
     }
 
     /**
@@ -40,8 +37,6 @@ class AssetService extends BaseModelService
      * @param int|string|array $ids
      *
      * @return Asset|\Illuminate\Support\Collection
-     *
-     * @throws \Stevebauman\Maintenance\Exceptions\NotFound\RecordNotFoundException
      */
     public function find($ids)
     {
@@ -57,8 +52,6 @@ class AssetService extends BaseModelService
         if ($records) {
             return $records;
         }
-
-        throw new $this->notFoundException();
     }
 
     /**
@@ -256,8 +249,6 @@ class AssetService extends BaseModelService
      * @param int|string $id
      *
      * @return bool
-     *
-     * @throws \Stevebauman\Maintenance\Exceptions\NotFound\RecordNotFoundException
      */
     public function destroy($id)
     {

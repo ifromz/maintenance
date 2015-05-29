@@ -9,15 +9,35 @@ use Baum\Node;
  */
 class Category extends Node
 {
+    /**
+     * The categories table.
+     *
+     * @var string
+     */
     protected $table = 'categories';
 
+    /**
+     * The scoped nested set attributes.
+     *
+     * @var array
+     */
     protected $scoped = ['belongs_to'];
 
+    /**
+     * The fillable category attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'name',
         'belongs_to',
     ];
 
+    /**
+     * The revisionable field names.
+     *
+     * @var array
+     */
     protected $revisionFormattedFieldNames = [
         'name' => 'Name',
     ];

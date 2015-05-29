@@ -354,7 +354,7 @@ $(document).ready(function () {
                     $(this).jstree("open_all");
                 }).bind("move_node.jstree", function (e, data) {
                     $.post(
-                        window.location.href.toString() + "/move/" + data.node.id, {
+                        tree.data('move') + '/' + data.node.id, {
                             "parent_id": data.node.parent,
                             "_token": tree.data('token')
                         }

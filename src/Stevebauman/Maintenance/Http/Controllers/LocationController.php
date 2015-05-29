@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Http\Controllers;
 use Stevebauman\Maintenance\Services\LocationService;
 use Stevebauman\Maintenance\Validators\LocationValidator;
 
-class LocationController extends AbstractNestedSetController
+class LocationController extends NestedSetController
 {
     /**
      * Constructor.

@@ -30,14 +30,14 @@
                             @section('grid.actions')
 
                                 <li class="danger disabled">
-                                    <a data-grid-bulk-action="delete" data-toggle="tooltip" data-target="modal-confirm" data-original-title="{{{ trans('action.bulk.delete') }}}">
-                                        <i class="fa fa-trash-o"></i> <span class="visible-xs-inline">{{{ trans('action.bulk.delete') }}}</span>
+                                    <a data-grid-bulk-action="delete" data-toggle="tooltip" data-target="modal-confirm" data-original-title="Delete">
+                                        <i class="fa fa-trash-o"></i> <span class="visible-xs-inline">Delete</span>
                                     </a>
                                 </li>
 
                                 <li class="dropdown">
-                                    <a href="#" data-grid-exporter class="dropdown-toggle tip" data-toggle="dropdown" role="button" aria-expanded="false" data-original-title="{{{ trans('action.export') }}}">
-                                        <i class="fa fa-download"></i> <span class="visible-xs-inline">{{{ trans('action.export') }}}</span>
+                                    <a href="#" data-grid-exporter class="dropdown-toggle tip" data-toggle="dropdown" role="button" aria-expanded="false" data-original-title="Export">
+                                        <i class="fa fa-download"></i> <span class="visible-xs-inline">Export</span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a data-download="pdf"><i class="fa fa-file-pdf-o"></i> PDF</a></li>

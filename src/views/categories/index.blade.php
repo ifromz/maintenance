@@ -1,8 +1,10 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', str_plural($resource))
+
 @section('panel.head.content')
     <div class="btn-toolbar">
-        <a href="{{ action(currentControllerAction('create')) }}" class="btn btn-primary">
+        <a href="{{ route($routes['create']) }}" class="btn btn-primary">
             <i class="fa fa-plus"></i>
             New {{ $resource }}
         </a>
@@ -23,7 +25,7 @@
 
         <div class="pull-right">
             <a
-                    href="{{ action(currentControllerAction('destroy')) }}"
+                    href="{{ route($routes['destroy']) }}"
                     data-method="delete"
                     data-token="{{ csrf_token() }}"
                     data-message="
@@ -47,7 +49,7 @@
 <div class="row">
     <div class="col-md-12">
         {{-- Dynamic getJson method for allowing mutliple nested set resources to use this view --}}
-        <div class="tree" data-token="{{ csrf_token() }}" data-src="{{ action(currentControllerAction('getJson')) }}"></div>
+        <div class="tree" data-token="{{ csrf_token() }}" data-src="{{ route($routes['grid'])  }}" data-move="{{ route($routes['move']) }}"></div>
     </div>
 </div>
 @stop
