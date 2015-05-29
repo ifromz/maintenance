@@ -11,10 +11,17 @@ class MetricRequest extends Request
      */
     public function rules()
     {
-        return [
-            'name' => 'required|max:250',
-            'symbol' => 'required|max:5',
-        ];
+        if($metric = $this->route('metrics')) {
+            return [
+                'name' => "required|max:250|unique:metrics,name,$metric",
+                'symbol' => "required|max:5|unique:metrics,symbol,$metric",
+            ];
+        } else {
+            return [
+                'name' => "required|max:250|unique:metrics,name",
+                'symbol' => "required|max:5|unique:metrics,symbol",
+            ];
+        }
     }
 
     /**

@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Stevebauman\Maintenance\Validators\MetricValidator;
-use Stevebauman\Maintenance\Services\MetricService;
+use Stevebauman\Maintenance\Http\Requests\MetricRequest;
+use Stevebauman\Maintenance\Repositories\MetricRepository;
 
 /**
  * Class MetricController
@@ -11,15 +11,16 @@ use Stevebauman\Maintenance\Services\MetricService;
 class MetricController extends Controller
 {
     /**
-     * Constructor.
-     *
-     * @param MetricService $metric
-     * @param MetricValidator $metricValidator
+     * @var MetricRepository
      */
-    public function __construct(MetricService $metric, MetricValidator $metricValidator)
+    protected $metric;
+
+    /**
+     * @param MetricRepository $metric
+     */
+    public function __construct(MetricRepository $metric)
     {
         $this->metric = $metric;
-        $this->metricValidator = $metricValidator;
     }
 
     /**
@@ -29,12 +30,7 @@ class MetricController extends Controller
      */
     public function index()
     {
-        $metrics = $this->metric->setInput($this->inputAll())->get();
-
-        return view('maintenance::metrics.index', [
-            'title' => 'All Metrics',
-            'metrics' => $metrics,
-        ]);
+        return view('maintenance::metrics.index');
     }
 
     /**
@@ -44,9 +40,7 @@ class MetricController extends Controller
      */
     public function create()
     {
-        return view('maintenance::metrics.create', [
-            'title' => 'Create a Metric',
-        ]);
+        return view('maintenance::metrics.create');
     }
 
     /**
@@ -54,23 +48,19 @@ class MetricController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store()
+    public function store(MetricRequest $request)
     {
-        $this->metricValidator->unique('name', $this->metric->getTableName(), 'name');
-        $this->metricValidator->unique('symbol', $this->metric->getTableName(), 'symbol');
+        $metric = $this->metric->create($request);
 
-        if ($this->metricValidator->passes()) {
-            $this->metric->setInput($this->inputAll())->create();
+        if($metric) {
+            $message = 'Successfully created metric.';
 
-            $this->message = 'Successfully created metric.';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.metrics.index');
+            return redirect()->route('maintenance.metrics.index')->withSuccess($message);
         } else {
-            $this->errors = $this->metricValidator->getErrors();
-            $this->redirect = route('maintenance.metrics.create');
-        }
+            $message = 'There was an issue creating this metric. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.metrics.index')->withErrors($message);
+        }
     }
 
     /**
@@ -84,10 +74,7 @@ class MetricController extends Controller
     {
         $metric = $this->metric->find($id);
 
-        return view('maintenance::metrics.edit', [
-            'title' => 'Edit Metric: '.$metric->name,
-            'metric' => $metric,
-        ]);
+        return view('maintenance::metrics.edit', compact('metric'));
     }
 
     /**
@@ -97,22 +84,19 @@ class MetricController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update($id)
+    public function update(MetricRequest $request, $id)
     {
-        $this->metricValidator->ignore('name', $this->metric->getTableName(), 'name', $id);
+        $metric = $this->metric->update($request, $id);
 
-        if ($this->metricValidator->passes()) {
-            $this->metric->setInput($this->inputAll())->update($id);
+        if($metric) {
+            $message = 'Successfully updated metric.';
 
-            $this->message = 'Successfully updated metric.';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.metrics.index');
+            return redirect()->route('maintenance.metrics.index')->withSuccess($message);
         } else {
-            $this->errors = $this->metricValidator->getErrors();
-            $this->redirect = route('maintenance.metrics.edit');
-        }
+            $message = 'There was an issue updating this metric. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.metrics.edit', [$id])->withSuccess($message);
+        }
     }
 
     /**
@@ -124,12 +108,14 @@ class MetricController extends Controller
      */
     public function destroy($id)
     {
-        $this->metric->destroy($id);
+        if($this->metric->delete($id)) {
+            $message = 'Successfully deleted metric.';
 
-        $this->message = 'Successfully deleted metric';
-        $this->messageType = 'success';
-        $this->redirect = route('maintenance.metrics.index');
+            return redirect()->route('maintenance.metrics.index')->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this metric. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.metrics.edit', [$id])->withSuccess($message);
+        }
     }
 }

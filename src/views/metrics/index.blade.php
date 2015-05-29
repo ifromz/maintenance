@@ -1,42 +1,38 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.pages.main.grid')
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a href="{{ route('maintenance.metrics.create') }}" class="btn btn-primary">
-            <i class="fa fa-plus"></i>
-            New Metric
+@section('title', 'Metrics')
+
+@section('grid.actions.create')
+    <li class="primary">
+        <a href="{{ route('maintenance.metrics.create') }}" data-toggle="tooltip" data-original-title="Create">
+            <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
         </a>
-    </div>
+    </li>
 @stop
 
-@section('panel.body.content')
+@section('grid.table')
+    <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.metrics.grid') }}" data-grid="main">
 
-    @if($metrics->count() > 0)
+        <thead>
+        <tr>
+            <th><input data-grid-checkbox="all" type="checkbox"></th>
+            <th class="sortable" data-sort="id">ID</th>
+            <th class="sortable" data-sort="subject">Subject</th>
+            <th class="sortable" data-sort="created_at">Created At</th>
+            <th class="sortable" data-sort="user_id">Created By</th>
+            <td>Priority</td>
+            <td>Status</td>
+        </tr>
+        </thead>
 
-        {!!
-            $metrics->columns([
-                'name' => 'Name',
-                'symbol' => 'Symbol',
-                'created_by' => 'Created By',
-                'created_at' => 'Created At',
-                'action' => 'Action',
-            ])
-            ->means('created_by', 'user.full_name')
-            ->modify('action', function($metric) {
-                return $metric->viewer()->btnActions();
-            })
-            ->hidden(['created_by', 'created_at'])
-            ->sortable([
-                'name',
-                'symbol',
-                'created_by',
-                'created_at',
-            ])
-            ->render()
-        !!}
+        <tbody></tbody>
 
-    @else
-        <h5>There are no metrics to display.</h5>
-    @endif
+    </table>
+@stop
 
+@section('grid.results')
+    @include('maintenance::metrics.grid.no-results')
+    @include('maintenance::metrics.grid.results')
+    @include('maintenance::metrics.grid.pagination')
+    @include('maintenance::metrics.grid.filters')
 @stop

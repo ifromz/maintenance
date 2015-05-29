@@ -28,7 +28,7 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             {
                 Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.categories.grid', 'uses' => 'CategoryController@grid']);
 
-                Route::post('move/{id?}', ['as' => 'maintenance.api.v1.work-orders.categories.move', 'uses' => 'CategoryController@move']);
+                Route::post('move/{categories?}', ['as' => 'maintenance.api.v1.work-orders.categories.move', 'uses' => 'CategoryController@move']);
             });
         });
 
@@ -46,7 +46,7 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             {
                 Route::get('grid', ['as' => 'maintenance.api.v1.assets.categories.grid', 'uses' => 'CategoryController@grid']);
 
-                Route::post('move/{id?}', ['as' => 'maintenance.api.v1.assets.categories.move', 'uses' => 'CategoryController@move']);
+                Route::post('move/{categories?}', ['as' => 'maintenance.api.v1.assets.categories.move', 'uses' => 'CategoryController@move']);
             });
         });
 
@@ -55,7 +55,7 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         {
             Route::get('grid', ['as' => 'maintenance.api.v1.locations.grid', 'uses' => 'LocationController@grid']);
 
-            Route::post('move/{id?}', ['as' => 'maintenance.api.v1.locations.move', 'uses' => 'LocationController@move']);
+            Route::post('move/{categories?}', ['as' => 'maintenance.api.v1.locations.move', 'uses' => 'LocationController@move']);
         });
     });
 

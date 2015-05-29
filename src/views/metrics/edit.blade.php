@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', "Edit Metric: $metric->name")
+
 @section('panel.head.content')
     Edit Metric
 @stop
@@ -9,7 +11,7 @@
         Form::open([
             'url' => route('maintenance.metrics.update', [$metric->id]),
             'method' => 'PATCH',
-            'class' => 'form-horizontal ajax-form-post'
+            'class' => 'form-horizontal'
         ])
     !!}
 
