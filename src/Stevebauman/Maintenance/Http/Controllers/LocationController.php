@@ -2,22 +2,30 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Stevebauman\Maintenance\Services\LocationService;
+use Stevebauman\Maintenance\Repositories\LocationRepository;
 use Stevebauman\Maintenance\Validators\LocationValidator;
 
 class LocationController extends NestedSetController
 {
     /**
-     * Constructor.
-     *
-     * @param LocationService   $location
-     * @param LocationValidator $locationValidator
+     * @param LocationRepository $repository
      */
-    public function __construct(LocationService $location, LocationValidator $locationValidator)
+    public function __construct(LocationRepository $repository)
     {
-        $this->service = $location;
-        $this->serviceValidator = $locationValidator;
+        $this->repository = $repository;
 
         $this->resource = 'Location';
+
+        $this->routes = [
+            'index' => 'maintenance.locations.index',
+            'create' => 'maintenance.locations.create',
+            'create-node' => 'maintenance.locations.nodes.create',
+            'store' => 'maintenance.locations.store',
+            'edit' => 'maintenance.locations.edit',
+            'update' => 'maintenance.locations.update',
+            'destroy' => 'maintenance.locations.destroy',
+            'grid' => 'maintenance.api.v1.locations.grid',
+            'move' => 'maintenance.api.v1.locations.move',
+        ];
     }
 }

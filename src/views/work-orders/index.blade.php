@@ -11,7 +11,6 @@
 @stop
 
 @section('grid.table')
-
     <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.work-orders.grid') }}" data-grid="main">
 
         <thead>

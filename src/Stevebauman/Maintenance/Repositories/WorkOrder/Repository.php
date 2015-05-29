@@ -163,4 +163,20 @@ class Repository extends BaseRepository
 
         return false;
     }
+
+    /**
+     * Retrieves all of the current users inventory items.
+     *
+     * @param array    $columns
+     * @param array    $settings
+     * @param \Closure $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridAssigned(array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->model()->assignedUser($this->sentry->getCurrentUserId());
+
+        return $this->newGrid($model, $columns, $settings, $transformer);
+    }
 }

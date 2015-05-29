@@ -2,32 +2,23 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Validators\PriorityValidator;
-use Stevebauman\Maintenance\Services\PriorityService;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\PriorityRequest;
+use Stevebauman\Maintenance\Repositories\WorkOrder\PriorityRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class PriorityController extends Controller
 {
     /**
-     * @var PriorityService
+     * @var PriorityRepository
      */
     protected $priority;
 
     /**
-     * @var PriorityValidator
+     * @param PriorityRepository $priority
      */
-    protected $priorityValidator;
-
-    /**
-     * Constructor.
-     *
-     * @param PriorityService   $priority
-     * @param PriorityValidator $priorityValidator
-     */
-    public function __construct(PriorityService $priority, PriorityValidator $priorityValidator)
+    public function __construct(PriorityRepository $priority)
     {
         $this->priority = $priority;
-        $this->priorityValidator = $priorityValidator;
     }
 
     /**
@@ -37,12 +28,7 @@ class PriorityController extends Controller
      */
     public function index()
     {
-        $priorities = $this->priority->get();
-
-        return view('maintenance::work-orders.priorities.index', [
-            'title' => 'All Priorities',
-            'priorities' => $priorities,
-        ]);
+        return view('maintenance::work-orders.priorities.index');
     }
 
     /**
@@ -52,36 +38,29 @@ class PriorityController extends Controller
      */
     public function create()
     {
-        return view('maintenance::work-orders.priorities.create', [
-            'title' => 'Create a Priority',
-        ]);
+        return view('maintenance::work-orders.priorities.create');
     }
 
     /**
      * Creates a new priority.
      *
+     * @param PriorityRequest $request
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store()
+    public function store(PriorityRequest $request)
     {
-        $this->priorityValidator->unique('name', $this->priority->getTableName(), 'name');
+        $priority = $this->priority->create($request);
 
-        if ($this->priorityValidator->passes()) {
-            if ($this->priority->setInput($this->inputAll())->create()) {
-                $this->message = 'Successfully created priority';
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.work-orders.priorities.index');
-            } else {
-                $this->message = 'There was an error trying to create a priority. Please try again';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.priorities.create');
-            }
+        if($priority) {
+            $message = 'Successfully created priority.';
+
+            return redirect()->route('maintenance.work-orders.priorities.index')->withSuccess($message);
         } else {
-            $this->errors = $this->priorityValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.priorities.create');
-        }
+            $message = 'There was an issue creating a priority. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.priorities.index')->withErrors($message);
+        }
     }
 
     /**
@@ -95,39 +74,30 @@ class PriorityController extends Controller
     {
         $priority = $this->priority->find($id);
 
-        return view('maintenance::work-orders.priorities.edit', [
-            'title' => 'Editing Priority: '.$priority->name,
-            'priority' => $priority,
-        ]);
+        return view('maintenance::work-orders.priorities.edit', compact('priority'));
     }
 
     /**
      * Updates the specified priority.
      *
-     * @param string|int $id
+     * @param PriorityRequest $request
+     * @param string|int      $id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update($id)
+    public function update(PriorityRequest $request, $id)
     {
-        $this->priorityValidator->ignore('name', $this->priority->getTableName(), 'name', $id);
+        $priority = $this->priority->update($request, $id);
 
-        if ($this->priorityValidator->passes()) {
-            if ($this->priority->setInput($this->inputAll())->update($id)) {
-                $this->message = 'Successfully updated priority';
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.work-orders.priorities.index');
-            } else {
-                $this->message = 'There was an error trying to create a priority. Please try again';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.priorities.edit', [$id]);
-            }
+        if($priority) {
+            $message = 'Successfully updated priority.';
+
+            return redirect()->route('maintenance.work-orders.priorities.index')->withSuccess($message);
         } else {
-            $this->errors = $this->priorityValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.priorities.edit', [$id]);
-        }
+            $message = 'There was an issue updating this priority. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.priorities.edit', [$id])->withErrors($message);
+        }
     }
 
     /**
@@ -139,12 +109,14 @@ class PriorityController extends Controller
      */
     public function destroy($id)
     {
-        $this->priority->destroy($id);
+        if($this->priority->delete($id)) {
+            $message = 'Successfully deleted priority.';
 
-        $this->message = 'Successfully deleted priority';
-        $this->messageType = 'success';
-        $this->redirect = route('maintenance.work-orders.priorities.index');
+            return redirect()->route('maintenance.work-orders.priorities.index')->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this priority. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.priorities.index')->withErrors($message);
+        }
     }
 }

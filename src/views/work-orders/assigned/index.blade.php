@@ -1,49 +1,23 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::work-orders.index')
 
-@section('panel.head.content')
-    My Assigned Work Orders
-@stop
+@section('title', 'Assigned Work Orders')
 
-@section('panel.body.content')
-    @if($workOrders->count() > 0)
+@section('grid.table')
+    <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.work-orders.assigned.grid') }}" data-grid="main">
 
-        {!!
-            $workOrders->columns([
-                'id' => 'ID',
-                'status' => 'Status',
-                'priority' => 'Priority',
-                'subject' => 'Subject',
-                'description' => 'Description',
-                'category' => 'Category',
-                'created_by' => 'Created By',
-                'created_at' => 'Created At',
-                'action' => 'Action'
-            ])
-            ->means('status', 'status.label')
-            ->means('priority', 'priority.label')
-            ->means('category', 'category.trail')
-            ->means('created_by', 'user.full_name')
-            ->means('description', 'limited_description')
-            ->modify('action', function($workOrder) {
-                return $workOrder->viewer()->btnActions();
-            })
-            ->sortable([
-                'id',
-                'status'=>'status_id',
-                'priority' => 'priority_id',
-                'category' => 'category_id',
-                'created_by' => 'user_id',
-                'subject',
-                'created_at',
-            ])
-            ->hidden(['id', 'description', 'category', 'created_by', 'created_at'])
-            ->showPages()
-            ->render()
-        !!}
+        <thead>
+            <tr>
+                <th><input data-grid-checkbox="all" type="checkbox"></th>
+                <th class="sortable" data-sort="id">ID</th>
+                <th class="sortable" data-sort="subject">Subject</th>
+                <th class="sortable" data-sort="created_at">Created At</th>
+                <th class="sortable" data-sort="user_id">Created By</th>
+                <td>Priority</td>
+                <td>Status</td>
+            </tr>
+        </thead>
 
-    @else
+        <tbody></tbody>
 
-        <h5>There are no work orders to display.</h5>
-
-    @endif
+    </table>
 @stop

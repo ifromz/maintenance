@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', "Edit Priority: $priority->name")
+
 @section('panel.head.content')
     Edit Priority
 @stop
@@ -9,7 +11,7 @@
         Form::open([
             'url' => route('maintenance.work-orders.priorities.update', [$priority->id]),
             'method' => 'PATCH',
-            'class' => 'form-horizontal ajax-form-post'
+            'class' => 'form-horizontal'
         ])
     !!}
 
