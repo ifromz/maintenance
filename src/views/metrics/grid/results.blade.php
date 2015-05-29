@@ -7,11 +7,10 @@
             <input data-grid-checkbox type="checkbox" name="entries[]" value="<%= r.id %>">
         </td>
         <td><%= r.id %></td>
-        <td><a href="<%= r.view_url %>"> <%= r.subject %> </a></td>
+        <td><a href="<%= r.view_url %>"> <%= r.name %> </a></td>
+        <td><%= r.symbol %></td>
         <td><%= r.created_at %></td>
         <td><%= r.created_by %></td>
-        <td><%= r.priority %></td>
-        <td><%= r.status %></td>
     </tr>
 
     <% }); %>

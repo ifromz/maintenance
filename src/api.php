@@ -57,6 +57,12 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
 
             Route::post('move/{categories?}', ['as' => 'maintenance.api.v1.locations.move', 'uses' => 'LocationController@move']);
         });
+
+        // Metric Api Routes
+        Route::group(['prefix' => 'metrics'], function()
+        {
+            Route::get('grid', ['as' => 'maintenance.api.v1.metrics.grid', 'uses' => 'MetricController@grid']);
+        });
     });
 
 });
