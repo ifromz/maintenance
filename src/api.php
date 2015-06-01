@@ -45,8 +45,18 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         });
 
         // Inventory Api Routes
-        Route::group(['namespace' => 'Inventory', 'prefix' => 'inventories'], function()
+        Route::group(['namespace' => 'Inventory', 'prefix' => 'inventory'], function()
         {
+            Route::get('{inventory}/stocks/{stocks}/edit', [
+                'as' => 'maintenance.api.v1.inventory.stocks.edit',
+                'uses' => 'StockController@edit',
+            ]);
+
+            Route::patch('{inventory}/stocks/{stocks}', [
+                'as' => 'maintenance.api.v1.inventory.stocks.update',
+                'uses' => 'StockController@update',
+            ]);
+
             // Inventory Category Api Routes
             Route::group(['prefix' => 'categories'], function()
             {
