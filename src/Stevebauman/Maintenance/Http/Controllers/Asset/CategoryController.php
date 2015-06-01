@@ -2,23 +2,30 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
-use Stevebauman\Maintenance\Services\Asset\CategoryService;
-use Stevebauman\Maintenance\Validators\CategoryValidator;
+use Stevebauman\Maintenance\Repositories\Asset\CategoryRepository;
 use Stevebauman\Maintenance\Http\Controllers\NestedSetController;
 
-/**
- * Class CategoryController.
- */
 class CategoryController extends NestedSetController
 {
     /**
-     * @param CategoryService   $assetCategory
-     * @param CategoryValidator $categoryValidator
+     * @param CategoryRepository $repository
      */
-    public function __construct(CategoryService $assetCategory, CategoryValidator $categoryValidator)
+    public function __construct(CategoryRepository $repository)
     {
-        $this->service = $assetCategory;
-        $this->serviceValidator = $categoryValidator;
+        $this->repository = $repository;
+
         $this->resource = 'Asset Category';
+
+        $this->routes = [
+            'index' => 'maintenance.assets.categories.index',
+            'create' => 'maintenance.assets.categories.create',
+            'create-node' => 'maintenance.assets.categories.nodes.create',
+            'store' => 'maintenance.assets.categories.store',
+            'edit' => 'maintenance.assets.categories.edit',
+            'update' => 'maintenance.assets.categories.update',
+            'destroy' => 'maintenance.assets.categories.destroy',
+            'grid' => 'maintenance.api.v1.assets.categories.grid',
+            'move' => 'maintenance.api.v1.assets.categories.move',
+        ];
     }
 }

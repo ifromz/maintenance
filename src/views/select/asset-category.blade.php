@@ -40,7 +40,7 @@
     $(document).ready(function (e) {
         var json_category_tree = null;
 
-        $.get("{{ route('maintenance.assets.categories.json') }}", function (data) {
+        $.get("{{ route('maintenance.api.v1.assets.categories.grid') }}", function (data) {
             json_category_tree = data;
         }).done(function () {
             if (json_category_tree != null) {
