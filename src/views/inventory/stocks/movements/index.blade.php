@@ -41,9 +41,10 @@
                 'cost',
                 'created_at',
             ])
-            ->showPages()
             ->render()
         !!}
+
+        <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
 
     @else
         <h5>There are currently no stock movements for this item</h5>

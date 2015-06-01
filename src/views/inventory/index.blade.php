@@ -58,7 +58,7 @@
             ->render()
         !!}
 
-        <div class="text-center">{!! $items->render() !!}</div>
+        <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
 
     @else
 

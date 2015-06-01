@@ -41,9 +41,10 @@
                'added_on' => 'created_at',
            ])
            ->hidden(['id', 'added_on', 'description'])
-           ->showPages()
            ->render()
        !!}
+
+        <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
     @else
         <h5>There are no archived inventory items to display.</h5>
     @endif

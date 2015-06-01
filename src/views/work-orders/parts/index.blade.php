@@ -40,9 +40,10 @@
             ->modify('select', function($item) use ($workOrder) {
                 return $item->viewer()->btnSelectForWorkOrder($workOrder);
             })
-            ->showPages()
             ->render()
         !!}
+
+        <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
 
     @else
         <h5>There are no inventory items to display.</h5>

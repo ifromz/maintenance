@@ -31,7 +31,8 @@
         ->hidden([
             'header',
         ])
-        ->showPages()
         ->render()
     !!}
+
+    <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
 @stop

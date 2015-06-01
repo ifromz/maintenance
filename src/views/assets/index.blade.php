@@ -52,9 +52,10 @@
                 'added_on' => 'created_at',
             ])
             ->hidden(['id', 'added_on', 'location', 'condition'])
-            ->showPages()
             ->render()
         !!}
+
+        <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
 
     @else
         <h5>There are no assets to display.</h5>

@@ -15,9 +15,10 @@
                     'hours' => 'Hours'
                 ])
                 ->sortable(['in', 'out'])
-                ->showPages()
                 ->render()
         !!}
+
+        <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
 
     @else
         <h5>There are no sessions to display for this user.</h5>

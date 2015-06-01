@@ -15,10 +15,11 @@
             ->modify('action', function($workOrder){
                 return $workOrder->viewer()->btnActions();
             })
-            ->showPages()
             ->render()
         !!}
     </div>
+
+    <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
 @else
     <h5>There are no work orders attached to this asset.</h5>
 @endif
