@@ -19,7 +19,7 @@ class ConfigService extends CoreHelperConfigService
         /*
          * Set the site configuration path
          */
-        $siteConfig = 'config/maintenance/site.php';
+        $siteConfig = 'maintenance/site.php';
 
         $content = $this->getConfigFile($siteConfig);
 
@@ -46,7 +46,7 @@ class ConfigService extends CoreHelperConfigService
         /*
          * Set the mail configuration file path
          */
-        $mailConfig = 'config/mail.php';
+        $mailConfig = 'mail.php';
 
         /*
          * Get the content from the configuration file
