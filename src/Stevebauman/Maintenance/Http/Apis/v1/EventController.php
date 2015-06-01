@@ -19,6 +19,9 @@ class EventController extends Controller
         $this->event = $event;
     }
 
+    /**
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
     public function grid()
     {
         $columns = [
@@ -55,5 +58,33 @@ class EventController extends Controller
         };
 
         return $this->event->grid($columns, $settings, $transformer);
+    }
+
+    /**
+     * Returns the specified events recurrences.
+     *
+     * @param int|string $id
+     *
+     * @return array|\Cartalyst\DataGrid\DataGrid
+     */
+    public function gridRecurrences($id)
+    {
+        $events = $this->event->getRecurrencesByApiId($id);
+
+        if($events) {
+            $columns = [
+                'start',
+                'end',
+            ];
+
+            $settings = [
+                'sort'      => 'start',
+                'direction' => 'desc',
+            ];
+
+            return $this->event->newGrid($events, $columns, $settings);
+        }
+
+        return [];
     }
 }

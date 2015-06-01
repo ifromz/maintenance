@@ -61,7 +61,7 @@ class InventoryService extends BaseModelService
             ->archived($archived)
             ->noVariants()
             ->sort($this->getInput('field'), $this->getInput('sort'))
-            ->paginate(25);
+            ->paginate(1);
     }
 
     /**

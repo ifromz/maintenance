@@ -27,14 +27,16 @@
         {!!
             Form::open([
                 'url' => route('maintenance.events.report.store', [$event->id]),
-                'class' => 'form-horizontal ajax-form-post'
+                'class' => 'form-horizontal'
             ])
         !!}
 
-        <div class="form-group">
+        <div class="form-group{{ $errors->first('description', ' has-error') }}">
             <label class="col-sm-2 control-label">Description / Details</label>
 
             <div class="col-md-6">
+                <span class="label label-danger">{{ $errors->first('description', ':message') }}</span>
+
                 {!! Form::textarea('description', null, ['class'=>'form-control', 'style'=>'min-width:100%']) !!}
             </div>
         </div>
@@ -44,7 +46,7 @@
                 {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
             </div>
         </div>
-s
+
         {!! Form::close() !!}
     @endif
 

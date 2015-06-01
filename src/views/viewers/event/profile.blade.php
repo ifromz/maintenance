@@ -1,20 +1,20 @@
 <dl class="dl-horizontal">
 
     <dt>Title / Summary:</dt>
-    <dd>{{ $event->title }}</dd>
+    <dd>{{ $apiObject->title }}</dd>
 
     <p></p>
 
-    @if($event->description)
+    @if($apiObject->description)
         <dt>Description:</dt>
-        <dd>{{ $event->description }}</dd>
+        <dd>{{ $apiObject->description }}</dd>
 
         <p></p>
     @endif
 
     @if($event->location)
         <dt>Location:</dt>
-        <dd>{{ $event->location }}</dd>
+        <dd>{!! $event->location->trail !!}</dd>
 
         <p></p>
     @endif
@@ -25,22 +25,22 @@
     <p></p>
 
     <dt>Starts:</dt>
-    <dd>{{ $event->viewer()->startFormatted() }}</dd>
+    <dd>{{ $event->viewer()->startFormatted($apiObject) }}</dd>
 
     <p></p>
 
     <dt>Ends:</dt>
-    <dd>{{ $event->viewer()->endFormatted() }}</dd>
+    <dd>{{ $event->viewer()->endFormatted($apiObject) }}</dd>
 
     <p></p>
 
     <dt>Recurring:</dt>
-    <dd>{!! $event->viewer()->lblRecurring() !!}</dd>
+    <dd>{!! $event->viewer()->lblRecurring($apiObject) !!}</dd>
 
     <p></p>
 
     <dt>Frequency:</dt>
-    <dd>{{ $event->viewer()->recurFrequencyFormatted() }}</dd>
+    <dd>{{ $event->viewer()->recurFrequencyFormatted($apiObject) }}</dd>
 
     <p></p>
 

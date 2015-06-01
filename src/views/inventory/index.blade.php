@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Inventory')
+
 @section('panel.extra.top')
 
     @include('maintenance::inventory.modals.search', [
@@ -53,9 +55,10 @@
                 'added_on' => 'created_at',
             ])
             ->hidden(['id', 'added_on', 'description'])
-            ->showPages()
             ->render()
         !!}
+
+        <div class="text-center">{!! $items->render() !!}</div>
 
     @else
 

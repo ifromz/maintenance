@@ -62,47 +62,35 @@ class EventController extends Controller
     }
 
     /**
-     * @param string $api_id
+     * Displays the specified event.
      *
-     * @return mixed
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function show($api_id)
+    public function show($id)
     {
-        $event = $this->event->findByApiId($api_id);
+        $event = $this->event->find($id);
 
-        $localEvent = $this->event->findLocalByApiId($api_id);
+        $apiObject = $this->event->findApiObject($event->api_id);
 
-        /*
-         * Filter recurrences to display entries one month from now
-         */
-        $filter = [
-            'timeMin' => strToRfc3339(strtotime('now')),
-            'timeMax' => strToRfc3339(strtotime('+1 month')),
-        ];
-
-        $recurrences = $this->event->setInput($filter)->getRecurrencesByApiId($api_id);
-
-        return view('maintenance::events.show', [
-            'title' => 'Viewing Event: '.$event->title,
-            'event' => $event,
-            'localEvent' => $localEvent,
-            'recurrences' => $recurrences,
-        ]);
+        return view('maintenance::events.show', compact('event', 'apiObject'));
     }
 
     /**
-     * @param string $api_id
+     * Displays the form for editing the specified event.
+     *
+     * @param string $id
      *
      * @return mixed
      */
-    public function edit($api_id)
+    public function edit($id)
     {
-        $event = $this->event->findByApiId($api_id);
+        $event = $this->event->find($id);
 
-        return view('maintenance::events.edit', [
-            'title' => sprintf('Editing event %s', $event->title),
-            'event' => $event,
-        ]);
+        $apiObject = $this->event->findApiObject($event->api_id);
+
+        return view('maintenance::events.edit', compact('event', 'apiObject'));
     }
 
     /**

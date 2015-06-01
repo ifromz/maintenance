@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Repositories;
 
+use Stevebauman\Maintenance\Http\Requests\Event\ReportRequest;
 use Stevebauman\Maintenance\Http\Requests\Event\Request;
 use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Repositories\LocationRepository;
 use Stevebauman\Maintenance\Models\Event;
 
 class EventRepository extends Repository
@@ -43,6 +43,35 @@ class EventRepository extends Repository
     public function model()
     {
         return new Event();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function grid(array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->model();
+
+        $model->whereNull('parent_id');
+
+        return parent::newGrid($model, $columns, $settings, $transformer);
+    }
+
+    /**
+     * Returns the events recurrences by it's Api ID.
+     *
+     * @param int|string $id
+     *
+     * @return mixed
+     */
+    public function getRecurrencesByApiId($id)
+    {
+        $filter = [
+            'timeMin' => strToRfc3339(strtotime('now')),
+            'timeMax' => strToRfc3339(strtotime('+1 month')),
+        ];
+
+        return $this->eventApi->setInput($filter)->getRecurrences($id);
     }
 
     /**
@@ -94,6 +123,33 @@ class EventRepository extends Repository
 
             if($event->save()) {
                 return $event;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Creates a new report for the specified event.
+     *
+     * @param ReportRequest $request
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function createReport(ReportRequest $request, $id)
+    {
+        $event = $this->find($id);
+
+        if($event) {
+            $insert = [
+                'description' => $request->clean($request->input('description')),
+            ];
+
+            $report = $event->report()->create($insert);
+
+            if($report) {
+                return $report;
             }
         }
 

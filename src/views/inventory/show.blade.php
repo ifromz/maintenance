@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
+@section('title', "Viewing Item: $item->name")
+
 @section('tab.head.content')
     <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab-variants" data-toggle="tab">Variants</a></li>

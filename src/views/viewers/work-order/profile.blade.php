@@ -6,11 +6,11 @@
         </tr>
         <tr>
             <th>Status</th>
-            <td>{{ $workOrder->status->label }}</td>
+            <td>{!! $workOrder->status->label !!}</td>
         </tr>
         <tr>
             <th>Priority:</th>
-            <td>{{ $workOrder->priority->label }}</td>
+            <td>{!! $workOrder->priority->label !!}</td>
         </tr>
         <tr>
             <th>Created By</th>
@@ -38,7 +38,7 @@
         @if($workOrder->description)
             <tr>
                 <th>Description:</th>
-                <td>{{ $workOrder->description }}</td>
+                <td>{!! $workOrder->description !!}</td>
             </tr>
         @endif
 

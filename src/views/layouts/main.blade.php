@@ -1,5 +1,9 @@
 @extends('maintenance::layouts.base')
 
+@section('styles')
+    <link href="{{ URL::to('assets/stevebauman/maintenance/css/daterangepicker-bs3.css') }}" rel="stylesheet">
+@stop
+
 @section('nav.left')
 
     @if($currentUser->hasAccess('maintenance.dashboard.index'))
@@ -176,5 +180,14 @@
             </a>
         </li>
     @endif
+
+@stop
+
+@section('scripts')
+
+    <script src="{{ URL::to('assets/cartalyst/data-grid/js/data-grid.js') }}"></script>
+    <script src="{{ URL::to('assets/cartalyst/data-grid/js/underscore.js') }}"></script>
+
+    <script src="{{ URL::to('assets/stevebauman/maintenance/js/daterangepicker.js') }}"></script>
 
 @stop

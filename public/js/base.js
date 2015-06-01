@@ -370,6 +370,7 @@ $(document).ready(function () {
  * individual input
  *
  * @param {type} errors
+ *
  * @returns {undefined}
  */
 var showFormErrors = function (errors) {
@@ -396,6 +397,40 @@ var showFormErrors = function (errors) {
             }
         }
     }
+};
+
+/**
+ * Accepts errors from a JSON response and displays them to the user on each
+ * individual input (new)
+ *
+ * @param {type} errors
+ *
+ * @returns {undefined}
+ */
+var showNewFormErrors = function (response) {
+    errors = response.responseJSON;
+
+    $.each(errors, function (key, value) {
+
+        var input = $('[name="' + key + '"]');
+
+        for (var i in value) {
+            input.closest('.form-group').addClass('has-error');
+
+            if (input.closest('.input-group').length > 0) {
+
+                var group = input.closest('.input-group');
+
+                group.after('<span class="label label-danger errors error-' + key + '">' + value + '</span>');
+
+            } else {
+
+                input.after('<span class="label label-danger errors error-' + key + '">' + value + '</span>');
+
+            }
+        }
+
+    });
 };
 
 /**
@@ -501,11 +536,11 @@ var showFormResponse = function (response, status, xhr, $form) {
          */
         showFormErrors(response.errors);
 
-    } else
+    } else if (typeof response.responseJSON !== 'undefined')
     {
-
+        showNewFormErrors(response);
     }
-}
+};
 
 /**
  * Formats an icon into a select2 list

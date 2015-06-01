@@ -10,7 +10,7 @@
     {!!
         Form::open([
             'url' => route('maintenance.work-requests.store'),
-            'class'=>'form-horizontal'
+            'class'=>'form-horizontal ajax-form-post'
         ])
     !!}
 

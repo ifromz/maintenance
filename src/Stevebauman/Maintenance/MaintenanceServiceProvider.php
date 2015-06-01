@@ -96,6 +96,8 @@ class MaintenanceServiceProvider extends ServiceProvider
         // HTML
         $this->app->register('Illuminate\Html\HtmlServiceProvider');
 
+        $this->app->register('Stevebauman\EloquentTable\EloquentTableServiceProvider');
+
         // Breadcrumbs
         $this->app->register('DaveJamesMiller\Breadcrumbs\ServiceProvider');
 

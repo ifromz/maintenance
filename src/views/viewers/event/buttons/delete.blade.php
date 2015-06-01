@@ -1,4 +1,4 @@
-<a href="{{ action(currentControllerAction('destroy'), [$event->id]) }}"
+<a href="{{ $url }}"
    data-method="delete"
    data-token="{{ csrf_token() }}"
    data-title="Delete event?"

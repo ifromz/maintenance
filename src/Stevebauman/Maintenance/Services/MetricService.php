@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Exceptions\NotFound\MetricNotFoundException;
 use Stevebauman\Maintenance\Models\Metric;
 
 /**
@@ -16,15 +15,15 @@ class MetricService extends BaseModelService
     protected $sentry;
 
     /**
+     * Constructor.
+     *
      * @param Metric                  $metric
      * @param SentryService           $sentry
-     * @param MetricNotFoundException $notFoundException
      */
-    public function __construct(Metric $metric, SentryService $sentry, MetricNotFoundException $notFoundException)
+    public function __construct(Metric $metric, SentryService $sentry)
     {
         $this->model = $metric;
         $this->sentry = $sentry;
-        $this->notFoundException = $notFoundException;
     }
 
     /**

@@ -1,9 +1,5 @@
 @extends('maintenance::layouts.main')
 
-@section('styles')
-    <link href="{{ URL::to('assets/css/daterangepicker-bs3.css') }}" rel="stylesheet">
-@stop
-
 @section('content')
 
     {{-- Grid --}}
@@ -154,15 +150,6 @@
         @yield('grid.results')
 
     </section>
-
-@stop
-
-@section('scripts')
-
-    <script src="{{ URL::to('assets/cartalyst/data-grid/js/data-grid.js') }}"></script>
-    <script src="{{ URL::to('assets/cartalyst/data-grid/js/underscore.js') }}"></script>
-
-    <script src="{{ URL::to('assets/js/daterangepicker.js') }}"></script>
 
     <script>
 

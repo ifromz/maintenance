@@ -17,7 +17,7 @@
         @if($item->category)
             <tr>
                 <th>Category</th>
-                <td>{{ $item->category->trail }}</td>
+                <td>{!! $item->category->trail !!}</td>
             </tr>
         @endif
         @if($item->hasSku())

@@ -10,10 +10,13 @@
 @section('tab.body.content')
     <div class="tab-pane active" id="tab_profile">
 
-        <legend>Profile</legend>
+        <h2>Profile</h2>
 
-        {!! $workRequest->viewer()->profile() !!}
+        <div class="col-md-6">
+            {!! $workRequest->viewer()->profile() !!}
+        </div>
 
+        <div class="clearfix"></div>
     </div>
 
     <div class="tab-pane" id="tab_updates">

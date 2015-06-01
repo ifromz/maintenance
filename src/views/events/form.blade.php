@@ -4,7 +4,7 @@
     <label class="col-sm-2 control-label">Title / Summary</label>
 
     <div class="col-md-4">
-        {!! Form::text('title', (isset($event) ? $event->title : null), ['class'=>'form-control', 'placeholder'=>'Enter Title']) !!}
+        {!! Form::text('title', (isset($apiObject) ? $apiObject->title : null), ['class'=>'form-control', 'placeholder'=>'Enter Title']) !!}
 
         <span class="label label-danger">{{ $errors->first('title', ':message') }}</span>
     </div>
@@ -14,7 +14,7 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-4">
-        {!! Form::text('description', (isset($event) ? $event->description : null), ['class'=>'form-control', 'placeholder'=>'Enter Description']) !!}
+        {!! Form::text('description', (isset($apiObject) ? $apiObject->description : null), ['class'=>'form-control', 'placeholder'=>'Enter Description']) !!}
 
         <span class="label label-danger">{{ $errors->first('description', ':message') }}</span>
     </div>
@@ -24,7 +24,10 @@
     <label class="col-sm-2 control-label">Location</label>
 
     <div class="col-md-4">
-        @include('maintenance::select.location')
+        @include('maintenance::select.location', [
+            'location_name' => (isset($event) && isset($event->location) ? $event->location->name : null),
+            'location_id' => (isset($event) && isset($event->location) ? $event->location->id : null),
+        ])
 
         <span class="label label-danger">{{ $errors->first('location', ':message') }}</span>
     </div>
@@ -36,7 +39,7 @@
     <div class="col-md-2">
         @include('maintenance::select.date', [
             'name' => 'start_date',
-            'value' => (isset($event) ? $event->viewer()->startDateFormatted() : null)
+            'value' => (isset($event) ? $event->viewer()->startDateFormatted($apiObject) : null)
         ])
 
         <span class="label label-danger">{{ $errors->first('start_date', ':message') }}</span>
@@ -45,7 +48,7 @@
     <div class="col-md-2">
         @include('maintenance::select.time', [
             'name' => 'start_time',
-            'value' => (isset($event) ? $event->viewer()->startTimeFormatted() : null)
+            'value' => (isset($event) ? $event->viewer()->startTimeFormatted($apiObject) : null)
         ])
 
         <span class="label label-danger">{{ $errors->first('start_time', ':message') }}</span>
@@ -58,7 +61,7 @@
     <div class="col-md-2">
         @include('maintenance::select.date', [
             'name' => 'end_date',
-            'value' => (isset($event) ? $event->viewer()->endDateFormatted() : null)
+            'value' => (isset($event) ? $event->viewer()->endDateFormatted($apiObject) : null)
         ])
 
         <span class="label label-danger">{{ $errors->first('end_date', ':message') }}</span>
@@ -66,7 +69,7 @@
     <div class="col-md-2">
         @include('maintenance::select.time', [
             'name' => 'end_time',
-            'value' => (isset($event) ? $event->viewer()->endTimeFormatted() : null)
+            'value' => (isset($event) ? $event->viewer()->endTimeFormatted($apiObject) : null)
         ])
 
         <span class="label label-danger">{{ $errors->first('end_time', ':message') }}</span>
@@ -78,7 +81,7 @@
 
     <div class="col-md-4">
         @include('maintenance::select.users')
-    </div>
+    </div>main
 </div>
 
 <div class="form-group{{ $errors->first('all_day', ' has-error') }}">
@@ -114,7 +117,7 @@
 
             <div class="col-md-4">
                 @include('maintenance::select.recur_frequency', [
-                    'frequency' => $event->viewer()->recurFrequency()
+                    'frequency' => $event->viewer()->recurFrequency($apiObject)
                 ])
 
                 <span class="label label-danger">{{ $errors->first('frequency', ':message') }}</span>
@@ -126,7 +129,7 @@
 
             <div class="col-md-4">
                 @include('maintenance::select.recur_days', [
-                    'days' => $event->viewer()->recurDays()
+                    'days' => $event->viewer()->recurDays($apiObject)
                 ])
 
                 <span class="label label-danger">{{ $errors->first('recur_days', ':message') }}</span>
@@ -134,7 +137,7 @@
         </div>
 
         <div class="form-group{{ $errors->first('recur_months', ' has-error') }}">
-            <label class="col-sm-2 control-label" for="name">Secific Months</label>
+            <label class="col-sm-2 control-label">Specific Months</label>
 
             <div class="col-md-4">
                 @include('maintenance::select.recur_months')
@@ -168,7 +171,7 @@
     </div>
 
     <div class="form-group{{ $errors->first('recur_months', ' has-error') }}">
-        <label class="col-sm-2 control-label">Secific Months</label>
+        <label class="col-sm-2 control-label">Specific Months</label>
 
         <div class="col-md-4">
             @include('maintenance::select.recur_months')

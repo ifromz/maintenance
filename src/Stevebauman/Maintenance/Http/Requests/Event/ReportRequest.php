@@ -13,8 +13,10 @@ class ReportRequest extends Request
      */
     public function rules()
     {
+        $eventId = $this->route('event_id');
+
         return [
-            'description' => 'required|min:10',
+            'description' => "required|min:10|unique_event_report:$eventId",
         ];
     }
 

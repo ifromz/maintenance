@@ -16,22 +16,22 @@
                 <div id="notificiation-response"></div>
 
                 @if($workOrder->notify)
-                    {{
+                    {!!
                         Form::open([
                            'url' => route('maintenance.work-orders.notifications.update', [$workOrder->id, $workOrder->notify->id]),
                            'class' => 'ajax-form-post',
                            'method' => 'PATCH',
                            'data-status-target' => '#notificiation-response',
                         ])
-                    }}
+                    !!}
                 @else
-                    {{
+                    {!!
                         Form::open([
                            'url'=>route('maintenance.work-orders.notifications.store', [$workOrder->id]),
                            'class' => 'ajax-form-post',
                            'data-status-target' => '#notificiation-response',
                         ])
-                    }}
+                    !!}
                 @endif
 
 
