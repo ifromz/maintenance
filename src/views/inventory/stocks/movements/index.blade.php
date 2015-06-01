@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', "Viewing Movments for Item: $item->name")
+
 @section('panel.head.content')
     <div class="btn-toolbar">
         <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
