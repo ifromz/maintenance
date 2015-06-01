@@ -22,4 +22,17 @@
         </div>
     @endif
 
+    <div class="col-md-12">
+        <div id="alert-container">
+            @if(Session::get('message'))
+                <div class="col-md-12">
+                    <div class="alert alert-{{ Session::get('messageType') }} alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        {{ Session::get('message') }}
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+
 </div>
