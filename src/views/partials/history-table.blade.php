@@ -5,21 +5,28 @@
 
         <table class="table table-striped">
             <thead>
-            <tr>
-                <th>User Responsible</th>
-                <th>Changed</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Date</th>
-            </tr>
+                <tr>
+                    <th>User Responsible</th>
+                    <th>Changed</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Date</th>
+                </tr>
             </thead>
             <tbody>
             @foreach($record->revisionHistory as $record)
                 <tr>
                     <td>{{ $record->userResponsible()->first_name }} {{ $record->userResponsible()->last_name }}</td>
                     <td>{{ $record->fieldName() }}</td>
-                    <td>{{ $record->oldValue() }}</td>
-                    <td>{{ $record->newValue() }}</td>
+                    <td>
+                        @if(is_null($record->oldValue()))
+                            <em>None</em>
+                        @else
+                            {!! $record->oldValue() !!}
+                        @endif
+
+                    </td>
+                    <td>{!! $record->newValue() !!}</td>
                     <td>{{ $record->created_at }}</td>
                 </tr>
             @endforeach

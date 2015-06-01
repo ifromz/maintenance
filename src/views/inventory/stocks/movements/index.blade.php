@@ -44,7 +44,7 @@
             ->render()
         !!}
 
-        <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
+        <div class="text-center">{!! $movements->appends(Input::except('page'))->render() !!}</div>
 
     @else
         <h5>There are currently no stock movements for this item</h5>
