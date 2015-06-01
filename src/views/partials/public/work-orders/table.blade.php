@@ -44,4 +44,4 @@
     </tbody>
 </table>
 
-<div class="text-center">{!! $workOrders->appends(Input::except('page'))->links() !!}</div>
+<div class="text-center">{!! $workOrders->appends(Input::except('page'))->render() !!}</div>

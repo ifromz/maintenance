@@ -47,7 +47,7 @@
         @endif
 
         <div class="btn-toolbar text-center">
-            {!! $readings->links() !!}
+            {!! $readings->appends(Input::except('page'))->render() !!}
         </div>
     </div>
 @stop
