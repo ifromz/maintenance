@@ -21,7 +21,7 @@
 @stop
 
 @section('panel.body.content')
-    <div class="text-center">{{ $users->appends(Input::except('page'))->links() }}</div>
+    <div class="text-center">{{ $users->appends(Input::except('page'))->render() }}</div>
 
     @if($users->count() > 0)
         {!!
@@ -43,5 +43,5 @@
         !!}
     @endif
 
-    <div class="text-center">{{ $users->appends(Input::except('page'))->links() }}</div>
+    <div class="text-center">{{ $users->appends(Input::except('page'))->render() }}</div>
 @stop
