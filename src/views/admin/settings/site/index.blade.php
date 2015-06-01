@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.admin.panel')
 
+@section('title', 'Edit Site Settings')
+
 @section('panel.head.content')
     Site Settings
 @stop
@@ -10,7 +12,7 @@
            'url' => route('maintenance.admin.settings.site.store'),
            'class' => 'form-horizontal ajax-form-post',
        ])
-   }}
+   !!}
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Main Site Title:</label>
@@ -38,7 +40,7 @@
                     <i class="fa fa-calendar-o"></i>
                 </div>
 
-                {!! Form::text('work_order_calendar', config('maintenance,site.calendars.work-orders'), ['class'=>'form-control']) !!}
+                {!! Form::text('work_order_calendar', config('maintenance.site.calendars.work-orders'), ['class'=>'form-control']) !!}
 
             </div>
         </div>
