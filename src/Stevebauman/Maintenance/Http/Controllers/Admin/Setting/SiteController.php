@@ -37,9 +37,7 @@ class SiteController extends Controller
      */
     public function index()
     {
-        return view('maintenance::admin.settings.site.index', [
-            'title' => 'Edit Site Settings',
-        ]);
+        return view('maintenance::admin.settings.site.index');
     }
 
     /**
