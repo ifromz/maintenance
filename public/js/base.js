@@ -94,7 +94,12 @@ $(document).ready(function () {
 
                 btnEnable(btnSubmit);
             },
-            error: showFormResponse
+            error: function(response, status, xhr, $form)
+            {
+                showFormResponse(response, status, xhr, $form);
+
+                btnEnable(btnSubmit);
+            }
         });
 
     });
