@@ -44,6 +44,18 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             Route::get('grid', ['as' => 'maintenance.api.v1.work-requests.grid', 'uses' => 'Controller@grid']);
         });
 
+        // Inventory Api Routes
+        Route::group(['namespace' => 'Inventory', 'prefix' => 'inventories'], function()
+        {
+            // Inventory Category Api Routes
+            Route::group(['prefix' => 'categories'], function()
+            {
+                Route::get('grid', ['as' => 'maintenance.api.v1.inventory.categories.grid', 'uses' => 'CategoryController@grid']);
+
+                Route::post('move/{categories?}', ['as' => 'maintenance.api.v1.inventory.categories.move', 'uses' => 'CategoryController@move']);
+            });
+        });
+
         // Asset Api Routes
         Route::group(['namespace' => 'Asset', 'prefix' => 'assets'], function()
         {
