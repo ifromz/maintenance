@@ -65,13 +65,16 @@
             <aside class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    @section('header')
-                        <h1>@yield('title')</h1>
-                    @show
 
-                    @section('breadcrumb')
-                        {!! Breadcrumbs::renderIfExists() !!}
-                    @show
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Breadcrumbs -->
+                            @section('breadcrumb')
+                                {!! Breadcrumbs::renderIfExists() !!}
+                            @show
+                        </div>
+                    </div>
+
                 </section>
 
                 <!-- Main content -->
@@ -84,6 +87,7 @@
                         @yield('content')
                     </div>
                 </section>
+                <!-- End Main Content -->
             </aside>
             <!-- /.right-side -->
         </div>
