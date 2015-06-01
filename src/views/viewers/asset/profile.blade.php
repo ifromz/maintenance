@@ -10,7 +10,7 @@
         </tr>
         <tr>
             <th>Category</th>
-            <td>{{ $asset->category->trail }}</td>
+            <td>{!! $asset->category->trail !!}</td>
         </tr>
         <tr>
             <th>Condition</th>

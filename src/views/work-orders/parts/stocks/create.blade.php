@@ -14,7 +14,7 @@
         <p></p>
 
         <dt>Location:</dt>
-        <dd>{{ $stock->location->trail }}</dd>
+        <dd>{!! $stock->location->trail !!}</dd>
 
         <p></p>
 

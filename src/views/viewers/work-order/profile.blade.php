@@ -24,14 +24,14 @@
         @if($workOrder->category)
             <tr>
                 <th>Category:</th>
-                <td>{{ $workOrder->category->trail }}</td>
+                <td>{!! $workOrder->category->trail !!}</td>
             </tr>
         @endif
 
         @if($workOrder->location)
             <tr>
                 <th>Location:</th>
-                <td>{{ $workOrder->location->trail }}</td>
+                <td>{!! $workOrder->location->trail !!}</td>
             </tr>
         @endif
 

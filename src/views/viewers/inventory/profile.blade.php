@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <th>Description</th>
-            <td>{{ $item->description }}</td>
+            <td>{!! $item->description !!}</td>
         </tr>
         <tr>
             <th>QR Code</th>
