@@ -94,7 +94,7 @@ Route::group(['prefix' => Config::get('maintenance::site.prefix'), 'namespace' =
          */
         Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             /*
-             * Amdministration Routes
+             * Administration Routes
              */
             include 'routes/admin.php';
         });
