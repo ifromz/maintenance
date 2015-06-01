@@ -66,7 +66,7 @@
                 <p></p>
 
                 <dt>Description:</dt>
-                <dd>{{ $workOrder->description }}</dd>
+                <dd>{!! $workOrder->description !!}</dd>
 
                 <p></p>
             </dl>

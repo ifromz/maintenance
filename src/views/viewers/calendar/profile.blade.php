@@ -7,7 +7,7 @@
 
     @if($calendar->description)
         <dt>Description:</dt>
-        <dd>{{ $calendar->description }}</dd>
+        <dd>{!! $calendar->description !!}</dd>
 
         <p></p>
     @endif

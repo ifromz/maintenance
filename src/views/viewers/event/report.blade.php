@@ -18,7 +18,7 @@
 
             <dt>Report:</dt>
             <dd class="bg-gray">
-                {{ $event->report->description }}
+                {!! $event->report->description !!}
             </dd>
 
         </dl>
