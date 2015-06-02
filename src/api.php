@@ -47,6 +47,8 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         // Inventory Api Routes
         Route::group(['namespace' => 'Inventory', 'prefix' => 'inventory'], function()
         {
+            Route::get('grid', ['as' => 'maintenance.api.v1.inventory.grid', 'uses' => 'Controller@grid']);
+
             Route::get('{inventory}/stocks/{stocks}/edit', [
                 'as' => 'maintenance.api.v1.inventory.stocks.edit',
                 'uses' => 'StockController@edit',

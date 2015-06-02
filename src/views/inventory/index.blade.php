@@ -1,69 +1,38 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.pages.main.grid')
 
 @section('title', 'Inventory')
 
-@section('panel.extra.top')
-
-    @include('maintenance::inventory.modals.search', [
-        'url' => route('maintenance.inventory.index', Input::only('field', 'sort', 'per_page'))
-    ])
-
+@section('grid.actions.create')
+    <li class="primary">
+        <a href="{{ route('maintenance.inventory.create') }}" data-toggle="tooltip" data-original-title="Create">
+            <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
+        </a>
+    </li>
 @stop
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary">
-            <i class="fa fa-plus"></i>
-            New Item
-        </a>
-        <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal" title="Filter results">
-            <i class="fa fa-search"></i>
-            Search
-        </a>
+@section('grid.table')
+    <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.inventory.grid') }}" data-grid="main">
 
-        <div class="col-md-2 pull-right">
-            @include('maintenance::select.records-per-page')
-        </div>
-    </div>
+        <thead>
+        <tr>
+            <th><input data-grid-checkbox="all" type="checkbox"></th>
+            <th class="sortable" data-sort="id">ID</th>
+            <th>SKU</th>
+            <th class="sortable" data-sort="subject">Name</th>
+            <th class="sortable" data-sort="category_id">Category</th>
+            <th>Current Stock</th>
+            <th class="sortable" data-sort="created_at">Created At</th>
+        </tr>
+        </thead>
+
+        <tbody></tbody>
+
+    </table>
 @stop
 
-@section('panel.body.content')
-
-    @if($items->count() > 0)
-
-        {!!
-            $items->columns([
-                'id' => 'ID',
-                'name' => 'Name',
-                'category' => 'Category',
-                'current_stock' => 'Current Stock',
-                'description' => 'Description',
-                'created_at' => 'Added On',
-                'action'  => 'Action'
-            ])
-            ->means('category', 'category.trail')
-            ->modify('current_stock', function ($item) {
-                return $item->viewer()->lblCurrentStock();
-            })
-            ->modify('action', function ($item) {
-                return $item->viewer()->btnActions();
-            })
-            ->sortable([
-                'id',
-                'name',
-                'category' => 'category_id',
-                'added_on' => 'created_at',
-            ])
-            ->hidden(['id', 'added_on', 'description'])
-            ->render()
-        !!}
-
-        <div class="text-center">{!! $items->appends(Input::except('page'))->render() !!}</div>
-
-    @else
-
-        <h5>There are no inventory items to list.</h5>
-
-    @endif
-
+@section('grid.results')
+    @include('maintenance::inventory.grid.no-results')
+    @include('maintenance::inventory.grid.results')
+    @include('maintenance::inventory.grid.pagination')
+    @include('maintenance::inventory.grid.filters')
 @stop

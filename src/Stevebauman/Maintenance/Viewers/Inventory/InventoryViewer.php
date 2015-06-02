@@ -111,6 +111,6 @@ class InventoryViewer extends BaseViewer
         return view('maintenance::viewers.inventory.labels.current-stock', [
             'currentStock' => $totalStock,
             'currentVariantStock' => $variantStock,
-        ]);
+        ])->render();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
+use Illuminate\Filesystem\Filesystem;
 use Stevebauman\Maintenance\Validators\DocumentValidator;
 use Stevebauman\Maintenance\Validators\ImageValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
@@ -30,6 +31,11 @@ class AttachmentController extends AbstractUploadController
     protected $attachment;
 
     /**
+     * @var Filesystem
+     */
+    protected $filesystem;
+
+    /**
      * @var ImageValidator
      */
     protected $imageValidator;
@@ -50,6 +56,7 @@ class AttachmentController extends AbstractUploadController
      * @param WorkOrderService           $workOrder
      * @param WorkOrderAttachmentService $workOrderAttachment
      * @param AttachmentService          $attachment
+     * @param Filesystem                 $filesystem
      * @param ImageValidator             $imageValidator
      * @param DocumentValidator          $documentValidator
      */
@@ -57,12 +64,14 @@ class AttachmentController extends AbstractUploadController
         WorkOrderService $workOrder,
         WorkOrderAttachmentService $workOrderAttachment,
         AttachmentService $attachment,
+        Filesystem $filesystem,
         ImageValidator $imageValidator,
         DocumentValidator $documentValidator
     ) {
         $this->workOrder = $workOrder;
         $this->workOrderAttachment = $workOrderAttachment;
         $this->attachment = $attachment;
+        $this->filesystem = $filesystem;
         $this->imageValidator = $imageValidator;
         $this->documentValidator = $documentValidator;
     }
@@ -157,11 +166,7 @@ class AttachmentController extends AbstractUploadController
         $workOrder = $this->workOrder->find($workOrder_id);
         $attachment = $this->attachment->find($attachment_id);
 
-        if ($this->storage->delete($attachment->file_path.$attachment->file_name)) {
-            /*
-             * We'll try and remove the directory if it's empty
-             */
-            $this->storage->deleteDirectory($attachment->file_path);
+        if ($this->filesystem->delete($attachment->file_path)) {
 
             $attachment->delete();
 
