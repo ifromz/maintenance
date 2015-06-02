@@ -70,7 +70,7 @@ Route::group(['namespace' => 'Inventory'], function () {
     /*
      * Start Inventory Routes
      */
-    Route::resource('inventory', 'InventoryController', [
+    Route::resource('inventory', 'Controller', [
         'names' => [
             'index' => 'maintenance.inventory.index',
             'create' => 'maintenance.inventory.create',
