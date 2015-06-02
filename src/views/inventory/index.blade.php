@@ -14,15 +14,15 @@
     <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.inventory.grid') }}" data-grid="main">
 
         <thead>
-        <tr>
-            <th><input data-grid-checkbox="all" type="checkbox"></th>
-            <th class="sortable" data-sort="id">ID</th>
-            <th>SKU</th>
-            <th class="sortable" data-sort="subject">Name</th>
-            <th class="sortable" data-sort="category_id">Category</th>
-            <th>Current Stock</th>
-            <th class="sortable" data-sort="created_at">Created At</th>
-        </tr>
+            <tr>
+                <th><input data-grid-checkbox="all" type="checkbox"></th>
+                <th class="sortable" data-sort="id">ID</th>
+                <th>SKU</th>
+                <th class="sortable" data-sort="name">Name</th>
+                <th class="sortable" data-sort="category_id">Category</th>
+                <th>Current Stock</th>
+                <th class="sortable" data-sort="created_at">Created At</th>
+            </tr>
         </thead>
 
         <tbody></tbody>
