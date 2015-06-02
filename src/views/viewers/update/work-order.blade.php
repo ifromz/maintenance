@@ -13,13 +13,13 @@
 
 @section('message.tools.content')
 
-    @if($currentUser->id === $update->user->id)
+    @if(Sentry::getUser()->id === $update->user->id)
         <a
                 data-method="delete"
                 data-token="{{ csrf_token() }}"
                 data-title="Delete message?"
                 data-message="Are you sure you want to delete this message?"
-                href="{{ route('maintenance.work-orders.updates.destroy', array($workOrder->id, $update->id)) }}">
+                href="{{ route('maintenance.work-orders.updates.destroy', [$workOrder->id, $update->id]) }}">
             <i class="fa fa-trash-o"></i>
         </a>
     @endif

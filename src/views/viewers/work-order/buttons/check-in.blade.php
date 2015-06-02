@@ -1,5 +1,5 @@
 @if($workOrder->userCheckedIn())
-    <a href="{{ route('maintenance.work-orders.session.end', [$workOrder->id, $workOrder->getCurrentSession()->id]) }}"
+    <a href="{{ route('maintenance.work-orders.session.end', [$workOrder->id]) }}"
        data-method="post"
        data-token="{{ csrf_token() }}"
        data-title="Check out?"

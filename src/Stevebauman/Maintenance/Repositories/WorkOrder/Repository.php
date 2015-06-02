@@ -60,6 +60,23 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Finds the last current users session record.
+     *
+     * @param int|string $workOrderId
+     *
+     * @return null|\Stevebauman\Maintenance\Models\WorkOrderSession
+     */
+    public function findLastUserSession($workOrderId)
+    {
+        $workOrder = $this->find($workOrderId);
+
+        return $workOrder
+            ->sessions()
+            ->where('user_id', $this->sentry->getCurrentUserId())
+            ->first();
+    }
+
+    /**
      * Creates a new work order.
      *
      * @param Request $request

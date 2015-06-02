@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class AssignedController extends Controller
+class AssignedController extends BaseController
 {
     /**
      * Displays the all assigned work orders for the current user.

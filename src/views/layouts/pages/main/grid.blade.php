@@ -36,9 +36,9 @@
                                         <i class="fa fa-download"></i> <span class="visible-xs-inline">Export</span>
                                     </a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a data-download="pdf"><i class="fa fa-file-pdf-o"></i> PDF</a></li>
-                                        <li><a data-download="csv"><i class="fa fa-file-excel-o"></i> CSV</a></li>
-                                        <li><a data-download="json"><i class="fa fa-file-code-o"></i> JSON</a></li>
+                                        <li><a href="#" data-download="pdf" data-toggle="tooltip" data-original-title="Export Results as PDF"><i class="fa fa-file-pdf-o"></i> PDF</a></li>
+                                        <li><a href="#" data-download="csv" data-toggle="tooltip" data-original-title="Export Results as CSV"><i class="fa fa-file-excel-o"></i> CSV</a></li>
+                                        <li><a href="#" data-download="json" data-toggle="tooltip" data-original-title="Export Results as JSON"><i class="fa fa-file-code-o"></i> JSON</a></li>
                                     </ul>
                                 </li>
 
@@ -99,11 +99,11 @@
 
                                 <span class="input-group-btn">
 
-                                    <button class="btn btn-default" type="submit">
+                                    <button data-toggle="tooltip" data-original-title="Search" class="btn btn-default" type="submit">
                                         <span class="fa fa-search"></span>
                                     </button>
 
-                                    <button class="btn btn-default" data-grid="main" data-reset>
+                                    <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="main" data-reset>
                                         <i class="fa fa-refresh fa-sm"></i>
                                     </button>
 
@@ -127,7 +127,7 @@
             {{-- Grid: Applied Filters --}}
             <div class="btn-toolbar" role="toolbar" aria-label="data-grid-applied-filters">
 
-                <div id="data-grid_applied" class="btn-group" data-grid="main"></div>
+                <div class="btn-group filters" data-grid="main"></div>
 
             </div>
 
@@ -140,10 +140,10 @@
 
         </div>
 
-        <footer class="panel-footer clearfix">
+        <footer class="panel-footer clearfix text-center">
 
             {{-- Grid: Pagination --}}
-            <div id="data-grid_pagination" data-grid="main"></div>
+            <div class="pagination" data-grid="main"></div>
 
         </footer>
 

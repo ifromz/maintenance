@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Apis\v1\WorkOrder;
+namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;

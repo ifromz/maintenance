@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Apis\v1\Asset;
+namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;

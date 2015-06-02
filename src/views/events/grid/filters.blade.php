@@ -2,8 +2,11 @@
 
     <% _.each(filters, function(f) { %>
 
-    <li>
-        <% if(column === 'all') { %>
+    <button class="btn btn-default btn-sm">
+
+        <span><i class="fa fa-trash-o"></i></span>
+
+        <% if(f.column === 'all') { %>
 
         <%= f.value %>
 
@@ -12,7 +15,7 @@
         <%= r.value %> in <%= f.column %>
 
         <% } %>
-    </li>
+    </button>
 
     <% }); %>
 

@@ -5,12 +5,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 use Stevebauman\Maintenance\Validators\UpdateValidator;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\UpdateService;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 /**
  * Class UpdateController.
  */
-class UpdateController extends Controller
+class UpdateController extends BaseController
 {
     /**
      * @var UpdateService
