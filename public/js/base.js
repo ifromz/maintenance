@@ -413,6 +413,10 @@ var showFormErrors = function (errors) {
  * @returns {undefined}
  */
 var showNewFormErrors = function (response) {
+    $('.status-message').remove();
+    $('.errors').remove();
+    $('.form-group').removeClass('has-error');
+
     errors = response.responseJSON;
 
     $.each(errors, function (key, value) {
