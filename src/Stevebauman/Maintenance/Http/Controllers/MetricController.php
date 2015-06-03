@@ -46,6 +46,8 @@ class MetricController extends Controller
     /**
      * Creates a metric.
      *
+     * @param MetricRequest $request
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function store(MetricRequest $request)
@@ -61,6 +63,20 @@ class MetricController extends Controller
 
             return redirect()->route('maintenance.metrics.index')->withErrors($message);
         }
+    }
+
+    /**
+     * Displays information about the metric.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $metric = $this->metric->find($id);
+
+        return view('maintenance::metrics.show', compact('metric'));
     }
 
     /**
@@ -80,7 +96,8 @@ class MetricController extends Controller
     /**
      * Updates the specified metric.
      *
-     * @param int|string $id
+     * @param MetricRequest $request
+     * @param int|string    $id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

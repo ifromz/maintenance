@@ -47,7 +47,7 @@ class MetricController extends Controller
                 'symbol' => $element->symbol,
                 'created_at' => $element->created_at,
                 'created_by' => ($element->user ? $element->user->full_name : 'None'),
-                'view_url' => '',
+                'view_url' => route('maintenance.metrics.show', [$element->id]),
             ];
         };
 
