@@ -77,10 +77,7 @@ class Controller extends BaseController
     {
         $item = $this->inventory->find($id);
 
-        return view('maintenance::inventory.show', [
-            'title' => 'Viewing Inventory Item: '.$item->name,
-            'item' => $item,
-        ]);
+        return view('maintenance::inventory.show', compact('item'));
     }
 
     /**
@@ -94,10 +91,7 @@ class Controller extends BaseController
     {
         $item = $this->inventory->find($id);
 
-        return view('maintenance::inventory.edit', [
-            'title' => 'Editing Inventory Item: '.$item->name,
-            'item' => $item,
-        ]);
+        return view('maintenance::inventory.edit', compact('item'));
     }
 
     /**
