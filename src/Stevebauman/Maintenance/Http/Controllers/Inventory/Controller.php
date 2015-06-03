@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Validators\InventoryValidator;
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
+use Stevebauman\Maintenance\Http\Requests\Inventory\Request;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 /**
@@ -12,25 +12,18 @@ use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 class Controller extends BaseController
 {
     /**
-     * @var InventoryService
+     * @var Repository
      */
     protected $inventory;
 
     /**
-     * @var InventoryValidator
-     */
-    protected $inventoryValidator;
-
-    /**
      * Constructor.
      *
-     * @param InventoryService   $inventory
-     * @param InventoryValidator $inventoryValidator
+     * @param Repository $inventory
      */
-    public function __construct(InventoryService $inventory, InventoryValidator $inventoryValidator)
+    public function __construct(Repository $inventory)
     {
         $this->inventory = $inventory;
-        $this->inventoryValidator = $inventoryValidator;
     }
 
     /**
@@ -40,12 +33,7 @@ class Controller extends BaseController
      */
     public function index()
     {
-        $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
-
-        return view('maintenance::inventory.index', [
-            'title' => 'Inventory',
-            'items' => $items,
-        ]);
+        return view('maintenance::inventory.index');
     }
 
     /**
@@ -55,9 +43,7 @@ class Controller extends BaseController
      */
     public function create()
     {
-        return view('maintenance::inventory.create', [
-            'title' => 'Add an Item to the Inventory',
-        ]);
+        return view('maintenance::inventory.create');
     }
 
     /**
@@ -65,25 +51,19 @@ class Controller extends BaseController
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    public function store()
+    public function store(Request $request)
     {
-        if ($this->inventoryValidator->passes()) {
-            $record = $this->inventory->setInput($this->inputAll())->create();
+        $inventory = $this->inventory->create($request);
 
-            if ($record) {
-                $this->message = sprintf('Successfully added item to the inventory: %s', link_to_route('maintenance.inventory.show', 'Show', [$record->id]));
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.inventory.index');
-            } else {
-                $this->message = 'There was an error adding this item to the inventory. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.create');
-            }
+        if($inventory) {
+            $message = 'Successfully created inventory item.';
+
+            return redirect()->route('maintenance.inventory.index')->withSuccess($message);
         } else {
-            $this->errors = $this->inventoryValidator->getErrors();
-        }
+            $message = 'There was an issue creating this inventory item. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.inventory.index')->withErrors($message);
+        }
     }
 
     /**
@@ -123,29 +103,24 @@ class Controller extends BaseController
     /**
      * Updates the specified inventory.
      *
+     * @param Request    $request
      * @param int|string $id
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        if ($this->inventoryValidator->passes()) {
-            $item = $this->inventory->setInput($this->inputAll())->update($id);
+        $inventory = $this->inventory->update($request, $id);
 
-            if ($item) {
-                $this->message = sprintf('Successfully updated item: %s', link_to_route('maintenance.inventory.show', 'Show', [$item->id]));
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.inventory.show', [$item->id]);
-            } else {
-                $this->message = 'There was an error trying to update this item. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.edit', [$id]);
-            }
+        if($inventory) {
+            $message = 'Successfully updated inventory item.';
+
+            return redirect()->route('maintenance.inventory.show', [$inventory->id])->withSuccess($message);
         } else {
-            $this->errors = $this->inventoryValidator->getErrors();
-        }
+            $message = 'There was an issue updating this inventory item. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.inventory.edit', [$id])->withErrors($message);
+        }
     }
 
     /**

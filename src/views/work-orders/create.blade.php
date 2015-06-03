@@ -6,7 +6,7 @@
 
 @section('panel.body.content')
 
-    {!! Form::open(array('url' => route('maintenance.work-orders.store'), 'class' => 'form-horizontal ajax-form-post clear-form')) !!}
+    {!! Form::open(array('url' => route('maintenance.work-orders.store'), 'class' => 'form-horizontal clear-form')) !!}
 
     @include('maintenance::work-orders.form')
 

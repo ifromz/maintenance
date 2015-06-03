@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Repositories\Inventory;
 
+use Stevebauman\Maintenance\Http\Requests\Inventory\VariantRequest;
 use Stevebauman\Maintenance\Http\Requests\Inventory\Request;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
@@ -33,6 +34,16 @@ class Repository extends BaseRepository
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function grid(array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->model()->noVariants();
+
+        return $this->newGrid($model, $columns, $settings, $transformer);
+    }
+
+    /**
      * Creates a new inventory item.
      *
      * @param Request $request
@@ -44,7 +55,7 @@ class Repository extends BaseRepository
         $inventory = $this->model();
 
         $inventory->category_id = $request->input('category_id');
-        $inventory->metric_id = $request->input('metric_id');
+        $inventory->metric_id = $request->input('metric');
         $inventory->user_id = $this->sentry->getCurrentUserId();
         $inventory->name = $request->input('name');
         $inventory->description = $request->clean($request->input('description'));
@@ -59,12 +70,12 @@ class Repository extends BaseRepository
     /**
      * Creates a variant of the specified inventory.
      *
-     * @param Request    $request
-     * @param int|string $id
+     * @param VariantRequest $request
+     * @param int|string     $id
      *
      * @return bool|Inventory
      */
-    public function createVariant(Request $request, $id)
+    public function createVariant(VariantRequest $request, $id)
     {
         $inventory = $this->find($id);
 
@@ -95,7 +106,7 @@ class Repository extends BaseRepository
 
         if($inventory) {
             $inventory->category_id = $request->input('category_id', $inventory->category_id);
-            $inventory->metric_id = $request->input('metric_id', $inventory->metric_id);
+            $inventory->metric_id = $request->input('metric', $inventory->metric_id);
             $inventory->name = $request->input('name', $inventory->name);
             $inventory->description = $request->clean($request->input('description', $inventory->description));
 

@@ -9,7 +9,7 @@
     {!!
         Form::open([
             'url'=>route('maintenance.work-orders.update', [$workOrder->id]),
-            'class'=>'form-horizontal ajax-form-post',
+            'class'=>'form-horizontal',
             'method'=>'PATCH'
         ])
     !!}

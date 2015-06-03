@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Create Report')
+
 @section('panel.head.content')
     Create Report
 @stop
@@ -8,7 +10,7 @@
     {!!
         Form::open([
             'url' => route('maintenance.work-orders.report.store', [$workOrder->id]),
-            'class' => 'form-horizontal ajax-form-post',
+            'class' => 'form-horizontal',
         ])
     !!}
 

@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Validators\InventoryValidator;
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
+use Stevebauman\Maintenance\Http\Requests\Inventory\VariantRequest;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 /**
@@ -12,25 +12,18 @@ use Stevebauman\Maintenance\Http\Controllers\Controller;
 class VariantController extends Controller
 {
     /**
-     * @var InventoryService
+     * @var Repository
      */
     protected $inventory;
 
     /**
-     * @var InventoryValidator
-     */
-    protected $inventoryValidator;
-
-    /**
      * Constructor.
      *
-     * @param InventoryService   $inventory
-     * @param InventoryValidator $inventoryValidator
+     * @param Repository $inventory
      */
-    public function __construct(InventoryService $inventory, InventoryValidator $inventoryValidator)
+    public function __construct(Repository $inventory)
     {
         $this->inventory = $inventory;
-        $this->inventoryValidator = $inventoryValidator;
     }
 
     /**
@@ -45,39 +38,30 @@ class VariantController extends Controller
     {
         $item = $this->inventory->find($inventoryId);
 
-        return view('maintenance::inventory.variants.create', [
-            'title' => 'Create Variant For: '.$item->name,
-            'item' => $item,
-        ]);
+        return view('maintenance::inventory.variants.create', compact('item'));
     }
 
     /**
      * Processes creating a variant of the specified
      * inventory item.
      *
-     * @param int|string $inventoryId
+     * @param VariantRequest $request
+     * @param int|string     $inventoryId
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store($inventoryId)
+    public function store(VariantRequest $request, $inventoryId)
     {
-        if ($this->inventoryValidator->passes()) {
-            $record = $this->inventory->setInput($this->inputAll())->createVariant($inventoryId);
+        $inventory = $this->inventory->createVariant($request, $inventoryId);
 
-            if ($record) {
-                $this->message = sprintf('Successfully created item variant: %s', link_to_route('maintenance.inventory.show', 'Show', [$record->id]));
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.inventory.index');
-            } else {
-                $this->message = 'There was an error creating this variant. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.create');
-            }
+        if($inventory) {
+            $message = sprintf('Successfully created item variant: %s', link_to_route('maintenance.inventory.show', 'Show', [$inventory->id]));
+
+            return redirect()->route('maintenance.inventory.index')->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.inventory.variants.create', [$inventoryId]);
-            $this->errors = $this->inventoryValidator->getErrors();
-        }
+            $message = 'There was an error creating a variant of this item. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.inventory.index')->withErrors($message);
+        }
     }
 }

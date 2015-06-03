@@ -12,7 +12,7 @@
             Form::open([
                 'url'=>route('maintenance.inventory.update', [$item->id]),
                 'method'=>'PATCH',
-                'class'=>'form-horizontal ajax-form-post',
+                'class'=>'form-horizontal',
             ])
         !!}
 

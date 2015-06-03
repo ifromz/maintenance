@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Create Inventory Item')
+
 @section('panel.head.content')
     Add an Item
 @stop
@@ -10,7 +12,7 @@
     {!!
         Form::open([
             'url' => route('maintenance.inventory.store'),
-            'class' => 'form-horizontal ajax-form-post clear-form'
+            'class' => 'form-horizontal'
         ])
     !!}
 

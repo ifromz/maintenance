@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Create Item Variant')
+
 @section('panel.head.content')
     Create Item Variant
 @stop
@@ -11,7 +13,7 @@
     {!!
         Form::open([
             'url'=>route('maintenance.inventory.variants.store', [$item->id]),
-            'class'=>'form-horizontal ajax-form-post',
+            'class'=>'form-horizontal',
         ])
     !!}
 
