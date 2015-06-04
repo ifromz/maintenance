@@ -44,7 +44,7 @@ class MaintenanceServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../../../public' => public_path('assets/stevebauman/maintenance'),
-        ], 'public');
+        ], 'assets');
 
         $this->loadViewsFrom(__DIR__.'/../../views', 'maintenance');
 
