@@ -1,0 +1,26 @@
+{
+  "name": "eldarion-ajax",
+  "version": "0.13.0",
+  "main": "./js/eldarion-ajax.min.js",
+  "dependencies": {
+    "jquery": "~1.8.3"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/eldarion/eldarion-ajax",
+  "_release": "0.13.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.13.0",
+    "commit": "8900c30ed723649c0790e4ca963be6b5a942697a"
+  },
+  "_source": "git://github.com/eldarion/eldarion-ajax.git",
+  "_target": "*",
+  "_originalSource": "eldarion-ajax"
+}

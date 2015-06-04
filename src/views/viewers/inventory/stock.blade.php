@@ -1,4 +1,7 @@
 <div id="inventory-stocks-table">
+
+
+
     @if($item->stocks->count() > 0)
 
         {!!
