@@ -27,11 +27,13 @@ abstract class Repository
      *
      * @param int|string $id
      *
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     *
+     * @return null|\Illuminate\Database\Eloquent\Model
      */
     public function find($id)
     {
-        return $this->model()->find($id);
+        return $this->model()->findOrFail($id);
     }
 
     /**

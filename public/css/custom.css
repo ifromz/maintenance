@@ -25,3 +25,7 @@ body {
 .menu-margin-left {
     margin-left: 10px;
 }
+
+.modal-overflow.modal.fade.in {
+    top: 0;
+}

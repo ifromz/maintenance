@@ -75,6 +75,12 @@ class MaintenanceServiceProvider extends ServiceProvider
         $this->registerServiceProviders();
 
         $this->registerServiceAliases();
+
+        // Register the exception handler
+        $this->app->singleton(
+            'Illuminate\Contracts\Debug\ExceptionHandler',
+            'Stevebauman\Maintenance\Exceptions\Handler'
+        );
     }
 
     /**

@@ -2,23 +2,20 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-/**
- * Class SkuController.
- */
 class SkuController extends Controller
 {
     /**
-     * @var InventoryService
+     * @var Repository
      */
     protected $inventory;
 
     /**
-     * @param InventoryService $inventory
+     * @param Repository $inventory
      */
-    public function __construct(InventoryService $inventory)
+    public function __construct(Repository $inventory)
     {
         $this->inventory = $inventory;
     }
@@ -26,24 +23,22 @@ class SkuController extends Controller
     /**
      * Regenerates the SKU for the specified item.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function regenerate($id)
     {
-        $item = $this->inventory->find($id);
+        $item = $this->inventory->regenerateSku($id);
 
-        if ($item->regenerateSku()) {
-            $this->message = 'Successfully regenerated SKU for this item.';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.inventory.show', [$item->id]);
+        if($item) {
+            $message = 'Successfully regenerated SKU.';
+
+            return redirect()->route('maintenance.inventory.show', [$item->id])->withSuccess($message);
         } else {
-            $this->message = 'There was an issue regenerating an SKU. Please try again.';
-            $this->messageType = 'danger';
-            $this->redirect = route('maintenance.inventory.show', [$item->id]);
-        }
+            $message = 'There was an issue regenerating the SKU for this item. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.inventory.show', [$item->id])->withErrors($message);
+        }
     }
 }

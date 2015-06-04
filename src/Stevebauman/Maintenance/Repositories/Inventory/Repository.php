@@ -117,4 +117,22 @@ class Repository extends BaseRepository
 
         return false;
     }
+
+    /**
+     * Regenerates the inventory's SKU.
+     *
+     * @param int|string $id
+     *
+     * @return bool|Inventory
+     */
+    public function regenerateSku($id)
+    {
+        $inventory = $this->find($id);
+
+        if($inventory->regenerateSku()) {
+            return $inventory;
+        }
+
+        return false;
+    }
 }

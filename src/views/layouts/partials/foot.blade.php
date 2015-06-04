@@ -7,7 +7,7 @@
 {!! HTML::script('assets/stevebauman/maintenance/resources/bootstrap-modal/js/bootstrap-modalmanager.js') !!}
 {!! HTML::script('assets/stevebauman/maintenance/resources/bootstrap-modal/js/bootstrap-modal.js') !!}
 
-<!-- Mobiscroll scripts and styles -->
+<!-- Mobiscroll scripts -->
 {!! HTML::script('assets/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.core.js') !!}
 {!! HTML::script('assets/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.widget.js') !!}
 {!! HTML::script('assets/stevebauman/maintenance/resources/mobiscroll/js/mobiscroll.scroller.js') !!}
@@ -42,6 +42,9 @@
 
 <!-- AdminLTE App -->
 {!! HTML::script('assets/stevebauman/maintenance/resources/AdminLTE/dist/js/app.js') !!}
+
+<!-- Eldarion Ajax -->
+{!! HTML::script('assets/stevebauman/maintenance/resources/eldarion-ajax/js/eldarion-ajax.min.js') !!}
 
 <!-- Base JS -->
 {!! HTML::script('assets/stevebauman/maintenance/js/base.js') !!}

@@ -13,7 +13,7 @@
         ])
     !!}
 
-    <legend class="margin-top-10">Enter New Quantity</legend>
+    <legend class="margin-top-10">Update Stock</legend>
 
     <div class="form-group">
         <label class="col-sm-2 control-label">Location</label>

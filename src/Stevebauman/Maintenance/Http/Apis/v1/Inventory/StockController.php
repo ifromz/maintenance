@@ -2,19 +2,20 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Inventory;
 
-use Stevebauman\Maintenance\Services\Inventory\StockService;
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Http\Apis\v1\BaseApi;
+use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\Request;
+use Stevebauman\Maintenance\Repositories\Inventory\StockRepository;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository;
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
-class StockController extends BaseApi
+class StockController extends BaseController
 {
     /**
      * Constructor.
      *
-     * @param InventoryService $inventory
-     * @param StockService $inventoryStock
+     * @param Repository      $inventory
+     * @param StockRepository $inventoryStock
      */
-    public function __construct(InventoryService $inventory, StockService $inventoryStock)
+    public function __construct(Repository $inventory, StockRepository $inventoryStock)
     {
         $this->inventory = $inventory;
         $this->inventoryStock = $inventoryStock;
@@ -23,8 +24,8 @@ class StockController extends BaseApi
     /**
      * Displays the form for editing an inventory stock.
      *
-     * @param $inventoryId
-     * @param $stockId
+     * @param int|string $inventoryId
+     * @param int|string $stockId
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -45,16 +46,14 @@ class StockController extends BaseApi
     /**
      * Processes updating the specified inventory stock.
      *
-     * @param $inventoryId
-     * @param $stockId
+     * @param Request    $request
+     * @param int|string $inventoryId
+     * @param int|string $stockId
      *
      * @return bool|static
      */
-    public function update($inventoryId, $stockId)
+    public function update(Request $request, $inventoryId, $stockId)
     {
-        $data = $this->inputAll();
-        $data['inventory_id'] = $inventoryId;
-
-        return $this->inventoryStock->setInput($data)->update($stockId);
+        return $this->inventoryStock->update($request, $inventoryId, $stockId);
     }
 }

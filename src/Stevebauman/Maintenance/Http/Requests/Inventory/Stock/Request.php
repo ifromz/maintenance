@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Http\Requests\Inventory;
+namespace Stevebauman\Maintenance\Http\Requests\Inventory\Stock;
 
-use Stevebauman\Maintenance\Http\Requests\Request;
+use Stevebauman\Maintenance\Http\Requests\Request as BaseRequest;
 
-class StockRequest extends Request
+class Request extends BaseRequest
 {
     /**
      * The inventory stock validation rules.

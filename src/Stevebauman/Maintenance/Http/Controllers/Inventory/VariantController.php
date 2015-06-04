@@ -4,12 +4,12 @@ namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
 use Stevebauman\Maintenance\Http\Requests\Inventory\VariantRequest;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 /**
  * Class VariantController.
  */
-class VariantController extends Controller
+class VariantController extends BaseController
 {
     /**
      * @var Repository
