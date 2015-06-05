@@ -2,33 +2,33 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder\Part;
 
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\PutBackRequest;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class PartController extends Controller
 {
-    public function __construct(WorkOrderService $workOrder, InventoryService $inventory)
+    /**
+     * Constructor.
+     *
+     * @param WorkOrderRepository $workOrder
+     */
+    public function __construct(WorkOrderRepository $workOrder)
     {
         $this->workOrder = $workOrder;
-        $this->inventory = $inventory;
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays all the work orders parts.
      *
-     * @return Response
+     * @param int|string $workOrderId
+     *
+     * @return \Illuminate\View\View
      */
-    public function index($workOrder_id)
+    public function index($workOrderId)
     {
-        $workOrder = $this->workOrder->find($workOrder_id);
+        $workOrder = $this->workOrder->find($workOrderId);
 
-        $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter();
-
-        return view('maintenance::work-orders.parts.index', [
-            'title' => 'Add parts to Work Order: '.$workOrder->subject,
-            'workOrder' => $workOrder,
-            'items' => $items,
-        ]);
+        return view('maintenance::work-orders.parts.index', compact('workOrder'));
     }
 }

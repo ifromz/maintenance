@@ -92,33 +92,30 @@ class Controller extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
-        return view('maintenance::work-orders.edit', [
-            'title' => 'Editing Work Order: '.$workOrder->subject,
-            'workOrder' => $workOrder,
-        ]);
+        return view('maintenance::work-orders.edit', compact('workOrder'));
     }
 
     /**
      * Updates the specified work order.
      *
+     * @param Request    $request
      * @param string|int $id
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        if ($this->workOrderValidator->passes()) {
-            $record = $this->workOrder->setInput($this->inputAll())->update($id);
+        $workOrder = $this->workOrder->update($request, $id);
 
-            $this->redirect = route('maintenance.work-orders.show', [$id]);
-            $this->message = sprintf('Successfully edited work order. %s', link_to_route('maintenance.work-orders.show', 'Show', [$record->id]));
-            $this->messageType = 'success';
+        if($workOrder) {
+            $message = 'Successfully edited work order.';
+
+            return redirect()->route('maintenance.work-orders.show', [$workOrder->id])->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.work-orders.edit', [$id]);
-            $this->errors = $this->workOrderValidator->getErrors();
-        }
+            $message = "There was an issue updating this work order. Please try again.";
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.edit', [$id])->withErrors($message);
+        }
     }
 
     /**
@@ -126,20 +123,18 @@ class Controller extends BaseController
      *
      * @param string|int $id
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        if ($this->workOrder->destroy($id)) {
-            $this->message = 'Successfully deleted work order';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.work-orders.index');
-        } else {
-            $this->message = 'There was an error deleting the work order. Please try again';
-            $this->messageType = 'danger';
-            $this->redirect = route('maintenance.work-orders.show', [$id]);
-        }
+        if($this->workOrder->delete($id)) {
+            $message = "Successfully deleted work order.";
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.index')->withSuccess($message);
+        } else {
+            $message = "There was an issue deleting this work order. Please try again";
+
+            return redirect()->route('maintenance.work-orders.index')->withErrors($message);
+        }
     }
 }

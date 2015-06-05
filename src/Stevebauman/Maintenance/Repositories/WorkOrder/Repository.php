@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\PutBackRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Request;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -60,6 +61,25 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Finds a part attached to a work order.
+     *
+     * @param int|string $id
+     * @param int|string $stockId
+     *
+     * @return bool
+     */
+    public function findPartByWorkOrderIdAndStockId($id, $stockId)
+    {
+        $workOrder = $this->find($id);
+
+        if($workOrder) {
+            return $workOrder->parts()->findOrFail($stockId);
+        }
+
+        return false;
+    }
+
+    /**
      * Finds the last current users session record.
      *
      * @param int|string $workOrderId
@@ -73,7 +93,90 @@ class Repository extends BaseRepository
         return $workOrder
             ->sessions()
             ->where('user_id', $this->sentry->getCurrentUserId())
-            ->first();
+            ->firstOrFail();
+    }
+
+    /**
+     * Returns quantity that was taken for a work order back into it's original stock.
+     *
+     * @param PutBackRequest $request
+     * @param int|string     $id
+     * @param int|string     $stockId
+     *
+     * @return bool|\Stevebauman\Maintenance\Models\InventoryStock
+     */
+    public function putBackPartsByWorkOrderIdAndStockId(PutBackRequest $request, $id, $stockId)
+    {
+        $workOrder = $this->find($id);
+
+        $stock = $workOrder->parts()->findOrFail($stockId);
+
+        if($stock) {
+            /*
+             * If the quantity entered is greater than
+             * the taken stock, we'll return all of the stock.
+             */
+            if($request->input('quantity') > $stock->pivot->quantity) {
+                $returnQuantity = $stock->pivot->quantity;
+            } else {
+                $returnQuantity = $request->input('quantity');
+            }
+
+            if($stock->put($returnQuantity)) {
+
+                $newQuantity = $stock->pivot->quantity - $returnQuantity;
+
+                if($newQuantity == 0) {
+                    /*
+                     * If the new quantity is zero, we'll detach
+                     * the stock record from the work order parts.
+                     */
+                    $workOrder->parts()->detach($stock->id);
+                } else {
+                    /*
+                     * Otherwise we'll update the quantity on the pivot record.
+                     */
+                    $workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity]);
+                }
+
+                return $stock;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Retrieves all of the current users assigned work orders.
+     *
+     * @param array    $columns
+     * @param array    $settings
+     * @param \Closure $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridAssigned(array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->model()->assignedUser($this->sentry->getCurrentUserId());
+
+        return $this->newGrid($model, $columns, $settings, $transformer);
+    }
+
+    /**
+     * Retrieves all of the current work orders
+     *
+     * @param int|string $workOrderId
+     * @param array      $columns
+     * @param array      $settings
+     * @param \Closure   $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridParts($workOrderId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($workOrderId);
+
+        return $this->newGrid($model->parts(), $columns, $settings, $transformer);
     }
 
     /**
@@ -181,19 +284,8 @@ class Repository extends BaseRepository
         return false;
     }
 
-    /**
-     * Retrieves all of the current users inventory items.
-     *
-     * @param array    $columns
-     * @param array    $settings
-     * @param \Closure $transformer
-     *
-     * @return \Cartalyst\DataGrid\DataGrid
-     */
-    public function gridAssigned(array $columns = [], array $settings = [], $transformer = null)
+    public function putBackPart()
     {
-        $model = $this->model()->assignedUser($this->sentry->getCurrentUserId());
 
-        return $this->newGrid($model, $columns, $settings, $transformer);
     }
 }

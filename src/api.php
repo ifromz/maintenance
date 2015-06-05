@@ -36,6 +36,14 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
 
                 Route::post('move/{categories?}', ['as' => 'maintenance.api.v1.work-orders.categories.move', 'uses' => 'CategoryController@move']);
             });
+
+            // Work Order Parts Api Routes
+            Route::group(['prefix' => '{work_orders}/parts'], function()
+            {
+                Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.parts.grid', 'uses' => 'PartController@grid']);
+
+                Route::get('inventory/grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.grid', 'uses' => 'PartController@gridInventory']);
+            });
         });
 
         // Work Request Api Routes

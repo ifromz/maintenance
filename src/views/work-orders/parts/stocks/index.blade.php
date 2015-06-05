@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Select a Stock')
+
 @section('panel.head.content')
     <h3 class="panel-title">Choose a Stock Location for Item: {{ $item->name }}</h3>
 @stop

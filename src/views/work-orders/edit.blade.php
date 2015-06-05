@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Edit Work Order')
+
 @section('panel.head.content')
     Edit Work Order
 @stop
