@@ -216,8 +216,8 @@ Route::group(['namespace' => 'WorkOrder'], function () {
     Route::group(['namespace' => 'Part'], function () {
 
         Route::get('work-orders/{work_orders}/parts', [
-            'uses' => 'PartController@index',
             'as' => 'maintenance.work-orders.parts.index',
+            'uses' => 'Controller@index',
         ]);
 
         Route::get('work-orders/{work_orders}/parts/{inventory}/stocks', [
@@ -225,14 +225,14 @@ Route::group(['namespace' => 'WorkOrder'], function () {
             'uses' => 'StockController@index',
         ]);
 
-        Route::get('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/add', [
-            'as' => 'maintenance.work-orders.parts.stocks.create',
-            'uses' => 'StockController@create',
+        Route::get('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/take', [
+            'as' => 'maintenance.work-orders.parts.stocks.take',
+            'uses' => 'StockController@getTake',
         ]);
 
-        Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}', [
-            'as' => 'maintenance.work-orders.parts.stocks.store',
-            'uses' => 'StockController@store',
+        Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/take', [
+            'as' => 'maintenance.work-orders.parts.stocks.take',
+            'uses' => 'StockController@postTake',
         ]);
 
         Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/put-back', [

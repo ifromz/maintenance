@@ -37,12 +37,20 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                 Route::post('move/{categories?}', ['as' => 'maintenance.api.v1.work-orders.categories.move', 'uses' => 'CategoryController@move']);
             });
 
-            // Work Order Parts Api Routes
-            Route::group(['prefix' => '{work_orders}/parts'], function()
+            // Work Order Part Api Routes
+            Route::group(['prefix' => '{work_orders}/parts', 'namespace' => 'Part'], function()
             {
-                Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.parts.grid', 'uses' => 'PartController@grid']);
+                Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.parts.grid', 'uses' => 'Controller@grid']);
 
-                Route::get('inventory/grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.grid', 'uses' => 'PartController@gridInventory']);
+                // Work Order Part Inventory Routes
+                Route::group(['prefix' => 'inventory'], function()
+                {
+                    Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.grid', 'uses' => 'InventoryController@grid']);
+
+                    Route::get('{inventory}/variants/grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.variants.grid', 'uses' => 'InventoryController@gridVariants']);
+
+                    Route::get('{inventory}/stocks/grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.stocks.grid', 'uses' => 'InventoryController@gridStocks']);
+                });
             });
         });
 

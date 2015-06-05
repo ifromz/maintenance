@@ -72,21 +72,55 @@ class StockController extends Controller
      * Display Inventory item stocks per location
      * available to transfer into the work order.
      *
-     * @param int|string $workOrder_id
-     * @param int|string $inventory_id
+     * @param int|string $workOrderId
+     * @param int|string $inventoryId
      *
      * @return \Illuminate\View\View
      */
-    public function index($workOrder_id, $inventory_id)
+    public function index($workOrderId, $inventoryId)
     {
-        $workOrder = $this->workOrder->find($workOrder_id);
-        $item = $this->inventory->find($inventory_id);
+        $workOrder = $this->workOrder->find($workOrderId);
+        $item = $this->inventory->find($inventoryId);
 
-        return view('maintenance::work-orders.parts.stocks.index', [
-            'title' => 'Choose a Stock Location',
-            'workOrder' => $workOrder,
-            'item' => $item,
-        ]);
+        return view('maintenance::work-orders.parts.inventory.stocks.index', compact('workOrder', 'item'));
+    }
+
+    /**
+     * Displays the form for taking inventory stock
+     * and attaching it to the specified work order.
+     *
+     * @param int|string $workOrderId
+     * @param int|string $inventoryId
+     * @param int|string $stockId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function getTake($workOrderId, $inventoryId, $stockId)
+    {
+        $workOrder = $this->workOrder->find($workOrderId);
+        $item = $this->inventory->find($inventoryId);
+        $stock = $item->stocks()->findOrFail($stockId);
+
+        return view('maintenance::work-orders.parts.inventory.stocks.take', compact('workOrder', 'item', 'stock'));
+    }
+
+    public function postTake($workOrderId, $inventoryId, $stockId)
+    {
+        $workOrder = $this->workOrder->find($workOrderId);
+        $item = $this->inventory->find($inventoryId);
+        $stock = $item->stocks()->findOrFail($stockId);
+    }
+
+    public function getPut($workOrderId, $inventoryId, $stockId)
+    {
+        $workOrder = $this->workOrder->find($workOrderId);
+        $item = $this->inventory->find($inventoryId);
+    }
+
+    public function postPut($workOrderId, $inventoryId, $stockId)
+    {
+        $workOrder = $this->workOrder->find($workOrderId);
+        $item = $this->inventory->find($inventoryId);
     }
 
     /**

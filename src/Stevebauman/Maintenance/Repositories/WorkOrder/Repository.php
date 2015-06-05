@@ -97,6 +97,39 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Retrieves all of the current users assigned work orders.
+     *
+     * @param array    $columns
+     * @param array    $settings
+     * @param \Closure $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridAssigned(array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->model()->assignedUser($this->sentry->getCurrentUserId());
+
+        return $this->newGrid($model, $columns, $settings, $transformer);
+    }
+
+    /**
+     * Retrieves all of the current work orders
+     *
+     * @param int|string $workOrderId
+     * @param array      $columns
+     * @param array      $settings
+     * @param \Closure   $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridParts($workOrderId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($workOrderId);
+
+        return $this->newGrid($model->parts(), $columns, $settings, $transformer);
+    }
+
+    /**
      * Returns quantity that was taken for a work order back into it's original stock.
      *
      * @param PutBackRequest $request
@@ -144,39 +177,6 @@ class Repository extends BaseRepository
         }
 
         return false;
-    }
-
-    /**
-     * Retrieves all of the current users assigned work orders.
-     *
-     * @param array    $columns
-     * @param array    $settings
-     * @param \Closure $transformer
-     *
-     * @return \Cartalyst\DataGrid\DataGrid
-     */
-    public function gridAssigned(array $columns = [], array $settings = [], $transformer = null)
-    {
-        $model = $this->model()->assignedUser($this->sentry->getCurrentUserId());
-
-        return $this->newGrid($model, $columns, $settings, $transformer);
-    }
-
-    /**
-     * Retrieves all of the current work orders
-     *
-     * @param int|string $workOrderId
-     * @param array      $columns
-     * @param array      $settings
-     * @param \Closure   $transformer
-     *
-     * @return \Cartalyst\DataGrid\DataGrid
-     */
-    public function gridParts($workOrderId, array $columns = [], array $settings = [], $transformer = null)
-    {
-        $model = $this->find($workOrderId);
-
-        return $this->newGrid($model->parts(), $columns, $settings, $transformer);
     }
 
     /**
@@ -259,7 +259,7 @@ class Repository extends BaseRepository
      */
     public function update(Request $request, $id)
     {
-        $workOrder = $this->model()->findOrFail($id);
+        $workOrder = $this->find($id);
 
         $workOrder->category_id = $request->input('category_id', $workOrder->category_id);
         $workOrder->location_id = $request->input('location_id', $workOrder->location_id);
@@ -284,8 +284,20 @@ class Repository extends BaseRepository
         return false;
     }
 
-    public function putBackPart()
+    public function savePart($workOrderId, $stockId)
     {
+        $workOrder = $this->find($workOrderId);
 
+        if($workOrder) {
+            $stock = $this->parts()->find($stockId);
+
+            if($stock) {
+
+            } else {
+
+            }
+        }
+
+        return false;
     }
 }

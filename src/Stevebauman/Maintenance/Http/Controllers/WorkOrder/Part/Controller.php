@@ -2,11 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder\Part;
 
-use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\PutBackRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class PartController extends Controller
+class Controller extends BaseController
 {
     /**
      * Constructor.

@@ -44,6 +44,40 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Creates a new grid instance of inventory stocks.
+     *
+     * @param int|string $inventoryId
+     * @param array      $columns
+     * @param array      $settings
+     * @param null       $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridStocks($inventoryId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($inventoryId);
+
+        return $this->newGrid($model->stocks(), $columns, $settings, $transformer);
+    }
+
+    /**
+     * Creates a new grid instance of inventory variants.
+     *
+     * @param int|string $inventoryId
+     * @param array      $columns
+     * @param array      $settings
+     * @param \Closure   $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridVariants($inventoryId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($inventoryId);
+
+        return $this->newGrid($model->variants(), $columns, $settings, $transformer);
+    }
+
+    /**
      * Creates a new inventory item.
      *
      * @param Request $request

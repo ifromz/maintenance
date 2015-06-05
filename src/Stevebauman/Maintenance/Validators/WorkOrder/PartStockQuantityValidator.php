@@ -3,11 +3,9 @@
 namespace Stevebauman\Maintenance\Validators\WorkOrder;
 
 use Illuminate\Support\Facades\Route;
+use Stevebauman\Maintenance\Repositories\Inventory\StockRepository;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 
-/**
- * Class WorkOrderPartStockQuantityValidator.
- */
 class PartStockQuantityValidator
 {
     /**
@@ -16,19 +14,30 @@ class PartStockQuantityValidator
     protected $inventoryStock;
 
     /**
-     * @param StockService $inventoryStock
+     * Constructor.
+     *
+     * @param StockRepository $inventoryStock
      */
-    public function __construct(StockService $inventoryStock)
+    public function __construct(StockRepository $inventoryStock)
     {
         $this->inventoryStock = $inventoryStock;
     }
 
+    /**
+     * Validates that the inserted stock is smaller than the available stock.
+     *
+     * @param $attribute
+     * @param $quantity
+     * @param $parameters
+     *
+     * @return bool
+     */
     public function validateEnoughQuantity($attribute, $quantity, $parameters)
     {
         if (is_numeric($quantity)) {
-            $stock_id = Route::getCurrentRoute()->getParameter('stocks');
+            $stockId = Route::getCurrentRoute()->getParameter('stocks');
 
-            $stock = $this->inventoryStock->find($stock_id);
+            $stock = $this->inventoryStock->find($stockId);
 
             if ($quantity > $stock->quantity) {
                 return false;
