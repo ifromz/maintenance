@@ -2,7 +2,8 @@
 
 namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
-use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\PutBackRequest;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\TakeRequest;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\ReturnRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Request;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
@@ -130,56 +131,6 @@ class Repository extends BaseRepository
     }
 
     /**
-     * Returns quantity that was taken for a work order back into it's original stock.
-     *
-     * @param PutBackRequest $request
-     * @param int|string     $id
-     * @param int|string     $stockId
-     *
-     * @return bool|\Stevebauman\Maintenance\Models\InventoryStock
-     */
-    public function putBackPartsByWorkOrderIdAndStockId(PutBackRequest $request, $id, $stockId)
-    {
-        $workOrder = $this->find($id);
-
-        $stock = $workOrder->parts()->findOrFail($stockId);
-
-        if($stock) {
-            /*
-             * If the quantity entered is greater than
-             * the taken stock, we'll return all of the stock.
-             */
-            if($request->input('quantity') > $stock->pivot->quantity) {
-                $returnQuantity = $stock->pivot->quantity;
-            } else {
-                $returnQuantity = $request->input('quantity');
-            }
-
-            if($stock->put($returnQuantity)) {
-
-                $newQuantity = $stock->pivot->quantity - $returnQuantity;
-
-                if($newQuantity == 0) {
-                    /*
-                     * If the new quantity is zero, we'll detach
-                     * the stock record from the work order parts.
-                     */
-                    $workOrder->parts()->detach($stock->id);
-                } else {
-                    /*
-                     * Otherwise we'll update the quantity on the pivot record.
-                     */
-                    $workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity]);
-                }
-
-                return $stock;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Creates a new work order.
      *
      * @param Request $request
@@ -284,17 +235,103 @@ class Repository extends BaseRepository
         return false;
     }
 
-    public function savePart($workOrderId, $stockId)
+    /**
+     * Removes the requested quantity from the specified
+     * stock and attaches it to the specified work order.
+     *
+     * @param TakeRequest $request
+     * @param int|string $workOrderId
+     * @param int|string $stockId
+     *
+     * @return bool|WorkOrder
+     */
+    public function takePart(TakeRequest $request, $workOrderId, $stockId)
     {
         $workOrder = $this->find($workOrderId);
 
         if($workOrder) {
-            $stock = $this->parts()->find($stockId);
+            // Check if the stock is already attached to the work order
+            $stock = $workOrder->parts()->findOrFail($stockId);
 
-            if($stock) {
+            $quantity = $request->input('quantity');
 
+            $reason = sprintf('Used for <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id]));
+
+            if($stock && $stock->take($quantity, $reason)) {
+                // Add on the quantity inputted to the existing record quantity
+                $newQuantity = $stock->pivot->quantity + $quantity;
+
+                if($workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity])) {
+                    return $workOrder;
+                }
             } else {
+                /*
+                 * The stock hasn't been attached to the work
+                 * order. We'll try to find it and attach it now.
+                 */
+                $stock = $workOrder->parts()->getRelated()->findOrFail($stockId);
 
+                if($stock && $stock->take($quantity, $reason)) {
+                    if($workOrder->parts()->attach($stock->id, ['quantity' => $quantity])) {
+                        return $workOrder;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns quantity that was taken for a work order back into it's original stock.
+     *
+     * @param ReturnRequest  $request
+     * @param int|string     $workOrderId
+     * @param int|string     $stockId
+     *
+     * @return bool|\Stevebauman\Maintenance\Models\InventoryStock
+     */
+    public function returnPart(ReturnRequest $request, $workOrderId, $stockId)
+    {
+        $workOrder = $this->find($workOrderId);
+
+        $stock = $workOrder->parts()->findOrFail($stockId);
+
+        if($stock) {
+            if($request->input('quantity') > $stock->pivot->quantity) {
+                /*
+                 * If the quantity entered is greater than
+                 * the taken stock, we'll return all of the stock.
+                 */
+                $returnQuantity = $stock->pivot->quantity;
+            } else {
+                /*
+                 * Otherwise we can use the users quantity input.
+                 */
+                $returnQuantity = $request->input('quantity');
+            }
+
+            // Set the stock put reason
+            $reason = sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id]));
+
+            if($stock->put($returnQuantity, $reason)) {
+
+                $newQuantity = $stock->pivot->quantity - $returnQuantity;
+
+                if($newQuantity == 0) {
+                    /*
+                     * If the new quantity is zero, we'll detach
+                     * the stock record from the work order parts.
+                     */
+                    $workOrder->parts()->detach($stock->id);
+                } else {
+                    /*
+                     * Otherwise we'll update the quantity on the pivot record.
+                     */
+                    $workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity]);
+                }
+
+                return $stock;
             }
         }
 

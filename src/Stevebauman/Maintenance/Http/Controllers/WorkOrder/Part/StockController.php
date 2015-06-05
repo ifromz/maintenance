@@ -106,9 +106,7 @@ class StockController extends Controller
 
     public function postTake($workOrderId, $inventoryId, $stockId)
     {
-        $workOrder = $this->workOrder->find($workOrderId);
-        $item = $this->inventory->find($inventoryId);
-        $stock = $item->stocks()->findOrFail($stockId);
+
     }
 
     public function getPut($workOrderId, $inventoryId, $stockId)

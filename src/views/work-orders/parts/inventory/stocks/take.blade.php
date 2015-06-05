@@ -28,7 +28,7 @@
 
     {!!
         Form::open([
-            'url' => route('maintenance.work-orders.parts.stocks.store', [$workOrder->id, $item->id, $stock->id]),
+            'url' => route('maintenance.work-orders.parts.stocks.take', [$workOrder->id, $item->id, $stock->id]),
             'class' => 'form-horizontal',
         ])
     !!}

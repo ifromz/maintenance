@@ -41,9 +41,10 @@ Breadcrumbs::register('maintenance.work-orders.parts.stocks.index', function (Ge
     $breadcrumbs->push("ID: $partId", route('maintenance.work-orders.parts.stocks.index', [$workOrderId, $partId]));
 });
 
-Breadcrumbs::register('maintenance.work-orders.parts.stocks.create', function (Generator $breadcrumbs, $workOrderId, $partId, $stockId) {
+Breadcrumbs::register('maintenance.work-orders.parts.stocks.take', function (Generator $breadcrumbs, $workOrderId, $partId, $stockId) {
     $breadcrumbs->parent('maintenance.work-orders.parts.stocks.index', $workOrderId, $partId);
-    $breadcrumbs->push('Enter Quantity', route('maintenance.work-orders.parts.stocks.create', [$workOrderId, $partId, $stockId]));
+    $breadcrumbs->push("ID: $stockId");
+    $breadcrumbs->push('Enter Quantity', route('maintenance.work-orders.parts.stocks.take', [$workOrderId, $partId, $stockId]));
 });
 /*
  * End Work Order part crumbs

@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Http\Requests\WorkOrder\Part;
 
 use Stevebauman\Maintenance\Http\Requests\Request as BaseRequest;
 
-class PutBackRequest extends BaseRequest
+class ReturnRequest extends BaseRequest
 {
     /**
      * The stock request validation rules.
