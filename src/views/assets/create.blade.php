@@ -10,7 +10,7 @@
 {!!
     Form::open([
         'url' => route('maintenance.assets.store'),
-        'class' => 'form-horizontal ajax-form-post clear-form'
+        'class' => 'form-horizontal',
     ])
 !!}
 

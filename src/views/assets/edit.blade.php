@@ -11,7 +11,7 @@
     Form::open([
         'url' => route('maintenance.assets.update', [$asset->id]),
         'method' => 'PATCH',
-        'class' => 'form-horizontal ajax-form-post'
+        'class' => 'form-horizontal'
     ])
 !!}
 

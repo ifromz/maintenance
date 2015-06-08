@@ -93,6 +93,8 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         // Asset Api Routes
         Route::group(['namespace' => 'Asset', 'prefix' => 'assets'], function()
         {
+            Route::get('grid', ['as' => 'maintenance.api.v1.assets.grid', 'uses' => 'Controller@grid']);
+
             // Asset Category Api Routes
             Route::group(['prefix' => 'categories'], function()
             {

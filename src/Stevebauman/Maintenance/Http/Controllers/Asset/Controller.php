@@ -2,38 +2,25 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Validators\Asset\AssetValidator;
+use Stevebauman\Maintenance\Http\Requests\Asset\Request;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
     /**
-     * @var AssetService
+     * @var AssetRepository
      */
     protected $asset;
 
     /**
-     * @var WorkOrderService
+     * Constructor.
+     *
+     * @param AssetRepository $asset
      */
-    protected $workOrder;
-
-    /**
-     * @var AssetValidator
-     */
-    protected $assetValidator;
-
-    /**
-     * @param AssetService     $asset
-     * @param AssetValidator   $assetValidator
-     * @param WorkOrderService $workOrder
-     */
-    public function __construct(AssetService $asset, AssetValidator $assetValidator, WorkOrderService $workOrder)
+    public function __construct(AssetRepository $asset)
     {
         $this->asset = $asset;
-        $this->workOrder = $workOrder;
-        $this->assetValidator = $assetValidator;
     }
 
     /**
@@ -43,12 +30,7 @@ class Controller extends BaseController
      */
     public function index()
     {
-        $assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter();
-
-        return view('maintenance::assets.index', [
-            'title' => 'All Assets',
-            'assets' => $assets,
-        ]);
+        return view('maintenance::assets.index');
     }
 
     /**
@@ -58,112 +40,101 @@ class Controller extends BaseController
      */
     public function create()
     {
-        return view('maintenance::assets.create', [
-            'title' => 'Create an Asset',
-        ]);
+        return view('maintenance::assets.create');
     }
 
     /**
      * Process and store the creation of the asset.
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store()
+    public function store(Request $request)
     {
-        if ($this->assetValidator->passes()) {
-            $record = $this->asset->setInput($this->inputAll())->create();
+        $asset = $this->asset->create($request);
 
-            if ($record) {
-                $this->redirect = route('maintenance.assets.index');
-                $this->message = sprintf('Successfully created asset: %s', link_to_route('maintenance.assets.show', 'Show', [$record->id]));
-                $this->messageType = 'success';
-            } else {
-                $this->redirect = route('maintenance.asset.create');
-                $this->message = 'There was an error trying to create an asset. Please try again';
-                $this->messageType = 'danger';
-            }
+        if($asset) {
+            $link = link_to_route('maintenance.asset.show', $asset->name, [$asset->id]);
+
+            $message = "Successfully created asset: $link";
+
+            return redirect()->route('maintenance.assets.show', [$asset->id])->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.assets.create');
-            $this->errors = $this->assetValidator->getErrors();
-        }
+            $message = 'There was an issue creating an asset. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.assets.create')->withErrors($message);
+        }
     }
 
     /**
-     * Show the asset.
+     * Displays the asset.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
         $asset = $this->asset->find($id);
 
-        $data = $this->inputAll();
-        $data['assets'] = [$asset->id];
-
-        $workOrders = $this->workOrder->setInput($data)->getByPageWithFilter();
-
-        return view('maintenance::assets.show', [
-            'title' => 'Viewing Asset: '.$asset->name,
-            'asset' => $asset,
-            'workOrders' => $workOrders,
-        ]);
+        return view('maintenance::assets.show', compact('asset'));
     }
 
     /**
-     * Show the edit form.
+     * Displays the form for editing the specified asset.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
         $asset = $this->asset->find($id);
 
-        return view('maintenance::assets.edit', [
-            'title' => 'Editing asset: '.$asset->name,
-            'asset' => $asset,
-        ]);
+        return view('maintenance::assets.edit', compact('asset'));
     }
 
     /**
-     * Process the edit form and update the record.
+     * Updates the specified asset.
      *
-     * @return $this->response (object or json response)
+     * @param Request    $request
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        if ($this->assetValidator->passes()) {
-            $record = $this->asset->setInput($this->inputAll())->update($id);
+        $asset = $this->asset->update($request, $id);
 
-            $this->redirect = route('maintenance.assets.show', [$record->id]);
-            $this->message = sprintf('Successfully edited asset: %s', link_to_route('maintenance.assets.show', 'Show', [$record->id]));
-            $this->messageType = 'success';
+        if($asset) {
+            $message = 'Successfully updated asset.';
+
+            return redirect()->route('maintenance.assets.show', [$asset->id])->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.assets.edit', [$id]);
-            $this->errors = $this->assetValidator->getErrors();
-        }
+            $message = 'There was an issue updating this asset. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.assets.show', [$asset->id])->withErrors($message);
+        }
     }
 
     /**
-     * Delete an asset record.
+     * Deletes the specified asset.
      *
-     * @return $this->response (object or json response)
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        $this->asset->destroy($id);
+        if($this->asset->delete($id)) {
+            $message = 'Successfully deleted asset.';
 
-        $this->redirect = route('maintenance.assets.index');
-        $this->message = 'Successfully deleted asset';
-        $this->messageType = 'success';
+            return redirect()->route('maintenance.assets.index')->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this asset. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.assets.index')->withErrors($message);
+        }
     }
 }
