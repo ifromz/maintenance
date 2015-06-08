@@ -106,6 +106,11 @@ Route::group(['namespace' => 'WorkOrder'], function () {
     |--------------------------------------------------------------------------
     */
 
+    Route::get('work-orders/{work_orders}/sessions', [
+        'as' => 'maintenance.work-orders.session.index',
+        'uses' => 'SessionController@index',
+    ]);
+
     Route::post('work-orders/{work_orders}/sessions/start', [
         'as' => 'maintenance.work-orders.session.start',
         'uses' => 'SessionController@postStart',

@@ -8,19 +8,42 @@ use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderReposi
 use Stevebauman\Maintenance\Repositories\WorkOrder\SessionRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-/**
- * Class SessionController.
- */
 class SessionController extends BaseController
 {
     /**
+     * @var WorkOrderRepository
+     */
+    protected $workOrder;
+
+    /**
+     * @var SessionRepository
+     */
+    protected $session;
+
+    /**
      * Constructor.
      *
-     * @param SessionRepository $session
+     * @param WorkOrderRepository $workOrder
+     * @param SessionRepository   $session
      */
-    public function __construct(SessionRepository $session, WorkOrderRepository $workOrder)
+    public function __construct(WorkOrderRepository $workOrder, SessionRepository $session)
     {
+        $this->workOrder = $workOrder;
         $this->session = $session;
+    }
+
+    /**
+     * Displays all the sessions for the specified work order.
+     *
+     * @param int|string $workOrderId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index($workOrderId)
+    {
+        $workOrder = $this->workOrder->find($workOrderId);
+
+        return view('maintenance::work-orders.sessions.index', compact('workOrder'));
     }
 
     /**

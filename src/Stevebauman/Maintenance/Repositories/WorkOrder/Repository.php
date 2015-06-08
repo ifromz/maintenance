@@ -115,7 +115,24 @@ class Repository extends BaseRepository
     }
 
     /**
-     * Retrieves all of the current work orders
+     * Retrieves all of the current sessions for the specified work order.
+     *
+     * @param int|string $workOrderId
+     * @param array      $columns
+     * @param array      $settings
+     * @param \Closure   $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridSessions($workOrderId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($workOrderId);
+
+        return $this->newGrid($model->sessions(), $columns, $settings, $transformer);
+    }
+
+    /**
+     * Retrieves all of the current parts for the specified work order.
      *
      * @param int|string $workOrderId
      * @param array      $columns

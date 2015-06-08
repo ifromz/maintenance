@@ -52,6 +52,12 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                     Route::get('{inventory}/stocks/grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.stocks.grid', 'uses' => 'InventoryController@gridStocks']);
                 });
             });
+
+            // Work Order Session Api Routes
+            Route::group(['prefix' => '{work_orders}/sessions'], function()
+            {
+                Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.sessions.grid', 'uses' => 'SessionController@grid']);
+            });
         });
 
         // Work Request Api Routes
