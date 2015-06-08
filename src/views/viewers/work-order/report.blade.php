@@ -2,20 +2,22 @@
 
 @if($workOrder->report)
 
-    <dl class="dl-horizontal">
-        <dt>Created By:</dt>
-        <dd>{{ $workOrder->report->user->full_name }}</dd>
-
-        <p></p>
-
-        <dt>Written On:</dt>
-        <dd>{{ $workOrder->report->created_at }}</dd>
-
-        <p></p>
-
-        <dt>Report:</dt>
-        <dd>{!! $workOrder->report->description !!}</dd>
-    </dl>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Created By</th>
+                <td>{{ $workOrder->report->user->full_name }}</td>
+            </tr>
+            <tr>
+                <th>Created At</th>
+                <td>{{ $workOrder->report->created_at}}</td>
+            </tr>
+            <tr>
+                <th>Report</th>
+                <td>{!! $workOrder->report->description !!}</td>
+            </tr>
+        </tbody>
+    </table>
 
 @else
 

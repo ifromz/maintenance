@@ -1,7 +1,9 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Edit Asset')
+
 @section('panel.head.content')
-    Edit asset
+    Edit Asset
 @stop
 
 @section('panel.body.content')

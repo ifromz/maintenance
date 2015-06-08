@@ -5,12 +5,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Validators\Asset\AssetValidator;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-/**
- * Class AssetController.
- */
-class AssetController extends Controller
+class Controller extends BaseController
 {
     /**
      * @var AssetService

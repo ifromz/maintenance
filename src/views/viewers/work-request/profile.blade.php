@@ -10,7 +10,7 @@
         </tr>
         <tr>
             <th>Subject</th>
-            <td>{{ $workRequest->suject }}</td>
+            <td>{{ $workRequest->subject }}</td>
         </tr>
         <tr>
             <th>Description</th>

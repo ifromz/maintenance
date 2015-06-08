@@ -16,21 +16,25 @@
 
     <legend>Enter Details</legend>
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label" for="location_name">Change Status To</label>
+    <div class="form-group{{ $errors->first('status', ' has-error') }}">
+        <label class="col-sm-2 control-label">Change Status To</label>
 
         <div class="col-md-8">
             @include('maintenance::select.status', [
-                'status'=>$workOrder->status->id
+                'status' => $workOrder->status->id
             ])
+
+            <span class="label label-danger">{{ $errors->first('status', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label" for="location_name">Description</label>
+    <div class="form-group{{ $errors->first('description', ' has-error') }}">
+        <label class="col-sm-2 control-label">Description</label>
 
         <div class="col-md-8">
             {!! Form::textarea('description', null, ['class'=>'form-control']) !!}
+
+            <span class="label label-danger">{{ $errors->first('description', ':message') }}</span>
         </div>
     </div>
 

@@ -15,26 +15,21 @@
     <div class="tab-pane active" id="tab-profile">
 
         <div class="col-md-12">
-            <div class="pull-left">
-                {!! $workOrder->viewer()->btnCheckIn() !!}
+            {!! $workOrder->viewer()->btnCheckIn() !!}
 
-                {!! $workOrder->viewer()->btnEvents() !!}
+            {!! $workOrder->viewer()->btnEvents() !!}
 
-                {!! $workOrder->viewer()->btnWorkers() !!}
+            {!! $workOrder->viewer()->btnWorkers() !!}
 
-                {!! $workOrder->viewer()->btnParts() !!}
+            {!! $workOrder->viewer()->btnParts() !!}
 
-                {!! $workOrder->viewer()->btnNotifications() !!}
+            {!! $workOrder->viewer()->btnNotifications() !!}
 
-                {!! $workOrder->viewer()->btnComplete() !!}
+            {!! $workOrder->viewer()->btnComplete() !!}
 
-            </div>
+            {!! $workOrder->viewer()->btnEdit() !!}
 
-            <div class="pull-right">
-                {!! $workOrder->viewer()->btnEdit() !!}
-
-                {!! $workOrder->viewer()->btnDelete() !!}
-            </div>
+            {!! $workOrder->viewer()->btnDelete() !!}
         </div>
 
         <div class="row">

@@ -2,92 +2,77 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Validators\WorkOrder\ReportValidator;
-use Stevebauman\Maintenance\Services\WorkOrder\ReportService;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\ReportRequest;
+use Stevebauman\Maintenance\Repositories\WorkOrder\ReportRepository;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class ReportController extends Controller
 {
     /**
-     * @var WorkOrderService
+     * @var WorkOrderRepository
      */
     protected $workOrder;
 
     /**
-     * @var ReportService
+     * @var ReportRepository
      */
     protected $report;
 
     /**
-     * @var ReportValidator
-     */
-    protected $reportValidator;
-
-    /**
      * Constructor.
      *
-     * @param WorkOrderService $workOrder
-     * @param ReportService    $report
-     * @param ReportValidator  $reportValidator
+     * @param WorkOrderRepository $workOrder
+     * @param ReportRepository    $report
      */
-    public function __construct(WorkOrderService $workOrder, ReportService $report, ReportValidator $reportValidator)
+    public function __construct(WorkOrderRepository $workOrder, ReportRepository $report)
     {
         $this->workOrder = $workOrder;
         $this->report = $report;
-        $this->reportValidator = $reportValidator;
     }
 
     /**
      * Displays the form for creating a report
      * for the specified work order.
      *
-     * @param int|string $workOrder_id
+     * @param int|string $workOrderId
      *
      * @return \Illuminate\View\View
      */
-    public function create($workOrder_id)
+    public function create($workOrderId)
     {
-        $workOrder = $this->workOrder->find($workOrder_id);
+        $workOrder = $this->workOrder->find($workOrderId);
 
-        return view('maintenance::work-orders.report.create', [
-            'title' => 'Create a Work Order Report',
-            'workOrder' => $workOrder,
-        ]);
+        return view('maintenance::work-orders.report.create', compact('workOrder'));
     }
 
     /**
      * Creates a new report for the specified work order.
      *
-     * @param int|string $workOrder_id
+     * @param ReportRequest $request
+     * @param int|string    $workOrderId
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($workOrder_id)
+    public function store(ReportRequest $request, $workOrderId)
     {
-        if ($this->reportValidator->passes()) {
-            $workOrder = $this->workOrder->find($workOrder_id);
+        $workOrder = $this->workOrder->find($workOrderId);
 
-            $data = $this->inputAll();
-            $data['work_order_id'] = $workOrder->id;
+        $report = $this->report->create($request, $workOrder->id);
 
-            if ($this->report->setInput($data)->create()) {
-                $this->workOrder->setInput($data)->update($workOrder->id);
+        if($report) {
 
-                $this->message = 'Successfully created work order report';
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
-            } else {
-                $this->message = 'There was an error creating a work order report. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
-            }
+            // Complete the work order.
+            $workOrder->complete();
+
+            $message = 'Successfully created work order report.';
+
+            return redirect()->route('maintenance.work-orders.show', [$workOrder->id])->withSuccess($message);
         } else {
-            $this->errors = $this->reportValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
-        }
+            $message = 'There was an issue creating a work order report. Please try again';
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.report.create', [$workOrder->id])->withErrors($message);
+        }
     }
 
     /**

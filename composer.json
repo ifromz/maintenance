@@ -36,5 +36,11 @@
             "Stevebauman\\Maintenance\\": "src/Stevebauman/Maintenance/"
         }
     },
+    "autoload-dev":
+    {
+        "psr-4": {
+            "Stevebauman\\Maintenance\\Tests\\": "tests/"
+        }
+    },
     "minimum-stability": "stable"
 }

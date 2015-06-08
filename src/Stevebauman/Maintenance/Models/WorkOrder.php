@@ -432,4 +432,21 @@ class WorkOrder extends BaseModel
     {
         $this->attributes['location_id'] = $value ? $value : null;
     }
+
+    /**
+     * Completes the work order by saving the completed at timestamp to now.
+     *
+     * @return $this|bool
+     */
+    public function complete()
+    {
+        $this->completed_at = Carbon::now();
+
+        if($this->save()) {
+            return $this;
+        }
+
+        return false;
+    }
 }
+

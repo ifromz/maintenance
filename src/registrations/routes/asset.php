@@ -163,7 +163,7 @@ Route::group(['namespace' => 'Asset'], function () {
     /*
      * Asset Routes
      */
-    Route::resource('assets', 'AssetController', [
+    Route::resource('assets', 'Controller', [
         'names' => [
             'index' => 'maintenance.assets.index',
             'create' => 'maintenance.assets.create',

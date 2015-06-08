@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'All Assets')
+
 @section('panel.extra.top')
 
     @include('maintenance::assets.modals.search', [

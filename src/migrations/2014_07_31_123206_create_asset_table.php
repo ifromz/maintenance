@@ -21,6 +21,7 @@ class CreateAssetTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('location_id')->unsigned()->nullable();
             $table->integer('category_id')->unsigned();
+            $table->string('tag')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('condition')->nullable();
