@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Add Attachments')
+
 @section('panel.head.content')
     Add Attachments
 @stop

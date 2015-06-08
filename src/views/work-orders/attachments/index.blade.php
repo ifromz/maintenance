@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Work Order Attachments')
+
 @section('panel.head.content')
     <div class="btn-toolbar">
         <a href="{{ route('maintenance.work-orders.attachments.create', [$workOrder->id]) }}"
