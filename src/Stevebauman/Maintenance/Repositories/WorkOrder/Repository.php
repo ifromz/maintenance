@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
+use Stevebauman\Inventory\Exceptions\NotEnoughStockException;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\TakeRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\ReturnRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Request;
@@ -251,32 +252,34 @@ class Repository extends BaseRepository
 
         if($workOrder) {
             // Check if the stock is already attached to the work order
-            $stock = $workOrder->parts()->findOrFail($stockId);
+            $stock = $workOrder->parts()->find($stockId);
 
             $quantity = $request->input('quantity');
 
             $reason = sprintf('Used for <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id]));
 
-            if($stock && $stock->take($quantity, $reason)) {
-                // Add on the quantity inputted to the existing record quantity
-                $newQuantity = $stock->pivot->quantity + $quantity;
-
-                if($workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity])) {
-                    return $workOrder;
-                }
-            } else {
-                /*
-                 * The stock hasn't been attached to the work
-                 * order. We'll try to find it and attach it now.
-                 */
-                $stock = $workOrder->parts()->getRelated()->findOrFail($stockId);
-
+            try {
                 if($stock && $stock->take($quantity, $reason)) {
-                    if($workOrder->parts()->attach($stock->id, ['quantity' => $quantity])) {
+                    // Add on the quantity inputted to the existing record quantity
+                    $newQuantity = $stock->pivot->quantity + $quantity;
+
+                    if($workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity])) {
                         return $workOrder;
                     }
+                } else {
+                    /*
+                     * The stock hasn't been attached to the work
+                     * order. We'll try to find it and attach it now.
+                     */
+                    $stock = $workOrder->parts()->getRelated()->find($stockId);
+
+                    if($stock && $stock->take($quantity, $reason)) {
+                        if($workOrder->parts()->attach($stock->id, ['quantity' => $quantity])) {
+                            return $workOrder;
+                        }
+                    }
                 }
-            }
+            } catch (NotEnoughStockException $e) {}
         }
 
         return false;
@@ -289,26 +292,27 @@ class Repository extends BaseRepository
      * @param int|string     $workOrderId
      * @param int|string     $stockId
      *
-     * @return bool|\Stevebauman\Maintenance\Models\InventoryStock
+     * @return bool|WorkOrder
      */
     public function returnPart(ReturnRequest $request, $workOrderId, $stockId)
     {
         $workOrder = $this->find($workOrderId);
 
-        $stock = $workOrder->parts()->findOrFail($stockId);
+        $stock = $workOrder->parts()->find($stockId);
 
         if($stock) {
-            if($request->input('quantity') > $stock->pivot->quantity) {
+            // Get the requested quantity to return
+            $quantity = $request->input('quantity');
+
+            if($quantity > $stock->pivot->quantity) {
                 /*
                  * If the quantity entered is greater than
                  * the taken stock, we'll return all of the stock.
                  */
                 $returnQuantity = $stock->pivot->quantity;
             } else {
-                /*
-                 * Otherwise we can use the users quantity input.
-                 */
-                $returnQuantity = $request->input('quantity');
+                // Otherwise we can use the users quantity input.
+                $returnQuantity = $quantity;
             }
 
             // Set the stock put reason
@@ -331,7 +335,7 @@ class Repository extends BaseRepository
                     $workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity]);
                 }
 
-                return $stock;
+                return $workOrder;
             }
         }
 

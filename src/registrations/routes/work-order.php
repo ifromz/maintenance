@@ -235,16 +235,15 @@ Route::group(['namespace' => 'WorkOrder'], function () {
             'uses' => 'StockController@postTake',
         ]);
 
+        Route::get('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/put-back', [
+            'as' => 'maintenance.work-orders.parts.stocks.put',
+            'uses' => 'StockController@getPut'
+        ]);
+
         Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/put-back', [
-            'as' => 'maintenance.work-orders.parts.stocks.put-back',
-            'uses' => 'StockController@postPutBack',
+            'as' => 'maintenance.work-orders.parts.stocks.put',
+            'uses' => 'StockController@postPut'
         ]);
-
-        Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/put-back-some', [
-            'as' => 'maintenance.work-orders.parts.stocks.put-back-some',
-            'uses' => 'StockController@postPutBackSome',
-        ]);
-
     });
 
     Route::resource('work-orders.attachments', 'AttachmentController', [

@@ -105,7 +105,7 @@ class Controller extends BaseController
 
             return redirect()->route('maintenance.work-requests.show', [$workRequest->id])->withSuccess($message);
         } else {
-            $message = "There was an issue updated this work request. Please try again.";
+            $message = "There was an issue updating this work request. Please try again.";
 
             return redirect()->route('maintenance.work-requests.edit', [$id])->withErrors($message);
         }

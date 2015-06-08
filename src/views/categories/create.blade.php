@@ -9,7 +9,7 @@
 @section('panel.body.content')
     {!!
         Form::open([
-            'url' => route($routes['create']),
+            'url' => route($routes['store']),
             'class' => 'form-horizontal'
         ])
     !!}

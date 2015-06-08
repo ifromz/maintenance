@@ -126,12 +126,14 @@ class Controller extends BaseController
      */
     public function destroy($id)
     {
-        $this->inventory->destroy($id);
+        if($this->inventory->delete($id)) {
+            $message = 'Successfully deleted inventory item.';
 
-        $this->redirect = route('maintenance.inventory.index');
-        $this->message = 'Successfully deleted item';
-        $this->messageType = 'success';
+            return redirect()->route('maintenance.inventory.index')->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this inventory item. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.inventory.show', [$id])->withSuccess($message);
+        }
     }
 }

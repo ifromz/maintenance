@@ -58,13 +58,13 @@ class MaintenanceServiceProvider extends ServiceProvider
      */
     private function bootRequiredFiles()
     {
-        include __DIR__.'/../../routes.php';
-        include __DIR__.'/../../api.php';
-        include __DIR__.'/../../filters.php';
-        include __DIR__.'/../../composers.php';
-        include __DIR__.'/../../validators.php';
-        include __DIR__.'/../../listeners.php';
-        include __DIR__.'/../../breadcrumbs.php';
+        include __DIR__.'/../../registrations/routes.php';
+        include __DIR__.'/../../registrations/api.php';
+        include __DIR__.'/../../registrations/filters.php';
+        include __DIR__.'/../../registrations/composers.php';
+        include __DIR__.'/../../registrations/validators.php';
+        include __DIR__.'/../../registrations/observers.php';
+        include __DIR__.'/../../registrations/breadcrumbs.php';
     }
 
     /**

@@ -1,7 +1,9 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Take Parts')
+
 @section('panel.head.content')
-    Enter The Quantity Used
+    Enter the Quantity Used
 @stop
 
 @section('panel.body.content')
@@ -40,10 +42,9 @@
             <div class="input-group">
                 {!! Form::text('quantity', null, ['class'=>'form-control', 'placeholder'=>'ex. 45']) !!}
                 <span class="input-group-addon">{{ $item->metric->symbol }}</span>
-
-
-                <span class="label label-danger">{{ $errors->first('quantity', ':message') }}</span>
             </div>
+
+            <span class="label label-danger">{{ $errors->first('quantity', ':message') }}</span>
         </div>
     </div>
 

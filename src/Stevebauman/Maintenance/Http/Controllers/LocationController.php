@@ -3,7 +3,6 @@
 namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Stevebauman\Maintenance\Repositories\LocationRepository;
-use Stevebauman\Maintenance\Validators\LocationValidator;
 
 class LocationController extends NestedSetController
 {
