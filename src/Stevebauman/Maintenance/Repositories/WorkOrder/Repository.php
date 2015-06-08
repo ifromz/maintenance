@@ -95,7 +95,7 @@ class Repository extends BaseRepository
         return $workOrder
             ->sessions()
             ->where('user_id', $this->sentry->getCurrentUserId())
-            ->firstOrFail();
+            ->first();
     }
 
     /**
