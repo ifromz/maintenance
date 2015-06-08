@@ -45,7 +45,12 @@ class Controller extends BaseController
 
         $transformer = function($asset) {
             return [
-
+                'id' => $asset->id,
+                'name' => $asset->name,
+                'condition' => $asset->condition,
+                'location' => ($asset->location ? $asset->location->trail : '<em>None</em>'),
+                'category' => ($asset->category ? $asset->categrory->trail : '<em>None</em>'),
+                'created_at' => $asset->created_at,
             ];
         };
 
