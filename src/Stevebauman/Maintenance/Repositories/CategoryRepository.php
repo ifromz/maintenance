@@ -50,10 +50,12 @@ class CategoryRepository extends Repository
 
         if($category->save()) {
 
-            $parent = $this->find($id);
+            if(! is_null($id)) {
+                $parent = $this->find($id);
 
-            if($parent) {
-                $category->makeChildOf($parent);
+                if($parent) {
+                    $category->makeChildOf($parent);
+                }
             }
 
             return $category;
