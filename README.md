@@ -14,6 +14,11 @@
 This application is not yet finished and is in heavy development. When a release is tagged on Github, you will know when
 it is complete.
 
+## Requirements
+
+- [Cartalyst Subscription](https://cartalyst.com/) due to [DataGrid](https://cartalyst.com/manual/data-grid/3.0) dependency
+- `php_fileinfo` extension enabled
+
 ##Important Todo's
 * Started: Feb 22nd 2015    - Complete administration panel
 * Started: Not yet started  - Complete client interface and functionality
