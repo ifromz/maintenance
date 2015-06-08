@@ -20,13 +20,11 @@ it is complete.
 * Started: Not yet started  - Complete notification functionality
 
 ##TO DO
-* Move work order management to separate package - IN PROGRESS
-* Robust notifications - IN PROGRESS
+* Robust notifications
 * Robust reporting
 * Customizable user dashboard
 * Implement Print view for QR codes as well as all other data
 * Tests
-* Revamp the way uploads are handled
 
 ##Done
 * May 28th 2015 - Upgrade to Laravel 5.0

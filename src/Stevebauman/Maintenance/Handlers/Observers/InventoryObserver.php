@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Handlers\Observers;
 
-use Stevebauman\Inventory\Models\Inventory;
+use Stevebauman\Maintenance\Models\Inventory;
 
 class InventoryObserver
 {
