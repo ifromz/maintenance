@@ -35,6 +35,7 @@ class Controller extends BaseController
         $workOrder = $this->workOrder->find($workOrderId);
 
         $columns = [
+            'inventory_stocks.id',
             'inventory_id',
             'location_id',
         ];
@@ -51,7 +52,7 @@ class Controller extends BaseController
                 'location' => ($stock->location ? $stock->location->trail : '<em>None</em>'),
                 'quantity_taken' => $stock->pivot->quantity,
                 'date_taken' => $stock->pivot->created_at->format('Y-m-d h:i a'),
-                'put_back_url' => '',
+                'put_back_url' => route('maintenance.work-orders.parts.stocks.put', [$workOrder->id, $stock->inventory_id, $stock->id]),
             ];
         };
 
