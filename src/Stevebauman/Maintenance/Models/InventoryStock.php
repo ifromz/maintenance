@@ -2,15 +2,15 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Inventory\Traits\InventoryStockTrait;
 
-/**
- * Class InventoryStock.
- */
 class InventoryStock extends BaseModel
 {
+    use SoftDeletes;
+
     use InventoryStockTrait;
     use HasUserTrait;
     use HasLocationTrait;
@@ -36,6 +36,11 @@ class InventoryStock extends BaseModel
         'bin',
     ];
 
+    /**
+     * The revisionable formatted field names.
+     *
+     * @var array
+     */
     protected $revisionFormattedFieldNames = [
         'location_id' => 'Location',
         'quantity' => 'Quantity',

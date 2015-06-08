@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 
@@ -10,12 +11,24 @@ use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
  */
 class InventoryStockMovement extends BaseModel
 {
+    use SoftDeletes;
+
     use InventoryStockMovementTrait;
 
     use HasUserTrait;
 
+    /**
+     * The inventory stock movements table.
+     *
+     * @var string
+     */
     protected $table = 'inventory_stock_movements';
 
+    /**
+     * The fillable inventory stock movement attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'stock_id',
         'user_id',
@@ -25,6 +38,11 @@ class InventoryStockMovement extends BaseModel
         'reason',
     ];
 
+    /**
+     * The inventory stock movement viewer.
+     *
+     * @var string
+     */
     protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockMovementViewer';
 
     /**

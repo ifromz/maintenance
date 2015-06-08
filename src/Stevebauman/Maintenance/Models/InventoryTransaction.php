@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Inventory\Interfaces\StateableInterface;
 use Stevebauman\Inventory\Traits\InventoryTransactionTrait;
 
-/**
- * Class InventoryTransaction.
- */
 class InventoryTransaction extends BaseModel implements StateableInterface
 {
     use InventoryTransactionTrait;
@@ -18,6 +15,11 @@ class InventoryTransaction extends BaseModel implements StateableInterface
         'quantity',
     ];
 
+    /**
+     * The inventory transactions table.
+     *
+     * @var string
+     */
     protected $table = 'inventory_transactions';
 
     /**

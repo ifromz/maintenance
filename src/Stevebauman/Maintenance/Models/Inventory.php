@@ -12,9 +12,6 @@ use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 
-/**
- * Class Inventory.
- */
 class Inventory extends BaseModel
 {
     use SoftDeletes;
