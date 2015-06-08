@@ -88,7 +88,7 @@ class StockController extends Controller
         } else {
             $message = "There was an issue adding parts to this work order. Please try again.";
 
-            return redirect()->route('maintenance.work-orders.parts.stocks.take', [$workOrderId])->withErrors($message);
+            return redirect()->route('maintenance.work-orders.parts.stocks.take', [$workOrderId, $inventoryId, $stockId])->withErrors($message);
         }
     }
 
