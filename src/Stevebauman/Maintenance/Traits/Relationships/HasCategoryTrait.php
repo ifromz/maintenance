@@ -21,19 +21,19 @@ trait HasCategoryTrait
      *
      * @return object
      */
-    public function scopeCategory($query, $category_id = null)
+    public function scopeCategory($query, $categoryId = null)
     {
-        if ($category_id) {
+        if ($categoryId) {
             /*
              * Get descendants and self inventory category nodes
              */
-            $categories = Category::find($category_id)->getDescendantsAndSelf();
+            $categories = Category::find($categoryId)->getDescendantsAndSelf();
             /*
              * Perform a subquery on main query
              */
             $query->where(function ($query) use ($categories) {
                 /*
-                 * For each category, apply a orWhere query to the subquery
+                 * For each category, apply a orWhere query to the sub-query
                  */
                 foreach ($categories as $category) {
                     $query->orWhere('category_id', $category->id);

@@ -13,6 +13,6 @@
     "moment": "~2.9.0",
     "fontawesome": "4.3.*",
     "adminlte": "2.1.*",
-    "eldarion-ajax": "0.13.*"
+    "bootstrap-daterangepicker": "1.3.*"
   }
 }
