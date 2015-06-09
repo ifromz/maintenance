@@ -7,7 +7,6 @@
     <li><a href="#tab-history" data-toggle="tab">History</a></li>
     <li><a href="#tab-meters" data-toggle="tab">Meters & Readings</a></li>
     <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
-    <li><a href="#tab-work-orders" data-toggle="tab">Work Orders</a></li>
     <li><a href="#tab-images" data-toggle="tab">Images</a></li>
     <li><a href="#tab-manuals" data-toggle="tab">Manuals</a></li>
 @stop
@@ -20,19 +19,18 @@
 
             <div class="col-md-12">
 
-                <div class="pull-left">
-                    {!! $asset->viewer()->btnEvents() !!}
+                {!! $asset->viewer()->btnEvents() !!}
 
-                    {!! $asset->viewer()->btnAddImages() !!}
+                {!! $asset->viewer()->btnWorkOrders() !!}
 
-                    {!! $asset->viewer()->btnViewImages() !!}
-                </div>
+                {!! $asset->viewer()->btnAddImages() !!}
 
-                <div class="pull-right">
-                    {!! $asset->viewer()->btnEdit() !!}
+                {!! $asset->viewer()->btnViewImages() !!}
 
-                    {!!$asset->viewer()->btnDelete() !!}
-                </div>
+                {!! $asset->viewer()->btnEdit() !!}
+
+                {!!$asset->viewer()->btnDelete() !!}
+
             </div>
 
             <div class="col-md-6">
@@ -69,14 +67,6 @@
         <h2>Calendar</h2>
 
         {!! $asset->viewer()->calendar() !!}
-    </div>
-
-    <div class="tab-pane" id="tab-work-orders">
-
-        <h2>Work Orders</h2>
-
-        @include('maintenance::assets.work-orders.grid.index')
-
     </div>
 
     <div class="tab-pane" id="tab-images">

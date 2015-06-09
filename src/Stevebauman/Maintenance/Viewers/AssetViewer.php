@@ -185,4 +185,16 @@ class AssetViewer extends BaseViewer
             'asset' => $this->entity,
         ]);
     }
+
+    /**
+     * Returns the assets work orders button view.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function btnWorkOrders()
+    {
+        return view('maintenance::viewers.asset.buttons.work-orders', [
+            'asset' => $this->entity,
+        ]);
+    }
 }

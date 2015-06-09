@@ -47,7 +47,7 @@
                 <th>Assets Involved</th>
                 <td>
                     @foreach($workOrder->assets as $asset)
-                        {{ $asset->label }}
+                        {!! $asset->label !!}
                     @endforeach
                 </td>
             </tr>

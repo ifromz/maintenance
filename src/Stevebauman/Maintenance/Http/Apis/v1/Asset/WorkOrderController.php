@@ -32,10 +32,10 @@ class WorkOrderController extends BaseController
     public function grid($assetId)
     {
         $columns = [
-            'id',
-            'created_at',
-            'user_id',
-            'subject',
+            'work_orders.id',
+            'work_orders.created_at',
+            'work_orders.user_id',
+            'work_orders.subject',
         ];
 
         $settings = [];

@@ -160,6 +160,11 @@ Route::group(['namespace' => 'Asset'], function () {
         ],
     ]);
 
+    Route::get('assets/{assets}/work-orders', [
+        'as' => 'maintenance.assets.work-orders.index',
+        'uses' => 'WorkOrderController@index'
+    ]);
+
     /*
      * Asset Routes
      */
