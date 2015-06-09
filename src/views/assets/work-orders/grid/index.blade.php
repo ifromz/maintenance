@@ -120,13 +120,13 @@
         <table id="assets-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.assets.grid') }}" data-grid="assets">
 
             <thead>
-                <tr>
-                    <th class="sortable" data-sort="tag">Tag</th>
-                    <th class="sortable" data-sort="name">Name</th>
-                    <th class="sortable" data-sort="category_id">Category</th>
-                    <th class="sortable" data-sort="location_id">Location</th>
-                    <th class="sortable" data-sort="created_at">Created At</th>
-                </tr>
+            <tr>
+                <th class="sortable" data-sort="tag">Tag</th>
+                <th class="sortable" data-sort="name">Name</th>
+                <th class="sortable" data-sort="category_id">Category</th>
+                <th class="sortable" data-sort="location_id">Location</th>
+                <th class="sortable" data-sort="created_at">Created At</th>
+            </tr>
             </thead>
 
             <tbody></tbody>

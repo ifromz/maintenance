@@ -32,8 +32,6 @@ class Controller extends BaseController
      */
     public function grid($workOrderId)
     {
-        $workOrder = $this->workOrder->find($workOrderId);
-
         $columns = [
             'inventory_stocks.id',
             'inventory_id',
@@ -42,7 +40,7 @@ class Controller extends BaseController
 
         $settings = [];
 
-        $transformer = function($stock) use ($workOrder)
+        $transformer = function($stock) use ($workOrderId)
         {
             return [
                 'item_id' => $stock->inventory_id,
@@ -52,7 +50,7 @@ class Controller extends BaseController
                 'location' => ($stock->location ? $stock->location->trail : '<em>None</em>'),
                 'quantity_taken' => $stock->pivot->quantity,
                 'date_taken' => $stock->pivot->created_at->format('Y-m-d h:i a'),
-                'put_back_url' => route('maintenance.work-orders.parts.stocks.put', [$workOrder->id, $stock->inventory_id, $stock->id]),
+                'put_back_url' => route('maintenance.work-orders.parts.stocks.put', [$workOrderId, $stock->inventory_id, $stock->id]),
             ];
         };
 

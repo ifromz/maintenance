@@ -1,5 +1,5 @@
 @if($workOrder->userCheckedIn())
-    <a href="{{ route('maintenance.work-orders.session.end', [$workOrder->id]) }}"
+    <a href="{{ route('maintenance.work-orders.sessions.end', [$workOrder->id]) }}"
        data-method="post"
        data-token="{{ csrf_token() }}"
        data-title="Check out?"
@@ -9,7 +9,7 @@
         <i class="fa fa-clock-o"></i> Check Out
     </a>
 @else
-    <a href="{{ route('maintenance.work-orders.session.start', [$workOrder->id]) }}"
+    <a href="{{ route('maintenance.work-orders.sessions.start', [$workOrder->id]) }}"
        data-method="post"
        data-token="{{ csrf_token() }}"
        data-title="Check in?"

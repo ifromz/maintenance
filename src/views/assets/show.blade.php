@@ -75,7 +75,7 @@
 
         <h2>Work Orders</h2>
 
-        {!! $asset->viewer()->workOrders($workOrders) !!}
+        @include('maintenance::assets.work-orders.grid.index')
 
     </div>
 

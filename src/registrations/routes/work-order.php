@@ -107,17 +107,17 @@ Route::group(['namespace' => 'WorkOrder'], function () {
     */
 
     Route::get('work-orders/{work_orders}/sessions', [
-        'as' => 'maintenance.work-orders.session.index',
+        'as' => 'maintenance.work-orders.sessions.index',
         'uses' => 'SessionController@index',
     ]);
 
     Route::post('work-orders/{work_orders}/sessions/start', [
-        'as' => 'maintenance.work-orders.session.start',
+        'as' => 'maintenance.work-orders.sessions.start',
         'uses' => 'SessionController@postStart',
     ]);
 
     Route::post('work-orders/{work_orders}/sessions/end', [
-        'as' => 'maintenance.work-orders.session.end',
+        'as' => 'maintenance.work-orders.sessions.end',
         'uses' => 'SessionController@postEnd',
     ]);
 

@@ -1,31 +1,35 @@
 <?php
 
-namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
+namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
-use Stevebauman\Maintenance\Repositories\WorkOrder\Repository;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
-class Controller extends BaseController
+class WorkOrderController extends BaseController
 {
     /**
-     * @var Repository
+     * @var AssetRepository
      */
-    protected $workOrder;
+    protected $asset;
 
     /**
-     * @param Repository $workOrder
+     * Constructor.
+     *
+     * @param AssetRepository $asset
      */
-    public function __construct(Repository $workOrder)
+    public function __construct(AssetRepository $asset)
     {
-        $this->workOrder = $workOrder;
+        $this->asset = $asset;
     }
 
     /**
-     * Returns a new work order grid.
+     * Returns a new asset work order grid.
+     *
+     * @param int|string $assetId
      *
      * @return \Cartalyst\DataGrid\DataGrid
      */
-    public function grid()
+    public function grid($assetId)
     {
         $columns = [
             'id',
@@ -34,10 +38,7 @@ class Controller extends BaseController
             'subject',
         ];
 
-        $settings = [
-            'sort'      => 'created_at',
-            'direction' => 'desc',
-        ];
+        $settings = [];
 
         $transformer = function($workOrder)
         {
@@ -52,6 +53,6 @@ class Controller extends BaseController
             ];
         };
 
-        return $this->workOrder->grid($columns, $settings, $transformer);
+        return $this->asset->gridWorkOrders($assetId, $columns, $settings, $transformer);
     }
 }

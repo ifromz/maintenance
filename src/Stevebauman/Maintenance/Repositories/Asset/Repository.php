@@ -33,6 +33,23 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Returns a new grid instance of all asset work orders.
+     *
+     * @param int|string $assetId
+     * @param array      $columns
+     * @param array      $settings
+     * @param null       $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridWorkOrders($assetId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($assetId);
+
+        return $this->newGrid($model->workOrders(), $columns, $settings, $transformer);
+    }
+
+    /**
      * Creates a new Asset.
      *
      * @param Request $request

@@ -67,13 +67,11 @@ class AssetViewer extends BaseViewer
     /**
      * Returns the assets work orders view.
      *
-     * @param \Illuminate\Database\Eloquent\Collection $workOrders
-     *
      * @return \Illuminate\View\View
      */
-    public function workOrders($workOrders)
+    public function workOrders()
     {
-        return view('maintenance::viewers.asset.work-orders', ['workOrders' => $workOrders]);
+        return view('maintenance::viewers.asset.work-orders', ['asset' => $this->entity]);
     }
 
     /**

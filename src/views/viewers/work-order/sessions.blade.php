@@ -25,6 +25,8 @@
 
     <div class="clear-fix"></div>
 
+    <a class="btn btn-sm btn-primary" href="{{ route('maintenance.work-orders.sessions.index', [$workOrder->id]) }}">All Sessions</a>
+
 @else
 
     <h5>No workers have checked into this work order.</h5>

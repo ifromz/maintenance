@@ -43,14 +43,16 @@ class Controller extends BaseController
             'direction' => 'desc',
         ];
 
-        $transformer = function($asset) {
+        $transformer = function($asset)
+        {
             return [
-                'id' => $asset->id,
+                'tag' => ($asset->tag ? $asset->tag : '<em>None</em>'),
                 'name' => $asset->name,
                 'condition' => $asset->condition,
                 'location' => ($asset->location ? $asset->location->trail : '<em>None</em>'),
-                'category' => ($asset->category ? $asset->categrory->trail : '<em>None</em>'),
+                'category' => ($asset->category ? $asset->category->trail : '<em>None</em>'),
                 'created_at' => $asset->created_at,
+                'view_url' => route('maintenance.assets.show', [$asset->id]),
             ];
         };
 
