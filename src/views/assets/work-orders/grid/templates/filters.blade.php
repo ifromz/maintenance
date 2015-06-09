@@ -2,21 +2,37 @@
 
     <% _.each(filters, function(f) { %>
 
-    <button class="btn btn-default btn-sm">
+            <button class="btn btn-default btn-sm">
 
-        <span><i class="fa fa-trash-o"></i></span>
+                <span><i class="fa fa-trash-o"></i></span>
 
-        <% if(f.column === 'all') { %>
+                <% if (f.from !== undefined && f.to !== undefined) { %>
 
-        <%= f.value %>
+                    <% if (/[0-9]{4}-[0-9]{2}-[0-9]{2}/g.test(f.from) && /[0-9]{4}-[0-9]{2}-[0-9]{2}/g.test(f.to)) { %>
 
-        <% } else { %>
+                        <%= f.label %> <em><%= moment(f.from).format('MMM DD, YYYY') %> - <%= moment(f.to).format('MMM DD, YYYY') %></em>
 
-        <%= f.value %> in <%= f.column %>
+                    <% } else { %>
 
-        <% } %>
-    </button>
+                        <%= f.label %> <em><%= f.from %> - <%= f.to %></em>
 
-    <% }); %>
+                    <% } %>
+
+                <% } else { %>
+
+                    <% if(f.column === 'all') { %>
+
+                        <%= f.value %>
+
+                    <% } else { %>
+
+                        <%= f.value %> in <%= f.column %>
+
+                    <% } %>
+
+                <% } %>
+            </button>
+
+        <% }); %>
 
 </script>
