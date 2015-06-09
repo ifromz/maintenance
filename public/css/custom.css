@@ -33,3 +33,25 @@ body {
 .navbar-toggle {
     color: black;
 }
+
+thead th.sortable {
+    cursor: pointer;
+    position: relative;
+}
+
+thead th.sortable:before {
+    content: '\f0dc';
+    font-family: FontAwesome;
+    text-decoration: inherit;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+thead th.sortable.asc:before {
+    content: '\f0dd';
+}
+
+thead th.sortable.desc:before {
+    content: '\f0de';
+}
