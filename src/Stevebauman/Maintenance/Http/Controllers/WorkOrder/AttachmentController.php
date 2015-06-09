@@ -120,7 +120,7 @@ class AttachmentController extends AbstractUploadController
     public function store($workOrderId)
     {
         // Validate that the uploaded files are either documents or images
-        if($this->imageValidator->passes() OR $this->documentValidator->passes()) {
+        if($this->imageValidator->passes() || $this->documentValidator->passes()) {
             $files = $this->uploadFiles();
 
             $data = $this->inputAll();

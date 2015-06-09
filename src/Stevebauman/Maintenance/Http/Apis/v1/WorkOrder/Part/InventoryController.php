@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder\Part;
 
+use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Repositories\Inventory\StockRepository as InventoryStockRepository;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
@@ -65,7 +66,7 @@ class InventoryController extends BaseController
             'direction' => 'desc',
         ];
 
-        $transformer = function($item) use ($workOrder)
+        $transformer = function(Inventory $item) use ($workOrder)
         {
             return [
                 'id' => $item->id,

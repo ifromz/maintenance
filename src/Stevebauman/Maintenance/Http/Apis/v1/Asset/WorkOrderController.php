@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
+use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -40,7 +41,7 @@ class WorkOrderController extends BaseController
 
         $settings = [];
 
-        $transformer = function($workOrder)
+        $transformer = function(WorkOrder $workOrder)
         {
             return [
                 'id' => $workOrder->id,

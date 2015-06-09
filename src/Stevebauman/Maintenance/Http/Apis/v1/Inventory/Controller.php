@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Inventory;
 
+use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -41,16 +42,16 @@ class Controller extends BaseController
             'direction' => 'desc',
         ];
 
-        $transformer = function($element)
+        $transformer = function(Inventory $inventory)
         {
             return [
-                'id' => $element->id,
-                'sku' => ($element->sku_code ? $element->sku_code : '<em>None</em>'),
-                'name' => $element->name,
-                'category' => ($element->category ? $element->category->trail : null),
-                'current_stock' => $element->viewer()->lblCurrentStock(),
-                'created_at' => $element->created_at,
-                'view_url' => route('maintenance.inventory.show', [$element->id]),
+                'id' => $inventory->id,
+                'sku' => ($inventory->sku_code ? $inventory->sku_code : '<em>None</em>'),
+                'name' => $inventory->name,
+                'category' => ($inventory->category ? $inventory->category->trail : null),
+                'current_stock' => $inventory->viewer()->lblCurrentStock(),
+                'created_at' => $inventory->created_at,
+                'view_url' => route('maintenance.inventory.show', [$inventory->id]),
             ];
         };
 

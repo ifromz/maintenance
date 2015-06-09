@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
+use Stevebauman\Maintenance\Models\Asset;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -43,7 +44,7 @@ class Controller extends BaseController
             'direction' => 'desc',
         ];
 
-        $transformer = function($asset)
+        $transformer = function(Asset $asset)
         {
             return [
                 'tag' => ($asset->tag ? $asset->tag : '<em>None</em>'),

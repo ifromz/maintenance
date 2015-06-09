@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkRequest;
 
+use Stevebauman\Maintenance\Models\WorkRequest;
 use Stevebauman\Maintenance\Repositories\WorkRequest\Repository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -41,14 +42,14 @@ class Controller extends BaseController
             'direction' => 'desc',
         ];
 
-        $transformer = function($element)
+        $transformer = function(WorkRequest $workRequest)
         {
             return [
-                'id' => $element->id,
-                'subject' => $element->subject,
-                'best_time' => $element->best_time,
-                'created_at' => $element->created_at,
-                'view_url' => route('maintenance.work-requests.show', [$element->id]),
+                'id' => $workRequest->id,
+                'subject' => $workRequest->subject,
+                'best_time' => $workRequest->best_time,
+                'created_at' => $workRequest->created_at,
+                'view_url' => route('maintenance.work-requests.show', [$workRequest->id]),
             ];
         };
 
