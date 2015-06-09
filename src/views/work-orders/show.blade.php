@@ -15,13 +15,14 @@
     <div class="tab-pane active" id="tab-profile">
 
         <div class="col-md-12">
-            {!! $workOrder->viewer()->btnCheckIn() !!}
 
             {!! $workOrder->viewer()->btnEvents() !!}
 
+            {!! $workOrder->viewer()->btnParts() !!}
+
             {!! $workOrder->viewer()->btnWorkers() !!}
 
-            {!! $workOrder->viewer()->btnParts() !!}
+            {!! $workOrder->viewer()->btnCheckIn() !!}
 
             {!! $workOrder->viewer()->btnNotifications() !!}
 

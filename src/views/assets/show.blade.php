@@ -23,9 +23,9 @@
 
                 {!! $asset->viewer()->btnWorkOrders() !!}
 
-                {!! $asset->viewer()->btnAddImages() !!}
-
                 {!! $asset->viewer()->btnViewImages() !!}
+
+                {!! $asset->viewer()->btnAddImages() !!}
 
                 {!! $asset->viewer()->btnEdit() !!}
 

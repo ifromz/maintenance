@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Images')
+
 @section('panel.head.content')
     <div class="btn-toolbar">
         <a href="{{ route('maintenance.assets.images.create', [$asset->id]) }}" class="btn btn-primary"
