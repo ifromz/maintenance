@@ -49,6 +49,23 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Finds a Work Request.
+     *
+     * @param int|string $id
+     *
+     * @return null|WorkRequest
+     */
+    public function find($id)
+    {
+        $with = [
+            'workOrder',
+            'updates',
+        ];
+
+        return $this->model()->with($with)->find($id);
+    }
+
+    /**
      * Creates a new work request.
      *
      * @param Request $request

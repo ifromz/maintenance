@@ -24,6 +24,18 @@ class CategoryRepository extends Repository
     }
 
     /**
+     * Retrieves a category by it's ID.
+     *
+     * @param int|string $id
+     *
+     * @return Category
+     */
+    public function find($id)
+    {
+        return $this->model()->findOrFail($id);
+    }
+
+    /**
      * Returns the scoped categories.
      *
      * @return \Illuminate\Database\Eloquent\Collection

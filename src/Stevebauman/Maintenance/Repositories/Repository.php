@@ -23,7 +23,7 @@ abstract class Repository
     abstract public function model();
 
     /**
-     * Finds the specified inventory record by it's ID.
+     * Finds the specified record by it's ID.
      *
      * @param int|string $id
      *
@@ -33,7 +33,7 @@ abstract class Repository
      */
     public function find($id)
     {
-        return $this->model()->findOrFail($id);
+         return $this->model()->findOrFail($id);
     }
 
     /**
@@ -86,14 +86,14 @@ abstract class Repository
      * Caches an item with the specified key and value.
      *
      * @param int|string $key
-     * @param mixed      $value
      * @param int        $minutes
+     * @param \Closure   $closure
      *
      * @return mixed
      */
-    public function cache($key, $value, $minutes = 60)
+    public function cache($key, $minutes = 60, \Closure $closure)
     {
-        return Cache::remember($key, $value, $minutes);
+        return Cache::remember($key, $minutes, $closure);
     }
 
     /**
@@ -101,13 +101,13 @@ abstract class Repository
      * specified key and value forever.
      *
      * @param int|string $key
-     * @param mixed      $value
+     * @param \Closure   $closure
      *
      * @return mixed
      */
-    public function cacheForever($key, $value)
+    public function cacheForever($key, $closure)
     {
-        return Cache::forever($key, $value);
+        return Cache::rememberForever($key, $closure);
     }
 
     /**
@@ -158,5 +158,17 @@ abstract class Repository
     protected function dbRollbackTransaction()
     {
         DB::rollback();
+    }
+
+    /**
+     * Converts a string to a date for inserting into the database.
+     *
+     * @param string $str
+     *
+     * @return bool|string
+     */
+    protected function strToDate($str)
+    {
+        return date('Y-m-d H:i:s', strtotime($str));
     }
 }

@@ -34,6 +34,27 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Finds an Inventory.
+     *
+     * @param int|string $id
+     *
+     * @return null|Inventory
+     */
+    public function find($id)
+    {
+        $with = [
+            'variants',
+            'category',
+            'notes',
+            'stocks',
+            'stocks.movements',
+            'revisionHistory',
+        ];
+
+        return $this->model()->with($with)->find($id);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function grid(array $columns = [], array $settings = [], $transformer = null)

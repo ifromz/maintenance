@@ -10,7 +10,7 @@
                     <th>Changed</th>
                     <th>From</th>
                     <th>To</th>
-                    <th>Date</th>
+                    <th>On</th>
                 </tr>
             </thead>
             <tbody>

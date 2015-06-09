@@ -18,7 +18,7 @@
     <p></p>
 
     <dt>Last Movement:</dt>
-    <dd>{{ $stock->last_movement }}</dd>
+    <dd>{!! $stock->last_movement !!}</dd>
 
     <p></p>
 

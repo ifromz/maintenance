@@ -9,7 +9,7 @@
             <td>{!! $workOrder->status->label !!}</td>
         </tr>
         <tr>
-            <th>Priority:</th>
+            <th>Priority</th>
             <td>{!! $workOrder->priority->label !!}</td>
         </tr>
         <tr>
@@ -23,21 +23,21 @@
 
         @if($workOrder->category)
             <tr>
-                <th>Category:</th>
+                <th>Category</th>
                 <td>{!! $workOrder->category->trail !!}</td>
             </tr>
         @endif
 
         @if($workOrder->location)
             <tr>
-                <th>Location:</th>
+                <th>Location</th>
                 <td>{!! $workOrder->location->trail !!}</td>
             </tr>
         @endif
 
         @if($workOrder->description)
             <tr>
-                <th>Description:</th>
+                <th>Description</th>
                 <td>{!! $workOrder->description !!}</td>
             </tr>
         @endif

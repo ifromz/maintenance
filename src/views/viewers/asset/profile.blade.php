@@ -24,8 +24,14 @@
         @endif
         @if($asset->acquired_at)
             <tr>
-                <th>Acquired_at</th>
+                <th>Acquired At</th>
                 <td>{{ $asset->acquired_at }}</td>
+            </tr>
+        @endif
+        @if($asset->end_of_life)
+            <tr>
+                <th>End of Life</th>
+                <td>{{ $asset->end_of_life }}</td>
             </tr>
         @endif
     </tbody>

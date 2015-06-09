@@ -127,7 +127,7 @@
             {{-- Grid: Applied Filters --}}
             <div class="btn-toolbar" role="toolbar" aria-label="data-grid-applied-filters">
 
-                <div class="btn-group filters" data-grid="main"></div>
+                <div id="main-filters" class="btn-group" data-grid="main"></div>
 
             </div>
 
@@ -143,7 +143,7 @@
         <footer class="panel-footer clearfix text-center">
 
             {{-- Grid: Pagination --}}
-            <div class="pagination" data-grid="main"></div>
+            <div id="main-pagination" data-grid="main"></div>
 
         </footer>
 
@@ -155,7 +155,7 @@
 
         $(function()
         {
-            $.datagrid('main', '.results', '.pagination', '.filters');
+            $.datagrid('main', '.results', '#main-pagination', '#main-filters');
         });
 
     </script>

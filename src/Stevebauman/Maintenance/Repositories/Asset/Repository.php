@@ -33,6 +33,27 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Finds an Asset.
+     *
+     * @param int|string $id
+     *
+     * @return null|Asset
+     */
+    public function find($id)
+    {
+        $with = [
+            'location',
+            'category',
+            'workOrders',
+            'images',
+            'meters',
+            'revisionHistory',
+        ];
+
+        return $this->model()->with($with)->findOrFail($id);
+    }
+
+    /**
      * Returns a new grid instance of all asset work orders.
      *
      * @param int|string $assetId
@@ -63,8 +84,6 @@ class Repository extends BaseRepository
         $asset->user_id = $this->sentry->getCurrentUserId();
         $asset->location_id = $request->input('location_id');
         $asset->category_id = $request->input('category_id');
-        $asset->acquired_at = $request->input('acquired_at');
-        $asset->end_of_life = $request->input('end_of_life');
         $asset->tag = $request->input('tag');
         $asset->name = $request->input('name');
         $asset->description = $request->clean($request->input('description'));
@@ -76,6 +95,14 @@ class Repository extends BaseRepository
         $asset->model = $request->input('model');
         $asset->serial = $request->input('serial');
         $asset->price = $request->input('price');
+
+        if($request->input('acquired_at')) {
+            $asset->acquired_at = $this->strToDate($request->input('acquired_at'));
+        }
+
+        if($request->input('end_of_life')) {
+            $asset->end_of_life = $this->strToDate($request->input('end_of_life'));
+        }
 
         if($asset->save()) {
             return $asset;
@@ -100,8 +127,6 @@ class Repository extends BaseRepository
 
             $asset->location_id = $request->input('location_id', $asset->location_id);
             $asset->category_id = $request->input('category_id', $asset->category_id);
-            $asset->acquired_at = $request->input('acquired_at', $asset->getOriginal('acquired_at'));
-            $asset->end_of_life = $request->input('end_of_life', $asset->getOriginal('end_of_life'));
             $asset->tag = $request->input('tag', $asset->tag);
             $asset->name = $request->input('name', $asset->name);
             $asset->description = $request->clean($request->input('description', $asset->name));
@@ -113,6 +138,14 @@ class Repository extends BaseRepository
             $asset->model = $request->input('model', $asset->model);
             $asset->serial = $request->input('serial', $asset->serial);
             $asset->price = $request->input('price', $asset->price);
+
+            if($request->input('acquired_at')) {
+                $asset->acquired_at = $this->strToDate($request->input('acquired_at', $asset->acquired_at));
+            }
+
+            if($request->input('end_of_life')) {
+                $asset->end_of_life = $this->strToDate($request->input('end_of_life', $asset->end_of_life));
+            }
 
             if($asset->save()) {
                 return $asset;

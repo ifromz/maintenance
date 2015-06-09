@@ -8,21 +8,34 @@ use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-/**
- * Class Asset.
- */
 class Asset extends BaseModel
 {
     use SoftDeletes;
+
     use HasUserTrait;
     use HasEventsTrait;
     use HasLocationTrait;
     use HasCategoryTrait;
 
+    /**
+     * The assets table.
+     *
+     * @var string
+     */
     protected $table = 'assets';
 
+    /**
+     * The asset viewer class.
+     *
+     * @var string
+     */
     protected $viewer = 'Stevebauman\Maintenance\Viewers\AssetViewer';
 
+    /**
+     * The fillable asset attribute.s
+     *
+     * @var array
+     */
     protected $fillable = [
         'import_id',
         'user_id',
@@ -42,10 +55,16 @@ class Asset extends BaseModel
         'end_of_life',
     ];
 
+    /**
+     * The revisionable formatted field names.
+     *
+     * @var array
+     */
     protected $revisionFormattedFieldNames = [
         'location_id' => 'Location',
         'category_id' => 'Category',
         'name' => 'Name',
+        'description' => 'Description',
         'condition' => 'Condition',
         'size' => 'Size',
         'weight' => 'Weight',
@@ -54,7 +73,7 @@ class Asset extends BaseModel
         'model' => 'Model',
         'serial' => 'Serial',
         'price' => 'Price',
-        'acquired' => 'Acquired At',
+        'acquired_at' => 'Acquired At',
         'end_of_life' => 'End of Life',
     ];
 

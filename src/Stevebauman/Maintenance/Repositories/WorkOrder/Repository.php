@@ -63,6 +63,27 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Finds a Work Order.
+     *
+     * @param int|string $id
+     *
+     * @return null|WorkOrder
+     */
+    public function find($id)
+    {
+        $with = [
+            'sessions',
+            'events',
+            'parts',
+            'category',
+            'location',
+            'attachments',
+        ];
+
+        return $this->model()->with($with)->find($id);
+    }
+
+    /**
      * Finds a part attached to a work order.
      *
      * @param int|string $id
