@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.main')
 
+@section('title', 'Dashboard')
+
 @section('header')
     <h1>Dashboard</h1>
 @stop
