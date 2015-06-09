@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Validators\GroupValidator;
 use Stevebauman\Maintenance\Services\GroupService;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-/**
- * Class GroupController.
- */
 class GroupController extends Controller
 {
     /**

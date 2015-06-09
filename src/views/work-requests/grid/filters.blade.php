@@ -12,7 +12,7 @@
 
         <% } else { %>
 
-        <%= r.value %> in <%= f.column %>
+        <%= f.value %> in <%= f.column %>
 
         <% } %>
     </button>

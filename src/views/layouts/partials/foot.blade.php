@@ -43,9 +43,6 @@
 <!-- AdminLTE App -->
 {!! HTML::script('assets/stevebauman/maintenance/resources/AdminLTE/dist/js/app.js') !!}
 
-<!-- Eldarion Ajax -->
-{!! HTML::script('assets/stevebauman/maintenance/resources/eldarion-ajax/js/eldarion-ajax.min.js') !!}
-
 <!-- Base JS -->
 {!! HTML::script('assets/stevebauman/maintenance/js/base.js') !!}
 <!-- End Scripts -->

@@ -7,14 +7,12 @@ use Stevebauman\Maintenance\Http\Controllers\Controller;
 class DashboardController extends Controller
 {
     /**
-     * Dispalys the Administrator index.
+     * Displays the administrators dashboard.
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function getIndex()
     {
-        return view('maintenance::admin.dashboard.index', [
-            'title' => 'Administrator Dashboard',
-        ]);
+        return view('maintenance::admin.dashboard.index');
     }
 }

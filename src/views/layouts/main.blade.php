@@ -1,7 +1,7 @@
 @extends('maintenance::layouts.base')
 
 @section('styles')
-    <link href="{{ URL::to('assets/stevebauman/maintenance/css/daterangepicker-bs3.css') }}" rel="stylesheet">
+{!! HTML::style('assets/stevebauman/maintenance/resources/bootstrap-daterangepicker/daterangepicker-bs3.css') !!}
 @stop
 
 @section('nav.left')
@@ -185,9 +185,11 @@
 
 @section('scripts')
 
-    <script src="{{ URL::to('assets/cartalyst/data-grid/js/data-grid.js') }}"></script>
-    <script src="{{ URL::to('assets/cartalyst/data-grid/js/underscore.js') }}"></script>
+    {!! HTML::script('assets/cartalyst/data-grid/js/data-grid.js') !!}
+    {!! HTML::script('assets/cartalyst/data-grid/js/underscore.js') !!}
 
-    <script src="{{ URL::to('assets/stevebauman/maintenance/js/daterangepicker.js') }}"></script>
+    <!-- Bootstrap Date Range Picker -->
+    {!! HTML::script('assets/stevebauman/maintenance/resources/bootstrap-daterangepicker/daterangepicker.js') !!}
 
+    {!! HTML::script('assets/stevebauman/maintenance/js/grid.js') !!}
 @stop
