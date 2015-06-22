@@ -28,6 +28,12 @@
         "venturecraft/revisionable": "1.*",
         "google/apiclient": "1.1.*"
     },
+    "repositories": [
+    {
+        "type": "composer",
+        "url": "https://packages.cartalyst.com"
+    }
+    ],
     "archive": {
       "exclude": ["/tests"]
     },
