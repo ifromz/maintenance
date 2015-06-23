@@ -17,7 +17,6 @@
         "stevebauman/inventory": "1.7.*",
         "stevebauman/calendar-helper": "0.1.*",
         "stevebauman/log-reader": "1.0.*",
-        "cartalyst/sentinel": "2.0.*",
         "arcanedev/no-captcha": "2.*",
         "baum/baum": "1.1.*",
         "simplesoftwareio/simple-qrcode": "1.2.*",
