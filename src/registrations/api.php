@@ -134,6 +134,12 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             {
                 Route::get('grid', ['as' => 'maintenance.api.v1.admin.groups.grid', 'uses' => 'GroupController@grid']);
             });
+
+            // Administrator Archive Api Routes
+            Route::group(['prefix' => 'archive', 'namespace' => 'Archive'], function()
+            {
+                
+            });
         });
     });
 

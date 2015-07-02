@@ -2,13 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
- * API Routes
- */
-Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function () {
-    /*
-     * Generic Events API
-     */
+// API Routes
+Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function ()
+{
+    // Generic Events API
     Route::group(['prefix' => 'calendar'], function () {
 
         Route::resource('events', 'EventApi', [
@@ -25,9 +22,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function () {
 
     });
 
-    /*
-     * Work Order API's
-     */
+    // Work Order API's
     Route::group(['prefix' => 'work-orders', 'namespace' => 'WorkOrder'], function () {
 
         Route::resource('events', 'EventApi', [
@@ -43,14 +38,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function () {
 
     });
 
-    /*
-     * Inventory API's
-     */
+    // Inventory API's
     Route::group(['prefix' => 'inventory', 'namespace' => 'Inventory'], function () {
 
-        /*
-         * Inventory Event API
-         */
+        // Inventory Event API
         Route::resource('events', 'EventApi', [
             'only' => [
                 'index',
@@ -64,14 +55,10 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function () {
 
     });
 
-    /*
-     * Asset API's
-     */
+    // Asset API's
     Route::group(['prefix' => 'assets', 'namespace' => 'Asset'], function () {
 
-        /*
-         * Asset Event API
-         */
+        // Asset Event API
         Route::resource('events', 'EventApi', [
             'only' => [
                 'index',

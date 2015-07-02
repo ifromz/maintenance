@@ -2,6 +2,10 @@
 
 @section('title', 'Edit User')
 
+@section('panel.head.content')
+Edit User
+@stop
+
 @section('panel.body.content')
 
     @if(Sentry::getUser()->id === $user->id)
@@ -21,104 +25,68 @@
         ])
     !!}
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('first_name', ' has-error') }}">
         <label class="col-sm-2 control-label">First Name:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::text('first_name', (isset($user) ? $user->first_name : null), ['class'=>'form-control', 'placeholder' => 'Enter First Name']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-info"></i>
-                </div>
-
-                {!! Form::text('first_name', (isset($user) ? $user->first_name : null), ['class'=>'form-control', 'placeholder' => 'Enter First Name']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('first_name', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('last_name', ' has-error') }}">
         <label class="col-sm-2 control-label">Last Name:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::text('last_name', (isset($user) ? $user->last_name : null), ['class'=>'form-control', 'placeholder' => 'Enter Last Name']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-info"></i>
-                </div>
-
-                {!! Form::text('last_name', (isset($user) ? $user->last_name : null), ['class'=>'form-control', 'placeholder' => 'Enter Last Name']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('last_name', ':message') }}</span>
         </div>
     </div>
 
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('username', ' has-error') }}">
         <label class="col-sm-2 control-label">Username:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::text('username', (isset($user) ? $user->username : null), ['class'=>'form-control', 'placeholder' => 'Enter Username']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-user"></i>
-                </div>
-
-                {!! Form::text('username', (isset($user) ? $user->username : null), ['class'=>'form-control', 'placeholder' => 'Enter Username']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('username', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('email', ' has-error') }}">
         <label class="col-sm-2 control-label">Email:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::text('email', (isset($user) ? $user->email : null), ['class'=>'form-control', 'placeholder' => 'Enter Email']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-envelope-o"></i>
-                </div>
-
-                {!! Form::text('email', (isset($user) ? $user->email : null), ['class'=>'form-control', 'placeholder' => 'Enter Email']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('email', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('routes', ' has-error') }}">
         <label class="col-sm-2 control-label">Permissions:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            @include('maintenance::select.routes', [
+                'routes' => (isset($user) ? $user->permissions : null)
+            ])
 
-                <div class="input-group-addon">
-                    <i class="fa fa-key"></i>
-                </div>
-
-                @include('maintenance::select.routes', [
-                    'routes' => (isset($user) ? $user->permissions : null)
-                ])
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('routes', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('groups', ' has-error') }}">
         <label class="col-sm-2 control-label">Groups:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            @include('maintenance::select.groups', [
+                'groups' => (isset($user) ? $user->groups->lists('id', 'name')->toArray() : [])
+            ])
 
-                <div class="input-group-addon">
-                    <i class="fa fa-users"></i>
-                </div>
-
-                @include('maintenance::select.groups', [
-                    'groups' => (isset($user) ? $user->groups->lists('id', 'name')->toArray() : [])
-                ])
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('groups', ':message') }}</span>
         </div>
     </div>
 
