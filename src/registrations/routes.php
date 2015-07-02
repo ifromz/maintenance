@@ -9,7 +9,8 @@ Route::when('*', 'csrf', ['post', 'put', 'delete']);
 /*
  * Maintenance Application Routes
  */
-Route::group(['prefix' => Config::get('maintenance::site.prefix'), 'namespace' => 'Stevebauman\Maintenance\Http'], function () {
+Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'namespace' => 'Stevebauman\Maintenance\Http'], function ()
+{
     /*
      * Authentication Routes
      */

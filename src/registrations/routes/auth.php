@@ -4,12 +4,12 @@
  * Authentication Routes
  */
 Route::group(['prefix' => 'login', 'namespace' => 'Controllers', 'before' => 'maintenance.notauth'], function () {
-    Route::get('', [
+    Route::get('/', [
         'as' => 'maintenance.login',
         'uses' => 'AuthController@getLogin',
     ]);
 
-    Route::post('', [
+    Route::post('/', [
         'as' => 'maintenance.login',
         'uses' => 'AuthController@postLogin',
     ]);

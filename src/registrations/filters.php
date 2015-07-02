@@ -37,8 +37,8 @@ Route::filter('maintenance.permission', function (\Illuminate\Routing\Route $rou
     $user = Sentry::getUser();
 
     /*
-     * Make sure the route we're on isn't allowing all users already, and if so we'll check to see
-     * if the current user has access to it
+     * Make sure the route we're on isn't allowing all users
+     * already, and if so we'll check to see if the current user has access to it
      */
     $allUserPermissions = config('maintenance.permissions.all_users');
 

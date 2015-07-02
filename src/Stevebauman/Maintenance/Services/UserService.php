@@ -120,17 +120,13 @@ class UserService extends BaseModelService
         $username = $credentials[$loginAttribute];
         $password = $credentials['password'];
 
-        /*
-         * If a user is found, update their password to match active-directory
-         */
+        // If a user is found, update their password to match active-directory
         $user = $this->model->where('username', $username)->first();
 
         if ($user) {
             $this->sentry->updatePasswordById($user->id, $password);
         } else {
-            /*
-             * If a user is not found, create their web account
-             */
+            // If a user is not found, create their web account
             $ldapUser = $this->ldap->user($username);
 
             $fullName = explode(',', $ldapUser->name);

@@ -76,6 +76,8 @@ class AuthController extends Controller
     /**
      * Processes logging in a user.
      *
+     * @param LoginRequest $request
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function postLogin(LoginRequest $request)
@@ -122,6 +124,8 @@ class AuthController extends Controller
 
     /**
      * Processes registering for an account.
+     *
+     * @param RegisterRequest $request
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
