@@ -16,6 +16,8 @@ it is complete.
 
 ## Requirements
 
+- PHP 5.4 or later
+- Laravel 5
 - [Cartalyst Subscription](https://cartalyst.com/) due to [DataGrid](https://cartalyst.com/manual/data-grid/3.0) dependency
 - `php_fileinfo` extension enabled
 
