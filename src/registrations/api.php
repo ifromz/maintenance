@@ -128,6 +128,12 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             {
                 Route::get('grid', ['as' => 'maintenance.api.v1.admin.users.grid', 'uses' => 'UserController@grid']);
             });
+
+            // Administrator Group Api Routes
+            Route::group(['prefix' => 'groups'], function()
+            {
+                Route::get('grid', ['as' => 'maintenance.api.v1.admin.groups.grid', 'uses' => 'GroupController@grid']);
+            });
         });
     });
 

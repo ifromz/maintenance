@@ -1,8 +1,6 @@
 @extends('maintenance::layouts.pages.admin.panel')
 
-@section('panel.head.content')
-    Edit User
-@stop
+@section('title', 'Edit User')
 
 @section('panel.body.content')
 
@@ -21,7 +19,7 @@
             'class' => 'form-horizontal',
             'method' => 'PATCH'
         ])
-    }}
+    !!}
 
     <div class="form-group">
         <label class="col-sm-2 control-label">First Name:</label>
@@ -82,7 +80,7 @@
                     <i class="fa fa-envelope-o"></i>
                 </div>
 
-                {!! Form::text('email', (isset($user) ? $user->email : null), ['class'=>'form-control', 'placeholder' => 'Enter Email']) }}
+                {!! Form::text('email', (isset($user) ? $user->email : null), ['class'=>'form-control', 'placeholder' => 'Enter Email']) !!}
 
             </div>
         </div>
@@ -117,7 +115,7 @@
                 </div>
 
                 @include('maintenance::select.groups', [
-                    'groups' => (isset($user) ? $user->groups->lists('id', 'name') : null)
+                    'groups' => (isset($user) ? $user->groups->lists('id', 'name')->toArray() : [])
                 ])
 
             </div>

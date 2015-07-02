@@ -2,18 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
- * Administration Routes
- */
-
+// Administration Routes
 Route::get('/', [
     'as' => 'maintenance.admin.dashboard.index',
     'uses' => 'DashboardController@getIndex',
 ]);
 
-/*
- * Log Management Routes
- */
+// Log Management Routes
 Route::post('logs/{logs}/mark-read', [
     'as' => 'maintenance.admin.logs.mark-read',
     'uses' => 'LogController@markRead',
@@ -31,14 +26,11 @@ Route::resource('logs', 'LogController', [
         'destroy' => 'maintenance.admin.logs.destroy',
     ],
 ]);
-/*
- * End Log Management Routes
- */
+// End Log Management Routes
 
-/*
- * User Management Routes
- */
-Route::group(['namespace' => 'User'], function () {
+// User Management Routes
+Route::group(['namespace' => 'User'], function ()
+{
     Route::resource('users', 'UserController', [
         'names' => [
             'index' => 'maintenance.admin.users.index',
@@ -61,13 +53,9 @@ Route::group(['namespace' => 'User'], function () {
         'uses' => 'AccessController@postCheck',
     ]);
 });
-/*
- * End User Management Routes
- */
+// End User Management Routes
 
-/*
- * Group Management Routes
- */
+// Group Management Routes
 Route::resource('groups', 'GroupController', [
     'names' => [
         'index' => 'maintenance.admin.groups.index',
@@ -80,19 +68,15 @@ Route::resource('groups', 'GroupController', [
     ],
 ]);
 
-/*
- * Archive Routes
- */
-Route::group(['namespace' => 'Archive'], function () {
-
+// Archive Routes
+Route::group(['namespace' => 'Archive'], function ()
+{
     Route::get('archive', [
         'as' => 'maintenance.admin.archive.index',
         'uses' => 'ArchiveController@getIndex',
     ]);
 
-    /*
-     * Asset Archive Routes
-     */
+    // Asset Archive Routes
     Route::post('archive/assets/{assets}/restore', [
         'as' => 'maintenance.admin.archive.assets.restore',
         'uses' => 'AssetController@restore',
@@ -111,9 +95,7 @@ Route::group(['namespace' => 'Archive'], function () {
         ],
     ]);
 
-    /*
-     * Work Order Archive Routes
-     */
+    // Work Order Archive Routes
     Route::post('archive/work-orders/{work_orders}/restore', [
         'as' => 'maintenance.admin.archive.work-orders.restore',
         'uses' => 'WorkOrderController@restore',
@@ -132,9 +114,7 @@ Route::group(['namespace' => 'Archive'], function () {
         ],
     ]);
 
-    /*
-     * Inventory Archive Routes
-     */
+    // Inventory Archive Routes
     Route::post('archive/inventory/{inventory}/restore', [
         'as' => 'maintenance.admin.archive.inventory.restore',
         'uses' => 'InventoryController@restore',
@@ -153,26 +133,11 @@ Route::group(['namespace' => 'Archive'], function () {
         ],
     ]);
 });
-/*
- * End Archive Routes
- */
+// End Archive Routes
 
-/*
- * Setting Routes
- */
-Route::group(['namespace' => 'Setting'], function () {
-
-    Route::resource('settings/mail', 'MailController', [
-        'only' => [
-            'index',
-            'store',
-        ],
-        'names' => [
-            'index' => 'maintenance.admin.settings.mail.index',
-            'store' => 'maintenance.admin.settings.mail.store',
-        ],
-    ]);
-
+// Setting Routes
+Route::group(['namespace' => 'Setting'], function ()
+{
     Route::resource('settings/site', 'SiteController', [
         'only' => [
             'index',
@@ -183,16 +148,5 @@ Route::group(['namespace' => 'Setting'], function () {
             'store' => 'maintenance.admin.settings.site.store',
         ],
     ]);
-
-    Route::resource('settings', 'SettingsController', [
-        'only' => [
-            'index',
-        ],
-        'names' => [
-            'index' => 'maintenance.admin.settings.index',
-        ],
-    ]);
 });
-/*
- * End Setting Routes
- */
+// End Setting Routes

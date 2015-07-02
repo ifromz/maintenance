@@ -22,8 +22,32 @@ class GroupController extends BaseController
         $this->group = $group;
     }
 
+    /**
+     * Returns a new grid instance of all available groups.
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
     public function grid()
     {
-        
+        $columns = [
+            'name',
+        ];
+
+        $settings = [
+            'sort'      => 'created_at',
+            'direction' => 'desc',
+            'throttle' => 10,
+            'threshold' => 10,
+        ];
+
+        $transformer = function($group)
+        {
+            return [
+                'name' => $group->name,
+                'view_url' => route('maintenance.admin.groups.show', [$group->id]),
+            ];
+        };
+
+        return $this->group->grid($columns, $settings, $transformer);
     }
 }

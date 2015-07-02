@@ -1,12 +1,6 @@
 @extends('maintenance::layouts.admin')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
-
-@section('breadcrumb')
-
-@stop
+@section('title', 'Edit Group')
 
 @section('content')
 
@@ -27,39 +21,7 @@
                     ])
                 !!}
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Name</label>
-
-                    <div class="col-md-4">
-                        {!! Form::text('name', $group->name, ['class'=>'form-control', 'placeholder'=>'ex. Admininistrators']) !!}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Users</label>
-
-                    <div class="col-md-4">
-                        @include('maintenance::select.users', [
-                            'users' => $group->users->lists('id', 'username')
-                        ])
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Permissions</label>
-
-                    <div class="col-md-4">
-                        @include('maintenance::select.routes', [
-                            'routes'=>$group->permissions
-                        ])
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
-                    </div>
-                </div>
+                @include('maintenance::admin.groups.from', compact('group'))
 
                 {!! Form::close() !!}
             </div>

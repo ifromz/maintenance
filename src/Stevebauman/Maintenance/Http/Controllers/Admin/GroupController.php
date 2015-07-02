@@ -2,32 +2,25 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin;
 
-use Stevebauman\Maintenance\Validators\GroupValidator;
-use Stevebauman\Maintenance\Services\GroupService;
+use Stevebauman\Maintenance\Http\Requests\Admin\GroupRequest;
+use Stevebauman\Maintenance\Repositories\GroupRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class GroupController extends Controller
 {
     /**
-     * @var GroupService
+     * @var GroupRepository
      */
     protected $group;
 
     /**
-     * @var GroupValidator
-     */
-    private $groupValidator;
-
-    /**
      * Constructor.
      *
-     * @param GroupService   $group
-     * @param GroupValidator $groupValidator
+     * @param GroupRepository $group
      */
-    public function __construct(GroupService $group, GroupValidator $groupValidator)
+    public function __construct(GroupRepository $group)
     {
         $this->group = $group;
-        $this->groupValidator = $groupValidator;
     }
 
     /**
@@ -37,12 +30,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $groups = $this->group->get();
-
-        return view('maintenance::admin.groups.index', [
-            'title' => 'All Groups',
-            'groups' => $groups,
-        ]);
+        return view('maintenance::admin.groups.index');
     }
 
     /**
@@ -60,146 +48,101 @@ class GroupController extends Controller
     /**
      * Processes the creation of a user group.
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @param GroupRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store()
+    public function store(GroupRequest $request)
     {
-        if ($this->groupValidator->passes()) {
-            $data = $this->inputAll();
-            $data['permissions'] = $this->routesToPermissions($this->input('routes'));
+        $group = $this->group->create($request);
 
-            $record = $this->group->setInput($data)->create();
+        if($group) {
+            $message = 'Successfully created group.';
 
-            if ($record) {
-                $this->message = sprintf('Successfully created group. %s', link_to_route('maintenance.admin.groups.show', 'Show', [$record->id]));
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.admin.groups.index');
-            } else {
-                $this->message = 'There was an error trying to create the group, please try again';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.admin.groups.create');
-            }
+            return redirect()->route('maintenance.admin.groups.index')->withSuccess($message);
         } else {
-            $this->errors = $this->groupValidator->getErrors();
-            $this->redirect = routeBack('maintenace.admin.groups.create');
-        }
+            $message = 'There was an issue creating a new group. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.admin.groups.create')->withErrors($message);
+        }
     }
 
     /**
      * Displays the specified user group.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function show($id)
     {
         $group = $this->group->find($id);
 
-        return view('maintenance::admin.groups.show', [
-            'title' => 'Viewing Group',
-            'group' => $group,
-        ]);
+        return view('maintenance::admin.groups.show', compact('group'));
     }
 
     /**
      * Displays the form to edit the specified user group.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function edit($id)
     {
         $group = $this->group->find($id);
 
-        return view('maintenance::admin.groups.edit', [
-            'title' => 'Editing Group',
-            'group' => $group,
-        ]);
+        return view('maintenance::admin.groups.edit', compact('group'));
     }
 
     /**
      * Processes updating the specified user group.
      *
-     * @param $id
+     * @param GroupRequest $request
+     * @param int|string   $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id)
+    public function update(GroupRequest $request, $id)
     {
-        if ($this->groupValidator->passes()) {
-            $data = $this->inputAll();
-            $data['permissions'] = $this->routesToPermissions($this->input('routes'));
+        $group = $this->group->update($request, $id);
 
-            $record = $this->group->setInput($data)->update($id);
+        if($group) {
+            $message = 'Successfully updated group.';
 
-            if ($record) {
-                $this->message = sprintf('Successfully updated group. %s', link_to_route('maintenance.admin.groups.show', 'Show', [$record->id]));
-                $this->messageType = 'success';
-                $this->redirect = routeBack('maintenance.admin.groups.index');
-            } else {
-                $this->message = 'There was an error updating this group, please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = routeBack('maintenance.admin.groups.edit', [$id]);
-            }
+            return redirect()->route('maintenance.admin.groups.show', [$group->id])->withSuccess($message);
         } else {
-            $this->errors = $this->groupValidator->getErrors();
-            $this->redirect = routeBack('maintenance.admin.groups.edit', [$id]);
-        }
+            $message = 'There was an issue updating this group. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.admin.groups.edit', [$id])->withSuccess($message);
+        }
     }
 
     /**
      * Processes deleting the specified user group.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         $group = $this->group->find($id);
 
-        $group->users()->detach();
+        if($group) {
+            $group->users()->detach();
 
-        if ($group->delete()) {
-            $this->message = 'Successfully deleted group';
-            $this->messageType = 'success';
-            $this->redirect = routeBack('maintenance.admin.groups.index');
-        } else {
-            $this->message = 'There was an issue trying to delete this group, please try again.';
-            $this->messageType = 'danger';
-            $this->redirect = routeBack('maintenance.admin.groups.show', [$group->id]);
-        }
+            if($group->delete()) {
+                $message = 'Successfully deleted group.';
 
-        return $this->response();
-    }
+                return redirect()->route('maintenance.admin.groups.index')->withSuccess($message);
+            } else {
+                $message = 'There was an issue deleting this group. Please try again.';
 
-    /**
-     * Converts the submitted route array key values to 1 for sentry.
-     *
-     * @param null $routes
-     *
-     * @return array
-     */
-    private function routesToPermissions($routes = null)
-    {
-        $permissions = [];
-
-        /*
-         * If routes are provided, set the route value key to 1,
-         * indicating that the user has permission in Sentry
-         */
-        if ($routes) {
-            foreach ($routes as $route) {
-                $permissions[$route] = 1;
+                return redirect()->route('maintenance.admin.groups.show', [$group->id])->withSuccess($message);
             }
+        } else {
+            abort(404);
         }
-
-        return $permissions;
     }
 }

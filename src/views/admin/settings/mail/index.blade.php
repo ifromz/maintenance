@@ -62,7 +62,7 @@
                     <i class="fa fa-laptop"></i>
                 </div>
 
-                {!! Form::text('host_ip', config('mail.host'), ['class'=>'form-control', 'maxlength'=>'45']) }}
+                {!! Form::text('host_ip', config('mail.host'), ['class'=>'form-control', 'maxlength'=>'45']) !!}
             </div>
         </div>
     </div>
@@ -107,7 +107,7 @@
                     <i class="fa fa-user"></i> Name
                 </div>
 
-                {!! Form::text('global_name', config('mail.from.name'), ['class'=>'form-control']) }}
+                {!! Form::text('global_name', config('mail.from.name'), ['class'=>'form-control']) !!}
             </div>
 
         </div>

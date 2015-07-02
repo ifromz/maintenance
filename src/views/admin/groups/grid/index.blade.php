@@ -1,4 +1,4 @@
-{{-- Users Grid --}}
+{{-- Groups Grid --}}
 <section class="panel panel-default panel-grid">
 
     {{-- Grid: Header --}}
@@ -9,13 +9,13 @@
             <div class="container-fluid">
 
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#users-actions">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#groups-actions">
                         <span class="fa fa-bars"></span>
                     </button>
                 </div>
 
                 {{-- Grid: Actions --}}
-                <div class="collapse navbar-collapse" id="users-actions">
+                <div class="collapse navbar-collapse" id="groups-actions">
 
                     <ul class="nav navbar-nav navbar-left">
 
@@ -31,7 +31,7 @@
                         </li>
 
                         <li class="primary">
-                            <a href="{{ route('maintenance.admin.users.create') }}" data-toggle="tooltip" data-original-title="Create">
+                            <a href="{{ route('maintenance.admin.groups.create') }}" data-toggle="tooltip" data-original-title="Create">
                                 <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
                             </a>
                         </li>
@@ -39,7 +39,7 @@
                     </ul>
 
                     {{-- Grid: Filters --}}
-                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search data-grid="users" role="form">
+                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search data-grid="groups" role="form">
 
                         <div class="input-group">
 
@@ -90,7 +90,7 @@
                                     <span class="fa fa-search"></span>
                                 </button>
 
-                                <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="users" data-reset>
+                                <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="groups" data-reset>
                                     <i class="fa fa-refresh fa-sm"></i>
                                 </button>
 
@@ -114,7 +114,7 @@
         {{-- Grid: Applied Filters --}}
         <div class="btn-toolbar" role="toolbar" aria-label="data-grid-applied-filters">
 
-            <div id="users-filters" class="btn-group" data-grid="users"></div>
+            <div id="groups-filters" class="btn-group" data-grid="groups"></div>
 
         </div>
 
@@ -123,15 +123,11 @@
     {{-- Grid: Table --}}
     <div class="table-responsive">
 
-        <table id="users-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.admin.users.grid') }}" data-grid="users">
+        <table id="groups-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.admin.groups.grid') }}" data-grid="groups">
 
             <thead>
                 <tr>
-                   <th class="sortable" data-sort="id">ID</th>
-                   <th class="sortable" data-sort="first_name">First Name</th>
-                   <th class="sortable" data-sort="last_name">Last Name</th>
-                   <th class="sortable" data-sort="email">Email</th>
-                   <th class="sortable" data-sort="created_at">Created At</th>
+                   <th class="sortable" data-sort="Name">Name</th>
                </tr>
            </thead>
 
@@ -144,14 +140,14 @@
     <footer class="panel-footer clearfix text-center">
 
         {{-- Grid: Pagination --}}
-        <div id="users-pagination" data-grid="users"></div>
+        <div id="groups-pagination" data-grid="groups"></div>
 
     </footer>
 
-    @include('maintenance::admin.users.grid.templates.no-results')
-    @include('maintenance::admin.users.grid.templates.results')
-    @include('maintenance::admin.users.grid.templates.pagination')
-    @include('maintenance::admin.users.grid.templates.filters')
+    @include('maintenance::admin.groups.grid.templates.no-results')
+    @include('maintenance::admin.groups.grid.templates.results')
+    @include('maintenance::admin.groups.grid.templates.pagination')
+    @include('maintenance::admin.groups.grid.templates.filters')
 
 </section>
 
@@ -159,7 +155,7 @@
 
     $(function()
     {
-        $.datagrid('users', '#users-results', '#users-pagination', '#users-filters');
+        $.datagrid('groups', '#groups-results', '#groups-pagination', '#groups-filters');
     });
 
 </script>

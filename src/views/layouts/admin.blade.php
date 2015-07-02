@@ -68,11 +68,6 @@
                         <i class="fa fa-sitemap"></i> Site Settings
                     </a>
                 </li>
-                <li class="{{ activeMenuLink('maintenance.admin.settings.mail') }}">
-                    <a href="{{ route('maintenance.admin.settings.mail.index') }}">
-                        <i class="fa fa-envelope-o"></i> Mail Settings
-                    </a>
-                </li>
             </ul>
         </li>
     @endif
