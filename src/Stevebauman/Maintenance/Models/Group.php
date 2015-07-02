@@ -6,19 +6,34 @@ use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Cartalyst\Sentry\Groups\Eloquent\Group as SentryGroup;
 
-/**
- * Class Group.
- */
 class Group extends SentryGroup
 {
     use TableTrait;
 
     use ViewableTrait;
 
+    /**
+     * The group table.
+     *
+     * @var string
+     */
     protected $table = 'groups';
 
-    protected $fillable = ['name', 'permissions'];
+    /**
+     * The fillable group attributes.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'permissions'
+    ];
 
+    /**
+     * The group viewer class.
+     *
+     * @var string
+     */
     protected $viewer = 'Stevebauman\Maintenance\Viewers\GroupViewer';
 
     /**

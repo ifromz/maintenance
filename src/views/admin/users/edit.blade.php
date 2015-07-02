@@ -19,7 +19,7 @@
         Form::open([
             'url' => route('maintenance.admin.users.update', [$user->id]),
             'class' => 'form-horizontal',
-            'method' => 'PUT'
+            'method' => 'PATCH'
         ])
     }}
 
