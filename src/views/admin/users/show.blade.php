@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.admin.tabbed')
 
+@section('title', 'Viewing User')
+
 @section('tab.head.content')
     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
 @stop

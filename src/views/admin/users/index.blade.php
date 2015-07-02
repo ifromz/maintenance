@@ -1,47 +1,9 @@
-@extends('maintenance::layouts.pages.admin.panel')
+@extends('maintenance::layouts.admin')
 
-@section('panel.extra.top')
-    @include('maintenance::admin.users.modals.search', [
-        'url' => route('maintenance.admin.users.index'),
-    ])
-@stop
+@section('title', 'Users')
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a href="{{ route('maintenance.admin.users.create') }}" class="btn btn-primary">
-            <i class="fa fa-plus"></i>
-            New User
-        </a>
-        <a href="#" class="btn btn-primary" data-target="#search-modal" data-toggle="modal"
-           title="Filter results">
-            <i class="fa fa-search"></i>
-            Search
-        </a>
-    </div>
-@stop
+@section('content')
 
-@section('panel.body.content')
-    <div class="text-center">{{ $users->appends(Input::except('page'))->render() }}</div>
+    @include('maintenance::admin.users.grid.index')
 
-    @if($users->count() > 0)
-        {!!
-            $users->columns([
-                    'id' => 'ID',
-                    'name' => 'Name',
-                    'username' => 'Username',
-                    'email' => 'Email',
-                    'action' => 'Action'
-                ])
-                ->modify('name', function($user) {
-                    return $user->full_name;
-                })
-                ->modify('action', function($user) {
-                    return $user->viewer()->btnActions();
-                })
-                ->hidden(['name'])
-                ->render()
-        !!}
-    @endif
-
-    <div class="text-center">{{ $users->appends(Input::except('page'))->render() }}</div>
 @stop

@@ -1,5 +1,9 @@
 @extends('maintenance::layouts.base')
 
+@section('styles')
+{!! HTML::style('assets/stevebauman/maintenance/resources/bootstrap-daterangepicker/daterangepicker-bs3.css') !!}
+@stop
+
 @section('nav.left')
 
     @if(Sentry::hasAccess('maintenance.admin.dashboard.index'))
@@ -80,4 +84,15 @@
             </a>
         </li>
     @endif
+@stop
+
+@section('scripts')
+
+    {!! HTML::script('assets/cartalyst/data-grid/js/data-grid.js') !!}
+    {!! HTML::script('assets/cartalyst/data-grid/js/underscore.js') !!}
+
+    <!-- Bootstrap Date Range Picker -->
+    {!! HTML::script('assets/stevebauman/maintenance/resources/bootstrap-daterangepicker/daterangepicker.js') !!}
+
+    {!! HTML::script('assets/stevebauman/maintenance/js/grid.js') !!}
 @stop

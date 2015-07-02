@@ -6,9 +6,9 @@ use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\ReturnRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\TakeRequest;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class StockController extends Controller
+class StockController extends BaseController
 {
     /**
      * @var WorkOrderRepository

@@ -1,144 +1,98 @@
 @extends('maintenance::layouts.pages.admin.panel')
 
+@section('title', 'Create User')
+
 @section('panel.head.content')
-    Create User
+Create User
 @stop
 
 @section('panel.body.content')
     {!!
         Form::open([
             'url' => route('maintenance.admin.users.store'),
-            'class' => 'form-horizontal ajax-form-post clear-form'
+            'class' => 'form-horizontal'
         ])
     !!}
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('first_name', ' has-error') }}">
         <label class="col-sm-2 control-label">First Name:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder' => 'Enter First Name']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-info"></i>
-                </div>
-
-                {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder' => 'Enter First Name']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('first_name', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('last_name', ' has-error') }}">
         <label class="col-sm-2 control-label">Last Name:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder' => 'Enter Last Name']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-info"></i>
-                </div>
-
-                {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder' => 'Enter Last Name']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('last_name', ':message') }}</span>
         </div>
     </div>
 
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('username', ' has-error') }}">
         <label class="col-sm-2 control-label">Username:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::text('username', null, ['class'=>'form-control', 'placeholder' => 'Enter Username']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-user"></i>
-                </div>
-
-                {!! Form::text('username', null, ['class'=>'form-control', 'placeholder' => 'Enter Username']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('username', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('email', ' has-error') }}">
         <label class="col-sm-2 control-label">Email:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::text('email', null, ['class'=>'form-control', 'placeholder' => 'Enter Email']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-envelope-o"></i>
-                </div>
-
-                {!! Form::text('email', null, ['class'=>'form-control', 'placeholder' => 'Enter Email']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('email', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('password', ' has-error') }}">
         <label class="col-sm-2 control-label">Password:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::password('password', ['class'=>'form-control', 'placeholder' => 'Enter Password']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-lock"></i>
-                </div>
-
-                {!! Form::password('password', ['class'=>'form-control', 'placeholder' => 'Enter Password']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('password', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('password_confirmation', ' has-error') }}">
         <label class="col-sm-2 control-label">Confirm Password:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            {!! Form::password('password_confirmation', ['class'=>'form-control', 'placeholder' => 'Confirm Above Password']) !!}
 
-                <div class="input-group-addon">
-                    <i class="fa fa-lock"></i>
-                </div>
-
-                {!! Form::password('password_confirmation', ['class'=>'form-control', 'placeholder' => 'Confirm Above Password']) !!}
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('password_confirmation', ':message') }}</span>
         </div>
     </div>
 
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('routes', ' has-error') }}">
         <label class="col-sm-2 control-label">Permissions:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            @include('maintenance::select.routes')
 
-                <div class="input-group-addon">
-                    <i class="fa fa-key"></i>
-                </div>
-
-                @include('maintenance::select.routes')
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('routes', ':message') }}</span>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group{{ $errors->first('groups', ' has-error') }}">
         <label class="col-sm-2 control-label">Groups:</label>
 
         <div class="col-md-4">
-            <div class="input-group">
+            @include('maintenance::select.groups')
 
-                <div class="input-group-addon">
-                    <i class="fa fa-users"></i>
-                </div>
-
-                @include('maintenance::select.groups')
-
-            </div>
+            <span class="label label-danger">{{ $errors->first('groups', ':message') }}</span>
         </div>
     </div>
 

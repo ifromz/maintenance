@@ -18,7 +18,7 @@
     {!!
         Form::open([
             'url' => route('maintenance.admin.users.update', [$user->id]),
-            'class' => 'form-horizontal ajax-form-post',
+            'class' => 'form-horizontal',
             'method' => 'PUT'
         ])
     }}

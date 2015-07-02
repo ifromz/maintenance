@@ -2,33 +2,26 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\User;
 
-use Stevebauman\Maintenance\Validators\UserValidator;
-use Stevebauman\Maintenance\Services\UserService;
+use Stevebauman\Maintenance\Http\Requests\Admin\User\CreateRequest;
+use Stevebauman\Maintenance\Http\Requests\Admin\User\UpdateRequest;
+use Stevebauman\Maintenance\Repositories\UserRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-/**
- * Class UserController.
- */
 class UserController extends Controller
 {
     /**
-     * @var UserService
+     * @var UserRepository
      */
     protected $user;
 
     /**
-     * @var UserValidator
+     * Constructor.
+     *
+     * @param UserRepository $user
      */
-    protected $userValidator;
-
-    /**
-     * @param UserService   $user
-     * @param UserValidator $userValidator
-     */
-    public function __construct(UserService $user, UserValidator $userValidator)
+    public function __construct(UserRepository $user)
     {
         $this->user = $user;
-        $this->userValidator = $userValidator;
     }
 
     /**
@@ -38,12 +31,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->user->setInput($this->inputAll())->getByPageWithFilter();
-
-        return view('maintenance::admin.users.index', [
-            'title' => 'All Users',
-            'users' => $users,
-        ]);
+        return view('maintenance::admin.users.index');
     }
 
     /**
@@ -53,38 +41,29 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('maintenance::admin.users.create', [
-            'title' => 'Create a User',
-        ]);
+        return view('maintenance::admin.users.create');
     }
 
     /**
      * Processes creating a new user.
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @param CreateRequest $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store()
+    public function store(CreateRequest $request)
     {
-        if ($this->userValidator->passesCreate()) {
-            $user = $this->user->setInput($this->inputAll())->create();
+        $user = $this->user->create($request);
 
-            if ($user) {
-                $link = link_to_route('maintenance.admin.users.show', 'Show', [$user->id]);
+        if($user) {
+            $message = 'Successfully created user.';
 
-                $this->message = "Successfully created user. $link";
-                $this->messageType = 'success';
-                $this->redirect = routeBack('maintenance.admin.users.index');
-            } else {
-                $this->message = 'There was an error trying to create a user, please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = routeBack('maintenance.admin.users.create');
-            }
+            return redirect()->route('maintenance.admin.users.index')->withSuccess($message);
         } else {
-            $this->errors = $this->userValidator->getErrors();
-            $this->redirect = routeBack('maintenance.admin.users.create');
-        }
+            $message = 'There was an issue creating a user. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.admin.users.create')->withErrors($message);
+        }
     }
 
     /**
@@ -124,51 +103,43 @@ class UserController extends Controller
     /**
      * Processes updating the user with the specified ID.
      *
-     * @param $id
+     * @param UpdateRequest $request
+     * @param int|string     $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($id)
+    public function update(UpdateRequest $request, $id)
     {
-        if ($this->userValidator->passesUpdate($id)) {
-            if ($this->user->setInput($this->inputAll())->update($id)) {
-                $link = link_to_route('maintenance.admin.users.show', 'Show', [$id]);
+        $user = $this->user->update($request, $id);
 
-                $this->message = "Successfully updated user. $link";
-                $this->messageType = 'success';
-                $this->redirect = routeBack('maintenance.admin.users.show', [$id]);
-            } else {
-                $this->message = 'There was an error trying to update this user. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = routeBack('maintenance.admin.users.edit', [$id]);
-            }
+        if($user) {
+            $message = 'Successfully updated user.';
+
+            return redirect()->route('maintenance.admin.users.index')->withSuccess($message);
         } else {
-            $this->errors = $this->userValidator->getErrors();
-            $this->redirect = routeBack('maintenance.admin.users.edit', [$id]);
-        }
+            $message = 'There was an issue updating this user. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.admin.users.edit', [$id])->withErrors($message);
+        }
     }
 
     /**
      * Deletes the user with the specified ID.
      *
-     * @param $id
+     * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        if ($this->user->destroy($id)) {
-            $this->message = 'Successfully deleted user';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.admin.users.index');
-        } else {
-            $this->message = 'There was an issue deleting this user, please try again.';
-            $this->messageType = 'danger';
-            $this->redirect = routeBack('maintenance.admin.users.show', [$id]);
-        }
+        if ($this->user->delete($id)) {
+            $message = 'Successfully deleted user.';
 
-        return $this->response();
+            return redirect()->route('maintenance.admin.users.index')->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this user. Please try again.';
+
+            return redirect()->route('maintenance.admin.users.show', [$id])->withErrors($message);
+        }
     }
 }

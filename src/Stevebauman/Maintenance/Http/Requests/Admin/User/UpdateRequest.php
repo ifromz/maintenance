@@ -1,10 +1,10 @@
 <?php
 
-namespace Stevebauman\Maintenance\Http\Requests\Admin;
+namespace Stevebauman\Maintenance\Http\Requests\Admin\User;
 
-use Stevebauman\Maintenance\Http\Requests\Request;
+use Stevebauman\Maintenance\Http\Requests\Request as BaseRequest;
 
-class UserRequest extends Request
+class UpdateRequest extends BaseRequest
 {
     /**
      * The user validation rules.

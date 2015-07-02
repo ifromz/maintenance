@@ -119,6 +119,16 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         {
             Route::get('grid', ['as' => 'maintenance.api.v1.metrics.grid', 'uses' => 'MetricController@grid']);
         });
+
+        // Administrator Api Routes
+        Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
+        {
+            // Administrator User Api Routes
+            Route::group(['prefix' => 'users'], function()
+            {
+                Route::get('grid', ['as' => 'maintenance.api.v1.admin.users.grid', 'uses' => 'UserController@grid']);
+            });
+        });
     });
 
 });
