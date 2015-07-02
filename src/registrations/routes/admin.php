@@ -71,11 +71,6 @@ Route::resource('groups', 'GroupController', [
 // Archive Routes
 Route::group(['namespace' => 'Archive'], function ()
 {
-    Route::get('archive', [
-        'as' => 'maintenance.admin.archive.index',
-        'uses' => 'ArchiveController@getIndex',
-    ]);
-
     // Asset Archive Routes
     Route::post('archive/assets/{assets}/restore', [
         'as' => 'maintenance.admin.archive.assets.restore',

@@ -4,9 +4,9 @@
 
     <tr>
         <td><%= r.id %></td>
-        <td><a href="<%= r.view_url %>"> <%= r.first_name %> </a></td>
+        <td><a href="<%= r.view_url %>"> <%= r.email %></a></td>
+        <td><%= r.first_name %></td>
         <td><%= r.last_name %></td>
-        <td><%= r.email %></td>
         <td><%= r.created_at %></td>
     </tr>
 

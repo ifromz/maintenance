@@ -18,8 +18,6 @@ class UpdateRequest extends BaseRequest
             'last_name' => 'required|min:3',
             'username' => 'required|min:5',
             'email' => 'required|min:5|email',
-            'password' => 'confirmed|required_with:activated|min:8',
-            'password_confirmation' => 'required_with:activated|min:8',
             'activated' => 'integer|boolean',
         ];
     }

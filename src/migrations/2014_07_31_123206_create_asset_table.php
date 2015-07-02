@@ -13,7 +13,6 @@ class CreateAssetTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->string('import_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->datetime('acquired_at')->nullable();

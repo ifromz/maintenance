@@ -2,53 +2,81 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\Archive;
 
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class WorkOrderController extends Controller
 {
-    public function __construct(WorkOrderService $workOrder)
+    /**
+     * @var WorkOrderRepository
+     */
+    protected $workOrder;
+
+    /**
+     * @param WorkOrderRepository $workOrder
+     */
+    public function __construct(WorkOrderRepository $workOrder)
     {
         $this->workOrder = $workOrder;
     }
 
+    /**
+     * Displays all archived work orders.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
-        $workOrders = $this->workOrder->setInput($this->inputAll())->getByPageWithFilter(true);
-
-        return view('maintenance::admin.archive.work-orders.index', [
-            'title' => 'Archived Work Orders',
-            'workOrders' => $workOrders,
-        ]);
+        return view('maintenance::admin.archive.work-orders.index');
     }
 
+    /**
+     * Displays the specified archived work order.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
     public function show($id)
     {
         $workOrder = $this->workOrder->findArchived($id);
 
-        return view('maintenance::admin.archive.work-orders.show', [
-            'title' => 'Viewing Archived Work Order: '.$workOrder->subject,
-            'workOrder' => $workOrder,
-        ]);
+        return view('maintenance::admin.archive.work-orders.show', compact('workOrder'));
     }
 
+    /**
+     * Deletes the specified archived work order.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
-        $this->workOrder->destroyArchived($id);
+        if($this->workOrder->deleteArchived($id)) {
+            $message = 'Successfully deleted work order.';
 
-        $this->message = 'Successfully deleted work order';
-        $this->messageType = 'success';
-        $this->redirect = route('maintenance.admin.archive.work-orders.index');
+            return redirect()->route('maintenance.admin.archive.work-orders.index')->withSuccess($message);
+        } else  {
+            $message = 'There was an issue deleting this work order. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.admin.archive.work-orders.show', [$id])->withErrors($message);
+        }
     }
 
+    /**
+     * Restores the specified work order.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function restore($id)
     {
-        if ($this->workOrder->restoreArchived($id)) {
-            $this->message = sprintf('Successfully restored work order. %s', link_to_route('maintenance.work-orders.show', 'Show', $id));
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.admin.archive.work-orders.index');
+        if ($this->workOrder->restore($id)) {
+            $message = 'Successfully restored work order.';
+
+            return redirect()->route('maintenance.admin.archive.work-orders.index')->withSuccess($message);
         } else {
             $this->message = 'There was an error trying to restore this work order, please try again';
             $this->messageType = 'success';

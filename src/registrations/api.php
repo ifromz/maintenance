@@ -138,7 +138,9 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             // Administrator Archive Api Routes
             Route::group(['prefix' => 'archive', 'namespace' => 'Archive'], function()
             {
-                
+                Route::get('grid/work-orders', ['as' => 'maintenance.api.v1.admin.archive.work-orders.grid', 'uses' => 'WorkOrderController@grid']);
+
+                Route::get('grid/inventory', ['as' => 'maintenance.api.v1.admin.archive.inventory.grid', 'uses' => 'InventoryController@grid']);
             });
         });
     });

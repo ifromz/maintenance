@@ -23,7 +23,7 @@ abstract class Repository
     abstract public function model();
 
     /**
-     * Finds the specified record by it's ID.
+     * Finds the specified record by its ID.
      *
      * @param int|string $id
      *
@@ -34,6 +34,20 @@ abstract class Repository
     public function find($id)
     {
          return $this->model()->findOrFail($id);
+    }
+
+    /**
+     * Finds the specified archived record by its ID.
+     *
+     * @param int|string $id
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     *
+     * @return mixed
+     */
+    public function findArchived($id)
+    {
+        return $this->model()->onlyTrashed()->findOrFail($id);
     }
 
     /**
@@ -51,7 +65,37 @@ abstract class Repository
     }
 
     /**
-     * Retrieves all of the current users inventory items.
+     * Deletes an archived record on the current model.
+     *
+     * @param int|string $id
+     *
+     * @return mixed
+     */
+    public function deleteArchived($id)
+    {
+        return $this->model()->onlyTrashed()->destroy($id);
+    }
+
+    /**
+     *
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function restore($id)
+    {
+        $record = $this->findArchived($id);
+
+        if($record) {
+            return $record->restore();
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns a new grid instance of the current model.
      *
      * @param array    $columns
      * @param array    $settings
@@ -62,6 +106,22 @@ abstract class Repository
     public function grid(array $columns = [], array $settings = [], $transformer = null)
     {
         $model = $this->model();
+
+        return $this->newGrid($model, $columns, $settings, $transformer);
+    }
+
+    /**
+     * Returns a new grid instance of the current models archived records.
+     *
+     * @param array     $columns
+     * @param array     $settings
+     * @param \Closure  $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridArchived(array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->model()->onlyTrashed();
 
         return $this->newGrid($model, $columns, $settings, $transformer);
     }

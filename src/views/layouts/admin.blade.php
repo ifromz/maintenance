@@ -32,7 +32,7 @@
 
     @if(Sentry::hasAccess('maintenance.admin.archive.index'))
     <li class="{{ activeMenuLink('maintenance.admin.archive') }} treeview">
-        <a href="{{ route('maintenance.admin.archive.index') }}">
+        <a href="#">
             <i class="fa fa-archive"></i> Archive
             <i class="fa fa-angle-left pull-right"></i>
         </a>

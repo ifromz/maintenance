@@ -1,4 +1,4 @@
-{{-- Users Grid --}}
+{{-- Archived Inventory Items Grid --}}
 <section class="panel panel-default panel-grid">
 
     {{-- Grid: Header --}}
@@ -9,13 +9,13 @@
             <div class="container-fluid">
 
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#users-actions">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#inventory-actions">
                         <span class="fa fa-bars"></span>
                     </button>
                 </div>
 
                 {{-- Grid: Actions --}}
-                <div class="collapse navbar-collapse" id="users-actions">
+                <div class="collapse navbar-collapse" id="inventory-actions">
 
                     <ul class="nav navbar-nav navbar-left">
 
@@ -30,16 +30,10 @@
                             </ul>
                         </li>
 
-                        <li class="primary">
-                            <a href="{{ route('maintenance.admin.users.create') }}" data-toggle="tooltip" data-original-title="Create">
-                                <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
-                            </a>
-                        </li>
-
                     </ul>
 
                     {{-- Grid: Filters --}}
-                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search data-grid="users" role="form">
+                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search data-grid="inventory" role="form">
 
                         <div class="input-group">
 
@@ -90,7 +84,7 @@
                                     <span class="fa fa-search"></span>
                                 </button>
 
-                                <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="users" data-reset>
+                                <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="inventory" data-reset>
                                     <i class="fa fa-refresh fa-sm"></i>
                                 </button>
 
@@ -114,7 +108,7 @@
         {{-- Grid: Applied Filters --}}
         <div class="btn-toolbar" role="toolbar" aria-label="data-grid-applied-filters">
 
-            <div id="users-filters" class="btn-group" data-grid="users"></div>
+            <div id="inventory-filters" class="btn-group" data-grid="inventory"></div>
 
         </div>
 
@@ -123,17 +117,18 @@
     {{-- Grid: Table --}}
     <div class="table-responsive">
 
-        <table id="users-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.admin.users.grid') }}" data-grid="users">
+        <table id="inventory-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.admin.archive.inventory.grid') }}" data-grid="inventory">
 
             <thead>
                 <tr>
-                   <th class="sortable" data-sort="id">ID</th>
-                   <th class="sortable" data-sort="email">Email / Username</th>
-                   <th class="sortable" data-sort="first_name">First Name</th>
-                   <th class="sortable" data-sort="last_name">Last Name</th>
-                   <th class="sortable" data-sort="created_at">Created At</th>
-               </tr>
-           </thead>
+                    <th class="sortable" data-sort="id">ID</th>
+                    <th>SKU</th>
+                    <th class="sortable" data-sort="name">Name</th>
+                    <th class="sortable" data-sort="category_id">Category</th>
+                    <th>Current Stock</th>
+                    <th class="sortable" data-sort="created_at">Created At</th>
+                </tr>
+            </thead>
 
             <tbody></tbody>
 
@@ -144,14 +139,14 @@
     <footer class="panel-footer clearfix text-center">
 
         {{-- Grid: Pagination --}}
-        <div id="users-pagination" data-grid="users"></div>
+        <div id="inventory-pagination" data-grid="inventory"></div>
 
     </footer>
 
-    @include('maintenance::admin.users.grid.templates.no-results')
-    @include('maintenance::admin.users.grid.templates.results')
-    @include('maintenance::admin.users.grid.templates.pagination')
-    @include('maintenance::admin.users.grid.templates.filters')
+    @include('maintenance::admin.archive.inventory.grid.templates.no-results')
+    @include('maintenance::admin.archive.inventory.grid.templates.results')
+    @include('maintenance::admin.archive.inventory.grid.templates.pagination')
+    @include('maintenance::admin.archive.inventory.grid.templates.filters')
 
 </section>
 
@@ -159,7 +154,7 @@
 
     $(function()
     {
-        $.datagrid('users', '#users-results', '#users-pagination', '#users-filters');
+        $.datagrid('inventory', '#inventory-results', '#inventory-pagination', '#inventory-filters');
     });
 
 </script>

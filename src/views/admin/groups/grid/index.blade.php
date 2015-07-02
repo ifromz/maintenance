@@ -127,7 +127,8 @@
 
             <thead>
                 <tr>
-                   <th class="sortable" data-sort="Name">Name</th>
+                   <th class="sortable" data-sort="name">Name</th>
+                   <th class="sortable" data-sort="created_at">Created At</th>
                </tr>
            </thead>
 

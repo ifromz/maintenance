@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\Archive;
 
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class InventoryController extends Controller
@@ -10,9 +10,9 @@ class InventoryController extends Controller
     /**
      * Constructor.
      *
-     * @param InventoryService $inventory
+     * @param InventoryRepository $inventory
      */
-    public function __construct(InventoryService $inventory)
+    public function __construct(InventoryRepository $inventory)
     {
         $this->inventory = $inventory;
     }
@@ -24,18 +24,13 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $items = $this->inventory->setInput($this->inputAll())->getByPageWithFilter(true);
-
-        return view('maintenance::admin.archive.inventory.index', [
-            'title' => 'Archived Inventory Items',
-            'items' => $items,
-        ]);
+        return view('maintenance::admin.archive.inventory.index');
     }
 
     /**
      * Displays the specified archived inventory item.
      *
-     * @param string|int $id
+     * @param int|string $id
      *
      * @return \Illuminate\View\View
      */
@@ -43,10 +38,7 @@ class InventoryController extends Controller
     {
         $item = $this->inventory->findArchived($id);
 
-        return view('maintenance::admin.archive.inventory.show', [
-            'title' => 'Viewing Archived Inventory Item: '.$item->name,
-            'item' => $item,
-        ]);
+        return view('maintenance::admin.archive.inventory.show', compact('item'));
     }
 
     /**
@@ -54,38 +46,38 @@ class InventoryController extends Controller
      *
      * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        $this->inventory->destroyArchived($id);
+        if($this->inventory->deleteArchived($id)) {
+            $message = 'Successfully deleted inventory item.';
 
-        $this->message = 'Successfully deleted inventory item';
-        $this->messageType = 'success';
-        $this->redirect = route('maintenance.admin.archive.inventory.index');
+            return redirect()->route('maintenance.admin.archive.inventory.index')->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this inventory item. Please try again';
 
-        return $this->response();
+            return redirect()->route('maintenance.admin.archive.inventory.show', [$id])->withErrors($message);
+        }
     }
 
     /**
      * Restores the specified archived inventory item.
      *
-     * @param string|int $id
+     * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function restore($id)
     {
-        if ($this->inventory->restoreArchived($id)) {
-            $this->message = sprintf('Successfully restored inventory item. %s', link_to_route('maintenance.inventory.show', 'Show', $id));
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.admin.archive.work-orders.index');
-        } else {
-            $this->message = 'There was an error trying to restore this inventory item, please try again';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.admin.archive.inventory.index');
-        }
+        if ($this->inventory->restore($id)) {
+            $message = 'Successfully restored inventory item.';
 
-        return $this->response();
+            return redirect()->route('maintenance.admin.archive.work-orders.index')->withSuccess($message);
+        } else {
+            $message = 'There was an error trying to restore this inventory item. Please try again.';
+
+            return redirect()->route('maintenance.admin.archive.work-orders.index')->withSuccess($message);
+        }
     }
 }

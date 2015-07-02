@@ -31,10 +31,11 @@ class GroupController extends BaseController
     {
         $columns = [
             'name',
+            'created_at',
         ];
 
         $settings = [
-            'sort'      => 'created_at',
+            'sort' => 'created_at',
             'direction' => 'desc',
             'throttle' => 10,
             'threshold' => 10,
@@ -44,6 +45,7 @@ class GroupController extends BaseController
         {
             return [
                 'name' => $group->name,
+                'created_at' => $group->created_at->format('Y-m-d g:i a'),
                 'view_url' => route('maintenance.admin.groups.show', [$group->id]),
             ];
         };
