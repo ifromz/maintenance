@@ -1,5 +1,4 @@
-![Maintenance Banner]
-(https://github.com/stevebauman/maintenance/blob/master/maintenance-banner.jpg)
+# Maintenance
 
 [![Code Climate](https://codeclimate.com/github/stevebauman/maintenance/badges/gpa.svg)](https://codeclimate.com/github/stevebauman/maintenance)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/stevebauman/maintenance/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/stevebauman/maintenance/?branch=master)
