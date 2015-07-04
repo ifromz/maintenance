@@ -2,11 +2,9 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Viewers\WorkOrder\SessionViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-/**
- * Class WorkOrderSession.
- */
 class WorkOrderSession extends BaseModel
 {
     use HasUserTrait;
@@ -23,7 +21,7 @@ class WorkOrderSession extends BaseModel
      *
      * @var string
      */
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrder\SessionViewer';
+    protected $viewer = SessionViewer::class;
 
     /**
      * The fillable work order session attributes.
@@ -45,7 +43,7 @@ class WorkOrderSession extends BaseModel
      */
     public function workOrder()
     {
-        return $this->hasOne('Stevebauman\Maintenanace\Models\WorkOrder', 'work_order_id');
+        return $this->hasOne(WorkOrder::class, 'work_order_id');
     }
 
     /**
