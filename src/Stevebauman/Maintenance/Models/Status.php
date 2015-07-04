@@ -2,19 +2,32 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Viewers\StatusViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-/**
- * Class Status.
- */
 class Status extends BaseModel
 {
     use HasUserTrait;
 
+    /**
+     * The statuses table.
+     *
+     * @var string
+     */
     protected $table = 'statuses';
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\StatusViewer';
+    /**
+     * The status viewer.
+     *
+     * @var string
+     */
+    protected $viewer = StatusViewer::class;
 
+    /**
+     * The fillable status attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'name',

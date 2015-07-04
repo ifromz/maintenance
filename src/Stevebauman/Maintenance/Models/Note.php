@@ -4,15 +4,22 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-/**
- * Class Note.
- */
 class Note extends BaseModel
 {
     use HasUserTrait;
 
+    /**
+     * The notes table.
+     *
+     * @var string
+     */
     protected $table = 'notes';
 
+    /**
+     * The fillable note attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'content',
@@ -25,7 +32,7 @@ class Note extends BaseModel
      */
     public function assets()
     {
-        return $this->morphedByMany('Stevebauman\Maintenance\Models\Asset', 'noteable')->withTimestamps();
+        return $this->morphedByMany(Asset::class, 'noteable')->withTimestamps();
     }
 
     /**
@@ -35,7 +42,7 @@ class Note extends BaseModel
      */
     public function inventories()
     {
-        return $this->morphedByMany('Stevebauman\Maintenance\Models\Inventory', 'noteable')->withTimestamps();
+        return $this->morphedByMany(Inventory::class, 'noteable')->withTimestamps();
     }
 
     /**
@@ -45,6 +52,6 @@ class Note extends BaseModel
      */
     public function workOrders()
     {
-        return $this->morphedByMany('Stevebauman\Maintenance\Models\WorkOrder', 'noteable')->withTimestamps();
+        return $this->morphedByMany(WorkOrder::class, 'noteable')->withTimestamps();
     }
 }

@@ -4,15 +4,22 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-/**
- * Class WorkOrderNotification.
- */
 class WorkOrderNotification extends BaseModel
 {
     use HasUserTrait;
 
+    /**
+     * The work order notifications table.
+     *
+     * @var string
+     */
     protected $table = 'work_order_notifications';
 
+    /**
+     * The fillable work order notification attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'work_order_id',

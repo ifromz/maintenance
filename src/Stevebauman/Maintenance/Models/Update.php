@@ -2,18 +2,34 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Viewers\UpdateViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-/**
- * Class Update.
- */
 class Update extends BaseModel
 {
     use HasUserTrait;
 
+    /**
+     * The updates table.
+     *
+     * @var string
+     */
     protected $table = 'updates';
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\UpdateViewer';
+    /**
+     * The update viewer.
+     *
+     * @var string
+     */
+    protected $viewer = UpdateViewer::class;
 
-    protected $fillable = ['user_id', 'content'];
+    /**
+     * The fillable update attributes.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'content'
+    ];
 }

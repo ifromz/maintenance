@@ -6,15 +6,22 @@ use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-/**
- * Class Notification.
- */
 class Notification extends BaseModel
 {
     use HasUserTrait;
 
+    /**
+     * The notifications table.
+     *
+     * @var string
+     */
     protected $table = 'notifications';
 
+    /**
+     * The fillable notification attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'notifiable_id',
@@ -49,7 +56,7 @@ class Notification extends BaseModel
          * we don't want to override the Notification models constructor
          * to inject the service
          */
-        $config = App::make('Stevebauman\Maintenance\Services\ConfigService');
+        $config = App::make(ConfigService::class);
 
         // Make sure we have an instance of the ConfigService returned by the IoC
         if ($config instanceof ConfigService) {

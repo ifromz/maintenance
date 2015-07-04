@@ -6,15 +6,13 @@ use Carbon\Carbon;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Stevebauman\Maintenance\Viewers\WorkOrder\WorkOrderViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasNotesTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 
-/**
- * Class WorkOrder.
- */
 class WorkOrder extends BaseModel
 {
     use SoftDeletes;
@@ -32,11 +30,11 @@ class WorkOrder extends BaseModel
     protected $table = 'work_orders';
 
     /**
-     * The work orders viewer class.
+     * The work orders viewer.
      *
      * @var string
      */
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrder\WorkOrderViewer';
+    protected $viewer = WorkOrderViewer::class;
 
     /**
      * The work orders fillable attributes.
@@ -80,7 +78,7 @@ class WorkOrder extends BaseModel
      */
     public function request()
     {
-        return $this->belongsTo('Stevebauman\Maintenance\Models\WorkRequest', 'request_id');
+        return $this->belongsTo(WorkRequest::class, 'request_id');
     }
 
     /**
@@ -90,7 +88,7 @@ class WorkOrder extends BaseModel
      */
     public function updates()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\Update', 'work_order_updates', 'work_order_id', 'update_id')->withTimestamps();
+        return $this->belongsToMany(Update::class, 'work_order_updates', 'work_order_id', 'update_id')->withTimestamps();
     }
 
     /**
@@ -100,7 +98,7 @@ class WorkOrder extends BaseModel
      */
     public function status()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\Status', 'id', 'status_id');
+        return $this->hasOne(Status::class, 'id', 'status_id');
     }
 
     /**
@@ -110,7 +108,7 @@ class WorkOrder extends BaseModel
      */
     public function priority()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\Priority', 'id', 'priority_id');
+        return $this->hasOne(Priority::class, 'id', 'priority_id');
     }
 
     /**
@@ -120,7 +118,7 @@ class WorkOrder extends BaseModel
      */
     public function assets()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\Asset', 'work_order_assets', 'work_order_id', 'asset_id')->withTimestamps();
+        return $this->belongsToMany(Asset::class, 'work_order_assets', 'work_order_id', 'asset_id')->withTimestamps();
     }
 
     /**
@@ -130,7 +128,7 @@ class WorkOrder extends BaseModel
      */
     public function report()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrderReport', 'work_order_id');
+        return $this->hasOne(WorkOrderReport::class, 'work_order_id');
     }
 
     /**
@@ -140,7 +138,7 @@ class WorkOrder extends BaseModel
      */
     public function assignments()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderAssignment', 'work_order_id', 'id');
+        return $this->hasMany(WorkOrderAssignment::class, 'work_order_id', 'id');
     }
 
     /**
@@ -150,7 +148,7 @@ class WorkOrder extends BaseModel
      */
     public function attachments()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'work_order_attachments', 'work_order_id', 'attachment_id')->withTimestamps();
+        return $this->belongsToMany(Attachment::class, 'work_order_attachments', 'work_order_id', 'attachment_id')->withTimestamps();
     }
 
     /**
@@ -160,7 +158,7 @@ class WorkOrder extends BaseModel
      */
     public function parts()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\InventoryStock', 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');
+        return $this->belongsToMany(InventoryStock::class, 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');
     }
 
     /**
@@ -170,7 +168,7 @@ class WorkOrder extends BaseModel
      */
     public function sessions()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderSession', 'work_order_id')->latest();
+        return $this->hasMany(WorkOrderSession::class, 'work_order_id')->latest();
     }
 
     /**
@@ -180,7 +178,7 @@ class WorkOrder extends BaseModel
      */
     public function notifiableUsers()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\WorkOrderNotification', 'work_order_id', 'id');
+        return $this->hasMany(WorkOrderNotification::class, 'work_order_id', 'id');
     }
 
     /**

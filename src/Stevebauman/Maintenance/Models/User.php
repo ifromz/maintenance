@@ -2,14 +2,12 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Viewers\UserViewer;
 use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
 use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 
-/**
- * Class User.
- */
 class User extends SentryUser
 {
     use ViewableTrait;
@@ -28,7 +26,7 @@ class User extends SentryUser
      *
      * @var string
      */
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\UserViewer';
+    protected $viewer = UserViewer::class;
 
     /**
      * Returns the users first and last name in a concatenated string.

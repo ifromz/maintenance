@@ -2,20 +2,34 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-/**
- * Class WorkOrderAssignment.
- */
+use Stevebauman\Maintenance\Viewers\WorkOrder\AssignmentViewer;
+
 class WorkOrderAssignment extends BaseModel
 {
+    /**
+     * The work order assignments table.
+     *
+     * @var string
+     */
     protected $table = 'work_order_assignments';
 
+    /**
+     * The fillable work order assignment attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'work_order_id',
         'by_user_id',
         'to_user_id',
     ];
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\WorkOrder\AssignmentViewer';
+    /**
+     * The work order assignment viewer.
+     *
+     * @var string
+     */
+    protected $viewer = AssignmentViewer::class;
 
     /**
      * The hasOne work order relationship.
@@ -24,7 +38,7 @@ class WorkOrderAssignment extends BaseModel
      */
     public function workOrder()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\WorkOrder', 'id', 'work_order_id');
+        return $this->hasOne(WorkOrder::class, 'id', 'work_order_id');
     }
 
     /**
@@ -34,7 +48,7 @@ class WorkOrderAssignment extends BaseModel
      */
     public function byUser()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'by_user_id');
+        return $this->hasOne(User::class, 'id', 'by_user_id');
     }
 
     /**
@@ -44,7 +58,7 @@ class WorkOrderAssignment extends BaseModel
      */
     public function toUser()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'to_user_id');
+        return $this->hasOne(User::class, 'id', 'to_user_id');
     }
 
     /**

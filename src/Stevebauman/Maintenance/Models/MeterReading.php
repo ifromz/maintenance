@@ -2,15 +2,26 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Viewers\MeterReadingViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
 class MeterReading extends BaseModel
 {
     use HasUserTrait;
 
+    /**
+     * The meter readings table.
+     *
+     * @var string
+     */
     protected $table = 'meter_readings';
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\MeterReadingViewer';
+    /**
+     * The meter reading viewer.
+     *
+     * @var string
+     */
+    protected $viewer = MeterReadingViewer::class;
 
     /**
      * The fillable meter reading attributes.
@@ -31,14 +42,14 @@ class MeterReading extends BaseModel
      */
     public function meter()
     {
-        return $this->belongsTo('Stevebauman\Maintenance\Models\Meter', 'meter_id');
+        return $this->belongsTo(Meter::class, 'meter_id');
     }
 
     /**
      * Accessor for retrieving the current meter reading
      * with it's metric symbol. For example: '120.00 Gal'.
      *
-     * @return mixed|string
+     * @return string
      */
     public function getReadingWithMetricAttribute()
     {

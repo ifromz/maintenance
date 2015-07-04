@@ -2,16 +2,32 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Viewers\PriorityViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
 class Priority extends BaseModel
 {
     use HasUserTrait;
 
+    /**
+     * The priorities table.
+     *
+     * @var string
+     */
     protected $table = 'priorities';
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\PriorityViewer';
+    /**
+     * The priority viewer.
+     *
+     * @var string
+     */
+    protected $viewer = PriorityViewer::class;
 
+    /**
+     * The fillable priority attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'name',
