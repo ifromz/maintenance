@@ -2,12 +2,10 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Viewers\Event\EventViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-/**
- * Class Event.
- */
 class Event extends BaseModel
 {
     use HasLocationTrait;
@@ -36,7 +34,7 @@ class Event extends BaseModel
      *
      * @var string
      */
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\Event\EventViewer';
+    protected $viewer = EventViewer::class;
 
     /**
      * The hasOne report relationship.

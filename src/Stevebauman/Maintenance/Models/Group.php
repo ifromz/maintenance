@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Viewers\GroupViewer;
 use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Cartalyst\Sentry\Groups\Eloquent\Group as SentryGroup;
@@ -34,7 +35,7 @@ class Group extends SentryGroup
      *
      * @var string
      */
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\GroupViewer';
+    protected $viewer = GroupViewer::class;
 
     /**
      * The belongsToMany users relationship.

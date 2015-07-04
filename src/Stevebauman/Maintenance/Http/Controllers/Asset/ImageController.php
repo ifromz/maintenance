@@ -9,9 +9,6 @@ use Stevebauman\Maintenance\Services\Asset\ImageService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
 
-/**
- * Class ImageController.
- */
 class ImageController extends AbstractUploadController
 {
     /**

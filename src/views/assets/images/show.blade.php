@@ -3,8 +3,11 @@
 @section('title', 'Viewing Image')
 
 @section('content')
-    <div class="col-md-12 col-md-offset-4">
-        <img class="img-responsive" src="{{ asset($image->file_path) }}">
+
+    <div class="row text-center">
+        <img class="img-responsive center-block" src="{{ asset($image->file_path) }}">
+
+        <hr>
 
         <div class="btn-group" role="group">
             <a class="btn btn-primary btn-lg" href="{{ route('maintenance.assets.images.download', [$asset->id, $image->id]) }}"><i class="fa fa-download"></i> Download</a>

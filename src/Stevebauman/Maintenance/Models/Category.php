@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Models;
 
 use Baum\Node;
 
-/**
- * Class Category.
- */
 class Category extends Node
 {
     /**

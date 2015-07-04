@@ -3,12 +3,10 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Stevebauman\Maintenance\Viewers\Inventory\InventoryStockMovementViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 
-/**
- * Class InventoryStockMovement.
- */
 class InventoryStockMovement extends BaseModel
 {
     use SoftDeletes;
@@ -43,7 +41,7 @@ class InventoryStockMovement extends BaseModel
      *
      * @var string
      */
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockMovementViewer';
+    protected $viewer = InventoryStockMovementViewer::class;
 
     /**
      * The belongsTo stock relationship.
@@ -52,13 +50,13 @@ class InventoryStockMovement extends BaseModel
      */
     public function stock()
     {
-        return $this->belongsTo('Stevebauman\Maintenance\Models\InventoryStock', 'stock_id', 'id');
+        return $this->belongsTo(InventoryStock::class, 'stock_id', 'id');
     }
 
     /**
      * Returns the cost of the movement. If no cost is available it will return 0.00.
      *
-     * @param $cost
+     * @param int|string $cost
      *
      * @return string
      */

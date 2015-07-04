@@ -35,6 +35,6 @@ class InventoryTransactionHistory extends BaseModel
      */
     public function transaction()
     {
-        return $this->belongsTo('Stevebauman\Maintenance\Models\InventoryTransaction', 'transaction_id', 'id');
+        return $this->belongsTo(InventoryTransaction::class, 'transaction_id', 'id');
     }
 }

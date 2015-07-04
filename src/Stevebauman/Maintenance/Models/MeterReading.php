@@ -12,6 +12,11 @@ class MeterReading extends BaseModel
 
     protected $viewer = 'Stevebauman\Maintenance\Viewers\MeterReadingViewer';
 
+    /**
+     * The fillable meter reading attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'meter_id',

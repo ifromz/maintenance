@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Stevebauman\Maintenance\Viewers\AssetViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
@@ -29,7 +30,7 @@ class Asset extends BaseModel
      *
      * @var string
      */
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\AssetViewer';
+    protected $viewer = AssetViewer::class;
 
     /**
      * The fillable asset attribute.s

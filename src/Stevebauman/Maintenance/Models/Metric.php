@@ -2,17 +2,31 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-/**
- * Class Metric.
- */
+use Stevebauman\Maintenance\Viewers\MetricViewer;
+
 class Metric extends BaseModel
 {
+    /**
+     * The metrics table.
+     *
+     * @var string
+     */
     protected $table = 'metrics';
 
+    /**
+     * The fillable metric attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'name',
         'symbol',
     ];
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\MetricViewer';
+    /**
+     * The metric viewer class.
+     *
+     * @var string
+     */
+    protected $viewer = MetricViewer::class;
 }

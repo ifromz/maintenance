@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Stevebauman\Maintenance\Viewers\Inventory\InventoryStockViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Inventory\Traits\InventoryStockTrait;
@@ -51,7 +52,7 @@ class InventoryStock extends BaseModel
      *
      * @var string
      */
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\Inventory\InventoryStockViewer';
+    protected $viewer = InventoryStockViewer::class;
 
     /*
     * The belongsTo item relationship.
@@ -60,7 +61,7 @@ class InventoryStock extends BaseModel
     */
     public function item()
     {
-        return $this->belongsTo('Stevebauman\Maintenance\Models\Inventory', 'inventory_id', 'id');
+        return $this->belongsTo(Inventory::class, 'inventory_id', 'id');
     }
 
     /**
@@ -70,7 +71,7 @@ class InventoryStock extends BaseModel
      */
     public function location()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');
+        return $this->hasOne(Location::class, 'id', 'location_id');
     }
 
     /**
@@ -80,7 +81,7 @@ class InventoryStock extends BaseModel
      */
     public function transactions()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\InventoryTransaction', 'stock_id', 'id');
+        return $this->hasMany(InventoryTransaction::class, 'stock_id', 'id');
     }
 
     /**
@@ -90,7 +91,7 @@ class InventoryStock extends BaseModel
      */
     public function movements()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\InventoryStockMovement', 'stock_id')->latest();
+        return $this->hasMany(InventoryStockMovement::class, 'stock_id')->latest();
     }
 
     /**

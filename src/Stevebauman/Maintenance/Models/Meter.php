@@ -2,19 +2,32 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Viewers\MeterViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-/**
- * Class Meter.
- */
 class Meter extends BaseModel
 {
     use HasUserTrait;
 
+    /**
+     * The meter table.
+     *
+     * @var string
+     */
     protected $table = 'meters';
 
-    protected $viewer = 'Stevebauman\Maintenance\Viewers\MeterViewer';
+    /**
+     * The meter viewer.
+     *
+     * @var string
+     */
+    protected $viewer = MeterViewer::class;
 
+    /**
+     * The fillable meter attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'metric_id',
@@ -28,7 +41,7 @@ class Meter extends BaseModel
      */
     public function metric()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\Metric', 'id', 'metric_id');
+        return $this->hasOne(Metric::class, 'id', 'metric_id');
     }
 
     /**
@@ -38,7 +51,7 @@ class Meter extends BaseModel
      */
     public function readings()
     {
-        return $this->hasMany('Stevebauman\Maintenance\Models\MeterReading', 'meter_id')->latest();
+        return $this->hasMany(MeterReading::class, 'meter_id')->latest();
     }
 
     /**

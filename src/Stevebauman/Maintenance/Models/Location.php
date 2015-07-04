@@ -4,17 +4,29 @@ namespace Stevebauman\Maintenance\Models;
 
 use Baum\Node;
 
-/**
- * Class Location.
- */
 class Location extends Node
 {
+    /**
+     * The locations table.
+     *
+     * @var string
+     */
     protected $table = 'locations';
 
+    /**
+     * The fillable location attributes.
+     *
+     * @var array
+     */
     protected $fillable = [
         'name',
     ];
 
+    /**
+     * The revision formatted field name attributes.
+     *
+     * @var array
+     */
     protected $revisionFormattedFieldNames = [
         'name' => 'Name',
     ];
