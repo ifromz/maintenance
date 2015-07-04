@@ -8,13 +8,25 @@ Viewing Metric
 
 @section('panel.body.content')
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Created By</th>
-                <td>{{ $metric->user->full_name }}</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <div class="col-md-4">
+        <table class="table">
+            <tbody>
+                @if($metric->user)
+                <tr>
+                    <th>Created By</th>
+                    <td>{{ $metric->user->full_name }}</td>
+                </tr>
+                @endif
+                <tr>
+                    <th>Name</th>
+                    <td>{{ $metric->name }}</td>
+                </tr>
+                <tr>
+                    <th>Symbol</th>
+                    <td>{{ $metric->symbol }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
 @stop

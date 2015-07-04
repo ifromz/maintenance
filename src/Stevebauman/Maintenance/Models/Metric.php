@@ -2,10 +2,13 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Viewers\MetricViewer;
 
 class Metric extends BaseModel
 {
+    use HasUserTrait;
+
     /**
      * The metrics table.
      *
