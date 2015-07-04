@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Http\Controllers\Asset\Image;
+namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
 use Illuminate\Filesystem\Filesystem;
 use Stevebauman\Maintenance\Validators\ImageValidator;
@@ -78,33 +78,27 @@ class ImageController extends AbstractUploadController
     {
         $asset = $this->asset->find($asset_id);
 
-        return view('maintenance::assets.images.index', [
-            'title' => 'Viewing Asset Images for: '.$asset->name,
-            'asset' => $asset,
-        ]);
+        return view('maintenance::assets.images.index', compact('asset'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @param $asset_id
+     * @param int|string $assetId
      *
      * @return mixed
      */
-    public function create($asset_id)
+    public function create($assetId)
     {
-        $asset = $this->asset->find($asset_id);
+        $asset = $this->asset->find($assetId);
 
-        return view('maintenance::assets.images.create', [
-            'title' => 'Adding Asset Images for: '.$asset->name,
-            'asset' => $asset,
-        ]);
+        return view('maintenance::assets.images.create', compact('asset'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param $assetId
+     * @param int|string $assetId
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
@@ -136,18 +130,18 @@ class ImageController extends AbstractUploadController
     }
 
     /**
-     * Display the specified resource.
+     * Displays the asset image.
      *
-     * @param $asset_id
-     * @param $attachment_id
+     * @param int|string $assetId
+     * @param int|string $attachmentId
      *
      * @return mixed
      */
-    public function show($asset_id, $attachment_id)
+    public function show($assetId, $attachmentId)
     {
-        $asset = $this->asset->find($asset_id);
+        $asset = $this->asset->find($assetId);
 
-        $attachment = $this->attachment->find($attachment_id);
+        $attachment = $this->attachment->find($attachmentId);
 
         return view('maintenance::assets.images.show', [
             'title' => 'Viewing Asset Image',
@@ -157,17 +151,17 @@ class ImageController extends AbstractUploadController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes the specified image from the asset.
      *
-     * @param $asset_id
-     * @param $attachment_id
+     * @param int|string $assetId
+     * @param int|string $attachmentId
      *
      * @return \Illuminate\Http\JsonResponse|mixed
      */
-    public function destroy($asset_id, $attachment_id)
+    public function destroy($assetId, $attachmentId)
     {
-        $asset = $this->asset->find($asset_id);
-        $attachment = $this->attachment->find($attachment_id);
+        $asset = $this->asset->find($assetId);
+        $attachment = $this->attachment->find($attachmentId);
 
         if ($this->filesystem->delete($attachment->file_path)) {
             $attachment->delete();
@@ -182,5 +176,26 @@ class ImageController extends AbstractUploadController
         }
 
         return $this->response();
+    }
+
+    /**
+     * Prompts the user to download the specified uploaded file.
+     *
+     * @param int|string $id
+     * @param int|string $attachmentId
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function download($id, $attachmentId)
+    {
+        $asset = $this->asset->find($id);
+
+        $image = $asset->images()->find($attachmentId);
+
+        if($image) {
+            return response()->download($image->file_path);
+        } else {
+            abort(404);
+        }
     }
 }

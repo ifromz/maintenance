@@ -58,26 +58,27 @@ Route::group(['namespace' => 'Asset'], function () {
     /*
      * Asset Image Routes
      */
-    Route::group(['namespace' => 'Image'], function () {
+    Route::get('assets/{assets}/images/{images}/download', [
+        'as' => 'maintenance.assets.images.download',
+        'uses' => 'ImageController@download',
+    ]);
 
-        Route::resource('assets.images', 'ImageController', [
-            'only' => [
-                'index',
-                'create',
-                'store',
-                'show',
-                'destroy',
-            ],
-            'names' => [
-                'index' => 'maintenance.assets.images.index',
-                'create' => 'maintenance.assets.images.create',
-                'store' => 'maintenance.assets.images.store',
-                'show' => 'maintenance.assets.images.show',
-                'destroy' => 'maintenance.assets.images.destroy',
-            ],
-        ]);
-
-    });
+    Route::resource('assets.images', 'ImageController', [
+        'only' => [
+            'index',
+            'create',
+            'store',
+            'show',
+            'destroy',
+        ],
+        'names' => [
+            'index' => 'maintenance.assets.images.index',
+            'create' => 'maintenance.assets.images.create',
+            'store' => 'maintenance.assets.images.store',
+            'show' => 'maintenance.assets.images.show',
+            'destroy' => 'maintenance.assets.images.destroy',
+        ],
+    ]);
     /*
      * End Upload Routes
      */

@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Upload Images')
+
 @section('panel.head.content')
     Add Asset Images
 @stop
