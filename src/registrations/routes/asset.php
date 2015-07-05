@@ -124,24 +124,20 @@ Route::group(['namespace' => 'Asset'], function () {
     /*
      * Asset Manual Upload Routes
      */
-    Route::group(['namespace' => 'Manual'], function () {
-
-        Route::resource('assets.manuals', 'ManualController', [
-            'only' => [
-                'index',
-                'create',
-                'store',
-                'destroy',
-            ],
-            'names' => [
-                'index' => 'maintenance.assets.manuals.index',
-                'create' => 'maintenance.assets.manuals.create',
-                'store' => 'maintenance.assets.manuals.store',
-                'destroy' => 'maintenance.assets.manuals.destroy',
-            ],
-        ]);
-
-    });
+    Route::resource('assets.manuals', 'ManualController', [
+        'only' => [
+            'index',
+            'create',
+            'store',
+            'destroy',
+        ],
+        'names' => [
+            'index' => 'maintenance.assets.manuals.index',
+            'create' => 'maintenance.assets.manuals.create',
+            'store' => 'maintenance.assets.manuals.store',
+            'destroy' => 'maintenance.assets.manuals.destroy',
+        ],
+    ]);
     /*
      * End Asset Manual Upload Routes
      */

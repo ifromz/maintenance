@@ -28,5 +28,5 @@ Viewing Metric
             </tbody>
         </table>
     </div>
-    
+
 @stop

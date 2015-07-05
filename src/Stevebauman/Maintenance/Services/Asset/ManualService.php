@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class ManualService.
- */
 class ManualService extends BaseModelService
 {
     /**

@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Http\Controllers;
 use Stevebauman\Maintenance\Services\StorageService;
 use Stevebauman\Maintenance\Services\AttachmentService;
 
-/**
- * Class AttachmentController.
- */
 class AttachmentController extends Controller
 {
     /**
@@ -43,9 +40,7 @@ class AttachmentController extends Controller
     {
         $attachment = $this->attachment->find($attachmentId);
 
-        if ($this->storage->delete($attachment->file_path.$attachment->file_name)) {
-            $this->storage->deleteDirectory($attachment->file_path);
-
+        if ($this->storage->delete($attachment->file_path)) {
             if ($attachment->delete()) {
                 $this->message = 'Successfully deleted attachment';
                 $this->messageType = 'success';

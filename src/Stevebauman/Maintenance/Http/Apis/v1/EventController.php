@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1;
 
+use Stevebauman\Maintenance\Http\Requests\Event\BetweenRequest;
 use Stevebauman\Maintenance\Repositories\EventRepository;
 
 class EventController extends Controller
@@ -17,6 +18,23 @@ class EventController extends Controller
     public function __construct(EventRepository $event)
     {
         $this->event = $event;
+    }
+
+    /**
+     * Returns a parsed array of API event entries for FullCalendar.
+     *
+     * @param BetweenRequest $request
+     *
+     * @return array
+     */
+    public function between(BetweenRequest $request)
+    {
+        $filter = [
+            'timeMin' => strToRfc3339($request->input('start')),
+            'timeMax' => strToRfc3339($request->input('end')),
+        ];
+
+        return $this->event->parseEvents($this->event->getApiEvents($filter));
     }
 
     /**

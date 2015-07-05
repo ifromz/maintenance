@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Stevebauman\Maintenance\Http\Requests\Event\ReportRequest;
 use Stevebauman\Maintenance\Http\Requests\Event\Request;
 use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
@@ -50,11 +51,39 @@ class EventRepository extends Repository
      */
     public function grid(array $columns = [], array $settings = [], $transformer = null)
     {
-        $model = $this->model();
-
-        $model->whereNull('parent_id');
+        $model = $this->model()->whereNull('parent_id');
 
         return parent::newGrid($model, $columns, $settings, $transformer);
+    }
+
+    /**
+     * Returns all events that are not recurrences.
+     *
+     * @return Collection
+     */
+    public function getWithoutRecurrences()
+    {
+        return $this->model()->whereNull('parent_id')->get();
+    }
+
+    /**
+     * Returns all API events that exist locally.
+     *
+     * @param array $filter
+     *
+     * @return bool|\Stevebauman\EloquentTable\TableCollection
+     */
+    public function getApiEvents($filter = [])
+    {
+        $local = $this->getWithoutRecurrences();
+
+        if($local->count() > 0) {
+            $apiIds = $local->lists('api_id')->toArray();
+
+            return $this->eventApi->setInput($filter)->getOnly($apiIds);
+        }
+
+        return [];
     }
 
     /**
@@ -159,5 +188,37 @@ class EventRepository extends Repository
     public function update(Request $request, $id)
     {
 
+    }
+
+    /**
+     * Parses a google collection of events into an array of events compatible
+     * with FullCalendar.
+     *
+     * @param $events
+     *
+     * @return array
+     */
+    public function parseEvents($events)
+    {
+        $arrayEvents = [];
+
+        foreach ($events as $event) {
+            $startDate = new \DateTime($event->start);
+            $endDate = new \DateTime($event->end);
+
+            /*
+             * Add the event into a FullCalendar compatible array
+             */
+            $arrayEvents[] = [
+                'id' => $event->id,
+                'title' => $event->title,
+                'description' => $event->location,
+                'start' => $startDate->format('Y-m-d H:i:s'),
+                'end' => $endDate->format('Y-m-d H:i:s'),
+                'allDay' => $event->all_day,
+            ];
+        }
+
+        return $arrayEvents;
     }
 }

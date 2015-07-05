@@ -61,12 +61,6 @@
 
                         <ul class="treeview-menu">
 
-                            <li class="{{ activeMenuLink('maintenance.work-orders.assigned') }}">
-                                <a href="{{ route('maintenance.work-orders.assigned.index') }}">
-                                    <i class="fa fa-user"></i> Assigned
-                                </a>
-                            </li>
-
                             @if($currentUser->hasAccess('maintenance.work-orders.index'))
                                 <li class="{{ activeMenuLink('maintenance.work-orders.index') }}">
                                     <a href="{{ route('maintenance.work-orders.index') }}">
@@ -74,6 +68,12 @@
                                     </a>
                                 </li>
                             @endif
+
+                            <li class="{{ activeMenuLink('maintenance.work-orders.assigned') }}">
+                                <a href="{{ route('maintenance.work-orders.assigned.index') }}">
+                                    <i class="fa fa-user"></i> Assigned
+                                </a>
+                            </li>
 
                             @if($currentUser->hasAccess('maintenance.work-orders.statuses.index'))
                                 <li class="{{ activeMenuLink('maintenance.work-orders.statuses') }}">

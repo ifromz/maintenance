@@ -14,7 +14,7 @@
 
                     {!! HTML::script('assets/stevebauman/maintenance/js/calendar/full.js') !!}
 
-                    <div id="calendar" data-event-url="{{ route('maintenance.api.calendar.events.index') }}" class="fc fc-ltr"></div>
+                    <div id="calendar" data-event-url="{{ route('maintenance.api.v1.events.between') }}" class="fc fc-ltr"></div>
 
                 </div>
             </div>
