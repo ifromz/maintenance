@@ -85,6 +85,7 @@ $(document).ready(function () {
             success: function (response, status, xhr, $form)
             {
                 showFormResponse(response, status, xhr, $form);
+
                 refreshContent(refreshTarget);
 
                 if (typeof refreshTarget != 'undefined')
@@ -408,7 +409,7 @@ var showFormErrors = function (errors) {
  * Accepts errors from a JSON response and displays them to the user on each
  * individual input (new)
  *
- * @param {type} errors
+ * @param {type} response
  *
  * @returns {undefined}
  */
@@ -579,10 +580,11 @@ function formatColor(color) {
  * @returns {Boolean}
  */
 function updateEvent(calendar, event) {
+
     var form =
         $('<form>', {
             'method': 'POST',
-            'action': calendar.data('event-url') + "/" + event.id
+            'action': event.move
         });
 
     form.appendTo('body');
@@ -593,8 +595,9 @@ function updateEvent(calendar, event) {
             url: $(this).attr('action'),
             data: {
                 _method: 'PATCH',
-                start: moment(event.start).format('YYYY-MM-DD hh:mm:ss'),
-                end: moment(event.end).format("YYYY-MM-DD hh:mm:ss"),
+                _token: event.token,
+                start: moment(event.start).format(),
+                end: moment(event.end).format(),
                 all_day: event.allDay
             },
             dataType: "json"
