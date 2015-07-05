@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use Stevebauman\Maintenance\Http\Requests\Event\MoveRequest;
 use Stevebauman\Maintenance\Http\Requests\Event\ReportRequest;
 use Stevebauman\Maintenance\Http\Requests\Event\Request;
 use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
@@ -191,8 +192,21 @@ class EventRepository extends Repository
     }
 
     /**
-     * Parses a google collection of events into an array of events compatible
-     * with FullCalendar.
+     * Updates the specified event dates.
+     *
+     * @param MoveRequest $request
+     * @param int|string  $apiId
+     *
+     * @return mixed
+     */
+    public function updateDates(MoveRequest $request, $apiId)
+    {
+        return $this->eventApi->setInput($request->all())->updateDates($apiId);
+    }
+
+    /**
+     * Parses a google collection of events into an
+     * array of events compatible with FullCalendar.
      *
      * @param $events
      *
@@ -206,9 +220,7 @@ class EventRepository extends Repository
             $startDate = new \DateTime($event->start);
             $endDate = new \DateTime($event->end);
 
-            /*
-             * Add the event into a FullCalendar compatible array
-             */
+            // Add the event into a FullCalendar compatible array
             $arrayEvents[] = [
                 'id' => $event->id,
                 'title' => $event->title,
@@ -216,6 +228,8 @@ class EventRepository extends Repository
                 'start' => $startDate->format('Y-m-d H:i:s'),
                 'end' => $endDate->format('Y-m-d H:i:s'),
                 'allDay' => $event->all_day,
+                'move' => route('maintenance.api.v1.events.move', $event->id),
+                'token' => csrf_token(),
             ];
         }
 

@@ -1,6 +1,6 @@
 @extends('maintenance::layouts.pages.main.panel')
 
-@section('title', 'Create Inventory Item')
+@section('title', 'Create Item')
 
 @section('panel.head.content')
     Add an Item

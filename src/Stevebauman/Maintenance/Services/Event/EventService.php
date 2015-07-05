@@ -116,10 +116,9 @@ class EventService extends BaseModelService
             ->find($api_id);
 
         if ($event) {
-
             /*
-             * If the event is a recurrence, we need to create a local
-             * record of it so we can attach reports to it.
+             * If the event is a recurrence, we need to create a
+             * local record of it so we can attach reports to it.
              */
             if ($event->isRecurrence) {
                 $this->createRecurrence($event);
@@ -205,8 +204,8 @@ class EventService extends BaseModelService
         $data = $this->input;
 
         /*
-         * Find the location and pass the trail into the google event service so
-         * it can be seen on google calendar
+         * Find the location and pass the trail into the
+         * google event service so it can be seen on google calendar
          */
         if ($this->getInput('location_id')) {
             $location = $this->location->find($this->getInput('location_id'));
@@ -219,27 +218,23 @@ class EventService extends BaseModelService
              */
             $data['location'] = strip_tags($location->trail);
         } else {
-            /*
-             * No location was given, set it to null
-             */
+            // No location was given, set it to null
             $location_id = null;
         }
 
         /*
-         * Pass the input along to the google event service and create google
-         * event
+         * Pass the input along to the google
+         * event service and create google event
          */
         $event = $this->eventApi->setInput($data)->create();
 
         /*
-         * If the event was created successfully, we now have to attach the specified
-         * assets / inventories / work orders to the event
+         * If the event was created successfully, we now have to attach
+         * the specified assets / inventories / work orders to the event
          */
         if ($event) {
 
-            /*
-             * Create the main event
-             */
+            // Create the main event
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'location_id' => $location_id,

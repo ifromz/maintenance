@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Http\Apis\v1;
 
 use Stevebauman\Maintenance\Http\Requests\Event\BetweenRequest;
+use Stevebauman\Maintenance\Http\Requests\Event\MoveRequest;
 use Stevebauman\Maintenance\Repositories\EventRepository;
 
 class EventController extends Controller
@@ -38,6 +39,30 @@ class EventController extends Controller
     }
 
     /**
+     * Moves the specified event from one time to another.
+     *
+     * @param MoveRequest $request
+     * @param int|string  $apiId
+     *
+     * @return array
+     */
+    public function move(MoveRequest $request, $apiId)
+    {
+        if($this->event->updateDates($request, $apiId)) {
+            $message = 'Successfully updated event.';
+            $messageType = 'success';
+        } else {
+            $message = 'There was an issue updating this event. Please try again.';
+            $messageType = 'danger';
+        }
+
+        return [
+            'message' => $message,
+            'messageType' => $messageType,
+        ];
+    }
+
+    /**
      * @return \Cartalyst\DataGrid\DataGrid
      */
     public function grid()
@@ -68,7 +93,7 @@ class EventController extends Controller
                     'location' => ($element->location ? $element->location->trail : null),
                     'start' => $startDate->format('Y-m-d h:i:s'),
                     'end' => $endDate->format('Y-m-d h:i:s'),
-                    'view_url' => route('maintenance.events.show', [$element->id]),
+                    'view' => route('maintenance.events.show', [$element->id]),
                 ];
             }
 

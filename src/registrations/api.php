@@ -12,6 +12,8 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             Route::get('between', ['as' => 'maintenance.api.v1.events.between', 'uses' => 'EventController@between']);
 
             Route::get('grid', ['as' => 'maintenance.api.v1.events.grid', 'uses' => 'EventController@grid']);
+
+            Route::patch('move/{events}', ['as' => 'maintenance.api.v1.events.move', 'uses' => 'EventController@move']);
         });
 
         // Work Order Api Routes
