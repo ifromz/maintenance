@@ -2,13 +2,12 @@
 
 namespace Stevebauman\Maintenance;
 
-use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Http\Middleware\PermissionMiddleware;
+use Stevebauman\Maintenance\Http\Middleware\AuthMiddleware;
+use Illuminate\Routing\Router;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
-/**
- * Class MaintenanceServiceProvider
- */
 class MaintenanceServiceProvider extends ServiceProvider
 {
     /**
@@ -20,10 +19,12 @@ class MaintenanceServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap the application events.
+     *
+     * @param Router $router
      */
-    public function boot()
+    public function boot(Router $router)
     {
-        $config = __DIR__.'../../../config/';
+        $config = __DIR__.'/../../config/';
 
         $this->publishes([
             $config.'colors.php' => config_path('maintenance/colors.php'),
@@ -35,7 +36,7 @@ class MaintenanceServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->publishes([
-            __DIR__.'../../../migrations/' => base_path('database/migrations'),
+            __DIR__.'/../../migrations/' => base_path('database/migrations'),
         ], 'migrations');
 
         $this->publishes([
@@ -43,7 +44,7 @@ class MaintenanceServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
-            __DIR__.'/../../../public' => public_path('assets/stevebauman/maintenance'),
+            __DIR__.'/../../public' => public_path('assets/stevebauman/maintenance'),
         ], 'assets');
 
         $this->loadViewsFrom(__DIR__.'/../../views', 'maintenance');
