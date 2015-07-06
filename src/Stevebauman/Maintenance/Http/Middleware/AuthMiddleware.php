@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Stevebauman\Maintenance\Services\SentryService;
 
 class AuthMiddleware
@@ -25,12 +26,12 @@ class AuthMiddleware
     /**
      * Redirects unauthenticated users to the login page.
      *
-     * @param $request
+     * @param Request $request
      * @param Closure $next
      *
-     * @return $this
+     * @return Request|\Illuminate\Http\RedirectResponse
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if($this->sentry->check()) {
             return $next($request);

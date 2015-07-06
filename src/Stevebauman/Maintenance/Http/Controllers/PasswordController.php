@@ -8,9 +8,6 @@ use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\MailService;
 use Stevebauman\Maintenance\Services\SentryService;
 
-/**
- * Class ResetPasswordController.
- */
 class PasswordController extends Controller
 {
     /**

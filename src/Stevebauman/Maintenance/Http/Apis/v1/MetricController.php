@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1;
 
+use Stevebauman\Maintenance\Models\Metric;
 use Stevebauman\Maintenance\Repositories\MetricRepository;
 
 class MetricController extends Controller
@@ -39,15 +40,15 @@ class MetricController extends Controller
             'direction' => 'desc',
         ];
 
-        $transformer = function($element)
+        $transformer = function(Metric $metric)
         {
             return [
-                'id' => $element->id,
-                'name' => $element->name,
-                'symbol' => $element->symbol,
-                'created_at' => $element->created_at,
-                'created_by' => ($element->user ? $element->user->full_name : 'None'),
-                'view_url' => route('maintenance.metrics.show', [$element->id]),
+                'id' => $metric->id,
+                'name' => $metric->name,
+                'symbol' => $metric->symbol,
+                'created_at' => $metric->created_at,
+                'created_by' => ($metric->user ? $metric->user->full_name : 'None'),
+                'view_url' => route('maintenance.metrics.show', [$metric->id]),
             ];
         };
 

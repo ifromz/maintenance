@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Stevebauman\Maintenance\Services\SentryService;
 
 class NotAuthMiddleware
@@ -26,12 +27,12 @@ class NotAuthMiddleware
      * Redirects users to the main dashboard page if they're
      * already logged in and trying to access a login / register route.
      *
-     * @param $request
+     * @param Request $request
      * @param Closure $next
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return Request|\Illuminate\Http\RedirectResponse
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if($this->sentry->check()) {
             return redirect()->route('maintenance.dashboard.index');

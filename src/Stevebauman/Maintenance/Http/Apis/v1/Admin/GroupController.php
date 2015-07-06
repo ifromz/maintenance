@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Admin;
 
+use Stevebauman\Maintenance\Models\Group;
 use Stevebauman\Maintenance\Repositories\GroupRepository;
 use App\Http\Controllers\Controller as BaseController;
 
@@ -41,7 +42,7 @@ class GroupController extends BaseController
             'threshold' => 10,
         ];
 
-        $transformer = function($group)
+        $transformer = function(Group $group)
         {
             return [
                 'name' => $group->name,

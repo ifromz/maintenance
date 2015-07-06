@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
+use Stevebauman\Maintenance\Models\WorkOrderAssignment;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -39,16 +40,16 @@ class AssignedController extends BaseController
             'direction' => 'desc',
         ];
 
-        $transformer = function($element)
+        $transformer = function(WorkOrderAssignment $assignment)
         {
             return [
-                'id' => $element->id,
-                'created_at' => $element->created_at,
-                'subject' => $element->subject,
-                'view_url' => route('maintenance.work-orders.show', [$element->id]),
-                'created_by' => $element->user->full_name,
-                'status' => $element->viewer()->lblStatus(),
-                'priority' =>  $element->viewer()->lblPriority(),
+                'id' => $assignment->id,
+                'created_at' => $assignment->created_at,
+                'subject' => $assignment->subject,
+                'view_url' => route('maintenance.work-orders.show', [$assignment->id]),
+                'created_by' => $assignment->user->full_name,
+                'status' => $assignment->viewer()->lblStatus(),
+                'priority' =>  $assignment->viewer()->lblPriority(),
             ];
         };
 

@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
+use Stevebauman\Maintenance\Models\Priority;
 use Stevebauman\Maintenance\Repositories\WorkOrder\PriorityRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -40,14 +41,14 @@ class PriorityController extends BaseController
             'direction' => 'desc',
         ];
 
-        $transformer = function($element)
+        $transformer = function(Priority $priority)
         {
             return [
-                'id' => $element->id,
-                'created_at' => $element->created_at,
-                'created_by' => ($element->user ? $element->user->full_name : 'None'),
-                'name' => $element->name,
-                'color' => $element->color,
+                'id' => $priority->id,
+                'created_at' => $priority->created_at,
+                'created_by' => ($priority->user ? $priority->user->full_name : 'None'),
+                'name' => $priority->name,
+                'color' => $priority->color,
                 'view_url' => ''
             ];
         };

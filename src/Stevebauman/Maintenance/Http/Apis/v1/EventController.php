@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1;
 
+use Stevebauman\Maintenance\Models\Event;
 use Stevebauman\Maintenance\Http\Requests\Event\BetweenRequest;
 use Stevebauman\Maintenance\Http\Requests\Event\MoveRequest;
 use Stevebauman\Maintenance\Repositories\EventRepository;
@@ -63,6 +64,8 @@ class EventController extends Controller
     }
 
     /**
+     * Returns a new grid instance of all available events.
+     *
      * @return \Cartalyst\DataGrid\DataGrid
      */
     public function grid()
@@ -80,9 +83,9 @@ class EventController extends Controller
             'direction' => 'desc',
         ];
 
-        $transformer = function($element)
+        $transformer = function(Event $event)
         {
-            $apiObject = $this->event->findApiObject($element->api_id);
+            $apiObject = $this->event->findApiObject($event->api_id);
 
             if($apiObject) {
                 $startDate = new \DateTime($apiObject->start);
@@ -90,10 +93,10 @@ class EventController extends Controller
 
                 return [
                     'title' => $apiObject->title,
-                    'location' => ($element->location ? $element->location->trail : null),
+                    'location' => ($event->location ? $event->location->trail : null),
                     'start' => $startDate->format('Y-m-d h:i:s'),
                     'end' => $endDate->format('Y-m-d h:i:s'),
-                    'view' => route('maintenance.events.show', [$element->id]),
+                    'view' => route('maintenance.events.show', [$event->id]),
                 ];
             }
 

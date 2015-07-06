@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
+use Stevebauman\Maintenance\Models\Status;
 use Stevebauman\Maintenance\Repositories\WorkOrder\StatusRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -40,14 +41,14 @@ class StatusController extends BaseController
             'direction' => 'desc',
         ];
 
-        $transformer = function($element)
+        $transformer = function(Status $status)
         {
             return [
-                'id' => $element->id,
-                'created_at' => $element->created_at,
-                'created_by' => ($element->user ? $element->user->full_name : 'None'),
-                'name' => $element->name,
-                'color' => $element->color,
+                'id' => $status->id,
+                'created_at' => $status->created_at,
+                'created_by' => ($status->user ? $status->user->full_name : 'None'),
+                'name' => $status->name,
+                'color' => $status->color,
                 'view_url' => ''
             ];
         };

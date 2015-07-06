@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Admin;
 
+use Stevebauman\Maintenance\Models\User;
 use Stevebauman\Maintenance\Repositories\UserRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -44,7 +45,7 @@ class UserController extends BaseController
             'threshold' => 10,
         ];
 
-        $transformer = function($user)
+        $transformer = function(User $user)
         {
             return [
                 'id' => $user->id,
