@@ -2,6 +2,8 @@
 
 namespace Stevebauman\Maintenance\Traits\Relationships;
 
+use Stevebauman\Maintenance\Models\Note;
+
 trait HasNotesTrait
 {
     /**
@@ -11,6 +13,6 @@ trait HasNotesTrait
      */
     public function notes()
     {
-        return $this->morphToMany('Stevebauman\Maintenance\Models\Note', 'noteable')->withTimestamps();
+        return $this->morphToMany(Note::class, 'noteable')->withTimestamps();
     }
 }

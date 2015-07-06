@@ -2,6 +2,8 @@
 
 namespace Stevebauman\Maintenance\Traits\Relationships;
 
+use Stevebauman\Maintenance\Models\Event;
+
 trait HasEventsTrait
 {
     /**
@@ -11,6 +13,6 @@ trait HasEventsTrait
      */
     public function events()
     {
-        return $this->morphToMany('Stevebauman\Maintenance\Models\Event', 'eventable')->withTimestamps();
+        return $this->morphToMany(Event::class, 'eventable')->withTimestamps();
     }
 }

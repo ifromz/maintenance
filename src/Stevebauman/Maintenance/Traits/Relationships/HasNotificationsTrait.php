@@ -2,6 +2,8 @@
 
 namespace Stevebauman\Maintenance\Traits\Relationships;
 
+use Stevebauman\Maintenance\Models\Notification;
+
 trait HasNotificationsTrait
 {
     /**
@@ -11,6 +13,6 @@ trait HasNotificationsTrait
      */
     public function notifications()
     {
-        return $this->morphMany('Stevebauman\Maintenance\Models\Notification', 'notifiable');
+        return $this->morphMany(Notification::class, 'notifiable');
     }
 }

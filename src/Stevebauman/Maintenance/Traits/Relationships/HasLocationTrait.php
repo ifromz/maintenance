@@ -13,13 +13,13 @@ trait HasLocationTrait
      */
     public function location()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\Location', 'id', 'location_id');
+        return $this->hasOne(Location::class, 'id', 'location_id');
     }
 
     /**
      * Filters inventory results by specified location.
      *
-     * @param $query
+     * @param mixed      $query
      * @param int|string $locationId
      *
      * @return mixed
@@ -27,14 +27,12 @@ trait HasLocationTrait
     public function scopeLocation($query, $locationId = null)
     {
         if (!is_null($locationId)) {
-
             // Get descendants and self inventory category nodes
             $locations = Location::find($locationId)->getDescendantsAndSelf();
 
-            // Perform a subquery on main query
+            // Perform a sub-query on main query
             $query->where(function ($query) use ($locations) {
-
-                // For each category, apply a orWhere query to the subquery
+                // For each category, apply a orWhere query to the sub-query
                 foreach ($locations as $location) {
                     $query->orWhere('location_id', $location->id);
                 }

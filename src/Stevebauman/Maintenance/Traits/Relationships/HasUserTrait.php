@@ -2,9 +2,8 @@
 
 namespace Stevebauman\Maintenance\Traits\Relationships;
 
-/**
- * Trait HasUserTrait.
- */
+use Stevebauman\Maintenance\Models\User;
+
 trait HasUserTrait
 {
     /**
@@ -14,6 +13,6 @@ trait HasUserTrait
      */
     public function user()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\User', 'id', 'user_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }
