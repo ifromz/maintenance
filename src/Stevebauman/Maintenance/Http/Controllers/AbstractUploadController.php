@@ -6,9 +6,6 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Carbon\Carbon;
 
-/**
- * Class AbstractUploadController.
- */
 class AbstractUploadController extends Controller
 {
     /**

@@ -2,178 +2,135 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset\Meter;
 
-use Stevebauman\Maintenance\Validators\MeterValidator;
-use Stevebauman\Maintenance\Services\Meter\ReadingService;
-use Stevebauman\Maintenance\Services\Meter\MeterService;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
+use Stevebauman\Maintenance\Http\Requests\Asset\MeterRequest;
+use Stevebauman\Maintenance\Repositories\Asset\MeterRepository;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-/*
- * Handles asset meter creation and updating
- */
 class MeterController extends Controller
 {
     /**
-     * @var AssetService
+     * @var AssetRepository
      */
     protected $asset;
 
     /**
-     * @var MeterService
+     * @var MeterRepository
      */
     protected $meter;
 
     /**
-     * @var ReadingService
+     * Constructor.
+     *
+     * @param AssetRepository $asset
+     * @param MeterRepository $meter
      */
-    protected $meterReading;
-
-    /**
-     * @var MeterValidator
-     */
-    protected $meterValidator;
-
-    /**
-     * @param AssetService   $asset
-     * @param MeterService   $meter
-     * @param ReadingService $meterReading
-     * @param MeterValidator $meterValidator
-     */
-    public function __construct(
-            AssetService $asset,
-            MeterService $meter,
-            ReadingService $meterReading,
-            MeterValidator $meterValidator)
+    public function __construct(AssetRepository $asset, MeterRepository $meter)
     {
         $this->asset = $asset;
         $this->meter = $meter;
-        $this->meterReading = $meterReading;
-        $this->meterValidator = $meterValidator;
     }
 
     /**
-     * Creates a meter and attaches it to the asset.
+     * Displays all meters for the specified asset.
      *
-     * @param int $asset_id
+     * @param int|string $id
      *
-     * @return response
+     * @return \Illuminate\View\View
      */
-    public function store($asset_id)
+    public function index($id)
     {
-        if ($this->meterValidator->passes()) {
+        $asset = $this->asset->find($id);
 
-            /*
-             * Find the asset
-             */
-            $asset = $this->asset->find($asset_id);
-
-            /*
-             * Create the meter
-             */
-            $meter = $this->meter->setInput($this->inputAll())->create();
-
-            /*
-             * If the meter has been created
-             */
-            if ($meter) {
-                /*
-                 * Attach the meter to the asset
-                 */
-                $asset->meters()->attach($meter);
-
-                /*
-                 * Set the data for the meter reading
-                 */
-                $data = $this->inputAll();
-                $data['meter_id'] = $meter->id;
-
-                /*
-                 * Create the meter reading
-                 */
-                $this->meterReading->setInput($data)->create();
-
-                $this->message = 'Successfully created meter reading';
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.assets.show', [$asset->id]);
-            } else {
-                $this->message = 'There was an error trying to create a meter for this asset. Please try again';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.assets.show', [$asset->id]);
-            }
-        } else {
-            $this->redirect = route('maintenance.assets.meters.show', [$asset_id]);
-            $this->errors = $this->meterValidator->getErrors();
-        }
-
-        return $this->response();
+        return view('maintenance::assets.meters.index', compact('asset'));
     }
 
     /**
-     * Displays the specified meter and it's readings.
+     * Displays the form for creating a new meter for the specified asset.
      *
-     * @param int $asset_id
-     * @param int $meter_id
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
      */
-    public function show($asset_id, $meter_id)
+    public function create($id)
     {
-        $asset = $this->asset->find($asset_id);
+        $asset = $this->asset->find($id);
 
-        $meter = $this->meter->find($meter_id);
-
-        $readings = $this->meterReading->getByMeterByPageWithFilter($meter->id);
-
-        return view('maintenance::assets.meters.show', [
-            'title' => 'Viewing Asset Meter: '.$meter->name,
-            'asset' => $asset,
-            'meter' => $meter,
-            'readings' => $readings,
-        ]);
+        return view('maintenance::assets.meters.create', compact('asset'));
     }
 
-    public function edit($asset_id, $meter_id)
+    /**
+     * Creates a new meter for the specified asset.
+     *
+     * @param MeterRequest $request
+     * @param int|string   $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(MeterRequest $request, $id)
     {
-        $asset = $this->asset->find($asset_id);
+        $meter = $this->meter->create($request, $id);
 
-        $meter = $this->meter->find($meter_id);
+        if($meter) {
+            $message = 'Successfully created meter.';
 
-        return view('maintenance::assets.meters.edit', [
-            'title' => 'Editing Asset Meter: '.$meter->name,
-            'asset' => $asset,
-            'meter' => $meter,
-        ]);
-    }
-
-    public function update($asset_id, $meter_id)
-    {
-        if ($this->meterValidator->passes()) {
-            $asset = $this->asset->find($asset_id);
-
-            $data = $this->inputAll();
-            $data['asset_id'] = $asset->id;
-
-            $this->meter->setInput($data)->update($meter_id);
-
-            $this->message = 'Successfully updated meter';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.assets.show', [$asset_id]);
+            return redirect()->route('maintenance.assets.meters.index', [$id])->withSuccess($message);
         } else {
-            $this->errors = $this->meterValidator->getErrors();
-            $this->redirect = route('maintenance.assets.meters.edit', [$asset_id, $meter_id]);
+            $message = 'There was an issue creating a meter. Please try again.';
+
+            return redirect()->route('maintenance.assets.meters.create', [$id])->withErrors($message);
+        }
+    }
+
+    /**
+     * Displays the specified meter for the specified asset.
+     *
+     * @param int|string $id
+     * @param int|string $meterId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($id, $meterId)
+    {
+        $asset = $this->asset->find($id);
+
+        $meter = $asset->meters()->find($meterId);
+
+        if($meter) {
+            return view('maintenance::assets.meters.show', compact('asset', 'meter'));
         }
 
-        return $this->response();
+        abort(404);
     }
 
-    public function destroy($asset_id, $meter_id)
+    public function edit($id, $meterId)
     {
-        $asset = $this->asset->find($asset_id);
+        
+    }
 
-        $this->meter->destroy($meter_id);
+    public function update($id, $meterId)
+    {
 
-        $this->message = 'Successfully deleted meter';
-        $this->messageType = 'success';
-        $this->redirect = route('maintenance.assets.show', [$asset->id]);
+    }
 
-        return $this->response();
+    /**
+     * Deletes the specified meter for the specified asset.
+     *
+     * @param int|string $id
+     * @param int|string $meterId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id, $meterId)
+    {
+        if($this->meter->delete($id, $meterId)) {
+            $message = 'Successfully deleted meter.';
+
+            return redirect()->route('maintenance.assets.meters.index', [$id])->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this meter. Please try again.';
+
+            return redirect()->route('maintennace.assets.meters.show', [$id, $meterId])->withErrors($message);
+        }
     }
 }

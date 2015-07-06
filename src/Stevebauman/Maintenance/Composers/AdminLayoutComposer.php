@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Illuminate\View\View;
 
-/**
- * Class AdminLayoutComposer.
- */
 class AdminLayoutComposer
 {
     /**

@@ -85,7 +85,7 @@ class Asset extends BaseModel
      */
     public function images()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'asset_images', 'asset_id', 'attachment_id');
+        return $this->belongsToMany(Attachment::class, 'asset_images', 'asset_id', 'attachment_id');
     }
 
     /**
@@ -95,7 +95,7 @@ class Asset extends BaseModel
      */
     public function manuals()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\Attachment', 'asset_manuals', 'asset_id', 'attachment_id');
+        return $this->belongsToMany(Attachment::class, 'asset_manuals', 'asset_id', 'attachment_id');
     }
 
     /**
@@ -105,7 +105,7 @@ class Asset extends BaseModel
      */
     public function workOrders()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\WorkOrder', 'work_order_assets', 'asset_id', 'work_order_id')->withTimestamps();
+        return $this->belongsToMany(WorkOrder::class, 'work_order_assets', 'asset_id', 'work_order_id')->withTimestamps();
     }
 
     /**
@@ -115,7 +115,7 @@ class Asset extends BaseModel
      */
     public function meters()
     {
-        return $this->belongsToMany('Stevebauman\Maintenance\Models\Meter', 'asset_meters', 'asset_id', 'meter_id')->withTimestamps();
+        return $this->belongsToMany(Meter::class, 'asset_meters', 'asset_id', 'meter_id')->withTimestamps();
     }
 
     /*

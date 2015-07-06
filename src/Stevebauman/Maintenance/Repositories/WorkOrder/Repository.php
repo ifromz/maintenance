@@ -195,7 +195,7 @@ class Repository extends BaseRepository
             $assets = $request->input('assets');
 
             if(count($assets) > 0) {
-                $workOrder->assets()->attach($assets);
+                $workOrder->assets()->sync($assets);
             }
 
             return $workOrder;
@@ -265,7 +265,7 @@ class Repository extends BaseRepository
             $assets = $request->input('assets', $workOrder->assets);
 
             if(count($assets) > 0) {
-                $workOrder->assets()->attach($assets);
+                $workOrder->assets()->sync($assets);
             }
 
             return $workOrder;

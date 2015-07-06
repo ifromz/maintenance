@@ -124,7 +124,6 @@ class Repository extends BaseRepository
         $asset = $this->find($id);
 
         if($asset) {
-
             $asset->location_id = $request->input('location_id', $asset->location_id);
             $asset->category_id = $request->input('category_id', $asset->category_id);
             $asset->tag = $request->input('tag', $asset->tag);

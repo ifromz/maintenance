@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
 
-/**
- * Class RouteSelectComposer.
- */
 class RouteSelectComposer
 {
     /**

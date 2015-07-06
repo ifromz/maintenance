@@ -80,7 +80,7 @@ abstract class AbstractEventableController extends Controller
             if ($event) {
                 $localEvent = $this->event->findLocalByApiId($event->id);
 
-                $eventable->events()->attach($localEvent);
+                $eventable->events()->sync($localEvent);
 
                 $this->message = sprintf('Successfully created event. %s', link_to_action(currentControllerAction('show'), 'Show', [$eventable->id, $event->id]));
                 $this->messageType = 'success';

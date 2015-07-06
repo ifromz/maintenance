@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Http\Controllers\Asset\Manual;
+namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
 use Illuminate\Filesystem\Filesystem;
 use Stevebauman\Maintenance\Validators\DocumentValidator;

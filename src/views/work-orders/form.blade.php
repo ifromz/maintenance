@@ -55,7 +55,7 @@
 
     <div class="col-md-4">
         @include('maintenance::select.assets', [
-            'assets'=> (isset($workOrder) ? $workOrder->assets->lists('id') : null)
+            'assets'=> (isset($workOrder) ? $workOrder->assets->lists('id')->toArray() : null)
         ])
 
         <span class="label label-danger">{{ $errors->first('assets', ':message') }}</span>

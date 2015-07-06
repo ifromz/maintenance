@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Composers;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\View\View;
 
-/**
- * Class PublicLayoutComposer.
- */
 class PublicLayoutComposer
 {
     /**

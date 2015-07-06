@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Composers;
 use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\UserService;
 
-/**
- * Class UserSelectComposer.
- */
 class UserSelectComposer
 {
     /**

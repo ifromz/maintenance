@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Asset Manuals')
+
 @section('panel.head.content')
 
     <div class="btn-toolbar">

@@ -8,9 +8,6 @@ use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 
-/**
- * Class AdminDashboardComposer.
- */
 class AdminDashboardComposer
 {
     /**

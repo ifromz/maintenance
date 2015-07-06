@@ -50,7 +50,9 @@
 
     <div class="tab-pane" id="tab-meters">
 
-        {!! $asset->viewer()->btnAddMeter() !!}
+        <a href="{{ route('maintenance.assets.meters.create', [$asset->id]) }}" class="btn btn-app">
+            <i class="fa fa-dashboard"></i> Add a Meter
+        </a>
 
         <h2>Meters & Readings</h2>
 

@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\View\View;
 
-/**
- * Class MainLayoutComposer.
- */
 class MainLayoutComposer
 {
     /**

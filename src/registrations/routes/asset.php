@@ -90,18 +90,13 @@ Route::group(['namespace' => 'Asset'], function () {
 
         Route::resource('assets.meters', 'MeterController', [
             'names' => [
+                'index' => 'maintenance.assets.meters.index',
+                'create' => 'maintenance.assets.meters.create',
                 'store' => 'maintenance.assets.meters.store',
                 'show' => 'maintenance.assets.meters.show',
                 'edit' => 'maintenance.assets.meters.edit',
                 'update' => 'maintenance.assets.meters.update',
                 'destroy' => 'maintenance.assets.meters.destroy',
-            ],
-            'only' => [
-                'store',
-                'show',
-                'edit',
-                'update',
-                'destroy',
             ],
         ]);
 

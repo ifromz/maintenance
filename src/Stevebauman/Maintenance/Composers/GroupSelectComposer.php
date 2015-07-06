@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Composers;
 use Stevebauman\Maintenance\Services\GroupService;
 use Illuminate\View\View;
 
-/**
- * Class GroupSelectComposer.
- */
 class GroupSelectComposer
 {
     /**

@@ -55,6 +55,16 @@ class Meter extends BaseModel
     }
 
     /**
+     * The belongsToMany assets relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function assets()
+    {
+        return $this->belongsToMany(Asset::class, 'asset_meters', 'meter_id', 'asset_id')->withTimestamps();
+    }
+
+    /**
      * Returns the last reading amount.
      *
      * @return string|null

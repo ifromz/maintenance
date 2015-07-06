@@ -6,9 +6,6 @@ use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\NotificationService;
 
-/**
- * Class MainNotificationComposer.
- */
 class MainNotificationComposer
 {
     /**
