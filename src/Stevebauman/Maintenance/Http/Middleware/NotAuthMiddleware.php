@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Http\Middleware;
 use Closure;
 use Stevebauman\Maintenance\Services\SentryService;
 
-class AuthMiddleware
+class NotAuthMiddleware
 {
     /**
      * @var SentryService
@@ -23,21 +23,20 @@ class AuthMiddleware
     }
 
     /**
-     * Redirects unauthenticated users to the login page.
+     * Redirects users to the main dashboard page if they're
+     * already logged in and trying to access a login / register route.
      *
      * @param $request
      * @param Closure $next
      *
-     * @return $this
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function handle($request, Closure $next)
     {
         if($this->sentry->check()) {
-            return $next($request);
+            return redirect()->route('maintenance.dashboard.index');
         } else {
-            $message = "You're not logged in.";
-
-            return redirect()->route('maintenance.login')->withErrors($message);
+            return $next($request);
         }
     }
 }

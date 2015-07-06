@@ -3,7 +3,8 @@
 /*
  * Authentication Routes
  */
-Route::group(['prefix' => 'login', 'namespace' => 'Controllers', 'before' => 'maintenance.notauth'], function () {
+Route::group(['prefix' => 'login', 'namespace' => 'Controllers', 'middleware' => 'maintenance.not-auth'], function ()
+{
     Route::get('/', [
         'as' => 'maintenance.login',
         'uses' => 'AuthController@getLogin',

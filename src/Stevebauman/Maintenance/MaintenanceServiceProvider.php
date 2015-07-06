@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance;
 
+use Stevebauman\Maintenance\Http\Middleware\NotAuthMiddleware;
 use Stevebauman\Maintenance\Http\Middleware\PermissionMiddleware;
 use Stevebauman\Maintenance\Http\Middleware\AuthMiddleware;
 use Illuminate\Routing\Router;
@@ -24,6 +25,10 @@ class MaintenanceServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
+        $router->middleware('maintenance.not-auth', NotAuthMiddleware::class);
+        $router->middleware('maintenance.auth', AuthMiddleware::class);
+        $router->middleware('maintenance.permission', PermissionMiddleware::class);
+
         $config = __DIR__.'/../../config/';
 
         $this->publishes([
@@ -61,7 +66,6 @@ class MaintenanceServiceProvider extends ServiceProvider
     {
         include __DIR__.'/../../registrations/routes.php';
         include __DIR__.'/../../registrations/api.php';
-        include __DIR__.'/../../registrations/filters.php';
         include __DIR__.'/../../registrations/composers.php';
         include __DIR__.'/../../registrations/validators.php';
         include __DIR__.'/../../registrations/observers.php';

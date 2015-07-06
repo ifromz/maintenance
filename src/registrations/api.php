@@ -1,7 +1,7 @@
 <?php
 
 // Api Routes
-Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace' => 'Stevebauman\Maintenance\Http\Apis', 'before' => 'maintenance.auth'], function ()
+Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace' => 'Stevebauman\Maintenance\Http\Apis', 'middleware' => 'maintenance.auth'], function ()
 {
     // Api v1 Routes
     Route::group(['namespace' => 'v1', 'prefix' => 'v1'], function()

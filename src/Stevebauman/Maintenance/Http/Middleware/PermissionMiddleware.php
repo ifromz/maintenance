@@ -35,9 +35,9 @@ class PermissionMiddleware
     public function handle($request, Closure $next)
     {
         $user = $this->sentry->getCurrentUser();
-        dd($request);
+
         if($user && $user instanceof User) {
-            if($user->hasAccess($request->route->getName())) {
+            if($user->hasAccess($request->route()->getName())) {
                 return $next($request);
             }
         }
