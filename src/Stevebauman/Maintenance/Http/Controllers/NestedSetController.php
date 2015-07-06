@@ -3,11 +3,7 @@
 namespace Stevebauman\Maintenance\Http\Controllers;
 
 use Stevebauman\Maintenance\Http\Requests\CategoryRequest;
-use Illuminate\Support\Facades\App;
 
-/**
- * Class AbstractNestedSetController.
- */
 abstract class NestedSetController extends Controller
 {
     /**
