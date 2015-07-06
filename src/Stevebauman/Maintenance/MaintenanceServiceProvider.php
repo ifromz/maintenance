@@ -29,6 +29,18 @@ class MaintenanceServiceProvider extends ServiceProvider
         $router->middleware('maintenance.auth', AuthMiddleware::class);
         $router->middleware('maintenance.permission', PermissionMiddleware::class);
 
+        $this->bootPublishable();
+
+        $this->bootLoadable();
+
+        $this->bootRequiredFiles();
+    }
+
+    /**
+     * Registers publishable assets.
+     */
+    private function bootPublishable()
+    {
         $config = __DIR__.'/../../config/';
 
         $this->publishes([
@@ -51,12 +63,16 @@ class MaintenanceServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../public' => public_path('assets/stevebauman/maintenance'),
         ], 'assets');
+    }
 
+    /**
+     * Registers loadable assets.
+     */
+    private function bootLoadable()
+    {
         $this->loadViewsFrom(__DIR__.'/../../views', 'maintenance');
 
         $this->loadTranslationsFrom(__DIR__.'/../../lang', 'maintenance');
-
-        $this->bootRequiredFiles();
     }
 
     /**
@@ -107,6 +123,7 @@ class MaintenanceServiceProvider extends ServiceProvider
         // HTML
         $this->app->register('Illuminate\Html\HtmlServiceProvider');
 
+        // HTML Table Generation
         $this->app->register('Stevebauman\EloquentTable\EloquentTableServiceProvider');
 
         // Breadcrumbs
