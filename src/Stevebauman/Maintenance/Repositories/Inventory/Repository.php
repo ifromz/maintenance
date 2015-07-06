@@ -4,6 +4,7 @@ namespace Stevebauman\Maintenance\Repositories\Inventory;
 
 use Stevebauman\Maintenance\Http\Requests\Inventory\VariantRequest;
 use Stevebauman\Maintenance\Http\Requests\Inventory\Request;
+use Stevebauman\Maintenance\Http\Requests\NoteRequest;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
@@ -150,6 +151,33 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Creates a note for the specified inventory.
+     *
+     * @param NoteRequest $request
+     * @param int|string  $id
+     *
+     * @return bool|\Stevebauman\Maintenance\Models\Note;
+     */
+    public function createNote(NoteRequest $request, $id)
+    {
+        $inventory = $this->find($id);
+
+        if($inventory) {
+            $attributes = [
+                'content' => $request->clean($request->input('content')),
+            ];
+
+            $note = $inventory->notes()->create($attributes);
+
+            if($note) {
+                return $note;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Updates the specified inventory.
      *
      * @param Request    $request
@@ -169,6 +197,61 @@ class Repository extends BaseRepository
 
             if($inventory->save()) {
                 return $inventory;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Updates the specified note attached to the specified inventory.
+     *
+     * @param NoteRequest $request
+     * @param int|string  $id
+     * @param int|string  $noteId
+     *
+     * @return bool|\Stevebauman\Maintenance\Models\Note
+     */
+    public function updateNote(NoteRequest $request, $id, $noteId)
+    {
+        $inventory = $this->find($id);
+
+        if($inventory) {
+            $note = $inventory->notes()->find($noteId);
+
+            if($note) {
+                $attributes = [
+                    'content' => $request->clean($request->input('content', $note->content)),
+                ];
+
+                if($note->update($attributes)) {
+                    return $note;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Deletes the specified note attached to the specified inventory.
+     *
+     * @param int|string $id
+     * @param int|string $noteId
+     *
+     * @return bool
+     *
+     * @throws \Exception
+     */
+    public function deleteNote($id, $noteId)
+    {
+        $inventory = $this->find($id);
+
+        if($inventory) {
+            $note = $inventory->notes()->find($noteId);
+
+            if($note && $note->delete()) {
+                return true;
             }
         }
 

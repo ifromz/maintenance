@@ -37,9 +37,27 @@ class NoteController extends BaseController
         return view('maintenance::inventory.notes.create', compact('item'));
     }
 
+    /**
+     * Creates a note for the specified inventory.
+     *
+     * @param NoteRequest $request
+     * @param int|string  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(NoteRequest $request, $id)
     {
+        $note = $this->inventory->createNote($request, $id);
 
+        if($note) {
+            $message = 'Successfully created note.';
+
+            return redirect()->route('maintenance.inventory.show', [$id])->withSuccess($message);
+        } else {
+            $message = 'There was an issue creating a note. Please try again.';
+
+            return redirect()->route('maintenance.inventory.notes.create', [$id])->withErrors($message);
+        }
     }
 
     public function show($id, $noteId)
@@ -52,13 +70,48 @@ class NoteController extends BaseController
 
     }
 
-    public function update($id, $noteId)
+    /**
+     * Updates the specified note for the specified inventory.
+     *
+     * @param NoteRequest $request
+     * @param int|string  $id
+     * @param int|string  $noteId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(NoteRequest $request, $id, $noteId)
     {
+        $note = $this->inventory->updateNote($request, $id, $noteId);
 
+        if($note) {
+            $message = 'Successfully updated note.';
+
+            return redirect()->route('maintenance.inventory.notes.show', [$id, $noteId])->withSuccess($message);
+        } else {
+            $message = 'There was an issue updating this note. Please try again.';
+
+            return redirect()->route('maintenance.inventory.notes.update', [$id, $noteId])->withErrors($message);
+        }
     }
 
+    /**
+     * Deletes the specified note attached to the specified inventory.
+     *
+     * @param int|string $id
+     * @param int|string $noteId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id, $noteId)
     {
+        if($this->inventory->deleteNote($id, $noteId)) {
+            $message = 'Successfully updated note.';
 
+            return redirect()->route('maintenance.inventory.show', [$id])->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this note. Please try again.';
+
+            return redirect()->route('maintenance.inventory.notes.show', [$id, $noteId])->withErrors($message);
+        }
     }
 }
