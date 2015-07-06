@@ -34,6 +34,6 @@ class AbstractEventableApi extends BaseApi
 
         $apiEvents = $this->event->setInput($data)->getApiEvents($events, true);
 
-        return $this->responseJson($this->event->parseEvents($apiEvents));
+        return $this->event->parseEvents($apiEvents);
     }
 }

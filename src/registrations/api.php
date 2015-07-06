@@ -148,5 +148,4 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             });
         });
     });
-
 });

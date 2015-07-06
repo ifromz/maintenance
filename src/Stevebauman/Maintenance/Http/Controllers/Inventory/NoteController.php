@@ -2,27 +2,63 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Validators\NoteValidator;
-use Stevebauman\Maintenance\Services\NoteService;
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractNoteableController;
+use Stevebauman\Maintenance\Http\Requests\NoteRequest;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-/**
- * Class NoteController.
- */
-class NoteController extends AbstractNoteableController
+class NoteController extends BaseController
 {
+    /**
+     * @var InventoryRepository
+     */
+    protected $inventory;
+
     /**
      * Constructor.
      *
-     * @param InventoryService $inventory
-     * @param NoteService      $note
-     * @param NoteValidator    $noteValidator
+     * @param InventoryRepository $inventory
      */
-    public function __construct(InventoryService $inventory, NoteService $note, NoteValidator $noteValidator)
+    public function __construct(InventoryRepository $inventory)
     {
-        $this->noteable = $inventory;
+        $this->inventory = $inventory;
+    }
 
-        parent::__construct($note, $noteValidator);
+    /**
+     * Displays the form for creating a new inventory note.
+     *
+     * @param int|string $id
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create($id)
+    {
+        $item = $this->inventory->find($id);
+
+        return view('maintenance::inventory.notes.create', compact('item'));
+    }
+
+    public function store(NoteRequest $request, $id)
+    {
+
+    }
+
+    public function show($id, $noteId)
+    {
+
+    }
+
+    public function edit($id, $noteId)
+    {
+
+    }
+
+    public function update($id, $noteId)
+    {
+
+    }
+
+    public function destroy($id, $noteId)
+    {
+
     }
 }

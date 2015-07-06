@@ -34,9 +34,11 @@ class Repository extends BaseRepository
     }
 
     /**
-     * Finds an Inventory.
+     * Finds an Inventory by the specified ID.
      *
      * @param int|string $id
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      *
      * @return null|Inventory
      */
@@ -51,7 +53,7 @@ class Repository extends BaseRepository
             'revisionHistory',
         ];
 
-        return $this->model()->with($with)->find($id);
+        return $this->model()->with($with)->findOrFail($id);
     }
 
     /**
