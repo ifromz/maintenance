@@ -10,4 +10,15 @@ Create Meter
 
 @section('panel.body.content')
 
+    {!!
+        Form::open([
+            'url' => route('maintenance.assets.meters.store', [$asset->id]),
+            'class' => 'form-horizontal',
+        ])
+    !!}
+
+    @include('maintenance::assets.meters.form')
+
+    {!! Form::close() !!}
+
 @stop

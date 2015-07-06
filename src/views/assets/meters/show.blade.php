@@ -1,53 +1,30 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.pages.main.tabbed')
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a class="btn btn-primary" data-toggle="modal" data-target="#update-reading-modal-{{ $meter->id }}">
-            <i class="fa fa-plus-circle"></i>
-            New Reading
-        </a>
+@section('title', 'Viewing Asset Meter')
+
+@section('tab.head.content')
+    <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab-readings" data-toggle="tab">Readings</a></li>
+@stop
+
+@section('tab.body.content')
+    <div class="tab-pane active" id="tab-profile">
+
+        {!! $meter->viewer()->btnEditForAsset($asset) !!}
+
+        {!! $meter->viewer()->btnDeleteForAsset($asset) !!}
+
+        <hr>
+
+        <h3>Profile</h3>
+
+    </div>
+
+    <div class="tab-pane" id="tab-readings">
+        @include('maintenance::assets.meters.readings.grid.index', compact('asset, meter'))
     </div>
 @stop
 
-@section('panel.extra.top')
-    @include('maintenance::assets.modals.meters.update', [
-        'asset' => $asset,
-        'meter' => $meter
-    ])
-@stop
+@section('scripts')
 
-@section('panel.body.content')
-
-    {!! $meter->viewer()->btnEditForAsset($asset) !!}
-
-    {!! $meter->viewer()->btnDeleteForAsset($asset) !!}
-
-    <hr>
-
-    <div id="asset-meters-table">
-        @if($readings->count() > 0)
-
-            {!!
-                $readings->columns([
-                    'user' => 'User Responsible',
-                    'reading' => 'Reading',
-                    'created_at' => 'Created',
-                    'action' => 'Action'
-                ])
-                ->means('user', 'user.full_name')
-                ->means('reading', 'reading_with_metric')
-                ->modify('action', function($reading) use($asset)
-                {
-                    return $reading->viewer()->btnActionsForAsset($asset);
-                })
-                ->render()
-            !!}
-        @else
-            <h5>There are no readings to display for this meter.</h5>
-        @endif
-
-        <div class="btn-toolbar text-center">
-            {!! $readings->appends(Input::except('page'))->render() !!}
-        </div>
-    </div>
 @stop

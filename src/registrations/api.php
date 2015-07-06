@@ -108,6 +108,14 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
 
                 Route::post('move/{categories?}', ['as' => 'maintenance.api.v1.assets.categories.move', 'uses' => 'CategoryController@move']);
             });
+
+            // Asset Meter Api Routes
+            Route::group(['prefix' => 'meters'], function()
+            {
+                Route::get('grid', ['as' => 'maintenance.api.v1.assets.meters.grid', 'uses' => 'MeterController@grid']);
+
+                Route::get('readings/grid', ['as' => 'maintenance.api.v1.assets.meters.readings.grid', 'uses' => 'MeterController@gridReadings']);
+            });
         });
 
         // Location Api Routes

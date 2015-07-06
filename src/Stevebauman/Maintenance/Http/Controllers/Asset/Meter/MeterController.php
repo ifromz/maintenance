@@ -94,23 +94,65 @@ class MeterController extends Controller
     {
         $asset = $this->asset->find($id);
 
-        $meter = $asset->meters()->find($meterId);
+        if($asset) {
+            $meter = $asset->meters()->find($meterId);
 
-        if($meter) {
-            return view('maintenance::assets.meters.show', compact('asset', 'meter'));
+            if($meter) {
+                return view('maintenance::assets.meters.show', compact('asset', 'meter'));
+            }
         }
 
         abort(404);
     }
 
+    /**
+     * Displays the form for editing the
+     * specified meter for the specified asset.
+     *
+     * @param int|string $id
+     * @param int|string $meterId
+     *
+     * @return \Illuminate\View\View
+     */
     public function edit($id, $meterId)
     {
-        
+        $asset = $this->asset->find($id);
+
+        if($asset) {
+            $meter = $asset->meters()->find($meterId);
+
+            $lastReading = $meter->getLastReading();
+
+            if($meter) {
+                return view('maintenance::assets.meters.edit', compact('asset', 'meter', 'lastReading'));
+            }
+        }
+
+        abort(404);
     }
 
-    public function update($id, $meterId)
+    /**
+     * Updates the specified meter attached to the specified asset.
+     *
+     * @param MeterRequest $request
+     * @param int|string   $id
+     * @param int|string   $meterId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(MeterRequest $request, $id, $meterId)
     {
+        $meter = $this->meter->update($request, $id, $meterId);
 
+        if($meter) {
+            $message = 'Successfully updated meter.';
+
+            return redirect()->route('maintenance.assets.meters.show', [$id, $meter->id])->withSuccess($message);
+        } else {
+            $message = 'There was an issue updating this meter. Please try again.';
+
+            return redirect()->route('maintenance.assets.meters.edit', [$id, $meterId])->withErrors($message);
+        }
     }
 
     /**
@@ -123,7 +165,11 @@ class MeterController extends Controller
      */
     public function destroy($id, $meterId)
     {
-        if($this->meter->delete($id, $meterId)) {
+        $asset = $this->asset->find($id);
+
+        $meter = $asset->meters()->find($meterId);
+
+        if($meter->delete()) {
             $message = 'Successfully deleted meter.';
 
             return redirect()->route('maintenance.assets.meters.index', [$id])->withSuccess($message);

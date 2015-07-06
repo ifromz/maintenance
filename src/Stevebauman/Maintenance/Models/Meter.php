@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Http\Controllers\Asset\Meter\ReadingController;
 use Stevebauman\Maintenance\Viewers\MeterViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
@@ -65,48 +66,60 @@ class Meter extends BaseModel
     }
 
     /**
+     * Returns the last meter reading.
+     *
+     * @return null|MeterReading
+     */
+    public function getLastReading()
+    {
+        return $this->readings->first();
+    }
+
+    /**
      * Returns the last reading amount.
      *
-     * @return string|null
+     * @return null|string
      */
     public function getLastReadingAttribute()
     {
-        $reading = $this->readings->first();
+        $reading = $this->getLastReading();
 
         if ($reading) {
             return $reading->reading;
         }
 
-        return;
+        return null;
     }
 
     /**
      * Returns the last reading amount with its metric symbol.
      *
-     * @return string|null
+     * @return null|string
      */
     public function getLastReadingWithMetricAttribute()
     {
-        $reading = $this->readings->first();
+        $reading = $this->getLastReading();
 
         if ($reading) {
             return $reading->reading_with_metric;
         }
 
-        return;
+        return null;
     }
 
     /**
      * Returns the last reading comment.
      *
-     * @return string
+     * @return null|string
      */
     public function getLastCommentAttribute()
     {
-        if ($this->readings->count() > 0) {
-            return $this->readings->first()->comment;
+        $reading = $this->getLastReading();
+
+        if($reading) {
+            return $reading->comment;
         }
 
-        return;
+        return null;
     }
 }

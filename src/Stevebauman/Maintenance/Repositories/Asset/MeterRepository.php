@@ -60,9 +60,10 @@ class MeterRepository extends BaseRepository
             $meter->name = $request->input('name');
 
             if($meter->save()) {
-                $asset->meters()->sync($meter);
+                $asset->meters()->attach($meter);
 
                 $reading = [
+                    'user_id' => $this->sentry->getCurrentUserId(),
                     'reading' => $request->input('reading'),
                     'comment' => $request->input('comment'),
                 ];
@@ -98,6 +99,7 @@ class MeterRepository extends BaseRepository
 
                 if($meter->save()) {
                     $reading = [
+                        'user_id' => $this->sentry->getCurrentUserId(),
                         'reading' => $request->input('reading'),
                         'comment' => $request->input('comment'),
                     ];
@@ -106,31 +108,6 @@ class MeterRepository extends BaseRepository
 
                     return $meter;
                 }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Deletes an asset meter.
-     *
-     * @param int|string $id
-     * @param int|string $meterId
-     *
-     * @return bool
-     *
-     * @throws \Exception
-     */
-    public function delete($id, $meterId)
-    {
-        $asset = $this->asset->find($id);
-
-        if($asset) {
-            $meter = $asset->meters()->find($meterId);
-
-            if($meter && $meter->delete()) {
-                return true;
             }
         }
 

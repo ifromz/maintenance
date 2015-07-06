@@ -7,15 +7,15 @@
 @stop
 
 @section('panel.body.content')
-{!!
-    Form::open([
-        'url' => route('maintenance.assets.update', [$asset->id]),
-        'method' => 'PATCH',
-        'class' => 'form-horizontal'
-    ])
-!!}
+    {!!
+        Form::open([
+            'url' => route('maintenance.assets.update', [$asset->id]),
+            'method' => 'PATCH',
+            'class' => 'form-horizontal'
+        ])
+    !!}
 
     @include('maintenance::assets.form', compact('asset'))
 
-{!! Form::close() !!}
+    {!! Form::close() !!}
 @stop
