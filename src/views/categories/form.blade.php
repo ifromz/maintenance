@@ -10,6 +10,6 @@
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-        {!! Form::submit('Save', array('class'=>'btn btn-primary')) !!}
+        {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
     </div>
 </div>

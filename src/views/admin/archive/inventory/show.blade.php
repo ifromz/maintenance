@@ -13,7 +13,7 @@
         </div>
 
         <div class="panel-body">
-            <a href="{{ route('maintenance.admin.archive.inventory.restore', array($item->id)) }}"
+            <a href="{{ route('maintenance.admin.archive.inventory.restore', [$item->id]) }}"
                data-method="post"
                data-token="{{ csrf_token() }}"
                data-title="Restore Item?"
@@ -22,7 +22,7 @@
                 <i class="fa fa-refresh"></i> Restore
             </a>
 
-            <a href="{{ route('maintenance.admin.archive.inventory.destroy', array($item->id)) }}"
+            <a href="{{ route('maintenance.admin.archive.inventory.destroy', [$item->id]) }}"
                data-method="delete"
                data-token="{{ csrf_token() }}"
                data-title="Delete Item?"
@@ -33,9 +33,7 @@
 
             <hr>
 
-            @include('maintenance::inventory.tabs.profile.description', array(
-                'item'=>$item
-            ))
+            @include('maintenance::inventory.tabs.profile.description', compact('item'))
 
             <legend>More Information:</legend>
 

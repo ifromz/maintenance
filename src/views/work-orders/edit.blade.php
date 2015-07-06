@@ -10,9 +10,9 @@
 
     {!!
         Form::open([
-            'url'=>route('maintenance.work-orders.update', [$workOrder->id]),
-            'class'=>'form-horizontal',
-            'method'=>'PATCH'
+            'url' => route('maintenance.work-orders.update', [$workOrder->id]),
+            'class' => 'form-horizontal',
+            'method' => 'PATCH',
         ])
     !!}
 

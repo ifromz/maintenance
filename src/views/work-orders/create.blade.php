@@ -8,7 +8,12 @@
 
 @section('panel.body.content')
 
-    {!! Form::open(array('url' => route('maintenance.work-orders.store'), 'class' => 'form-horizontal clear-form')) !!}
+    {!!
+        Form::open([
+            'url' => route('maintenance.work-orders.store'),
+            'class' => 'form-horizontal'
+        ])
+    !!}
 
     @include('maintenance::work-orders.form')
 
