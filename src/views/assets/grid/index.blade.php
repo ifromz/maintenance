@@ -30,6 +30,12 @@
                             </ul>
                         </li>
 
+                        <li class="primary">
+                            <a href="{{ route('maintenance.assets.create') }}" data-toggle="tooltip" data-original-title="Create">
+                                <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
+                            </a>
+                        </li>
+
                     </ul>
 
                     {{-- Grid: Filters --}}

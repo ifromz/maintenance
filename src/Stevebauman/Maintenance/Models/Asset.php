@@ -42,6 +42,7 @@ class Asset extends BaseModel
         'user_id',
         'location_id',
         'category_id',
+        'tag',
         'name',
         'description',
         'condition',

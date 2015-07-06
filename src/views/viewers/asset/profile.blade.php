@@ -1,6 +1,10 @@
 <table class="table">
     <tbody>
         <tr>
+            <th>Tag</th>
+            <td>{{ $asset->tag }}</td>
+        </tr>
+        <tr>
             <th>Name</th>
             <td>{{ $asset->name }}</td>
         </tr>
