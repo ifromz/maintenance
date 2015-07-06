@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
 use Stevebauman\Maintenance\Models\Meter;
+use Stevebauman\Maintenance\Models\MeterReading;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -33,11 +34,11 @@ class MeterController extends BaseController
     public function grid($id)
     {
         $columns = [
-            'id',
-            'name',
-            'user_id',
-            'metric_id',
-            'created_at',
+            'meters.id',
+            'meters.name',
+            'meters.user_id',
+            'meters.metric_id',
+            'meters.created_at',
         ];
 
         $settings = [
@@ -60,5 +61,41 @@ class MeterController extends BaseController
         };
 
         return $this->asset->gridMeters($id, $columns, $settings, $transformer);
+    }
+
+    /**
+     * Returns a new grid instance of the specified assets meter readings.
+     *
+     * @param int|string $id
+     * @param int|string $meterId
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridReadings($id, $meterId)
+    {
+        $columns = [
+            'meter_readings.reading',
+            'meter_readings.comment',
+            'meter_readings.user_id',
+            'meter_readings.created_at',
+        ];
+
+        $settings = [
+            'sort'      => 'created_at',
+            'direction' => 'desc',
+        ];
+
+        $transformer = function(MeterReading $reading) use ($id)
+        {
+            return [
+                'id' => $reading->id,
+                'reading' => $reading->reading,
+                'comment' => $reading->comment,
+                'user' => ($reading->user ? $reading->user->full_name : '<em>None</em>'),
+                'created_at' => $reading->created_at,
+            ];
+        };
+
+        return $this->asset->gridMeterReadings($id, $meterId, $columns, $settings, $transformer);
     }
 }

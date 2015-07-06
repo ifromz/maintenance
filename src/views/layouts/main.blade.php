@@ -184,7 +184,6 @@
 @stop
 
 @section('scripts')
-
     {!! HTML::script('assets/cartalyst/data-grid/js/data-grid.js') !!}
     {!! HTML::script('assets/cartalyst/data-grid/js/underscore.js') !!}
 

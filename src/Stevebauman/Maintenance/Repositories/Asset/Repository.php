@@ -59,7 +59,7 @@ class Repository extends BaseRepository
      * @param int|string $assetId
      * @param array      $columns
      * @param array      $settings
-     * @param null       $transformer
+     * @param \Closure   $transformer
      *
      * @return \Cartalyst\DataGrid\DataGrid
      */
@@ -71,12 +71,12 @@ class Repository extends BaseRepository
     }
 
     /**
-     * Returns a new grid instance of all asset work orders.
+     * Returns a new grid instance of all asset meters.
      *
      * @param int|string $assetId
      * @param array      $columns
      * @param array      $settings
-     * @param null       $transformer
+     * @param \Closure   $transformer
      *
      * @return \Cartalyst\DataGrid\DataGrid
      */
@@ -85,6 +85,24 @@ class Repository extends BaseRepository
         $model = $this->find($assetId);
 
         return $this->newGrid($model->meters(), $columns, $settings, $transformer);
+    }
+
+    /**
+     * Returns a new grid instance of all readings attached to the asset meter.
+     *
+     * @param int|string $assetId
+     * @param int|string $meterId
+     * @param array      $columns
+     * @param array      $settings
+     * @param \Closure   $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridMeterReadings($assetId, $meterId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($assetId)->meters()->find($meterId);
+
+        return $this->newGrid($model->readings(), $columns, $settings, $transformer);
     }
 
     /**

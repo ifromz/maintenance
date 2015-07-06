@@ -32,6 +32,7 @@ class Controller extends BaseController
     {
         $columns = [
             'id',
+            'tag',
             'name',
             'location_id',
             'category_id',
@@ -47,7 +48,7 @@ class Controller extends BaseController
         $transformer = function(Asset $asset)
         {
             return [
-                'tag' => ($asset->tag ? $asset->tag : '<em>None</em>'),
+                'tag' => $asset->tag,
                 'name' => $asset->name,
                 'condition' => $asset->condition,
                 'location' => ($asset->location ? $asset->location->trail : '<em>None</em>'),

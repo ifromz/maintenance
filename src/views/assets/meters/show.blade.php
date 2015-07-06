@@ -23,8 +23,11 @@
     <div class="tab-pane" id="tab-readings">
         @include('maintenance::assets.meters.readings.grid.index', compact('asset, meter'))
     </div>
-@stop
 
-@section('scripts')
-
+    <script>
+        $(function()
+        {
+            $.datagrid('meters-readings', '#meters-readings-results', '#meters-readings-pagination', '#meters-readings-filters');
+        });
+    </script>
 @stop

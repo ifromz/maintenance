@@ -99,8 +99,6 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         {
             Route::get('grid', ['as' => 'maintenance.api.v1.assets.grid', 'uses' => 'Controller@grid']);
 
-            Route::get('assets/{assets}/work-orders/grid', ['as' => 'maintenance.api.v1.assets.work-orders.grid', 'uses' => 'WorkOrderController@grid']);
-
             // Asset Category Api Routes
             Route::group(['prefix' => 'categories'], function()
             {
@@ -109,12 +107,23 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                 Route::post('move/{categories?}', ['as' => 'maintenance.api.v1.assets.categories.move', 'uses' => 'CategoryController@move']);
             });
 
-            // Asset Meter Api Routes
-            Route::group(['prefix' => 'meters'], function()
+            // Nested Asset Api Routes
+            Route::group(['prefix' => '{assets}'], function()
             {
-                Route::get('grid', ['as' => 'maintenance.api.v1.assets.meters.grid', 'uses' => 'MeterController@grid']);
+                // Asset Work Order Routes
+                Route::group(['prefix' => 'work-orders'], function()
+                {
+                    Route::get('grid', ['as' => 'maintenance.api.v1.assets.work-orders.grid', 'uses' => 'WorkOrderController@grid']);
+                });
 
-                Route::get('readings/grid', ['as' => 'maintenance.api.v1.assets.meters.readings.grid', 'uses' => 'MeterController@gridReadings']);
+                // Asset Meter Routes
+                Route::group(['prefix' => 'meters'], function()
+                {
+                    Route::get('grid', ['as' => 'maintenance.api.v1.assets.meters.grid', 'uses' => 'MeterController@grid']);
+
+                    Route::get('{meters}/readings/grid', ['as' => 'maintenance.api.v1.assets.meters.readings.grid', 'uses' => 'MeterController@gridReadings']);
+                });
+
             });
         });
 
