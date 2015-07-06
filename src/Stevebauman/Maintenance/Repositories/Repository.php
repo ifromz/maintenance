@@ -4,6 +4,7 @@ namespace Stevebauman\Maintenance\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Venturecraft\Revisionable\Revision;
 use Cartalyst\DataGrid\Laravel\Facades\DataGrid;
 
 abstract class Repository
@@ -124,6 +125,48 @@ abstract class Repository
         $model = $this->model()->onlyTrashed();
 
         return $this->newGrid($model, $columns, $settings, $transformer);
+    }
+
+    /**
+     * Constructs a new data grid instance
+     * tailored to revision history settings.
+     *
+     * @param mixed $data
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function newHistoryGrid($data)
+    {
+        $columns = [
+            'id',
+            'user_id',
+            'revisionable_type',
+            'revisionable_id',
+            'key',
+            'new_value',
+            'old_value',
+            'created_at',
+        ];
+
+        $settings = [
+            'sort' => 'created_at',
+            'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
+        ];
+
+        $transformer = function(Revision $revision)
+        {
+            return [
+                'user' => $revision->userResponsible()->full_name,
+                'key' => $revision->getKey(),
+                'old_value' => (! is_null($revision->oldValue()) ? $revision->oldValue() : '<em>None</em>'),
+                'new_value' => ($revision->newValue() ? $revision->newValue() : '<em>None</em>'),
+                'created_at' => $revision->created_at->format('Y-m-d g:i a'),
+            ];
+        };
+
+        return $this->newGrid($data, $columns, $settings, $transformer);
     }
 
     /**
