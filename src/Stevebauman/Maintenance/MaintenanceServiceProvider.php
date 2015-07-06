@@ -37,6 +37,28 @@ class MaintenanceServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the service providers.
+     */
+    public function register()
+    {
+        $this->registerServiceProviders();
+
+        $this->registerServiceAliases();
+
+        $this->registerHandlers();
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['maintenance'];
+    }
+
+    /**
      * Registers publishable assets.
      */
     private function bootPublishable()
@@ -86,32 +108,6 @@ class MaintenanceServiceProvider extends ServiceProvider
         include __DIR__.'/../../registrations/validators.php';
         include __DIR__.'/../../registrations/observers.php';
         include __DIR__.'/../../registrations/breadcrumbs.php';
-    }
-
-    /**
-     * Register the service providers.
-     */
-    public function register()
-    {
-        $this->registerServiceProviders();
-
-        $this->registerServiceAliases();
-
-        // Register the exception handler
-        $this->app->singleton(
-            'Illuminate\Contracts\Debug\ExceptionHandler',
-            'Stevebauman\Maintenance\Exceptions\Handler'
-        );
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return ['maintenance'];
     }
 
     /**
@@ -188,5 +184,16 @@ class MaintenanceServiceProvider extends ServiceProvider
         $loader->alias('CalendarHelper', 'Stevebauman\CalendarHelper\Facades\CalendarHelper');
         $loader->alias('LogReader', 'Stevebauman\LogReader\Facades\LogReader');
         $loader->alias('Purify', 'Stevebauman\Purify\Facades\Purify');
+    }
+
+    /**
+     * Registers application handlers.
+     */
+    private function registerHandlers()
+    {
+        $this->app->singleton(
+            'Illuminate\Contracts\Debug\ExceptionHandler',
+            'Stevebauman\Maintenance\Exceptions\Handler'
+        );
     }
 }
