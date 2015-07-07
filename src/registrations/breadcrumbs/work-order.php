@@ -124,3 +124,14 @@ Breadcrumbs::register('maintenance.work-orders.statuses.index', function (Genera
 /*
  * End Work Order Status crumbs
  */
+
+/*
+ * Work Order Session crumbs
+ */
+Breadcrumbs::register('maintenance.work-orders.sessions.index', function (Generator $breadcrumbs, $workOrderId) {
+    $breadcrumbs->parent('maintenance.work-orders.show', $workOrderId);
+    $breadcrumbs->push('Sessions', route('maintenance.work-orders.sessions.index', [$workOrderId]));
+});
+/*
+ * End Work Order Session crumbs
+ */

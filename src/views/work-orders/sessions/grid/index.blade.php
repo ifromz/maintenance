@@ -15,7 +15,7 @@
                 </div>
 
                 {{-- Grid: Actions --}}
-                <div class="collapse navbar-collapse" id="inventory-actions">
+                <div class="collapse navbar-collapse" id="work-order-sessions-actions">
 
                     <ul class="nav navbar-nav navbar-left">
 

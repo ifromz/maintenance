@@ -46,7 +46,7 @@ class StatusController extends BaseController
             return [
                 'id' => $status->id,
                 'created_at' => $status->created_at,
-                'created_by' => ($status->user ? $status->user->full_name : 'None'),
+                'created_by' => ($status->user ? $status->user->full_name : '<em>System</em>'),
                 'name' => $status->name,
                 'color' => $status->color,
                 'view_url' => ''

@@ -85,6 +85,24 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Creates a new grid instance of inventory stock movements.
+     *
+     * @param int|string $inventoryId
+     * @param int|string $stockId
+     * @param array      $columns
+     * @param array      $settings
+     * @param \Closure   $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridStockMovements($inventoryId, $stockId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($inventoryId)->stocks()->find($stockId);
+
+        return $this->newGrid($model->movements(), $columns, $settings, $transformer);
+    }
+
+    /**
      * Creates a new grid instance of inventory variants.
      *
      * @param int|string $inventoryId

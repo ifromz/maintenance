@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Inventory Stocks')
+
 @section('panel.head.content')
     <div class="btn-toolbar">
         <a href="{{ route('maintenance.inventory.create') }}" class="btn btn-primary" data-toggle="tooltip"
