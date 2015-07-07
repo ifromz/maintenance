@@ -3,19 +3,19 @@
 namespace Stevebauman\Maintenance\Composers;
 
 use Illuminate\View\View;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 
 class AssetSelectComposer
 {
     /**
-     * @var AssetService
+     * @var AssetRepository
      */
     protected $asset;
 
     /**
-     * @param AssetService $asset
+     * @param AssetRepository $asset
      */
-    public function __construct(AssetService $asset)
+    public function __construct(AssetRepository $asset)
     {
         $this->asset = $asset;
     }
@@ -27,7 +27,7 @@ class AssetSelectComposer
      */
     public function compose(View $view)
     {
-        $allAssets = $this->asset->orderBy('name', 'ASC')->get()->lists('name', 'id');
+        $allAssets = $this->asset->model()->orderBy('name', 'asc')->get()->lists('name', 'id')->toArray();
 
         return $view->with('allAssets', $allAssets);
     }

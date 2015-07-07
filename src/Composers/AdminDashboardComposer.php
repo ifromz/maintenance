@@ -3,40 +3,42 @@
 namespace Stevebauman\Maintenance\Composers;
 
 use Illuminate\View\View;
-use Stevebauman\Maintenance\Services\UserService;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
+use Stevebauman\Maintenance\Repositories\UserRepository;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 
 class AdminDashboardComposer
 {
     /**
-     * @var UserService
+     * @var UserRepository
      */
     protected $user;
 
     /**
-     * @var AssetService
+     * @var AssetRepository
      */
     protected $asset;
 
     /**
-     * @var InventoryService
+     * @var InventoryRepository
      */
     protected $inventory;
 
     /**
-     * @var WorkOrderService
+     * @var WorkOrderRepository
      */
     protected $workOrder;
 
     /**
-     * @param UserService      $user
-     * @param AssetService     $asset
-     * @param InventoryService $inventory
-     * @param WorkOrderService $workOrder
+     * Constructor.
+     *
+     * @param UserRepository      $user
+     * @param AssetRepository     $asset
+     * @param InventoryRepository $inventory
+     * @param WorkOrderRepository $workOrder
      */
-    public function __construct(UserService $user, AssetService $asset, InventoryService $inventory, WorkOrderService $workOrder)
+    public function __construct(UserRepository $user, AssetRepository $asset, InventoryRepository $inventory, WorkOrderRepository $workOrder)
     {
         $this->user = $user;
         $this->asset = $asset;
@@ -52,9 +54,9 @@ class AdminDashboardComposer
     public function compose(View $view)
     {
         return $view
-            ->with('users', $this->user->get()->count())
-            ->with('assets', $this->asset->get()->count())
-            ->with('inventories', $this->inventory->get()->count())
-            ->with('workOrders', $this->workOrder->get()->count());
+            ->with('users', $this->user->all()->count())
+            ->with('assets', $this->asset->all()->count())
+            ->with('inventories', $this->inventory->all()->count())
+            ->with('workOrders', $this->workOrder->all()->count());
     }
 }

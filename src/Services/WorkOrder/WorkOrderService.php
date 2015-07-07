@@ -10,9 +10,6 @@ use Stevebauman\Maintenance\Models\WorkRequest;
 use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class WorkOrderService.
- */
 class WorkOrderService extends BaseModelService
 {
     /**

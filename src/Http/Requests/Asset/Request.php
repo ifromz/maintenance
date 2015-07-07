@@ -18,7 +18,7 @@ class Request extends BaseRequest
             'category_id' => 'integer|min:1',
             'location' => 'required',
             'location_id' => 'integer|min:1',
-            'tag' => 'required|integer|min:5|max:15',
+            'tag' => 'required|integer',
             'name' => 'required|min:3|max:250',
             'description' => 'required|max:1500',
             'condition' => 'required|integer|max:5|min:1',

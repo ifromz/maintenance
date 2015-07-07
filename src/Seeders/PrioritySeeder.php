@@ -3,16 +3,13 @@
 namespace Stevebauman\Maintenance\Seeders;
 
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\PriorityService;
+use Stevebauman\Maintenance\Repositories\WorkOrder\PriorityRepository;
 use Illuminate\Database\Seeder;
 
-/**
- * Class PrioritySeeder.
- */
 class PrioritySeeder extends Seeder
 {
     /**
-     * @var PriorityService
+     * @var PriorityRepository
      */
     protected $priority;
 
@@ -24,9 +21,10 @@ class PrioritySeeder extends Seeder
     /**
      * Constructor.
      *
-     * @param PriorityService $priority
+     * @param PriorityRepository $priority
+     * @param ConfigService      $config
      */
-    public function __construct(PriorityService $priority, ConfigService $config)
+    public function __construct(PriorityRepository $priority, ConfigService $config)
     {
         $this->priority = $priority;
         $this->config = $config->setPrefix('maintenance');
@@ -39,8 +37,8 @@ class PrioritySeeder extends Seeder
     {
         $priorities = $this->getSeedData();
 
-        foreach ($priorities as $prioritiy) {
-            $this->priority->setInput($prioritiy)->firstOrCreate();
+        foreach ($priorities as $priority) {
+            $this->priority->model()->create($priority);
         }
     }
 

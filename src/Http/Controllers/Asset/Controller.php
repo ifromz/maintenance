@@ -55,7 +55,7 @@ class Controller extends BaseController
         $asset = $this->asset->create($request);
 
         if($asset) {
-            $link = link_to_route('maintenance.asset.show', $asset->name, [$asset->id]);
+            $link = link_to_route('maintenance.assets.show', $asset->name, [$asset->id]);
 
             $message = "Successfully created asset: $link";
 

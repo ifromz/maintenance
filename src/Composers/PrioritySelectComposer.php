@@ -3,19 +3,19 @@
 namespace Stevebauman\Maintenance\Composers;
 
 use Illuminate\View\View;
-use Stevebauman\Maintenance\Services\PriorityService;
+use Stevebauman\Maintenance\Repositories\WorkOrder\PriorityRepository;
 
 class PrioritySelectComposer
 {
     /**
-     * @var PriorityService
+     * @var PriorityRepository
      */
     protected $priority;
 
     /**
-     * @param PriorityService $priority
+     * @param PriorityRepository $priority
      */
-    public function __construct(PriorityService $priority)
+    public function __construct(PriorityRepository $priority)
     {
         $this->priority = $priority;
     }
@@ -27,7 +27,7 @@ class PrioritySelectComposer
      */
     public function compose(View $view)
     {
-        $priorities = $this->priority->get()->lists('name', 'id');
+        $priorities = $this->priority->all()->lists('name', 'id');
 
         /*
          * Default selected None value

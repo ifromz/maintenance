@@ -4,24 +4,28 @@ namespace Stevebauman\Maintenance\Repositories;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
 use Venturecraft\Revisionable\Revision;
 use Cartalyst\DataGrid\Laravel\Facades\DataGrid;
 
 abstract class Repository
 {
     /**
-     * The repositories model.
-     *
-     * @var \Illuminate\Database\Eloquent\Model
-     */
-    protected $model;
-
-    /**
      * Returns the current model instance.
      *
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     abstract public function model();
+
+    /**
+     * Returns all of the models results.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function all()
+    {
+        return $this->model()->all();
+    }
 
     /**
      * Finds the specified record by its ID.
@@ -78,7 +82,7 @@ abstract class Repository
     }
 
     /**
-     *
+     * Restores an archived record.
      *
      * @param int|string $id
      *
@@ -237,30 +241,6 @@ abstract class Repository
     public function cacheForget($key)
     {
         return Cache::forget($key);
-    }
-
-    /**
-     * Starts a database transaction
-     */
-    protected function dbStartTransaction()
-    {
-        DB::beginTransaction();
-    }
-
-    /**
-     * Commits the current database transaction
-     */
-    protected function dbCommitTransaction()
-    {
-        DB::commit();
-    }
-
-    /**
-     * Rolls back a database transaction
-     */
-    protected function dbRollbackTransaction()
-    {
-        DB::rollback();
     }
 
     /**
