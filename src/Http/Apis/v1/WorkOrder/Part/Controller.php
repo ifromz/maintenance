@@ -37,9 +37,15 @@ class Controller extends BaseController
             'inventory_stocks.id',
             'inventory_id',
             'location_id',
+            'work_order_parts.created_at',
         ];
 
-        $settings = [];
+        $settings = [
+            'sort' => 'created_at',
+            'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
+        ];
 
         $transformer = function(InventoryStock $stock) use ($workOrderId)
         {

@@ -42,10 +42,11 @@ class MeterController extends BaseController
         ];
 
         $settings = [
-            'sort'      => 'created_at',
+            'sort' => 'created_at',
             'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
         ];
-
         $transformer = function(Meter $meter) use ($id)
         {
             return [
@@ -81,8 +82,10 @@ class MeterController extends BaseController
         ];
 
         $settings = [
-            'sort'      => 'created_at',
+            'sort' => 'created_at',
             'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
         ];
 
         $transformer = function(MeterReading $reading) use ($id)

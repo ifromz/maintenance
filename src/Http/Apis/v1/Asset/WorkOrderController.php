@@ -39,7 +39,12 @@ class WorkOrderController extends BaseController
             'work_orders.subject',
         ];
 
-        $settings = [];
+        $settings = [
+            'sort' => 'created_at',
+            'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
+        ];
 
         $transformer = function(WorkOrder $workOrder)
         {

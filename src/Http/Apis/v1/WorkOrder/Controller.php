@@ -30,14 +30,18 @@ class Controller extends BaseController
     {
         $columns = [
             'id',
+            'priority_id',
+            'status_id',
             'created_at',
             'user_id',
             'subject',
         ];
 
         $settings = [
-            'sort'      => 'created_at',
+            'sort' => 'created_at',
             'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
         ];
 
         $transformer = function(WorkOrder $workOrder)

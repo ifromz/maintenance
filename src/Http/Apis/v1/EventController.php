@@ -79,8 +79,10 @@ class EventController extends Controller
         ];
 
         $settings = [
-            'sort'      => 'created_at',
+            'sort' => 'created_at',
             'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
         ];
 
         $transformer = function(Event $event)
@@ -124,8 +126,10 @@ class EventController extends Controller
             ];
 
             $settings = [
-                'sort'      => 'start',
+                'sort' => 'start',
                 'direction' => 'desc',
+                'threshold' => 10,
+                'throttle' => 10,
             ];
 
             return $this->event->newGrid($events, $columns, $settings);

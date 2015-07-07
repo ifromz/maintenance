@@ -31,6 +31,7 @@ class GroupController extends BaseController
     public function grid()
     {
         $columns = [
+            'id',
             'name',
             'created_at',
         ];
@@ -38,8 +39,8 @@ class GroupController extends BaseController
         $settings = [
             'sort' => 'created_at',
             'direction' => 'desc',
-            'throttle' => 10,
             'threshold' => 10,
+            'throttle' => 10,
         ];
 
         $transformer = function(Group $group)

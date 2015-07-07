@@ -36,8 +36,10 @@ class MetricController extends Controller
         ];
 
         $settings = [
-            'sort'      => 'created_at',
+            'sort' => 'created_at',
             'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
         ];
 
         $transformer = function(Metric $metric)
