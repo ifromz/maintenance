@@ -11,6 +11,8 @@ Route::when('*', 'csrf', ['post', 'put', 'delete']);
  */
 Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'namespace' => 'Stevebauman\Maintenance\Http'], function ()
 {
+    Route::get('/', ['as' => 'maintenance.welcome.index', 'uses' => 'Controllers\WelcomeController@index']);
+
     /*
      * Authentication Routes
      */

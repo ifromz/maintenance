@@ -25,7 +25,7 @@ class PermissionMiddleware
     }
 
     /**
-     * Throws 401 unauthorized error if the user is
+     * Throws 403 unauthorized error if the user is
      * not allowed to access the specified route.
      *
      * @param Request $request
@@ -47,6 +47,6 @@ class PermissionMiddleware
         }
 
         // Return unauthorized error.
-        abort(401);
+        abort(403);
     }
 }
