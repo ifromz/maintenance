@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
+use Stevebauman\Maintenance\Models\User;
 use Stevebauman\Maintenance\Http\Requests\Auth\RegisterRequest;
 use Stevebauman\Maintenance\Http\Requests\Auth\LoginRequest;
 use Stevebauman\Maintenance\Services\ConfigService;
@@ -10,9 +11,6 @@ use Stevebauman\Maintenance\Services\UserService;
 use Stevebauman\Maintenance\Services\LdapService;
 use Stevebauman\Maintenance\Services\AuthService;
 
-/**
- * Class AuthController.
- */
 class AuthController extends Controller
 {
     /**
@@ -82,13 +80,13 @@ class AuthController extends Controller
      */
     public function postLogin(LoginRequest $request)
     {
-        $credentials = $request->all();
+        $credentials = $request->only(['email', 'password', 'remember']);
 
         // Check if LDAP authentication is enabled
         if ($this->config->get('site.ldap.enabled') === true) {
             $user = $this->ldapAuthenticate($credentials);
 
-            if(is_a($user, 'Cartalyst\Sentry\Users\Eloquent\User')) {
+            if($user instanceof User) {
                 $credentials['email'] = $user->email;
             }
         }
