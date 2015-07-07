@@ -106,9 +106,8 @@ class AuthController extends Controller
 
             return redirect()->route('maintenance.work-requests.index')->withSuccess($message);
         } else {
-            // Login failed, return the response from Sentry
-
-            return redirect()->route('maintenance.work-requests.index')->withErrors($response['message']);
+            // Login failed, return error response
+            return redirect()->route('maintenance.login')->withErrors($response['message']);
         }
     }
 

@@ -17,6 +17,8 @@
 
         <div class="login-box-body">
 
+            @include('maintenance::layouts.partials.alert')
+
             <div id="maintenance-login-status"></div>
 
             <div class="form-group{{ $errors->first('email', ' has-error') }}">
