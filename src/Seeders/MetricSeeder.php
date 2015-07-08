@@ -3,16 +3,13 @@
 namespace Stevebauman\Maintenance\Seeders;
 
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\MetricService;
+use Stevebauman\Maintenance\Repositories\MetricRepository;
 use Illuminate\Database\Seeder;
 
-/**
- * Class MetricSeeder.
- */
 class MetricSeeder extends Seeder
 {
     /**
-     * @var MetricService
+     * @var MetricRepository
      */
     protected $metric;
 
@@ -24,10 +21,10 @@ class MetricSeeder extends Seeder
     /**
      * Constructor.
      *
-     * @param MetricService $metric
-     * @param ConfigService $config
+     * @param MetricRepository $metric
+     * @param ConfigService    $config
      */
-    public function __construct(MetricService $metric, ConfigService $config)
+    public function __construct(MetricRepository $metric, ConfigService $config)
     {
         $this->metric = $metric;
         $this->config = $config->setPrefix('maintenance');
@@ -41,7 +38,7 @@ class MetricSeeder extends Seeder
         $metrics = $this->getSeedData();
 
         foreach ($metrics as $metric) {
-            $this->metric->setInput($metric)->firstOrCreate();
+            $this->metric->model()->create($metric);
         }
     }
 

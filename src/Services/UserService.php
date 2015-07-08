@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\User;
 
-/**
- * Class UserService.
- */
 class UserService extends BaseModelService
 {
     /**

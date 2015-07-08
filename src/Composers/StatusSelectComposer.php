@@ -3,19 +3,19 @@
 namespace Stevebauman\Maintenance\Composers;
 
 use Illuminate\View\View;
-use Stevebauman\Maintenance\Services\StatusService;
+use Stevebauman\Maintenance\Repositories\WorkOrder\StatusRepository;
 
 class StatusSelectComposer
 {
     /**
-     * @var StatusService
+     * @var StatusRepository
      */
     protected $status;
 
     /**
-     * @param StatusService $status
+     * @param StatusRepository $status
      */
-    public function __construct(StatusService $status)
+    public function __construct(StatusRepository $status)
     {
         $this->status = $status;
     }
@@ -27,7 +27,7 @@ class StatusSelectComposer
      */
     public function compose(View $view)
     {
-        $statuses = $this->status->get()->lists('name', 'id');
+        $statuses = $this->status->all()->lists('name', 'id')->toArray();
 
         /*
          * Default selected None value

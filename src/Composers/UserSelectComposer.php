@@ -3,19 +3,19 @@
 namespace Stevebauman\Maintenance\Composers;
 
 use Illuminate\View\View;
-use Stevebauman\Maintenance\Services\UserService;
+use Stevebauman\Maintenance\Repositories\UserRepository;
 
 class UserSelectComposer
 {
     /**
-     * @var UserService
+     * @var UserRepository
      */
     protected $user;
 
     /**
-     * @param UserService $user
+     * @param UserRepository $user
      */
-    public function __construct(UserService $user)
+    public function __construct(UserRepository $user)
     {
         $this->user = $user;
     }
@@ -27,7 +27,7 @@ class UserSelectComposer
      */
     public function compose(View $view)
     {
-        $users = $this->user->get()->lists('full_name', 'id');
+        $users = $this->user->all()->lists('full_name', 'id')->toArray();
 
         return $view->with('allUsers', $users);
     }

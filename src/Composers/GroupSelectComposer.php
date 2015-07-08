@@ -2,20 +2,20 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Stevebauman\Maintenance\Services\GroupService;
+use Stevebauman\Maintenance\Repositories\GroupRepository;
 use Illuminate\View\View;
 
 class GroupSelectComposer
 {
     /**
-     * @var GroupService
+     * @var GroupRepository
      */
     protected $group;
 
     /**
-     * @param GroupService $group
+     * @param GroupRepository $group
      */
-    public function __construct(GroupService $group)
+    public function __construct(GroupRepository $group)
     {
         $this->group = $group;
     }
@@ -27,7 +27,7 @@ class GroupSelectComposer
      */
     public function compose(View $view)
     {
-        $groups = $this->group->get()->lists('name', 'id');
+        $groups = $this->group->all()->lists('name', 'id');
 
         return $view->with('allGroups', $groups);
     }

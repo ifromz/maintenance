@@ -3,19 +3,19 @@
 namespace Stevebauman\Maintenance\Composers;
 
 use Illuminate\View\View;
-use Stevebauman\Maintenance\Services\MetricService;
+use Stevebauman\Maintenance\Repositories\MetricRepository;
 
 class MetricSelectComposer
 {
     /**
-     * @var MetricService
+     * @var MetricRepository
      */
     protected $metric;
 
     /**
-     * @param MetricService $metric
+     * @param MetricRepository $metric
      */
-    public function __construct(MetricService $metric)
+    public function __construct(MetricRepository $metric)
     {
         $this->metric = $metric;
     }
@@ -27,7 +27,7 @@ class MetricSelectComposer
      */
     public function compose(View $view)
     {
-        $allMetrics = $this->metric->get()->lists('name', 'id');
+        $allMetrics = $this->metric->all()->lists('name', 'id')->toArray();
 
         $allMetrics[null] = 'Select a Metric';
 

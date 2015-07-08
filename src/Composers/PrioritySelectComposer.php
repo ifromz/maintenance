@@ -27,7 +27,7 @@ class PrioritySelectComposer
      */
     public function compose(View $view)
     {
-        $priorities = $this->priority->all()->lists('name', 'id');
+        $priorities = $this->priority->all()->lists('name', 'id')->toArray();
 
         /*
          * Default selected None value

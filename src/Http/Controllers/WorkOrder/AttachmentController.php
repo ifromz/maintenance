@@ -10,9 +10,6 @@ use Stevebauman\Maintenance\Services\WorkOrder\AttachmentService as WorkOrderAtt
 use Stevebauman\Maintenance\Services\AttachmentService;
 use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
 
-/**
- * Class AttachmentController.
- */
 class AttachmentController extends AbstractUploadController
 {
     /**

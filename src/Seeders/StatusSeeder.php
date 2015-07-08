@@ -3,16 +3,13 @@
 namespace Stevebauman\Maintenance\Seeders;
 
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\StatusService;
+use Stevebauman\Maintenance\Repositories\WorkOrder\StatusRepository;
 use Illuminate\Database\Seeder;
 
-/**
- * Class StatusSeeder.
- */
 class StatusSeeder extends Seeder
 {
     /**
-     * @var StatusService
+     * @var StatusRepository
      */
     protected $status;
 
@@ -24,10 +21,10 @@ class StatusSeeder extends Seeder
     /**
      * Constructor.
      *
-     * @param StatusService $status
+     * @param StatusRepository $status
      * @param ConfigService $config
      */
-    public function __construct(StatusService $status, ConfigService $config)
+    public function __construct(StatusRepository $status, ConfigService $config)
     {
         $this->status = $status;
         $this->config = $config->setPrefix('maintenance');
@@ -41,7 +38,7 @@ class StatusSeeder extends Seeder
         $statuses = $this->getSeedData();
 
         foreach ($statuses as $status) {
-            $this->status->setInput($status)->firstOrCreate();
+            $this->status->model()->create($status);
         }
     }
 
