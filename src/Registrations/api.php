@@ -57,6 +57,12 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                 });
             });
 
+            // Work Order Attachment Api Routes
+            Route::group(['prefix' => '{work_orders}/attachments'], function()
+            {
+                Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.attachments.grid', 'uses' => 'AttachmentController@grid']);
+            });
+
             // Work Order Session Api Routes
             Route::group(['prefix' => '{work_orders}/sessions'], function()
             {

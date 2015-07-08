@@ -170,6 +170,23 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Retrieves all of the current attachments for the specified work order.
+     *
+     * @param int|string $workOrderId
+     * @param array      $columns
+     * @param array      $settings
+     * @param \Closure   $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridAttachments($workOrderId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($workOrderId);
+
+        return $this->newGrid($model->attachments(), $columns, $settings, $transformer);
+    }
+
+    /**
      * Creates a new work order.
      *
      * @param Request $request
