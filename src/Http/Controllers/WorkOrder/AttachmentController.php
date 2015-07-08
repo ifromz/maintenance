@@ -72,9 +72,9 @@ class AttachmentController extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
-        $uploads = $this->attachment->uploadForWorkOrder($request, $workOrder);
+        $attachments = $this->attachment->uploadForWorkOrder($request, $workOrder);
 
-        if($uploads) {
+        if($attachments) {
             $message = 'Successfully uploaded files.';
 
             return redirect()->route('maintenance.work-orders.attachments.index', [$workOrder->id])->withSuccess($message);
@@ -97,9 +97,13 @@ class AttachmentController extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
-        $attachment = $this->attachment->find($attachmentId);
+        $attachment = $workOrder->attachments()->find($attachmentId);
 
-        return view('maintenance::work-orders.attachments.show', compact('workOrder', 'attachment'));
+        if($attachment) {
+            return view('maintenance::work-orders.attachments.show', compact('workOrder', 'attachment'));
+        }
+
+        abort(404);
     }
 
     /**
@@ -114,9 +118,13 @@ class AttachmentController extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
-        $attachment = $this->attachment->find($attachmentId);
+        $attachment = $workOrder->attachments()->find($attachmentId);
 
-        return view('maintenance::work-orders.attachments.edit', compact('workOrder', 'attachment'));
+        if($attachment) {
+            return view('maintenance::work-orders.attachments.edit', compact('workOrder', 'attachment'));
+        }
+
+        abort(404);
     }
 
     /**
@@ -157,9 +165,9 @@ class AttachmentController extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
-        $attachment = $this->attachment->find($attachmentId);
+        $attachment = $workOrder->attachments()->find($attachmentId);
 
-        if($attachment->delete()) {
+        if($attachment && $attachment->delete()) {
             $message = 'Successfully deleted attachment.';
 
             return redirect()->route('maintenance.work-orders.attachments.index', [$workOrder->id])->withSuccess($message);
@@ -184,6 +192,10 @@ class AttachmentController extends BaseController
 
         $attachment = $workOrder->attachments()->find($attachmentId);
 
-        return response()->download($attachment->download_path);
+        if($attachment) {
+            return response()->download($attachment->download_path);
+        }
+
+        abort(404);
     }
 }
