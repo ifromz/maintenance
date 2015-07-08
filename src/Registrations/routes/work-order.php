@@ -251,21 +251,33 @@ Route::group(['namespace' => 'WorkOrder'], function () {
         ]);
     });
 
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Work Order Attachment Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('work-orders/{work_orders}/attachments/{attachments}/download', [
+        'as' => 'maintenance.work-orders.attachments.download',
+        'uses' => 'AttachmentController@download',
+    ]);
+
     Route::resource('work-orders.attachments', 'AttachmentController', [
-        'only' => [
-            'index',
-            'create',
-            'store',
-            'destroy',
-        ],
         'names' => [
             'index' => 'maintenance.work-orders.attachments.index',
             'create' => 'maintenance.work-orders.attachments.create',
             'store' => 'maintenance.work-orders.attachments.store',
+            'show' => 'maintenance.work-orders.attachments.show',
+            'edit' => 'maintenance.work-orders.attachments.edit',
+            'update' => 'maintenance.work-orders.attachments.update',
             'destroy' => 'maintenance.work-orders.attachments.destroy',
         ],
     ]);
 
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Work Order Notification Routes
+    |--------------------------------------------------------------------------
+    */
     Route::resource('work-orders.notifications', 'NotificationController', [
         'only' => [
             'store',
@@ -277,6 +289,11 @@ Route::group(['namespace' => 'WorkOrder'], function () {
         ],
     ]);
 
+    /*
+    |--------------------------------------------------------------------------
+    | Maintenance Work Order Event Routes
+    |--------------------------------------------------------------------------
+    */
     Route::resource('work-orders.events', 'EventController', [
         'names' => [
             'index' => 'maintenance.work-orders.events.index',
@@ -288,5 +305,4 @@ Route::group(['namespace' => 'WorkOrder'], function () {
             'destroy' => 'maintenance.work-orders.events.destroy',
         ],
     ]);
-
 });

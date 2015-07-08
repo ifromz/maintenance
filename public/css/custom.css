@@ -34,6 +34,7 @@ body {
     color: black;
 }
 
+/* Sortable Table Headers */
 thead th.sortable {
     cursor: pointer;
     position: relative;
@@ -54,4 +55,21 @@ thead th.sortable.asc:before {
 
 thead th.sortable.desc:before {
     content: '\f0de';
+}
+
+/* Large Icons */
+.fa-2 {
+    font-size: 2em;
+}
+.fa-3 {
+    font-size: 4em;
+}
+.fa-4 {
+    font-size: 7em;
+}
+.fa-5 {
+    font-size: 12em;
+}
+.fa-6 {
+    font-size: 20em;
 }

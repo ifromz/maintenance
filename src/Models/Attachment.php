@@ -115,6 +115,6 @@ class Attachment extends BaseModel
     {
         $mime = $this->getMimeTypeAttribute();
 
-        return view('models.upload.icon', compact('mime'))->render();
+        return view('maintenance::partials.models.attachment.icon', compact('mime'))->render();
     }
 }

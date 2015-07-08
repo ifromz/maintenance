@@ -86,6 +86,7 @@ class AttachmentRepository extends BaseAttachmentRepository
             $attributes = [
                 'user_id' => $this->sentry->getCurrentUserId(),
                 'name' => $file->getClientOriginalName(),
+                'file_name' => $file->getClientOriginalName(),
                 'file_path' => $storePath,
             ];
 

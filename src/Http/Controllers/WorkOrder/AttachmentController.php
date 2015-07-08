@@ -3,6 +3,7 @@
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Http\Requests\AttachmentRequest;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\AttachmentUpdateRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\AttachmentRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
@@ -81,6 +82,66 @@ class AttachmentController extends BaseController
             $message = 'There was an issue uploaded the files you selected. Please try again.';
 
             return redirect()->route('maintenance.work-orders.attachments.create', [$id])->withErrors($message);
+        }
+    }
+
+    /**
+     * Displays the uploaded file with it's information.
+     *
+     * @param int|string $id
+     * @param int|string $attachmentId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($id, $attachmentId)
+    {
+        $workOrder = $this->workOrder->find($id);
+
+        $attachment = $this->attachment->find($attachmentId);
+
+        return view('maintenance::work-orders.attachments.show', compact('workOrder', 'attachment'));
+    }
+
+    /**
+     * Displays the form for editing an uploaded file.
+     *
+     * @param int|string $id
+     * @param int|string $attachmentId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function edit($id, $attachmentId)
+    {
+        $workOrder = $this->workOrder->find($id);
+
+        $attachment = $this->attachment->find($attachmentId);
+
+        return view('maintenance::work-orders.attachments.edit', compact('workOrder', 'attachment'));
+    }
+
+    /**
+     * Updates the specified ticket upload.
+     *
+     * @param AttachmentUpdateRequest $request
+     * @param int|string              $id
+     * @param int|string              $attachmentId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(AttachmentUpdateRequest $request, $id, $attachmentId)
+    {
+        $workOrder = $this->workOrder->find($id);
+
+        $attachment = $this->attachment->updateForWorkOrder($request, $workOrder, $attachmentId);
+
+        if($attachment) {
+            $message = 'Successfully updated attachment.';
+
+            return redirect()->route('maintenance.work-orders.attachments.show', [$workOrder->id, $attachment->id])->withSuccess($message);
+        } else {
+            $message = 'There was an issue updating this attachment. Please try again.';
+
+            return redirect()->route('maintenance.work-orders.attachments.show', [$id, $attachmentId])->withErrors($message);
         }
     }
 
