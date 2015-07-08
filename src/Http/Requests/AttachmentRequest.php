@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Stevebauman\Maintenance\Http\Requests;
 
-class UploadRequest extends Request
+class AttachmentRequest extends Request
 {
     /**
      * The mimes to allow for file uploads.

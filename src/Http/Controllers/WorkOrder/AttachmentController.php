@@ -2,180 +2,127 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
-use Illuminate\Filesystem\Filesystem;
-use Stevebauman\Maintenance\Validators\DocumentValidator;
-use Stevebauman\Maintenance\Validators\ImageValidator;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Services\WorkOrder\AttachmentService as WorkOrderAttachmentService;
-use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
+use Stevebauman\Maintenance\Http\Requests\AttachmentRequest;
+use Stevebauman\Maintenance\Repositories\WorkOrder\AttachmentRepository;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class AttachmentController extends AbstractUploadController
+class AttachmentController extends BaseController
 {
     /**
-     * @var WorkOrderService
+     * @var WorkOrderRepository
      */
     protected $workOrder;
 
     /**
-     * @var WorkOrderAttachmentService
-     */
-    protected $workOrderAttachment;
-
-    /**
-     * @var AttachmentService
+     * @var AttachmentRepository
      */
     protected $attachment;
 
     /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * @var ImageValidator
-     */
-    protected $imageValidator;
-
-    /**
-     * @var DocumentValidator
-     */
-    protected $documentValidator;
-
-    /**
-     * {@inheritDoc}
-     */
-    protected $fileStorageLocation = 'work-orders/attachments/';
-
-    /**
      * Constructor.
      *
-     * @param WorkOrderService           $workOrder
-     * @param WorkOrderAttachmentService $workOrderAttachment
-     * @param AttachmentService          $attachment
-     * @param Filesystem                 $filesystem
-     * @param ImageValidator             $imageValidator
-     * @param DocumentValidator          $documentValidator
+     * @param WorkOrderRepository $workOrder
+     * @param AttachmentRepository $attachment
      */
-    public function __construct(
-        WorkOrderService $workOrder,
-        WorkOrderAttachmentService $workOrderAttachment,
-        AttachmentService $attachment,
-        Filesystem $filesystem,
-        ImageValidator $imageValidator,
-        DocumentValidator $documentValidator
-    ) {
+    public function __construct(WorkOrderRepository $workOrder, AttachmentRepository $attachment)
+    {
         $this->workOrder = $workOrder;
-        $this->workOrderAttachment = $workOrderAttachment;
         $this->attachment = $attachment;
-        $this->filesystem = $filesystem;
-        $this->imageValidator = $imageValidator;
-        $this->documentValidator = $documentValidator;
     }
 
     /**
      * Displays a list of the work order attachments.
      *
-     * @param $workOrder_id
+     * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function index($workOrder_id)
+    public function index($id)
     {
-        $workOrder = $this->workOrder->find($workOrder_id);
+        $workOrder = $this->workOrder->find($id);
 
-        return view('maintenance::work-orders.attachments.index', [
-            'title' => 'Work Order Attachments',
-            'workOrder' => $workOrder,
-        ]);
+        return view('maintenance::work-orders.attachments.index', compact('workOrder'));
     }
 
     /**
      * Displays the form to create work order attachments.
      *
-     * @param $workOrder_id
+     * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function create($workOrder_id)
+    public function create($id)
     {
-        $workOrder = $this->workOrder->find($workOrder_id);
+        $workOrder = $this->workOrder->find($id);
 
-        return view('maintenance::work-orders.attachments.create', [
-            'title' => 'Add Attachments to Work Order',
-            'workOrder' => $workOrder,
-        ]);
+        return view('maintenance::work-orders.attachments.create', compact('workOrder'));
     }
 
     /**
      * Processes storing the attachment record.
      *
-     * @param $workOrderId
+     * @param AttachmentRequest $request
+     * @param int|string        $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($workOrderId)
+    public function store(AttachmentRequest $request, $id)
     {
-        // Validate that the uploaded files are either documents or images
-        if($this->imageValidator->passes() || $this->documentValidator->passes()) {
-            $files = $this->uploadFiles();
+        $workOrder = $this->workOrder->find($id);
 
-            $data = $this->inputAll();
-            $data['work_order_id'] = $workOrderId;
-            $data['file_path'] = $this->getUploadDirectory();
-            $data['files'] = $files;
+        $uploads = $this->attachment->uploadForWorkOrder($request, $workOrder);
 
-            if ($this->workOrderAttachment->setInput($data)->create()) {
-                $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrderId]);
-                $this->message = 'Successfully added attachments';
-                $this->messageType = 'success';
-            } else {
-                $this->redirect = route('maintenance.work-orders.attachments.create', [$workOrderId]);
-                $this->message = 'There was an error adding images to the asset, please try again';
-                $this->messageType = 'danger';
-            }
+        if($uploads) {
+            $message = 'Successfully uploaded files.';
+
+            return redirect()->route('maintenance.work-orders.attachments.index', [$workOrder->id])->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.work-orders.attachments.create', [$workOrderId]);
+            $message = 'There was an issue uploaded the files you selected. Please try again.';
 
-            $imageErrors = $this->imageValidator->getErrors();
-
-            $documentErrors = $this->documentValidator->getErrors();
-
-            // We need to merge message bags together if both validators contain errors
-            if($imageErrors instanceof \Illuminate\Support\MessageBag && $documentErrors instanceof \Illuminate\Support\MessageBag) {
-                $this->errors = $imageErrors->merge($documentErrors);
-            }
+            return redirect()->route('maintenance.work-orders.attachments.create', [$id])->withErrors($message);
         }
-
-        return $this->response();
     }
 
     /**
      * Processes deleting an attachment record and the file itself.
      *
-     * @param $workOrder_id
-     * @param $attachment_id
+     * @param int|string $id
+     * @param int|string $attachmentId
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($workOrder_id, $attachment_id)
+    public function destroy($id, $attachmentId)
     {
-        $workOrder = $this->workOrder->find($workOrder_id);
-        $attachment = $this->attachment->find($attachment_id);
+        $workOrder = $this->workOrder->find($id);
 
-        if ($this->filesystem->delete($attachment->file_path)) {
+        $attachment = $this->attachment->find($attachmentId);
 
-            $attachment->delete();
+        if($attachment->delete()) {
+            $message = 'Successfully deleted attachment.';
 
-            $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrder->id]);
-            $this->message = 'Successfully deleted attachment';
-            $this->messageType = 'success';
+            return redirect()->route('maintenance.work-orders.attachments.index', [$workOrder->id])->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.work-orders.attachments.index', [$workOrder->id]);
-            $this->message = 'There was an error deleting the attached file, please try again';
-            $this->messageType = 'danger';
-        }
+            $message = 'There was an issue deleting this attachment. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.work-orders.attachments.show', [$workOrder->id, $attachment->id])->withErrors($message);
+        }
+    }
+
+    /**
+     * Prompts the user to download the specified uploaded file.
+     *
+     * @param int|string $id
+     * @param int|string $attachmentId
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function download($id, $attachmentId)
+    {
+        $workOrder = $this->workOrder->find($id);
+
+        $attachment = $workOrder->attachments()->find($attachmentId);
+
+        return response()->download($attachment->download_path);
     }
 }
