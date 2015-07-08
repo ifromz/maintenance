@@ -63,7 +63,7 @@ class MaintenanceServiceProvider extends ServiceProvider
      */
     private function bootPublishable()
     {
-        $config = __DIR__.'/config/';
+        $config = __DIR__.'/Config/';
 
         $this->publishes([
             $config.'colors.php' => config_path('maintenance/colors.php'),
@@ -75,15 +75,15 @@ class MaintenanceServiceProvider extends ServiceProvider
         ], 'config');
 
         $this->publishes([
-            __DIR__.'/migrations/' => base_path('database/migrations'),
+            __DIR__.'/Migrations/' => base_path('database/migrations'),
         ], 'migrations');
 
         $this->publishes([
-            __DIR__.'/views' => base_path('resources/views/stevebauman/maintenance'),
+            __DIR__.'/Views' => base_path('resources/views/stevebauman/maintenance'),
         ], 'views');
 
         $this->publishes([
-            __DIR__.'/public' => public_path('assets/stevebauman/maintenance'),
+            __DIR__.'/../public' => public_path('assets/stevebauman/maintenance'),
         ], 'assets');
     }
 
@@ -92,9 +92,9 @@ class MaintenanceServiceProvider extends ServiceProvider
      */
     private function bootLoadable()
     {
-        $this->loadViewsFrom(__DIR__.'/views', 'maintenance');
+        $this->loadViewsFrom(__DIR__.'/Views', 'maintenance');
 
-        $this->loadTranslationsFrom(__DIR__.'/lang', 'maintenance');
+        $this->loadTranslationsFrom(__DIR__.'/Lang', 'maintenance');
     }
 
     /**
@@ -102,12 +102,12 @@ class MaintenanceServiceProvider extends ServiceProvider
      */
     private function bootRequiredFiles()
     {
-        include __DIR__.'/registrations/routes.php';
-        include __DIR__.'/registrations/api.php';
-        include __DIR__.'/registrations/composers.php';
-        include __DIR__.'/registrations/validators.php';
-        include __DIR__.'/registrations/observers.php';
-        include __DIR__.'/registrations/breadcrumbs.php';
+        include __DIR__.'/Registrations/routes.php';
+        include __DIR__.'/Registrations/api.php';
+        include __DIR__.'/Registrations/composers.php';
+        include __DIR__.'/Registrations/validators.php';
+        include __DIR__.'/Registrations/observers.php';
+        include __DIR__.'/Registrations/breadcrumbs.php';
     }
 
     /**
