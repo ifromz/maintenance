@@ -2,78 +2,46 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
-use Illuminate\Filesystem\Filesystem;
-use Stevebauman\Maintenance\Validators\ImageValidator;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Services\Asset\ImageService;
-use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
+use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
+use Stevebauman\Maintenance\Http\Requests\AttachmentRequest;
+use Stevebauman\Maintenance\Repositories\Asset\ImageRepository;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class ImageController extends AbstractUploadController
+class ImageController extends BaseController
 {
     /**
-     * @var AssetService
+     * @var AssetRepository
      */
     protected $asset;
 
     /**
-     * @var ImageService
+     * @var ImageRepository
      */
-    protected $assetImage;
-
-    /**
-     * @var ImageValidator
-     */
-    protected $imageValidator;
-
-    /**
-     * @var AttachmentService
-     */
-    protected $attachment;
-
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * {@inheritDoc}
-     */
-    protected $fileStorageLocation = 'assets/images/';
+    protected $image;
 
     /**
      * Constructor.
      *
-     * @param AssetService      $asset
-     * @param ImageService      $assetImage
-     * @param ImageValidator    $imageValidator
-     * @param AttachmentService $attachment
-     * @param Filesystem        $filesystem
+     * @param AssetRepository $asset
+     * @param ImageRepository $image
      */
-    public function __construct(
-        AssetService $asset,
-        ImageService $assetImage,
-        ImageValidator $imageValidator,
-        AttachmentService $attachment,
-        Filesystem $filesystem
-    ) {
+    public function __construct(AssetRepository $asset, ImageRepository $image)
+    {
         $this->asset = $asset;
-        $this->assetImage = $assetImage;
-        $this->imageValidator = $imageValidator;
-        $this->attachment = $attachment;
-        $this->filesystem = $filesystem;
+        $this->image = $image;
     }
 
     /**
-     * Display a listing of the resource.
+     * Displays all images attached to the specified asset.
      *
-     * @param $asset_id
+     * @param int|string $id
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function index($asset_id)
+    public function index($id)
     {
-        $asset = $this->asset->find($asset_id);
+        $asset = $this->asset->find($id);
 
         return view('maintenance::assets.images.index', compact('asset'));
     }
@@ -83,7 +51,7 @@ class ImageController extends AbstractUploadController
      *
      * @param int|string $assetId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
     public function create($assetId)
     {
@@ -95,104 +63,139 @@ class ImageController extends AbstractUploadController
     /**
      * Store a newly created resource in storage.
      *
-     * @param int|string $assetId
+     * @param AttachmentRequest $request
+     * @param int|string        $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($assetId)
+    public function store(AttachmentRequest $request, $id)
     {
-        if ($this->imageValidator->passes()) {
-            $files = $this->uploadFiles();
+        $asset = $this->asset->find($id);
 
-            $data = $this->inputAll();
-            $data['asset_id'] = $assetId;
-            $data['file_path'] = $this->getUploadDirectory();
-            $data['files'] = $files;
+        $attachments = $this->image->upload($request, $asset, $asset->images());
 
-            if ($this->assetImage->setInput($data)->create()) {
-                $this->redirect = route('maintenance.assets.images.index', [$assetId]);
-                $this->message = 'Successfully added image(s)';
-                $this->messageType = 'success';
-            } else {
-                $this->redirect = route('maintenance.assets.images.create', [$assetId]);
-                $this->message = 'There was an error adding images to the asset, please try again';
-                $this->messageType = 'danger';
-            }
+        if($attachments) {
+            $message = 'Successfully uploaded files.';
+
+            return redirect()->route('maintenance.assets.images.index', [$asset->id])->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.assets.images.create', [$assetId]);
-            $this->errors = $this->imageValidator->getErrors();
-        }
+            $message = 'There was an issue uploading the files you selected. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.assets.images.create', [$id])->withErrors($message);
+        }
     }
 
     /**
      * Displays the asset image.
      *
-     * @param int|string $assetId
-     * @param int|string $attachmentId
+     * @param int|string $id
+     * @param int|string $imageId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function show($assetId, $attachmentId)
+    public function show($id, $imageId)
     {
-        $asset = $this->asset->find($assetId);
+        $asset = $this->asset->find($id);
 
-        $attachment = $this->attachment->find($attachmentId);
+        $image = $asset->images()->find($imageId);
 
-        return view('maintenance::assets.images.show', [
-            'title' => 'Viewing Asset Image',
-            'asset' => $asset,
-            'image' => $attachment,
-        ]);
+        if($image) {
+            return view('maintenance::assets.images.show', compact('asset', 'image'));
+        }
+
+        abort(404);
     }
 
     /**
-     * Deletes the specified image from the asset.
+     * Displays the form for editing an uploaded image.
      *
-     * @param int|string $assetId
-     * @param int|string $attachmentId
+     * @param int|string $id
+     * @param int|string $imageId
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\View\View
      */
-    public function destroy($assetId, $attachmentId)
+    public function edit($id, $imageId)
     {
-        $asset = $this->asset->find($assetId);
-        $attachment = $this->attachment->find($attachmentId);
+        $asset = $this->asset->find($id);
 
-        if ($this->filesystem->delete($attachment->file_path)) {
-            $attachment->delete();
+        $image = $asset->images()->find($imageId);
 
-            $this->redirect = route('maintenance.assets.images.index', [$asset->id]);
-            $this->message = 'Successfully deleted image';
-            $this->messageType = 'success';
-        } else {
-            $this->redirect = route('maintenance.assets.images.show', [$asset->id, $attachment->id]);
-            $this->message = 'There was an error deleting the image file, please try again';
-            $this->messageType = 'danger';
+        if($image) {
+            return view('maintenance::work-orders.attachments.edit', compact('asset', 'image'));
         }
 
-        return $this->response();
+        abort(404);
+    }
+
+    /**
+     * Updates the specified ticket upload.
+     *
+     * @param AttachmentUpdateRequest $request
+     * @param int|string              $id
+     * @param int|string              $imageId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(AttachmentUpdateRequest $request, $id, $imageId)
+    {
+        $asset = $this->asset->find($id);
+
+        $attachment = $this->image->update($request, $asset->images(), $imageId);
+
+        if($attachment) {
+            $message = 'Successfully updated attachment.';
+
+            return redirect()->route('maintenance.assets.images.show', [$asset->id, $attachment->id])->withSuccess($message);
+        } else {
+            $message = 'There was an issue updating this attachment. Please try again.';
+
+            return redirect()->route('maintenance.assets.images.show', [$id, $imageId])->withErrors($message);
+        }
+    }
+
+    /**
+     * Processes deleting an attachment record and the file itself.
+     *
+     * @param int|string $id
+     * @param int|string $imageId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id, $imageId)
+    {
+        $asset = $this->asset->find($id);
+
+        $image = $asset->images()->find($imageId);
+
+        if($image && $image->delete()) {
+            $message = 'Successfully deleted attachment.';
+
+            return redirect()->route('maintenance.work-orders.attachments.index', [$image->id])->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this attachment. Please try again.';
+
+            return redirect()->route('maintenance.work-orders.attachments.show', [$image->id, $image->id])->withErrors($message);
+        }
     }
 
     /**
      * Prompts the user to download the specified uploaded file.
      *
      * @param int|string $id
-     * @param int|string $attachmentId
+     * @param int|string $imageId
      *
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download($id, $attachmentId)
+    public function download($id, $imageId)
     {
         $asset = $this->asset->find($id);
 
-        $image = $asset->images()->find($attachmentId);
+        $attachment = $asset->images()->find($imageId);
 
-        if($image) {
-            return response()->download($image->file_path);
-        } else {
-            abort(404);
+        if($attachment) {
+            return response()->download($attachment->download_path);
         }
+
+        abort(404);
     }
 }

@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Http\Requests\AttachmentRequest;
-use Stevebauman\Maintenance\Http\Requests\WorkOrder\AttachmentUpdateRequest;
+use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\AttachmentRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
@@ -72,7 +72,7 @@ class AttachmentController extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
-        $attachments = $this->attachment->uploadForWorkOrder($request, $workOrder);
+        $attachments = $this->attachment->upload($request, $workOrder, $workOrder->attachments());
 
         if($attachments) {
             $message = 'Successfully uploaded files.';
@@ -140,7 +140,7 @@ class AttachmentController extends BaseController
     {
         $workOrder = $this->workOrder->find($id);
 
-        $attachment = $this->attachment->updateForWorkOrder($request, $workOrder, $attachmentId);
+        $attachment = $this->attachment->update($request, $workOrder->attachments(), $attachmentId);
 
         if($attachment) {
             $message = 'Successfully updated attachment.';

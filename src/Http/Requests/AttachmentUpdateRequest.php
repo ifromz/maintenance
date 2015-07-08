@@ -1,6 +1,6 @@
 <?php
 
-namespace Stevebauman\Maintenance\Http\Requests\WorkOrder;
+namespace Stevebauman\Maintenance\Http\Requests;
 
 use Stevebauman\Maintenance\Http\Requests\Request as BaseRequest;
 

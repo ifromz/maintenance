@@ -7,6 +7,7 @@
 @stop
 
 @section('panel.body.content')
+
     {!!
         Form::open([
             'url' => route('maintenance.work-orders.attachments.store', [$workOrder->id]),
@@ -21,4 +22,5 @@
     <div class="form-group">
         {!! Form::submit('Save', ['class'=>'btn btn-success']) !!}
     </div>
+
 @stop
