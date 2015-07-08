@@ -228,6 +228,16 @@ class WorkOrderViewer extends BaseViewer
     }
 
     /**
+     * The work order attachments button.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function btnAttachments()
+    {
+        return view('maintenance::viewers.work-order.buttons.attachments', ['workOrder' => $this->entity]);
+    }
+
+    /**
      * The work order add attachments button.
      *
      * @return \Illuminate\View\View

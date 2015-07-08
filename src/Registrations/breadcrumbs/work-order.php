@@ -108,7 +108,7 @@ Breadcrumbs::register('maintenance.work-orders.attachments.index', function (Gen
 
 Breadcrumbs::register('maintenance.work-orders.attachments.create', function (Generator $breadcrumbs, $workOrderId) {
     $breadcrumbs->parent('maintenance.work-orders.attachments.index', $workOrderId);
-    $breadcrumbs->push('Add', route('maintenance.work-orders.attachments.create', [$workOrderId]));
+    $breadcrumbs->push('Upload', route('maintenance.work-orders.attachments.create', [$workOrderId]));
 });
 
 Breadcrumbs::register('maintenance.work-orders.attachments.show', function (Generator $breadcrumbs, $workOrderId, $attachmentId) {

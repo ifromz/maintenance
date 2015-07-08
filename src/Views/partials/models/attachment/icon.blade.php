@@ -1,4 +1,4 @@
-@if($mime === 'image/jpeg')
+@if($mime === 'image/jpeg' || $mime === 'image/png')
     <i class="fa fa-file-image-o"></i>
 @elseif($mime === 'application/pdf')
     <i class="fa fa-file-pdf-o"></i>

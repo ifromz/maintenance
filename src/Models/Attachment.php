@@ -3,10 +3,13 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Support\Facades\Storage;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Viewers\AttachmentViewer;
 
 class Attachment extends BaseModel
 {
+    use HasUserTrait;
+
     /**
      * The attachments table.
      *

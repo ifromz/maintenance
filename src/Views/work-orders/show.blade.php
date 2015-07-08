@@ -7,7 +7,6 @@
     <li><a href="#tab-details" data-toggle="tab">Details</a></li>
     <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
     <li><a href="#tab-history" data-toggle="tab">History</a></li>
-    <li><a href="#tab-attachments" data-toggle="tab">Attachments</a></li>
     <li><a href="#tab-updates" data-toggle="tab">Updates</a></li>
 @stop
 
@@ -19,6 +18,8 @@
             {!! $workOrder->viewer()->btnEvents() !!}
 
             {!! $workOrder->viewer()->btnParts() !!}
+
+            {!! $workOrder->viewer()->btnAttachments() !!}
 
             {!! $workOrder->viewer()->btnWorkers() !!}
 
@@ -68,15 +69,6 @@
 
         {!! $workOrder->viewer()->history() !!}
 
-    </div>
-
-    <div class="tab-pane" id="tab-attachments">
-
-        {!! $workOrder->viewer()->btnAddAttachments() !!}
-
-        <h2>Attachments</h2>
-
-        {!! $workOrder->viewer()->attachments() !!}
     </div>
 
     <div class="tab-pane" id="tab-updates">

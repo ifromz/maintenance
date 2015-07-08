@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Apis\v1\WorkOrder;
+namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
 use Stevebauman\Maintenance\Models\Attachment;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
@@ -33,11 +33,11 @@ class AttachmentController extends BaseController
     public function grid($id)
     {
         $columns = [
-            'id',
-            'created_at',
-            'user_id',
-            'name',
-            'color',
+            'attachments.id',
+            'attachments.user_id',
+            'attachments.name',
+            'attachments.file_name',
+            'attachments.created_at',
         ];
 
         $settings = [
@@ -53,6 +53,7 @@ class AttachmentController extends BaseController
                 'id' => $attachment->id,
                 'user' => ($attachment->user ? $attachment->user->full_name : '<em>System</em>'),
                 'name' => $attachment->name,
+                'icon' => $attachment->icon,
                 'file_name' => $attachment->file_name,
                 'created_at' => $attachment->created_at,
                 'view_url' => route('maintenance.work-orders.attachments.show', [$id, $attachment->id]),

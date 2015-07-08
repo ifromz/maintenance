@@ -1,19 +1,9 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.main')
 
 @section('title', 'Work Order Attachments')
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a href="{{ route('maintenance.work-orders.attachments.create', [$workOrder->id]) }}"
-           class="btn btn-primary" data-toggle="tooltip" title="Upload Work Order Attachments">
-            <i class="fa fa-plus"></i>
-            Upload Attachments
-        </a>
-    </div>
-@stop
+@section('content')
 
-@section('panel.body.content')
-
-    {!! $workOrder->viewer()->attachments() !!}
+    @include('maintenance::work-orders.attachments.grid.index')
 
 @stop
