@@ -79,7 +79,7 @@ class AttachmentController extends BaseController
 
             return redirect()->route('maintenance.work-orders.attachments.index', [$workOrder->id])->withSuccess($message);
         } else {
-            $message = 'There was an issue uploaded the files you selected. Please try again.';
+            $message = 'There was an issue uploading the files you selected. Please try again.';
 
             return redirect()->route('maintenance.work-orders.attachments.create', [$id])->withErrors($message);
         }

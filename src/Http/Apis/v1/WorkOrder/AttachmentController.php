@@ -37,6 +37,7 @@ class AttachmentController extends BaseController
             'attachments.user_id',
             'attachments.name',
             'attachments.file_name',
+            'attachments.file_path',
             'attachments.created_at',
         ];
 

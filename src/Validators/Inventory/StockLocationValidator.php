@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Validators\Inventory;
 use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Illuminate\Support\Facades\Route;
 
-/**
- * Class StockLocationValidator.
- */
 class StockLocationValidator
 {
     /**

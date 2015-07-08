@@ -25,6 +25,13 @@ class AttachmentRequest extends Request
     ];
 
     /**
+     * The maximum allowed file size in kilobytes.
+     *
+     * @var int
+     */
+    protected $maxSize = 15000;
+
+    /**
      * The upload validation rules.
      *
      * @return array
@@ -33,13 +40,17 @@ class AttachmentRequest extends Request
     {
         $mimes = $this->getMimes();
 
+        $size = $this->getMaxSize();
+
+        $rule = "required|mimes:$mimes|max:$size";
+
         $rules = [];
 
         if($this->hasFile('files')) {
             $files = $this->file('files');
 
             foreach($files as $key => $file) {
-                $rules['files.' . $key] = "required|mimes:$mimes";
+                $rules['files.' . $key] = $rule;
             }
         }
 
@@ -54,6 +65,16 @@ class AttachmentRequest extends Request
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Returns the maximum allowed size for each attachment.
+     *
+     * @return string
+     */
+    public function getMaxSize()
+    {
+        return $this->maxSize;
     }
 
     /**

@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Validators\Inventory;
 
 use Stevebauman\Maintenance\Validators\BaseValidator;
 
-/**
- * Class InventoryStockValidator.
- */
 class StockValidator extends BaseValidator
 {
     /**

@@ -53,7 +53,7 @@ class AttachmentRepository extends Repository
      */
     public function getUniqueFileName(UploadedFile $file)
     {
-        return $this->getUploadTimestamp() . '.' . $file->getClientOriginalExtension();
+        return uniqid($this->getUploadTimestamp()) . '.' . $file->getClientOriginalExtension();
     }
 
     /**

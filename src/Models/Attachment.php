@@ -86,7 +86,7 @@ class Attachment extends BaseModel
      */
     public function getLastModifiedAttribute()
     {
-        return Storage::disk($this->getDisk())->lastModified($this->path);
+        return Storage::disk($this->getDisk())->lastModified($this->file_path);
     }
 
     /**
@@ -96,7 +96,7 @@ class Attachment extends BaseModel
      */
     public function getSizeAttribute()
     {
-        return Storage::disk($this->getDisk())->size($this->path);
+        return Storage::disk($this->getDisk())->size($this->file_path);
     }
 
     /**
@@ -106,7 +106,7 @@ class Attachment extends BaseModel
      */
     public function getMimeTypeAttribute()
     {
-        return Storage::disk($this->getDisk())->getMimetype($this->path);
+        return Storage::disk($this->getDisk())->getMimetype($this->file_path);
     }
 
     /**
