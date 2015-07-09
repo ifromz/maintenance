@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Models\WorkOrderAssignment;
 
-/**
- * Class AssignmentService.
- */
 class AssignmentService extends BaseModelService
 {
     /**

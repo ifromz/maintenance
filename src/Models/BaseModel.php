@@ -10,9 +10,6 @@ use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-/**
- * Class BaseModel.
- */
 class BaseModel extends Eloquent
 {
     /*

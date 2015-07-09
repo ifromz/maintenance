@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Validators;
 
 use Illuminate\Support\Facades\Input;
 
-/**
- * Class FileValidator.
- */
 class FileValidator extends BaseValidator
 {
     /**

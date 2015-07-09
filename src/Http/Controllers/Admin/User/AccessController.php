@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Validators\AccessCheckValidator;
 use Stevebauman\Maintenance\Services\UserService;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-/**
- * Class AccessController.
- */
 class AccessController extends Controller
 {
     /**

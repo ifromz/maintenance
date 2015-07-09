@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Attachment;
 
-/**
- * Class AttachmentService
- */
 class AttachmentService extends BaseModelService
 {
     /**

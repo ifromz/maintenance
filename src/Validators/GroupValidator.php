@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class GroupValidator.
- */
 class GroupValidator extends BaseValidator
 {
     protected $rules = [

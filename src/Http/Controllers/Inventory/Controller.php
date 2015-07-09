@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Http\Requests\Inventory\Request;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-/**
- * Class InventoryController.
- */
 class Controller extends BaseController
 {
     /**

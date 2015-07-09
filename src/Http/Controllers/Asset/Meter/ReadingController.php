@@ -9,9 +9,6 @@ use Stevebauman\Maintenance\Services\Meter\MeterService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-/**
- * Class ReadingController.
- */
 class ReadingController extends Controller
 {
     /**

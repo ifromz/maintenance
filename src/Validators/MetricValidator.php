@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class MetricValidator.
- */
 class MetricValidator extends BaseValidator
 {
     /**

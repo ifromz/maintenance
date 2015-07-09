@@ -7,9 +7,6 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\InventoryStockMovement;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class StockMovementService.
- */
 class StockMovementService extends BaseModelService
 {
     /**

@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Models\Update;
 use Stevebauman\Maintenance\Models\WorkRequest;
 
-/**
- * Class WorkRequest.
- */
 class WorkRequestService extends BaseModelService
 {
     /**

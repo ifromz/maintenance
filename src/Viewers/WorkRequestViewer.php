@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Viewers;
 
-/**
- * Class WorkRequest.
- */
 class WorkRequestViewer extends BaseViewer
 {
     /**

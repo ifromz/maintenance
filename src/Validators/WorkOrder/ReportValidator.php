@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Validators\WorkOrder;
 
 use Stevebauman\Maintenance\Validators\BaseValidator;
 
-/**
- * Class ReportValidator.
- */
 class ReportValidator extends BaseValidator
 {
     protected $rules = [

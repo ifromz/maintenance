@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class PasswordValidator.
- */
 class PasswordValidator extends BaseValidator
 {
     protected $rules = [

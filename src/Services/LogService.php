@@ -6,9 +6,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
 use Stevebauman\CoreHelper\Services\Service;
 
-/**
- * Class LogService.
- */
 class LogService extends Service
 {
     /**

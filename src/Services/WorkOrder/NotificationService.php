@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\WorkOrderNotification;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class NotificationService
- */
 class NotificationService extends BaseModelService
 {
     /**

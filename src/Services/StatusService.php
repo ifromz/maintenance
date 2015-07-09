@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Status;
 
-/**
- * Class StatusService.
- */
 class StatusService extends BaseModelService
 {
     /**

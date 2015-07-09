@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Note;
 
-/**
- * Class NoteService.
- */
 class NoteService extends BaseModelService
 {
     /**

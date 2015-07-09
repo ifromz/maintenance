@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Asset;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class AssetService.
- */
 class AssetService extends BaseModelService
 {
     /**

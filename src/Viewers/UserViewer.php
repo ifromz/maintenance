@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Viewers;
 
-/**
- * Class UserViewer.
- */
 class UserViewer extends BaseViewer
 {
     /**

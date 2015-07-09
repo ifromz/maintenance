@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Http\Requests\Inventory\VariantRequest;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-/**
- * Class VariantController.
- */
 class VariantController extends BaseController
 {
     /**

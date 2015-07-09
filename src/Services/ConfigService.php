@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\CoreHelper\Services\ConfigService as CoreHelperConfigService;
 
-/**
- * Class ConfigService.
- */
 class ConfigService extends CoreHelperConfigService
 {
     /**

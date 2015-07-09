@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class WorkRequestValidator.
- */
 class WorkRequestValidator extends BaseValidator
 {
     protected $rules = [

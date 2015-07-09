@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class CategoryValidator.
- */
 class CategoryValidator extends BaseValidator
 {
     protected $rules = [

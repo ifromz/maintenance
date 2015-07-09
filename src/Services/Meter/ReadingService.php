@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\MeterReading;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class ReadingService
- */
 class ReadingService extends BaseModelService
 {
     /**

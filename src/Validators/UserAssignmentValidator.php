@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Validator;
 use Stevebauman\Maintenance\Services\WorkOrder\AssignmentService;
 
-/**
- * Class UserAssignmentValidator.
- */
 class UserAssignmentValidator extends Validator
 {
     /**

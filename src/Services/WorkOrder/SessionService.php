@@ -7,9 +7,6 @@ use Stevebauman\Maintenance\Models\WorkOrderSession;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class SessionService.
- */
 class SessionService extends BaseModelService
 {
     /**

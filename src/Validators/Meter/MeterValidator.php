@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class MeterValidator.
- */
 class MeterValidator extends BaseValidator
 {
     protected $rules = [

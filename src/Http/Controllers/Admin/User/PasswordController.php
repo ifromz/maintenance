@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Validators\PasswordValidator;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-/**
- * Class PasswordController.
- */
 class PasswordController extends Controller
 {
     /**

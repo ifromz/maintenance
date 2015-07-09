@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Http\Controllers;
 use Stevebauman\Maintenance\Http\Requests\MetricRequest;
 use Stevebauman\Maintenance\Repositories\MetricRepository;
 
-/**
- * Class MetricController
- */
 class MetricController extends Controller
 {
     /**

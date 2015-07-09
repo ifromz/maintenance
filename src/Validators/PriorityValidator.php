@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class PriorityValidator.
- */
 class PriorityValidator extends BaseValidator
 {
     protected $rules = [

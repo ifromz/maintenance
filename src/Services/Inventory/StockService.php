@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Services\Inventory;
 use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class StockService.
- */
 class StockService extends BaseModelService
 {
     /**

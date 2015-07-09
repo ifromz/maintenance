@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class GreaterThanNumberValidator.
- */
 class GreaterThanNumberValidator
 {
     /**

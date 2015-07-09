@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Validators\Event;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\Event\ReportService;
 
-/**
- * Class UniqueReportValidator.
- */
 class UniqueReportValidator
 {
     /**

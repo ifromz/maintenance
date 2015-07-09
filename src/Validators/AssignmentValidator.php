@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class AssignmentValidator.
- */
 class AssignmentValidator extends BaseValidator
 {
     protected $rules = [

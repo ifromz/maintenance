@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class StatusValidator.
- */
 class StatusValidator extends BaseValidator
 {
     protected $rules = [

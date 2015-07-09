@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Viewers;
 
-/**
- * Class GroupViewer.
- */
 class GroupViewer extends BaseViewer
 {
     /**

@@ -8,9 +8,6 @@ use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\Inventory\InventoryService;
 use Stevebauman\Maintenance\Http\Controllers\Event\AbstractEventableController;
 
-/**
- * Class EventController.
- */
 class EventController extends AbstractEventableController
 {
     /**

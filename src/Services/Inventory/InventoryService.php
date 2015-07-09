@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class InventoryService.
- */
 class InventoryService extends BaseModelService
 {
     /**

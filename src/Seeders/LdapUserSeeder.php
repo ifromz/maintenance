@@ -8,9 +8,6 @@ use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\LdapService;
 use Illuminate\Database\Seeder;
 
-/**
- * Class LdapUserSeeder.
- */
 class LdapUserSeeder extends Seeder
 {
     /**

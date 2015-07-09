@@ -6,9 +6,6 @@ use Swift_TransportException;
 use Illuminate\Mail\Mailer;
 use Stevebauman\CoreHelper\Services\Service;
 
-/**
- * Class MailService.
- */
 class MailService extends Service
 {
     /**

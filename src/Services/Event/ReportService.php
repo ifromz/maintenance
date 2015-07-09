@@ -6,9 +6,6 @@ use Stevebauman\Maintenance\Models\EventReport;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
 
-/**
- * Class ReportService.
- */
 class ReportService extends BaseModelService
 {
     /**

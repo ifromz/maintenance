@@ -7,9 +7,6 @@ use Stevebauman\Maintenance\Services\WorkRequestService;
 use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-/**
- * Class UpdateController.
- */
 class UpdateController extends BaseController
 {
     /**

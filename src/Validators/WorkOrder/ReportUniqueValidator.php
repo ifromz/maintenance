@@ -5,9 +5,6 @@ namespace Stevebauman\Maintenance\Validators\WorkOrder;
 use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Illuminate\Support\Facades\Route;
 
-/**
- * Class ReportUniqueValidator.
- */
 class ReportUniqueValidator
 {
     /**

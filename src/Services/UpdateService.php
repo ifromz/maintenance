@@ -4,9 +4,6 @@ namespace Stevebauman\Maintenance\Services;
 
 use Stevebauman\Maintenance\Models\Update;
 
-/**
- * Class UpdateService.
- */
 class UpdateService extends BaseModelService
 {
     /**

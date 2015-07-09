@@ -7,9 +7,6 @@ use Stevebauman\Maintenance\Services\Inventory\StockService;
 use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-/**
- * Class StockMovementController.
- */
 class StockMovementController extends BaseController
 {
     /**

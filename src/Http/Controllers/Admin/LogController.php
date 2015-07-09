@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\App;
 use Stevebauman\LogReader\LogReader;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
 
-/**
- * Class LogController.
- */
 class LogController extends Controller
 {
     /**

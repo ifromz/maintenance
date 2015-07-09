@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
-/**
- * Class MaintenanceController.
- */
 class MaintenanceController extends Controller
 {
     /**
@@ -14,8 +11,6 @@ class MaintenanceController extends Controller
      */
     public function getIndex()
     {
-        return view('maintenance::dashboard.index', [
-            'title' => 'Dashboard',
-        ]);
+        return view('maintenance::dashboard.index');
     }
 }

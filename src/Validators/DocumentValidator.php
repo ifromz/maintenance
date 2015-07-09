@@ -2,9 +2,6 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-/**
- * Class DocumentValidator.
- */
 class DocumentValidator extends FileValidator
 {
     /**

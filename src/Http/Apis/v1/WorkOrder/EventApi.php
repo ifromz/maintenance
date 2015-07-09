@@ -7,9 +7,6 @@ use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Http\Apis\v1\AbstractEventableApi;
 
-/**
- * Class EventApi.
- */
 class EventApi extends AbstractEventableApi
 {
     /**
