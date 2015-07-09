@@ -31,7 +31,7 @@
                         </li>
 
                         <li class="primary">
-                            <a href="{{ route('maintenance.assets.images.create', [$asset->id]) }}" data-toggle="tooltip" data-original-title="Upload">
+                            <a href="{{ route('maintenance.assets.manuals.create', [$asset->id]) }}" data-toggle="tooltip" data-original-title="Upload">
                                 <i class="fa fa-plus"></i> <span class="visible-xs-inline">Upload</span>
                             </a>
                         </li>
@@ -39,7 +39,7 @@
                     </ul>
 
                     {{-- Grid: Filters --}}
-                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search data-grid="assets-images" role="form">
+                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search data-grid="assets-manuals" role="form">
 
                         <div class="input-group">
 
@@ -90,7 +90,7 @@
                                         <span class="fa fa-search"></span>
                                     </button>
 
-                                    <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="assets-images" data-reset>
+                                    <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="assets-manuals" data-reset>
                                         <i class="fa fa-refresh fa-sm"></i>
                                     </button>
 

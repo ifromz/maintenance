@@ -99,9 +99,9 @@ class AssetViewer extends BaseViewer
      *
      * @return \Illuminate\View\View
      */
-    public function btnViewImages()
+    public function btnImages()
     {
-        return view('maintenance::viewers.asset.buttons.view-images', ['asset' => $this->entity]);
+        return view('maintenance::viewers.asset.buttons.images', ['asset' => $this->entity]);
     }
 
     /**
@@ -109,9 +109,9 @@ class AssetViewer extends BaseViewer
      *
      * @return \Illuminate\View\View
      */
-    public function btnAddManuals()
+    public function btnManuals()
     {
-        return view('maintenance::viewers.asset.buttons.add-manuals', ['asset' => $this->entity]);
+        return view('maintenance::viewers.asset.buttons.manuals', ['asset' => $this->entity]);
     }
 
     /**

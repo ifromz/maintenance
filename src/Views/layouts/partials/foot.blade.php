@@ -31,17 +31,17 @@
 <!-- Ajax Form Helper -->
 {!! HTML::script('assets/stevebauman/maintenance/js/vendor/jquery.form.min.js') !!}
 
-<!-- CKeditor -->
-{!! HTML::script('assets/stevebauman/maintenance/resources/ckeditor/ckeditor.js') !!}
+<!-- YellowText -->
+{!! HTML::script('assets/stevebauman/maintenance/resources/yellow-text/yellow-text.min.js') !!}
 
 <!-- Bootbox-->
 {!! HTML::script('assets/stevebauman/maintenance/resources/bootbox/bootbox.js') !!}
 
 <!-- SlimScroll -->
-{!! HTML::script('assets/stevebauman/maintenance/resources/AdminLTE/plugins/slimScroll/jquery.slimscroll.js') !!}
+{!! HTML::script('assets/stevebauman/maintenance/resources/adminlte/plugins/slimScroll/jquery.slimscroll.js') !!}
 
 <!-- AdminLTE App -->
-{!! HTML::script('assets/stevebauman/maintenance/resources/AdminLTE/dist/js/app.js') !!}
+{!! HTML::script('assets/stevebauman/maintenance/resources/adminlte/dist/js/app.js') !!}
 
 <!-- Base JS -->
 {!! HTML::script('assets/stevebauman/maintenance/js/base.js') !!}

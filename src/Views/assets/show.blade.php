@@ -7,8 +7,6 @@
     <li><a href="#tab-history" data-toggle="tab">History</a></li>
     <li><a href="#tab-meters" data-toggle="tab">Meters & Readings</a></li>
     <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
-    <li><a href="#tab-images" data-toggle="tab">Images</a></li>
-    <li><a href="#tab-manuals" data-toggle="tab">Manuals</a></li>
 @stop
 
 @section('tab.body.content')
@@ -23,7 +21,9 @@
 
                 {!! $asset->viewer()->btnWorkOrders() !!}
 
-                {!! $asset->viewer()->btnViewImages() !!}
+                {!! $asset->viewer()->btnImages() !!}
+
+                {!! $asset->viewer()->btnManuals() !!}
 
                 {!! $asset->viewer()->btnEdit() !!}
 
@@ -67,26 +67,6 @@
         <h2>Calendar</h2>
 
         {!! $asset->viewer()->calendar() !!}
-    </div>
-
-    <div class="tab-pane" id="tab-images">
-
-        {!! $asset->viewer()->btnAddImages() !!}
-
-        <h2>Images</h2>
-
-        {!! $asset->viewer()->images() !!}
-
-    </div>
-
-    <div class="tab-pane" id="tab-manuals">
-
-        {!! $asset->viewer()->btnAddManuals() !!}
-
-        <h2>Manuals</h2>
-
-        {!! $asset->viewer()->manuals() !!}
-
     </div>
 
 @stop

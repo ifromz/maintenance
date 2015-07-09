@@ -19,7 +19,7 @@
 
 <!-- Styles -->
 <!-- Bootstrap 3.1.0 -->
-{!! HTML::style('assets/stevebauman/maintenance/resources/AdminLTE/bootstrap/css/bootstrap.min.css') !!}
+{!! HTML::style('assets/stevebauman/maintenance/resources/adminlte/bootstrap/css/bootstrap.min.css') !!}
 
 <!-- Bootstrap stackable modals extension -->
 {!! HTML::style('assets/stevebauman/maintenance/resources/bootstrap-modal/css/bootstrap-modal.css') !!}
@@ -32,11 +32,14 @@
 {!! HTML::style('assets/stevebauman/maintenance/resources/select2/select2-bootstrap.css') !!}
 
 <!-- Theme style -->
-{!! HTML::style('assets/stevebauman/maintenance/resources/AdminLTE/dist/css/AdminLTE.min.css') !!}
-{!! HTML::style('assets/stevebauman/maintenance/resources/AdminLTE/dist/css/skins/_all-skins.min.css') !!}
+{!! HTML::style('assets/stevebauman/maintenance/resources/adminlte/dist/css/AdminLTE.min.css') !!}
+{!! HTML::style('assets/stevebauman/maintenance/resources/adminlte/dist/css/skins/_all-skins.min.css') !!}
 
 <!-- Custom style -->
 {!! HTML::style('assets/stevebauman/maintenance/css/custom.css') !!}
+
+<!-- YellowText -->
+{!! HTML::style('assets/stevebauman/maintenance/resources/yellow-text/yellow-text-default.css') !!}
 
 <!-- JS Tree Style -->
 {!! HTML::style('assets/stevebauman/maintenance/resources/jstree/dist/themes/default/style.min.css') !!}

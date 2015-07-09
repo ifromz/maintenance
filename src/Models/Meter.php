@@ -62,7 +62,7 @@ class Meter extends BaseModel
      */
     public function assets()
     {
-        return $this->belongsToMany(Asset::class, 'asset_meters', 'meter_id', 'asset_id')->withTimestamps();
+        return $this->belongsToMany(Asset::class, 'asset_meters', 'meter_id', 'asset_id');
     }
 
     /**
