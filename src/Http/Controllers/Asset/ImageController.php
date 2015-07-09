@@ -170,11 +170,11 @@ class ImageController extends BaseController
         if($image && $image->delete()) {
             $message = 'Successfully deleted attachment.';
 
-            return redirect()->route('maintenance.work-orders.attachments.index', [$image->id])->withSuccess($message);
+            return redirect()->route('maintenance.assets.images.index', [$image->id])->withSuccess($message);
         } else {
             $message = 'There was an issue deleting this attachment. Please try again.';
 
-            return redirect()->route('maintenance.work-orders.attachments.show', [$asset->id, $image->id])->withErrors($message);
+            return redirect()->route('maintenance.assets.images.show', [$asset->id, $image->id])->withErrors($message);
         }
     }
 

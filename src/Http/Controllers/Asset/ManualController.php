@@ -139,11 +139,11 @@ class ManualController extends BaseController
         if($manual) {
             $message = 'Successfully updated manual.';
 
-            return redirect()->route('maintenance.assets.images.show', [$asset->id, $manual->id])->withSuccess($message);
+            return redirect()->route('maintenance.assets.manuals.show', [$asset->id, $manual->id])->withSuccess($message);
         } else {
             $message = 'There was an issue updating this manual. Please try again.';
 
-            return redirect()->route('maintenance.assets.images.show', [$id, $manualId])->withErrors($message);
+            return redirect()->route('maintenance.assets.manuals.show', [$id, $manualId])->withErrors($message);
         }
     }
 
@@ -164,11 +164,11 @@ class ManualController extends BaseController
         if($manual && $manual->delete()) {
             $message = 'Successfully deleted manual.';
 
-            return redirect()->route('maintenance.work-orders.attachments.index', [$manual->id])->withSuccess($message);
+            return redirect()->route('maintenance.assets.manuals.index', [$manual->id])->withSuccess($message);
         } else {
             $message = 'There was an issue deleting this manual. Please try again.';
 
-            return redirect()->route('maintenance.work-orders.attachments.show', [$asset->id, $manual->id])->withErrors($message);
+            return redirect()->route('maintenance.assets.manuals.show', [$asset->id, $manual->id])->withErrors($message);
         }
     }
 }
