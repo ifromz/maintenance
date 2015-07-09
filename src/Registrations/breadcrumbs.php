@@ -14,3 +14,6 @@ include 'breadcrumbs/asset.php';
 include 'breadcrumbs/inventory.php';
 
 include 'breadcrumbs/location.php';
+
+include 'breadcrumbs/metric.php';
+
