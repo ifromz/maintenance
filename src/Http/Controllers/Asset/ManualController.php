@@ -2,161 +2,146 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
-use Illuminate\Filesystem\Filesystem;
-use Stevebauman\Maintenance\Validators\DocumentValidator;
-use Stevebauman\Maintenance\Services\AttachmentService;
-use Stevebauman\Maintenance\Services\Asset\ManualService;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
+use Stevebauman\Maintenance\Http\Requests\Asset\ManualRequest;
+use Stevebauman\Maintenance\Repositories\Asset\ManualRepository;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class ManualController extends AbstractUploadController
+class ManualController extends BaseController
 {
     /**
-     * @var AssetService
+     * @var AssetRepository
      */
     protected $asset;
 
     /**
-     * @var ManualService
-     */
-    protected $assetManual;
-
-    /**
-     * @var DocumentValidator
-     */
-    protected $documentValidator;
-
-    /**
-     * @var AttachmentService
-     */
-    protected $attachment;
-
-    /**
-     * @var Filesystem
-     */
-    protected $filesystem;
-
-    /**
-     * {@inheritDoc}
-     */
-    protected $fileStorageLocation = 'assets/manuals/';
-
-    /**
      * Constructor.
      *
-     * @param AssetService      $asset
-     * @param ManualService     $assetManual
-     * @param DocumentValidator $documentValidator
-     * @param AttachmentService $attachment
-     * @param Filesystem        $filesystem
+     * @param AssetRepository  $asset
+     * @param ManualRepository $manual
      */
-    public function __construct(
-        AssetService $asset,
-        ManualService $assetManual,
-        DocumentValidator $documentValidator,
-        AttachmentService $attachment,
-        Filesystem $filesystem
-    ) {
+    public function __construct(AssetRepository $asset, ManualRepository $manual)
+    {
         $this->asset = $asset;
-        $this->assetManual = $assetManual;
-        $this->documentValidator = $documentValidator;
-        $this->attachment = $attachment;
-        $this->filesystem = $filesystem;
+        $this->manual = $manual;
     }
 
     /**
      * Displays all of the specified asset manuals.
      *
-     * @param $assetId
+     * @param int|string $assetId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function index($assetId)
+    public function index($id)
     {
-        $asset = $this->asset->find($assetId);
+        $asset = $this->asset->find($id);
 
-        return view('maintenance::assets.manuals.index', [
-                    'title' => 'Viewing Asset Manuals for: '.$asset->name,
-                    'asset' => $asset,
-            ]);
+        return view('maintenance::assets.manuals.index', compact('asset'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Displays the asset manual upload form.
      *
-     * @param $assetId
+     * @param int|string $assetId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function create($assetId)
+    public function create($id)
     {
-        $asset = $this->asset->find($assetId);
+        $asset = $this->asset->find($id);
 
-        return view('maintenance::assets.manuals.create', [
-                    'title' => 'Upload Asset Manuals for: '.$asset->name,
-                    'asset' => $asset,
-            ]);
+        return view('maintenance::assets.manuals.create', compact('asset'));
     }
-
     /**
-     * Store a newly created resource in storage.
+     * Uploads manuals and attaches them to the specified asset.
      *
-     * @param $assetId
+     * @param ManualRequest $request
+     * @param int|string    $id
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($assetId)
+    public function store(ManualRequest $request, $id)
     {
-        if ($this->documentValidator->passes()) {
-            $files = $this->uploadFiles();
+        $asset = $this->asset->find($id);
 
-            $data = $this->inputAll();
-            $data['asset_id'] = $assetId;
-            $data['file_path'] = $this->getUploadDirectory();
-            $data['files'] = $files;
+        $attachments = $this->manual->upload($request, $asset, $asset->images());
 
-            if ($this->assetManual->setInput($data)->create()) {
-                $this->redirect = route('maintenance.assets.manuals.index', [$assetId]);
-                $this->message = 'Successfully added manual(s)';
-                $this->messageType = 'success';
-            } else {
-                $this->redirect = route('maintenance.assets.manuals.create', [$assetId]);
-                $this->message = 'There was an error adding manuals to the asset, please try again';
-                $this->messageType = 'danger';
-            }
+        if($attachments) {
+            $message = 'Successfully uploaded files.';
+
+            return redirect()->route('maintenance.assets.manuals.index', [$asset->id])->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.assets.manuals.create', [$assetId]);
-            $this->errors = $this->documentValidator->getErrors();
+            $message = 'There was an issue uploading the files you selected. Please try again.';
+
+            return redirect()->route('maintenance.assets.manuals.create', [$id])->withErrors($message);
+        }
+    }
+
+    /**
+     * Displays the asset manual.
+     *
+     * @param int|string $id
+     * @param int|string $manualId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show($id, $manualId)
+    {
+        $asset = $this->asset->find($id);
+
+        $manual = $asset->manuals()->find($manualId);
+
+        if($manual) {
+            return view('maintenance::assets.manuals.show', compact('asset', 'manual'));
         }
 
-        return $this->response();
+        abort(404);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Displays the form for editing an uploaded manual.
      *
-     * @param $assetId
-     * @param $attachmentId
+     * @param int|string $id
+     * @param int|string $manualId
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\View\View
      */
-    public function destroy($assetId, $attachmentId)
+    public function edit($id, $manualId)
     {
-        $asset = $this->asset->find($assetId);
-        $attachment = $this->attachment->find($attachmentId);
+        $asset = $this->asset->find($id);
 
-        if ($this->filesystem->delete($attachment->file_path)) {
-            $attachment->delete();
+        $manual = $asset->manuals()->find($manualId);
 
-            $this->redirect = routeBack('maintenance.assets.manuals.index', [$asset->id]);
-            $this->message = 'Successfully deleted manual';
-            $this->messageType = 'success';
-        } else {
-            $this->redirect = routeBack('maintenance.assets.manuals.index', [$asset->id]);
-            $this->message = 'There was an error deleting the manual file, please try again';
-            $this->messageType = 'danger';
+        if($manual) {
+            return view('maintenance::assets.manuals.edit', compact('asset', 'manual'));
         }
 
-        return $this->response();
+        abort(404);
+    }
+
+    /**
+     * Processes deleting an attachment record and the file itself.
+     *
+     * @param int|string $id
+     * @param int|string $manualId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id, $manualId)
+    {
+        $asset = $this->asset->find($id);
+
+        $manual = $asset->manuals()->find($manualId);
+
+        if($manual && $manual->delete()) {
+            $message = 'Successfully deleted manual.';
+
+            return redirect()->route('maintenance.work-orders.attachments.index', [$manual->id])->withSuccess($message);
+        } else {
+            $message = 'There was an issue deleting this manual. Please try again.';
+
+            return redirect()->route('maintenance.work-orders.attachments.show', [$asset->id, $manual->id])->withErrors($message);
+        }
     }
 }

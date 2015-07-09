@@ -61,7 +61,7 @@ class ImageController extends BaseController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Uploads images and attaches them to the specified asset.
      *
      * @param ImageRequest      $request
      * @param int|string        $id
@@ -174,7 +174,7 @@ class ImageController extends BaseController
         } else {
             $message = 'There was an issue deleting this attachment. Please try again.';
 
-            return redirect()->route('maintenance.work-orders.attachments.show', [$image->id, $image->id])->withErrors($message);
+            return redirect()->route('maintenance.work-orders.attachments.show', [$asset->id, $image->id])->withErrors($message);
         }
     }
 

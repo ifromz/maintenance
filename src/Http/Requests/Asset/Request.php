@@ -13,7 +13,7 @@ class Request extends BaseRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'category' => 'required',
             'category_id' => 'integer|min:1',
             'location' => 'required',
@@ -30,6 +30,16 @@ class Request extends BaseRequest
             'serial' => 'max:200',
             'price' => 'max:20'
         ];
+
+        $asset = $this->route('assets');
+
+        if($asset) {
+            $rules['tag'] = "required|integer|unique:assets,tag,$asset";
+        } else {
+            $rules['tag'] = "required|integer|unique:assets,tag";
+        }
+
+        return $rules;
     }
 
     /**

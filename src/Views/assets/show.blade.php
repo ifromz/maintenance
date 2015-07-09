@@ -25,8 +25,6 @@
 
                 {!! $asset->viewer()->btnViewImages() !!}
 
-                {!! $asset->viewer()->btnAddImages() !!}
-
                 {!! $asset->viewer()->btnEdit() !!}
 
                 {!!$asset->viewer()->btnDelete() !!}
