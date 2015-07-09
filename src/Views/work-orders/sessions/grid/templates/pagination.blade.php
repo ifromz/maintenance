@@ -8,9 +8,9 @@
 
                 <% if (p.previous_page !== null) { %>
 
-                    <li><a href="#" data-grid="main" data-page="1"><i class="fa fa-angle-double-left"></i></a></li>
+                    <li><a href="#" data-grid="work-order-sessions" data-page="1"><i class="fa fa-angle-double-left"></i></a></li>
 
-                    <li><a href="#" data-grid="main" data-page="<%= p.previous_page %>"><i class="fa fa-chevron-left"></i></a></li>
+                    <li><a href="#" data-grid="work-order-sessions" data-page="<%= p.previous_page %>"><i class="fa fa-chevron-left"></i></a></li>
 
                 <% } else { %>
 
@@ -49,7 +49,7 @@
 
                     <% } else { %>
 
-                    <li><a href="#" data-grid="main" data-page="<%= i %>"><%= i %></a></li>
+                    <li><a href="#" data-grid="work-order-sessions" data-page="<%= i %>"><%= i %></a></li>
 
                     <% } %>
 
@@ -57,9 +57,9 @@
 
                 <% if (p.next_page !== null) { %>
 
-                    <li><a href="#" data-grid="main" data-page="<%= p.next_page %>"><i class="fa fa-chevron-right"></i></a></li>
+                    <li><a href="#" data-grid="work-order-sessions" data-page="<%= p.next_page %>"><i class="fa fa-chevron-right"></i></a></li>
 
-                    <li><a href="#" data-grid="main" data-page="<%= p.pages %>"><i class="fa fa-angle-double-right"></i></a></li>
+                    <li><a href="#" data-grid="work-order-sessions" data-page="<%= p.pages %>"><i class="fa fa-angle-double-right"></i></a></li>
 
                 <% } else { %>
 
