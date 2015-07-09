@@ -117,46 +117,46 @@ class MaintenanceServiceProvider extends ServiceProvider
     private function registerServiceProviders()
     {
         // HTML
-        $this->app->register('Illuminate\Html\HtmlServiceProvider');
+        $this->app->register(\Illuminate\Html\HtmlServiceProvider::class);
 
         // HTML Table Generation
-        $this->app->register('Stevebauman\EloquentTable\EloquentTableServiceProvider');
+        $this->app->register(\Stevebauman\EloquentTable\EloquentTableServiceProvider::class);
 
         // Breadcrumbs
-        $this->app->register('DaveJamesMiller\Breadcrumbs\ServiceProvider');
+        $this->app->register(\DaveJamesMiller\Breadcrumbs\ServiceProvider::class);
 
         // No Captcha
-        $this->app->register('Arcanedev\NoCaptcha\Laravel\ServiceProvider');
+        $this->app->register(\Arcanedev\NoCaptcha\Laravel\ServiceProvider::class);
 
         // Core Helper
-        $this->app->register('Stevebauman\CoreHelper\CoreHelperServiceProvider');
+        $this->app->register(\Stevebauman\CoreHelper\CoreHelperServiceProvider::class);
 
         // Authentication
-        $this->app->register('Cartalyst\Sentry\SentryServiceProvider');
+        $this->app->register(\Cartalyst\Sentry\SentryServiceProvider::class);
 
         // DataGrid
-        $this->app->register('Cartalyst\DataGrid\Laravel\DataGridServiceProvider');
+        $this->app->register(\Cartalyst\DataGrid\Laravel\DataGridServiceProvider::class);
 
         // LDAP Auth
-        $this->app->register('Stevebauman\Corp\CorpServiceProvider');
+        $this->app->register(\Stevebauman\Corp\CorpServiceProvider::class);
 
         // Nested Set Helper
-        $this->app->register('Baum\Providers\BaumServiceProvider');
+        $this->app->register(\Baum\Providers\BaumServiceProvider::class);
 
         // QR Code Generator
-        $this->app->register('SimpleSoftwareIO\QrCode\QrCodeServiceProvider');
+        $this->app->register(\SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class);
 
         // Calendar API Helper
-        $this->app->register('Stevebauman\CalendarHelper\CalendarHelperServiceProvider');
+        $this->app->register(\Stevebauman\CalendarHelper\CalendarHelperServiceProvider::class);
 
         // Inventory Provider
-        $this->app->register('Stevebauman\Inventory\InventoryServiceProvider');
+        $this->app->register(\Stevebauman\Inventory\InventoryServiceProvider::class);
 
         // Log Reader / Manager
-        $this->app->register('Stevebauman\LogReader\LogReaderServiceProvider');
+        $this->app->register(\Stevebauman\LogReader\LogReaderServiceProvider::class);
 
         // HTML Input Purifier
-        $this->app->register('Stevebauman\Purify\PurifyServiceProvider');
+        $this->app->register(\Stevebauman\Purify\PurifyServiceProvider::class);
     }
 
     /**
@@ -168,22 +168,22 @@ class MaintenanceServiceProvider extends ServiceProvider
         $loader = AliasLoader::getInstance();
 
         // HTML Helpers
-        $loader->alias('Form', 'Illuminate\Html\FormFacade');
-        $loader->alias('HTML', 'Illuminate\Html\HtmlFacade');
+        $loader->alias('Form', \Illuminate\Html\FormFacade::class);
+        $loader->alias('HTML', \Illuminate\Html\HtmlFacade::class);
 
         // Authentication
-        $loader->alias('Sentry', 'Cartalyst\Sentry\Facades\Laravel\Sentry');
+        $loader->alias('Sentry', \Cartalyst\Sentry\Facades\Laravel\Sentry::class);
 
-        $loader->alias('DataGrid', 'Cartalyst\DataGrid\Laravel\Facades\DataGrid');
+        $loader->alias('DataGrid', \Cartalyst\DataGrid\Laravel\Facades\DataGrid::class);
 
-        $loader->alias('QrCode', 'SimpleSoftwareIO\QrCode\Facades\QrCode');
-        $loader->alias('Breadcrumbs', 'DaveJamesMiller\Breadcrumbs\Facade');
-        $loader->alias('Captcha', 'Arcanedev\NoCaptcha\Laravel\Facade');
+        $loader->alias('QrCode', \SimpleSoftwareIO\QrCode\Facades\QrCode::class);
+        $loader->alias('Breadcrumbs', \DaveJamesMiller\Breadcrumbs\Facade::class);
+        $loader->alias('Captcha', \Arcanedev\NoCaptcha\Laravel\Facade::class);
 
-        $loader->alias('Corp', 'Stevebauman\Corp\Facades\Corp');
-        $loader->alias('CalendarHelper', 'Stevebauman\CalendarHelper\Facades\CalendarHelper');
-        $loader->alias('LogReader', 'Stevebauman\LogReader\Facades\LogReader');
-        $loader->alias('Purify', 'Stevebauman\Purify\Facades\Purify');
+        $loader->alias('Corp', \Stevebauman\Corp\Facades\Corp::class);
+        $loader->alias('CalendarHelper', \Stevebauman\CalendarHelper\Facades\CalendarHelper::class);
+        $loader->alias('LogReader', \Stevebauman\LogReader\Facades\LogReader::class);
+        $loader->alias('Purify', \Stevebauman\Purify\Facades\Purify::class);
     }
 
     /**
@@ -192,8 +192,8 @@ class MaintenanceServiceProvider extends ServiceProvider
     private function registerHandlers()
     {
         $this->app->singleton(
-            'Illuminate\Contracts\Debug\ExceptionHandler',
-            'Stevebauman\Maintenance\Exceptions\Handler'
+            \Illuminate\Contracts\Debug\ExceptionHandler::class,
+            \Stevebauman\Maintenance\Exceptions\Handler::class
         );
     }
 }
