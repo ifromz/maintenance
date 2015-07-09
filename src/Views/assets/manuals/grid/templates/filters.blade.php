@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="assets-images" data-template="filters">
+<script type="text/template" data-grid="assets-manuals" data-template="filters">
 
     <% _.each(filters, function(f) { %>
 

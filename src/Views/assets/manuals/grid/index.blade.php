@@ -1,4 +1,4 @@
-{{-- Asset Images Grid --}}
+{{-- Asset Manuals Grid --}}
 <section class="panel panel-default panel-grid">
 
     {{-- Grid: Header --}}
@@ -9,13 +9,13 @@
             <div class="container-fluid">
 
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#asset-images-actions">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#asset-manuals-actions">
                         <span class="fa fa-bars"></span>
                     </button>
                 </div>
 
                 {{-- Grid: Actions --}}
-                <div class="collapse navbar-collapse" id="asset-images-actions">
+                <div class="collapse navbar-collapse" id="asset-manuals-actions">
 
                     <ul class="nav navbar-nav navbar-left">
 
@@ -114,7 +114,7 @@
         {{-- Grid: Applied Filters --}}
         <div class="btn-toolbar" role="toolbar" aria-label="data-grid-applied-filters">
 
-            <div id="assets-images-filters" class="btn-group" data-grid="assets-images"></div>
+            <div id="assets-manuals-filters" class="btn-group" data-grid="assets-manuals"></div>
 
         </div>
 
@@ -123,7 +123,7 @@
     {{-- Grid: Table --}}
     <div class="table-responsive">
 
-        <table id="assets-images-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.assets.images.grid', [$asset->id]) }}" data-grid="assets-images">
+        <table id="assets-manuals-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.assets.manuals.grid', [$asset->id]) }}" data-grid="assets-manuals">
 
             <thead>
             <tr>
@@ -144,14 +144,14 @@
     <footer class="panel-footer clearfix text-center">
 
         {{-- Grid: Pagination --}}
-        <div id="assets-images-pagination" data-grid="assets-images"></div>
+        <div id="assets-manuals-pagination" data-grid="assets-manuals"></div>
 
     </footer>
 
-    @include('maintenance::assets.images.grid.templates.no-results')
-    @include('maintenance::assets.images.grid.templates.results')
-    @include('maintenance::assets.images.grid.templates.pagination')
-    @include('maintenance::assets.images.grid.templates.filters')
+    @include('maintenance::assets.manuals.grid.templates.no-results')
+    @include('maintenance::assets.manuals.grid.templates.results')
+    @include('maintenance::assets.manuals.grid.templates.pagination')
+    @include('maintenance::assets.manuals.grid.templates.filters')
 
 </section>
 
@@ -159,7 +159,7 @@
 
     $(function()
     {
-        $.datagrid('assets-images', '#assets-images-results', '#assets-images-pagination', '#assets-images-filters');
+        $.datagrid('assets-manuals', '#assets-manuals-results', '#assets-manuals-pagination', '#assets-manuals-filters');
     });
 
 </script>

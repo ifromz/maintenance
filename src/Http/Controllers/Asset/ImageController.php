@@ -128,7 +128,7 @@ class ImageController extends BaseController
     }
 
     /**
-     * Updates the specified ticket upload.
+     * Updates the specified asset image upload.
      *
      * @param AttachmentUpdateRequest $request
      * @param int|string              $id
@@ -140,14 +140,14 @@ class ImageController extends BaseController
     {
         $asset = $this->asset->find($id);
 
-        $attachment = $this->image->update($request, $asset->images(), $imageId);
+        $image = $this->image->update($request, $asset->images(), $imageId);
 
-        if($attachment) {
-            $message = 'Successfully updated attachment.';
+        if($image) {
+            $message = 'Successfully updated image.';
 
-            return redirect()->route('maintenance.assets.images.show', [$asset->id, $attachment->id])->withSuccess($message);
+            return redirect()->route('maintenance.assets.images.show', [$asset->id, $image->id])->withSuccess($message);
         } else {
-            $message = 'There was an issue updating this attachment. Please try again.';
+            $message = 'There was an issue updating this image. Please try again.';
 
             return redirect()->route('maintenance.assets.images.show', [$id, $imageId])->withErrors($message);
         }

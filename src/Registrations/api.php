@@ -122,6 +122,12 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                     Route::get('grid', ['as' => 'maintenance.api.v1.assets.work-orders.grid', 'uses' => 'WorkOrderController@grid']);
                 });
 
+                // Asset Manual Api Routes
+                Route::group(['prefix' => 'manuals'], function()
+                {
+                    Route::get('grid', ['as' => 'maintenance.api.v1.assets.manuals.grid', 'uses' => 'ManualController@grid']);
+                });
+
                 // Asset Image Api Routes
                 Route::group(['prefix' => 'images'], function()
                 {

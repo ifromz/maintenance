@@ -87,6 +87,11 @@ Breadcrumbs::register('maintenance.assets.manuals.create', function (Generator $
     $breadcrumbs->parent('maintenance.assets.manuals.index', $assetId);
     $breadcrumbs->push('Create', route('maintenance.assets.manuals.create', [$assetId]));
 });
+
+Breadcrumbs::register('maintenance.assets.manuals.show', function (Generator $breadcrumbs, $assetId, $attachmentId) {
+    $breadcrumbs->parent('maintenance.assets.manuals.index', $assetId);
+    $breadcrumbs->push('ID: '.$attachmentId, route('maintenance.assets.manuals.show', [$assetId, $attachmentId]));
+});
 /*
  * End Asset Manual crumbs
  */

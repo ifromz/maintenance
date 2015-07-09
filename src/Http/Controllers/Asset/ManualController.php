@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
+use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
 use Stevebauman\Maintenance\Http\Requests\Asset\ManualRequest;
 use Stevebauman\Maintenance\Repositories\Asset\ManualRepository;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
@@ -29,7 +30,7 @@ class ManualController extends BaseController
     /**
      * Displays all of the specified asset manuals.
      *
-     * @param int|string $assetId
+     * @param int|string $id
      *
      * @return \Illuminate\View\View
      */
@@ -43,7 +44,7 @@ class ManualController extends BaseController
     /**
      * Displays the asset manual upload form.
      *
-     * @param int|string $assetId
+     * @param int|string $id
      *
      * @return \Illuminate\View\View
      */
@@ -65,7 +66,7 @@ class ManualController extends BaseController
     {
         $asset = $this->asset->find($id);
 
-        $attachments = $this->manual->upload($request, $asset, $asset->images());
+        $attachments = $this->manual->upload($request, $asset, $asset->manuals());
 
         if($attachments) {
             $message = 'Successfully uploaded files.';
@@ -118,6 +119,32 @@ class ManualController extends BaseController
         }
 
         abort(404);
+    }
+
+    /**
+     * Updates the specified asset manual upload.
+     *
+     * @param AttachmentUpdateRequest $request
+     * @param int|string              $id
+     * @param int|string              $manualId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(AttachmentUpdateRequest $request, $id, $manualId)
+    {
+        $asset = $this->asset->find($id);
+
+        $manual = $this->manual->update($request, $asset->manuals(), $manualId);
+
+        if($manual) {
+            $message = 'Successfully updated manual.';
+
+            return redirect()->route('maintenance.assets.images.show', [$asset->id, $manual->id])->withSuccess($message);
+        } else {
+            $message = 'There was an issue updating this manual. Please try again.';
+
+            return redirect()->route('maintenance.assets.images.show', [$id, $manualId])->withErrors($message);
+        }
     }
 
     /**

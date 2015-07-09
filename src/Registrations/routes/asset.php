@@ -114,17 +114,19 @@ Route::group(['namespace' => 'Asset'], function () {
     /*
      * Asset Manual Upload Routes
      */
+    Route::get('assets/{assets}/manuals/{manuals}/download', [
+        'as' => 'maintenance.assets.manuals.download',
+        'uses' => 'ManualController@download',
+    ]);
+
     Route::resource('assets.manuals', 'ManualController', [
-        'only' => [
-            'index',
-            'create',
-            'store',
-            'destroy',
-        ],
         'names' => [
             'index' => 'maintenance.assets.manuals.index',
             'create' => 'maintenance.assets.manuals.create',
             'store' => 'maintenance.assets.manuals.store',
+            'show' => 'maintenance.assets.manuals.show',
+            'edit' => 'maintenance.assets.manuals.edit',
+            'update' => 'maintenance.assets.manuals.update',
             'destroy' => 'maintenance.assets.manuals.destroy',
         ],
     ]);
