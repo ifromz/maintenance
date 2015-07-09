@@ -112,6 +112,9 @@ class MaintenanceServiceProvider extends ServiceProvider
         // HTML
         $this->app->register(\Illuminate\Html\HtmlServiceProvider::class);
 
+        // Revisions
+        $this->app->register(\Stevebauman\Revision\RevisionServiceProvider::class);
+
         // HTML Table Generation
         $this->app->register(\Stevebauman\EloquentTable\EloquentTableServiceProvider::class);
 

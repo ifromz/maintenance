@@ -43,7 +43,7 @@ class Event extends BaseModel
      */
     public function report()
     {
-        return $this->hasOne('Stevebauman\Maintenance\Models\EventReport', 'event_id');
+        return $this->hasOne(EventReport::class, 'event_id');
     }
 
     /**
@@ -53,7 +53,7 @@ class Event extends BaseModel
      */
     public function parentEvent()
     {
-        return $this->belongsTo('Stevebauman\Maintenance\Models\Event', 'parent_id');
+        return $this->belongsTo(Event::class, 'parent_id');
     }
 
     /**
@@ -63,7 +63,7 @@ class Event extends BaseModel
      */
     public function assets()
     {
-        return $this->morphedByMany('Stevebauman\Maintenance\Models\Asset', 'eventable')->withTimestamps();
+        return $this->morphedByMany(Asset::class, 'eventable')->withTimestamps();
     }
 
     /**
@@ -73,7 +73,7 @@ class Event extends BaseModel
      */
     public function inventories()
     {
-        return $this->morphedByMany('Stevebauman\Maintenance\Models\Inventory', 'eventable')->withTimestamps();
+        return $this->morphedByMany(Inventory::class, 'eventable')->withTimestamps();
     }
 
     /**
@@ -83,6 +83,6 @@ class Event extends BaseModel
      */
     public function workOrders()
     {
-        return $this->morphedByMany('Stevebauman\Maintenance\Models\WorkOrder', 'eventable')->withTimestamps();
+        return $this->morphedByMany(WorkOrder::class, 'eventable')->withTimestamps();
     }
 }

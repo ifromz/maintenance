@@ -31,11 +31,20 @@ class Category extends Node
     ];
 
     /**
+     * The columns to keep revisions of.
+     *
+     * @var array
+     */
+    protected $revisionColumns = [
+        'name',
+    ];
+
+    /**
      * The revisionable field names.
      *
      * @var array
      */
-    protected $revisionFormattedFieldNames = [
+    protected $revisionColumnsFormatted = [
         'name' => 'Name',
     ];
 

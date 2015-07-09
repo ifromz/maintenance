@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Http\Controllers\Asset\Meter\ReadingController;
 use Stevebauman\Maintenance\Viewers\MeterViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 

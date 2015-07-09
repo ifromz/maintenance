@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.panel')
 
+@section('title', 'Create Sub-Category')
+
 @section('panel.head.content')
     Create a new Sub-{{ $resource }} for {{ $category->name }}
 @stop

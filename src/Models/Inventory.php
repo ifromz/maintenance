@@ -49,11 +49,23 @@ class Inventory extends BaseModel
     ];
 
     /**
+     * The columns to keep revisions of.
+     *
+     * @var array
+     */
+    protected $revisionColumns = [
+        'metric_id',
+        'category_id',
+        'name',
+        'description',
+    ];
+
+    /**
      * Revisionable field names.
      *
      * @var array
      */
-    protected $revisionFormattedFieldNames = [
+    protected $revisionColumnsFormatted = [
         'category_id' => 'Category',
         'metric_id' => 'Metric',
         'name' => 'Name',

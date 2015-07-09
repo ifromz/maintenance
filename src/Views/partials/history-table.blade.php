@@ -1,7 +1,7 @@
 @if(isset($record))
     <h2>History</h2>
 
-    @if($record->revisionHistory->count() > 0)
+    @if($record->revisions->count() > 0)
 
         <table class="table table-striped">
             <thead>
@@ -14,19 +14,19 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($record->revisionHistory as $record)
+            @foreach($record->revisions as $record)
                 <tr>
-                    <td>{{ $record->userResponsible()->first_name }} {{ $record->userResponsible()->last_name }}</td>
-                    <td>{{ $record->fieldName() }}</td>
+                    <td>{{ $record->getUserResponsible()->full_name }}</td>
+                    <td>{{ $record->getColumnName() }}</td>
                     <td>
-                        @if(is_null($record->oldValue()))
+                        @if(is_null($record->getOldValue()))
                             <em>None</em>
                         @else
-                            {!! $record->oldValue() !!}
+                            {!! $record->getOldValue() !!}
                         @endif
 
                     </td>
-                    <td>{!! $record->newValue() !!}</td>
+                    <td>{!! $record->getNewValue() !!}</td>
                     <td>{{ $record->created_at }}</td>
                 </tr>
             @endforeach

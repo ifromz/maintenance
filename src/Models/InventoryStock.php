@@ -38,11 +38,23 @@ class InventoryStock extends BaseModel
     ];
 
     /**
+     * The columns to keep revisions of.
+     *
+     * @var array
+     */
+    protected $revisionColumns = [
+        'location_id',
+        'aisle',
+        'row',
+        'bin',
+    ];
+
+    /**
      * The revisionable formatted field names.
      *
      * @var array
      */
-    protected $revisionFormattedFieldNames = [
+    protected $revisionColumnsFormatted = [
         'location_id' => 'Location',
         'quantity' => 'Quantity',
     ];

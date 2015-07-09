@@ -58,11 +58,31 @@ class Asset extends BaseModel
     ];
 
     /**
+     * The columns to keep revisions of.
+     *
+     * @var array
+     */
+    protected $revisionColumns = [
+        'location_id',
+        'category_id',
+        'name',
+        'description',
+        'condition',
+        'size',
+        'weight',
+        'vendor',
+        'make',
+        'model',
+        'serial',
+        'price',
+    ];
+
+    /**
      * The revisionable formatted field names.
      *
      * @var array
      */
-    protected $revisionFormattedFieldNames = [
+    protected $revisionColumnsFormatted = [
         'location_id' => 'Location',
         'category_id' => 'Category',
         'name' => 'Name',

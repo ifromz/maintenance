@@ -2,10 +2,13 @@
 
 namespace Stevebauman\Maintenance\Models;
 
+use Stevebauman\Maintenance\Traits\Relationships\HasRevisionsTrait;
 use Baum\Node;
 
 class Location extends Node
 {
+    use HasRevisionsTrait;
+
     /**
      * The locations table.
      *
@@ -23,11 +26,20 @@ class Location extends Node
     ];
 
     /**
+     * The columns to keep revisions of.
+     *
+     * @var array
+     */
+    protected $revisionColumns = [
+        'name',
+    ];
+
+    /**
      * The revision formatted field name attributes.
      *
      * @var array
      */
-    protected $revisionFormattedFieldNames = [
+    protected $revisionColumnsFormatted = [
         'name' => 'Name',
     ];
 

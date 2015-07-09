@@ -55,12 +55,29 @@ class WorkOrder extends BaseModel
     ];
 
     /**
+     * The columns to keep revisions of.
+     *
+     * @var array
+     */
+    protected $revisionColumns = [
+        'location_id',
+        'category_id',
+        'request_id',
+        'status_id',
+        'priority_id',
+        'subject',
+        'description',
+        'started_at',
+        'completed_at',
+    ];
+
+    /**
      * The work orders revisionable
      * formatted field names.
      *
      * @var array
      */
-    protected $revisionFormattedFieldNames = [
+    protected $revisionColumnsFormatted = [
         'location_id' => 'Location',
         'category_id' => 'Work Order Category',
         'status_id' => 'Status',

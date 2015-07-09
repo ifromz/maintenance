@@ -4,8 +4,8 @@ namespace Stevebauman\Maintenance\Models;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
-use Venturecraft\Revisionable\RevisionableTrait;
 use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasRevisionsTrait;
 use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -13,30 +13,24 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class BaseModel extends Eloquent
 {
     /*
-     * Provides easy table generation
+     * Provides easy table generation.
      */
     use TableTrait;
 
     /*
-     * Provides scope for viewing a specific record ID
+     * Provides scope for viewing a specific record ID.
      */
     use HasScopeIdTrait;
 
     /*
-     * Provides reusable views when an object is returned
+     * Provides reusable views when an object is returned.
      */
     use ViewableTrait;
 
     /*
-     * Revisionable Trait for storing revisions on all models that extend
-     * from this class
+     * Provides model revisions.
      */
-    use RevisionableTrait;
-
-    /*
-     * Tell revisionable to not keep a revision of deleted_at columns
-     */
-    protected $dontKeepRevisionOf = ['deleted_at'];
+    use HasRevisionsTrait;
 
     /**
      * Formats the created_at timestamp.
@@ -147,7 +141,7 @@ class BaseModel extends Eloquent
             /*
              * Retrieve all column names for the current model table
              */
-            $columns = Schema::getColumnListing($this->getCurrentTable());
+            $columns = Schema::getColumnListing($this->getTable());
 
             /*
              * Make sure the field inputted is available on the current table
@@ -170,15 +164,5 @@ class BaseModel extends Eloquent
          * Default to latest scope
          */
         return $query->latest();
-    }
-
-    /**
-     * Returns the current models database table.
-     *
-     * @return string
-     */
-    public function getCurrentTable()
-    {
-        return $this->table;
     }
 }
