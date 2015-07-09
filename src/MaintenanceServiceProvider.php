@@ -63,15 +63,8 @@ class MaintenanceServiceProvider extends ServiceProvider
      */
     private function bootPublishable()
     {
-        $config = __DIR__.'/Config/';
-
         $this->publishes([
-            $config.'colors.php' => config_path('maintenance/colors.php'),
-            $config.'notifications.php' => config_path('maintenance/notifications.php'),
-            $config.'permissions.php' => config_path('maintenance/permissions.php'),
-            $config.'rules.php' => config_path('maintenance/rules.php'),
-            $config.'seed.php' => config_path('maintenance/seed.php'),
-            $config.'site.php' => config_path('maintenance/site.php'),
+            __DIR__.'/Config/' => config_path('maintenance'),
         ], 'config');
 
         $this->publishes([

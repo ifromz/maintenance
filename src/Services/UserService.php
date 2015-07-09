@@ -132,14 +132,23 @@ class UserService extends BaseModelService
 
             $data = [
                 'email' => $ldapUser->email,
-                'password' => $password,
                 'username' => $username,
+                'password' => $password,
                 'last_name' => (string) $lastName,
                 'first_name' => (string) $firstName,
                 'activated' => 1,
             ];
 
-            $user = $this->sentry->createUser($data, ['all_users', 'customers', 'workers']);
+            // Default all group
+            $groups = ['all'];
+
+            if (in_array($ldapUser->group, config('maintenance.groups.ldap.administrators'))) {
+                $groups[] = 'administrators';
+            } else if (in_array($ldapUser->group, config('mainenance.groups.ldap.workers'))) {
+                $groups[] = 'workers';
+            }
+
+            $user = $this->sentry->createUser($data, $groups);
         }
 
         return $user;
