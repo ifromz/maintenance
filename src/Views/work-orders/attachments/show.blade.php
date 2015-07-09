@@ -11,6 +11,7 @@
         <div class="fa-6">
             {!! $attachment->icon !!}
         </div>
+
         <div class="btn-group" role="group">
             <a class="btn btn-primary btn-lg" href="{{ route('maintenance.work-orders.attachments.download', [$workOrder->id, $attachment->id]) }}"><i class="fa fa-download"></i> Download</a>
 

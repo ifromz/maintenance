@@ -45,7 +45,13 @@ thead th.sortable:before {
     font-family: FontAwesome;
     text-decoration: inherit;
     position: absolute;
-    right: 0;
+    right: 10px;
+}
+
+@media screen and (max-width: 800px) {
+    thead th.sortable:before {
+        right: 0;
+    }
 }
 
 thead th.sortable.asc:before {

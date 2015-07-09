@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
 use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
-use Stevebauman\Maintenance\Http\Requests\AttachmentRequest;
+use Stevebauman\Maintenance\Http\Requests\Asset\ImageRequest;
 use Stevebauman\Maintenance\Repositories\Asset\ImageRepository;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
@@ -63,12 +63,12 @@ class ImageController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param AttachmentRequest $request
+     * @param ImageRequest      $request
      * @param int|string        $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(AttachmentRequest $request, $id)
+    public function store(ImageRequest $request, $id)
     {
         $asset = $this->asset->find($id);
 
@@ -121,7 +121,7 @@ class ImageController extends BaseController
         $image = $asset->images()->find($imageId);
 
         if($image) {
-            return view('maintenance::work-orders.attachments.edit', compact('asset', 'image'));
+            return view('maintenance::assets.images.edit', compact('asset', 'image'));
         }
 
         abort(404);
@@ -190,10 +190,10 @@ class ImageController extends BaseController
     {
         $asset = $this->asset->find($id);
 
-        $attachment = $asset->images()->find($imageId);
+        $image = $asset->images()->find($imageId);
 
-        if($attachment) {
-            return response()->download($attachment->download_path);
+        if($image) {
+            return response()->download($image->download_path);
         }
 
         abort(404);

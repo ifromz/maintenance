@@ -5,7 +5,10 @@
 @section('content')
 
     <div class="row text-center">
-        <img class="img-responsive center-block" src="{{ asset($image->file_path) }}">
+
+        <h1>{{ $image->name }}</h1>
+
+        <img class="img-responsive center-block" src="{{ route('maintenance.assets.images.download', [$asset->id, $image->id]) }}">
 
         <hr>
 
@@ -17,6 +20,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
+                    <li><a href="{{ route('maintenance.assets.images.edit', [$asset->id, $image->id]) }}"><i class="fa fa-edit"></i> Edit</a></li>
                     <li>
                         <a
                                 data-message="Are you sure you want to delete this attachment?"

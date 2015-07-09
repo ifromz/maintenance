@@ -116,13 +116,19 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             // Nested Asset Api Routes
             Route::group(['prefix' => '{assets}'], function()
             {
-                // Asset Work Order Routes
+                // Asset Work Order Api Routes
                 Route::group(['prefix' => 'work-orders'], function()
                 {
                     Route::get('grid', ['as' => 'maintenance.api.v1.assets.work-orders.grid', 'uses' => 'WorkOrderController@grid']);
                 });
 
-                // Asset Meter Routes
+                // Asset Image Api Routes
+                Route::group(['prefix' => 'images'], function()
+                {
+                    Route::get('grid', ['as' => 'maintenance.api.v1.assets.images.grid', 'uses' => 'ImageController@grid']);
+                });
+
+                // Asset Meter Api Routes
                 Route::group(['prefix' => 'meters'], function()
                 {
                     Route::get('grid', ['as' => 'maintenance.api.v1.assets.meters.grid', 'uses' => 'MeterController@grid']);

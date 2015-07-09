@@ -9,9 +9,6 @@ use Stevebauman\Maintenance\Services\Asset\ManualService;
 use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Http\Controllers\AbstractUploadController;
 
-/**
- * Class ManualController.
- */
 class ManualController extends AbstractUploadController
 {
     /**

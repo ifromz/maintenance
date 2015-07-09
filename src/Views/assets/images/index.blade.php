@@ -1,19 +1,9 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.main')
 
-@section('title', 'Images')
+@section('title', 'Asset Images')
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a href="{{ route('maintenance.assets.images.create', [$asset->id]) }}" class="btn btn-primary"
-           data-toggle="tooltip" title="Upload Asset Images">
-            <i class="fa fa-plus"></i>
-            Upload Images
-        </a>
-    </div>
-@stop
+@section('content')
 
-@section('panel.body.content')
-
-    {!! $asset->viewer()->images() !!}
+    @include('maintenance::assets.images.grid.index', compact('asset'))
 
 @stop

@@ -64,18 +64,13 @@ Route::group(['namespace' => 'Asset'], function () {
     ]);
 
     Route::resource('assets.images', 'ImageController', [
-        'only' => [
-            'index',
-            'create',
-            'store',
-            'show',
-            'destroy',
-        ],
         'names' => [
             'index' => 'maintenance.assets.images.index',
             'create' => 'maintenance.assets.images.create',
             'store' => 'maintenance.assets.images.store',
             'show' => 'maintenance.assets.images.show',
+            'edit' => 'maintenance.assets.images.edit',
+            'update' => 'maintenance.assets.images.update',
             'destroy' => 'maintenance.assets.images.destroy',
         ],
     ]);
