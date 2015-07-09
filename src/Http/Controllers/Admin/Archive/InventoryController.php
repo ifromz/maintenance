@@ -55,7 +55,7 @@ class InventoryController extends Controller
 
             return redirect()->route('maintenance.admin.archive.inventory.index')->withSuccess($message);
         } else {
-            $message = 'There was an issue deleting this inventory item. Please try again';
+            $message = 'There was an issue deleting this inventory item. Please try again.';
 
             return redirect()->route('maintenance.admin.archive.inventory.show', [$id])->withErrors($message);
         }

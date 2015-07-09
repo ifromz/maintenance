@@ -44,14 +44,14 @@ class NotificationController extends BaseController
     /**
      * Creates a new notification for the specified work order.
      *
-     * @param string|int $workOrder_id
+     * @param string|int $workOrderId
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store($workOrder_id)
+    public function store($workOrderId)
     {
         if ($this->workOrderNotificationValidator->passes()) {
-            $workOrder = $this->workOrder->find($workOrder_id);
+            $workOrder = $this->workOrder->find($workOrderId);
 
             $data = $this->inputAll();
             $data['work_order_id'] = $workOrder->id;
@@ -63,7 +63,7 @@ class NotificationController extends BaseController
             $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
         } else {
             $this->errors = $this->workOrderNotificationValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
+            $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
         }
 
         return $this->response();
@@ -72,17 +72,17 @@ class NotificationController extends BaseController
     /**
      * Updates the specified notification for the specified work order.
      *
-     * @param string|int $workOrder_id
-     * @param string|int $notification_id
+     * @param string|int $workOrderId
+     * @param string|int $notificationId
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function update($workOrder_id, $notification_id)
+    public function update($workOrderId, $notificationId)
     {
         if ($this->workOrderNotificationValidator->passes()) {
-            $workOrder = $this->workOrder->find($workOrder_id);
+            $workOrder = $this->workOrder->find($workOrderId);
 
-            $notifications = $this->workOrderNotification->find($notification_id);
+            $notifications = $this->workOrderNotification->find($notificationId);
 
             $data = $this->inputAll();
             $data['work_order_id'] = $workOrder->id;
@@ -94,7 +94,7 @@ class NotificationController extends BaseController
             $this->redirect = route('maintenance.work-orders.show', [$workOrder->id]);
         } else {
             $this->errors = $this->workOrderNotificationValidator->getErrors();
-            $this->redirect = route('maintenance.work-orders.show', [$workOrder_id]);
+            $this->redirect = route('maintenance.work-orders.show', [$workOrderId]);
         }
 
         return $this->response();

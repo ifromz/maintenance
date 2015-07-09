@@ -1,8 +1,6 @@
 @extends('maintenance::layouts.admin')
 
-@section('header')
-    <h1>{{ $title }}</h1>
-@stop
+@section('title', 'Viewing Archived Inventory Item')
 
 @section('content')
 

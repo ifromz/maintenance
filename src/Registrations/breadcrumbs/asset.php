@@ -108,6 +108,12 @@ Breadcrumbs::register('maintenance.assets.categories.create', function (Generato
     $breadcrumbs->parent('maintenance.assets.categories.index');
     $breadcrumbs->push('Create', route('maintenance.assets.categories.create'));
 });
+
+Breadcrumbs::register('maintenance.assets.categories.nodes.create', function (Generator $breadcrumbs, $categoryId) {
+    $breadcrumbs->parent('maintenance.assets.categories.index');
+    $breadcrumbs->push("Sub-Category");
+    $breadcrumbs->push('Create', route('maintenance.assets.categories.nodes.create', [$categoryId]));
+});
 /*
  * End Asset Category crumbs
  */

@@ -136,6 +136,39 @@ Breadcrumbs::register('maintenance.work-orders.statuses.index', function (Genera
  */
 
 /*
+ * Work Order Priority crumbs
+ */
+Breadcrumbs::register('maintenance.work-orders.priorities.index', function (Generator $breadcrumbs) {
+    $breadcrumbs->parent('maintenance.work-orders.index');
+    $breadcrumbs->push('Priorities', route('maintenance.work-orders.priorities.index'));
+});
+/*
+ * End Work Order Priority crumbs
+ */
+
+/*
+ * Work Order Category crumbs
+ */
+Breadcrumbs::register('maintenance.work-orders.categories.index', function (Generator $breadcrumbs) {
+    $breadcrumbs->parent('maintenance.work-orders.index');
+    $breadcrumbs->push('Categories', route('maintenance.work-orders.categories.index'));
+});
+
+Breadcrumbs::register('maintenance.work-orders.categories.create', function (Generator $breadcrumbs) {
+    $breadcrumbs->parent('maintenance.work-orders.categories.index');
+    $breadcrumbs->push('Create', route('maintenance.work-orders.categories.create'));
+});
+
+Breadcrumbs::register('maintenance.work-orders.categories.nodes.create', function (Generator $breadcrumbs, $categoryId) {
+    $breadcrumbs->parent('maintenance.work-orders.categories.index');
+    $breadcrumbs->push("Sub-Category");
+    $breadcrumbs->push('Create', route('maintenance.work-orders.categories.nodes.create', [$categoryId]));
+});
+/*
+ * End Work Order Category crumbs
+ */
+
+/*
  * Work Order Session crumbs
  */
 Breadcrumbs::register('maintenance.work-orders.sessions.index', function (Generator $breadcrumbs, $workOrderId) {

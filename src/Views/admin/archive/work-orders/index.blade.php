@@ -1,6 +1,6 @@
 @extends('maintenance::layouts.admin')
 
-@section('title', 'Archived Work Order')
+@section('title', 'Archived Work Orders')
 
 @section('content')
 

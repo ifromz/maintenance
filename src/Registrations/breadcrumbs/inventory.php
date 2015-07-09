@@ -28,6 +28,29 @@ Breadcrumbs::register('maintenance.inventory.edit', function (Generator $breadcr
  * End Inventory crumbs
  */
 
+
+/*
+ * Inventory Category crumbs
+ */
+Breadcrumbs::register('maintenance.inventory.categories.index', function (Generator $breadcrumbs) {
+    $breadcrumbs->parent('maintenance.inventory.index');
+    $breadcrumbs->push('Categories', route('maintenance.inventory.categories.index'));
+});
+
+Breadcrumbs::register('maintenance.inventory.categories.create', function (Generator $breadcrumbs) {
+    $breadcrumbs->parent('maintenance.inventory.categories.index');
+    $breadcrumbs->push('Create', route('maintenance.inventory.categories.create'));
+});
+
+Breadcrumbs::register('maintenance.inventory.categories.nodes.create', function (Generator $breadcrumbs, $categoryId) {
+    $breadcrumbs->parent('maintenance.inventory.categories.index');
+    $breadcrumbs->push("ID: $categoryId");
+    $breadcrumbs->push('Create', route('maintenance.inventory.categories.nodes.create', [$categoryId]));
+});
+/*
+ * End Inventory Category crumbs
+ */
+
 /*
  * Inventory Variant crumbs
  */

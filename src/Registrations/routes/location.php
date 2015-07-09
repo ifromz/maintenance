@@ -10,12 +10,6 @@ Route::get('locations/json', [
     ]
 );
 
-Route::get('locations/create/{categories?}', [
-        'as' => 'maintenance.locations.nodes.create',
-        'uses' => 'LocationController@create',
-    ]
-);
-
 Route::post('locations/move/{categories?}', [
     'as' => 'maintenance.locations.nodes.move',
     'uses' => 'LocationController@postMoveCategory',
@@ -45,3 +39,11 @@ Route::resource('locations', 'LocationController', [
         'destroy' => 'maintenance.locations.destroy',
     ],
 ]);
+
+
+Route::get('locations/create/{categories}', [
+        'as' => 'maintenance.locations.nodes.create',
+        'uses' => 'LocationController@create',
+    ]
+);
+

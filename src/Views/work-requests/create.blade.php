@@ -7,6 +7,7 @@
 @stop
 
 @section('panel.body.content')
+
     {!!
         Form::open([
             'url' => route('maintenance.work-requests.store'),
@@ -17,4 +18,5 @@
     @include('maintenance::work-requests.form')
 
     {!! Form::close() !!}
+
 @stop

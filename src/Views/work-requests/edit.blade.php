@@ -8,4 +8,15 @@ Editing Work Request
 
 @section('panel.body.content')
 
+    {!!
+        Form::open([
+            'url' => route('maintenance.work-requests.update', [$workRequest->id]),
+            'class'=>'form-horizontal',
+            'method' => 'PATCH',
+        ])
+    !!}
+
+    @include('maintenance::work-requests.form', compact('workRequest'))
+
+    {!! Form::close() !!}
 @stop

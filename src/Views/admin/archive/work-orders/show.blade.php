@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.admin.panel')
 
+@section('title', 'Viewing Archived Work Orders')
+
 @section('panel.head.content')
     Viewing Work Order
 @stop

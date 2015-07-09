@@ -74,11 +74,19 @@ abstract class Repository
      *
      * @param int|string $id
      *
-     * @return mixed
+     * @return bool
      */
     public function deleteArchived($id)
     {
-        return $this->model()->onlyTrashed()->destroy($id);
+        $record = $this->findArchived($id);
+
+        if($record) {
+            $record->forceDelete();
+
+            return true;
+        }
+
+        return false;
     }
 
     /**

@@ -19,6 +19,11 @@ Breadcrumbs::register('maintenance.work-requests.show', function (Generator $bre
     $breadcrumbs->parent('maintenance.work-requests.index');
     $breadcrumbs->push("ID: $workRequestId", route('maintenance.work-requests.show', [$workRequestId]));
 });
+
+Breadcrumbs::register('maintenance.work-requests.edit', function (Generator $breadcrumbs, $workRequestId) {
+    $breadcrumbs->parent('maintenance.work-requests.show', $workRequestId);
+    $breadcrumbs->push("Edit", route('maintenance.work-requests.edit', [$workRequestId]));
+});
 /*
  * End Work Request crumbs
  */

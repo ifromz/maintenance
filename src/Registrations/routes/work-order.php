@@ -69,12 +69,6 @@ Route::group(['namespace' => 'WorkOrder'], function () {
     | Maintenance Work Order Category Routes
     |--------------------------------------------------------------------------
     */
-    Route::get('work-orders/categories/create/{categories?}', [
-            'as' => 'maintenance.work-orders.categories.nodes.create',
-            'uses' => 'CategoryController@create',
-        ]
-    );
-
     Route::post('work-orders/categories/create/{categories?}', [
             'as' => 'maintenance.work-orders.categories.nodes.store',
             'uses' => 'CategoryController@store',
@@ -99,6 +93,12 @@ Route::group(['namespace' => 'WorkOrder'], function () {
             'destroy' => 'maintenance.work-orders.categories.destroy',
         ],
     ]);
+
+    Route::get('work-orders/categories/create/{categories}', [
+            'as' => 'maintenance.work-orders.categories.nodes.create',
+            'uses' => 'CategoryController@create',
+        ]
+    );
 
     /*
     |--------------------------------------------------------------------------

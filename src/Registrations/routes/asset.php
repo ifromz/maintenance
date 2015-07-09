@@ -16,12 +16,6 @@ Route::group(['namespace' => 'Asset'], function () {
         ]
     );
 
-    Route::get('assets/categories/create/{categories?}', [
-            'as' => 'maintenance.assets.categories.nodes.create',
-            'uses' => 'CategoryController@create',
-        ]
-    );
-
     Route::post('assets/categories/move/{categories?}', [
         'as' => 'maintenance.assets.categories.nodes.move',
         'uses' => 'CategoryController@postMoveCategory',
@@ -51,6 +45,12 @@ Route::group(['namespace' => 'Asset'], function () {
             'destroy' => 'maintenance.assets.categories.destroy',
         ],
     ]);
+
+    Route::get('assets/categories/create/{categories}', [
+            'as' => 'maintenance.assets.categories.nodes.create',
+            'uses' => 'CategoryController@create',
+        ]
+    );
     /*
      * End Category Routes
      */

@@ -7,14 +7,9 @@ Breadcrumbs::register('maintenance.locations.index', function (Generator $breadc
     $breadcrumbs->push('Locations', route('maintenance.locations.index'));
 });
 
-Breadcrumbs::register('maintenance.locations.create', function (Generator $breadcrumbs, $locationId) {
+Breadcrumbs::register('maintenance.locations.create', function (Generator $breadcrumbs) {
     $breadcrumbs->parent('maintenance.locations.index');
-    $breadcrumbs->push('Create', route('maintenance.locations.create', [$locationId]));
-});
-
-Breadcrumbs::register('maintenance.locations.show', function (Generator $breadcrumbs, $locationId) {
-    $breadcrumbs->parent('maintenance.locations.index');
-    $breadcrumbs->push("ID: $locationId");
+    $breadcrumbs->push('Create', route('maintenance.locations.create'));
 });
 
 Breadcrumbs::register('maintenance.locations.edit', function (Generator $breadcrumbs, $locationId) {
@@ -22,7 +17,8 @@ Breadcrumbs::register('maintenance.locations.edit', function (Generator $breadcr
     $breadcrumbs->push('Edit', route('maintenance.locations.edit', [$locationId]));
 });
 
-Breadcrumbs::register('maintenance.locations.nodes.create', function (Generator $breadcrumbs, $locationId = null) {
-    $breadcrumbs->parent('maintenance.locations.show', $locationId);
-    $breadcrumbs->push('Create-Sub', route('maintenance.locations.nodes.create', [$locationId]));
+Breadcrumbs::register('maintenance.locations.nodes.create', function (Generator $breadcrumbs, $locationId) {
+    $breadcrumbs->parent('maintenance.locations.index');
+    $breadcrumbs->push('Sub-Location');
+    $breadcrumbs->push('Create', route('maintenance.locations.nodes.create', [$locationId]));
 });
