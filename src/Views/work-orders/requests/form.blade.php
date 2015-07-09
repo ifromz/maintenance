@@ -22,7 +22,7 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-6">
-        {!! Form::textarea('description', (isset($workRequest) ? htmlentities($workRequest->description) : null), ['disabled'=>true]) !!}
+        {!! Form::textarea('description', (isset($workRequest) ? htmlspecialchars($workRequest->description) : null), ['disabled'=>true]) !!}
     </div>
 </div>
 

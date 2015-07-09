@@ -14,7 +14,7 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-4">
-        {!! Form::text('description', (isset($apiObject) ? htmlentities($apiObject->description) : null), ['class'=>'form-control', 'placeholder'=>'Enter Description']) !!}
+        {!! Form::text('description', (isset($apiObject) ? htmlspecialchars($apiObject->description) : null), ['class'=>'form-control', 'placeholder'=>'Enter Description']) !!}
 
         <span class="label label-danger">{{ $errors->first('description', ':message') }}</span>
     </div>
