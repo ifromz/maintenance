@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Traits\Relationships;
 
-use Stevebauman\Maintenance\Models\User;
-use Stevebauman\Revision\Models\Revision;
+use Stevebauman\Maintenance\Models\Revision;
+use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Stevebauman\Revision\Traits\HasRevisionsTrait as BaseRevisionTrait;
 
 trait HasRevisionsTrait
@@ -21,22 +21,12 @@ trait HasRevisionsTrait
     }
 
     /**
-     * The hasOne revisionUser relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function revisionUser()
-    {
-        return $this->hasOne(User::class);
-    }
-
-    /**
      * Returns the revision user ID.
      *
      * @return int
      */
     public function revisionUserId()
     {
-        return $this->revisionUser->id;
+        return Sentry::getUser()->id;
     }
 }

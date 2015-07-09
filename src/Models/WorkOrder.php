@@ -135,7 +135,7 @@ class WorkOrder extends BaseModel
      */
     public function assets()
     {
-        return $this->belongsToMany(Asset::class, 'work_order_assets', 'work_order_id', 'asset_id')->withTimestamps();
+        return $this->belongsToMany(Asset::class, 'work_order_assets', 'work_order_id', 'asset_id');
     }
 
     /**
@@ -165,7 +165,7 @@ class WorkOrder extends BaseModel
      */
     public function attachments()
     {
-        return $this->belongsToMany(Attachment::class, 'work_order_attachments', 'work_order_id', 'attachment_id')->withTimestamps();
+        return $this->belongsToMany(Attachment::class, 'work_order_attachments', 'work_order_id', 'attachment_id');
     }
 
     /**

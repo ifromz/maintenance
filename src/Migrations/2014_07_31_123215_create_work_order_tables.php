@@ -160,7 +160,7 @@ class CreateWorkOrderTables extends Migration
 
         Schema::create('work_order_attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+
             $table->integer('work_order_id')->unsigned();
             $table->integer('attachment_id')->unsigned();
 

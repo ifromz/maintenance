@@ -16,7 +16,7 @@
             <tbody>
             @foreach($record->revisions as $record)
                 <tr>
-                    <td>{{ $record->getUserResponsible()->full_name }}</td>
+                    <td>{{ ($record->getUserResponsible() ? $record->getUserResponsible()->full_name : '<em>Deleted</em>') }}</td>
                     <td>{{ $record->getColumnName() }}</td>
                     <td>
                         @if(is_null($record->getOldValue()))

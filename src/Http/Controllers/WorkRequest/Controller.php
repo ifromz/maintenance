@@ -43,6 +43,8 @@ class Controller extends BaseController
     /**
      * Processes creating a work request.
      *
+     * @param Request $request
+     *
      * @return  \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
