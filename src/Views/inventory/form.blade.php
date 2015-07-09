@@ -40,7 +40,7 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-4">
-        {!! Form::textarea('description', (isset($item) ? htmlspecialchars(($item->description) : null), ['class'=>'form-control', 'placeholder'=>'Description']) !!}
+        {!! Form::textarea('description', (isset($item) ? htmlspecialchars($item->description) : null), ['class'=>'form-control', 'placeholder'=>'Description']) !!}
 
         <span class="label label-danger">{{ $errors->first('description', ':message') }}</span>
     </div>
