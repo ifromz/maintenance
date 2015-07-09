@@ -22,7 +22,7 @@
     <label class="col-sm-2 control-label">Description</label>
 
     <div class="col-md-6">
-        {!! Form::textarea('description', (isset($workRequest) ? $workRequest->description : null)) !!}
+        {!! Form::textarea('description', (isset($workRequest) ? htmlentities($workRequest->description) : null)) !!}
 
         <span class="label label-danger">{{ $errors->first('description', ':message') }}</span>
     </div>

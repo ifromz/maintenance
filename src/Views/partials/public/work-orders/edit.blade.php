@@ -50,7 +50,7 @@
                     <label class="col-sm-2 control-label">Description / Details</label>
 
                     <div class="col-md-4">
-                        {!! Form::textarea('description', htmlspecialchars($workOrder->description), ['class'=>'form-control', 'style'=>'min-width:100%']) !!}
+                        {!! Form::textarea('description', htmlentities(($workOrder->description), ['class'=>'form-control', 'style'=>'min-width:100%']) !!}
                     </div>
                 </div>
 

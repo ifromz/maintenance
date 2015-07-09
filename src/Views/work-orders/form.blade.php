@@ -76,7 +76,7 @@
     <label class="col-sm-2 control-label">Description / Details</label>
 
     <div class="col-md-4">
-        {!! Form::textarea('description', (isset($workOrder) ? htmlspecialchars($workOrder->description) : null), ['class'=>'form-control', 'style'=>'min-width:100%']) !!}
+        {!! Form::textarea('description', (isset($workOrder) ? htmlentities(($workOrder->description) : null), ['class'=>'form-control', 'style'=>'min-width:100%']) !!}
 
         <span class="label label-danger">{{ $errors->first('description', ':message') }}</span>
     </div>
