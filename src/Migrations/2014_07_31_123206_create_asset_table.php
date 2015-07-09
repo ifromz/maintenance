@@ -49,7 +49,6 @@ class CreateAssetTable extends Migration
         Schema::create('asset_meters', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->timestamps();
             $table->integer('asset_id')->unsigned();
             $table->integer('meter_id')->unsigned();
 

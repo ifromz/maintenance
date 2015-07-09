@@ -106,7 +106,7 @@ class Asset extends BaseModel
      */
     public function workOrders()
     {
-        return $this->belongsToMany(WorkOrder::class, 'work_order_assets', 'asset_id', 'work_order_id')->withTimestamps();
+        return $this->belongsToMany(WorkOrder::class, 'work_order_assets', 'asset_id', 'work_order_id');
     }
 
     /**
@@ -116,7 +116,7 @@ class Asset extends BaseModel
      */
     public function meters()
     {
-        return $this->belongsToMany(Meter::class, 'asset_meters', 'asset_id', 'meter_id')->withTimestamps();
+        return $this->belongsToMany(Meter::class, 'asset_meters', 'asset_id', 'meter_id');
     }
 
     /*
