@@ -9,6 +9,10 @@
             <td>{{ $asset->name }}</td>
         </tr>
         <tr>
+            <th>Description</th>
+            <td>{!! $asset->description !!}</td>
+        </tr>
+        <tr>
             <th>Added</th>
             <td>{{ $asset->created_at }}</td>
         </tr>
