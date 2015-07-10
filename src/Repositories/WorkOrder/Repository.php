@@ -200,8 +200,8 @@ class Repository extends BaseRepository
         $workOrder->user_id = $this->sentry->getCurrentUserId();
         $workOrder->category_id = $request->input('category_id');
         $workOrder->location_id = $request->input('location_id');
-        $workOrder->status_id = $request->input('status_id');
-        $workOrder->priority_id = $request->input('priority_id');
+        $workOrder->status_id = $request->input('status');
+        $workOrder->priority_id = $request->input('priority');
         $workOrder->subject = $request->input('subject');
         $workOrder->description = $request->clean($request->input('description'));
         $workOrder->started_at = $request->input('started_at');
@@ -270,8 +270,8 @@ class Repository extends BaseRepository
 
         $workOrder->category_id = $request->input('category_id', $workOrder->category_id);
         $workOrder->location_id = $request->input('location_id', $workOrder->location_id);
-        $workOrder->status_id = $request->input('status_id', $workOrder->status_id);
-        $workOrder->priority_id = $request->input('priority_id', $workOrder->priority_id);
+        $workOrder->status_id = $request->input('status', $workOrder->status_id);
+        $workOrder->priority_id = $request->input('priority', $workOrder->priority_id);
         $workOrder->subject = $request->input('subject', $workOrder->subject);
         $workOrder->description = $request->clean($request->input('description', $workOrder->description));
         $workOrder->started_at = $request->input('started_at', $workOrder->started_at);
