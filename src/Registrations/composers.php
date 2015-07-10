@@ -6,6 +6,7 @@
 use Illuminate\Support\Facades\View;
 
 View::composers([
+    \Stevebauman\Maintenance\Composers\ClientLayoutComposer::class => 'maintenance::layouts.client',
     \Stevebauman\Maintenance\Composers\MainLayoutComposer::class => 'maintenance::layouts.main',
     \Stevebauman\Maintenance\Composers\PublicLayoutComposer::class => 'maintenance::layouts.public',
     \Stevebauman\Maintenance\Composers\AdminLayoutComposer::class => 'maintenance::layouts.admin',

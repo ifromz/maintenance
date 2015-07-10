@@ -6,7 +6,7 @@ use Illuminate\View\View;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
 
-class AdminLayoutComposer
+class ClientLayoutComposer
 {
     /**
      * @var SentryService
@@ -19,6 +19,8 @@ class AdminLayoutComposer
     protected $config;
 
     /**
+     * Constructor.
+     *
      * @param SentryService $sentry
      * @param ConfigService $config
      */
@@ -33,7 +35,7 @@ class AdminLayoutComposer
      */
     public function compose(View $view)
     {
-        $siteTitle = $this->config->get('site.title.admin');
+        $siteTitle = $this->config->get('site.title.main');
         $currentUser = $this->sentry->getCurrentUser();
 
         $view->with('siteTitle', $siteTitle);

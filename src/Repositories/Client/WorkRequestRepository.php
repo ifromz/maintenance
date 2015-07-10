@@ -2,10 +2,12 @@
 
 namespace Stevebauman\Maintenance\Repositories\Client;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Stevebauman\Maintenance\Http\Requests\WorkRequest\Request as WorkRequest;
 use Stevebauman\Maintenance\Repositories\CurrentUserRepository;
+use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
 
-class WorkRequestRepository
+class WorkRequestRepository extends BaseRepository
 {
     /**
      * @var CurrentUserRepository
@@ -26,6 +28,29 @@ class WorkRequestRepository
     public function model()
     {
         return $this->currentUser->model()->workRequests();
+    }
+
+    /**
+     * Finds a users work request.
+     *
+     * @param int|string $id
+     *
+     * @return \Stevebauman\Maintenance\Models\WorkRequest
+     */
+    public function find($id)
+    {
+        $with = [
+            'workOrder',
+            'updates',
+        ];
+
+        $record = $this->model()->with($with)->find($id);
+
+        if($record) {
+            return $record;
+        }
+
+        throw new ModelNotFoundException();
     }
 
     /**

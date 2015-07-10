@@ -90,4 +90,5 @@
     {!! HTML::script('assets/stevebauman/maintenance/resources/bootstrap-daterangepicker/daterangepicker.js') !!}
 
     {!! HTML::script('assets/stevebauman/maintenance/js/grid.js') !!}
+
 @stop

@@ -144,8 +144,10 @@ class UserService extends BaseModelService
 
             if (in_array($ldapUser->group, config('maintenance.groups.ldap.administrators'))) {
                 $groups[] = 'administrators';
-            } else if (in_array($ldapUser->group, config('mainenance.groups.ldap.workers'))) {
+            } else if (in_array($ldapUser->group, config('maintenance.groups.ldap.workers'))) {
                 $groups[] = 'workers';
+            } else {
+                $groups[] = 'client';
             }
 
             $user = $this->sentry->createUser($data, $groups);

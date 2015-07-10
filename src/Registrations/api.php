@@ -177,7 +177,7 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         });
 
         // Administrator Api Routes
-        Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function()
+        Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'maintenance.permission'], function()
         {
             // Administrator User Api Routes
             Route::group(['prefix' => 'users'], function()
@@ -197,6 +197,18 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                 Route::get('grid/work-orders', ['as' => 'maintenance.api.v1.admin.archive.work-orders.grid', 'uses' => 'WorkOrderController@grid']);
 
                 Route::get('grid/inventory', ['as' => 'maintenance.api.v1.admin.archive.inventory.grid', 'uses' => 'InventoryController@grid']);
+            });
+        });
+
+        // Client Api Routes
+        Route::group(['prefix' => 'client', 'namespace' => 'Client'], function()
+        {
+            Route::group(['prefix' => 'work-requests'], function()
+            {
+                Route::get('grid', [
+                    'as' => 'maintenance.api.v1.client.work-requests.grid',
+                    'uses' => 'WorkRequestController@grid',
+                ]);
             });
         });
     });
