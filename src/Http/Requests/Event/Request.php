@@ -14,6 +14,8 @@ class Request extends BaseRequest
     public function rules()
     {
         return [
+            'location' => '',
+            'location_id' => 'integer',
             'title' => 'required|min:5|max:250',
             'description' => 'min:5|max:2000',
             'start_date' => 'required|max:25',

@@ -98,7 +98,7 @@ class EventController extends Controller
                     'location' => ($event->location ? $event->location->trail : null),
                     'start' => $startDate->format('Y-m-d h:i:s'),
                     'end' => $endDate->format('Y-m-d h:i:s'),
-                    'view' => route('maintenance.events.show', [$event->id]),
+                    'view_url' => route('maintenance.events.show', [$event->id]),
                 ];
             }
 

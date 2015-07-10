@@ -131,17 +131,6 @@ class EventRepository extends Repository
      */
     public function create(Request $request)
     {
-        $input = $request->all();
-
-        if(array_key_exists('location_id', $input)) {
-
-            $location = $this->location->find($input['location_id']);
-
-            if($location) {
-                $input['location'] = strip_tags($location->trail);
-            }
-        }
-
         $apiEvent = $this->eventApi->setInput($request->all())->create();
 
         if($apiEvent) {
@@ -186,9 +175,38 @@ class EventRepository extends Repository
         return false;
     }
 
+    /**
+     * Updates an event.
+     *
+     * @param Request    $request
+     * @param int|string $id
+     *
+     * @return bool|Event
+     */
     public function update(Request $request, $id)
     {
+        $event = $this->find($id);
 
+        if($event) {
+            $input = $request->all();
+
+            if(array_key_exists('location_id', $input)) {
+
+                $location = $this->location->find($input['location_id']);
+
+                if($location) {
+                    $input['location'] = strip_tags($location->trail);
+                }
+            }
+
+            $apiEvent = $this->eventApi->setInput($input)->update($event->api_id);
+
+            if($apiEvent) {
+                return $event;
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -25,8 +25,8 @@
 
     <div class="col-md-4">
         @include('maintenance::select.location', [
-            'location_name' => (isset($event) && isset($event->location) ? $event->location->name : null),
-            'location_id' => (isset($event) && isset($event->location) ? $event->location->id : null),
+            'location_name' => (isset($event) && ($event->location ? $event->location->name : null)),
+            'location_id' => (isset($event) && ($event->location ? $event->location->id : null)),
         ])
 
         <span class="label label-danger">{{ $errors->first('location', ':message') }}</span>
@@ -81,14 +81,14 @@
 
     <div class="col-md-4">
         @include('maintenance::select.users')
-    </div>main
+    </div>
 </div>
 
 <div class="form-group{{ $errors->first('all_day', ' has-error') }}">
     <label class="col-sm-2 control-label">All Day</label>
 
     <div class="col-md-4">
-        {!! Form::checkbox('all_day', 'true', (isset($event) ? $event->all_day : null)) !!}
+        {!! Form::checkbox('all_day', 'true', (isset($apiObject) ? $apiObject->all_day : null)) !!}
 
         <span class="label label-danger">{{ $errors->first('all_day', ':message') }}</span>
     </div>
@@ -104,8 +104,7 @@
             <div class="col-md-4 col-md-offset-2">
                 <div class="alert alert-warning">
                     <p>
-                        <b>Heads Up!</b> Setting a new frequency will change the dates and times of all events in the
-                        series.
+                        <b>Heads Up!</b> Setting a new frequency will change the dates and times of all events in the series.
                         If you've modified a recurrence, it's not recommended to change the recurrence options.
                     </p>
                 </div>

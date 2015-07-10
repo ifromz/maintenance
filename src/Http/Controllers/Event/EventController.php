@@ -44,6 +44,8 @@ class EventController extends Controller
     /**
      * Creates a new event.
      *
+     * @parma Request $request
+     *
      * @return \Illuminate\Support\Facades\Response
      */
     public function store(Request $request)
@@ -74,7 +76,11 @@ class EventController extends Controller
 
         $apiObject = $this->event->findApiObject($event->api_id);
 
-        return view('maintenance::events.show', compact('event', 'apiObject'));
+        if($apiObject) {
+            return view('maintenance::events.show', compact('event', 'apiObject'));
+        }
+
+        abort(404);
     }
 
     /**
@@ -90,34 +96,34 @@ class EventController extends Controller
 
         $apiObject = $this->event->findApiObject($event->api_id);
 
-        return view('maintenance::events.edit', compact('event', 'apiObject'));
+        if($apiObject) {
+            return view('maintenance::events.edit', compact('event', 'apiObject'));
+        }
+
+        abort(404);
     }
 
     /**
-     * @param string $api_id
+     * Updates an event.
+     *
+     * @param Request    $request
+     * @param int|string $id
      *
      * @return \Illuminate\Support\Facades\Response
      */
-    public function update($api_id)
+    public function update(Request $request, $id)
     {
-        if ($this->eventValidator->passes()) {
-            $event = $this->event->setInput($this->inputAll())->updateByApiId($api_id);
+        $event = $this->event->update($request, $id);
 
-            if ($event) {
-                $this->message = 'Successfully updated event';
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.events.show', [$event->id]);
-            } else {
-                $this->message = 'There was an error trying to udpdate this event. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.events.edit', [$api_id]);
-            }
+        if($event) {
+            $message = 'Successfully updated event.';
+
+            return redirect()->route('maintenance.events.show', [$event->id])->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.events.edit', [$api_id]);
-            $this->errors = $this->eventValidator->getErrors();
-        }
+            $message = 'There was an issue updating this event. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.events.create')->withErrors($message);
+        }
     }
 
     /**
