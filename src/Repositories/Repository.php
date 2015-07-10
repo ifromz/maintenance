@@ -2,10 +2,9 @@
 
 namespace Stevebauman\Maintenance\Repositories;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
-use Venturecraft\Revisionable\Revision;
+use Stevebauman\Maintenance\Models\Revision;
 use Cartalyst\DataGrid\Laravel\Facades\DataGrid;
 
 abstract class Repository
@@ -170,10 +169,10 @@ abstract class Repository
         $transformer = function(Revision $revision)
         {
             return [
-                'user' => $revision->userResponsible()->full_name,
+                'user' => $revision->getUserResponsible()->full_name,
                 'key' => $revision->getKey(),
-                'old_value' => (! is_null($revision->oldValue()) ? $revision->oldValue() : '<em>None</em>'),
-                'new_value' => ($revision->newValue() ? $revision->newValue() : '<em>None</em>'),
+                'old_value' => (! is_null($revision->getOldValue()) ? $revision->getOldValue() : '<em>None</em>'),
+                'new_value' => ($revision->getNewValue() ? $revision->getNewValue() : '<em>None</em>'),
                 'created_at' => $revision->created_at->format('Y-m-d g:i a'),
             ];
         };
