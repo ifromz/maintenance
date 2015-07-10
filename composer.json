@@ -28,6 +28,11 @@
         "davejamesmiller/laravel-breadcrumbs": "3.0.0",
         "google/apiclient": "1.1.4"
     },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "phpspec/phpspec": "~2.1",
+        "orchestra/testbench": "~3.1"
+    },
     "repositories": [
     {
         "type": "composer",

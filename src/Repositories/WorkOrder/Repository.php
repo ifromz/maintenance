@@ -371,7 +371,7 @@ class Repository extends BaseRepository
             }
 
             // Set the stock put reason
-            $reason = sprintf('Put back from <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id]));
+            $reason = link_to_route('maintenance.work-orders.show', 'Put Back from Work Order', [$workOrder->id]);
 
             if($stock->put($returnQuantity, $reason)) {
 
