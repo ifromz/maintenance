@@ -123,7 +123,7 @@ class UserService extends BaseModelService
         if ($user) {
             $this->sentry->updatePasswordById($user->id, $password);
         } else {
-            // If a user is not found, create their web account
+            // If a user is not found in the database, create their web account
             $ldapUser = $this->ldap->user($username);
 
             $fullName = explode(',', $ldapUser->name);
@@ -131,7 +131,7 @@ class UserService extends BaseModelService
             $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : null);
 
             $data = [
-                'email' => $ldapUser->email,
+                'email' => ($ldapUser->email ? $ldapUser->email : $username),
                 'username' => $username,
                 'password' => $password,
                 'last_name' => (string) $lastName,
