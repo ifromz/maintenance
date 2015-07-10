@@ -46,7 +46,7 @@ class PermissionMiddleware
             }
         }
 
-        // Return unauthorized error.
+        // Return forbidden error.
         abort(403);
     }
 }
