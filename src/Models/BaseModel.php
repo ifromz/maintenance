@@ -4,8 +4,9 @@ namespace Stevebauman\Maintenance\Models;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
+use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
-use Stevebauman\Maintenance\Traits\Relationships\HasRevisionsTrait;
+use Stevebauman\Revision\Traits\HasRevisionsTrait;
 use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;
@@ -31,6 +32,26 @@ class BaseModel extends Eloquent
      * Provides model revisions.
      */
     use HasRevisionsTrait;
+
+    /**
+     * The morphMany revisions relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function revisions()
+    {
+        return $this->morphMany(Revision::class, 'revisionable');
+    }
+
+    /**
+     * Returns the revision user ID.
+     *
+     * @return int
+     */
+    public function revisionUserId()
+    {
+        return Sentry::getUser()->id;
+    }
 
     /**
      * Formats the created_at timestamp.
