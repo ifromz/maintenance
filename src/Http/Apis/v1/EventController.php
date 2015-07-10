@@ -93,11 +93,20 @@ class EventController extends Controller
                 $startDate = new \DateTime($apiObject->start);
                 $endDate = new \DateTime($apiObject->end);
 
+                // If the event is all day, we'll format the dates differently.
+                if($apiObject->all_day) {
+                    $start = $startDate->format('Y-m-d');
+                    $end = $endDate->format('Y-m-d');
+                } else {
+                    $start = $startDate->format('Y-m-d h:i:s');
+                    $end = $endDate->format('Y-m-d h:i:s');
+                }
+
                 return [
                     'title' => $apiObject->title,
                     'location' => ($event->location ? $event->location->trail : null),
-                    'start' => $startDate->format('Y-m-d h:i:s'),
-                    'end' => $endDate->format('Y-m-d h:i:s'),
+                    'start' => $start,
+                    'end' => $end,
                     'view_url' => route('maintenance.events.show', [$event->id]),
                 ];
             }
