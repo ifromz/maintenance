@@ -24,11 +24,6 @@ $(document).ready(function () {
         });
     });
 
-    /*
-     * Replace all text area instances with CKeditor
-     */
-    CKEDITOR.replaceAll();
-
     // Sorts a table listing by ajax
     $(document).on('click', '.link-sort', function (e) {
         e.preventDefault();
@@ -40,6 +35,9 @@ $(document).ready(function () {
         });
 
     });
+
+    // Replace all instance of textarea input with yellow-text
+    $('textarea').YellowText();
 
     /*
      * Confirms a form submission
@@ -330,7 +328,7 @@ $(document).ready(function () {
         $.get(dataSrc, function (data) {
             jsonCategoryTree = data;
         }).done(function () {
-            if (jsonCategoryTree != null) {
+            if (jsonCategoryTree.length > 0) {
                 tree.on('changed.jstree', function (e, data) {
 
                     var btnEditCategory = $('#edit-category').css('display', 'inline-block');
@@ -366,6 +364,8 @@ $(document).ready(function () {
                         }
                     );
                 });
+            } else {
+                tree.html('There are no records to display.');
             }
         });
     }
