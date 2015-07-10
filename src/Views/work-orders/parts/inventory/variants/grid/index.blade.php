@@ -146,8 +146,8 @@
 
     @include('maintenance::work-orders.parts.inventory.variants.grid.templates.no-results')
     @include('maintenance::work-orders.parts.inventory.variants.grid.templates.results')
-    @include('maintenance::work-orders.parts.inventory.variants.grid.templates.pagination')
-    @include('maintenance::work-orders.parts.inventory.variants.grid.templates.filters')
+    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'inventory-variants'])
+    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'inventory-variants'])
 
 </section>
 
