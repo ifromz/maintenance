@@ -179,7 +179,7 @@ class WorkOrder extends BaseModel
     /**
      * The belongsToMany inventory parts relationship.
      *
-     * @return $this
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function parts()
     {
@@ -385,7 +385,7 @@ class WorkOrder extends BaseModel
     }
 
     /**
-     * Alias for getUserNotificiations().
+     * Alias for getUserNotifications().
      *
      * @return object
      */
