@@ -17,6 +17,26 @@ trait HasCategoryTrait
     }
 
     /**
+     * Retrieves the revised location attribute.
+     *
+     * @param int|string $id
+     *
+     * @return null|string
+     */
+    public function getRevisedCategoryAttribute($id)
+    {
+        if($id) {
+            $category = $this->category()->find($id);
+
+            if($category) {
+                return $category->trail;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Filters results by specified category.
      *
      * @param mixed      $query

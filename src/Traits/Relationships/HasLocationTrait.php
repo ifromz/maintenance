@@ -17,6 +17,26 @@ trait HasLocationTrait
     }
 
     /**
+     * Retrieves the revised location attribute.
+     *
+     * @param int|string $id
+     *
+     * @return null|string
+     */
+    public function getRevisedLocationAttribute($id)
+    {
+        if($id) {
+            $location = $this->location()->find($id);
+
+            if($location) {
+                return $location->trail;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Filters inventory results by specified location.
      *
      * @param mixed      $query
