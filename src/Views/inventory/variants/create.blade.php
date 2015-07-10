@@ -8,8 +8,6 @@
 
 @section('panel.body.content')
 
-    @include('maintenance::metrics.modals.create')
-
     {!!
         Form::open([
             'url'=>route('maintenance.inventory.variants.store', [$item->id]),
@@ -20,4 +18,5 @@
     @include('maintenance::inventory.form', compact('item'))
 
     {!! Form::close() !!}
+
 @stop

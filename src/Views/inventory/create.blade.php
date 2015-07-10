@@ -7,7 +7,6 @@
 @stop
 
 @section('panel.body.content')
-    @include('maintenance::metrics.modals.create')
 
     {!!
         Form::open([
@@ -19,4 +18,5 @@
     @include('maintenance::inventory.form')
 
     {!! Form::close() !!}
+
 @stop

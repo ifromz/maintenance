@@ -4,8 +4,6 @@
     <i class="fa fa-dashboard"></i> Add a Meter
 </a>
 
-@include('maintenance::metrics.modals.create')
-
 <div class="modal fade" id="create-reading-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
