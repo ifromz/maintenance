@@ -44,6 +44,7 @@ class StockController extends BaseController
     public function index($workOrderId, $inventoryId)
     {
         $workOrder = $this->workOrder->find($workOrderId);
+
         $item = $this->inventory->find($inventoryId);
 
         return view('maintenance::work-orders.parts.inventory.stocks.index', compact('workOrder', 'item'));
@@ -62,10 +63,16 @@ class StockController extends BaseController
     public function getTake($workOrderId, $inventoryId, $stockId)
     {
         $workOrder = $this->workOrder->find($workOrderId);
-        $item = $this->inventory->find($inventoryId);
-        $stock = $item->stocks()->findOrFail($stockId);
 
-        return view('maintenance::work-orders.parts.inventory.stocks.take', compact('workOrder', 'item', 'stock'));
+        $item = $this->inventory->find($inventoryId);
+
+        $stock = $item->stocks()->find($stockId);
+
+        if($stock) {
+            return view('maintenance::work-orders.parts.inventory.stocks.take', compact('workOrder', 'item', 'stock'));
+        }
+
+        abort(404);
     }
 
     /**
@@ -104,10 +111,16 @@ class StockController extends BaseController
     public function getPut($workOrderId, $inventoryId, $stockId)
     {
         $workOrder = $this->workOrder->find($workOrderId);
-        $stock = $workOrder->parts()->findOrFail($stockId);
-        $item = $stock->item;
 
-        return view('maintenance::work-orders.parts.inventory.stocks.put', compact('workOrder', 'item', 'stock'));
+        $stock = $workOrder->parts()->find($stockId);
+
+        if($stock) {
+            $item = $stock->item;
+
+            return view('maintenance::work-orders.parts.inventory.stocks.put', compact('workOrder', 'item', 'stock'));
+        }
+
+        abort(404);
     }
 
     /**
