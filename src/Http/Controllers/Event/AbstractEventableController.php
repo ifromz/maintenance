@@ -18,6 +18,12 @@ abstract class AbstractEventableController extends Controller
      */
     protected $eventableCalendarId;
 
+    /**
+     * Constructor.
+     *
+     * @param EventService $event
+     * @param EventValidator $eventValidator
+     */
     public function __construct(EventService $event, EventValidator $eventValidator)
     {
         $this->event = $event;
