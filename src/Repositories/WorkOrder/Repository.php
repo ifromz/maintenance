@@ -318,9 +318,9 @@ class Repository extends BaseRepository
                     // Add on the quantity inputted to the existing record quantity
                     $newQuantity = $stock->pivot->quantity + $quantity;
 
-                    if($workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity])) {
-                        return $workOrder;
-                    }
+                    $workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity]);
+
+                    return $workOrder;
                 } else {
                     /*
                      * The stock hasn't been attached to the work
@@ -329,9 +329,9 @@ class Repository extends BaseRepository
                     $stock = $workOrder->parts()->getRelated()->find($stockId);
 
                     if($stock && $stock->take($quantity, $reason)) {
-                        if($workOrder->parts()->attach($stock->id, ['quantity' => $quantity])) {
-                            return $workOrder;
-                        }
+                        $workOrder->parts()->attach($stock->id, ['quantity' => $quantity]);
+
+                        return $workOrder;
                     }
                 }
             } catch (NotEnoughStockException $e) {}
