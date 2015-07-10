@@ -29,6 +29,16 @@ class User extends SentryUser
     protected $viewer = UserViewer::class;
 
     /**
+     * The hasMany work requests relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function workRequests()
+    {
+        return $this->hasMany(WorkRequest::class, 'user_id', 'id');
+    }
+
+    /**
      * Returns the users first and last name in a concatenated string.
      *
      * @return string
