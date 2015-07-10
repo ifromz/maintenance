@@ -76,6 +76,7 @@ $(document).ready(function () {
 
         var btnSubmit = $(this).find(':submit');
         var refreshTarget = $(this).data('refresh-target');
+        var refreshGrid = $(this).data('refresh-grid');
 
         btnDisable(btnSubmit);
 
@@ -84,11 +85,14 @@ $(document).ready(function () {
             {
                 showFormResponse(response, status, xhr, $form);
 
-                refreshContent(refreshTarget);
-
                 if (typeof refreshTarget != 'undefined')
                 {
                     refreshContent(refreshTarget);
+                }
+
+                if(typeof refreshGrid != 'undefined')
+                {
+                    $('button[data-grid="'+refreshGrid+'"][data-reset]').click();
                 }
 
                 btnEnable(btnSubmit);
