@@ -4,6 +4,7 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder\Part;
 
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\ReturnRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\TakeRequest;
+use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
@@ -68,7 +69,7 @@ class StockController extends BaseController
 
         $stock = $item->stocks()->find($stockId);
 
-        if($stock) {
+        if($stock instanceof InventoryStock) {
             return view('maintenance::work-orders.parts.inventory.stocks.take', compact('workOrder', 'item', 'stock'));
         }
 
@@ -114,7 +115,7 @@ class StockController extends BaseController
 
         $stock = $workOrder->parts()->find($stockId);
 
-        if($stock) {
+        if($stock instanceof InventoryStock) {
             $item = $stock->item;
 
             return view('maintenance::work-orders.parts.inventory.stocks.put', compact('workOrder', 'item', 'stock'));
