@@ -81,15 +81,32 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         {
             Route::get('grid', ['as' => 'maintenance.api.v1.inventory.grid', 'uses' => 'Controller@grid']);
 
-            Route::get('{inventory}/stocks/{stocks}/edit', [
-                'as' => 'maintenance.api.v1.inventory.stocks.edit',
-                'uses' => 'StockController@edit',
-            ]);
+            Route::group(['prefix' => '{inventory}'], function()
+            {
+                Route::get('variants', [
+                    'as' => 'maintenance.api.v1.inventory.variants.grid',
+                    'uses' => 'VariantController@grid',
+                ]);
 
-            Route::patch('{inventory}/stocks/{stocks}', [
-                'as' => 'maintenance.api.v1.inventory.stocks.update',
-                'uses' => 'StockController@update',
-            ]);
+                // Inventory Stock Api Routes
+                Route::group(['prefix' => 'stocks'], function()
+                {
+                    Route::get('grid', [
+                        'as' => 'maintenance.api.v1.inventory.stocks.grid',
+                        'uses' => 'StockController@grid',
+                    ]);
+
+                    Route::get('{stocks}/edit', [
+                        'as' => 'maintenance.api.v1.inventory.stocks.edit',
+                        'uses' => 'StockController@edit',
+                    ]);
+
+                    Route::patch('{stocks}', [
+                        'as' => 'maintenance.api.v1.inventory.stocks.update',
+                        'uses' => 'StockController@update',
+                    ]);
+                });
+            });
 
             // Inventory Category Api Routes
             Route::group(['prefix' => 'categories'], function()

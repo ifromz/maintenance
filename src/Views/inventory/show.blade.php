@@ -15,21 +15,13 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="pull-left">
-                    {!! $item->viewer()->btnEvents() !!}
+                {!! $item->viewer()->btnEvents() !!}
 
-                    {!! $item->viewer()->btnAddStock() !!}
+                {!! $item->viewer()->btnRegenerateSku() !!}
 
-                    {!! $item->viewer()->btnCreateVariant() !!}
+                {!! $item->viewer()->btnEdit() !!}
 
-                    {!! $item->viewer()->btnRegenerateSku() !!}
-                </div>
-
-                <div class="pull-right">
-                    {!! $item->viewer()->btnEdit() !!}
-
-                    {!! $item->viewer()->btnDelete() !!}
-                </div>
+                {!! $item->viewer()->btnDelete() !!}
 
             </div>
 
@@ -44,15 +36,35 @@
             <div class="clear-fix"></div>
 
             <div class="col-md-12">
-                <h2>Stocks</h2>
 
-                {!! $item->viewer()->stock() !!}
+                <h2>
+                    Stocks
+
+                    <button class="btn btn-default" data-toggle="tooltip" data-original-title="Refresh" data-grid="inventory-stocks" data-reset>
+                        <i class="fa fa-refresh fa-sm"></i>
+                    </button>
+
+                    {!! $item->viewer()->btnAddStock() !!}
+                </h2>
+
+                @include('maintenance::inventory.stocks.grid.thin', compact('item'))
             </div>
         </div>
     </div>
 
     <div class="tab-pane" id="tab-variants">
-        {!! $item->viewer()->variants() !!}
+        <h2>
+            Variants
+
+            <button class="btn btn-default" data-toggle="tooltip" data-original-title="Refresh" data-grid="inventory-variants" data-reset>
+                <i class="fa fa-refresh fa-sm"></i>
+            </button>
+            <a class="btn btn-default" data-toggle="tooltip" data-original-title="Create Variant" href="{{ route('maintenance.inventory.variants.create', [$item->id]) }}">
+                <i class="fa fa-plus"></i>
+            </a>
+        </h2>
+
+        @include('maintenance::inventory.variants.grid.thin', compact('item'))
     </div>
 
     <div class="tab-pane" id="tab-calendar">

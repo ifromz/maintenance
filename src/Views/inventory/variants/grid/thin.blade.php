@@ -3,7 +3,7 @@
 {{-- Grid: Table --}}
 <div class="table-responsive">
 
-    <table id="inventory-variants-results" class="table table-hover" data-source="{{ route('api.v1.inventory.variants.grid', [$item->id]) }}" data-grid="inventory-variants">
+    <table id="inventory-variants-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.inventory.variants.grid', [$item->id]) }}" data-grid="inventory-variants">
 
         <thead>
             <tr>
@@ -33,3 +33,12 @@
 @include('maintenance::inventory.variants.grid.templates.results')
 @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'inventory-variants'])
 @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'inventory-variants'])
+
+<script>
+
+    $(function()
+    {
+        $.datagrid('inventory-variants', '#inventory-variants-results', '#inventory-variants-pagination', '#inventory-variants-filters');
+    });
+
+</script>

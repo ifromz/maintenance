@@ -31,7 +31,7 @@
                         </li>
 
                         <li class="primary">
-                            <a href="{{ route('maintenance.inventory.stocks.create') }}" data-toggle="tooltip" data-original-title="Create">
+                            <a href="{{ route('maintenance.inventory.stocks.create', [$item->id]) }}" data-toggle="tooltip" data-original-title="Create">
                                 <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
                             </a>
                         </li>
@@ -123,16 +123,14 @@
     {{-- Grid: Table --}}
     <div class="table-responsive">
 
-        <table id="inventory-stocks-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.inventory.stocks.grid') }}" data-grid="inventory-stocks">
+        <table id="inventory-stocks-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.inventory.stocks.grid', [$item->id]) }}" data-grid="inventory-stocks">
 
             <thead>
                 <tr>
-                    <th class="sortable" data-sort="id">ID</th>
-                    <th>SKU</th>
-                    <th class="sortable" data-sort="name">Name</th>
-                    <th class="sortable" data-sort="category_id">Category</th>
-                    <th>Current Stock</th>
-                    <th class="sortable" data-sort="created_at">Created At</th>
+                    <th class="sortable" data-sort="quantity">Quantity</th>
+                    <th class="sortable" data-sort="location_id">Location</th>
+                    <th>Last Movement</th>
+                    <th>Last Movement By</th>
                 </tr>
             </thead>
 
@@ -151,8 +149,8 @@
 
     @include('maintenance::inventory.stocks.grid.templates.no-results')
     @include('maintenance::inventory.stocks.grid.templates.results')
-    @include('maintenance::inventory.stocks.grid.templates.pagination')
-    @include('maintenance::inventory.stocks.grid.templates.filters')
+    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'inventory-stocks'])
+    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'inventory-stocks'])
 
 </section>
 

@@ -49,16 +49,16 @@ class VariantController extends BaseController
      */
     public function store(VariantRequest $request, $inventoryId)
     {
-        $inventory = $this->inventory->createVariant($request, $inventoryId);
+        $variant = $this->inventory->createVariant($request, $inventoryId);
 
-        if($inventory) {
-            $message = sprintf('Successfully created item variant: %s', link_to_route('maintenance.inventory.show', 'Show', [$inventory->id]));
+        if($variant) {
+            $message = sprintf('Successfully created item variant: %s', link_to_route('maintenance.inventory.show', 'Show', [$variant->id]));
 
-            return redirect()->route('maintenance.inventory.index')->withSuccess($message);
+            return redirect()->route('maintenance.inventory.show', [$inventoryId, '#tab-variants'])->withSuccess($message);
         } else {
             $message = 'There was an error creating a variant of this item. Please try again.';
 
-            return redirect()->route('maintenance.inventory.index')->withErrors($message);
+            return redirect()->route('maintenance.inventory.show', [$inventoryId])->withErrors($message);
         }
     }
 }

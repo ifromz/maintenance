@@ -154,6 +154,14 @@ class InventoryStock extends BaseModel
      */
     public function getQuantityMetricAttribute()
     {
-        return $this->attributes['quantity'].' '.$this->item->metric->name;
+        $quantity = $this->getAttribute('quantity');
+
+        if($this->item && $this->item->metric) {
+            $metric = $this->item->metric->name;
+        } else {
+            $metric = null;
+        }
+
+        return trim(sprintf('%s %s', $quantity, $metric));
     }
 }

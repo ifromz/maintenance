@@ -34,6 +34,7 @@ class StockController extends BaseController
         $columns = [
             'id',
             'quantity',
+            'inventory_id',
             'location_id',
             'created_at',
         ];
@@ -49,9 +50,10 @@ class StockController extends BaseController
         {
             return [
                 'id' => $stock->id,
-                'quantity' => $stock->quantity,
+                'quantity' => $stock->getQuantityMetricAttribute(),
                 'location' => ($stock->location ? $stock->location->trail : null),
-                'last_movement' => $stock->getLastMovement(),
+                'last_movement' => $stock->getLastMovementAttribute(),
+                'last_movement_by' => $stock->getLastMovementByAttribute(),
                 'created_at' => $stock->created_at,
                 'view_url' => route('maintenance.inventory.stocks.show', [$id, $stock->id]),
             ];
