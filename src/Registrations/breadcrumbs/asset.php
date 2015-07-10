@@ -117,3 +117,14 @@ Breadcrumbs::register('maintenance.assets.categories.nodes.create', function (Ge
 /*
  * End Asset Category crumbs
  */
+
+/*
+ * Asset Work Order crumbs
+ */
+Breadcrumbs::register('maintenance.assets.work-orders.index', function (Generator $breadcrumbs, $assetId) {
+    $breadcrumbs->parent('maintenance.assets.show', $assetId);
+    $breadcrumbs->push('Work Orders', route('maintenance.assets.work-orders.index'));
+});
+/*
+ * End Asset Work Order crumbs
+ */
