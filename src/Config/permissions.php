@@ -41,6 +41,9 @@ return [
         'maintenance.client.work-requests.edit' => 1,
         'maintenance.client.work-requests.update' => 1,
         'maintenance.client.work-requests.destroy' => 1,
+
+        'maintenance.client.work-requests.updates.store' => 1,
+        'maintenance.client.work-requests.updates.destroy' => 1,
     ],
 
     /*

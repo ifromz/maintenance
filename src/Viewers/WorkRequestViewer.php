@@ -25,6 +25,16 @@ class WorkRequestViewer extends BaseViewer
     }
 
     /**
+     * Returns the work order client updates view.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function clientUpdates()
+    {
+        return view('maintenance::viewers.work-request.client-updates', ['workRequest' => $this->entity]);
+    }
+
+    /**
      * Returns the work orders action buttons view.
      *
      * @return \Illuminate\View\View

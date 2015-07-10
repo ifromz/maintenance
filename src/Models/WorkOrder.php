@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\ReportRequest;
 use Stevebauman\Maintenance\Viewers\WorkOrder\WorkOrderViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasNotesTrait;
@@ -459,11 +460,17 @@ class WorkOrder extends BaseModel
     /**
      * Completes the work order by saving the completed at timestamp to now.
      *
+     * @param ReportRequest $request
+     *
      * @return $this|bool
      */
-    public function complete()
+    public function complete(ReportRequest $request)
     {
         $this->completed_at = Carbon::now();
+
+        if($request->has('status')) {
+            $this->status_id = $request->input('status');
+        }
 
         if($this->save()) {
             return $this;
@@ -472,4 +479,3 @@ class WorkOrder extends BaseModel
         return false;
     }
 }
-

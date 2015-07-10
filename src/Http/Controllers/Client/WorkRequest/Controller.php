@@ -1,12 +1,12 @@
 <?php
 
-namespace Stevebauman\Maintenance\Http\Controllers\Client;
+namespace Stevebauman\Maintenance\Http\Controllers\Client\WorkRequest;
 
 use Stevebauman\Maintenance\Http\Requests\WorkRequest\Request as WorkRequest;
 use Stevebauman\Maintenance\Repositories\Client\WorkRequestRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class WorkRequestController extends BaseController
+class Controller extends BaseController
 {
     /**
      * @var WorkRequestRepository
@@ -95,7 +95,7 @@ class WorkRequestController extends BaseController
         $workRequest = $this->workRequest->find($id);
 
         if($workRequest) {
-            return view('maintenance::client.work-requests.show', compact('workRequest'));
+            return view('maintenance::client.work-requests.edit', compact('workRequest'));
         }
 
         abort(404);

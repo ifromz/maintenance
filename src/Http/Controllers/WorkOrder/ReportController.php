@@ -61,9 +61,8 @@ class ReportController extends Controller
         $report = $this->report->create($request, $workOrder->id);
 
         if($report) {
-
             // Complete the work order.
-            $workOrder->complete();
+            $workOrder->complete($request);
 
             $message = 'Successfully created work order report.';
 

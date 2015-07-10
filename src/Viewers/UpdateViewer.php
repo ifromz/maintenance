@@ -7,6 +7,14 @@ use Stevebauman\Maintenance\Models\WorkRequest;
 
 class UpdateViewer extends BaseViewer
 {
+    public function clientWorkRequest(WorkRequest $workRequest)
+    {
+        return view('maintenance::viewers.update.client-work-request', [
+            'workRequest' => $workRequest,
+            'update' => $this->entity,
+        ]);
+    }
+
     /**
      * Returns the work requests updates view.
      *
