@@ -60,6 +60,11 @@ class Inventory extends BaseModel
         'description',
     ];
 
+    protected $revisionColumnsMean = [
+        'metric_id' => 'metric.name',
+        'category_id' => 'category.trail',
+    ];
+
     /**
      * Revisionable field names.
      *
@@ -69,6 +74,7 @@ class Inventory extends BaseModel
         'category_id' => 'Category',
         'metric_id' => 'Metric',
         'name' => 'Name',
+        'description' => 'Description',
     ];
 
     /**

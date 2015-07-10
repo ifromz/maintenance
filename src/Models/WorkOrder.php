@@ -62,7 +62,6 @@ class WorkOrder extends BaseModel
     protected $revisionColumns = [
         'location_id',
         'category_id',
-        'request_id',
         'status_id',
         'priority_id',
         'subject',
@@ -72,8 +71,7 @@ class WorkOrder extends BaseModel
     ];
 
     /**
-     * The work orders revisionable
-     * formatted field names.
+     * The work orders revisionable formatted field names.
      *
      * @var array
      */

@@ -2,13 +2,10 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Traits\Relationships\HasRevisionsTrait;
 use Baum\Node;
 
 class Location extends Node
 {
-    use HasRevisionsTrait;
-
     /**
      * The locations table.
      *
