@@ -15,13 +15,13 @@ class Request extends BaseRequest
     {
         return [
             'category' => '',
-            'category_id' => 'integer|min:1',
+            'category_id' => 'integer|min:1|exists:categories,id',
 
             'location' => '',
-            'location_id' => 'integer|min:1',
+            'location_id' => 'integer|min:1|exists:locations,id',
 
-            'status' => 'required|integer',
-            'priority' => 'required|integer',
+            'status' => 'required|integer|exists:statuses,id',
+            'priority' => 'required|integer|exists:priorities,id',
 
             'subject' => 'required|min:5|max:250',
             'description' => 'min:5',

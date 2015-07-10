@@ -197,11 +197,11 @@ class Repository extends BaseRepository
     {
         $workOrder = $this->model();
 
-        $workOrder->user_id = $this->sentry->getCurrentUserId();
         $workOrder->category_id = $request->input('category_id');
         $workOrder->location_id = $request->input('location_id');
         $workOrder->status_id = $request->input('status', $this->status->createDefaultRequested()->getKey());
         $workOrder->priority_id = $request->input('priority', $this->priority->createDefaultRequested()->getKey());
+        $workOrder->user_id = $this->sentry->getCurrentUserId();
         $workOrder->subject = $request->input('subject');
         $workOrder->description = $request->clean($request->input('description'));
         $workOrder->started_at = $request->input('started_at');

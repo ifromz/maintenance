@@ -17,8 +17,8 @@ class Request extends BaseRequest
             'name' => 'required|max:250',
             'description' => 'max:1000',
             'category' => 'required',
-            'category_id' => 'min:1|integer',
-            'metric' => 'required|integer',
+            'category_id' => 'min:1|integer|exists:categories,id',
+            'metric' => 'required|integer|exists:metrics,id',
         ];
     }
 

@@ -9,8 +9,8 @@
             'category_id'=> (isset($item) ? $item->category->id : null)
         ])
 
-        <span class="label label-danger">{{ $errors->first('category_name', ':message') }}</span>
         <span class="label label-danger">{{ $errors->first('category_id', ':message') }}</span>
+        <span class="label label-danger">{{ $errors->first('category', ':message') }}</span>
     </div>
 </div>
 

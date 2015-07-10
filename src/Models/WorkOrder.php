@@ -469,7 +469,11 @@ class WorkOrder extends BaseModel
         $this->completed_at = Carbon::now();
 
         if($request->has('status')) {
-            $this->status_id = $request->input('status');
+            $status = $this->status()->getRelated()->find($request->input('status'));
+
+            if($status) {
+                $this->status_id = $status->id;
+            }
         }
 
         if($this->save()) {
