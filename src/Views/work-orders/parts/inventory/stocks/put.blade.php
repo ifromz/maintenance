@@ -21,7 +21,7 @@
         <p></p>
 
         <dt>Quantity Used:</dt>
-        <dd id="quantity-refresh">{{ $stock->quantity }}</dd>
+        <dd id="quantity-refresh">{{ $stock->pivot->quantity }}</dd>
 
         <p></p>
     </dl>
@@ -50,7 +50,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            {!! Form::submit('Save', array('class'=>'btn btn-primary')) !!}
+            {!! Form::submit('Save', ['class'=>'btn btn-primary']) !!}
         </div>
     </div>
 
