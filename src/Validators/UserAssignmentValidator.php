@@ -39,7 +39,7 @@ class UserAssignmentValidator extends Validator
     /**
      * @var AssignmentService
      */
-    protected $assignent;
+    protected $assignment;
 
     /**
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
