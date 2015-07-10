@@ -2,7 +2,7 @@
 
 @section('panel.head.content')
     <div class="btn-toolbar">
-        <a class="btn btn-primary" href="{{ action(currentControllerAction('create'), array($eventable->id)) }}">
+        <a class="btn btn-primary" href="{{ action(currentControllerAction('create'), [$eventable->id]) }}">
             <i class="fa fa-plus-circle"></i>
             New Event
         </a>

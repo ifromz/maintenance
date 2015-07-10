@@ -151,8 +151,8 @@
 
     @include('maintenance::assets.meters.grid.templates.no-results')
     @include('maintenance::assets.meters.grid.templates.results')
-    @include('maintenance::assets.meters.grid.templates.pagination')
-    @include('maintenance::assets.meters.grid.templates.filters')
+    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'assets-meters'])
+    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'assets-meters'])
 
 </section>
 

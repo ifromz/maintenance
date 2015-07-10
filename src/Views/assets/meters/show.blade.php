@@ -27,7 +27,7 @@
     <script>
         $(function()
         {
-            $.datagrid('meters-readings', '#meters-readings-results', '#meters-readings-pagination', '#meters-readings-filters');
+            $.datagrid('assets-meters-readings', '#assets-meters-readings-results', '#assets-meters-readings-pagination', '#assets-meters-readings-filters');
         });
     </script>
 @stop

@@ -150,8 +150,8 @@
 
     @include('maintenance::admin.users.grid.templates.no-results')
     @include('maintenance::admin.users.grid.templates.results')
-    @include('maintenance::admin.users.grid.templates.pagination')
-    @include('maintenance::admin.users.grid.templates.filters')
+    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'groups'])
+    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'groups'])
 
 </section>
 

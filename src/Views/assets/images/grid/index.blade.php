@@ -150,8 +150,8 @@
 
     @include('maintenance::assets.images.grid.templates.no-results')
     @include('maintenance::assets.images.grid.templates.results')
-    @include('maintenance::assets.images.grid.templates.pagination')
-    @include('maintenance::assets.images.grid.templates.filters')
+    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'assets-images'])
+    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'assets-images'])
 
 </section>
 

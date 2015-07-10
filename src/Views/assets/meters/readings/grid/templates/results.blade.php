@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="meters-readings" data-template="results">
+<script type="text/template" data-grid="assets-meters-readings" data-template="results">
 
     <% _.each(results, function(r){ %>
 

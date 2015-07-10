@@ -150,8 +150,8 @@
 
     @include('maintenance::assets.manuals.grid.templates.no-results')
     @include('maintenance::assets.manuals.grid.templates.results')
-    @include('maintenance::assets.manuals.grid.templates.pagination')
-    @include('maintenance::assets.manuals.grid.templates.filters')
+    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'assets-manuals'])
+    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'assets-manuals'])
 
 </section>
 

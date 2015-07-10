@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="row text-center">
+    <div class="text-center">
 
         <h1>{{ $image->name }}</h1>
 
@@ -34,5 +34,9 @@
                 </ul>
             </div>
         </div>
+
     </div>
+
+    <hr>
+
 @stop

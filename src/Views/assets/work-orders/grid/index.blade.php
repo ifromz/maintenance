@@ -145,8 +145,8 @@
 
     @include('maintenance::assets.work-orders.grid.templates.no-results')
     @include('maintenance::assets.work-orders.grid.templates.results')
-    @include('maintenance::assets.work-orders.grid.templates.pagination')
-    @include('maintenance::assets.work-orders.grid.templates.filters')
+    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'assets-work-orders'])
+    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'assets-work-orders'])
 
 </section>
 
