@@ -47,7 +47,7 @@ class Repository extends BaseRepository
             'workOrders',
             'images',
             'meters',
-            'revisionHistory',
+            'revisions',
         ];
 
         return $this->model()->with($with)->findOrFail($id);

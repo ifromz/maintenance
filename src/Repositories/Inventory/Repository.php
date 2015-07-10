@@ -51,7 +51,7 @@ class Repository extends BaseRepository
             'notes',
             'stocks',
             'stocks.movements',
-            'revisionHistory',
+            'revisions',
         ];
 
         return $this->model()->with($with)->findOrFail($id);
