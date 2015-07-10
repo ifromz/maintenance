@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
@@ -19,7 +20,7 @@ class BaseValidator extends AbstractValidator
     /**
      * Holds the error messages of the current request
      *
-     * @var \Illuminate\Support\MessageBag
+     * @var MessageBag
      */
     protected $errors;
 
@@ -84,9 +85,9 @@ class BaseValidator extends AbstractValidator
     /**
      * Sets the errors property.
      *
-     * @param array|\Illuminate\Support\MessageBag $errors
+     * @param MessageBag $errors
      */
-    public function setErrors($errors)
+    public function setErrors(MessageBag $errors)
     {
         $this->errors = $errors;
     }

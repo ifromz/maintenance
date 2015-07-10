@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Input;
 
 class FileValidator extends BaseValidator
@@ -57,9 +58,11 @@ class FileValidator extends BaseValidator
                 return true;
             }
         } else {
-            $errors = [
+            $messages = [
                 'files' => trans('validation.required', ['attribute' => 'files']),
             ];
+
+            $errors = new MessageBag($messages);
 
             $this->setErrors($errors);
         }
