@@ -102,7 +102,12 @@ class AuthController extends Controller
             // Successfully logged in
             $message = 'Successfully logged in.';
 
-            return redirect()->route('maintenance.work-requests.index')->withSuccess($message);
+            if($this->sentry->getCurrentUser()->hasAccess('maintenance.work-requests.index')) {
+                return redirect()->route('maintenance.work-requests.index')->withSuccess($message);
+            } else {
+                // If the user doesn't have access to the main work request route, then they're a client
+                return redirect()->route('maintenance.client.work-requests.index')->withSuccess($message);
+            }
         } else {
             // Login failed, return error response
             return redirect()->route('maintenance.login')->withErrors($response['message']);
@@ -174,7 +179,7 @@ class AuthController extends Controller
     private function ldapAuthenticate(array $credentials)
     {
         // Check if the user exists on active directory
-        if ($this->ldap->getUserEmail($credentials['email'])) {
+        if ($this->ldap->getUserFullName($credentials['email'])) {
             // Try LDAP authentication
             if ($this->auth->ldapAuthenticate($credentials)) {
                 /*
