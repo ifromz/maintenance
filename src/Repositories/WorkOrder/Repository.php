@@ -311,7 +311,7 @@ class Repository extends BaseRepository
 
             $quantity = $request->input('quantity');
 
-            $reason = sprintf('Used for <a href="%s">Work Order</a>', route('maintenance.work-orders.show', [$workOrder->id]));
+            $reason = link_to_route('maintenance.work-orders.show', 'Used for Work Order', [$workOrder->id]);
 
             try {
                 if($stock && $stock->take($quantity, $reason)) {
