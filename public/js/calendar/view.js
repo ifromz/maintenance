@@ -10,49 +10,45 @@ $(document).ready(function(){
 
     calendar.fullCalendar({
         header: {
-             left: 'prev,today,next',
-             center: 'title',
-             right: 'month,agendaWeek,agendaDay'
-         },
-         defaultView: 'month',
-         buttonText: {
-             prev: "Previous",
-             next: "Next",
-             today: 'Today',
-             week: 'Week',
-             day: 'Day'
-         },
-         events: {
-             url: url,
-             type: 'GET',
-             error: function() {
-                 alert('Error retrieving events');
-             }
-         },
-         eventClick: function(calEvent, jsEvent, view) {
+            left: 'prev,today,next',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        defaultView: 'month',
+        buttonText: {
+            prev: "Previous",
+            next: "Next",
+            today: 'Today',
+            month: 'Month',
+            week: 'Week',
+            day: 'Day'
+        },
+        events: {
+            url: url,
+            type: 'GET'
+        },
+        eventClick: function(calEvent, jsEvent, view) {
 
-             $.ajax({
-                 url: "/api/v1/calendar/events/"+calEvent.id
-             })
-             .done(function( data ) {
-                 bootbox.dialog({
-                     message: data,
-                     title: calEvent.title,
-                     buttons: {
-                         main: {
-                             label: "Close",
-                             className: "btn-default"
-                         },
-                         success: {
-                             label: "View Details",
-                             className: "btn-primary"
-                         }
-                     }
-                 });
-             });
+            $.ajax({
+                url: "/api/v1/calendar/events/"+calEvent.id
+            })
+                .done(function( data ) {
+                    bootbox.dialog({
+                        message: data,
+                        title: calEvent.title,
+                        buttons: {
+                            main: {
+                                label: "Close",
+                                className: "btn-default"
+                            },
+                            success: {
+                                label: "View Details",
+                                className: "btn-primary"
+                            }
+                        }
+                    });
+                });
 
-         }
-     });
-
-
+        }
+    });
 });

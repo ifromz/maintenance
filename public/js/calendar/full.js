@@ -24,10 +24,7 @@ $(document).ready(function(){
         },
         events: {
             url: url,
-            type: 'GET',
-            error: function() {
-                alert('Error retrieving events');
-            }
+            type: 'GET'
         },
         editable: true,
         eventDrop: function(event, delta, revertFunc) {
