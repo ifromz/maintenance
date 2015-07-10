@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Services\Event;
 
-use Stevebauman\Maintenance\Services\LocationService;
+use Stevebauman\Maintenance\Repositories\LocationRepository;
 use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Event;
@@ -29,7 +29,7 @@ class EventService extends BaseModelService
     protected $sentry;
 
     /**
-     * @var LocationService
+     * @var LocationRepository
      */
     protected $location;
 
@@ -39,13 +39,13 @@ class EventService extends BaseModelService
      * @param Event                  $model
      * @param GoogleEventService     $google
      * @param SentryService          $sentry
-     * @param LocationService        $location
+     * @param LocationRepository     $location
      */
     public function __construct(
         Event $model,
         GoogleEventService $google,
         SentryService $sentry,
-        LocationService $location)
+        LocationRepository $location)
     {
         $this->model = $model;
         $this->eventApi = $google;
