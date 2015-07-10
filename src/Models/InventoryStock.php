@@ -125,7 +125,7 @@ class InventoryStock extends BaseModel
             }
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -144,7 +144,7 @@ class InventoryStock extends BaseModel
             }
         }
 
-        return;
+        return null;
     }
 
     /**

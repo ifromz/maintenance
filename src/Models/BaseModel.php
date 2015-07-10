@@ -78,7 +78,7 @@ class BaseModel extends Eloquent
             return Carbon::parse($deleted_at)->format('Y-m-d h:i A');
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -97,7 +97,7 @@ class BaseModel extends Eloquent
             return str_limit(strip_tags($this->attributes['description']), 30);
         }
 
-        return;
+        return null;
     }
 
     /**

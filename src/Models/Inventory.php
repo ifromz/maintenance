@@ -60,9 +60,14 @@ class Inventory extends BaseModel
         'description',
     ];
 
+    /**
+     * The revision column means attributes.
+     *
+     * @var array
+     */
     protected $revisionColumnsMean = [
-        'metric_id' => 'metric.name',
-        'category_id' => 'category.trail',
+        'metric_id' => 'revised_metric',
+        'category_id' => 'revised_category',
     ];
 
     /**
@@ -250,6 +255,26 @@ class Inventory extends BaseModel
             return $this->getMetricSymbol();
         }
 
-        return;
+        return null;
+    }
+
+    /**
+     * Retrieves the revised metric attribute.
+     *
+     * @param int|string $id
+     *
+     * @return null|string
+     */
+    public function getRevisedMetricAttribute($id)
+    {
+        if($id) {
+            $metric = $this->metric()->find($id);
+
+            if($metric) {
+                return $metric->name;
+            }
+        }
+
+        return null;
     }
 }

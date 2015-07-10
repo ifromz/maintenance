@@ -78,6 +78,16 @@ class Asset extends BaseModel
     ];
 
     /**
+     * The revision column means attributes.
+     *
+     * @var array
+     */
+    protected $revisionColumnsMean = [
+        'location_id' => 'revised_location',
+        'category_id' => 'revised_category',
+    ];
+
+    /**
      * The revisionable formatted field names.
      *
      * @var array
