@@ -1,7 +1,15 @@
 <table class="table">
     <tbody>
         <tr>
-            <th>Created By</th>
+            <th>Current Status</th>
+            @if($workRequest->workOrder && $workRequest->workOrder->status)
+                <td>{!! $workRequest->workOrder->status->label !!}</td>
+            @else
+                <em>None</em>
+            @endif
+        </tr>
+        <tr>
+            <th>Submitted By</th>
             <td>{{ $workRequest->user->full_name }}</td>
         </tr>
         <tr>

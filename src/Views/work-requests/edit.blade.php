@@ -19,4 +19,5 @@ Editing Work Request
     @include('maintenance::work-requests.form', compact('workRequest'))
 
     {!! Form::close() !!}
+
 @stop

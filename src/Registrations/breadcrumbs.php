@@ -17,3 +17,4 @@ include 'breadcrumbs/location.php';
 
 include 'breadcrumbs/metric.php';
 
+include 'breadcrumbs/client.php';

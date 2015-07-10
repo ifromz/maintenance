@@ -2,6 +2,28 @@
 
 @section('title', 'Viewing Work Request')
 
+@section('content')
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">Work Request</div>
+
+        <div class="panel-body">
+
+            <h3>Profile</h3>
+
+            <div class="col-md-6">
+                {!! $workRequest->viewer()->profile() !!}
+            </div>
+
+        </div>
+
+    </div>
+
+    {!! $workRequest->viewer()->updates() !!}
+
+@stop
+
 @section('tab.head.content')
     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab_updates" data-toggle="tab">Updates</a></li>
@@ -22,11 +44,7 @@
             <i class="fa fa-trash-o"></i> Delete
         </a>
 
-        <h2>Profile</h2>
 
-        <div class="col-md-6">
-            {!! $workRequest->viewer()->profile() !!}
-        </div>
 
         <div class="clearfix"></div>
     </div>

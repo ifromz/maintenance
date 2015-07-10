@@ -47,15 +47,22 @@ class WorkRequestController extends BaseController
 
         $transformer = function(WorkRequest $workRequest)
         {
-            return [
+            $attributes = [
                 'id' => $workRequest->id,
                 'subject' => $workRequest->subject,
                 'description' => $workRequest->getLimitedDescriptionAttribute(),
                 'best_time' => $workRequest->best_time,
-                'status' => ($workRequest->workOrder ? $workRequest->workOrder->status->label : '<em>None</em>'),
                 'created_at' => $workRequest->created_at,
                 'view_url' => route('maintenance.client.work-requests.show', [$workRequest->id]),
             ];
+
+            if($workRequest->workOrder && $workRequest->workOrder->status) {
+                $attributes['status'] = $workRequest->workOrder->status->label;
+            } else {
+                $attributes['status'] = '<em>None</em>';
+            }
+
+            return $attributes;
         };
 
         return $this->workRequest->grid($columns, $settings, $transformer);

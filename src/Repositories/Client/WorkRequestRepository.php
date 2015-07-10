@@ -4,6 +4,8 @@ namespace Stevebauman\Maintenance\Repositories\Client;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Stevebauman\Maintenance\Http\Requests\WorkRequest\Request as WorkRequest;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Repositories\CurrentUserRepository;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
 
@@ -15,11 +17,25 @@ class WorkRequestRepository extends BaseRepository
     protected $currentUser;
 
     /**
-     * @param CurrentUserRepository $currentUser
+     * @var WorkOrderRepository
      */
-    public function __construct(CurrentUserRepository $currentUser)
+    protected $workOrder;
+
+    /**
+     * @var ConfigService
+     */
+    protected $config;
+
+    /**
+     * @param CurrentUserRepository $currentUser
+     * @param WorkOrderRepository   $workOrder
+     * @param ConfigService         $config
+     */
+    public function __construct(CurrentUserRepository $currentUser, WorkOrderRepository $workOrder, ConfigService $config)
     {
         $this->currentUser = $currentUser;
+        $this->workOrder = $workOrder;
+        $this->config = $config;
     }
 
     /**
@@ -71,6 +87,12 @@ class WorkRequestRepository extends BaseRepository
         $workRequest = $this->model()->create($attributes);
 
         if($workRequest) {
+            $autoGenerate = $this->config->setPrefix('maintenance')->get('rules.work-orders.auto_generate_from_request', true);
+
+            if($autoGenerate) {
+                $this->workOrder->createFromWorkRequest($workRequest);
+            }
+
             return $workRequest;
         }
 
