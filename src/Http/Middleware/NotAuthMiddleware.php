@@ -37,11 +37,13 @@ class NotAuthMiddleware
         if($this->sentry->check()) {
             $currentUser = $this->sentry->getCurrentUser();
 
-            if($currentUser->hasAccess('maintenance.work-requests.index')) {
-                return redirect()->route('maintenance.work-requests.index');
-            } else {
-                return redirect()->route('maintenance.client.work-requests.index');
+            $route = 'maintenance.work-requests.index';
+
+            if(! $currentUser->hasAccess($route)) {
+                $route = 'maintenance.client.work-requests.index';
             }
+
+            return redirect()->route($route);
         } else {
             return $next($request);
         }
