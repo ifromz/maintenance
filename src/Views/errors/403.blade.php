@@ -1,6 +1,6 @@
 @extends('maintenance::layouts.public')
 
-@section('title', '404 - Not Found')
+@section('title', '403 - Permission Denied')
 
 @section('content')
 
@@ -12,7 +12,7 @@
             </div>
             <div class="panel-body">
                 <p class="text-center">
-                    The page you tried to visit does not exist.
+                    You do not have access to this page.
                 </p>
 
                 <a class="btn btn-primary btn-block" href="{{ URL::previous() }}">
