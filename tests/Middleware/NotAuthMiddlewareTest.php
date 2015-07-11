@@ -8,6 +8,6 @@ class NotAuthMiddlewareTest extends FunctionalTestCase
 {
     public function testRedirect()
     {
-
+        $this->setUserIsAdmin();
     }
 }

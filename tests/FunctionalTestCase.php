@@ -27,7 +27,7 @@ class FunctionalTestCase extends TestCase
 
         $this->artisan('migrate', [
             '--database' => 'testbench',
-            '--path' => realpath(__DIR__.'/Migrations'),
+            '--path' => __DIR__.'/Migrations',
         ]);
     }
 
