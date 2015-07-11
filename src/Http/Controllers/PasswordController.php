@@ -63,9 +63,7 @@ class PasswordController extends Controller
      */
     public function getRequest()
     {
-        return view('maintenance::login.password.request', [
-            'title' => 'Reset Your Password',
-        ]);
+        return view('maintenance::auth.login.password.request');
     }
 
     /**

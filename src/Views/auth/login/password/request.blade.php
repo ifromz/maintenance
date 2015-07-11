@@ -1,9 +1,11 @@
 @extends('maintenance::layouts.public')
 
+@section('title', 'Forgot Password')
+
 @section('content')
     <div class="login-box">
 
-        <div class="login-logo">{{ $title }}</div>
+        <div class="login-logo">@yield('title')</div>
 
         {!!
             Form::open([
@@ -21,7 +23,7 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
-            {{ link_to_route('maintenance.login', 'Go Back to Login') }}
+            {!! link_to_route('maintenance.login', 'Go Back to Login') !!}
         </div>
 
         <div class="form-group">

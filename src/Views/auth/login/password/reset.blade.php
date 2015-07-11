@@ -1,9 +1,11 @@
 @extends('maintenance::layouts.public')
 
+@section('title', 'Forgot Password')
+
 @section('content')
     <div class="login-box">
 
-        <div class="login-logo">{{ $title }}</div>
+        <div class="login-logo">@yield('title')</div>
 
         {!!
             Form::open([
