@@ -13,7 +13,8 @@ class AlterUserTable extends Migration
         if (Schema::hasTable('users')) {
             if (!Schema::hasColumn('users', 'username')) {
                 Schema::table('users', function (Blueprint $table) {
-                    $table->string('username')->after('email');
+                    $table->string('username');
+
                     $table->unique('username');
                 });
             }
