@@ -20,8 +20,8 @@
                 <th class="sortable" data-sort="subject">Subject</th>
                 <th class="sortable" data-sort="created_at">Created At</th>
                 <th class="sortable" data-sort="user_id">Created By</th>
-                <td>Priority</td>
-                <td>Status</td>
+                <th class="sortable" data-sort="priority_id">Priority</th>
+                <th class="sortable" data-sort="status_id">Status</th>
             </tr>
         </thead>
 
