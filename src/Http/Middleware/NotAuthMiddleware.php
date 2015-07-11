@@ -35,7 +35,13 @@ class NotAuthMiddleware
     public function handle(Request $request, Closure $next)
     {
         if($this->sentry->check()) {
-            return redirect()->route('maintenance.dashboard.index');
+            $currentUser = $this->sentry->getCurrentUser();
+
+            if($currentUser->hasAccess('maintenance.work-requests.index')) {
+                return redirect()->route('maintenance.work-requests.index');
+            } else {
+                return redirect()->route('maintenance.client.work-requests.index');
+            }
         } else {
             return $next($request);
         }
