@@ -137,6 +137,8 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                 Route::group(['prefix' => 'work-orders'], function()
                 {
                     Route::get('grid', ['as' => 'maintenance.api.v1.assets.work-orders.grid', 'uses' => 'WorkOrderController@grid']);
+
+                    Route::get('attachable/grid', ['as' => 'maintenance.api.v1.assets.work-orders.attachable.grid', 'uses' => 'WorkOrderController@gridAttachable']);
                 });
 
                 // Asset Manual Api Routes

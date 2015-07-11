@@ -1,4 +1,4 @@
-{{-- Asset Work Orders Grid --}}
+{{-- Asset Work Order Attach Grid --}}
 <section class="panel panel-default panel-grid">
 
     {{-- Grid: Header --}}
@@ -123,7 +123,7 @@
     {{-- Grid: Table --}}
     <div class="table-responsive">
 
-        <table id="assets-work-orders-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.assets.work-orders.grid', [$asset->id]) }}" data-grid="assets-work-orders">
+        <table id="assets-work-orders-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.assets.work-orders.attachable.grid', [$asset->id]) }}" data-grid="assets-work-orders">
 
             <thead>
                 <tr>
@@ -133,6 +133,7 @@
                     <th class="sortable" data-sort="work_orders.user_id">Created By</th>
                     <th class="sortable" data-sort="work_orders.priority_id">Priority</th>
                     <th class="sortable" data-sort="work_orders.status_id">Status</th>
+                    <th>Attach</th>
                 </tr>
             </thead>
 
@@ -149,8 +150,8 @@
 
     </footer>
 
-    @include('maintenance::assets.work-orders.grid.templates.no-results')
-    @include('maintenance::assets.work-orders.grid.templates.results')
+    @include('maintenance::assets.work-orders.attach.grid.templates.no-results')
+    @include('maintenance::assets.work-orders.attach.grid.templates.results')
     @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'assets-work-orders'])
     @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'assets-work-orders'])
 

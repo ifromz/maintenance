@@ -52,7 +52,7 @@
                         'url' => route('maintenance.work-orders.assignments.store', [$workOrder->id]),
                         'class' => 'ajax-form-post',
                         'data-refresh-target' => '#assigned-workers',
-                        'data-status-target' => '#workers-assigned-status'
+                        'data-status-target' => '#workers-assigned-status',
                     ])
                 !!}
 

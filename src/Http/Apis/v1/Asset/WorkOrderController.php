@@ -37,6 +37,8 @@ class WorkOrderController extends BaseController
             'work_orders.created_at',
             'work_orders.user_id',
             'work_orders.subject',
+            'work_orders.priority_id',
+            'work_orders.status_id',
         ];
 
         $settings = [
@@ -52,13 +54,55 @@ class WorkOrderController extends BaseController
                 'id' => $workOrder->id,
                 'created_at' => $workOrder->created_at,
                 'subject' => $workOrder->subject,
-                'view_url' => route('maintenance.work-orders.show', [$workOrder->id]),
                 'created_by' => $workOrder->user->full_name,
                 'status' => $workOrder->viewer()->lblStatus(),
                 'priority' =>  $workOrder->viewer()->lblPriority(),
+                'view_url' => route('maintenance.work-orders.show', [$workOrder->id]),
             ];
         };
 
         return $this->asset->gridWorkOrders($assetId, $columns, $settings, $transformer);
+    }
+
+    /**
+     * Returns a new grid instance of attachable work orders.
+     *
+     * @param int|string $assetId
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridAttachable($assetId)
+    {
+        $columns = [
+            'work_orders.id',
+            'work_orders.created_at',
+            'work_orders.user_id',
+            'work_orders.subject',
+            'work_orders.priority_id',
+            'work_orders.status_id',
+        ];
+
+        $settings = [
+            'sort' => 'created_at',
+            'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
+        ];
+
+        $transformer = function(WorkOrder $workOrder) use ($assetId)
+        {
+            return [
+                'id' => $workOrder->id,
+                'created_at' => $workOrder->created_at,
+                'subject' => $workOrder->subject,
+                'created_by' => $workOrder->user->full_name,
+                'status' => $workOrder->viewer()->lblStatus(),
+                'priority' =>  $workOrder->viewer()->lblPriority(),
+                'view_url' => route('maintenance.work-orders.show', [$workOrder->id]),
+                'attach_url' => route('maintenance.assets.work-orders.attach.store', [$assetId, $workOrder->id]),
+            ];
+        };
+
+        return $this->asset->gridAttachableWorkOrders($assetId, $columns, $settings, $transformer);
     }
 }

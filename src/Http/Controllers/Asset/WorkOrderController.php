@@ -35,4 +35,39 @@ class WorkOrderController extends BaseController
 
         return view('maintenance::assets.work-orders.index', compact('asset'));
     }
+
+    /**
+     * Displays all work orders available to be attached to the specified asset.
+     *
+     * @param int|string $assetId
+     *
+     * @return \Illuminate\View\View
+     */
+    public function attach($assetId)
+    {
+        $asset = $this->asset->find($assetId);
+
+        return view('maintenance::assets.work-orders.attach.index', compact('asset'));
+    }
+
+    /**
+     * Attaches the specified work order to the specified asset.
+     *
+     * @param int|string $assetId
+     * @param int|string $workOrderId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store($assetId, $workOrderId)
+    {
+        if($this->asset->attachWorkOrder($assetId, $workOrderId)) {
+            $message = 'Successfully attached work order.';
+
+            return redirect()->route('maintenance.assets.work-orders.attach.index')->withSuccess($message);
+        } else {
+            $message = 'There was an issue attaching this work order. Please try again.';
+
+            return redirect()->route('maintenance.assets.work-orders.attach.index')->withErrors($message);
+        }
+    }
 }

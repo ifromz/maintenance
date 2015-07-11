@@ -154,6 +154,16 @@ Route::group(['namespace' => 'Asset'], function () {
         'uses' => 'WorkOrderController@index'
     ]);
 
+    Route::get('assets/{assets}/work-orders/attach', [
+        'as' => 'maintenance.assets.work-orders.attach.index',
+        'uses' => 'WorkOrderController@attach'
+    ]);
+
+    Route::get('assets/{assets}/work-orders/attach/{work-orders}', [
+        'as' => 'maintenance.assets.work-orders.attach.store',
+        'uses' => 'WorkOrderController@store',
+    ]);
+
     /*
      * Asset Routes
      */
@@ -168,5 +178,4 @@ Route::group(['namespace' => 'Asset'], function () {
             'destroy' => 'maintenance.assets.destroy',
         ],
     ]);
-
 });

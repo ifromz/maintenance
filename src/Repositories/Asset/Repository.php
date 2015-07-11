@@ -71,6 +71,27 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Returns a new grid instance of all attachable work orders.
+     *
+     * @param int|string $assetId
+     * @param array      $columns
+     * @param array      $settings
+     * @param \Closure   $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridAttachableWorkOrders($assetId, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $asset = $this->find($assetId);
+
+        $model = $asset->workOrders()->getRelated()->newInstance()->query()->whereDoesntHave('assets', function($query) use ($assetId) {
+            $query->where('assets.id', '=', $assetId);
+        });
+
+        return $this->newGrid($model, $columns, $settings, $transformer);
+    }
+
+    /**
      * Returns a new grid instance of all asset images.
      *
      * @param int|string $assetId
@@ -216,6 +237,34 @@ class Repository extends BaseRepository
             }
 
             if($asset->save()) {
+                return $asset;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Attaches the specified work order to the specified asset.
+     *
+     * @param int|string $id
+     * @param int|string $workOrderId
+     *
+     * @return bool|Asset
+     */
+    public function attachWorkOrder($id, $workOrderId)
+    {
+        $asset = $this->find($id);
+
+        if($asset) {
+            $workOrder = $asset->workOrders()->find($workOrderId);
+
+            // Only attach the work order if it hasn't already been attached.
+            if(!$workOrder) {
+                $workOrder = $asset->workOrders()->getRelated()->findOrFail($workOrderId);
+
+                $asset->workOrders()->attach($workOrder->id);
+
                 return $asset;
             }
         }
