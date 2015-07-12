@@ -7,9 +7,9 @@
 @section('panel.body.content')
     {!!
         Form::open([
-            'url'=>route('maintenance.inventory.stocks.update', [$item->id, $stock->id]),
-            'method'=>'PATCH',
-            'class'=>'form-horizontal ajax-form-post',
+            'url' => route('maintenance.inventory.stocks.update', [$item->id, $stock->id]),
+            'method' => 'PATCH',
+            'class' => 'form-horizontal',
         ])
     !!}
 
@@ -27,10 +27,26 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">Quantity</label>
+        <label class="col-sm-2 control-label">Update Quantity</label>
 
         <div class="col-md-4">
             {!! Form::text('quantity', $stock->quantity, ['class'=>'form-control', 'placeholder'=>'ex. 45']) !!}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Reason</label>
+
+        <div class="col-md-4">
+            {!! Form::text('reason', null, ['class'=>'form-control', 'placeholder'=>'ex. Stock Update']) !!}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Cost</label>
+
+        <div class="col-md-4">
+            {!! Form::text('cost', null, ['class'=>'form-control', 'placeholder'=>'ex. 15.00']) !!}
         </div>
     </div>
 
