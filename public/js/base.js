@@ -576,8 +576,8 @@ function updateEvent(calendar, event) {
             data: {
                 _method: 'PATCH',
                 _token: event.token,
-                start: moment(event.start).format(),
-                end: moment(event.end).format(),
+                start: moment(event.start).format('MMMM Do YYYY, h:mm:ss a'),
+                end: moment(event.end).format('MMMM Do YYYY, h:mm:ss a'),
                 all_day: event.allDay
             },
             dataType: "json"
