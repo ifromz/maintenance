@@ -44,7 +44,7 @@ class EventController extends Controller
     /**
      * Creates a new event.
      *
-     * @parma Request $request
+     * @param Request $request
      *
      * @return \Illuminate\Support\Facades\Response
      */
@@ -127,24 +127,22 @@ class EventController extends Controller
     }
 
     /**
-     * Deletes an event.
+     * Deletes the specified event.
      *
      * @param int|string $id
      *
-     * @return \Illuminate\Support\Facades\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
         if ($this->event->delete($id)) {
-            $this->message = 'Successfully deleted event';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.events.index');
-        } else {
-            $this->message = 'There was an error trying to delete this event. Please try again.';
-            $this->messageType = 'danger';
-            $this->redirect = route('maintenance.events.show', [$id]);
-        }
+            $message = 'Successfully deleted event';
 
-        return $this->response();
+            return redirect()->route('maintenance.events.index')->withSuccess($message);
+        } else {
+            $message = 'There was an error trying to delete this event. Please try again.';
+
+            return redirect()->route('maintenance.events.show', [$id])->withErrors($message);
+        }
     }
 }
