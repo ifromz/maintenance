@@ -168,30 +168,6 @@ $(document).ready(function () {
                 that.hide()
             }, 250);
         };
-
-        $('input[name="make"]').typeahead({
-            source: function (query, process) {
-                return $.get('/api/assets/makes', {query: query}, function (data) {
-                    return process(data);
-                });
-            }
-        });
-
-        $('input[name="model"]').typeahead({
-            source: function (query, process) {
-                return $.get('/api/assets/models', {query: query}, function (data) {
-                    return process(data);
-                });
-            }
-        });
-
-        $('input[name="serial"]').typeahead({
-            source: function (query, process) {
-                return $.get('/api/assets/serials', {query: query}, function (data) {
-                    return process(data);
-                });
-            }
-        });
     }
 
     /**
