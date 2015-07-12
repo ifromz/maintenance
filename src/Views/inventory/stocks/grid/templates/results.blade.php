@@ -3,7 +3,7 @@
     <% _.each(results, function(r){ %>
 
     <tr>
-        <td><%= r.quantity %></td>
+        <td><a href="<%= r.view_url %>"><%= r.quantity %></a></td>
         <td><%= r.location %></td>
         <td><%= r.last_movement %></td>
         <td><%= r.last_movement_by %></td>
