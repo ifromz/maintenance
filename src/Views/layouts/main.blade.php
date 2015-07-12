@@ -7,24 +7,10 @@
 @section('nav.left')
 
     @if($currentUser->hasAccess('maintenance.dashboard.index'))
-        <li class="{{ activeMenuLink('maintenance.dashboard') }} treeview">
+        <li class="{{ activeMenuLink('maintenance.dashboard') }}">
             <a href="{{ route('maintenance.dashboard.index') }}">
                 <i class="fa fa-dashboard"></i> Dashboard
-                <i class="fa fa-angle-left pull-right"></i>
             </a>
-            <ul class="treeview-menu">
-                <li>
-                    <a href="{{ route('maintenance.dashboard.index') }}">
-                        <i class="fa fa-dashboard"></i> Dashboard
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#">
-                        <i class="fa fa-calendar"></i> Calendar
-                    </a>
-                </li>
-            </ul>
         </li>
     @endif
 
