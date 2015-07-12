@@ -16,7 +16,6 @@
 
         <thead>
             <tr>
-                <th><input data-grid-checkbox="all" type="checkbox"></th>
                 <th class="sortable" data-sort="name">Name</th>
                 <th class="sortable" data-sort="color">Color</th>
                 <th class="sortable" data-sort="created_at">Created At</th>
@@ -32,6 +31,6 @@
 @section('grid.results')
     @include('maintenance::work-orders.statuses.grid.no-results')
     @include('maintenance::work-orders.statuses.grid.results')
-    @include('maintenance::work-orders.statuses.grid.pagination')
-    @include('maintenance::work-orders.statuses.grid.filters')
+    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'main'])
+    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'main'])
 @stop

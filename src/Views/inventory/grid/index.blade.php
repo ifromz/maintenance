@@ -127,7 +127,6 @@
 
             <thead>
                <tr>
-                   <th><input data-grid-checkbox="all" type="checkbox"></th>
                    <th class="sortable" data-sort="id">ID</th>
                    <th>SKU</th>
                    <th class="sortable" data-sort="name">Name</th>

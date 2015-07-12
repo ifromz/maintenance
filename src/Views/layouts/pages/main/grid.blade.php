@@ -25,12 +25,6 @@
 
                             @section('grid.actions')
 
-                                <li class="danger disabled">
-                                    <a data-grid-bulk-action="delete" data-toggle="tooltip" data-target="modal-confirm" data-original-title="Delete">
-                                        <i class="fa fa-trash-o"></i> <span class="visible-xs-inline">Delete</span>
-                                    </a>
-                                </li>
-
                                 <li class="dropdown">
                                     <a href="#" data-grid-exporter class="dropdown-toggle tip" data-toggle="dropdown" role="button" aria-expanded="false" data-original-title="Export">
                                         <i class="fa fa-download"></i> <span class="visible-xs-inline">Export</span>
