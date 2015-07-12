@@ -35,9 +35,9 @@
             <label class="col-sm-2 control-label">Description / Details</label>
 
             <div class="col-md-6">
-                <span class="label label-danger">{{ $errors->first('description', ':message') }}</span>
-
                 {!! Form::textarea('description', null, ['class'=>'form-control', 'style'=>'min-width:100%']) !!}
+
+                <span class="label label-danger">{{ $errors->first('description', ':message') }}</span>
             </div>
         </div>
 

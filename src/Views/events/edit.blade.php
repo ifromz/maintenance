@@ -7,6 +7,7 @@
 @stop
 
 @section('panel.body.content')
+
     {!!
         Form::open([
             'url' => route('maintenance.events.update', [$event->id]),
@@ -15,9 +16,8 @@
         ])
     !!}
 
-    @include('maintenance::events.form', [
-        'event' => $event
-    ])
+    @include('maintenance::events.form', compact('event', 'apiObject'))
 
     {!! Form::close() !!}
+
 @stop
