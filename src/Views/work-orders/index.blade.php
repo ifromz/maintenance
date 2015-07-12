@@ -15,7 +15,6 @@
 
         <thead>
             <tr>
-                <th><input data-grid-checkbox="all" type="checkbox"></th>
                 <th class="sortable" data-sort="id">ID</th>
                 <th class="sortable" data-sort="subject">Subject</th>
                 <th class="sortable" data-sort="created_at">Created At</th>
