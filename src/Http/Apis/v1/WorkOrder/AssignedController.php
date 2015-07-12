@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
-use Stevebauman\Maintenance\Models\WorkOrderAssignment;
+use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
@@ -30,6 +30,8 @@ class AssignedController extends BaseController
     {
         $columns = [
             'id',
+            'priority_id',
+            'status_id',
             'created_at',
             'user_id',
             'subject',
@@ -42,7 +44,7 @@ class AssignedController extends BaseController
             'throttle' => 10,
         ];
 
-        $transformer = function(WorkOrderAssignment $assignment)
+        $transformer = function(WorkOrder $assignment)
         {
             return [
                 'id' => $assignment->id,
