@@ -97,6 +97,11 @@ Breadcrumbs::register('maintenance.inventory.stocks.show', function (Generator $
     $breadcrumbs->parent('maintenance.inventory.stocks.index', $inventoryId);
     $breadcrumbs->push("ID: $stockId", route('maintenance.inventory.stocks.show', [$inventoryId, $stockId]));
 });
+
+Breadcrumbs::register('maintenance.inventory.stocks.edit', function (Generator $breadcrumbs, $inventoryId, $stockId) {
+    $breadcrumbs->parent('maintenance.inventory.stocks.show', $inventoryId, $stockId);
+    $breadcrumbs->push('Edit', route('maintenance.inventory.stocks.edit', [$inventoryId, $stockId]));
+});
 /*
  * End Inventory Stock Crumbs
  */

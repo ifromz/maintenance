@@ -97,7 +97,9 @@ class Repository extends BaseRepository
      */
     public function gridStockMovements($inventoryId, $stockId, array $columns = [], array $settings = [], $transformer = null)
     {
-        $model = $this->find($inventoryId)->stocks()->find($stockId);
+        $item = $this->find($inventoryId);
+
+        $model = $item->stocks()->findOrFail($stockId);
 
         return $this->newGrid($model->movements(), $columns, $settings, $transformer);
     }

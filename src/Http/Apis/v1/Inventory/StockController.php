@@ -4,6 +4,7 @@ namespace Stevebauman\Maintenance\Http\Apis\v1\Inventory;
 
 use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\Request;
 use Stevebauman\Maintenance\Models\InventoryStock;
+use Stevebauman\Maintenance\Models\InventoryStockMovement;
 use Stevebauman\Maintenance\Repositories\Inventory\StockRepository;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository;
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
@@ -60,6 +61,48 @@ class StockController extends BaseController
         };
 
         return $this->inventory->gridStocks($id, $columns, $settings, $transformer);
+    }
+
+    /**
+     * Returns a new grid instance of all stock movements.
+     *
+     * @param int|string $id
+     * @param int|string $stockId
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridMovements($id, $stockId)
+    {
+        $columns = [
+            'id',
+            'quantity',
+            'inventory_id',
+            'location_id',
+            'created_at',
+        ];
+
+        $settings = [
+            'sort' => 'created_at',
+            'direction' => 'desc',
+            'threshold' => 10,
+            'throttle' => 10,
+        ];
+
+        $transformer = function(InventoryStockMovement $movement) use ($id, $stockId)
+        {
+            return [
+                'id' => $movement->id,
+                'before' => $movement->before,
+                'after' => $movement->after,
+                'cost' => $movement->cost,
+                'change' => $movement->getChangeAttribute(),
+                'user' => ($movement->user ? $movement->user->full_name : '<em>None</em>'),
+                'created_at' => $movement->created_at,
+                'view_url' => route('maintenance.inventory.stocks.movements.show', [$id, $stockId, $movement->id]),
+            ];
+        };
+
+        return $this->inventory->gridStockMovements($id, $stockId, $columns, $settings, $transformer);
     }
 
     /**
