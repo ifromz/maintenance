@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 /*
  * Asset Routes
  */
-Route::group(['namespace' => 'Asset'], function () {
-
+Route::group(['namespace' => 'Asset'], function ()
+{
     /*
     * Category Routes
     */
@@ -134,6 +134,23 @@ Route::group(['namespace' => 'Asset'], function () {
      * End Asset Manual Upload Routes
      */
 
+
+
+    Route::get('assets/{assets}/work-orders', [
+        'as' => 'maintenance.assets.work-orders.index',
+        'uses' => 'WorkOrderController@index'
+    ]);
+
+    Route::get('assets/{assets}/work-orders/attachable', [
+        'as' => 'maintenance.assets.work-orders.attach.index',
+        'uses' => 'WorkOrderController@attach'
+    ]);
+
+    Route::post('assets/{assets}/work-orders/{work-orders}/attach', [
+        'as' => 'maintenance.assets.work-orders.attach.store',
+        'uses' => 'WorkOrderController@store',
+    ]);
+
     /*
      * Asset Event Routes
      */
@@ -147,21 +164,6 @@ Route::group(['namespace' => 'Asset'], function () {
             'update' => 'maintenance.assets.events.update',
             'destroy' => 'maintenance.assets.events.destroy',
         ],
-    ]);
-
-    Route::get('assets/{assets}/work-orders', [
-        'as' => 'maintenance.assets.work-orders.index',
-        'uses' => 'WorkOrderController@index'
-    ]);
-
-    Route::get('assets/{assets}/work-orders/attach', [
-        'as' => 'maintenance.assets.work-orders.attach.index',
-        'uses' => 'WorkOrderController@attach'
-    ]);
-
-    Route::get('assets/{assets}/work-orders/attach/{work-orders}', [
-        'as' => 'maintenance.assets.work-orders.attach.store',
-        'uses' => 'WorkOrderController@store',
     ]);
 
     /*

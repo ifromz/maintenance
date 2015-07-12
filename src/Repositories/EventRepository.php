@@ -188,18 +188,15 @@ class EventRepository extends Repository
         $event = $this->find($id);
 
         if($event) {
-            $input = $request->all();
-
-            if(array_key_exists('location_id', $input)) {
-
-                $location = $this->location->find($input['location_id']);
+            if($request->has('location_id')) {
+                $location = $this->location->model()->find($request->input('location_id'));
 
                 if($location) {
-                    $input['location'] = strip_tags($location->trail);
+                    $request->location = strip_tags($location->trail);
                 }
             }
 
-            $apiEvent = $this->eventApi->setInput($input)->update($event->api_id);
+            $apiEvent = $this->eventApi->setInput($request->all())->update($event->api_id);
 
             if($apiEvent) {
                 return $event;

@@ -1,7 +1,7 @@
 <?php
 
-Route::group(['namespace' => 'Event'], function () {
-
+Route::group(['namespace' => 'Event'], function ()
+{
     Route::resource('events', 'EventController', [
         'names' => [
             'index' => 'maintenance.events.index',
@@ -28,5 +28,4 @@ Route::group(['namespace' => 'Event'], function () {
             'destroy' => 'maintenance.events.report.destroy',
         ],
     ]);
-
 });

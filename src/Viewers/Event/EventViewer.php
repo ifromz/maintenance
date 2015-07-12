@@ -109,7 +109,7 @@ class EventViewer extends BaseViewer
 
             $start->setTimestamp(strtotime($apiObject->start));
 
-            return $start->format('H:i A');
+            return $start->format('h:i A');
         }
 
         return null;
@@ -165,7 +165,7 @@ class EventViewer extends BaseViewer
 
             $end->setTimestamp(strtotime($apiObject->start));
 
-            return $end->format('H:i A');
+            return $end->format('h:i A');
         }
 
         return null;

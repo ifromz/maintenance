@@ -31,7 +31,8 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'namespace' =>
     /*
      * Main Client Controller Group
      */
-    Route::group(['prefix' => 'client', 'namespace' => 'Controllers', 'middleware' => 'maintenance.auth'], function () {
+    Route::group(['prefix' => 'client', 'namespace' => 'Controllers', 'middleware' => 'maintenance.auth'], function ()
+    {
         /*
          * Client Routes
          */
@@ -46,7 +47,8 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'namespace' =>
      * Auth         - Only Allows logged in users
      * Permission   - Only Allows users with correct permissions
      */
-    Route::group(['prefix' => 'management', 'namespace' => 'Controllers', 'middleware' => ['maintenance.auth', 'maintenance.permission']], function () {
+    Route::group(['prefix' => 'management', 'namespace' => 'Controllers', 'middleware' => ['maintenance.auth', 'maintenance.permission']], function ()
+    {
         /*
          * Dashboard Routes
          */
@@ -95,7 +97,8 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'namespace' =>
         /*
          * Administration Route Group
          */
-        Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+        Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function ()
+        {
             /*
              * Administration Routes
              */
@@ -106,7 +109,8 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'namespace' =>
     /*
      * API Route Group
      */
-    Route::group(['prefix' => 'api', 'namespace' => 'Apis'], function () {
+    Route::group(['prefix' => 'api', 'namespace' => 'Apis'], function ()
+    {
         /*
          * API Routes
          */
