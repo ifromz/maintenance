@@ -1,7 +1,4 @@
 {{-- Grid: Table --}}
-
-
-
 <div class="table-responsive">
 
     <table id="inventory-stocks-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.inventory.stocks.grid', [$item->id]) }}" data-grid="inventory-stocks">

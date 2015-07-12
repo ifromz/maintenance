@@ -2,207 +2,176 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Validators\Inventory\StockValidator;
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Services\Inventory\StockService;
+use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\Request as StockRequest;
+use Stevebauman\Maintenance\Repositories\Inventory\StockRepository;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class StockController extends BaseController
 {
     /**
-     * @var InventoryService
+     * @var InventoryRepository
      */
     protected $inventory;
 
     /**
-     * @var StockService
+     * @var StockRepository
      */
-    protected $inventoryStock;
+    protected $stock;
 
     /**
-     * @var StockValidator
+     * Constructor.
+     *
+     * @param InventoryRepository $inventory
+     * @param StockRepository     $stock
      */
-    protected $inventoryStockValidator;
-
-    /**
-     * @param InventoryService $inventory
-     * @param StockService     $inventoryStock
-     * @param StockValidator   $inventoryStockValidator
-     */
-    public function __construct(
-        InventoryService $inventory,
-        StockService $inventoryStock,
-        StockValidator $inventoryStockValidator
-    ) {
+    public function __construct(InventoryRepository $inventory, StockRepository $stock)
+    {
         $this->inventory = $inventory;
-        $this->inventoryStock = $inventoryStock;
-        $this->inventoryStockValidator = $inventoryStockValidator;
+        $this->stock = $stock;
     }
 
     /**
      * Displays all inventory stock entries.
      *
-     * @param $inventory_id
+     * @param int|string $itemId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function index($inventory_id)
+    public function index($itemId)
     {
-        $item = $this->inventory->find($inventory_id);
+        $item = $this->inventory->find($itemId);
 
-        return view('maintenance::inventory.stocks.index', [
-            'title' => 'Current Stocks for Item: '.$item->name,
-            'item' => $item,
-        ]);
+        return view('maintenance::inventory.stocks.index', compact('item'));
     }
 
     /**
      * Displays the form for creating a new stock entry for the inventory.
      *
-     * @param $inventory_id
+     * @param int|string $itemId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function create($inventory_id)
+    public function create($itemId)
     {
-        $item = $this->inventory->find($inventory_id);
+        $item = $this->inventory->find($itemId);
 
-        return view('maintenance::inventory.stocks.create', [
-            'title' => 'Add Stock Location to: '.$item->name,
-            'item' => $item,
-        ]);
+        return view('maintenance::inventory.stocks.create', compact('item'));
     }
 
     /**
-     * Create a new stock entry for the inventory.
+     * Create a new stock entry for the specified inventory item.
      *
-     * @param $inventory_id
+     * @param StockRequest $request
+     * @param int|string   $itemId
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($inventory_id)
+    public function store(StockRequest $request, $itemId)
     {
-        if ($this->inventoryStockValidator->passes()) {
-            $item = $this->inventory->find($inventory_id);
+        $item = $this->inventory->find($itemId);
 
-            $data = $this->inputAll();
-            $data['inventory_id'] = $item->id;
+        $stock = $this->stock->create($request, $item->id);
 
-            $record = $this->inventoryStock->setInput($data)->create();
+        if($stock) {
+            $message = 'Successfully created stock.';
 
-            if ($record) {
-                $this->message = 'Successfully added stock to this item';
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.inventory.show', [$item->id]);
-            } else {
-                $this->message = 'There was an error trying to add stock to this item. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.show', [$item->id]);
-            }
+            return redirect()->route('maintenance.inventory.stocks.show', [$item->id, $stock->id])->withSuccess($message);
         } else {
-            $this->errors = $this->inventoryStockValidator->getErrors();
-        }
+            $message = 'There was an issue creating a stock. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.inventory.stocks.create', [$item->id])->withErrors($message);
+        }
     }
 
     /**
      * Displays the specified stock entry for the specified inventory.
      *
-     * @param $inventory_id
-     * @param $stock_id
+     * @param int|string $itemId
+     * @param int|string $stockId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function show($inventory_id, $stock_id)
+    public function show($itemId, $stockId)
     {
-        $item = $this->inventory->find($inventory_id);
+        $item = $this->inventory->find($itemId);
 
-        $stock = $this->inventoryStock->find($stock_id);
+        $stock = $item->stocks()->find($stockId);
 
-        $lastMovements = $stock->movements()->take(10)->get();
+        if($stock) {
+            return view('maintenance::inventory.stocks.show', compact('item', 'stock'));
+        }
 
-        return view('maintenance::inventory.stocks.show', [
-            'title' => sprintf('Viewing Stock for item: %s inside Location: %s', $item->name, renderNode($stock->location)),
-            'item' => $item,
-            'stock' => $stock,
-            'lastMovements' => $lastMovements,
-        ]);
+        abort(404);
     }
 
     /**
      * Displays the edit form for the specified stock for the specified inventory.
      *
-     * @param $inventory_id
-     * @param $stock_id
+     * @param int|string $itemId
+     * @param int|string $stockId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function edit($inventory_id, $stock_id)
+    public function edit($itemId, $stockId)
     {
-        $item = $this->inventory->find($inventory_id);
+        $item = $this->inventory->find($itemId);
 
-        $stock = $this->inventoryStock->find($stock_id);
+        $stock = $item->stocks()->find($stockId);
 
-        return view('maintenance::inventory.stocks.edit', [
-            'title' => sprintf('Update Stock for item: %s inside %s', $item->name, $stock->location->name),
-            'stock' => $stock,
-            'item' => $item,
-        ]);
+        if($stock) {
+            return view('maintenance::inventory.stocks.edit', compact('item', 'stock'));
+        }
+
+        abort(404);
     }
 
     /**
      * Updates the specified stock for the specified inventory.
      *
-     * @param $inventory_id
-     * @param $stock_id
+     * @param StockRequest $request
+     * @param int|string   $itemId
+     * @param int|string   $stockId
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update($inventory_id, $stock_id)
+    public function update(StockRequest $request, $itemId, $stockId)
     {
-        if ($this->inventoryStockValidator->passes()) {
-            $item = $this->inventory->find($inventory_id);
+        $item = $this->inventory->find($itemId);
 
-            $stock = $this->inventoryStock->setInput($this->inputAll())->update($stock_id);
+        $stock = $this->stock->update($request, $item->id, $stockId);
 
-            if ($stock) {
-                $this->message = 'Successfully updated stock for item: '.$item->name;
-                $this->messageType = 'success';
-                $this->redirect = route('maintenance.inventory.show', [$item->id]);
-            } else {
-                $this->message = 'There was an error trying to update the stock for this item. Please try again.';
-                $this->messageType = 'danger';
-                $this->redirect = route('maintenance.inventory.show', [$item->id]);
-            }
+        if($stock) {
+            $message = 'Successfully updated stock.';
+
+            return redirect()->route('maintenance.inventory.stocks.show', [$item->id, $stock->id])->withSuccess($message);
         } else {
-            $this->redirect = route('maintenance.inventory.show', [$inventory_id]);
-            $this->errors = $this->inventoryStockValidator->getErrors();
-        }
+            $message = 'There was an issue updating this stock. Please try again.';
 
-        return $this->response();
+            return redirect()->route('maintenance.inventory.stocks.update', [$itemId, $stockId])->withErrors($message);
+        }
     }
 
     /**
      * Removes the specified stock from the specified inventory.
      *
-     * @param $inventory_id
-     * @param $stock_id
+     * @param int|string $itemId
+     * @param int|string $stockId
      *
-     * @return \Illuminate\Http\JsonResponse|mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($inventory_id, $stock_id)
+    public function destroy($itemId, $stockId)
     {
-        if ($this->inventoryStock->destroy($stock_id)) {
-            $this->message = 'Successfully deleted stock';
-            $this->messageType = 'success';
-            $this->redirect = route('maintenance.inventory.show', [$inventory_id]);
-        } else {
-            $this->message = 'There was an error trying to delete the stock for this item. Please try again.';
-            $this->messageType = 'danger';
-            $this->redirect = route('maintenance.inventory.show', [$inventory_id]);
+        $item = $this->inventory->find($itemId);
+
+        $stock = $item->stocks()->find($stockId);
+
+        if($stock && $stock->delete()) {
+            $message = 'Successfully deleted stock.';
+
+            return redirect()->route('maintenance.inventory.stocks.index', [$item->id])->withSuccess($message);
         }
 
-        return $this->response();
+        abort(404);
     }
 }

@@ -75,10 +75,12 @@ class StockController extends BaseController
     {
         $columns = [
             'id',
-            'quantity',
-            'inventory_id',
-            'location_id',
-            'created_at',
+            'user_id',
+            'stock_id',
+            'before',
+            'after',
+            'cost',
+            'reason',
         ];
 
         $settings = [
@@ -95,6 +97,7 @@ class StockController extends BaseController
                 'before' => $movement->before,
                 'after' => $movement->after,
                 'cost' => $movement->cost,
+                'reason' => $movement->reason,
                 'change' => $movement->getChangeAttribute(),
                 'user' => ($movement->user ? $movement->user->full_name : '<em>None</em>'),
                 'created_at' => $movement->created_at,

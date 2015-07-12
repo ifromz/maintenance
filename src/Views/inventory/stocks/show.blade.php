@@ -1,5 +1,7 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
+@section('title', 'Viewing Stock')
+
 @section('tab.head.content')
     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
 @stop
@@ -16,26 +18,11 @@
 
         {!! $stock->viewer()->profile() !!}
 
-        <legend>Last 10 Movements</legend>
+        <hr>
 
-        {!!
-            $lastMovements->columns([
-                'id' => 'ID',
-                    'user' => 'User',
-                    'before' => 'Before Quantity',
-                    'after' => 'After Quantity',
-                    'change' => 'Change',
-                    'cost' => 'Cost',
-                    'reason' => 'Reason',
-                    'created_at' => 'Date',
-                    'action' => 'Action'
-                ])
-                ->means('user', 'user.full_name')
-                ->modify('action', function($movement) use($item, $stock) {
-                    return $movement->viewer()->btnActions($item, $stock);
-                })
-                ->render()
-        !!}
+        <h3>Movements</h3>
+
+        @include('maintenance::inventory.stocks.movements.grid.thin', compact('item', 'stock'))
 
     </div>
 @stop

@@ -27,7 +27,7 @@
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">Update Quantity</label>
+        <label class="col-sm-2 control-label">Quantity</label>
 
         <div class="col-md-4">
             {!! Form::text('quantity', $stock->quantity, ['class'=>'form-control', 'placeholder'=>'ex. 45']) !!}

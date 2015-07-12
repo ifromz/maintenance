@@ -51,9 +51,12 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                 {
                     Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.grid', 'uses' => 'InventoryController@grid']);
 
-                    Route::get('{inventory}/variants/grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.variants.grid', 'uses' => 'InventoryController@gridVariants']);
+                    Route::group(['prefix' => '{inventory}'], function()
+                    {
+                        Route::get('variants/grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.variants.grid', 'uses' => 'InventoryController@gridVariants']);
 
-                    Route::get('{inventory}/stocks/grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.stocks.grid', 'uses' => 'InventoryController@gridStocks']);
+                        Route::get('stocks/grid', ['as' => 'maintenance.api.v1.work-orders.parts.inventory.stocks.grid', 'uses' => 'InventoryController@gridStocks']);
+                    });
                 });
             });
 
@@ -83,10 +86,7 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
 
             Route::group(['prefix' => '{inventory}'], function()
             {
-                Route::get('variants', [
-                    'as' => 'maintenance.api.v1.inventory.variants.grid',
-                    'uses' => 'VariantController@grid',
-                ]);
+                Route::get('variants', ['as' => 'maintenance.api.v1.inventory.variants.grid', 'uses' => 'VariantController@grid']);
 
                 // Inventory Stock Api Routes
                 Route::group(['prefix' => 'stocks'], function()
@@ -94,6 +94,11 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                     Route::get('grid', [
                         'as' => 'maintenance.api.v1.inventory.stocks.grid',
                         'uses' => 'StockController@grid',
+                    ]);
+
+                    Route::get('{stocks}/movements/grid', [
+                        'as' => 'maintenance.api.v1.inventory.stocks.movements.grid',
+                        'uses' => 'StockController@gridMovements',
                     ]);
 
                     Route::get('{stocks}/edit', [
