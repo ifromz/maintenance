@@ -210,6 +210,28 @@ class EventRepository extends Repository
     }
 
     /**
+     * Deletes an event.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function delete($id)
+    {
+        $event = $this->find($id);
+
+        if($event) {
+            if($this->eventApi->destroy($event->api_id)) {
+                $event->delete();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Updates the specified event dates.
      *
      * @param MoveRequest $request

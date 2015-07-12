@@ -182,6 +182,7 @@ class Repository extends BaseRepository
 
         if($inventory) {
             $attributes = [
+                'user_id' => $this->sentry->getCurrentUserId(),
                 'content' => $request->clean($request->input('content')),
             ];
 

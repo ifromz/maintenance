@@ -49,7 +49,7 @@ class Controller extends BaseController
             return [
                 'id' => $workOrder->id,
                 'created_at' => $workOrder->created_at,
-                'subject' => $workOrder->subject,
+                'subject' => str_limit($workOrder->subject),
                 'view_url' => route('maintenance.work-orders.show', [$workOrder->id]),
                 'created_by' => $workOrder->user->full_name,
                 'status' => $workOrder->viewer()->lblStatus(),

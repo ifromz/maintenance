@@ -98,6 +98,7 @@ Route::group(['namespace' => 'Inventory'], function () {
         'names' => [
             'create' => 'maintenance.inventory.notes.create',
             'store' => 'maintenance.inventory.notes.store',
+            'show' => 'maintenance.inventory.notes.show',
             'edit' => 'maintenance.inventory.notes.edit',
             'update' => 'maintenance.inventory.notes.update',
             'destroy' => 'maintenance.inventory.notes.destroy',
@@ -105,9 +106,10 @@ Route::group(['namespace' => 'Inventory'], function () {
         'only' => [
             'create',
             'store',
+            'show',
             'edit',
             'update',
-            'destroy',
+            'destroy'
         ],
     ]);
 

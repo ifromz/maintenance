@@ -466,6 +466,10 @@ class WorkOrder extends BaseModel
      */
     public function complete(ReportRequest $request)
     {
+        if(!$this->started_at) {
+            $this->started_at = Carbon::now();
+        }
+
         $this->completed_at = Carbon::now();
 
         if($request->has('status')) {

@@ -7,6 +7,8 @@
 
         <div class="col-md-8">
             {!! Form::textarea('content', (isset($note) ? htmlspecialchars($note->content) : null), ['class'=>'form-control']) !!}
+
+            <span class="label label-danger">{{ $errors->first('content', ':message') }}</span>
         </div>
     </div>
 

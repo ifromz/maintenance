@@ -164,7 +164,7 @@ class ManualController extends BaseController
         if($manual && $manual->delete()) {
             $message = 'Successfully deleted manual.';
 
-            return redirect()->route('maintenance.assets.manuals.index', [$manual->id])->withSuccess($message);
+            return redirect()->route('maintenance.assets.manuals.index', [$asset->id])->withSuccess($message);
         } else {
             $message = 'There was an issue deleting this manual. Please try again.';
 

@@ -48,7 +48,7 @@ class Controller extends BaseController
         {
             return [
                 'id' => $workRequest->id,
-                'subject' => $workRequest->subject,
+                'subject' => str_limit($workRequest->subject),
                 'best_time' => $workRequest->best_time,
                 'created_at' => $workRequest->created_at,
                 'view_url' => route('maintenance.work-requests.show', [$workRequest->id]),

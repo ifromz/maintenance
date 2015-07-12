@@ -50,6 +50,29 @@ Breadcrumbs::register('maintenance.inventory.categories.nodes.create', function 
 /*
  * End Inventory Category crumbs
  */
+Breadcrumbs::register('maintenance.inventory.notes.create', function (Generator $breadcrumbs, $inventoryId) {
+    $breadcrumbs->parent('maintenance.inventory.show', $inventoryId);
+    $breadcrumbs->push('Notes');
+    $breadcrumbs->push('Create', route('maintenance.inventory.notes.create', [$inventoryId]));
+});
+
+Breadcrumbs::register('maintenance.inventory.notes.show', function (Generator $breadcrumbs, $inventoryId, $noteId) {
+    $breadcrumbs->parent('maintenance.inventory.show', $inventoryId);
+    $breadcrumbs->push('Notes');
+    $breadcrumbs->push("ID: $noteId", route('maintenance.inventory.notes.show', [$inventoryId, $noteId]));
+});
+
+Breadcrumbs::register('maintenance.inventory.notes.edit', function (Generator $breadcrumbs, $inventoryId, $noteId) {
+    $breadcrumbs->parent('maintenance.inventory.notes.show', $inventoryId, $noteId);
+    $breadcrumbs->push('Edit');
+});
+/*
+ * Inventory Note crumbs
+ */
+
+/*
+ * End Inventory Note Crumbs
+ */
 
 /*
  * Inventory Variant crumbs

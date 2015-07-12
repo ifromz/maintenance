@@ -71,6 +71,11 @@ Breadcrumbs::register('maintenance.assets.images.show', function (Generator $bre
     $breadcrumbs->parent('maintenance.assets.images.index', $assetId);
     $breadcrumbs->push('ID: '.$attachmentId, route('maintenance.assets.images.show', [$assetId, $attachmentId]));
 });
+
+Breadcrumbs::register('maintenance.assets.images.edit', function (Generator $breadcrumbs, $assetId, $attachmentId) {
+    $breadcrumbs->parent('maintenance.assets.images.show', $assetId, $attachmentId);
+    $breadcrumbs->push('Edit', route('maintenance.assets.images.edit', $assetId, $attachmentId));
+});
 /*
  * End Asset Images crumbs
  */

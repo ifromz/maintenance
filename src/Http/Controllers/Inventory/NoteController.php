@@ -60,14 +60,46 @@ class NoteController extends BaseController
         }
     }
 
+    /**
+     * Displays the specified inventory note.
+     *
+     * @param int|string $id
+     * @param int|string $noteId
+     *
+     * @return \Illuminate\View\View
+     */
     public function show($id, $noteId)
     {
+        $item = $this->inventory->find($id);
 
+        $note = $item->notes()->find($noteId);
+
+        if($note) {
+            return view('maintenance::inventory.notes.show', compact('item', 'note'));
+        }
+
+        abort(404);
     }
 
+    /**
+     * Displays the form for editing the specified inventory note.
+     *
+     * @param int|string $id
+     * @param int|string $noteId
+     *
+     * @return \Illuminate\View\View
+     */
     public function edit($id, $noteId)
     {
+        $item = $this->inventory->find($id);
 
+        $note = $item->notes()->find($noteId);
+
+        if($note) {
+            return view('maintenance::inventory.notes.edit', compact('item', 'note'));
+        }
+
+        abort(404);
     }
 
     /**

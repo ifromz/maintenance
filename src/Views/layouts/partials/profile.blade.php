@@ -7,8 +7,6 @@
 
         <!-- Menu Body -->
         <li class="user-body">
-            <h3 class="text-center">Profile</h3>
-
             <table class="table">
                 <tbody>
                     <tr>
