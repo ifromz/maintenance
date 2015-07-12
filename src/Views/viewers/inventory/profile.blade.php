@@ -34,17 +34,5 @@
             <th>Description</th>
             <td>{!! $item->description !!}</td>
         </tr>
-        <tr>
-            <th>QR Code</th>
-            <td>
-                <a class="btn btn-xs btn-primary" data-toggle="collapse" href="#qr-code" aria-expanded="false" aria-controls="collapse-qr-code">
-                    Show / Hide QR
-                </a>
-
-                <div class="collapse" id="qr-code">
-                    {!! QrCode::size(200)->generate(Request::url()); !!}
-                </div>
-            </td>
-        </tr>
     </tbody>
 </table>
