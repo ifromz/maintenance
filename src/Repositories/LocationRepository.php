@@ -6,6 +6,11 @@ use Stevebauman\Maintenance\Models\Location;
 
 class LocationRepository extends CategoryRepository
 {
+    /**
+     * The scoped belongsTo attribute.
+     *
+     * @var string
+     */
     protected $belongsTo = 'locations';
 
     /**
