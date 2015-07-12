@@ -44,7 +44,7 @@ class StockController extends BaseController
             'sort' => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function(InventoryStock $stock) use ($id)
@@ -87,7 +87,7 @@ class StockController extends BaseController
             'sort' => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function(InventoryStockMovement $movement) use ($id, $stockId)

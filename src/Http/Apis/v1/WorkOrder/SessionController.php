@@ -42,7 +42,7 @@ class SessionController extends BaseController
             'sort'      => 'in',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function($session)

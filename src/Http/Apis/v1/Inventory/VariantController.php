@@ -43,7 +43,7 @@ class VariantController extends BaseController
             'sort' => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function(Inventory $inventory)

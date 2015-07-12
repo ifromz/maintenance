@@ -41,8 +41,8 @@ class UserController extends BaseController
         $settings = [
             'sort' => 'created_at',
             'direction' => 'desc',
-            'throttle' => 10,
             'threshold' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function(User $user)

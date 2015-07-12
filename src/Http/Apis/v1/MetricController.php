@@ -39,7 +39,7 @@ class MetricController extends Controller
             'sort' => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function(Metric $metric)

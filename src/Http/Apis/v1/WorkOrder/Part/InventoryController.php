@@ -66,7 +66,7 @@ class InventoryController extends BaseController
             'sort' => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function(Inventory $item) use ($workOrder)
@@ -110,7 +110,7 @@ class InventoryController extends BaseController
             'sort' => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function(InventoryStock $stock) use ($workOrder, $inventoryId)
@@ -150,7 +150,7 @@ class InventoryController extends BaseController
             'sort' => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function(Inventory $item) use ($workOrder)

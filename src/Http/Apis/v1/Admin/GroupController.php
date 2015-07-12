@@ -40,7 +40,7 @@ class GroupController extends BaseController
             'sort' => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle' => 11,
         ];
 
         $transformer = function(Group $group)
