@@ -20,7 +20,13 @@
     @endif
 
     <dt>All Day:</dt>
-    <dd>{!! $event->viewer()->lblAllDay() !!}</dd>
+    <dd>
+        @if($apiObject->all_day)
+            Yes
+        @else
+            No
+        @endif
+    </dd>
 
     <p></p>
 
@@ -35,7 +41,13 @@
     <p></p>
 
     <dt>Recurring:</dt>
-    <dd>{!! $event->viewer()->lblRecurring($apiObject) !!}</dd>
+    <dd>
+        @if($apiObject->rrule)
+            Yes
+        @else
+            No
+        @endif
+    </dd>
 
     <p></p>
 
