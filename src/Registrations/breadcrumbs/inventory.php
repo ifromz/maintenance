@@ -126,3 +126,29 @@ Breadcrumbs::register('maintenance.inventory.stocks.movements.show', function (G
 /*
  * End Inventory Stock Movement crumbs
  */
+
+/*
+ * Inventory Event crumbs
+ */
+Breadcrumbs::register('maintenance.inventory.events.index', function (Generator $breadcrumbs, $inventoryId) {
+    $breadcrumbs->parent('maintenance.inventory.show', $inventoryId);
+    $breadcrumbs->push('Events', route('maintenance.inventory.events.index', [$inventoryId]));
+});
+
+Breadcrumbs::register('maintenance.inventory.events.create', function (Generator $breadcrumbs, $inventoryId) {
+    $breadcrumbs->parent('maintenance.inventory.events.index', $inventoryId);
+    $breadcrumbs->push('Create', route('maintenance.inventory.events.create', [$inventoryId]));
+});
+
+Breadcrumbs::register('maintenance.inventory.events.show', function (Generator $breadcrumbs, $inventoryId, $eventId) {
+    $breadcrumbs->parent('maintenance.inventory.events.index', $inventoryId);
+    $breadcrumbs->push("ID: $eventId", route('maintenance.inventory.events.show', [$inventoryId, $eventId]));
+});
+
+Breadcrumbs::register('maintenance.inventory.events.edit', function (Generator $breadcrumbs, $inventoryId, $eventId) {
+    $breadcrumbs->parent('maintenance.inventory.events.show', $inventoryId, $eventId);
+    $breadcrumbs->push('Edit', route('maintenance.inventory.events.edit', [$inventoryId, $eventId]));
+});
+/*
+ * End Inventory Event crumbs
+ */

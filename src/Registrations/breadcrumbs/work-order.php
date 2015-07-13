@@ -131,6 +131,12 @@ Breadcrumbs::register('maintenance.work-orders.statuses.index', function (Genera
     $breadcrumbs->parent('maintenance.work-orders.index');
     $breadcrumbs->push('Statuses', route('maintenance.work-orders.statuses.index'));
 });
+
+Breadcrumbs::register('maintenance.work-orders.statuses.edit', function (Generator $breadcrumbs, $statusId) {
+    $breadcrumbs->parent('maintenance.work-orders.statuses.index');
+    $breadcrumbs->push("ID: $statusId");
+    $breadcrumbs->push('Edit', route('maintenance.work-orders.statuses.edit', [$statusId]));
+});
 /*
  * End Work Order Status crumbs
  */
@@ -141,6 +147,12 @@ Breadcrumbs::register('maintenance.work-orders.statuses.index', function (Genera
 Breadcrumbs::register('maintenance.work-orders.priorities.index', function (Generator $breadcrumbs) {
     $breadcrumbs->parent('maintenance.work-orders.index');
     $breadcrumbs->push('Priorities', route('maintenance.work-orders.priorities.index'));
+});
+
+Breadcrumbs::register('maintenance.work-orders.priorities.edit', function (Generator $breadcrumbs, $priorityId) {
+    $breadcrumbs->parent('maintenance.work-orders.priorities.index');
+    $breadcrumbs->push("ID: $priorityId");
+    $breadcrumbs->push('Edit', route('maintenance.work-orders.priorities.edit', [$priorityId]));
 });
 /*
  * End Work Order Priority crumbs
