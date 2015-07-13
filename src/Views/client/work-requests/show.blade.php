@@ -17,7 +17,7 @@
             <a href="{{ route('maintenance.client.work-requests.destroy', [$workRequest->id]) }}"
                data-method="delete"
                data-token="{{ csrf_token() }}"
-               data-title="Delete asset?"
+               data-title="Delete work request?"
                data-message="Are you sure you want to delete this work request?"
                class="btn btn-app no-print">
                 <i class="fa fa-trash-o"></i> Delete

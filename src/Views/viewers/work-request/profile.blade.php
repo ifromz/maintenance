@@ -1,6 +1,10 @@
 <table class="table">
     <tbody>
         <tr>
+            <th>Work Request ID</th>
+            <td>{{ $workRequest->id }}</td>
+        </tr>
+        <tr>
             <th>Current Status</th>
             @if($workRequest->workOrder && $workRequest->workOrder->status)
                 <td>{!! $workRequest->workOrder->status->label !!}</td>
@@ -21,7 +25,7 @@
             <td>{{ $workRequest->subject }}</td>
         </tr>
         <tr>
-            <th>Description</th>
+            <th>Details</th>
             <td>{!! $workRequest->description !!}</td>
         </tr>
     </tbody>

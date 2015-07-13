@@ -37,13 +37,13 @@
         <div class="row">
 
             <div class="col-md-6">
-                <h2>Profile</h2>
+                <h2>Work Order Profile</h2>
 
                 {!! $workOrder->viewer()->profile() !!}
             </div>
 
             <div class="col-md-6">
-                <h2>Work Request</h2>
+                <h2>Maintenance Request</h2>
 
                 {!! $workOrder->viewer()->workRequest() !!}
             </div>
