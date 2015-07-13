@@ -47,6 +47,7 @@ class MeterController extends BaseController
             'threshold' => 10,
             'throttle' => 10,
         ];
+
         $transformer = function(Meter $meter) use ($id)
         {
             return [
@@ -54,8 +55,8 @@ class MeterController extends BaseController
                 'name' => $meter->name,
                 'user' => ($meter->user ? $meter->user->full_name : '<em>None</em>'),
                 'metric' => ($meter->metric ? $meter->metric->name : '<em>None</em>'),
-                'reading' => $meter->last_reading,
-                'comment' => $meter->last_comment,
+                'reading' => $meter->getLastReadingWithMetricAttribute(),
+                'comment' => $meter->getLastCommentAttribute(),
                 'created_at' => $meter->created_at,
                 'view_url' => route('maintenance.assets.meters.show', [$id, $meter->id]),
             ];
