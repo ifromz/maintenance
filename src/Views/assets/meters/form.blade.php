@@ -22,7 +22,7 @@
     <label class="col-sm-2 control-label">Comment</label>
 
     <div class="col-md-4">
-        {!! Form::text('comment', (isset($lastReading) ? $lastReading->comment : null), ['class'=>'form-control', 'placeholder'=> 'Enter a Comment']) !!}
+        {!! Form::text('comment', null, ['class'=>'form-control', 'placeholder'=> 'Enter a Comment']) !!}
 
         <span class="label label-danger">{{ $errors->first('comment', ':message') }}</span>
     </div>
@@ -33,7 +33,7 @@
 
     <div class="col-md-4">
         @include('maintenance::select.metric', [
-            'metric' => (isset($meter) ? $meter->metric : null),
+            'metric' => (isset($meter) ? $meter->metric->id : null),
         ])
 
         <span class="label label-danger">{{ $errors->first('metric', ':message') }}</span>
