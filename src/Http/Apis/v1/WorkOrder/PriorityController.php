@@ -48,7 +48,7 @@ class PriorityController extends BaseController
             return [
                 'id' => $priority->id,
                 'created_at' => $priority->created_at,
-                'created_by' => ($priority->user ? $priority->user->full_name : 'None'),
+                'created_by' => ($priority->user ? $priority->user->full_name : '<em>System</em>'),
                 'name' => $priority->name,
                 'color' => $priority->color,
                 'view_url' => route('maintenance.work-orders.priorities.edit', [$priority->id]),
