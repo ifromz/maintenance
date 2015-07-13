@@ -50,7 +50,7 @@ class StockRepository extends BaseRepository
         $stock->location_id = $request->input('location_id');
         $stock->quantity = $request->input('quantity');
         $stock->reason = $request->input('reason');
-        $stock->cost = $request->input('cost');
+        $stock->cost = $request->input('cost', 0);
 
         if($stock->save()) {
             return $stock;
@@ -81,7 +81,7 @@ class StockRepository extends BaseRepository
                 $stock->location_id = $request->input('location_id', $stock->location_id);
                 $stock->quantity = $request->input('quantity', $stock->quantity);
                 $stock->reason = $request->input('reason');
-                $stock->cost = $request->input('cost');
+                $stock->cost = $request->input('cost', 0);
 
                 if($stock->save()) {
                     return $stock;
