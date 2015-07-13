@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset\Meter;
 
+use Stevebauman\Maintenance\Models\Meter;
 use Stevebauman\Maintenance\Http\Requests\Asset\MeterRequest;
 use Stevebauman\Maintenance\Repositories\Asset\MeterRepository;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
@@ -121,10 +122,12 @@ class MeterController extends Controller
         if($asset) {
             $meter = $asset->meters()->find($meterId);
 
-            $lastReading = $meter->getLastReading();
+            if($meter && $meter instanceof Meter) {
+                $lastReading = $meter->getLastReading();
 
-            if($meter) {
-                return view('maintenance::assets.meters.edit', compact('asset', 'meter', 'lastReading'));
+                if($meter) {
+                    return view('maintenance::assets.meters.edit', compact('asset', 'meter', 'lastReading'));
+                }
             }
         }
 
@@ -169,7 +172,7 @@ class MeterController extends Controller
 
         $meter = $asset->meters()->find($meterId);
 
-        if($meter->delete()) {
+        if($meter && $meter->delete()) {
             $message = 'Successfully deleted meter.';
 
             return redirect()->route('maintenance.assets.meters.index', [$id])->withSuccess($message);

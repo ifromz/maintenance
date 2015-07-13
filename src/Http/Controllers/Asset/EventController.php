@@ -2,39 +2,31 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
-use Stevebauman\Maintenance\Validators\Event\EventValidator;
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\Event\EventService;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
-use Stevebauman\Maintenance\Http\Controllers\Event\AbstractEventableController;
+use Illuminate\Support\Facades\App;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
+use Stevebauman\Maintenance\Http\Controllers\Event\EventableController;
 
-class EventController extends AbstractEventableController
+class EventController extends EventableController
 {
     /**
-     * @var ConfigService
+     * @var array
      */
-    protected $config;
+    protected $routes = [
+        'index' => 'maintenance.assets.events.index',
+        'create' => 'maintenance.assets.events.create',
+        'store' => 'maintenance.assets.events.store',
+        'show' => 'maintenance.assets.events.show',
+        'edit' => 'maintenance.assets.events.edit',
+        'update' => 'maintenance.assets.events.update',
+        'destroy' => 'maintenance.assets.events.destroy',
+        'grid' => 'maintenance.api.v1.assets.events.grid',
+    ];
 
     /**
-     * @param AssetService   $asset
-     * @param EventService   $event
-     * @param ConfigService  $config
-     * @param EventValidator $eventValidator
+     * @return AssetRepository
      */
-    public function __construct(
-        AssetService $asset,
-        EventService $event,
-        ConfigService $config,
-        EventValidator $eventValidator
-    ) {
-        $this->eventable = $asset;
-        $this->config = $config->setPrefix('maintenance');
-
-        $this->eventableCalendarId = $this->config->get('site.calendars.assets');
-
-        /*
-         * Construct the abstract eventable controller
-         */
-        parent::__construct($event, $eventValidator);
+    protected function getEventableRepository()
+    {
+        return App::make(AssetRepository::class);
     }
 }

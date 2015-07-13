@@ -13,6 +13,13 @@ abstract class AbstractEventableController extends Controller
      */
     protected $eventable;
 
+    /**
+     * The eventable's routes.
+     *
+     * @var array
+     */
+    protected $routes = [];
+
     /*
      * Holds the API calendar ID for the specific resource
      */
@@ -39,47 +46,44 @@ abstract class AbstractEventableController extends Controller
     }
 
     /**
-     * @param string $eventable_id
+     * @param int|string $eventableId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function index($eventable_id)
+    public function index($eventableId)
     {
-        $eventable = $this->eventable->find($eventable_id);
+        $eventable = $this->eventable->find($eventableId);
 
         $events = $this->event->getApiEvents($eventable->events->lists('api_id'));
 
-        return view('maintenance::events.eventables.index', [
-            'title' => 'Events',
-            'eventable' => $eventable,
-            'events' => $events,
-        ]);
+        $routes = $this->routes;
+
+        return view('maintenance::events.eventables.index', compact('events', 'eventable', 'routes'));
     }
 
     /**
-     * @param string $eventable_id
+     * @param string $eventableId
      *
-     * @return mixed
+     * @return \Illuminate\View\View
      */
-    public function create($eventable_id)
+    public function create($eventableId)
     {
-        $eventable = $this->eventable->find($eventable_id);
+        $eventable = $this->eventable->find($eventableId);
 
-        return view('maintenance::events.eventables.create', [
-            'title' => 'Create Event',
-            'eventable' => $eventable,
-        ]);
+        $routes = $this->routes;
+
+        return view('maintenance::events.eventables.create', compact('eventable', 'routes'));
     }
 
     /**
-     * @param string $eventable_id
+     * @param int|string $eventableId
      *
      * @return \Illuminate\Support\Facades\Response
      */
-    public function store($eventable_id)
+    public function store($eventableId)
     {
         if ($this->eventValidator->passes()) {
-            $eventable = $this->eventable->find($eventable_id);
+            $eventable = $this->eventable->find($eventableId);
 
             $event = $this->event->setInput($this->inputAll())->create();
 
@@ -88,16 +92,16 @@ abstract class AbstractEventableController extends Controller
 
                 $eventable->events()->sync($localEvent);
 
-                $this->message = sprintf('Successfully created event. %s', link_to_action(currentControllerAction('show'), 'Show', [$eventable->id, $event->id]));
+                $this->message = sprintf('Successfully created event. %s', link_to_route($this->routes['show'], 'Show', [$eventable->id, $event->id]));
                 $this->messageType = 'success';
-                $this->redirect = action(currentControllerAction('show'), [$eventable->id, $event->id]);
+                $this->redirect = route($this->routes['show'], [$eventable->id, $event->id]);
             } else {
                 $this->message = 'There was an error trying to create an event. Please try again.';
                 $this->messageType = 'danger';
-                $this->redirect = action(currentControllerAction('create'), [$eventable->id]);
+                $this->redirect = action($this->routes['create'], [$eventable->id]);
             }
         } else {
-            $this->redirect = action(currentControllerAction('create'), [$eventable_id]);
+            $this->redirect = route($this->routes['create'], [$eventableId]);
             $this->errors = $this->eventValidator->getErrors();
         }
 

@@ -2,37 +2,31 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Validators\Event\EventValidator;
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\Event\EventService;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Http\Controllers\Event\AbstractEventableController;
+use Illuminate\Support\Facades\App;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
+use Stevebauman\Maintenance\Http\Controllers\Event\EventableController;
 
-class EventController extends AbstractEventableController
+class EventController extends EventableController
 {
     /**
-     * @var ConfigService
+     * @var array
      */
-    protected $config;
+    protected $routes = [
+        'index' => 'maintenance.work-orders.events.index',
+        'create' => 'maintenance.work-orders.events.create',
+        'store' => 'maintenance.work-orders.events.store',
+        'show' => 'maintenance.work-orders.events.show',
+        'edit' => 'maintenance.work-orders.events.edit',
+        'update' => 'maintenance.work-orders.events.update',
+        'destroy' => 'maintenance.work-orders.events.destroy',
+        'grid' => 'maintenance.api.v1.work-orders.events.grid',
+    ];
 
     /**
-     * @param WorkOrderService $workOrder
-     * @param EventService     $event
-     * @param ConfigService    $config
-     * @param EventValidator   $eventValidator
+     * @return WorkOrderRepository
      */
-    public function __construct(
-        WorkOrderService $workOrder,
-        EventService $event,
-        ConfigService $config,
-        EventValidator $eventValidator
-    ) {
-        $this->eventable = $workOrder;
-
-        $this->config = $config->setPrefix('maintenance');
-
-        $this->eventableCalendarId = $this->config->get('site.calendars.work-orders');
-
-        parent::__construct($event, $eventValidator);
+    protected function getEventableRepository()
+    {
+        return App::make(WorkOrderRepository::class);
     }
 }

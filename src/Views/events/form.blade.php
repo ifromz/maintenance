@@ -25,8 +25,8 @@
 
     <div class="col-md-4">
         @include('maintenance::select.location', [
-            'location_name' => (isset($event) && ($event->location ? $event->location->name : null)),
-            'location_id' => (isset($event) && ($event->location ? $event->location->id : null)),
+            'location_name' => (isset($event) ? ($event->location ? $event->location->name : null) : null),
+            'location_id' => (isset($event) ? ($event->location ? $event->location->id : null) : null),
         ])
 
         <span class="label label-danger">{{ $errors->first('location', ':message') }}</span>

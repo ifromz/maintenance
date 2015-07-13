@@ -2,7 +2,7 @@
 
 Route::group(['namespace' => 'Event'], function ()
 {
-    Route::resource('events', 'EventController', [
+    Route::resource('events', 'Controller', [
         'names' => [
             'index' => 'maintenance.events.index',
             'create' => 'maintenance.events.create',

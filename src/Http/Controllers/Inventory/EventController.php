@@ -2,37 +2,31 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Validators\Event\EventValidator;
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\Event\EventService;
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Http\Controllers\Event\AbstractEventableController;
+use Illuminate\Support\Facades\App;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
+use Stevebauman\Maintenance\Http\Controllers\Event\EventableController;
 
-class EventController extends AbstractEventableController
+class EventController extends EventableController
 {
     /**
-     * @var ConfigService
+     * @var array
      */
-    protected $config;
+    protected $routes = [
+        'index' => 'maintenance.inventory.events.index',
+        'create' => 'maintenance.inventory.events.create',
+        'store' => 'maintenance.inventory.events.store',
+        'show' => 'maintenance.inventory.events.show',
+        'edit' => 'maintenance.inventory.events.edit',
+        'update' => 'maintenance.inventory.events.update',
+        'destroy' => 'maintenance.inventory.events.destroy',
+        'grid' => 'maintenance.api.v1.inventory.events.grid',
+    ];
 
     /**
-     * @param InventoryService $inventory
-     * @param EventService     $event
-     * @param ConfigService    $config
-     * @param EventValidator   $eventValidator
+     * @return InventoryRepository
      */
-    public function __construct(
-        InventoryService $inventory,
-        EventService $event,
-        ConfigService $config,
-        EventValidator $eventValidator
-    ) {
-        $this->eventable = $inventory;
-
-        $this->config = $config->setPrefix('maintenance');
-
-        $this->eventableCalendarId = $this->config->get('site.calendars.inventories');
-
-        parent::__construct($event, $eventValidator);
+    protected function getEventableRepository()
+    {
+        return App::make(InventoryRepository::class);
     }
 }
