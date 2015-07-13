@@ -138,3 +138,24 @@ Breadcrumbs::register('maintenance.assets.work-orders.attach.index', function (G
 /*
  * End Asset Work Order crumbs
  */
+
+/*
+ * Asset Meter Crumbs
+ */
+Breadcrumbs::register('maintenance.assets.meters.index', function (Generator $breadcrumbs, $assetId) {
+    $breadcrumbs->parent('maintenance.assets.show', $assetId);
+    $breadcrumbs->push('Meters', route('maintenance.assets.meters.index', [$assetId]));
+});
+
+Breadcrumbs::register('maintenance.assets.meters.create', function (Generator $breadcrumbs, $assetId) {
+    $breadcrumbs->parent('maintenance.assets.meters.index', $assetId);
+    $breadcrumbs->push('Create', route('maintenance.assets.meters.create', [$assetId]));
+});
+
+Breadcrumbs::register('maintenance.assets.meters.show', function (Generator $breadcrumbs, $assetId, $meterId) {
+    $breadcrumbs->parent('maintenance.assets.meters.index', $assetId);
+    $breadcrumbs->push("ID: $meterId", route('maintenance.assets.meters.show', [$assetId, $meterId]));
+});
+/*
+ * End Asset Meter crumbs
+ */
