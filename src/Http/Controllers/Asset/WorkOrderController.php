@@ -63,11 +63,32 @@ class WorkOrderController extends BaseController
         if($this->asset->attachWorkOrder($assetId, $workOrderId)) {
             $message = 'Successfully attached work order.';
 
-            return redirect()->route('maintenance.assets.work-orders.attach.index')->withSuccess($message);
+            return redirect()->route('maintenance.assets.work-orders.index', [$assetId])->withSuccess($message);
         } else {
             $message = 'There was an issue attaching this work order. Please try again.';
 
-            return redirect()->route('maintenance.assets.work-orders.attach.index')->withErrors($message);
+            return redirect()->route('maintenance.assets.work-orders.attach.index', [$assetId])->withErrors($message);
+        }
+    }
+
+    /**
+     * Removes the specified work order from the specified asset.
+     *
+     * @param int|string $assetId
+     * @param int|string $workOrderId
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function remove($assetId, $workOrderId)
+    {
+        if($this->asset->detachWorkOrder($assetId, $workOrderId)) {
+            $message = 'Successfully detached work order.';
+
+            return redirect()->route('maintenance.assets.work-orders.index', [$assetId])->withSuccess($message);
+        } else {
+            $message = 'There was an issue detaching this work order. Please try again.';
+
+            return redirect()->route('maintenance.assets.work-orders.index', [$assetId])->withErrors($message);
         }
     }
 }

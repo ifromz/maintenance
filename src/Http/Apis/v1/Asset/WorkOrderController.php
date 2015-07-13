@@ -48,7 +48,7 @@ class WorkOrderController extends BaseController
             'throttle' => 10,
         ];
 
-        $transformer = function(WorkOrder $workOrder)
+        $transformer = function(WorkOrder $workOrder) use ($assetId)
         {
             return [
                 'id' => $workOrder->id,
@@ -58,6 +58,7 @@ class WorkOrderController extends BaseController
                 'status' => $workOrder->viewer()->lblStatus(),
                 'priority' =>  $workOrder->viewer()->lblPriority(),
                 'view_url' => route('maintenance.work-orders.show', [$workOrder->id]),
+                'detach_url' => route('maintenance.assets.work-orders.attach.remove', [$assetId, $workOrder->id])
             ];
         };
 
