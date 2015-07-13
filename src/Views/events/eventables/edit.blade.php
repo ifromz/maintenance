@@ -12,7 +12,7 @@
         Form::open([
             'url' => route($routes['update'], [$eventable->id, $event->id]),
             'method' => 'PATCH',
-            'class' => 'form-horizontal ajax-form-post'
+            'class' => 'form-horizontal'
         ])
     !!}
 
