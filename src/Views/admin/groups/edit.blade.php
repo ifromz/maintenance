@@ -16,7 +16,7 @@
                 {!!
                     Form::open([
                         'url' => route('maintenance.admin.groups.update', [$group->id]),
-                        'class' => 'form-horizontal ajax-form-post',
+                        'class' => 'form-horizontal',
                         'method' => 'PATCH'
                     ])
                 !!}
