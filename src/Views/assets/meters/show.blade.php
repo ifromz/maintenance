@@ -18,6 +18,22 @@
 
         <h3>Profile</h3>
 
+        <div class="col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ $meter->name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Current Reading</th>
+                        <td>{{ $meter->getLastReadingWithMetricAttribute() }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="clearfix"></div>
     </div>
 
     <div class="tab-pane" id="tab-readings">
