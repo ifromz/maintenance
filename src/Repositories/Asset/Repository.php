@@ -288,4 +288,32 @@ class Repository extends BaseRepository
 
         return false;
     }
+
+    /**
+     * Detaches the specified work order from the specified asset.
+     *
+     * @param int|string $id
+     * @param int|string $workOrderId
+     *
+     * @return bool|Asset
+     */
+    public function detachWorkOrder($id, $workOrderId)
+    {
+        $asset = $this->find($id);
+
+        if($asset) {
+            $workOrder = $asset->workOrders()->find($workOrderId);
+
+            // Only detach the work order if it exists on the asset.
+            if($workOrder) {
+                $workOrder = $asset->workOrders()->getRelated()->findOrFail($workOrderId);
+
+                $asset->workOrders()->detach($workOrder->id);
+
+                return $asset;
+            }
+        }
+
+        return false;
+    }
 }

@@ -146,9 +146,14 @@ Route::group(['namespace' => 'Asset'], function ()
         'uses' => 'WorkOrderController@attach'
     ]);
 
-    Route::post('assets/{assets}/work-orders/{work-orders}/attach', [
+    Route::post('assets/{assets}/work-orders/{work_orders}/attach', [
         'as' => 'maintenance.assets.work-orders.attach.store',
         'uses' => 'WorkOrderController@store',
+    ]);
+
+    Route::post('assets/{assets}/work-orders/{work_orders}/detach', [
+        'as' => 'maintenance.assets.work-orders.attach.remove',
+        'uses' => 'WorkOrderController@remove',
     ]);
 
     /*

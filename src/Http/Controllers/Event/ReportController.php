@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
 use Stevebauman\Maintenance\Http\Requests\Event\ReportRequest;
 use Stevebauman\Maintenance\Repositories\EventRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class ReportController extends Controller
+class ReportController extends BaseController
 {
     /**
      * @var EventRepository

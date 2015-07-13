@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance\Validators\Event;
 
+use Illuminate\Support\Facades\Route;
 use Stevebauman\Maintenance\Services\Event\EventService;
 use Stevebauman\Maintenance\Services\Event\ReportService;
 
@@ -41,8 +42,10 @@ class UniqueReportValidator
     public function validateUniqueReport($attribute, $value, $parameters)
     {
         if (is_array($parameters) && count($parameters) > 0) {
+            $eventId = Route::getCurrentRoute()->getParameter('events');
+
             // Make sure the event exists
-            $event = $this->event->find($parameters[0]);
+            $event = $this->event->find($eventId);
 
             if ($event) {
                 $report = $this->report->where('event_id', $parameters[0])->first();

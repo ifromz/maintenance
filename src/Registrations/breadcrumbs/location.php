@@ -13,7 +13,8 @@ Breadcrumbs::register('maintenance.locations.create', function (Generator $bread
 });
 
 Breadcrumbs::register('maintenance.locations.edit', function (Generator $breadcrumbs, $locationId) {
-    $breadcrumbs->parent('maintenance.locations.show', $locationId);
+    $breadcrumbs->parent('maintenance.locations.index');
+    $breadcrumbs->push("ID: $locationId");
     $breadcrumbs->push('Edit', route('maintenance.locations.edit', [$locationId]));
 });
 

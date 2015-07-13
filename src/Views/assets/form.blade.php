@@ -1,9 +1,7 @@
-<legend class="margin-top-10">Required Information</legend>
-
 <div class="form-group{{ $errors->first('tag', ' has-error') }}">
     <label class="col-sm-2 control-label">Tag Number</label>
 
-    <div class="col-md-4">
+    <div class="col-sm-10 col-md-4">
         {!! Form::text('tag', (isset($asset) ? $asset->tag : null), ['class'=>'form-control', 'placeholder'=>'ex. 100010']) !!}
 
         <span class="label label-danger">{{ $errors->first('tag', ':message') }}</span>

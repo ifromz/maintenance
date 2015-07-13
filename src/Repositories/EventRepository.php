@@ -137,8 +137,15 @@ class EventRepository extends Repository
             $event = $this->model();
 
             $event->user_id = $this->sentry->getCurrentUserId();
-            $event->location_id = $request->input('location_id', null);
             $event->api_id = $apiEvent->id;
+
+            if($request->has('location_id')) {
+                $location = $this->location->model()->find($request->input('location_id'));
+
+                if($location) {
+                    $event->location_id = $request->input('location_id');
+                }
+            }
 
             if($event->save()) {
                 return $event;
@@ -162,6 +169,7 @@ class EventRepository extends Repository
 
         if($event) {
             $insert = [
+                'user_id' => $this->sentry->getCurrentUserId(),
                 'description' => $request->clean($request->input('description')),
             ];
 

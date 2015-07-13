@@ -17,7 +17,7 @@
             <p></p>
 
             <dt>Report:</dt>
-            <dd class="bg-gray">
+            <dd>
                 {!! $event->report->description !!}
             </dd>
 

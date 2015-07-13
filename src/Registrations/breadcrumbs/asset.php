@@ -128,7 +128,12 @@ Breadcrumbs::register('maintenance.assets.categories.nodes.create', function (Ge
  */
 Breadcrumbs::register('maintenance.assets.work-orders.index', function (Generator $breadcrumbs, $assetId) {
     $breadcrumbs->parent('maintenance.assets.show', $assetId);
-    $breadcrumbs->push('Work Orders', route('maintenance.assets.work-orders.index'));
+    $breadcrumbs->push('Work Orders', route('maintenance.assets.work-orders.index', [$assetId]));
+});
+
+Breadcrumbs::register('maintenance.assets.work-orders.attach.index', function (Generator $breadcrumbs, $assetId) {
+    $breadcrumbs->parent('maintenance.assets.work-orders.index', $assetId);
+    $breadcrumbs->push('Attach', route('maintenance.assets.work-orders.attach.index', [$assetId]));
 });
 /*
  * End Asset Work Order crumbs

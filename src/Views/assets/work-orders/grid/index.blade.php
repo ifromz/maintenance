@@ -31,7 +31,7 @@
                         </li>
 
                         <li class="primary">
-                            <a href="" data-toggle="tooltip" data-original-title="Attach">
+                            <a href="{{ route('maintenance.assets.work-orders.attach.index', [$asset->id]) }}" data-toggle="tooltip" data-original-title="Attach">
                                 <i class="fa fa-plus"></i> <span class="visible-xs-inline">Attach</span>
                             </a>
                         </li>
@@ -133,6 +133,7 @@
                     <th class="sortable" data-sort="work_orders.user_id">Created By</th>
                     <th class="sortable" data-sort="work_orders.priority_id">Priority</th>
                     <th class="sortable" data-sort="work_orders.status_id">Status</th>
+                    <th>Detach</th>
                 </tr>
             </thead>
 

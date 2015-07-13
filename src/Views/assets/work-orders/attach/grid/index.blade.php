@@ -30,12 +30,6 @@
                             </ul>
                         </li>
 
-                        <li class="primary">
-                            <a href="" data-toggle="tooltip" data-original-title="Attach">
-                                <i class="fa fa-plus"></i> <span class="visible-xs-inline">Attach</span>
-                            </a>
-                        </li>
-
                     </ul>
 
                     {{-- Grid: Filters --}}
