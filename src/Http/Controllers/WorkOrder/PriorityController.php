@@ -59,14 +59,14 @@ class PriorityController extends Controller
         } else {
             $message = 'There was an issue creating a priority. Please try again.';
 
-            return redirect()->route('maintenance.work-orders.priorities.index')->withErrors($message);
+            return redirect()->route('maintenance.work-orders.priorities.create')->withErrors($message);
         }
     }
 
     /**
      * Displays the form for editing the specified priority.
      *
-     * @param string|int $id
+     * @param int|string $id
      *
      * @return \Illuminate\View\View
      */
@@ -81,7 +81,7 @@ class PriorityController extends Controller
      * Updates the specified priority.
      *
      * @param PriorityRequest $request
-     * @param string|int      $id
+     * @param int|string     $id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -103,7 +103,7 @@ class PriorityController extends Controller
     /**
      * Deletes the specified priority.
      *
-     * @param string|int $id
+     * @param int|string $id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -51,7 +51,7 @@ class PriorityController extends BaseController
                 'created_by' => ($priority->user ? $priority->user->full_name : 'None'),
                 'name' => $priority->name,
                 'color' => $priority->color,
-                'view_url' => ''
+                'view_url' => route('maintenance.work-orders.priorities.edit', [$priority->id]),
             ];
         };
 

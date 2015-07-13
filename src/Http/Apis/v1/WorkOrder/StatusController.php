@@ -51,7 +51,7 @@ class StatusController extends BaseController
                 'created_by' => ($status->user ? $status->user->full_name : '<em>System</em>'),
                 'name' => $status->name,
                 'color' => $status->color,
-                'view_url' => ''
+                'view_url' => route('maintenance.work-orders.statuses.edit', [$status->id]),
             ];
         };
 

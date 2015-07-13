@@ -47,7 +47,7 @@ class StatusController extends Controller
      *
      * @param StatusRequest $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StatusRequest $request)
     {
@@ -68,7 +68,7 @@ class StatusController extends Controller
      * Displays the form for editing a
      * work order status.
      *
-     * @param string|int $id
+     * @param int|string $id
      *
      * @return \Illuminate\View\View
      */
@@ -83,9 +83,9 @@ class StatusController extends Controller
      * Updates the specified work order status.
      *
      * @param StatusRequest $request
-     * @param string|int    $id
+     * @param int|string    $id
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(StatusRequest $request, $id)
     {
@@ -94,7 +94,7 @@ class StatusController extends Controller
         if($status) {
             $message = 'Successfully updated status.';
 
-            return redirect()->route('maintenance.work-orders.statuses.show', [$status->id])->withSuccess($message);
+            return redirect()->route('maintenance.work-orders.statuses.index')->withSuccess($message);
         } else {
             $message = 'There was an issue updating this status. Please try again.';
 
@@ -105,9 +105,9 @@ class StatusController extends Controller
     /**
      * Deletes the specified work order status.
      *
-     * @param string|int $id
+     * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -118,7 +118,7 @@ class StatusController extends Controller
         } else {
             $message = 'There was an issue deleting this status. Please try again.';
 
-            return redirect()->route('maintenance.work-orders.statuses.show', [$id])->withErrors($message);
+            return redirect()->route('maintenance.work-orders.statuses.index', [$id])->withErrors($message);
         }
     }
 }
