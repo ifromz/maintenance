@@ -171,4 +171,25 @@ class ManualController extends BaseController
             return redirect()->route('maintenance.assets.manuals.show', [$asset->id, $manual->id])->withErrors($message);
         }
     }
+
+    /**
+     * Prompts the user to download the specified uploaded file.
+     *
+     * @param int|string $id
+     * @param int|string $manualId
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function download($id, $manualId)
+    {
+        $asset = $this->asset->find($id);
+
+        $manual = $asset->manuals()->find($manualId);
+
+        if($manual) {
+            return response()->download($manual->download_path);
+        }
+
+        abort(404);
+    }
 }
