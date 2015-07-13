@@ -16,7 +16,6 @@
 
         <thead>
             <tr>
-                <th><input data-grid-checkbox="all" type="checkbox"></th>
                 <th>Title / Summary</th>
                 <th class="sortable" data-sort="location_id">Location</th>
                 <th>Start</th>

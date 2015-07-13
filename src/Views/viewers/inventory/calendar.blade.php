@@ -9,4 +9,4 @@
     });
 </script>
 
-<div id="calendar" data-event-url="{{ route('maintenance.api.v1.inventory.events.show', [$item->id]) }}"></div>
+<div id="calendar" data-event-url="{{ route('maintenance.api.v1.inventory.events.between', [$item->id]) }}"></div>

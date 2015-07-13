@@ -1,29 +1,26 @@
 @extends('maintenance::layouts.pages.main.tabbed')
 
+@section('title', "Viewing Event: $apiObject->title")
+
 @section('tab.head.content')
-    <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
-    <li><a href="#tab_report" data-toggle="tab">Report</a></li>
-    <li><a href="#tab_recurrences" data-toggle="tab">Recurrences</a></li>
+    <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
+    <li><a href="#tab-report" data-toggle="tab">Report</a></li>
 @stop
 
 @section('tab.body.content')
 
-    <div class="tab-pane active" id="tab_profile">
-        {!! $event->viewer()->btnEventableEdit($eventable) !!}
+    <div class="tab-pane active" id="tab-profile">
+        {!! $event->viewer()->btnEdit(route($routes['edit'], [$eventable->id, $event->id])) !!}
 
-        {!! $event->viewer()->btnEventableDelete($eventable) !!}
+        {!! $event->viewer()->btnDelete(route($routes['destroy'], [$eventable->id, $event->id])) !!}
 
         <hr>
 
-        {!! $event->viewer()->profile() !!}
+        {!! $event->viewer()->profile($apiObject) !!}
     </div>
 
-    <div class="tab-pane" id="tab_report">
-        {!! $localEvent->viewer()->report() !!}
-    </div>
-
-    <div class="tab-pane" id="tab_recurrences">
-        {!! $event->viewer()->recurrences($recurrences) !!}
+    <div class="tab-pane" id="tab-report">
+        {!! $event->viewer()->report() !!}
     </div>
 
 @stop

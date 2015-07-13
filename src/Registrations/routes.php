@@ -105,16 +105,4 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'namespace' =>
             include 'routes/admin.php';
         });
     });
-
-    /*
-     * API Route Group
-     */
-    Route::group(['prefix' => 'api', 'namespace' => 'Apis'], function ()
-    {
-        /*
-         * API Routes
-         */
-        include 'routes/api.php';
-    });
-
 }); /* End Maintenance Routes */

@@ -272,4 +272,18 @@ class EventRepository extends Repository
 
         return $arrayEvents;
     }
+
+    /**
+     * Sets the calendar ID for the current event API.
+     *
+     * @param string $id
+     *
+     * @return $this
+     */
+    public function setCalendarId($id)
+    {
+        $this->eventApi->setCalendar($id);
+
+        return $this;
+    }
 }

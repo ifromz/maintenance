@@ -2,7 +2,6 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
-use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Repositories\EventRepository;
 use Stevebauman\Maintenance\Http\Requests\Event\Request as EventRequest;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
@@ -15,11 +14,6 @@ abstract class EventableController extends BaseController
     protected $event;
 
     /**
-     * @var ConfigService
-     */
-    protected $config;
-
-    /**
      * The eventable's routes.
      *
      * @var array
@@ -30,12 +24,10 @@ abstract class EventableController extends BaseController
      * Constructor.
      *
      * @param EventRepository $event
-     * @param ConfigService $config
      */
-    public function __construct(EventRepository $event, ConfigService $config)
+    public function __construct(EventRepository $event)
     {
-        $this->event = $event;
-        $this->config = $config;
+        $this->event = $event->setCalendarId($this->getEventableCalendarId());
     }
 
     /**
@@ -191,7 +183,23 @@ abstract class EventableController extends BaseController
      */
     public function destroy($resourceId, $eventId)
     {
-        
+        $eventable = $this->getEventableRepository()->find($resourceId);
+
+        if($eventable && method_exists($eventable, 'events')) {
+            $event = $eventable->events()->find($eventId);
+
+            if($event && $this->event->delete($event->id)) {
+                $message = 'Successfully deleted event.';
+
+                return redirect()->route($this->routes['index'], $eventable->id)->withSuccess($message);
+            } else {
+                $message = 'There was an issue deleting this event. Please try again.';
+
+                return redirect()->route($this->routes['show'], $eventable->id, $event->id)->withErrors($message);
+            }
+        }
+
+        abort(404);
     }
 
     /**
@@ -200,4 +208,9 @@ abstract class EventableController extends BaseController
      * @return \Stevebauman\Maintenance\Repositories\Repository
      */
     protected abstract function getEventableRepository();
+
+    /**
+     * @return string
+     */
+    protected abstract function getEventableCalendarId();
 }

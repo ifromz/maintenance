@@ -68,6 +68,23 @@ class Repository extends BaseRepository
     }
 
     /**
+     * Returns a new grid instance of the current model.
+     *
+     * @param int|string $id
+     * @param array      $columns
+     * @param array      $settings
+     * @param \Closure   $transformer
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
+    public function gridEvents($id, array $columns = [], array $settings = [], $transformer = null)
+    {
+        $model = $this->find($id);
+
+        return $this->newGrid($model->events()->whereNull('parent_id'), $columns, $settings, $transformer);
+    }
+
+    /**
      * Creates a new grid instance of inventory stocks.
      *
      * @param int|string $inventoryId

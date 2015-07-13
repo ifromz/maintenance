@@ -1,18 +1,36 @@
-@extends('maintenance::layouts.pages.main.panel')
+@extends('maintenance::layouts.pages.main.grid')
 
-@section('title', 'All Events')
+@section('title', 'Events')
 
-@section('panel.head.content')
-    <div class="btn-toolbar">
-        <a class="btn btn-primary" href="{{ route($routes['create'], [$eventable->id]) }}">
-            <i class="fa fa-plus-circle"></i>
-            New Event
+@section('grid.actions.create')
+    <li class="primary">
+        <a href="{{ route($routes['create'], $eventable->id) }}" data-toggle="tooltip" data-original-title="Create">
+            <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
         </a>
-    </div>
+    </li>
 @stop
 
-@section('panel.body.content')
+@section('grid.table')
 
+    <table id="data-grid" class="results table table-hover" data-source="{{ route($routes['grid'], $eventable->id) }}" data-grid="main">
 
+        <thead>
+            <tr>
+                <th>Title / Summary</th>
+                <th class="sortable" data-sort="location_id">Location</th>
+                <th>Start</th>
+                <th>End</th>
+            </tr>
+        </thead>
 
+        <tbody></tbody>
+
+    </table>
+@stop
+
+@section('grid.results')
+    @include('maintenance::events.grid.no-results')
+    @include('maintenance::events.grid.results')
+    @include('maintenance::events.grid.pagination')
+    @include('maintenance::events.grid.filters')
 @stop

@@ -5,7 +5,6 @@
 @section('tab.head.content')
     <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab-report" data-toggle="tab">Report</a></li>
-    <li><a href="#tab-recurrences" data-toggle="tab">Recurrences</a></li>
 @stop
 
 @section('tab.body.content')
@@ -22,10 +21,6 @@
 
     <div class="tab-pane" id="tab-report">
         {!! $event->viewer()->report() !!}
-    </div>
-
-    <div class="tab-pane" id="tab-recurrences">
-        {!! $event->viewer()->recurrences() !!}
     </div>
 
 @stop
