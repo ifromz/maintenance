@@ -2,14 +2,14 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
-class MaintenanceController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Displays the maintenance management dashboard.
      *
      * @return \Illuminate\View\View
      */
-    public function getIndex()
+    public function index()
     {
         return view('maintenance::dashboard.index');
     }

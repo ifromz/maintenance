@@ -61,7 +61,7 @@ class MetricRepository extends Repository
      */
     public function update(MetricRequest $request, $id)
     {
-        $metric = $this->find($id);
+        $metric = $this->model()->findOrFail($id);
 
         if($metric) {
             $metric->name = $request->input('name', $metric->name);

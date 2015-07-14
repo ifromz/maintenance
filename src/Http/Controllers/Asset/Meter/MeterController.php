@@ -41,7 +41,7 @@ class MeterController extends Controller
      */
     public function index($id)
     {
-        $asset = $this->asset->find($id);
+        $asset = $this->asset->model()->findOrFail($id);
 
         return view('maintenance::assets.meters.index', compact('asset'));
     }
@@ -55,7 +55,7 @@ class MeterController extends Controller
      */
     public function create($id)
     {
-        $asset = $this->asset->find($id);
+        $asset = $this->asset->model()->findOrFail($id);
 
         return view('maintenance::assets.meters.create', compact('asset'));
     }
@@ -93,14 +93,12 @@ class MeterController extends Controller
      */
     public function show($id, $meterId)
     {
-        $asset = $this->asset->find($id);
+        $asset = $this->asset->model()->findOrFail($id);
 
-        if($asset) {
-            $meter = $asset->meters()->find($meterId);
+        $meter = $asset->meters()->find($meterId);
 
-            if($meter) {
-                return view('maintenance::assets.meters.show', compact('asset', 'meter'));
-            }
+        if($meter) {
+            return view('maintenance::assets.meters.show', compact('asset', 'meter'));
         }
 
         abort(404);
@@ -117,17 +115,15 @@ class MeterController extends Controller
      */
     public function edit($id, $meterId)
     {
-        $asset = $this->asset->find($id);
+        $asset = $this->asset->model()->findOrFail($id);
 
-        if($asset) {
-            $meter = $asset->meters()->find($meterId);
+        $meter = $asset->meters()->find($meterId);
 
-            if($meter && $meter instanceof Meter) {
-                $lastReading = $meter->getLastReading();
+        if($meter && $meter instanceof Meter) {
+            $lastReading = $meter->getLastReading();
 
-                if($meter) {
-                    return view('maintenance::assets.meters.edit', compact('asset', 'meter', 'lastReading'));
-                }
+            if($meter) {
+                return view('maintenance::assets.meters.edit', compact('asset', 'meter', 'lastReading'));
             }
         }
 
@@ -168,7 +164,7 @@ class MeterController extends Controller
      */
     public function destroy($id, $meterId)
     {
-        $asset = $this->asset->find($id);
+        $asset = $this->asset->model()->findOrFail($id);
 
         $meter = $asset->meters()->find($meterId);
 

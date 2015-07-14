@@ -71,7 +71,7 @@ class MetricController extends Controller
      */
     public function show($id)
     {
-        $metric = $this->metric->find($id);
+        $metric = $this->metric->model()->findOrFail($id);
 
         return view('maintenance::metrics.show', compact('metric'));
     }
@@ -85,7 +85,7 @@ class MetricController extends Controller
      */
     public function edit($id)
     {
-        $metric = $this->metric->find($id);
+        $metric = $this->metric->model()->findOrFailfind($id);
 
         return view('maintenance::metrics.edit', compact('metric'));
     }
@@ -122,7 +122,9 @@ class MetricController extends Controller
      */
     public function destroy($id)
     {
-        if($this->metric->delete($id)) {
+        $metric = $this->metric->model()->findOrFail($id);
+
+        if($metric->delete()) {
             $message = 'Successfully deleted metric.';
 
             return redirect()->route('maintenance.metrics.index')->withSuccess($message);

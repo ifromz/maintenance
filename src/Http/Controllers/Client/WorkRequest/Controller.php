@@ -74,13 +74,9 @@ class Controller extends BaseController
      */
     public function show($id)
     {
-        $workRequest = $this->workRequest->find($id);
+        $workRequest = $this->workRequest->model()->findOrFail($id);
 
-        if($workRequest) {
-            return view('maintenance::client.work-requests.show', compact('workRequest'));
-        }
-
-        abort(404);
+        return view('maintenance::client.work-requests.show', compact('workRequest'));
     }
 
     /**
@@ -92,13 +88,9 @@ class Controller extends BaseController
      */
     public function edit($id)
     {
-        $workRequest = $this->workRequest->find($id);
+        $workRequest = $this->workRequest->model()->findOrFail($id);
 
-        if($workRequest) {
-            return view('maintenance::client.work-requests.edit', compact('workRequest'));
-        }
-
-        abort(404);
+        return view('maintenance::client.work-requests.edit', compact('workRequest'));
     }
 
     /**
@@ -133,7 +125,9 @@ class Controller extends BaseController
      */
     public function destroy($id)
     {
-        if($this->workRequest->delete($id)) {
+        $workRequest = $this->workRequest->model()->findOrFail($id);
+
+        if($workRequest->delete()) {
             $message = 'Successfully deleted work request.';
 
             return redirect()->route('maintenance.client.work-requests.index')->withSuccess($message);

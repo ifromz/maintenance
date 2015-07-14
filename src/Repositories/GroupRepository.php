@@ -53,7 +53,7 @@ class GroupRepository extends BaseRepository
      */
     public function update(GroupRequest $request, $id)
     {
-        $group = $this->find($id);
+        $group = $this->model()->findOrFail($id);
 
         if($group) {
             $group->name = $request->input('name', $group->name);

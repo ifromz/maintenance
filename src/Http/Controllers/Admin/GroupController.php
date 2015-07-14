@@ -76,7 +76,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        $group = $this->group->find($id);
+        $group = $this->group->model()->findOrFail($id);
 
         return view('maintenance::admin.groups.show', compact('group'));
     }
@@ -90,7 +90,7 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        $group = $this->group->find($id);
+        $group = $this->group->model()->findOrFail($id);
 
         return view('maintenance::admin.groups.edit', compact('group'));
     }
@@ -127,7 +127,7 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        $group = $this->group->find($id);
+        $group = $this->group->model()->findOrFail($id);
 
         if($group) {
             $group->users()->detach();

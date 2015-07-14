@@ -88,26 +88,24 @@ class MeterRepository extends BaseRepository
      */
     public function update(MeterRequest $request, $id, $meterId)
     {
-        $asset = $this->asset->find($id);
+        $asset = $this->asset->model()->findOrFail($id);
 
-        if($asset) {
-            $meter = $asset->meters()->find($meterId);
+        $meter = $asset->meters()->find($meterId);
 
-            if($meter) {
-                $meter->metric_id = $request->input('metric');
-                $meter->name = $request->input('name');
+        if($meter) {
+            $meter->metric_id = $request->input('metric');
+            $meter->name = $request->input('name');
 
-                if($meter->save()) {
-                    $reading = [
-                        'user_id' => $this->sentry->getCurrentUserId(),
-                        'reading' => $request->input('reading'),
-                        'comment' => $request->input('comment'),
-                    ];
+            if($meter->save()) {
+                $reading = [
+                    'user_id' => $this->sentry->getCurrentUserId(),
+                    'reading' => $request->input('reading'),
+                    'comment' => $request->input('comment'),
+                ];
 
-                    $meter->readings()->create($reading);
+                $meter->readings()->create($reading);
 
-                    return $meter;
-                }
+                return $meter;
             }
         }
 

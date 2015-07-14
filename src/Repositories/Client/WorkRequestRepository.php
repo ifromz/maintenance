@@ -109,18 +109,16 @@ class WorkRequestRepository extends BaseRepository
      */
     public function update(WorkRequest $request, $id)
     {
-        $workRequest = $this->model()->find($id);
+        $workRequest = $this->model()->findOrFail($id);
 
-        if($workRequest) {
-            $attributes = [
-                'subject' => $request->input('subject', $workRequest->subject),
-                'description' => $request->clean($request->input('description', $workRequest->description)),
-                'best_time' => $request->input('best_time', $workRequest->best_time),
-            ];
+        $attributes = [
+            'subject' => $request->input('subject', $workRequest->subject),
+            'description' => $request->clean($request->input('description', $workRequest->description)),
+            'best_time' => $request->input('best_time', $workRequest->best_time),
+        ];
 
-            if($workRequest->update($attributes)) {
-                return $workRequest;
-            }
+        if($workRequest->update($attributes)) {
+            return $workRequest;
         }
 
         return false;

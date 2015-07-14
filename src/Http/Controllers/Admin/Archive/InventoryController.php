@@ -36,7 +36,7 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
-        $item = $this->inventory->findArchived($id);
+        $item = $this->inventory->model()->onlyTrashed()->findOrFail($id);
 
         return view('maintenance::admin.archive.inventory.show', compact('item'));
     }
@@ -50,7 +50,9 @@ class InventoryController extends Controller
      */
     public function destroy($id)
     {
-        if($this->inventory->deleteArchived($id)) {
+        $item = $this->inventory->model()->onlyTrashed()->findOrFail($id);
+
+        if($item->forceDelete()) {
             $message = 'Successfully deleted inventory item.';
 
             return redirect()->route('maintenance.admin.archive.inventory.index')->withSuccess($message);
@@ -70,7 +72,9 @@ class InventoryController extends Controller
      */
     public function restore($id)
     {
-        if ($this->inventory->restore($id)) {
+        $item = $this->inventory->model()->onlyTrashed()->findOrFail($id);
+
+        if ($item->restore()) {
             $message = 'Successfully restored inventory item.';
 
             return redirect()->route('maintenance.admin.archive.work-orders.index')->withSuccess($message);
