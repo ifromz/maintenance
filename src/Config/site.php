@@ -68,18 +68,4 @@ return [
             ],
         ],
     ],
-
-    /*
-     * Paths for file storage. All paths have to end with trailing slash
-     */
-    'paths' => [
-        'assets' => [
-            'images' => 'assets/images/',
-            'manuals' => 'assets/manuals/',
-        ],
-
-        'work-orders' => [
-            'attachments' => 'work-orders/attachments/',
-        ],
-    ],
 ];
