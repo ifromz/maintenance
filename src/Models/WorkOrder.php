@@ -184,7 +184,7 @@ class WorkOrder extends Model
      */
     public function parts()
     {
-        return $this->belongsToMany(InventoryStock::class, 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('id', 'quantity');
+        return $this->belongsToMany(InventoryStock::class, 'work_order_parts', 'work_order_id', 'stock_id')->withTimestamps()->withPivot('quantity');
     }
 
     /**
