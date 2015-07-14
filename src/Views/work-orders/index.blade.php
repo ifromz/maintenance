@@ -1,37 +1,9 @@
-@extends('maintenance::layouts.pages.main.grid')
+@extends('maintenance::layouts.main')
 
 @section('title', 'Work Orders')
 
-@section('grid.actions.create')
-    <li class="primary">
-        <a href="{{ route('maintenance.work-orders.create') }}" data-toggle="tooltip" data-original-title="Create">
-            <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
-        </a>
-    </li>
-@stop
+@section('content')
 
-@section('grid.table')
-    <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.work-orders.grid') }}" data-grid="main">
+    @include('maintenance::work-orders.grid.index')
 
-        <thead>
-            <tr>
-                <th class="sortable" data-sort="id">ID</th>
-                <th class="sortable" data-sort="subject">Subject</th>
-                <th class="sortable" data-sort="created_at">Created At</th>
-                <th class="sortable" data-sort="user_id">Created By</th>
-                <th class="sortable" data-sort="priority_id">Priority</th>
-                <th class="sortable" data-sort="status_id">Status</th>
-            </tr>
-        </thead>
-
-        <tbody></tbody>
-
-    </table>
-@stop
-
-@section('grid.results')
-    @include('maintenance::work-orders.grid.no-results')
-    @include('maintenance::work-orders.grid.results')
-    @include('maintenance::work-orders.grid.pagination')
-    @include('maintenance::work-orders.grid.filters')
 @stop
