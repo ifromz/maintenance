@@ -6,7 +6,7 @@ use Stevebauman\Maintenance\Viewers\Event\EventViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class Event extends BaseModel
+class Event extends Model
 {
     use HasLocationTrait;
     use HasUserTrait;

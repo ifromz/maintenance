@@ -2,7 +2,7 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-class InventoryAssembly extends BaseModel
+class InventoryAssembly extends Model
 {
     /**
      * The inventory assemblies table.

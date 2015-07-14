@@ -7,7 +7,7 @@ use Stevebauman\Maintenance\Viewers\Inventory\InventoryStockMovementViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 
-class InventoryStockMovement extends BaseModel
+class InventoryStockMovement extends Model
 {
     use SoftDeletes;
 

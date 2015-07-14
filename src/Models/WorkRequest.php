@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Viewers\WorkRequestViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class WorkRequest extends BaseModel
+class WorkRequest extends Model
 {
     use HasUserTrait;
 
@@ -47,6 +47,6 @@ class WorkRequest extends BaseModel
      */
     public function updates()
     {
-        return $this->belongsToMany(Update::class, 'work_request_updates', 'work_request_id', 'update_id')->withTimestamps();
+        return $this->belongsToMany(Update::class, 'work_request_updates', 'work_request_id', 'update_id');
     }
 }

@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class Note extends BaseModel
+class Note extends Model
 {
     use HasUserTrait;
 
@@ -26,32 +26,12 @@ class Note extends BaseModel
     ];
 
     /**
-     * The morphedByMany assets relationship indicating that assets can have notes.
+     * The morphTo polymorphic relation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function assets()
+    public function noteable()
     {
-        return $this->morphedByMany(Asset::class, 'noteable')->withTimestamps();
-    }
-
-    /**
-     * The morphedByMany assets relationship indicating that inventory items can have notes.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function inventories()
-    {
-        return $this->morphedByMany(Inventory::class, 'noteable')->withTimestamps();
-    }
-
-    /**
-     * The morphedByMany assets relationship indicating that work orders can have notes.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function workOrders()
-    {
-        return $this->morphedByMany(WorkOrder::class, 'noteable')->withTimestamps();
+        return $this->morphTo();
     }
 }

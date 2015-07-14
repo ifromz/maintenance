@@ -13,6 +13,6 @@ trait HasEventsTrait
      */
     public function events()
     {
-        return $this->morphToMany(Event::class, 'eventable')->withTimestamps();
+        return $this->morphToMany(Event::class, 'eventable');
     }
 }

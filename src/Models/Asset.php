@@ -9,7 +9,7 @@ use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class Asset extends BaseModel
+class Asset extends Model
 {
     use SoftDeletes;
 

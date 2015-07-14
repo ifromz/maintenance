@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Viewers\PriorityViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class Priority extends BaseModel
+class Priority extends Model
 {
     use HasUserTrait;
 

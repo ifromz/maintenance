@@ -14,7 +14,7 @@ use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 
-class WorkOrder extends BaseModel
+class WorkOrder extends Model
 {
     use SoftDeletes;
     use HasNotesTrait;
@@ -114,7 +114,7 @@ class WorkOrder extends BaseModel
      */
     public function updates()
     {
-        return $this->belongsToMany(Update::class, 'work_order_updates', 'work_order_id', 'update_id')->withTimestamps();
+        return $this->belongsToMany(Update::class, 'work_order_updates', 'work_order_id', 'update_id');
     }
 
     /**

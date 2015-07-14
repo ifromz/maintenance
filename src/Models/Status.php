@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Viewers\StatusViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class Status extends BaseModel
+class Status extends Model
 {
     use HasUserTrait;
 

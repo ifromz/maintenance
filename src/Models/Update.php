@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Viewers\UpdateViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class Update extends BaseModel
+class Update extends Model
 {
     use HasUserTrait;
 

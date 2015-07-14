@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Viewers\WorkOrder\AssignmentViewer;
 
-class WorkOrderAssignment extends BaseModel
+class WorkOrderAssignment extends Model
 {
     /**
      * The work order assignments table.

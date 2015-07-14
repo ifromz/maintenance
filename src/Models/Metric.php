@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Viewers\MetricViewer;
 
-class Metric extends BaseModel
+class Metric extends Model
 {
     use HasUserTrait;
 

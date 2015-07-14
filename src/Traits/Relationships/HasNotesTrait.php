@@ -13,6 +13,6 @@ trait HasNotesTrait
      */
     public function notes()
     {
-        return $this->morphToMany(Note::class, 'noteable')->withTimestamps();
+        return $this->morphMany(Note::class, 'noteable');
     }
 }

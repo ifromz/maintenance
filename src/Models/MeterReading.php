@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Viewers\MeterReadingViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class MeterReading extends BaseModel
+class MeterReading extends Model
 {
     use HasUserTrait;
 

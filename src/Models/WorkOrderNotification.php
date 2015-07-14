@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class WorkOrderNotification extends BaseModel
+class WorkOrderNotification extends Model
 {
     use HasUserTrait;
 

@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Inventory\Traits\InventoryTransactionHistoryTrait;
 
-class InventoryTransactionHistory extends BaseModel
+class InventoryTransactionHistory extends Model
 {
     use InventoryTransactionHistoryTrait;
 

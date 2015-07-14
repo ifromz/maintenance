@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Inventory\Interfaces\StateableInterface;
 use Stevebauman\Inventory\Traits\InventoryTransactionTrait;
 
-class InventoryTransaction extends BaseModel implements StateableInterface
+class InventoryTransaction extends Model implements StateableInterface
 {
     use InventoryTransactionTrait;
 

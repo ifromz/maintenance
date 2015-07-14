@@ -13,7 +13,7 @@ use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 
-class Inventory extends BaseModel
+class Inventory extends Model
 {
     use SoftDeletes;
 

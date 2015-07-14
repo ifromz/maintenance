@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class WorkOrderReport extends BaseModel
+class WorkOrderReport extends Model
 {
     use HasUserTrait;
 

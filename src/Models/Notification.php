@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\App;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class Notification extends BaseModel
+class Notification extends Model
 {
     use HasUserTrait;
 

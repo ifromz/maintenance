@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Models;
 use Stevebauman\Maintenance\Viewers\WorkOrder\SessionViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 
-class WorkOrderSession extends BaseModel
+class WorkOrderSession extends Model
 {
     use HasUserTrait;
 

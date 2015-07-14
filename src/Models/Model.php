@@ -11,7 +11,7 @@ use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class BaseModel extends Eloquent
+class Model extends Eloquent
 {
     /*
      * Provides easy table generation.

@@ -8,7 +8,7 @@ use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Inventory\Traits\InventoryStockTrait;
 
-class InventoryStock extends BaseModel
+class InventoryStock extends Model
 {
     use SoftDeletes;
 
