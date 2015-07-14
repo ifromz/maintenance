@@ -2,9 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Stevebauman\Maintenance\Http\Requests\Auth\RegisterRequest;
-use Stevebauman\Maintenance\Http\Requests\Auth\LoginRequest;
 use Stevebauman\Corp\Facades\Corp;
+use Stevebauman\Maintenance\Http\Requests\Auth\LoginRequest;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
@@ -72,45 +71,6 @@ class AuthController extends Controller
         }
 
         return redirect()->back()->withErrors($errors);
-    }
-
-    /**
-     * Show the form for registering an account.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function getRegister()
-    {
-        return view('maintenance::auth.register.index');
-    }
-
-    /**
-     * Processes registering for an account.
-     *
-     * @param RegisterRequest $request
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function postRegister(RegisterRequest $request)
-    {
-        $data = $request->all();
-
-        /*
-         * We'll create a random unique username since
-         * the username attribute is only for LDAP logins
-         */
-        $data['username'] = uniqid();
-
-        // Create the user with default groups of all users and customers
-        if ($this->sentry->registerUser($data, ['all_users', 'customers'])) {
-            $message = 'Successfully created account. You can now login.';
-
-            return redirect()->route('maintenance.login')->withSuccess($message);
-        } else {
-            $message = 'There was an issue registering you an account. Please try again.';
-
-            return redirect()->route('maintenance.login')->withErrors($message);
-        }
     }
 
     /**
