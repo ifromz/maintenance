@@ -31,7 +31,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'namespace' =>
     /*
      * Main Client Controller Group
      */
-    Route::group(['prefix' => 'client', 'namespace' => 'Controllers', 'middleware' => 'maintenance.auth'], function ()
+    Route::group(['prefix' => 'client', 'namespace' => 'Controllers', 'middleware' => ['maintenance.auth', 'maintenance.permission']], function ()
     {
         /*
          * Client Routes

@@ -4,25 +4,10 @@ namespace Stevebauman\Maintenance\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Stevebauman\Maintenance\Services\SentryService;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class AuthMiddleware
 {
-    /**
-     * @var SentryService
-     */
-    protected $sentry;
-
-    /**
-     * Constructor.
-     *
-     * @param SentryService $sentry
-     */
-    public function __construct(SentryService $sentry)
-    {
-        $this->sentry = $sentry;
-    }
-
     /**
      * Redirects unauthenticated users to the login page.
      *
@@ -33,7 +18,7 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if($this->sentry->check()) {
+        if(Sentinel::check()) {
             return $next($request);
         } else {
             $message = "You're not logged in.";

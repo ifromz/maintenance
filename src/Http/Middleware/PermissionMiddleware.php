@@ -5,25 +5,10 @@ namespace Stevebauman\Maintenance\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Stevebauman\Maintenance\Models\User;
-use Stevebauman\Maintenance\Services\SentryService;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class PermissionMiddleware
 {
-    /**
-     * @var SentryService
-     */
-    protected $sentry;
-
-    /**
-     * Constructor.
-     *
-     * @param SentryService $sentry
-     */
-    public function __construct(SentryService $sentry)
-    {
-        $this->sentry = $sentry;
-    }
-
     /**
      * Throws 403 unauthorized error if the user is
      * not allowed to access the specified route.
@@ -38,7 +23,7 @@ class PermissionMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = $this->sentry->getCurrentUser();
+        $user = Sentinel::getUser();
 
         if($user && $user instanceof User) {
             if($user->hasAccess($request->route()->getName())) {
