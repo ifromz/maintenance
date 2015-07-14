@@ -50,28 +50,26 @@ class MeterRepository extends BaseRepository
      */
     public function create(MeterRequest $request, $id)
     {
-        $asset = $this->asset->find($id);
+        $asset = $this->asset->model()->findOrFail($id);
 
-        if($asset) {
-            $meter = $this->model();
+        $meter = $this->model();
 
-            $meter->user_id = $this->sentry->getCurrentUserId();
-            $meter->metric_id = $request->input('metric');
-            $meter->name = $request->input('name');
+        $meter->user_id = $this->sentry->getCurrentUserId();
+        $meter->metric_id = $request->input('metric');
+        $meter->name = $request->input('name');
 
-            if($meter->save()) {
-                $asset->meters()->attach($meter);
+        if($meter->save()) {
+            $asset->meters()->attach($meter);
 
-                $reading = [
-                    'user_id' => $this->sentry->getCurrentUserId(),
-                    'reading' => $request->input('reading'),
-                    'comment' => $request->input('comment'),
-                ];
+            $reading = [
+                'user_id' => $this->sentry->getCurrentUserId(),
+                'reading' => $request->input('reading'),
+                'comment' => $request->input('comment'),
+            ];
 
-                $meter->readings()->create($reading);
+            $meter->readings()->create($reading);
 
-                return $meter;
-            }
+            return $meter;
         }
 
         return false;
@@ -90,7 +88,7 @@ class MeterRepository extends BaseRepository
     {
         $asset = $this->asset->model()->findOrFail($id);
 
-        $meter = $asset->meters()->find($meterId);
+        $meter = $asset->meters()->findOrFail($meterId);
 
         if($meter) {
             $meter->metric_id = $request->input('metric');

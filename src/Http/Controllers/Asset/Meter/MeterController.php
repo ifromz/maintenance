@@ -95,13 +95,9 @@ class MeterController extends Controller
     {
         $asset = $this->asset->model()->findOrFail($id);
 
-        $meter = $asset->meters()->find($meterId);
+        $meter = $asset->meters()->findOrFail($meterId);
 
-        if($meter) {
-            return view('maintenance::assets.meters.show', compact('asset', 'meter'));
-        }
-
-        abort(404);
+        return view('maintenance::assets.meters.show', compact('asset', 'meter'));
     }
 
     /**
@@ -117,17 +113,11 @@ class MeterController extends Controller
     {
         $asset = $this->asset->model()->findOrFail($id);
 
-        $meter = $asset->meters()->find($meterId);
+        $meter = $asset->meters()->findOrFail($meterId);
 
-        if($meter && $meter instanceof Meter) {
-            $lastReading = $meter->getLastReading();
+        $lastReading = $meter->getLastReading();
 
-            if($meter) {
-                return view('maintenance::assets.meters.edit', compact('asset', 'meter', 'lastReading'));
-            }
-        }
-
-        abort(404);
+        return view('maintenance::assets.meters.edit', compact('asset', 'meter', 'lastReading'));
     }
 
     /**
@@ -166,9 +156,9 @@ class MeterController extends Controller
     {
         $asset = $this->asset->model()->findOrFail($id);
 
-        $meter = $asset->meters()->find($meterId);
+        $meter = $asset->meters()->findOrFail($meterId);
 
-        if($meter && $meter->delete()) {
+        if($meter->delete()) {
             $message = 'Successfully deleted meter.';
 
             return redirect()->route('maintenance.assets.meters.index', [$id])->withSuccess($message);

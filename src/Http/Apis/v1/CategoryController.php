@@ -16,19 +16,18 @@ class CategoryController extends Controller
     /**
      * Processes moving the specified category.
      *
-     * @parma CategoryMoveRequest $request
+     * @param CategoryMoveRequest $request
      * @param int|string          $id
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function move(CategoryMoveRequest $request, $id)
     {
-        $category = $this->repository->find($id);
+        $category = $this->repository->model()->findOrFail($id);
 
         $moved = false;
 
         if ($category) {
-
             $parentId = $request->input('parent_id');
 
             /*
@@ -40,13 +39,11 @@ class CategoryController extends Controller
 
                 $moved = true;
             } else {
-                $parent = $this->repository->find($parentId);
+                $parent = $this->repository->model()->findOrFail($parentId);
 
-                if ($parent) {
-                    $category->makeChildOf($parent);
+                $category->makeChildOf($parent);
 
-                    $moved = true;
-                }
+                $moved = true;
             }
         }
 
@@ -60,13 +57,13 @@ class CategoryController extends Controller
      */
     public function grid()
     {
-        $categories = $this->repository->get();
+        $categories = $this->repository->model()->get();
+
+        $categoryArray = [];
 
         if ($categories->count() > 0) {
-            $json_categories = [];
-
             foreach ($categories as $category) {
-                $json_categories[] = [
+                $categoryArray[] = [
                     'id' => (string) $category->id,
                     'parent' => ($category->parent_id ? (string) $category->parent_id : '#'),
                     'text' => (string) $category->name,
@@ -76,10 +73,8 @@ class CategoryController extends Controller
                     ],
                 ];
             }
-
-            return response($json_categories);
         }
 
-        return response([]);
+        return response($categoryArray);
     }
 }
