@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Carbon\Carbon;
-use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\ReportRequest;
 use Stevebauman\Maintenance\Viewers\WorkOrder\WorkOrderViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
@@ -380,7 +380,7 @@ class WorkOrder extends Model
      */
     public function getCurrentSession()
     {
-        $record = $this->sessions()->where('user_id', Sentry::getUser()->id)->first();
+        $record = $this->sessions()->where('user_id', Sentinel::getUser()->id)->first();
 
         return $record;
     }
@@ -402,7 +402,7 @@ class WorkOrder extends Model
      */
     public function getUserNotifications()
     {
-        $record = $this->notifiableUsers()->where('user_id', Sentry::getUser()->id)->first();
+        $record = $this->notifiableUsers()->where('user_id', Sentinel::getUser()->id)->first();
 
         return $record;
     }

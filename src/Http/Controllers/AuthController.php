@@ -2,71 +2,21 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Stevebauman\Maintenance\Models\User;
 use Stevebauman\Maintenance\Http\Requests\Auth\RegisterRequest;
 use Stevebauman\Maintenance\Http\Requests\Auth\LoginRequest;
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\UserService;
-use Stevebauman\Maintenance\Services\LdapService;
-use Stevebauman\Maintenance\Services\AuthService;
+use Stevebauman\Corp\Facades\Corp;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
+use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 
 class AuthController extends Controller
 {
-    /**
-     * @var ConfigService
-     */
-    protected $config;
-
-    /**
-     * @var SentryService
-     */
-    protected $sentry;
-
-    /**
-     * @var UserService
-     */
-    protected $user;
-
-    /**
-     * @var AuthService
-     */
-    protected $auth;
-
-    /**
-     * @var LdapService
-     */
-    protected $ldap;
-
-    /**
-     * Constructor.
-     *
-     * @param ConfigService     $config
-     * @param SentryService     $sentry
-     * @param UserService       $user
-     * @param AuthService       $auth
-     * @param LdapService       $ldap
-     */
-    public function __construct(
-        ConfigService $config,
-        SentryService $sentry,
-        UserService $user,
-        AuthService $auth,
-        LdapService $ldap
-    ) {
-        $this->config = $config->setPrefix('maintenance');
-        $this->sentry = $sentry;
-        $this->user = $user;
-        $this->auth = $auth;
-        $this->ldap = $ldap;
-    }
-
     /**
      * Displays the login page.
      *
      * @return \Illuminate\View\View
      */
-    public function getLogin()
+    public function authenticate()
     {
         return view('maintenance::auth.login.index');
     }
@@ -78,40 +28,50 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function postLogin(LoginRequest $request)
+    public function login(LoginRequest $request)
     {
-        $credentials = $request->only(['email', 'password', 'remember']);
+        try
+        {
+            $input = $request->all();
 
-        // Check if LDAP authentication is enabled
-        if ($this->config->get('site.ldap.enabled') === true) {
-            $user = $this->ldapAuthenticate($credentials);
+            $remember = (bool) array_pull($input, 'remember', false);
 
-            if($user instanceof User) {
-                $credentials['email'] = $user->email;
+            if ($auth = Sentinel::authenticate($input, $remember))
+            {
+                $message = 'Successfully logged in.';
+
+                return redirect()->intended(route('maintenance.dashboard.index'))->withSuccess($message);
+            } else if(Corp::auth($input['email'], $input['password']))
+            {
+                $user = Corp::user($input['email']);
+
+                $name = explode(',', $user->name);
+
+                $credentials = [
+                    'email' => $user->email,
+                    'username' => $user->username,
+                    'password' => $input['password'],
+                    'first_name' => (array_key_exists(1, $name) ? $name[1] : null),
+                    'last_name' => (array_key_exists(0, $name) ? $name[0] : null),
+                ];
+
+                return $this->registerAndAuthenticateUser($credentials);
             }
+
+            $errors = 'Invalid login or password.';
+        }
+        catch (NotActivatedException $e)
+        {
+            $errors = 'Account is not activated!';
+        }
+        catch (ThrottlingException $e)
+        {
+            $delay = $e->getDelay();
+
+            $errors = "Your account is blocked for {$delay} second(s).";
         }
 
-        // Authenticate with sentry
-        $response = $this->auth->sentryAuthenticate(
-            array_only($credentials, ['email', 'password']),
-            (array_key_exists('remember', $credentials) ? $credentials['remember'] : null)
-        );
-
-        // Check the authenticated response
-        if ($response['authenticated'] === true) {
-            // Successfully logged in
-            $message = 'Successfully logged in.';
-
-            if($this->sentry->getCurrentUser()->hasAccess('maintenance.work-requests.index')) {
-                return redirect()->route('maintenance.work-requests.index')->withSuccess($message);
-            } else {
-                // If the user doesn't have access to the main work request route, then they're a client
-                return redirect()->route('maintenance.client.work-requests.index')->withSuccess($message);
-            }
-        } else {
-            // Login failed, return error response
-            return redirect()->route('maintenance.login')->withErrors($response['message']);
-        }
+        return Redirect::back()->withInput()->withErrors($errors);
     }
 
     /**
@@ -154,42 +114,59 @@ class AuthController extends Controller
     }
 
     /**
-     * Processes logging out a user.
+     * Logs the user out.
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function getLogout()
+    public function logout()
     {
-        $this->auth->sentryLogout();
+        Sentinel::logout();
 
-        return redirect()->route('maintenance.login');
+        $message = 'Successfully logged out.';
+
+        return redirect()->route('maintenance.login')->withSuccess($message);
     }
 
     /**
-     * Performs LDAP authentication with the specified
-     * credentials. If authentication is passed, the LDAP
-     * user is then created with their entered password.
-     * Their web account will password will also be updated
-     * on the fly in case of a change in active directory.
+     * Registers and authenticates a user by the specified credentials.
      *
      * @param array $credentials
      *
-     * @return bool|\Cartalyst\Sentry\Users\Eloquent\User
+     * @return \Illuminate\Http\RedirectResponse
      */
-    private function ldapAuthenticate(array $credentials)
+    private function registerAndAuthenticateUser(array $credentials)
     {
-        // Check if the user exists on active directory
-        if ($this->ldap->getUserFullName($credentials['email'])) {
-            // Try LDAP authentication
-            if ($this->auth->ldapAuthenticate($credentials)) {
-                /*
-                 * If authentication is passed, update their
-                 * web profile in case of a password update in AD
-                 */
-                return $this->user->createOrUpdateLdapUser($credentials);
+        $model = Sentinel::createModel();
+
+        // See if the LDAP user already has an account first
+        $user = $model->where('email', $credentials['email'])->first();
+
+        if($user)
+        {
+            // Update the user
+            Sentinel::update($user, $credentials);
+
+            // Log them in
+            Sentinel::login($user);
+
+            $message = 'Successfully logged in.';
+
+            return redirect()->intended('/')->withSuccess($message);
+        } else
+        {
+            $user = Sentinel::registerAndActivate($credentials);
+
+            if($user) {
+                Sentinel::login($user);
+
+                $message = 'Successfully logged in.';
+
+                return redirect()->intended('/')->withSuccess($message);
             }
         }
 
-        return false;
+        $message = 'There was an issue creating your active directory account. Please try again.';
+
+        return redirect()->route('maintenance.login')->withErrors($message);
     }
 }

@@ -8,10 +8,10 @@ Edit User
 
 @section('panel.body.content')
 
-    @if(Sentry::getUser()->id === $user->id)
+    @if(Sentinel::getUser()->id === $user->id)
         <div class="alert alert-warning">
             Heads up! You're editing yourself. Changing your username or email can cause your session to expire,
-            or you could accidentally remove yourself from administration privileges if you edit permissions, groups or activation.
+            or you could accidentally remove yourself from administration privileges if you edit permissions, roles or activation.
 
             Edit with severe caution!
         </div>
@@ -78,15 +78,15 @@ Edit User
         </div>
     </div>
 
-    <div class="form-group{{ $errors->first('groups', ' has-error') }}">
-        <label class="col-sm-2 control-label">Groups:</label>
+    <div class="form-group{{ $errors->first('roles', ' has-error') }}">
+        <label class="col-sm-2 control-label">Roles:</label>
 
         <div class="col-md-4">
-            @include('maintenance::select.groups', [
-                'groups' => (isset($user) ? $user->groups->lists('id', 'name')->toArray() : [])
+            @include('maintenance::select.roles', [
+                'roles' => (isset($user) ? $user->roles->lists('id', 'name')->toArray() : [])
             ])
 
-            <span class="label label-danger">{{ $errors->first('groups', ':message') }}</span>
+            <span class="label label-danger">{{ $errors->first('roles', ':message') }}</span>
         </div>
     </div>
 

@@ -2,25 +2,25 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Admin;
 
-use Stevebauman\Maintenance\Models\Group;
-use Stevebauman\Maintenance\Repositories\GroupRepository;
+use Stevebauman\Maintenance\Models\Role;
+use Stevebauman\Maintenance\Repositories\RoleRepository;
 use App\Http\Controllers\Controller as BaseController;
 
-class GroupController extends BaseController
+class RoleController extends BaseController
 {
     /**
-     * @var GroupRepository
+     * @var RoleRepository
      */
-    protected $group;
+    protected $role;
 
     /**
      * Constructor.
      *
-     * @param GroupRepository $group
+     * @param RoleRepository $role
      */
-    public function __construct(GroupRepository $group)
+    public function __construct(RoleRepository $role)
     {
-        $this->group = $group;
+        $this->role = $role;
     }
 
     /**
@@ -43,15 +43,15 @@ class GroupController extends BaseController
             'throttle' => 11,
         ];
 
-        $transformer = function(Group $group)
+        $transformer = function(Role $role)
         {
             return [
-                'name' => $group->name,
-                'created_at' => $group->created_at->format('Y-m-d g:i a'),
-                'view_url' => route('maintenance.admin.groups.show', [$group->id]),
+                'name' => $role->name,
+                'created_at' => $role->created_at->format('Y-m-d g:i a'),
+                'view_url' => route('maintenance.admin.roles.show', [$role->id]),
             ];
         };
 
-        return $this->group->grid($columns, $settings, $transformer);
+        return $this->role->grid($columns, $settings, $transformer);
     }
 }

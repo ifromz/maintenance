@@ -1,6 +1,6 @@
 @extends('maintenance::layouts.admin')
 
-@section('title', 'Edit Group')
+@section('title', 'Edit Role')
 
 @section('content')
 
@@ -8,20 +8,20 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h3 class="panel-title">Edit Group {{ $group->name }}</h3>
+                <h3 class="panel-title">Edit Group {{ $role->name }}</h3>
             </div>
 
             <div class="panel-body">
 
                 {!!
                     Form::open([
-                        'url' => route('maintenance.admin.groups.update', [$group->id]),
+                        'url' => route('maintenance.admin.roles.update', [$role->id]),
                         'class' => 'form-horizontal',
                         'method' => 'PATCH'
                     ])
                 !!}
 
-                @include('maintenance::admin.groups.from', compact('group'))
+                @include('maintenance::admin.roles.from', compact('role'))
 
                 {!! Form::close() !!}
             </div>

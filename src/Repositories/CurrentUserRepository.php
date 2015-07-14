@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Repositories;
 
 use Stevebauman\Maintenance\Models\User;
-use Cartalyst\Sentry\Facades\Laravel\Sentry;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class CurrentUserRepository extends Repository
 {
@@ -12,6 +12,6 @@ class CurrentUserRepository extends Repository
      */
     public function model()
     {
-        return Sentry::getUser();
+        return Sentinel::getUser();
     }
 }

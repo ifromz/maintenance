@@ -7,12 +7,12 @@ Route::group(['prefix' => 'login', 'namespace' => 'Controllers', 'middleware' =>
 {
     Route::get('/', [
         'as' => 'maintenance.login',
-        'uses' => 'AuthController@getLogin',
+        'uses' => 'AuthController@authenticate',
     ]);
 
     Route::post('/', [
         'as' => 'maintenance.login',
-        'uses' => 'AuthController@postLogin',
+        'uses' => 'AuthController@login',
     ]);
 
     Route::get('forgot-password', [
@@ -39,6 +39,6 @@ Route::group(['prefix' => 'login', 'namespace' => 'Controllers', 'middleware' =>
 Route::group(['namespace' => 'Controllers', 'before' => 'maintenance.auth'], function () {
     Route::get('logout', [
         'as' => 'maintenance.logout',
-        'uses' => 'AuthController@getLogout',
+        'uses' => 'AuthController@logout',
     ]);
 });

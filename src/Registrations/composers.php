@@ -19,6 +19,6 @@ View::composers([
     \Stevebauman\Maintenance\Composers\PrioritySelectComposer::class=> 'maintenance::select.priority',
     \Stevebauman\Maintenance\Composers\UserSelectComposer::class => 'maintenance::select.users',
     \Stevebauman\Maintenance\Composers\RouteSelectComposer::class=> 'maintenance::select.routes',
-    \Stevebauman\Maintenance\Composers\GroupSelectComposer::class => 'maintenance::select.groups',
+    \Stevebauman\Maintenance\Composers\RoleSelectComposer::class => 'maintenance::select.roles',
     \Stevebauman\Maintenance\Composers\MetricSelectComposer::class => 'maintenance::select.metric',
 ]);

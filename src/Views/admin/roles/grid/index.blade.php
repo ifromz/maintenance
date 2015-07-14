@@ -1,4 +1,4 @@
-{{-- Groups Grid --}}
+{{-- Roles Grid --}}
 <section class="panel panel-default panel-grid">
 
     {{-- Grid: Header --}}
@@ -9,13 +9,13 @@
             <div class="container-fluid">
 
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#groups-actions">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#roles-actions">
                         <span class="fa fa-bars"></span>
                     </button>
                 </div>
 
                 {{-- Grid: Actions --}}
-                <div class="collapse navbar-collapse" id="groups-actions">
+                <div class="collapse navbar-collapse" id="roles-actions">
 
                     <ul class="nav navbar-nav navbar-left">
 
@@ -31,7 +31,7 @@
                         </li>
 
                         <li class="primary">
-                            <a href="{{ route('maintenance.admin.groups.create') }}" data-toggle="tooltip" data-original-title="Create">
+                            <a href="{{ route('maintenance.admin.roles.create') }}" data-toggle="tooltip" data-original-title="Create">
                                 <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
                             </a>
                         </li>
@@ -39,7 +39,7 @@
                     </ul>
 
                     {{-- Grid: Filters --}}
-                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search data-grid="groups" role="form">
+                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search data-grid="roles" role="form">
 
                         <div class="input-group">
 
@@ -90,7 +90,7 @@
                                     <span class="fa fa-search"></span>
                                 </button>
 
-                                <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="groups" data-reset>
+                                <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="roles" data-reset>
                                     <i class="fa fa-refresh fa-sm"></i>
                                 </button>
 
@@ -114,7 +114,7 @@
         {{-- Grid: Applied Filters --}}
         <div class="btn-toolbar" role="toolbar" aria-label="data-grid-applied-filters">
 
-            <div id="groups-filters" class="btn-group" data-grid="groups"></div>
+            <div id="roles-filters" class="btn-group" data-grid="roles"></div>
 
         </div>
 
@@ -123,7 +123,7 @@
     {{-- Grid: Table --}}
     <div class="table-responsive">
 
-        <table id="groups-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.admin.groups.grid') }}" data-grid="groups">
+        <table id="roles-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.admin.roles.grid') }}" data-grid="roles">
 
             <thead>
                 <tr>
@@ -141,14 +141,14 @@
     <footer class="panel-footer clearfix text-center">
 
         {{-- Grid: Pagination --}}
-        <div id="groups-pagination" data-grid="groups"></div>
+        <div id="roles-pagination" data-grid="roles"></div>
 
     </footer>
 
-    @include('maintenance::admin.groups.grid.templates.no-results')
-    @include('maintenance::admin.groups.grid.templates.results')
-    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'groups'])
-    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'groups'])
+    @include('maintenance::admin.roles.grid.templates.no-results')
+    @include('maintenance::admin.roles.grid.templates.results')
+    @include('maintenance::layouts.partials.grid.templates.pagination', ['grid' => 'roles'])
+    @include('maintenance::layouts.partials.grid.templates.filters', ['grid' => 'roles'])
 
 </section>
 
@@ -156,7 +156,7 @@
 
     $(function()
     {
-        $.datagrid('groups', '#groups-results', '#groups-pagination', '#groups-filters');
+        $.datagrid('roles', '#roles-results', '#roles-pagination', '#roles-filters');
     });
 
 </script>

@@ -86,13 +86,13 @@ Create User
         </div>
     </div>
 
-    <div class="form-group{{ $errors->first('groups', ' has-error') }}">
-        <label class="col-sm-2 control-label">Groups:</label>
+    <div class="form-group{{ $errors->first('roles', ' has-error') }}">
+        <label class="col-sm-2 control-label">Roles:</label>
 
         <div class="col-md-4">
-            @include('maintenance::select.groups')
+            @include('maintenance::select.roles')
 
-            <span class="label label-danger">{{ $errors->first('groups', ':message') }}</span>
+            <span class="label label-danger">{{ $errors->first('roles', ':message') }}</span>
         </div>
     </div>
 

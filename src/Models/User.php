@@ -6,20 +6,13 @@ use Stevebauman\Maintenance\Viewers\UserViewer;
 use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
 use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
-use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
+use Cartalyst\Sentinel\Users\EloquentUser;
 
-class User extends SentryUser
+class User extends EloquentUser
 {
     use ViewableTrait;
     use TableTrait;
     use HasScopeIdTrait;
-
-    /**
-     * The users table.
-     *
-     * @var string
-     */
-    protected $table = 'users';
 
     /**
      * The users viewer class.

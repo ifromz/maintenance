@@ -2,6 +2,7 @@
 
 namespace Stevebauman\Maintenance;
 
+use Cartalyst\Sentinel\Laravel\SentinelServiceProvider;
 use Stevebauman\Maintenance\Http\Middleware\NotAuthMiddleware;
 use Stevebauman\Maintenance\Http\Middleware\PermissionMiddleware;
 use Stevebauman\Maintenance\Http\Middleware\AuthMiddleware;
@@ -128,7 +129,7 @@ class MaintenanceServiceProvider extends ServiceProvider
         $this->app->register(\Stevebauman\CoreHelper\CoreHelperServiceProvider::class);
 
         // Authentication
-        $this->app->register(\Cartalyst\Sentry\SentryServiceProvider::class);
+        $this->app->register(\Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class);
 
         // DataGrid
         $this->app->register(\Cartalyst\DataGrid\Laravel\DataGridServiceProvider::class);
@@ -168,7 +169,7 @@ class MaintenanceServiceProvider extends ServiceProvider
         $loader->alias('HTML', \Illuminate\Html\HtmlFacade::class);
 
         // Authentication
-        $loader->alias('Sentry', \Cartalyst\Sentry\Facades\Laravel\Sentry::class);
+        $loader->alias('Sentinel', \Cartalyst\Sentinel\Laravel\Facades\Sentinel::class);
 
         $loader->alias('DataGrid', \Cartalyst\DataGrid\Laravel\Facades\DataGrid::class);
 

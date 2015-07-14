@@ -208,9 +208,9 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             });
 
             // Administrator Group Api Routes
-            Route::group(['prefix' => 'groups'], function()
+            Route::group(['prefix' => 'roles'], function()
             {
-                Route::get('grid', ['as' => 'maintenance.api.v1.admin.groups.grid', 'uses' => 'GroupController@grid']);
+                Route::get('grid', ['as' => 'maintenance.api.v1.admin.roles.grid', 'uses' => 'RoleController@grid']);
             });
 
             // Administrator Archive Api Routes

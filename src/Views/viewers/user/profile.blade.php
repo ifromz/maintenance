@@ -38,13 +38,13 @@
         <p></p>
     @endif
 
-    @if($user->groups->count() > 0)
-        <dt>Groups</dt>
+    @if($user->roles->count() > 0)
+        <dt>Roles</dt>
         <dd>
             <ul class="list-unstyled">
-                @foreach($user->groups as $group)
-                    <li><a href="{{ route('maintenance.admin.groups.show', array($group->id)) }}"
-                           class="label label-default">{{ $group->name }}</a></li>
+                @foreach($user->roles as $role)
+                    <li><a href="{{ route('maintenance.admin.roles.show', [$group->id]) }}"
+                           class="label label-default">{{ $role->name }}</a></li>
                 @endforeach
             </ul>
         </dd>

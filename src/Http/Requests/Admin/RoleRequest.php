@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Http\Requests\Admin;
 
 use Stevebauman\Maintenance\Http\Requests\Request;
 
-class GroupRequest extends Request
+class RoleRequest extends Request
 {
     /**
      * The group validation rules.
@@ -19,7 +19,7 @@ class GroupRequest extends Request
     }
 
     /**
-     * Allows all users to create groups.
+     * Allows all users to create roles.
      *
      * @return bool
      */

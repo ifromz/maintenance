@@ -3,10 +3,10 @@
 namespace Stevebauman\Maintenance\Seeders;
 
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\CoreHelper\Services\ConfigService;
+use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\Database\Seeder;
 
-class GroupSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * @var SentryService
@@ -35,11 +35,11 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        $groups = $this->getSeedData();
+        $roles = $this->getSeedData();
 
-        foreach($groups as $groupName => $permissions)
+        foreach($roles as $roleName => $permissions)
         {
-            $this->sentry->createOrUpdateGroup($groupName, $permissions);
+            $this->sentry->createOrUpdateRole($roleName, $permissions);
         }
     }
 

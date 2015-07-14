@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Models;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Schema;
-use Cartalyst\Sentry\Facades\Laravel\Sentry;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
 use Stevebauman\Revision\Traits\HasRevisionsTrait;
 use Stevebauman\EloquentTable\TableTrait;
@@ -50,7 +50,7 @@ class Model extends Eloquent
      */
     public function revisionUserId()
     {
-        return Sentry::getUser()->id;
+        return Sentinel::getUser()->id;
     }
 
     /**

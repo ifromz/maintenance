@@ -56,15 +56,15 @@ Route::group(['namespace' => 'User'], function ()
 // End User Management Routes
 
 // Group Management Routes
-Route::resource('groups', 'GroupController', [
+Route::resource('roles', 'RoleController', [
     'names' => [
-        'index' => 'maintenance.admin.groups.index',
-        'create' => 'maintenance.admin.groups.create',
-        'store' => 'maintenance.admin.groups.store',
-        'show' => 'maintenance.admin.groups.show',
-        'edit' => 'maintenance.admin.groups.edit',
-        'update' => 'maintenance.admin.groups.update',
-        'destroy' => 'maintenance.admin.groups.destroy',
+        'index' => 'maintenance.admin.roles.index',
+        'create' => 'maintenance.admin.roles.create',
+        'store' => 'maintenance.admin.roles.store',
+        'show' => 'maintenance.admin.roles.show',
+        'edit' => 'maintenance.admin.roles.edit',
+        'update' => 'maintenance.admin.roles.update',
+        'destroy' => 'maintenance.admin.roles.destroy',
     ],
 ]);
 

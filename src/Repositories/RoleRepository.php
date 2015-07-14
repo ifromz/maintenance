@@ -2,84 +2,84 @@
 
 namespace Stevebauman\Maintenance\Repositories;
 
-use Stevebauman\Maintenance\Http\Requests\Admin\GroupRequest;
-use Stevebauman\Maintenance\Models\Group;
+use Stevebauman\Maintenance\Http\Requests\Admin\RoleRequest;
+use Stevebauman\Maintenance\Models\Role;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
 
-class GroupRepository extends BaseRepository
+class RoleRepository extends BaseRepository
 {
     /**
-     * @return Group
+     * @return Role
      */
     public function model()
     {
-        return new Group();
+        return new Role();
     }
 
     /**
-     * Creates a new group.
+     * Creates a new role.
      *
-     * @param GroupRequest $request
+     * @param RoleRequest $request
      *
-     * @return bool|Group
+     * @return bool|Role
      */
-    public function create(GroupRequest $request)
+    public function create(RoleRequest $request)
     {
-        $group = $this->model();
+        $role = $this->model();
 
-        $group->name = $request->input('name');
-        $group->permissions = $this->routesToPermissions($request->input('permissions', []));
+        $role->name = $request->input('name');
+        $role->permissions = $this->routesToPermissions($request->input('permissions', []));
 
-        if($group->save()) {
+        if($role->save()) {
             $users = $request->input('users');
 
             if ($users) {
-                $group->users()->sync($request->input('users'));
+                $role->users()->sync($request->input('users'));
             }
 
-            return $group;
+            return $role;
         }
 
         return false;
     }
 
     /**
-     * Updates a group.
+     * Updates a role.
      *
-     * @param GroupRequest $request
+     * @param RoleRequest $request
      * @param int|string   $id
      *
-     * @return bool|Group
+     * @return bool|Role
      */
-    public function update(GroupRequest $request, $id)
+    public function update(RoleRequest $request, $id)
     {
-        $group = $this->model()->findOrFail($id);
+        $role = $this->model()->findOrFail($id);
 
-        if($group) {
-            $group->name = $request->input('name', $group->name);
+        if($role) {
+            $role->name = $request->input('name', $role->name);
 
             $updatedPermissions = $request->input('permissions', []);
 
             /*
              * Check if the permissions current on the group exist in the updated array
              */
-            foreach ($group->permissions as $permission => $allowed) {
+            foreach ($role->permissions as $permission => $allowed) {
                 /*
                  * If the permission currently inside the group does not
                  * exist in the updated array, we need to add it to the array
                  * and set it to 0 to tell Sentry to remove it
                  */
                 if (!array_key_exists($permission, $updatedPermissions)) {
-                    $updatedPermissions[$permission] = 0;
+                    $updatedPermissions[$permission] = false;
                 }
             }
 
-            $group->permissions = $updatedPermissions;
+            $role->permissions = $updatedPermissions;
 
-            if($group->save()) {
-                $group->users()->sync($request->input('users', []));
+            if($role->save()) {
+                $role->users()->sync($request->input('users', []));
 
-                return $group;
+                return $role;
             }
         }
 
@@ -103,7 +103,7 @@ class GroupRepository extends BaseRepository
          */
         if ($routes) {
             foreach ($routes as $route) {
-                $permissions[$route] = 1;
+                $permissions[$route] = true;
             }
         }
 

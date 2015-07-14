@@ -2,17 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Cartalyst\Sentry\Facades\Laravel\Sentry;
-use Cartalyst\Sentry\Users\UserNotFoundException;
-use Cartalyst\Sentry\Users\UserExistsException;
-use Cartalyst\Sentry\Users\WrongPasswordException;
-use Cartalyst\Sentry\Users\UserNotActivatedException;
-use Cartalyst\Sentry\Throttling\UserSuspendedException;
-use Cartalyst\Sentry\Throttling\UserBannedException;
-use Cartalyst\Sentry\Groups\GroupNotFoundException;
-use Stevebauman\CoreHelper\Services\Auth\SentryService as BaseSentryService;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
-class SentryService extends BaseSentryService
+class SentryService
 {
     /**
      * Authenticate with Sentry.
@@ -29,13 +21,7 @@ class SentryService extends BaseSentryService
             'message' => '',
         ];
 
-        /*
-         * Try to log in the user with sentry
-         */
-        try
-        {
-            Sentry::authenticate($credentials, $remember);
-
+        if(Sentinel::authenticate($credentials, $remember)) {
             $response['authenticated'] = true;
 
             /*
@@ -43,24 +29,7 @@ class SentryService extends BaseSentryService
              */
             return $response;
 
-        } catch (WrongPasswordException $e)
-        {
-            $response['message'] = 'Username or Password is incorrect.';
-        } catch (UserNotActivatedException $e)
-        {
-            $response['message'] = 'Your account has not been activated.
-                Please follow the link you were emailed to activate your account.';
-        } catch (UserSuspendedException $e)
-        {
-            $response['message'] = 'Your account has been suspended. Please try again later.';
-        } catch (UserBannedException $e)
-        {
-            $response['message'] = 'Your account has been permanently banned.';
-        } catch (UserExistsException $e)
-        {
-            $response['message'] = 'Username or Password is incorrect.';
-        } catch (UserNotFoundException $e)
-        {
+        } else {
             $response['message'] = 'Username or Password is incorrect.';
         }
 
@@ -74,7 +43,7 @@ class SentryService extends BaseSentryService
      */
     public function check()
     {
-        return Sentry::check();
+        return Sentinel::check();
     }
 
     /**
@@ -84,42 +53,33 @@ class SentryService extends BaseSentryService
      */
     public function logout()
     {
-        return Sentry::logout();
+        return Sentinel::logout();
     }
 
     /**
-     * Create a user through Sentry and add the groups specified to the user
+     * Create a user through Sentry and add the roles specified to the user
      * if they exist.
      *
      * @param array  $data
-     * @param array  $groups
+     * @param array  $roles
      * @param bool   $activated
      *
      * @return mixed
      */
-    public function createUser(array $data, array $groups = [], $activated = true)
+    public function createUser(array $data, array $roles = [], $activated = true)
     {
-        try
-        {
-            $insert = [
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'email' => $data['email'],
-                'username' => $data['username'],
-                'password' => $data['password'],
-                'activated' => $activated,
-            ];
+        $insert = [
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'username' => $data['username'],
+            'password' => $data['password'],
+            'activated' => $activated,
+        ];
 
-            $user = Sentry::createUser($insert);
+        $user = Sentinel::create($insert);
 
-            $this->addGroupsToUser($user, $groups);
-
-        } catch (UserExistsException $e)
-        {
-            $loginAttribute = config('cartalyst.sentry.users.login_attribute');
-
-            $user = Sentry::findUserByLogin($data[$loginAttribute]);
-        }
+        $this->addRolesToUser($user, $roles);
 
         return $user;
     }
@@ -128,31 +88,23 @@ class SentryService extends BaseSentryService
      * Registers a user through Sentry.
      *
      * @param array $data
-     * @param array $groups
+     * @param array $roles
      *
      * @return mixed
      */
-    public function registerUser(array $data, array $groups = [])
+    public function registerUser(array $data, array $roles = [])
     {
-        try {
-            $insert = [
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'email' => $data['email'],
-                'username' => $data['username'],
-                'password' => $data['password'],
-            ];
+        $insert = [
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'username' => $data['username'],
+            'password' => $data['password'],
+        ];
 
-            $user = Sentry::register($insert);
+        $user = Sentinel::register($insert);
 
-            $this->addGroupsToUser($user, $groups);
-
-        } catch (UserExistsException $e)
-        {
-            $loginAttribute = config('cartalyst.sentry.users.login_attribute');
-
-            $user = Sentry::findUserByLogin($data[$loginAttribute]);
-        }
+        $this->addRolesToUser($user, $roles);
 
         return $user;
     }
@@ -165,37 +117,27 @@ class SentryService extends BaseSentryService
      * @param string $name The name for the group to find or create
      * @param array $permissions The permissions to assign the group.
      *
-     * @return mixed
+     * @return \Stevebauman\Maintenance\Models\Role
      */
-    public function createOrUpdateGroup($name, $permissions = [])
+    public function createOrUpdateRole($name, $permissions = [])
     {
-        try
-        {
-            /*
-             * Group already exists, lets try and update the permissions
-             * if we were supplied any
-             */
-            $group = Sentry::findGroupByName($name);
+        $role = Sentinel::findRoleByName($name);
 
+        if($role) {
             if (! empty($permissions))
             {
-                $group->permissions = $permissions;
-                $group->save();
+                $role->permissions = $permissions;
+                $role->save();
             }
-
-        } catch (GroupNotFoundException $e)
-        {
-            /*
-             * If the group does not exist, we'll create it and assign
-             * the permissions
-             */
-            $group = Sentry::createGroup([
+        } else {
+            $role = Sentinel::getRoleRepository()->createModel()->create([
                 'name' => $name,
+                'slug' => $name,
                 'permissions' => $permissions,
             ]);
         }
 
-        return $group;
+        return $role;
     }
 
     /**
@@ -227,37 +169,31 @@ class SentryService extends BaseSentryService
      */
     public function update($id, $data = [])
     {
-        try
-        {
-            $user = Sentry::findUserById($id);
+        $user = Sentinel::findUserById($id);
 
-            $user->first_name = array_get($data, 'first_name');
-            $user->last_name = array_get($data, 'last_name');
-            $user->email = array_get($data, 'email');
-            $user->username = array_get($data, 'username');
+        $user->first_name = array_get($data, 'first_name');
+        $user->last_name = array_get($data, 'last_name');
+        $user->email = array_get($data, 'email');
+        $user->username = array_get($data, 'username');
 
-            $permissions = array_get($data, 'routes');
+        $permissions = array_get($data, 'routes');
 
-            $sentryPermissions = [];
+        $sentryPermissions = [];
 
-            // Parse the users submitted permissions
-            if(count($permissions) > 0) {
-                foreach($permissions as $permission) {
-                    $sentryPermissions[$permission] = 1;
-                }
-
-                $user->permissions = $sentryPermissions;
+        // Parse the users submitted permissions
+        if(count($permissions) > 0) {
+            foreach($permissions as $permission) {
+                $sentryPermissions[$permission] = 1;
             }
 
-            if($user->save())
-            {
-                return $user;
-            }
-        } catch (UserExistsException $e)
-        {
-        } catch(UserNotFoundException $e)
-        {
+            $user->permissions = $sentryPermissions;
         }
+
+        if($user->save())
+        {
+            return $user;
+        }
+
 
         return false;
     }
@@ -265,42 +201,13 @@ class SentryService extends BaseSentryService
     /**
      * Find a user through Sentry by their ID.
      *
-     * @param string|int $id
+     * @param int|string $id
      *
-     * @return bool|mixed
+     * @return bool|\Stevebauman\Maintenance\Models\User
      */
     public function findUserById($id)
     {
-        try
-        {
-            $user = Sentry::findUserById($id);
-
-            return $user;
-        } catch (UserNotFoundException $e)
-        {
-            return false;
-        }
-    }
-
-    /**
-     * Find a user through Sentry by their login attribute,
-     * such as a username or email.
-     *
-     * @param string $login
-     *
-     * @return bool|mixed
-     */
-    public function findUserByLogin($login)
-    {
-        try
-        {
-            $user = Sentry::findUserByLogin($login);
-
-            return $user;
-        } catch(UserNotFoundException $e)
-        {
-            return false;
-        }
+        return Sentinel::findUserById($id);
     }
 
     /**
@@ -310,57 +217,61 @@ class SentryService extends BaseSentryService
      */
     public function getCurrentUser()
     {
-        return Sentry::getUser();
+        return Sentinel::getUser();
     }
 
     /**
-     * Returns current authenticated users full name
+     * Returns current authenticated users full name.
      *
-     * @return string
+     * @return null|string
      */
     public function getCurrentUserFullName()
     {
-        $user = Sentry::getUser();
+        $user = Sentinel::getUser();
 
-        $fullName = sprintf('%s %s', $user->first_name, $user->last_name);
+        if($user) {
+            $fullName = sprintf('%s %s', $user->first_name, $user->last_name);
 
-        return $fullName;
+            return $fullName;
+        }
+
+        return null;
     }
 
     /**
      * Returns current authenticated user ID
      *
-     * @return int
+     * @return null|int
      */
     public function getCurrentUserId()
     {
-        $user = Sentry::getUser();
+        $user = $this->getCurrentUser();
 
-        return $user->id;
+        if($user) {
+            return $user->id;
+        }
+
+        return null;
     }
 
     /**
-     * Adds the array of groups to the specified user.
+     * Adds the array of roles to the specified user.
      *
-     * @param \Cartalyst\Sentry\Users\Eloquent\User $user
-     * @param array                                 $groups
+     * @param \Stevebauman\Maintenance\Models\User  $user
+     * @param array                                 $roles
      *
      * @return bool
      */
-    private function addGroupsToUser($user, array $groups = [])
+    private function addRolesToUser($user, array $roles = [])
     {
-        if (count($groups) > 0)
+        if (count($roles) > 0)
         {
-            foreach ($groups as $group)
+            foreach ($roles as $role)
             {
-                try
-                {
-                    $group = Sentry::findGroupByName($group);
+                $role = Sentinel::findRoleByName($role);
 
-                    $user->addGroup($group);
-
-                } catch (GroupNotFoundException $e)
-                {
+                if($role) {
+                    $user->addRole($role);
                 }
             }
 

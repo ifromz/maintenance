@@ -3,7 +3,7 @@
 namespace Stevebauman\Maintenance\Tests;
 
 use Stevebauman\Maintenance\MaintenanceServiceProvider;
-use Cartalyst\Sentry\Facades\Laravel\Sentry;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Orchestra\Testbench\TestCase;
@@ -64,7 +64,7 @@ class FunctionalTestCase extends TestCase
 
         $user = $this->createSentryUser('Admin', 'admin@email.com', true, [$group]);
 
-        return Sentry::setUser($user);
+        return Sentinel::setUser($user);
     }
 
     protected function setUserIsWorker()
@@ -91,7 +91,7 @@ class FunctionalTestCase extends TestCase
             'activated' => $activated,
         ];
 
-        $user = Sentry::createUser($insert);
+        $user = Sentinel::createUser($insert);
 
         foreach($groups as $group) {
             $user->addGroup($group);
@@ -115,6 +115,6 @@ class FunctionalTestCase extends TestCase
             'permissions' => $permissions,
         ];
 
-        return Sentry::createGroup($insert);
+        return Sentinel::createGroup($insert);
     }
 }

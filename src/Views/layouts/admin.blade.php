@@ -6,7 +6,7 @@
 
 @section('nav.left')
 
-    @if(Sentry::hasAccess('maintenance.admin.dashboard.index'))
+    @if($currentUser->hasAccess('maintenance.admin.dashboard.index'))
         <li class="{{ activeMenuLink('maintenance.admin.dashboard') }}">
             <a href="{{ route('maintenance.admin.dashboard.index') }}">
                 <i class="fa fa-dashboard"></i> Dashboard
@@ -14,7 +14,7 @@
         </li>
     @endif
 
-    @if(Sentry::hasAccess('maintenance.admin.users.index'))
+    @if($currentUser->hasAccess('maintenance.admin.users.index'))
     <li class="{{ activeMenuLink('maintenance.admin.users') }}">
         <a href="{{ route('maintenance.admin.users.index') }}">
             <i class="fa fa-user"></i> Users
@@ -22,15 +22,15 @@
     </li>
     @endif
 
-    @if(Sentry::hasAccess('maintenance.admin.groups.index'))
-    <li class="{{ activeMenuLink('maintenance.admin.groups') }}">
-        <a href="{{ route('maintenance.admin.groups.index') }}">
-            <i class="fa fa-users"></i> Groups
+    @if($currentUser->hasAccess('maintenance.admin.roles.index'))
+    <li class="{{ activeMenuLink('maintenance.admin.roles') }}">
+        <a href="{{ route('maintenance.admin.roles.index') }}">
+            <i class="fa fa-users"></i> Roles
         </a>
     </li>
     @endif
 
-    @if(Sentry::hasAccess('maintenance.admin.archive.index'))
+    @if($currentUser->hasAccess('maintenance.admin.archive.index'))
     <li class="{{ activeMenuLink('maintenance.admin.archive') }} treeview">
         <a href="#">
             <i class="fa fa-archive"></i> Archive
@@ -56,7 +56,7 @@
     </li>
     @endif
 
-    @if(Sentry::hasAccess('maintenance.admin.settings.index'))
+    @if($currentUser->hasAccess('maintenance.admin.settings.index'))
         <li class="{{ activeMenuLink('maintenance.admin.settings') }} treeview">
             <a href="#">
                 <i class="fa fa-cogs"></i> Settings
@@ -72,7 +72,7 @@
         </li>
     @endif
 
-    @if(Sentry::hasAccess('maintenance.admin.logs.index'))
+    @if($currentUser->hasAccess('maintenance.admin.logs.index'))
         <li class="{{ activeMenuLink('maintenance.admin.logs') }}">
             <a href="{{ route('maintenance.admin.logs.index') }}">
                 <i class="fa fa-list-alt"></i> Site Log

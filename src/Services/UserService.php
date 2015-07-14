@@ -140,17 +140,17 @@ class UserService extends BaseModelService
             ];
 
             // Default all group
-            $groups = ['all'];
+            $roles = ['all'];
 
             if (in_array($ldapUser->group, config('maintenance.groups.ldap.administrators'))) {
-                $groups[] = 'administrators';
+                $roles[] = 'administrators';
             } else if (in_array($ldapUser->group, config('maintenance.groups.ldap.workers'))) {
-                $groups[] = 'workers';
+                $roles[] = 'workers';
             } else {
-                $groups[] = 'client';
+                $roles[] = 'client';
             }
 
-            $user = $this->sentry->createUser($data, $groups);
+            $user = $this->sentry->createUser($data, $roles);
         }
 
         return $user;

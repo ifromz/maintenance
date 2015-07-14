@@ -1,6 +1,6 @@
 @extends('maintenance::layouts.admin')
 
-@section('title', 'Create Group')
+@section('title', 'Create Role')
 
 @section('content')
 
@@ -8,19 +8,19 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h3 class="panel-title">Create Group</h3>
+                <h3 class="panel-title">Create Role</h3>
             </div>
 
             <div class="panel-body">
 
                 {!!
                     Form::open([
-                        'url' => route('maintenance.admin.groups.store'),
+                        'url' => route('maintenance.admin.roles.store'),
                         'class' => 'form-horizontal'
                     ])
                 !!}
 
-                @include('maintenance::admin.groups.form')
+                @include('maintenance::admin.roles.form')
 
                 {!! Form::close() !!}
             </div>

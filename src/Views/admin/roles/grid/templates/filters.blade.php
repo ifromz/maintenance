@@ -1,4 +1,4 @@
-<script type="text/template" data-grid="groups" data-template="filters">
+<script type="text/template" data-grid="roles" data-template="filters">
 
     <% _.each(filters, function(f) { %>
 

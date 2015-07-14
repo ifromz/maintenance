@@ -99,17 +99,17 @@ class LdapUserSeeder extends Seeder
                 'first_name' => $first_name,
             ];
 
-            $groups = [];
+            $roles = [];
 
             if ($user->group) {
-                $groups[] = $this->sentry->createOrUpdateGroup($user->group);
+                $roles[] = $this->sentry->createOrUpdateRole($user->group);
             }
 
             if ($user->type) {
-                $groups[] = $this->sentry->createOrUpdateGroup($user->type);
+                $roles[] = $this->sentry->createOrUpdateRole($user->type);
             }
 
-            $user = $this->sentry->createUser($data, $groups);
+            $user = $this->sentry->createUser($data, $roles);
 
             return $user;
         }
