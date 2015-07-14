@@ -52,15 +52,11 @@ class InventoryController extends Controller
     {
         $item = $this->inventory->model()->onlyTrashed()->findOrFail($id);
 
-        if($item->forceDelete()) {
-            $message = 'Successfully deleted inventory item.';
+        $item->forceDelete();
 
-            return redirect()->route('maintenance.admin.archive.inventory.index')->withSuccess($message);
-        } else {
-            $message = 'There was an issue deleting this inventory item. Please try again.';
+        $message = 'Successfully deleted inventory item.';
 
-            return redirect()->route('maintenance.admin.archive.inventory.show', [$id])->withErrors($message);
-        }
+        return redirect()->route('maintenance.admin.archive.inventory.index')->withSuccess($message);
     }
 
     /**

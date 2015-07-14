@@ -76,7 +76,7 @@ class Controller extends BaseController
      */
     public function show($id)
     {
-        $asset = $this->asset->find($id);
+        $asset = $this->asset->model()->findOrFail($id);
 
         return view('maintenance::assets.show', compact('asset'));
     }
@@ -90,7 +90,7 @@ class Controller extends BaseController
      */
     public function edit($id)
     {
-        $asset = $this->asset->find($id);
+        $asset = $this->asset->model()->findOrFail($id);
 
         return view('maintenance::assets.edit', compact('asset'));
     }
@@ -127,7 +127,9 @@ class Controller extends BaseController
      */
     public function destroy($id)
     {
-        if($this->asset->delete($id)) {
+        $asset = $this->asset->model()->findOrFail($id);
+
+        if($asset->delete()) {
             $message = 'Successfully deleted asset.';
 
             return redirect()->route('maintenance.assets.index')->withSuccess($message);

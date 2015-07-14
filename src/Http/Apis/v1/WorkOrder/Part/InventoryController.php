@@ -53,7 +53,7 @@ class InventoryController extends BaseController
      */
     public function grid($workOrderId)
     {
-        $workOrder = $this->workOrder->find($workOrderId);
+        $workOrder = $this->workOrder->model()->findOrFail($workOrderId);
 
         $columns = [
             'id',
@@ -97,7 +97,7 @@ class InventoryController extends BaseController
      */
     public function gridStocks($workOrderId, $inventoryId)
     {
-        $workOrder = $this->workOrder->find($workOrderId);
+        $workOrder = $this->workOrder->model()->findOrFail($workOrderId);
 
         $columns = [
             'id',
@@ -137,7 +137,7 @@ class InventoryController extends BaseController
      */
     public function gridVariants($workOrderId, $inventoryId)
     {
-        $workOrder = $this->workOrder->find($workOrderId);
+        $workOrder = $this->workOrder->model()->findOrFail($workOrderId);
 
         $columns = [
             'id',

@@ -71,7 +71,7 @@ class Controller extends BaseController
      */
     public function show($id)
     {
-        $workRequest = $this->workRequest->find($id);
+        $workRequest = $this->workRequest->model()->findOrFail($id);
 
         return view('maintenance::work-requests.show', compact('workRequest'));
     }
@@ -85,7 +85,7 @@ class Controller extends BaseController
      */
     public function edit($id)
     {
-        $workRequest = $this->workRequest->find($id);
+        $workRequest = $this->workRequest->model()->findOrFail($id);
 
         return view('maintenance::work-requests.edit', compact('workRequest'));
     }
@@ -122,7 +122,9 @@ class Controller extends BaseController
      */
     public function destroy($id)
     {
-        if($this->workRequest->delete($id)) {
+        $workRequest = $this->workRequest->model()->findOrFail($id);
+
+        if($workRequest->delete()) {
             $message = "Successfully deleted work request.";
 
             return redirect()->route('maintenance.work-requests.index')->withSuccess($message);

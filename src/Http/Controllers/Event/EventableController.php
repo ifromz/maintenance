@@ -41,7 +41,7 @@ abstract class EventableController extends BaseController
     {
         $routes = $this->routes;
 
-        $eventable = $this->getEventableRepository()->find($resourceId);
+        $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
         return view('maintenance::events.eventables.index', compact('eventable', 'routes'));
     }
@@ -57,7 +57,7 @@ abstract class EventableController extends BaseController
     {
         $routes = $this->routes;
 
-        $eventable = $this->getEventableRepository()->find($resourceId);
+        $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
         return view('maintenance::events.eventables.create', compact('eventable', 'routes'));
     }
@@ -72,27 +72,21 @@ abstract class EventableController extends BaseController
      */
     public function store(EventRequest $request, $resourceId)
     {
-        $eventable = $this->getEventableRepository()->find($resourceId);
+        $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
-        if($eventable) {
-            $event = $this->event->create($request);
+        $event = $this->event->create($request);
 
-            if($event) {
-                if(method_exists($eventable, 'events')) {
-                    $eventable->events()->attach($event->id);
+        if($event && method_exists($eventable, 'events')) {
+            $eventable->events()->attach($event->id);
 
-                    $message = 'Successfully created event.';
+            $message = 'Successfully created event.';
 
-                    return redirect()->route($this->routes['index'], $eventable->id)->withSuccess($message);
-                }
-            } else {
-                $message = 'There was an issue creating an event. Please try again.';
+            return redirect()->route($this->routes['index'], $eventable->id)->withSuccess($message);
+        } else {
+            $message = 'There was an issue creating an event. Please try again.';
 
-                return redirect()->route($this->routes['create'])->withErrors($message);
-            }
+            return redirect()->route($this->routes['create'])->withErrors($message);
         }
-
-        abort(404);
     }
 
     /**
@@ -107,9 +101,9 @@ abstract class EventableController extends BaseController
     {
         $routes = $this->routes;
 
-        $eventable = $this->getEventableRepository()->find($resourceId);
+        $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
-        if($eventable && method_exists($eventable, 'events')) {
+        if(method_exists($eventable, 'events')) {
             $event = $eventable->events()->find($eventId);
 
             if($event) {
@@ -132,9 +126,9 @@ abstract class EventableController extends BaseController
     {
         $routes = $this->routes;
 
-        $eventable = $this->getEventableRepository()->find($resourceId);
+        $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
-        if($eventable && method_exists($eventable, 'events')) {
+        if(method_exists($eventable, 'events')) {
             $event = $eventable->events()->find($eventId);
 
             if($event) {
@@ -158,7 +152,7 @@ abstract class EventableController extends BaseController
      */
     public function update(EventRequest $request, $resourceId, $eventId)
     {
-        $eventable = $this->getEventableRepository()->find($resourceId);
+        $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
         $event = $this->event->update($request, $eventId);
 
@@ -183,9 +177,9 @@ abstract class EventableController extends BaseController
      */
     public function destroy($resourceId, $eventId)
     {
-        $eventable = $this->getEventableRepository()->find($resourceId);
+        $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
-        if($eventable && method_exists($eventable, 'events')) {
+        if(method_exists($eventable, 'events')) {
             $event = $eventable->events()->find($eventId);
 
             if($event && $this->event->delete($event->id)) {

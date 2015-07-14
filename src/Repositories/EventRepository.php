@@ -223,14 +223,12 @@ class EventRepository extends Repository
      */
     public function delete($id)
     {
-        $event = $this->find($id);
+        $event = $this->model()->findOrFail($id);
 
-        if($event) {
-            if($this->eventApi->destroy($event->api_id)) {
-                $event->delete();
+        if($this->eventApi->destroy($event->api_id)) {
+            $event->delete();
 
-                return true;
-            }
+            return true;
         }
 
         return false;

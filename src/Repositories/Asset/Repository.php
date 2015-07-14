@@ -228,7 +228,7 @@ class Repository extends BaseRepository
      */
     public function update(Request $request, $id)
     {
-        $asset = $this->find($id);
+        $asset = $this->model()->findOrFail($id);
 
         if($asset) {
             $asset->location_id = $request->input('location_id', $asset->location_id);
@@ -271,7 +271,7 @@ class Repository extends BaseRepository
      */
     public function attachWorkOrder($id, $workOrderId)
     {
-        $asset = $this->find($id);
+        $asset = $this->model()->findOrFail($id);
 
         if($asset) {
             $workOrder = $asset->workOrders()->find($workOrderId);
@@ -299,19 +299,12 @@ class Repository extends BaseRepository
      */
     public function detachWorkOrder($id, $workOrderId)
     {
-        $asset = $this->find($id);
+        $asset = $this->model()->findOrFail($id);
 
-        if($asset) {
-            $workOrder = $asset->workOrders()->find($workOrderId);
+        $workOrder = $asset->workOrders()->findOrFail($workOrderId);
 
-            // Only detach the work order if it exists on the asset.
-            if($workOrder) {
-                $workOrder = $asset->workOrders()->getRelated()->findOrFail($workOrderId);
-
-                $asset->workOrders()->detach($workOrder->id);
-
-                return $asset;
-            }
+        if($asset->workOrders()->detach($workOrder->id)) {
+            return $asset;
         }
 
         return false;

@@ -132,7 +132,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if ($this->user->delete($id)) {
+        $user = $this->user->model()->findOrFail($id);
+
+        if ($user->delete()) {
             $message = 'Successfully deleted user.';
 
             return redirect()->route('maintenance.admin.users.index')->withSuccess($message);
