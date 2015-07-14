@@ -109,28 +109,6 @@ class StockController extends BaseController
     }
 
     /**
-     * Displays the form for editing an inventory stock.
-     *
-     * @param int|string $inventoryId
-     * @param int|string $stockId
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function edit($inventoryId, $stockId)
-    {
-        $item = $this->inventory->find($inventoryId);
-
-        $stock = $this->inventoryStock->find($stockId);
-
-        return [
-            'html' => view('maintenance::inventory.modals.stocks.edit', [
-                    'item' => $item,
-                    'stock' => $stock,
-            ])->render(),
-        ];
-    }
-
-    /**
      * Processes updating the specified inventory stock.
      *
      * @param Request    $request
