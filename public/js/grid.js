@@ -6,8 +6,8 @@ var Grid;
     'use strict';
 
     Grid = Grid || {
-        Index: {}
-    };
+            Index: {}
+        };
 
     // Initialize functions
     Grid.Index.init = function()
@@ -179,7 +179,7 @@ var Grid;
         switch ($(this).data('grid-calendar-preset'))
         {
             case 'day':
-                start = end = moment().subtract(1, 'day').startOf('day').format('MM/DD/YYYY');
+                start = end = moment().startOf('day').format('MM/DD/YYYY');
                 break;
 
             case 'week':
