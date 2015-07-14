@@ -21,10 +21,10 @@
 
             <div id="maintenance-login-status"></div>
 
-            <div class="form-group{{ $errors->first('email', ' has-error') }}">
-                {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email / Username']) !!}
+            <div class="form-group{{ $errors->first('login', ' has-error') }}">
+                {!! Form::text('login', null, ['class' => 'form-control', 'placeholder' => 'Email / Username']) !!}
 
-                <span class="label label-danger">{{ $errors->first('email', ':message') }}</span>
+                <span class="label label-danger">{{ $errors->first('login', ':message') }}</span>
             </div>
 
             <div class="form-group{{ $errors->first('password', ' has-error') }}">

@@ -15,6 +15,13 @@ class User extends EloquentUser
     use HasScopeIdTrait;
 
     /**
+     * The login attributes users can use to login.
+     *
+     * @var array
+     */
+    protected $loginNames = ['email', 'username'];
+
+    /**
      * The users viewer class.
      *
      * @var string

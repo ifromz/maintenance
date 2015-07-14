@@ -41,9 +41,9 @@ class AuthController extends Controller
                 $message = 'Successfully logged in.';
 
                 return redirect()->intended(route('maintenance.dashboard.index'))->withSuccess($message);
-            } else if(Corp::auth($input['email'], $input['password']))
+            } else if(Corp::auth($input['login'], $input['password']))
             {
-                $user = Corp::user($input['email']);
+                $user = Corp::user($input['login']);
 
                 $name = explode(',', $user->name);
 
@@ -71,7 +71,7 @@ class AuthController extends Controller
             $errors = "Your account is blocked for {$delay} second(s).";
         }
 
-        return Redirect::back()->withInput()->withErrors($errors);
+        return redirect()->back()->withErrors($errors);
     }
 
     /**
@@ -157,6 +157,9 @@ class AuthController extends Controller
             $user = Sentinel::registerAndActivate($credentials);
 
             if($user) {
+                $user->username = $credentials['username'];
+                $user->save();
+
                 Sentinel::login($user);
 
                 $message = 'Successfully logged in.';
