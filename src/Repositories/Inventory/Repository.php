@@ -35,29 +35,6 @@ class Repository extends BaseRepository
     }
 
     /**
-     * Finds an Inventory by the specified ID.
-     *
-     * @param int|string $id
-     *
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     *
-     * @return null|Inventory
-     */
-    public function find($id)
-    {
-        $with = [
-            'variants',
-            'category',
-            'notes',
-            'stocks',
-            'stocks.movements',
-            'revisions',
-        ];
-
-        return $this->model()->with($with)->findOrFail($id);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function grid(array $columns = [], array $settings = [], $transformer = null)
@@ -172,16 +149,14 @@ class Repository extends BaseRepository
      */
     public function createVariant(VariantRequest $request, $id)
     {
-        $inventory = $this->find($id);
+        $inventory = $this->model()->findOrFail($id);
 
-        if($inventory) {
-            $variant = $this->create($request);
+        $variant = $this->create($request);
 
-            if($variant) {
-                $variant->makeVariantOf($inventory);
+        if($variant) {
+            $variant->makeVariantOf($inventory);
 
-                return $variant;
-            }
+            return $variant;
         }
 
         return false;
@@ -197,19 +172,17 @@ class Repository extends BaseRepository
      */
     public function createNote(NoteRequest $request, $id)
     {
-        $inventory = $this->find($id);
+        $inventory = $this->model()->findOrFail($id);
 
-        if($inventory) {
-            $attributes = [
-                'user_id' => $this->sentry->getCurrentUserId(),
-                'content' => $request->clean($request->input('content')),
-            ];
+        $attributes = [
+            'user_id' => $this->sentry->getCurrentUserId(),
+            'content' => $request->clean($request->input('content')),
+        ];
 
-            $note = $inventory->notes()->create($attributes);
+        $note = $inventory->notes()->create($attributes);
 
-            if($note) {
-                return $note;
-            }
+        if($note) {
+            return $note;
         }
 
         return false;
@@ -225,18 +198,17 @@ class Repository extends BaseRepository
      */
     public function update(Request $request, $id)
     {
-        $inventory = $this->find($id);
+        $inventory = $this->model()->findOrFail($id);
 
-        if($inventory) {
-            $inventory->category_id = $request->input('category_id', $inventory->category_id);
-            $inventory->metric_id = $request->input('metric', $inventory->metric_id);
-            $inventory->name = $request->input('name', $inventory->name);
-            $inventory->description = $request->clean($request->input('description', $inventory->description));
+        $inventory->category_id = $request->input('category_id', $inventory->category_id);
+        $inventory->metric_id = $request->input('metric', $inventory->metric_id);
+        $inventory->name = $request->input('name', $inventory->name);
+        $inventory->description = $request->clean($request->input('description', $inventory->description));
 
-            if($inventory->save()) {
-                return $inventory;
-            }
+        if($inventory->save()) {
+            return $inventory;
         }
+
 
         return false;
     }
@@ -252,20 +224,16 @@ class Repository extends BaseRepository
      */
     public function updateNote(NoteRequest $request, $id, $noteId)
     {
-        $inventory = $this->find($id);
+        $inventory = $this->model()->findOrFail($id);
 
-        if($inventory) {
-            $note = $inventory->notes()->find($noteId);
+        $note = $inventory->notes()->findOrFail($noteId);
 
-            if($note) {
-                $attributes = [
-                    'content' => $request->clean($request->input('content', $note->content)),
-                ];
+        $attributes = [
+            'content' => $request->clean($request->input('content', $note->content)),
+        ];
 
-                if($note->update($attributes)) {
-                    return $note;
-                }
-            }
+        if($note->update($attributes)) {
+            return $note;
         }
 
         return false;
@@ -283,14 +251,12 @@ class Repository extends BaseRepository
      */
     public function deleteNote($id, $noteId)
     {
-        $inventory = $this->find($id);
+        $inventory = $this->model()->findOrFail($id);
 
-        if($inventory) {
-            $note = $inventory->notes()->find($noteId);
+        $note = $inventory->notes()->findOrFail($noteId);
 
-            if($note && $note->delete()) {
-                return true;
-            }
+        if($note->delete()) {
+            return true;
         }
 
         return false;
@@ -305,7 +271,7 @@ class Repository extends BaseRepository
      */
     public function regenerateSku($id)
     {
-        $inventory = $this->find($id);
+        $inventory = $this->model()->findOrFail($id);
 
         if($inventory->regenerateSku()) {
             return $inventory;

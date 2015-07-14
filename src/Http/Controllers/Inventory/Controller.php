@@ -123,7 +123,9 @@ class Controller extends BaseController
      */
     public function destroy($id)
     {
-        if($this->inventory->delete($id)) {
+        $item = $this->inventory->model()->findOrFail($id);
+
+        if($item->delete()) {
             $message = 'Successfully deleted inventory item.';
 
             return redirect()->route('maintenance.inventory.index')->withSuccess($message);
