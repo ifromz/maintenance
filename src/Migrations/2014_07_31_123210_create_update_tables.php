@@ -10,8 +10,8 @@ class CreateUpdateTables extends Migration
      */
     public function up()
     {
-        Schema::create('updates', function (Blueprint $table) {
-
+        Schema::create('updates', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned();
@@ -20,7 +20,6 @@ class CreateUpdateTables extends Migration
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
-
         });
     }
 

@@ -10,30 +10,20 @@ class CreateNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
-
+        Schema::create('notifications', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->timestamps();
+            $table->integer('notifiable_id');
+            $table->string('notifiable_type');
             $table->integer('user_id')->unsigned();
-            $table->string('message');
-            $table->string('before')->nullable();
-            $table->string('after')->nullable();
             $table->tinyInteger('read')->default(0);
+            $table->string('message');
             $table->string('link');
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
-
-        });
-
-        Schema::create('notifiables', function (Blueprint $table) {
-
-            $table->increments('id');
-            $table->timestamps();
-            $table->integer('notifiable_id');
-            $table->string('notifiable_type');
-
         });
     }
 
@@ -42,7 +32,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('notifiables');
         Schema::drop('notifications');
     }
 }

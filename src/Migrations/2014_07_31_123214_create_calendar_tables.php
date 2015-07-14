@@ -10,8 +10,8 @@ class CreateCalendarTables extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
-
+        Schema::create('events', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned()->nullable();
@@ -31,13 +31,10 @@ class CreateCalendarTables extends Migration
             $table->foreign('parent_id')->references('id')->on('events')
                 ->onUpdate('restrict')
                 ->onDelete('set null');
-
         });
 
-        Schema::create('eventables', function (Blueprint $table) {
-
-            $table->increments('id');
-            $table->timestamps();
+        Schema::create('eventables', function (Blueprint $table)
+        {
             $table->integer('event_id')->unsigned();
             $table->integer('eventable_id');
             $table->string('eventable_type');
@@ -45,11 +42,10 @@ class CreateCalendarTables extends Migration
             $table->foreign('event_id')->references('id')->on('events')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
-
         });
 
-        Schema::create('event_reports', function (Blueprint $table) {
-
+        Schema::create('event_reports', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->timestamps();
             $table->integer('event_id')->unsigned();
@@ -63,7 +59,6 @@ class CreateCalendarTables extends Migration
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('restrict')
                 ->onDelete('set null');
-
         });
     }
 

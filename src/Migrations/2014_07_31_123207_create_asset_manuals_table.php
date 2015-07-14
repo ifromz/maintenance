@@ -10,12 +10,10 @@ class CreateAssetManualsTable extends Migration
      */
     public function up()
     {
-        Schema::create('asset_manuals', function (Blueprint $table) {
-
-            $table->increments('id');
+        Schema::create('asset_manuals', function (Blueprint $table)
+        {
             $table->integer('asset_id')->unsigned();
             $table->integer('attachment_id')->unsigned();
-            $table->string('name')->nullable();
 
             $table->foreign('asset_id')->references('id')->on('assets')
                 ->onUpdate('restrict')
@@ -24,15 +22,12 @@ class CreateAssetManualsTable extends Migration
             $table->foreign('attachment_id')->references('id')->on('attachments')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
-
         });
 
-        Schema::create('asset_images', function (Blueprint $table) {
-
-            $table->increments('id');
+        Schema::create('asset_images', function (Blueprint $table)
+        {
             $table->integer('asset_id')->unsigned();
             $table->integer('attachment_id')->unsigned();
-            $table->string('name')->nullable();
 
             $table->foreign('asset_id')->references('id')->on('assets')
                 ->onUpdate('restrict')
@@ -41,7 +36,6 @@ class CreateAssetManualsTable extends Migration
             $table->foreign('attachment_id')->references('id')->on('attachments')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
-
         });
     }
 

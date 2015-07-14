@@ -10,8 +10,8 @@ class CreateAssetTable extends Migration
      */
     public function up()
     {
-        Schema::create('assets', function (Blueprint $table) {
-
+        Schema::create('assets', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
@@ -43,12 +43,10 @@ class CreateAssetTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
-
         });
 
-        Schema::create('asset_meters', function (Blueprint $table) {
-
-            $table->increments('id');
+        Schema::create('asset_meters', function (Blueprint $table)
+        {
             $table->integer('asset_id')->unsigned();
             $table->integer('meter_id')->unsigned();
 

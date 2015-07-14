@@ -10,31 +10,18 @@ class CreateNoteTables extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
-
+        Schema::create('notes', function (Blueprint $table)
+        {
             $table->increments('id');
             $table->timestamps();
+            $table->integer('noteable_id');
+            $table->string('noteable_type');
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('content');
 
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('restrict')
                 ->onDelete('set null');
-
-        });
-
-        Schema::create('noteables', function (Blueprint $table) {
-
-            $table->increments('id');
-            $table->timestamps();
-            $table->integer('note_id')->unsigned();
-            $table->integer('noteable_id');
-            $table->string('noteable_type');
-
-            $table->foreign('note_id')->references('id')->on('notes')
-                ->onUpdate('restrict')
-                ->onDelete('cascade');
-
         });
     }
 
@@ -43,7 +30,6 @@ class CreateNoteTables extends Migration
      */
     public function down()
     {
-        Schema::drop('noteables');
         Schema::drop('notes');
     }
 }
