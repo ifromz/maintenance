@@ -35,7 +35,7 @@ class ClientLayoutComposer
      */
     public function compose(View $view)
     {
-        $siteTitle = $this->config->get('site.title.main');
+        $siteTitle = $this->config->get('site.title.client');
         $currentUser = $this->sentry->getCurrentUser();
 
         $view->with('siteTitle', $siteTitle);

@@ -15,6 +15,7 @@ return [
      */
     'title' => [
         'main' => 'Maintenance',
+        'client' => 'Maintenance',
         'admin' => 'Admin Panel',
     ],
 
