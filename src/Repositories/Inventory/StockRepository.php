@@ -70,23 +70,17 @@ class StockRepository extends BaseRepository
      */
     public function update(Request $request, $inventoryId, $stockId)
     {
-        $stock = $this->find($stockId);
+        $item = $this->inventory->model()->findOrFail($inventoryId);
 
-        if($stock) {
-            /*
-             * Only allow modification if the inventory
-             * ID matches the stocks inventory ID.
-             */
-            if($stock->inventory_id === $inventoryId) {
-                $stock->location_id = $request->input('location_id', $stock->location_id);
-                $stock->quantity = $request->input('quantity', $stock->quantity);
-                $stock->reason = $request->input('reason');
-                $stock->cost = $request->input('cost', 0);
+        $stock = $item->stocks()->findOrFail($stockId);
 
-                if($stock->save()) {
-                    return $stock;
-                }
-            }
+        $stock->location_id = $request->input('location_id', $stock->location_id);
+        $stock->quantity = $request->input('quantity', $stock->quantity);
+        $stock->reason = $request->input('reason');
+        $stock->cost = $request->input('cost', 0);
+
+        if($stock->save()) {
+            return $stock;
         }
 
         return false;
@@ -102,10 +96,10 @@ class StockRepository extends BaseRepository
      */
     public function take(TakeRequest $request, $stockId)
     {
-        $stock = $this->find($stockId);
+        $stock = $this->model()->findOrFail($stockId);
 
         if($stock) {
-            if($stock->take($request->input('quantity'))) {
+            if($stock->take($request->input('quantity', 0))) {
                 return $stock;
             }
         }
@@ -123,10 +117,10 @@ class StockRepository extends BaseRepository
      */
     public function put(PutRequest $request, $stockId)
     {
-        $stock = $this->find($stockId);
+        $stock = $this->model()->findOrFail($stockId);
 
         if($stock) {
-            if($stock->put($request->input('quantity'))) {
+            if($stock->put($request->input('quantity', 0))) {
                 return $stock;
             }
         }
