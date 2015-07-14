@@ -8,42 +8,29 @@
 return [
 
     /*
-     * All User permissions
-     */
-    'all' => [
-
-        'maintenance.login' => 1,
-        'maintenance.logout' => 1,
-        'maintenance.register' => 1,
-        'maintenance.register.why' => 1,
-        'maintenance.permission-denied.index' => 1,
-
-    ],
-
-    /*
      *  Administrator permissions
      */
     'administrators' => [
         /*
          * Allows access to all site functions
          */
-        'superuser' => 1,
+        'superuser' => true,
     ],
 
     /*
      * Client Permissions
      */
     'clients' => [
-        'maintenance.client.work-requests.index' => 1,
-        'maintenance.client.work-requests.create' => 1,
-        'maintenance.client.work-requests.store' => 1,
-        'maintenance.client.work-requests.show' => 1,
-        'maintenance.client.work-requests.edit' => 1,
-        'maintenance.client.work-requests.update' => 1,
-        'maintenance.client.work-requests.destroy' => 1,
+        'maintenance.client.work-requests.index' => true,
+        'maintenance.client.work-requests.create' => true,
+        'maintenance.client.work-requests.store' => true,
+        'maintenance.client.work-requests.show' => true,
+        'maintenance.client.work-requests.edit' => true,
+        'maintenance.client.work-requests.update' => true,
+        'maintenance.client.work-requests.destroy' => true,
 
-        'maintenance.client.work-requests.updates.store' => 1,
-        'maintenance.client.work-requests.updates.destroy' => 1,
+        'maintenance.client.work-requests.updates.store' => true,
+        'maintenance.client.work-requests.updates.destroy' => true,
     ],
 
     /*
