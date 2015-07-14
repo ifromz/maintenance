@@ -24,12 +24,14 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
             Route::get('assigned/grid', ['as' => 'maintenance.api.v1.work-orders.assigned.grid', 'uses' => 'AssignedController@grid']);
 
             // Work Order Status Api Routes
-            Route::group(['prefix' => 'statuses'], function() {
+            Route::group(['prefix' => 'statuses'], function()
+            {
                 Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.statuses.grid', 'uses' => 'StatusController@grid']);
             });
 
             // Work Order Priority Api Routes
-            Route::group(['prefix' => 'priorities'], function() {
+            Route::group(['prefix' => 'priorities'], function()
+            {
                 Route::get('grid', ['as' => 'maintenance.api.v1.work-orders.priorities.grid', 'uses' => 'PriorityController@grid']);
             });
 
@@ -102,25 +104,13 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
                 // Inventory Stock Api Routes
                 Route::group(['prefix' => 'stocks'], function()
                 {
-                    Route::get('grid', [
-                        'as' => 'maintenance.api.v1.inventory.stocks.grid',
-                        'uses' => 'StockController@grid',
-                    ]);
+                    Route::get('grid', ['as' => 'maintenance.api.v1.inventory.stocks.grid', 'uses' => 'StockController@grid']);
 
-                    Route::get('{stocks}/movements/grid', [
-                        'as' => 'maintenance.api.v1.inventory.stocks.movements.grid',
-                        'uses' => 'StockController@gridMovements',
-                    ]);
+                    Route::get('{stocks}/movements/grid', ['as' => 'maintenance.api.v1.inventory.stocks.movements.grid', 'uses' => 'StockController@gridMovements']);
 
-                    Route::get('{stocks}/edit', [
-                        'as' => 'maintenance.api.v1.inventory.stocks.edit',
-                        'uses' => 'StockController@edit',
-                    ]);
+                    Route::get('{stocks}/edit', ['as' => 'maintenance.api.v1.inventory.stocks.edit', 'uses' => 'StockController@edit']);
 
-                    Route::patch('{stocks}', [
-                        'as' => 'maintenance.api.v1.inventory.stocks.update',
-                        'uses' => 'StockController@update',
-                    ]);
+                    Route::patch('{stocks}', ['as' => 'maintenance.api.v1.inventory.stocks.update', 'uses' => 'StockController@update']);
                 });
             });
 
@@ -227,10 +217,7 @@ Route::group(['prefix' => Config::get('maintenance.site.api-prefix'), 'namespace
         {
             Route::group(['prefix' => 'work-requests'], function()
             {
-                Route::get('grid', [
-                    'as' => 'maintenance.api.v1.client.work-requests.grid',
-                    'uses' => 'WorkRequestController@grid',
-                ]);
+                Route::get('grid', ['as' => 'maintenance.api.v1.client.work-requests.grid', 'uses' => 'WorkRequestController@grid']);
             });
         });
     });
