@@ -5,9 +5,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\ReportRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\ReportRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class ReportController extends Controller
+class ReportController extends BaseController
 {
     /**
      * @var WorkOrderRepository

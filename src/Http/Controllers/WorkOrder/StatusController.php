@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\StatusRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\StatusRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class StatusController extends Controller
+class StatusController extends BaseController
 {
     /**
      * @var StatusRepository

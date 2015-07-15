@@ -4,21 +4,58 @@
  * Work Order Routes
  */
 
-use Illuminate\Support\Facades\Route;
-
-Route::group(['namespace' => 'WorkOrder'], function () {
-
-    Route::get('work-orders/assigned', [
-        'as' => 'maintenance.work-orders.assigned.index',
-        'uses' => 'AssignedController@index',
+Route::group(['prefix' => 'work-orders', 'as' => 'work-orders.', 'namespace' => 'WorkOrder'], function ()
+{
+    Route::resource('', 'Controller', [
+        'names' => [
+            'index' => 'index',
+            'create' => 'create',
+            'store' => 'store',
+            'show' => 'show',
+            'edit' => 'edit',
+            'update' => 'update',
+            'destroy' => 'destroy',
+        ],
     ]);
 
     /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Priority Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('work-orders/priorities', 'PriorityController', [
+     * Work Order Update Routes
+     */
+    Route::resource('updates', 'UpdateController', [
+        'only' => [
+            'store',
+            'destroy',
+        ],
+        'names' => [
+            'store' => 'updates.store',
+            'destroy' => 'updates.destroy',
+        ],
+    ]);
+
+    /*
+     * Work Order Assignment Routes
+     */
+    Route::resource('assignments', 'AssignmentController', [
+        'only' => [
+            'index',
+            'create',
+            'store',
+            'destroy',
+        ],
+        'names' => [
+            'index' => 'assignments.index',
+            'create' => 'assignments.create',
+            'store' => 'assignments.store',
+            'destroy' => 'assignments.destroy',
+        ],
+    ]);
+
+    Route::get('assigned', ['as' => 'assigned.index', 'uses' => 'AssignedController@index']);
+
+    /*
+     * Work Order Priority Routes
+     */
+    Route::resource('priorities', 'PriorityController', [
         'only' => [
             'index',
             'create',
@@ -28,22 +65,20 @@ Route::group(['namespace' => 'WorkOrder'], function () {
             'destroy',
         ],
         'names' => [
-            'index' => 'maintenance.work-orders.priorities.index',
-            'create' => 'maintenance.work-orders.priorities.create',
-            'store' => 'maintenance.work-orders.priorities.store',
-            'show' => 'maintenance.work-orders.priorities.show',
-            'edit' => 'maintenance.work-orders.priorities.edit',
-            'update' => 'maintenance.work-orders.priorities.update',
-            'destroy' => 'maintenance.work-orders.priorities.destroy',
+            'index' => 'priorities.index',
+            'create' => 'priorities.create',
+            'store' => 'priorities.store',
+            'show' => 'priorities.show',
+            'edit' => 'priorities.edit',
+            'update' => 'priorities.update',
+            'destroy' => 'priorities.destroy',
         ],
     ]);
 
     /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Status Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('work-orders/statuses', 'StatusController', [
+     * Work Order Status Routes
+     */
+    Route::resource('statuses', 'StatusController', [
         'only' => [
             'index',
             'create',
@@ -53,29 +88,27 @@ Route::group(['namespace' => 'WorkOrder'], function () {
             'destroy',
         ],
         'names' => [
-            'index' => 'maintenance.work-orders.statuses.index',
-            'create' => 'maintenance.work-orders.statuses.create',
-            'store' => 'maintenance.work-orders.statuses.store',
-            'show' => 'maintenance.work-orders.statuses.show',
-            'edit' => 'maintenance.work-orders.statuses.edit',
-            'update' => 'maintenance.work-orders.statuses.update',
-            'destroy' => 'maintenance.work-orders.statuses.destroy',
+            'index' => 'statuses.index',
+            'create' => 'statuses.create',
+            'store' => 'statuses.store',
+            'show' => 'statuses.show',
+            'edit' => 'statuses.edit',
+            'update' => 'statuses.update',
+            'destroy' => 'statuses.destroy',
         ],
     ]);
 
+    /*
+     * Work Order Request Generation Routes
+     */
+    Route::get('requests/create/{work_requests}', ['as' => 'requests.create', 'uses' => 'RequestController@create']);
+
+    Route::put('requests/{work_requests}', ['as' => 'requests.store', 'uses' => 'RequestController@store']);
 
     /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Category Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::post('work-orders/categories/create/{categories?}', [
-            'as' => 'maintenance.work-orders.categories.nodes.store',
-            'uses' => 'CategoryController@store',
-        ]
-    );
-
-    Route::resource('work-orders/categories', 'CategoryController', [
+     * Work Order Category Routes
+     */
+    Route::resource('categories', 'CategoryController', [
         'only' => [
             'index',
             'create',
@@ -85,177 +118,77 @@ Route::group(['namespace' => 'WorkOrder'], function () {
             'destroy',
         ],
         'names' => [
-            'index' => 'maintenance.work-orders.categories.index',
-            'create' => 'maintenance.work-orders.categories.create',
-            'store' => 'maintenance.work-orders.categories.store',
-            'edit' => 'maintenance.work-orders.categories.edit',
-            'update' => 'maintenance.work-orders.categories.update',
-            'destroy' => 'maintenance.work-orders.categories.destroy',
+            'index' => 'categories.index',
+            'create' => 'categories.create',
+            'store' => 'categories.store',
+            'edit' => 'categories.edit',
+            'update' => 'categories.update',
+            'destroy' => 'categories.destroy',
         ],
     ]);
 
-    Route::get('work-orders/categories/create/{categories}', [
-            'as' => 'maintenance.work-orders.categories.nodes.create',
-            'uses' => 'CategoryController@create',
-        ]
-    );
+    Route::get('categories/create/{categories}', ['as' => 'categories.nodes.create', 'uses' => 'CategoryController@create']);
+
+    Route::post('categories/create/{categories?}', ['as' => 'categories.nodes.store', 'uses' => 'CategoryController@store']);
 
     /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Session Routes
-    |--------------------------------------------------------------------------
-    */
+     * Nested Work Order Routes
+     */
+    Route::group(['prefix' => '{work_orders}'], function ()
+    {
+        /*
+         * Work Order Session Routes
+         */
+        Route::get('sessions', ['as' => 'sessions.index', 'uses' => 'SessionController@index']);
 
-    Route::get('work-orders/{work_orders}/sessions', [
-        'as' => 'maintenance.work-orders.sessions.index',
-        'uses' => 'SessionController@index',
-    ]);
+        Route::post('sessions/start', ['as' => 'sessions.start', 'uses' => 'SessionController@postStart']);
 
-    Route::post('work-orders/{work_orders}/sessions/start', [
-        'as' => 'maintenance.work-orders.sessions.start',
-        'uses' => 'SessionController@postStart',
-    ]);
+        Route::post('sessions/end', ['as' => 'sessions.end', 'uses' => 'SessionController@postEnd']);
 
-    Route::post('work-orders/{work_orders}/sessions/end', [
-        'as' => 'maintenance.work-orders.sessions.end',
-        'uses' => 'SessionController@postEnd',
-    ]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Report Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('work-orders/{work_orders}/report', 'ReportController', [
-        'only' => [
-            'create',
-            'store',
-            'show',
-            'edit',
-            'update',
-            'destroy',
-        ],
-        'names' => [
-            'create' => 'maintenance.work-orders.report.create',
-            'store' => 'maintenance.work-orders.report.store',
-            'show' => 'maintenance.work-orders.report.show',
-            'edit' => 'maintenance.work-orders.report.edit',
-            'update' => 'maintenance.work-orders.report.update',
-            'destroy' => 'maintenance.work-orders.report.destroy',
-        ],
-    ]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Request Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::get('work-orders/requests/create/{work_requests}', [
-        'as' => 'maintenance.work-orders.requests.create',
-        'uses' => 'RequestController@create',
-    ]);
-
-    Route::put('work-orders/requests/{work_requests}', [
-        'as' => 'maintenance.work-orders.requests.store',
-        'uses' => 'RequestController@store',
-    ]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('work-orders', 'Controller', [
-        'names' => [
-            'index' => 'maintenance.work-orders.index',
-            'create' => 'maintenance.work-orders.create',
-            'store' => 'maintenance.work-orders.store',
-            'show' => 'maintenance.work-orders.show',
-            'edit' => 'maintenance.work-orders.edit',
-            'update' => 'maintenance.work-orders.update',
-            'destroy' => 'maintenance.work-orders.destroy',
-        ],
-    ]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Update Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('work-orders.updates', 'UpdateController', [
-        'only' => [
-            'store',
-            'destroy',
-        ],
-        'names' => [
-            'store' => 'maintenance.work-orders.updates.store',
-            'destroy' => 'maintenance.work-orders.updates.destroy',
-        ],
-    ]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Assignment Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('work-orders.assignments', 'AssignmentController', [
-        'only' => [
-            'index',
-            'create',
-            'store',
-            'destroy',
-        ],
-        'names' => [
-            'index' => 'maintenance.work-orders.assignments.index',
-            'create' => 'maintenance.work-orders.assignments.create',
-            'store' => 'maintenance.work-orders.assignments.store',
-            'destroy' => 'maintenance.work-orders.assignments.destroy',
-        ],
-    ]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Part / Supply Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::group(['namespace' => 'Part'], function () {
-
-        Route::get('work-orders/{work_orders}/parts', [
-            'as' => 'maintenance.work-orders.parts.index',
-            'uses' => 'Controller@index',
+        /*
+         * Work Order Report Routes
+         */
+        Route::resource('report', 'ReportController', [
+            'only' => [
+                'create',
+                'store',
+                'show',
+                'edit',
+                'update',
+                'destroy',
+            ],
+            'names' => [
+                'create' => 'report.create',
+                'store' => 'report.store',
+                'show' => 'report.show',
+                'edit' => 'report.edit',
+                'update' => 'report.update',
+                'destroy' => 'report.destroy',
+            ],
         ]);
 
-        Route::get('work-orders/{work_orders}/parts/{inventory}/stocks', [
-            'as' => 'maintenance.work-orders.parts.stocks.index',
-            'uses' => 'StockController@index',
-        ]);
+        /*
+         * Work Order Part Routes
+         */
+        Route::group(['prefix' => 'parts', 'as' => 'parts.', 'namespace' => 'Part'], function ()
+        {
+            Route::get('parts', ['as' => 'index', 'uses' => 'Controller@index']);
 
-        Route::get('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/take', [
-            'as' => 'maintenance.work-orders.parts.stocks.take',
-            'uses' => 'StockController@getTake',
-        ]);
+            Route::get('{inventory}/stocks', ['as' => 'stocks.index', 'uses' => 'StockController@index']);
 
-        Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/take', [
-            'as' => 'maintenance.work-orders.parts.stocks.take',
-            'uses' => 'StockController@postTake',
-        ]);
+            Route::get('{inventory}/stocks/{stocks}/take', ['as' => 'stocks.take', 'uses' => 'StockController@getTake']);
 
-        Route::get('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/put-back', [
-            'as' => 'maintenance.work-orders.parts.stocks.put',
-            'uses' => 'StockController@getPut'
-        ]);
+            Route::post('{inventory}/stocks/{stocks}/take', ['as' => 'stocks.take', 'uses' => 'StockController@postTake']);
 
-        Route::post('work-orders/{work_orders}/parts/{inventory}/stocks/{stocks}/put-back', [
-            'as' => 'maintenance.work-orders.parts.stocks.put',
-            'uses' => 'StockController@postPut'
-        ]);
+            Route::get('{inventory}/stocks/{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'StockController@getPut']);
+
+            Route::post('{inventory}/stocks/{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'StockController@postPut']);
+        });
     });
 
     /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Attachment Routes
-    |--------------------------------------------------------------------------
-    */
+     * Work Order Attachment Routes
+     */
     Route::get('work-orders/{work_orders}/attachments/{attachments}/download', [
         'as' => 'maintenance.work-orders.attachments.download',
         'uses' => 'AttachmentController@download',

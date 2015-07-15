@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\PriorityRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\PriorityRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class PriorityController extends Controller
+class PriorityController extends BaseController
 {
     /**
      * @var PriorityRepository
