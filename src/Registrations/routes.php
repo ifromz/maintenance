@@ -20,9 +20,9 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
      */
     Route::group(['prefix' => 'login', 'as' => 'login.', 'middleware' => ['maintenance.not-auth']], function ()
     {
-        Route::get('/', ['uses' => 'AuthController@authenticate']);
+        Route::get('/', ['as' => 'index', 'uses' => 'AuthController@login']);
 
-        Route::post('/', ['uses' => 'AuthController@login']);
+        Route::post('/', ['as' => 'authenticate', 'uses' => 'AuthController@authenticate']);
 
         Route::get('forgot-password', ['as' => 'forgot-password', 'uses' => 'PasswordController@getRequest']);
 

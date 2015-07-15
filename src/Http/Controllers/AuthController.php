@@ -15,7 +15,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function authenticate()
+    public function login()
     {
         return view('maintenance::auth.login.index');
     }
@@ -27,7 +27,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function login(LoginRequest $request)
+    public function authenticate(LoginRequest $request)
     {
         try
         {
@@ -84,7 +84,7 @@ class AuthController extends Controller
 
         $message = 'Successfully logged out.';
 
-        return redirect()->route('maintenance.login')->withSuccess($message);
+        return redirect()->route('maintenance.login.index')->withSuccess($message);
     }
 
     /**
@@ -130,6 +130,6 @@ class AuthController extends Controller
 
         $message = 'There was an issue creating your active directory account. Please try again.';
 
-        return redirect()->route('maintenance.login')->withErrors($message);
+        return redirect()->route('maintenance.login.index')->withErrors($message);
     }
 }
