@@ -72,7 +72,7 @@ class PriorityController extends Controller
      */
     public function edit($id)
     {
-        $priority = $this->priority->find($id);
+        $priority = $this->priority->model()->findOrFail($id);
 
         return view('maintenance::work-orders.priorities.edit', compact('priority'));
     }
@@ -109,7 +109,9 @@ class PriorityController extends Controller
      */
     public function destroy($id)
     {
-        if($this->priority->delete($id)) {
+        $priority = $this->priority->model()->findOrFail($id);
+
+        if($priority->delete()) {
             $message = 'Successfully deleted priority.';
 
             return redirect()->route('maintenance.work-orders.priorities.index')->withSuccess($message);

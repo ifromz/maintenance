@@ -47,8 +47,8 @@ class Controller extends BaseController
         $transformer = function(Inventory $inventory)
         {
             return [
-                'id' => $inventory->id,
-                'sku' => ($inventory->sku_code ? $inventory->sku_code : '<em>None</em>'),
+                'id' => $inventory->getKey(),
+                'sku' => ($inventory->getSkuCodeAttribute() ? $inventory->getSkuCodeAttribute() : '<em>None</em>'),
                 'name' => $inventory->name,
                 'category' => ($inventory->category ? $inventory->category->trail : null),
                 'current_stock' => $inventory->viewer()->lblCurrentStock(),

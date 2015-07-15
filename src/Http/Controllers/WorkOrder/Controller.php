@@ -74,7 +74,7 @@ class Controller extends BaseController
      */
     public function show($id)
     {
-        $workOrder = $this->workOrder->find($id);
+        $workOrder = $this->workOrder->model()->findOrFail($id);
 
         $sessions = $workOrder->getUniqueSessions();
 
@@ -90,7 +90,7 @@ class Controller extends BaseController
      */
     public function edit($id)
     {
-        $workOrder = $this->workOrder->find($id);
+        $workOrder = $this->workOrder->model()->findOrFail($id);
 
         return view('maintenance::work-orders.edit', compact('workOrder'));
     }

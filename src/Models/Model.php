@@ -56,13 +56,13 @@ class Model extends Eloquent
     /**
      * Formats the created_at timestamp.
      *
-     * @param string $created_at
+     * @param string $createdAt
      *
      * @return string
      */
-    public function getCreatedAtAttribute($created_at)
+    public function getCreatedAtAttribute($createdAt)
     {
-        return Carbon::parse($created_at)->format('Y-m-d h:i A');
+        return Carbon::parse($createdAt)->format('Y-m-d h:i A');
     }
 
     /**

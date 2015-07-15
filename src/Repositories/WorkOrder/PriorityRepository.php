@@ -81,7 +81,7 @@ class PriorityRepository extends BaseRepository
      */
     public function update(PriorityRequest $request, $id)
     {
-        $priority = $this->find($id);
+        $priority = $this->model()->findOrFail($id);
 
         if($priority) {
             $priority->name = $request->input('name', $priority->name);
