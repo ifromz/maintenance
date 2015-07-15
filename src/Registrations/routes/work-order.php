@@ -168,6 +168,52 @@ Route::group(['prefix' => 'work-orders', 'as' => 'work-orders.', 'namespace' => 
         ]);
 
         /*
+         * Work Order Attachment Routes
+         */
+        Route::get('attachments/{attachments}/download', ['as' => 'attachments.download', 'uses' => 'AttachmentController@download']);
+
+        Route::resource('attachments', 'AttachmentController', [
+            'names' => [
+                'index' => 'attachments.index',
+                'create' => 'attachments.create',
+                'store' => 'attachments.store',
+                'show' => 'attachments.show',
+                'edit' => 'attachments.edit',
+                'update' => 'attachments.update',
+                'destroy' => 'attachments.destroy',
+            ],
+        ]);
+
+        /*
+         * Work Order Notification Routes
+         */
+        Route::resource('notifications', 'NotificationController', [
+            'only' => [
+                'store',
+                'update',
+            ],
+            'names' => [
+                'store' => 'notifications.store',
+                'update' => 'notifications.update',
+            ],
+        ]);
+
+        /*
+         * Work Order Event Routes
+         */
+        Route::resource('events', 'EventController', [
+            'names' => [
+                'index' => 'events.index',
+                'create' => 'events.create',
+                'store' => 'events.store',
+                'show' => 'events.show',
+                'edit' => 'events.edit',
+                'update' => 'events.update',
+                'destroy' => 'events.destroy',
+            ],
+        ]);
+
+        /*
          * Work Order Part Routes
          */
         Route::group(['prefix' => 'parts', 'as' => 'parts.', 'namespace' => 'Part'], function ()
@@ -185,57 +231,4 @@ Route::group(['prefix' => 'work-orders', 'as' => 'work-orders.', 'namespace' => 
             Route::post('{inventory}/stocks/{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'StockController@postPut']);
         });
     });
-
-    /*
-     * Work Order Attachment Routes
-     */
-    Route::get('work-orders/{work_orders}/attachments/{attachments}/download', [
-        'as' => 'maintenance.work-orders.attachments.download',
-        'uses' => 'AttachmentController@download',
-    ]);
-
-    Route::resource('work-orders.attachments', 'AttachmentController', [
-        'names' => [
-            'index' => 'maintenance.work-orders.attachments.index',
-            'create' => 'maintenance.work-orders.attachments.create',
-            'store' => 'maintenance.work-orders.attachments.store',
-            'show' => 'maintenance.work-orders.attachments.show',
-            'edit' => 'maintenance.work-orders.attachments.edit',
-            'update' => 'maintenance.work-orders.attachments.update',
-            'destroy' => 'maintenance.work-orders.attachments.destroy',
-        ],
-    ]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Notification Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('work-orders.notifications', 'NotificationController', [
-        'only' => [
-            'store',
-            'update',
-        ],
-        'names' => [
-            'store' => 'maintenance.work-orders.notifications.store',
-            'update' => 'maintenance.work-orders.notifications.update',
-        ],
-    ]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Maintenance Work Order Event Routes
-    |--------------------------------------------------------------------------
-    */
-    Route::resource('work-orders.events', 'EventController', [
-        'names' => [
-            'index' => 'maintenance.work-orders.events.index',
-            'create' => 'maintenance.work-orders.events.create',
-            'store' => 'maintenance.work-orders.events.store',
-            'show' => 'maintenance.work-orders.events.show',
-            'edit' => 'maintenance.work-orders.events.edit',
-            'update' => 'maintenance.work-orders.events.update',
-            'destroy' => 'maintenance.work-orders.events.destroy',
-        ],
-    ]);
 });
