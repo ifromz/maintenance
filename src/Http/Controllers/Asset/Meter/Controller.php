@@ -2,13 +2,12 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset\Meter;
 
-use Stevebauman\Maintenance\Models\Meter;
 use Stevebauman\Maintenance\Http\Requests\Asset\MeterRequest;
 use Stevebauman\Maintenance\Repositories\Asset\MeterRepository;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class MeterController extends Controller
+class Controller extends BaseController
 {
     /**
      * @var AssetRepository
@@ -165,7 +164,7 @@ class MeterController extends Controller
         } else {
             $message = 'There was an issue deleting this meter. Please try again.';
 
-            return redirect()->route('maintennace.assets.meters.show', [$id, $meterId])->withErrors($message);
+            return redirect()->route('maintenance.assets.meters.show', [$id, $meterId])->withErrors($message);
         }
     }
 }
