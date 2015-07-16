@@ -45,7 +45,7 @@
             <div class="clearfix"></div>
 
             <p class="text-center">
-                <a href="{{ route('maintenance.login') }}" class="text-center">I already have an account</a>
+                <a href="{{ route('maintenance.login.index') }}" class="text-center">I already have an account</a>
             </p>
 
         </div>

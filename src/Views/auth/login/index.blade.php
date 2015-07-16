@@ -10,8 +10,8 @@
 
         {!!
             Form::open([
-                'url' => route('maintenance.login'),
-                'id' => 'maintenance-login'
+                'url' => route('maintenance.login.index'),
+                'id' => 'maintenance-login',
             ])
         !!}
 

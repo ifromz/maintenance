@@ -42,6 +42,12 @@ Breadcrumbs::register('maintenance.inventory.categories.create', function (Gener
     $breadcrumbs->push('Create', route('maintenance.inventory.categories.create'));
 });
 
+Breadcrumbs::register('maintenance.inventory.categories.edit', function (Generator $breadcrumbs, $categoryId) {
+    $breadcrumbs->parent('maintenance.inventory.categories.index');
+    $breadcrumbs->push("ID: $categoryId");
+    $breadcrumbs->push('Edit', route('maintenance.inventory.categories.edit', $categoryId));
+});
+
 Breadcrumbs::register('maintenance.inventory.categories.nodes.create', function (Generator $breadcrumbs, $categoryId) {
     $breadcrumbs->parent('maintenance.inventory.categories.index');
     $breadcrumbs->push("ID: $categoryId");

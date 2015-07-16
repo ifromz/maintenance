@@ -23,7 +23,7 @@
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 
-            {!! link_to_route('maintenance.login', 'Go Back to Login') !!}
+            {!! link_to_route('maintenance.login.index', 'Go Back to Login') !!}
         </div>
 
         <div class="form-group">

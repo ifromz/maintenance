@@ -9,7 +9,7 @@
         <div class="login-logo">Maintenance</div>
 
         <div class="login-box-body">
-            <a class="btn btn-block btn-large btn-primary" href="{{ route('maintenance.login') }}">Login</a>
+            <a class="btn btn-block btn-large btn-primary" href="{{ route('maintenance.login.index') }}">Login</a>
         </div>
     </div>
 

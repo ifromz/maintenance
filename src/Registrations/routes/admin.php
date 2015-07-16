@@ -4,13 +4,13 @@ use Illuminate\Support\Facades\Route;
 
 // Administration Routes
 Route::get('/', [
-    'as' => 'maintenance.admin.dashboard.index',
+    'as' => 'admin.dashboard.index',
     'uses' => 'DashboardController@getIndex',
 ]);
 
 // Log Management Routes
 Route::post('logs/{logs}/mark-read', [
-    'as' => 'maintenance.admin.logs.mark-read',
+    'as' => 'admin.logs.mark-read',
     'uses' => 'LogController@markRead',
 ]);
 
@@ -21,9 +21,9 @@ Route::resource('logs', 'LogController', [
         'destroy',
     ],
     'names' => [
-        'index' => 'maintenance.admin.logs.index',
-        'show' => 'maintenance.admin.logs.show',
-        'destroy' => 'maintenance.admin.logs.destroy',
+        'index' => 'admin.logs.index',
+        'show' => 'admin.logs.show',
+        'destroy' => 'admin.logs.destroy',
     ],
 ]);
 // End Log Management Routes
@@ -33,23 +33,23 @@ Route::group(['namespace' => 'User'], function ()
 {
     Route::resource('users', 'UserController', [
         'names' => [
-            'index' => 'maintenance.admin.users.index',
-            'create' => 'maintenance.admin.users.create',
-            'store' => 'maintenance.admin.users.store',
-            'show' => 'maintenance.admin.users.show',
-            'edit' => 'maintenance.admin.users.edit',
-            'update' => 'maintenance.admin.users.update',
-            'destroy' => 'maintenance.admin.users.destroy',
+            'index' => 'admin.users.index',
+            'create' => 'admin.users.create',
+            'store' => 'admin.users.store',
+            'show' => 'admin.users.show',
+            'edit' => 'admin.users.edit',
+            'update' => 'admin.users.update',
+            'destroy' => 'admin.users.destroy',
         ],
     ]);
 
     Route::patch('users/{users}/password', [
-        'as' => 'maintenance.admin.users.password.update',
+        'as' => 'admin.users.password.update',
         'uses' => 'PasswordController@update',
     ]);
 
     Route::post('users/{users}/check-access', [
-        'as' => 'maintenance.admin.users.check-access',
+        'as' => 'admin.users.check-access',
         'uses' => 'AccessController@postCheck',
     ]);
 });
@@ -58,13 +58,13 @@ Route::group(['namespace' => 'User'], function ()
 // Group Management Routes
 Route::resource('roles', 'RoleController', [
     'names' => [
-        'index' => 'maintenance.admin.roles.index',
-        'create' => 'maintenance.admin.roles.create',
-        'store' => 'maintenance.admin.roles.store',
-        'show' => 'maintenance.admin.roles.show',
-        'edit' => 'maintenance.admin.roles.edit',
-        'update' => 'maintenance.admin.roles.update',
-        'destroy' => 'maintenance.admin.roles.destroy',
+        'index' => 'admin.roles.index',
+        'create' => 'admin.roles.create',
+        'store' => 'admin.roles.store',
+        'show' => 'admin.roles.show',
+        'edit' => 'admin.roles.edit',
+        'update' => 'admin.roles.update',
+        'destroy' => 'admin.roles.destroy',
     ],
 ]);
 
@@ -73,7 +73,7 @@ Route::group(['namespace' => 'Archive'], function ()
 {
     // Asset Archive Routes
     Route::post('archive/assets/{assets}/restore', [
-        'as' => 'maintenance.admin.archive.assets.restore',
+        'as' => 'admin.archive.assets.restore',
         'uses' => 'AssetController@restore',
     ]);
 
@@ -84,15 +84,15 @@ Route::group(['namespace' => 'Archive'], function ()
             'destroy',
         ],
         'names' => [
-            'index' => 'maintenance.admin.archive.assets.index',
-            'show' => 'maintenance.admin.archive.assets.show',
-            'destroy' => 'maintenance.admin.archive.assets.destroy',
+            'index' => 'admin.archive.assets.index',
+            'show' => 'admin.archive.assets.show',
+            'destroy' => 'admin.archive.assets.destroy',
         ],
     ]);
 
     // Work Order Archive Routes
     Route::post('archive/work-orders/{work_orders}/restore', [
-        'as' => 'maintenance.admin.archive.work-orders.restore',
+        'as' => 'admin.archive.work-orders.restore',
         'uses' => 'WorkOrderController@restore',
     ]);
 
@@ -103,15 +103,15 @@ Route::group(['namespace' => 'Archive'], function ()
             'destroy',
         ],
         'names' => [
-            'index' => 'maintenance.admin.archive.work-orders.index',
-            'show' => 'maintenance.admin.archive.work-orders.show',
-            'destroy' => 'maintenance.admin.archive.work-orders.destroy',
+            'index' => 'admin.archive.work-orders.index',
+            'show' => 'admin.archive.work-orders.show',
+            'destroy' => 'admin.archive.work-orders.destroy',
         ],
     ]);
 
     // Inventory Archive Routes
     Route::post('archive/inventory/{inventory}/restore', [
-        'as' => 'maintenance.admin.archive.inventory.restore',
+        'as' => 'admin.archive.inventory.restore',
         'uses' => 'InventoryController@restore',
     ]);
 
@@ -122,9 +122,9 @@ Route::group(['namespace' => 'Archive'], function ()
             'destroy',
         ],
         'names' => [
-            'index' => 'maintenance.admin.archive.inventory.index',
-            'show' => 'maintenance.admin.archive.inventory.show',
-            'destroy' => 'maintenance.admin.archive.inventory.destroy',
+            'index' => 'admin.archive.inventory.index',
+            'show' => 'admin.archive.inventory.show',
+            'destroy' => 'admin.archive.inventory.destroy',
         ],
     ]);
 });
@@ -139,8 +139,8 @@ Route::group(['namespace' => 'Setting'], function ()
             'store',
         ],
         'names' => [
-            'index' => 'maintenance.admin.settings.site.index',
-            'store' => 'maintenance.admin.settings.site.store',
+            'index' => 'admin.settings.site.index',
+            'store' => 'admin.settings.site.store',
         ],
     ]);
 });
