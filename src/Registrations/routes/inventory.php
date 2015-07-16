@@ -1,34 +1,35 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 
 /*
  * Inventory Routes
  */
-
-Route::group(['namespace' => 'Inventory'], function () {
-
-    /*
-     * Category Routes
-     */
-    Route::get('inventory/categories/json', [
-            'as' => 'maintenance.inventory.categories.json',
-            'uses' => 'CategoryController@getJson',
-        ]
-    );
-
-    Route::post('inventory/categories/move/{categories?}', [
-        'as' => 'maintenance.inventory.categories.nodes.move',
-        'uses' => 'CategoryController@postMoveCategory',
+Route::group(['prefix' => 'inventory', 'as' => 'inventory.', 'namespace' => 'Inventory'], function ()
+{
+    Route::resource('', 'Controller', [
+        'names' => [
+            'index' => 'index',
+            'create' => 'create',
+            'store' => 'store',
+            'show' => '.show',
+            'edit' => 'edit',
+            'update' => 'update',
+            'destroy' => 'destroy',
+        ],
     ]);
 
-    Route::post('inventory/categories/create/{categories?}', [
-            'as' => 'maintenance.inventory.categories.nodes.store',
-            'uses' => 'CategoryController@store',
-        ]
-    );
+    /*
+     * Inventory Category Routes
+     */
+    Route::get('categories/json', ['as' => 'categories.json', 'uses' => 'CategoryController@getJson']);
 
-    Route::resource('inventory/categories', 'CategoryController', [
+    Route::get('categories/create/{categories}', ['as' => 'categories.nodes.create', 'uses' => 'CategoryController@create']);
+
+    Route::post('categories/move/{categories?}', ['as' => 'categories.nodes.move', 'uses' => 'CategoryController@postMoveCategory']);
+
+    Route::post('categories/create/{categories?}', ['as' => 'categories.nodes.store', 'uses' => 'CategoryController@store']);
+
+    Route::resource('categories', 'CategoryController', [
         'only' => [
             'index',
             'create',
@@ -47,113 +48,111 @@ Route::group(['namespace' => 'Inventory'], function () {
         ],
     ]);
 
-    Route::get('inventory/categories/create/{categories}', [
-            'as' => 'maintenance.inventory.categories.nodes.create',
-            'uses' => 'CategoryController@create',
-        ]
-    );
     /*
-     * End Category Routes
+     * Nested Inventory Routes
      */
+    Route::group(['prefix' => '{inventory}'], function ()
+    {
+        Route::patch('sku/regenerate', ['as' => 'maintenance.inventory.sku.regenerate', 'uses' => 'SkuController@regenerate']);
 
-    /*
-     * Start Inventory SKU routes
-     */
-    Route::patch('inventory/{inventories}/sku/regenerate', [
-        'as' => 'maintenance.inventory.sku.regenerate',
-        'uses' => 'SkuController@regenerate',
-    ]);
-    /*
-     * End Inventory SKU routes
-     */
+        /*
+         * Inventory Variant Routes
+         */
+        Route::resource('variants', 'VariantController', [
+            'only' => [
+                'create',
+                'store',
+            ],
+            'names' => [
+                'create' => 'variants.create',
+                'store' => 'variants.store',
+            ],
+        ]);
 
-    /*
-     * Start Inventory Routes
-     */
-    Route::resource('inventory', 'Controller', [
-        'names' => [
-            'index' => 'maintenance.inventory.index',
-            'create' => 'maintenance.inventory.create',
-            'store' => 'maintenance.inventory.store',
-            'show' => 'maintenance.inventory.show',
-            'edit' => 'maintenance.inventory.edit',
-            'update' => 'maintenance.inventory.update',
-            'destroy' => 'maintenance.inventory.destroy',
-        ],
-    ]);
+        /*
+         * Inventory Event Routes
+         */
+        Route::resource('events', 'EventController', [
+            'names' => [
+                'index' => 'events.index',
+                'create' => 'events.create',
+                'store' => 'events.store',
+                'show' => 'events.show',
+                'edit' => 'events.edit',
+                'update' => 'events.update',
+                'destroy' => 'events.destroy',
+            ],
+        ]);
 
-    Route::resource('inventory.stocks', 'StockController', [
-        'names' => [
-            'index' => 'maintenance.inventory.stocks.index',
-            'create' => 'maintenance.inventory.stocks.create',
-            'store' => 'maintenance.inventory.stocks.store',
-            'show' => 'maintenance.inventory.stocks.show',
-            'edit' => 'maintenance.inventory.stocks.edit',
-            'update' => 'maintenance.inventory.stocks.update',
-            'destroy' => 'maintenance.inventory.stocks.destroy',
-        ],
-    ]);
+        /*
+         * Inventory Note Routes
+         */
+        Route::resource('notes', 'NoteController', [
+            'names' => [
+                'create' => 'notes.create',
+                'store' => 'notes.store',
+                'show' => 'notes.show',
+                'edit' => 'notes.edit',
+                'update' => 'notes.update',
+                'destroy' => 'notes.destroy',
+            ],
+            'only' => [
+                'create',
+                'store',
+                'show',
+                'edit',
+                'update',
+                'destroy'
+            ],
+        ]);
 
-    Route::resource('inventory.notes', 'NoteController', [
-        'names' => [
-            'create' => 'maintenance.inventory.notes.create',
-            'store' => 'maintenance.inventory.notes.store',
-            'show' => 'maintenance.inventory.notes.show',
-            'edit' => 'maintenance.inventory.notes.edit',
-            'update' => 'maintenance.inventory.notes.update',
-            'destroy' => 'maintenance.inventory.notes.destroy',
-        ],
-        'only' => [
-            'create',
-            'store',
-            'show',
-            'edit',
-            'update',
-            'destroy'
-        ],
-    ]);
+        /*
+         * Inventory Stock Routes
+         */
+        Route::group(['prefix' => 'stocks', 'as' => 'stocks.'], function ()
+        {
+            Route::resource('', 'StockController', [
+                'names' => [
+                    'index' => 'index',
+                    'create' => 'create',
+                    'store' => 'store',
+                    'show' => 'show',
+                    'edit' => 'edit',
+                    'update' => 'update',
+                    'destroy' => 'destroy',
+                ],
+            ]);
 
-    Route::post('inventory/{inventory}/stocks/{stocks}/movements/{movements}/rollback', [
-        'as' => 'maintenance.inventory.stocks.movements.rollback',
-        'uses' => 'StockMovementController@rollback',
-    ]);
+            /*
+             * Nested Inventory Stock Routes
+             */
+            Route::group(['prefix' => '{stocks}'], function ()
+            {
+                /*
+                 * Inventory Stock Movement Routes
+                 */
+                Route::group(['prefix' => 'movements', 'as' => 'movements.'], function()
+                {
+                    Route::resource('', 'StockMovementController', [
+                        'only' => [
+                            'index',
+                            'show',
+                        ],
+                        'names' => [
+                            'index' => 'index',
+                            'show' => 'show',
+                        ],
+                    ]);
 
-    Route::resource('inventory.stocks.movements', 'StockMovementController', [
-        'only' => [
-            'index',
-            'show',
-        ],
-        'names' => [
-            'index' => 'maintenance.inventory.stocks.movements.index',
-            'show' => 'maintenance.inventory.stocks.movements.show',
-        ],
-    ]);
-
-    Route::resource('inventory.events', 'EventController', [
-        'names' => [
-            'index' => 'maintenance.inventory.events.index',
-            'create' => 'maintenance.inventory.events.create',
-            'store' => 'maintenance.inventory.events.store',
-            'show' => 'maintenance.inventory.events.show',
-            'edit' => 'maintenance.inventory.events.edit',
-            'update' => 'maintenance.inventory.events.update',
-            'destroy' => 'maintenance.inventory.events.destroy',
-        ],
-    ]);
-
-    Route::resource('inventory.variants', 'VariantController', [
-        'only' => [
-            'create',
-            'store',
-        ],
-        'names' => [
-            'create' => 'maintenance.inventory.variants.create',
-            'store' => 'maintenance.inventory.variants.store',
-        ],
-    ]);
-
-    /*
-     * End Inventory Routes
-     */
-
+                    /*
+                     * Nested Inventory Stock Movement Routes
+                     */
+                    Route::group(['prefix' => '{movements}'], function ()
+                    {
+                        Route::post('{movements}/rollback', ['as' => 'rollback', 'uses' => 'StockMovementController@rollback']);
+                    });
+                });
+            });
+        });
+    });
 });

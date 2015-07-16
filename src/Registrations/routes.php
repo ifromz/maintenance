@@ -43,9 +43,9 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
      */
     Route::group(['prefix' => 'register', 'middleware' => ['maintenance.notauth']], function ()
     {
-        Route::get('', ['as' => 'register', 'uses' => 'AuthController@getRegister']);
+        Route::get('/', ['as' => 'register', 'uses' => 'AuthController@getRegister']);
 
-        Route::post('', ['as' => 'register', 'uses' => 'AuthController@postRegister']);
+        Route::post('/', ['as' => 'register', 'uses' => 'AuthController@postRegister']);
     });
 
     /*

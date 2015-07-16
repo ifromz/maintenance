@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
 use Stevebauman\Maintenance\Repositories\Inventory\Repository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
-class SkuController extends Controller
+class SkuController extends BaseController
 {
     /**
      * @var Repository
