@@ -49,14 +49,4 @@ class Location extends Node
     {
         return renderNode($this);
     }
-
-    /**
-     * Compatibility with Revisionable.
-     *
-     * @return string
-     */
-    public function identifiableName()
-    {
-        return $this->getTrailAttribute();
-    }
 }
