@@ -52,7 +52,7 @@ abstract class NestedSetController extends Controller
     {
         // If an ID is supplied then we're creating a child category
         if ($id) {
-            $category = $this->repository->model()->findOrFail($id);
+            $category = $this->repository->find($id);
 
             if ($category) {
                 return view('maintenance::categories.nodes.create', [
@@ -102,7 +102,7 @@ abstract class NestedSetController extends Controller
      */
     public function edit($id)
     {
-        $category = $this->repository->model()->findOrFail($id);
+        $category = $this->repository->find($id);
 
         return view('maintenance::categories.edit', [
             'category' => $category,
@@ -143,7 +143,7 @@ abstract class NestedSetController extends Controller
      */
     public function destroy($id)
     {
-        $record = $this->repository->model()->findOrFail($id);
+        $record = $this->repository->find($id);
 
         if($record->delete()) {
             $message = "Successfully deleted $this->resource.";

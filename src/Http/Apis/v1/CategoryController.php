@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function move(CategoryMoveRequest $request, $id)
     {
-        $category = $this->repository->model()->findOrFail($id);
+        $category = $this->repository->find($id);
 
         $moved = false;
 
@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
                 $moved = true;
             } else {
-                $parent = $this->repository->model()->findOrFail($parentId);
+                $parent = $this->repository->find($parentId);
 
                 $category->makeChildOf($parent);
 
@@ -57,7 +57,7 @@ class CategoryController extends Controller
      */
     public function grid()
     {
-        $categories = $this->repository->model()->get();
+        $categories = $this->repository->get();
 
         $categoryArray = [];
 
