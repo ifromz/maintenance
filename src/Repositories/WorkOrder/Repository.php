@@ -246,10 +246,8 @@ class Repository extends BaseRepository
      */
     public function createFromWorkRequest(WorkRequest $workRequest)
     {
-        /*
-         * We'll make sure the work request doesn't already have a
-         * work order attached to it before we try and create it
-         */
+        // We'll make sure the work request doesn't already have a
+        // work order attached to it before we try and create it.
         if (!$workRequest->workOrder) {
             $priority = $this->priority->createDefaultRequested();
 
@@ -330,17 +328,15 @@ class Repository extends BaseRepository
 
             try {
                 if ($stock && $stock->take($quantity, $reason)) {
-                    // Add on the quantity inputted to the existing record quantity
+                    // Add on the quantity inputted to the existing record quantity.
                     $newQuantity = $stock->pivot->quantity + $quantity;
 
                     $workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity]);
 
                     return $workOrder;
                 } else {
-                    /*
-                     * The stock hasn't been attached to the work
-                     * order. We'll try to find it and attach it now.
-                     */
+                    // The stock hasn't been attached to the work order.
+                    // We'll try to find it and attach it now.
                     $stock = $workOrder->parts()->getRelated()->find($stockId);
 
                     if ($stock && $stock->take($quantity, $reason)) {
@@ -376,32 +372,26 @@ class Repository extends BaseRepository
             $quantity = $request->input('quantity');
 
             if ($quantity > $stock->pivot->quantity) {
-                /*
-                 * If the quantity entered is greater than
-                 * the taken stock, we'll return all of the stock.
-                 */
+                // If the quantity entered is greater than the
+                // taken stock, we'll return all of the stock.
                 $returnQuantity = $stock->pivot->quantity;
             } else {
                 // Otherwise we can use the users quantity input.
                 $returnQuantity = $quantity;
             }
 
-            // Set the stock put reason
+            // Set the stock put reason.
             $reason = link_to_route('maintenance.work-orders.show', 'Put Back from Work Order', [$workOrder->id]);
 
             if ($stock->put($returnQuantity, $reason)) {
                 $newQuantity = $stock->pivot->quantity - $returnQuantity;
 
                 if ($newQuantity == 0) {
-                    /*
-                     * If the new quantity is zero, we'll detach
-                     * the stock record from the work order parts.
-                     */
+                    // If the new quantity is zero, we'll detach the
+                    // stock record from the work order parts.
                     $workOrder->parts()->detach($stock->id);
                 } else {
-                    /*
-                     * Otherwise we'll update the quantity on the pivot record.
-                     */
+                    // Otherwise we'll update the quantity on the pivot record.
                     $workOrder->parts()->updateExistingPivot($stock->id, ['quantity' => $newQuantity]);
                 }
 
