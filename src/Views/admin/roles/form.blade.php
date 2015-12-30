@@ -2,7 +2,7 @@
     <label class="col-sm-2 control-label">Name</label>
 
     <div class="col-md-4">
-        {!! Form::text('name', (isset($group) ? $group->name : null), ['class'=>'form-control', 'placeholder'=>'ex. Workers']) !!}
+        {!! Form::text('name', (isset($role) ? $role->name : null), ['class'=>'form-control', 'placeholder'=>'ex. Workers']) !!}
 
         <span class="label label-danger">{{ $errors->first('name', ':message') }}</span>
     </div>
@@ -13,7 +13,7 @@
 
     <div class="col-md-4">
         @include('maintenance::select.users', [
-            'users' => (isset($group) ? $group->users->lists('id', 'username') : []),
+            'users' => (isset($role) ? $role->users->lists('id', 'username') : []),
         ])
 
         <span class="label label-danger">{{ $errors->first('users', ':message') }}</span>
@@ -25,7 +25,7 @@
 
     <div class="col-md-4">
         @include('maintenance::select.routes', [
-            'routes' => (isset($group) ? $group->permissions : null)
+            'routes' => (isset($role) ? $role->permissions : [])
         ])
 
         <span class="label label-danger">{{ $errors->first('routes', ':message') }}</span>

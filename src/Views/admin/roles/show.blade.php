@@ -10,14 +10,14 @@
 
 @section('tab.body.content')
     <div class="tab-pane active" id="tab_1">
-        {!! $group->viewer()->profile()  !!}
+        {!! $role->viewer()->profile()  !!}
     </div>
 
     <div class="tab-pane" id="tab_2">
-        {!! $group->viewer()->users() !!}
+        {!! $role->viewer()->users() !!}
     </div>
 
     <div class="tab-pane" id="tab_3">
-        {!! $group->viewer()->permissions() !!}
+        {!! $role->viewer()->permissions() !!}
     </div>
 @stop

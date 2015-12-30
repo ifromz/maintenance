@@ -2,7 +2,7 @@
     Form::select(
         'groups[]',
         $allRoles,
-        (isset($roles) ? array_keys($roles) : null),
+        (isset($roles) ? $roles : []),
         [
             'class'=>'form-control select2',
             'placeholder' => 'Enter Groups',

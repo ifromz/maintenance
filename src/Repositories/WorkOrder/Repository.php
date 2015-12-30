@@ -225,7 +225,6 @@ class Repository extends BaseRepository
         $workOrder->completed_at = $request->input('completed_at');
 
         if($workOrder->save()) {
-
             $assets = $request->input('assets');
 
             if(count($assets) > 0) {

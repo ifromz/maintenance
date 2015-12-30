@@ -8,7 +8,7 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h3 class="panel-title">Edit Group {{ $role->name }}</h3>
+                <h3 class="panel-title">Edit Role {{ $role->name }}</h3>
             </div>
 
             <div class="panel-body">
