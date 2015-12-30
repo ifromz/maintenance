@@ -23,6 +23,13 @@ class ManualController extends BaseController
         $this->asset = $asset;
     }
 
+    /**
+     * Returns a new grid instance of the specified assets manuals.
+     *
+     * @param int|string $id
+     *
+     * @return \Cartalyst\DataGrid\DataGrid
+     */
     public function grid($id)
     {
         $columns = [
