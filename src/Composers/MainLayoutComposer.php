@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\View\View;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class MainLayoutComposer
 {

@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\SessionEndRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\SessionStartRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\SessionRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class SessionController extends BaseController
 {
@@ -58,12 +58,12 @@ class SessionController extends BaseController
     {
         $session = $this->session->create($workOrderId);
 
-        if($session) {
+        if ($session) {
             $message = "Successfully started your session. Don't forget to check out!";
 
             return redirect()->route('maintenance.work-orders.show', [$workOrderId])->withSuccess($message);
         } else {
-            $message = "There was an issue creating your session. Please try again.";
+            $message = 'There was an issue creating your session. Please try again.';
 
             return redirect()->route('maintenance.work-orders.show', [$workOrderId])->withErrors($message);
         }
@@ -81,12 +81,12 @@ class SessionController extends BaseController
     {
         $session = $this->session->update($workOrderId);
 
-        if($session) {
-            $message = "Successfully ended your session. Your hours have been logged.";
+        if ($session) {
+            $message = 'Successfully ended your session. Your hours have been logged.';
 
             return redirect()->route('maintenance.work-orders.show', [$workOrderId])->withSuccess($message);
         } else {
-            $message = "There was an issue ending your session. Please try again.";
+            $message = 'There was an issue ending your session. Please try again.';
 
             return redirect()->route('maintenance.work-orders.show', [$workOrderId])->withErrors($message);
         }

@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Stevebauman\Maintenance\Validators\PasswordValidator;
-use Stevebauman\Maintenance\Validators\Login\RequestResetValidator;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\MailService;
 use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Validators\Login\RequestResetValidator;
+use Stevebauman\Maintenance\Validators\PasswordValidator;
 
 class PasswordController extends Controller
 {
@@ -125,8 +125,8 @@ class PasswordController extends Controller
         if ($user->checkResetPasswordCode($key)) {
             return view('maintenance::login.password.reset', [
                 'title' => 'Reset Your Password',
-                'user' => $user,
-                'code' => $key,
+                'user'  => $user,
+                'code'  => $key,
             ]);
         } else {
             $this->redirect = route('maintenance.login');

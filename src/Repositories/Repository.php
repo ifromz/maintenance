@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Repositories;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Model;
-use Stevebauman\Maintenance\Models\Revision;
 use Cartalyst\DataGrid\Laravel\Facades\DataGrid;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+use Stevebauman\Maintenance\Models\Revision;
 
 abstract class Repository
 {
@@ -37,7 +37,7 @@ abstract class Repository
      */
     public function find($id)
     {
-         return $this->model()->findOrFail($id);
+        return $this->model()->findOrFail($id);
     }
 
     /**
@@ -59,9 +59,9 @@ abstract class Repository
      *
      * @param int|string $id
      *
-     * @return bool|null
-     *
      * @throws \Exception
+     *
+     * @return bool|null
      */
     public function delete($id)
     {
@@ -79,7 +79,7 @@ abstract class Repository
     {
         $record = $this->findArchived($id);
 
-        if($record) {
+        if ($record) {
             $record->forceDelete();
 
             return true;
@@ -99,7 +99,7 @@ abstract class Repository
     {
         $record = $this->findArchived($id);
 
-        if($record) {
+        if ($record) {
             return $record->restore();
         }
 
@@ -125,9 +125,9 @@ abstract class Repository
     /**
      * Returns a new grid instance of the current models archived records.
      *
-     * @param array     $columns
-     * @param array     $settings
-     * @param \Closure  $transformer
+     * @param array    $columns
+     * @param array    $settings
+     * @param \Closure $transformer
      *
      * @return \Cartalyst\DataGrid\DataGrid
      */
@@ -160,19 +160,18 @@ abstract class Repository
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(Revision $revision)
-        {
+        $transformer = function (Revision $revision) {
             return [
-                'user' => $revision->getUserResponsible()->full_name,
-                'key' => $revision->getKey(),
-                'old_value' => (! is_null($revision->getOldValue()) ? $revision->getOldValue() : '<em>None</em>'),
-                'new_value' => ($revision->getNewValue() ? $revision->getNewValue() : '<em>None</em>'),
+                'user'       => $revision->getUserResponsible()->full_name,
+                'key'        => $revision->getKey(),
+                'old_value'  => (!is_null($revision->getOldValue()) ? $revision->getOldValue() : '<em>None</em>'),
+                'new_value'  => ($revision->getNewValue() ? $revision->getNewValue() : '<em>None</em>'),
                 'created_at' => $revision->created_at->format('Y-m-d g:i a'),
             ];
         };

@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Client\WorkRequest;
 
-use Stevebauman\Maintenance\Validators\UpdateValidator;
-use Stevebauman\Maintenance\Services\WorkRequestService;
-use Stevebauman\Maintenance\Services\UpdateService;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Services\UpdateService;
+use Stevebauman\Maintenance\Services\WorkRequestService;
+use Stevebauman\Maintenance\Validators\UpdateValidator;
 
 class UpdateController extends BaseController
 {

@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\Request as StockRequest;
-use Stevebauman\Maintenance\Repositories\Inventory\StockRepository;
-use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\Request as StockRequest;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
+use Stevebauman\Maintenance\Repositories\Inventory\StockRepository;
 
 class StockController extends BaseController
 {
@@ -73,7 +73,7 @@ class StockController extends BaseController
 
         $stock = $this->stock->create($request, $item->id);
 
-        if($stock) {
+        if ($stock) {
             $message = 'Successfully created stock.';
 
             return redirect()->route('maintenance.inventory.stocks.show', [$item->id, $stock->id])->withSuccess($message);
@@ -98,7 +98,7 @@ class StockController extends BaseController
 
         $stock = $item->stocks()->find($stockId);
 
-        if($stock) {
+        if ($stock) {
             return view('maintenance::inventory.stocks.show', compact('item', 'stock'));
         }
 
@@ -119,7 +119,7 @@ class StockController extends BaseController
 
         $stock = $item->stocks()->find($stockId);
 
-        if($stock) {
+        if ($stock) {
             return view('maintenance::inventory.stocks.edit', compact('item', 'stock'));
         }
 
@@ -141,7 +141,7 @@ class StockController extends BaseController
 
         $stock = $this->stock->update($request, $item->id, $stockId);
 
-        if($stock) {
+        if ($stock) {
             $message = 'Successfully updated stock.';
 
             return redirect()->route('maintenance.inventory.stocks.show', [$item->id, $stock->id])->withSuccess($message);
@@ -166,7 +166,7 @@ class StockController extends BaseController
 
         $stock = $item->stocks()->find($stockId);
 
-        if($stock && $stock->delete()) {
+        if ($stock && $stock->delete()) {
             $message = 'Successfully deleted stock.';
 
             return redirect()->route('maintenance.inventory.stocks.index', [$item->id])->withSuccess($message);

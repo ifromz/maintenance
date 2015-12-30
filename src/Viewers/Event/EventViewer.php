@@ -17,7 +17,7 @@ class EventViewer extends BaseViewer
     public function profile(Event $apiObject)
     {
         return view('maintenance::viewers.event.profile', [
-            'event' => $this->entity,
+            'event'     => $this->entity,
             'apiObject' => $apiObject,
         ]);
     }
@@ -112,7 +112,7 @@ class EventViewer extends BaseViewer
             return $start->format('h:i A');
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -168,7 +168,7 @@ class EventViewer extends BaseViewer
             return $end->format('h:i A');
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -202,7 +202,7 @@ class EventViewer extends BaseViewer
             return $freq;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -218,7 +218,7 @@ class EventViewer extends BaseViewer
             return $freq;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -298,7 +298,7 @@ class EventViewer extends BaseViewer
     public function btnEventableActions(Model $eventable)
     {
         return view('maintenance::viewers.event.buttons.eventable-actions', [
-            'event' => $this->entity,
+            'event'     => $this->entity,
             'eventable' => $eventable,
         ]);
     }
@@ -314,7 +314,7 @@ class EventViewer extends BaseViewer
     public function btnEventableEdit(Model $eventable)
     {
         return view('maintenance::viewers.event.buttons.eventable-edit', [
-            'event' => $this->entity,
+            'event'     => $this->entity,
             'eventable' => $eventable,
         ]);
     }
@@ -330,7 +330,7 @@ class EventViewer extends BaseViewer
     public function btnEventableDelete(Model $eventable)
     {
         return view('maintenance::viewers.event.buttons.eventable-delete', [
-            'event' => $this->entity,
+            'event'     => $this->entity,
             'eventable' => $eventable,
         ]);
     }
@@ -346,7 +346,7 @@ class EventViewer extends BaseViewer
     {
         return view('maintenance::viewers.event.buttons.edit', [
             'event' => $this->entity,
-            'url' => $url,
+            'url'   => $url,
         ]);
     }
 
@@ -361,7 +361,7 @@ class EventViewer extends BaseViewer
     {
         return view('maintenance::viewers.event.buttons.delete', [
             'event' => $this->entity,
-            'url' => $url,
+            'url'   => $url,
         ]);
     }
 

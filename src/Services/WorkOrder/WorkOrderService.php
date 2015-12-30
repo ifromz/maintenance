@@ -2,13 +2,13 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
+use Stevebauman\Maintenance\Models\WorkOrder;
+use Stevebauman\Maintenance\Models\WorkRequest;
+use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\PriorityService;
-use Stevebauman\Maintenance\Services\StatusService;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Models\WorkRequest;
-use Stevebauman\Maintenance\Models\WorkOrder;
-use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\StatusService;
 
 class WorkOrderService extends BaseModelService
 {
@@ -40,11 +40,11 @@ class WorkOrderService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param WorkOrder                  $workOrder
-     * @param SentryService              $sentry
-     * @param PriorityService            $priority
-     * @param StatusService              $status
-     * @param ConfigService              $config
+     * @param WorkOrder       $workOrder
+     * @param SentryService   $sentry
+     * @param PriorityService $priority
+     * @param StatusService   $status
+     * @param ConfigService   $config
      */
     public function __construct(
         WorkOrder $workOrder,
@@ -117,14 +117,14 @@ class WorkOrderService extends BaseModelService
 
         try {
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
-                'category_id' => $this->getInput('category_id'),
-                'location_id' => $this->getInput('location_id'),
-                'status_id' => $this->getInput('status'),
-                'priority_id' => $this->getInput('priority'),
-                'subject' => $this->getInput('subject', null, true),
-                'description' => $this->getInput('description', null, true),
-                'started_at' => $this->getInput('started_at'),
+                'user_id'      => $this->sentry->getCurrentUserId(),
+                'category_id'  => $this->getInput('category_id'),
+                'location_id'  => $this->getInput('location_id'),
+                'status_id'    => $this->getInput('status'),
+                'priority_id'  => $this->getInput('priority'),
+                'subject'      => $this->getInput('subject', null, true),
+                'description'  => $this->getInput('description', null, true),
+                'started_at'   => $this->getInput('started_at'),
                 'completed_at' => $this->getInput('completed_at'),
             ];
 
@@ -187,11 +187,11 @@ class WorkOrderService extends BaseModelService
 
                 // Set the work order insert data
                 $insert = [
-                    'status_id' => $status->id,
+                    'status_id'   => $status->id,
                     'priority_id' => $priority->id,
-                    'request_id' => $workRequest->id,
-                    'user_id' => $workRequest->user_id,
-                    'subject' => $workRequest->subject,
+                    'request_id'  => $workRequest->id,
+                    'user_id'     => $workRequest->user_id,
+                    'subject'     => $workRequest->subject,
                     'description' => $workRequest->description,
                 ];
 
@@ -227,13 +227,13 @@ class WorkOrderService extends BaseModelService
             $record = $this->find($id);
 
             $insert = [
-                'category_id' => $this->getInput('category_id', $record->category_id),
-                'location_id' => $this->getInput('location_id', $record->location_id),
-                'status_id' => $this->getInput('status', $record->status->id),
-                'priority_id' => $this->getInput('priority', $record->priority->id),
-                'subject' => $this->getInput('subject', $record->subject, true),
-                'description' => $this->getInput('description', $record->description, true),
-                'started_at' => $this->getInput('started_at', $record->started_at),
+                'category_id'  => $this->getInput('category_id', $record->category_id),
+                'location_id'  => $this->getInput('location_id', $record->location_id),
+                'status_id'    => $this->getInput('status', $record->status->id),
+                'priority_id'  => $this->getInput('priority', $record->priority->id),
+                'subject'      => $this->getInput('subject', $record->subject, true),
+                'description'  => $this->getInput('description', $record->description, true),
+                'started_at'   => $this->getInput('started_at', $record->started_at),
                 'completed_at' => $this->getInput('completed_at', $record->completed_at),
             ];
 
@@ -323,7 +323,7 @@ class WorkOrderService extends BaseModelService
              */
             $this->fireEvent('maintenance.work-orders.parts.created', [
                 'workOrder' => $workOrder,
-                'stock' => $stock,
+                'stock'     => $stock,
             ]);
 
             $this->dbCommitTransaction();
@@ -352,7 +352,7 @@ class WorkOrderService extends BaseModelService
             if ($workOrder->updates()->save($update)) {
                 $this->fireEvent('maintenance.work-orders.updates.created', [
                     'workOrder' => $workOrder,
-                    'update' => $update,
+                    'update'    => $update,
                 ]);
 
                 $this->dbCommitTransaction();

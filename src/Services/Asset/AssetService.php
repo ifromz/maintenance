@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services\Asset;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Asset;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class AssetService extends BaseModelService
 {
@@ -19,8 +19,8 @@ class AssetService extends BaseModelService
     protected $sentry;
 
     /**
-     * @param Asset                  $asset
-     * @param SentryService          $sentry
+     * @param Asset         $asset
+     * @param SentryService $sentry
      */
     public function __construct(Asset $asset, SentryService $sentry)
     {
@@ -135,17 +135,17 @@ class AssetService extends BaseModelService
              * Set insert data
              */
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
+                'user_id'     => $this->sentry->getCurrentUserId(),
                 'category_id' => $this->getInput('category_id'),
                 'location_id' => $this->getInput('location_id'),
-                'name' => $this->getInput('name', null, true),
-                'condition' => $this->getInput('condition'),
-                'vendor' => $this->getInput('vendor', null, true),
-                'make' => $this->getInput('make', null, true),
-                'model' => $this->getInput('model', null, true),
-                'size' => $this->getInput('size', null, true),
-                'weight' => $this->getInput('weight', null, true),
-                'serial' => $this->getInput('serial', null, true),
+                'name'        => $this->getInput('name', null, true),
+                'condition'   => $this->getInput('condition'),
+                'vendor'      => $this->getInput('vendor', null, true),
+                'make'        => $this->getInput('make', null, true),
+                'model'       => $this->getInput('model', null, true),
+                'size'        => $this->getInput('size', null, true),
+                'weight'      => $this->getInput('weight', null, true),
+                'serial'      => $this->getInput('serial', null, true),
                 'acquired_at' => $this->formatDateWithTime($this->getInput('acquired_at')),
                 'end_of_life' => $this->formatDateWithTime($this->getInput('end_of_life')),
             ];
@@ -202,15 +202,15 @@ class AssetService extends BaseModelService
             $insert = [
                 'location_id' => $this->getInput('location_id', $record->location_id),
                 'category_id' => $this->getInput('category_id', $record->category_id),
-                'name' => $this->getInput('name', $record->name, true),
-                'condition' => $this->getInput('condition', $record->condition),
-                'vendor' => $this->getInput('vendor', $record->vendor, true),
-                'make' => $this->getInput('make', $record->make, true),
-                'model' => $this->getInput('model', $record->model, true),
-                'size' => $this->getInput('size', $record->size, true),
-                'weight' => $this->getInput('weight', $record->weight, true),
-                'serial' => $this->getInput('serial', $record->serial, true),
-                'aquired_at' => ($this->formatDateWithTime($this->getInput('aquired_at')) ?: $record->aquired_at),
+                'name'        => $this->getInput('name', $record->name, true),
+                'condition'   => $this->getInput('condition', $record->condition),
+                'vendor'      => $this->getInput('vendor', $record->vendor, true),
+                'make'        => $this->getInput('make', $record->make, true),
+                'model'       => $this->getInput('model', $record->model, true),
+                'size'        => $this->getInput('size', $record->size, true),
+                'weight'      => $this->getInput('weight', $record->weight, true),
+                'serial'      => $this->getInput('serial', $record->serial, true),
+                'aquired_at'  => ($this->formatDateWithTime($this->getInput('aquired_at')) ?: $record->aquired_at),
                 'end_of_life' => ($this->formatDateWithTime($this->getInput('end_of_life')) ?: $record->end_of_life),
             ];
 

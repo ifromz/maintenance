@@ -3,10 +3,10 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Stevebauman\Maintenance\Viewers\Inventory\InventoryStockViewer;
-use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
-use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Inventory\Traits\InventoryStockTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\Inventory\InventoryStockViewer;
 
 class InventoryStock extends Model
 {
@@ -56,7 +56,7 @@ class InventoryStock extends Model
      */
     protected $revisionColumnsFormatted = [
         'location_id' => 'Location',
-        'quantity' => 'Quantity',
+        'quantity'    => 'Quantity',
     ];
 
     /**
@@ -71,6 +71,7 @@ class InventoryStock extends Model
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     */
+
     public function item()
     {
         return $this->belongsTo(Inventory::class, 'inventory_id', 'id');
@@ -125,7 +126,7 @@ class InventoryStock extends Model
             }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -144,7 +145,7 @@ class InventoryStock extends Model
             }
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -156,7 +157,7 @@ class InventoryStock extends Model
     {
         $quantity = $this->getAttribute('quantity');
 
-        if($this->item && $this->item->metric) {
+        if ($this->item && $this->item->metric) {
             $metric = $this->item->metric->name;
         } else {
             $metric = null;

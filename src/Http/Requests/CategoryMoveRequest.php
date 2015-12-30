@@ -12,7 +12,7 @@ class CategoryMoveRequest extends Request
     public function rules()
     {
         return [
-            'parent_id' => 'required'
+            'parent_id' => 'required',
         ];
     }
 

@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Admin\Archive;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class InventoryController extends BaseController
 {
@@ -38,22 +38,21 @@ class InventoryController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(Inventory $inventory)
-        {
+        $transformer = function (Inventory $inventory) {
             return [
-                'id' => $inventory->id,
-                'sku' => ($inventory->sku_code ? $inventory->sku_code : '<em>None</em>'),
-                'name' => $inventory->name,
-                'category' => ($inventory->category ? $inventory->category->trail : null),
+                'id'            => $inventory->id,
+                'sku'           => ($inventory->sku_code ? $inventory->sku_code : '<em>None</em>'),
+                'name'          => $inventory->name,
+                'category'      => ($inventory->category ? $inventory->category->trail : null),
                 'current_stock' => $inventory->viewer()->lblCurrentStock(),
-                'created_at' => $inventory->created_at,
-                'view_url' => route('maintenance.admin.archive.inventory.show', [$inventory->id]),
+                'created_at'    => $inventory->created_at,
+                'view_url'      => route('maintenance.admin.archive.inventory.show', [$inventory->id]),
             ];
         };
 

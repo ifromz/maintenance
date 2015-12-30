@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\Asset\Request;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -54,7 +54,7 @@ class Controller extends BaseController
     {
         $asset = $this->asset->create($request);
 
-        if($asset) {
+        if ($asset) {
             $link = link_to_route('maintenance.assets.show', $asset->name, [$asset->id]);
 
             $message = "Successfully created asset: $link";
@@ -107,7 +107,7 @@ class Controller extends BaseController
     {
         $asset = $this->asset->update($request, $id);
 
-        if($asset) {
+        if ($asset) {
             $message = 'Successfully updated asset.';
 
             return redirect()->route('maintenance.assets.show', [$asset->id])->withSuccess($message);
@@ -129,7 +129,7 @@ class Controller extends BaseController
     {
         $asset = $this->asset->model()->findOrFail($id);
 
-        if($asset->delete()) {
+        if ($asset->delete()) {
             $message = 'Successfully deleted asset.';
 
             return redirect()->route('maintenance.assets.index')->withSuccess($message);

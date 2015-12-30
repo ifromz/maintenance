@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services\Meter;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\MeterReading;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class ReadingService extends BaseModelService
 {
@@ -16,7 +16,7 @@ class ReadingService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param MeterReading $meterReading
+     * @param MeterReading  $meterReading
      * @param SentryService $sentry
      */
     public function __construct(MeterReading $meterReading, SentryService $sentry)
@@ -39,10 +39,10 @@ class ReadingService extends BaseModelService
 
         try {
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
+                'user_id'  => $this->sentry->getCurrentUserId(),
                 'meter_id' => $this->getInput('meter_id'),
-                'reading' => $this->getInput('reading'),
-                'comment' => $this->getInput('comment'),
+                'reading'  => $this->getInput('reading'),
+                'comment'  => $this->getInput('comment'),
             ];
 
             $record = $this->model->create($insert);

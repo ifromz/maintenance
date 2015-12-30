@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Services\Inventory;
 
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\InventoryStockMovement;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class StockMovementService extends BaseModelService
 {
@@ -63,12 +63,12 @@ class StockMovementService extends BaseModelService
 
         try {
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
+                'user_id'  => $this->sentry->getCurrentUserId(),
                 'stock_id' => $this->getInput('stock_id'),
-                'before' => $this->getInput('before'),
-                'after' => $this->getInput('after'),
-                'cost' => $this->getInput('cost'),
-                'reason' => $this->getInput('reason', 'Stock Adjustment', true),
+                'before'   => $this->getInput('before'),
+                'after'    => $this->getInput('after'),
+                'cost'     => $this->getInput('cost'),
+                'reason'   => $this->getInput('reason', 'Stock Adjustment', true),
             ];
 
             /*

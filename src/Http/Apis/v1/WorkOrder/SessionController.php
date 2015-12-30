@@ -2,9 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
-use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
-
 use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 
 class SessionController extends BaseController
 {
@@ -42,15 +41,14 @@ class SessionController extends BaseController
             'sort'      => 'in',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function($session)
-        {
+        $transformer = function ($session) {
             return [
                 'user' => $session->user->full_name,
-                'in' => $session->in,
-                'out' => $session->viewer()->lblOut(),
+                'in'   => $session->in,
+                'out'  => $session->viewer()->lblOut(),
             ];
         };
 

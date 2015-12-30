@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\PriorityRequest;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Priority;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class PriorityRepository extends BaseRepository
 {
@@ -45,7 +45,7 @@ class PriorityRepository extends BaseRepository
         $priority->name = $request->input('name');
         $priority->color = $request->input('color');
 
-        if($priority->save()) {
+        if ($priority->save()) {
             return $priority;
         }
 
@@ -60,11 +60,11 @@ class PriorityRepository extends BaseRepository
     public function createDefaultRequested()
     {
         $priority = $this->model()->firstOrCreate([
-            'name' => 'Requested',
+            'name'  => 'Requested',
             'color' => 'default',
         ]);
 
-        if($priority) {
+        if ($priority) {
             return $priority;
         }
 
@@ -75,7 +75,7 @@ class PriorityRepository extends BaseRepository
      * Updates a status.
      *
      * @param PriorityRequest $request
-     * @param int|string    $id
+     * @param int|string      $id
      *
      * @return bool|Priority
      */
@@ -83,11 +83,11 @@ class PriorityRepository extends BaseRepository
     {
         $priority = $this->model()->findOrFail($id);
 
-        if($priority) {
+        if ($priority) {
             $priority->name = $request->input('name', $priority->name);
             $priority->color = $request->input('color', $priority->color);
 
-            if($priority->save()) {
+            if ($priority->save()) {
                 return $priority;
             }
         }

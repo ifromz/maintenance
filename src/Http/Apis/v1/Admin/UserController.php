@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Admin;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\User;
 use Stevebauman\Maintenance\Repositories\UserRepository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class UserController extends BaseController
 {
@@ -39,21 +39,20 @@ class UserController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(User $user)
-        {
+        $transformer = function (User $user) {
             return [
-                'id' => $user->id,
+                'id'         => $user->id,
                 'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'email' => $user->email,
+                'last_name'  => $user->last_name,
+                'email'      => $user->email,
                 'created_at' => $user->created_at->format('Y-m-d g:i a'),
-                'view_url' => route('maintenance.admin.users.show', [$user->id]),
+                'view_url'   => route('maintenance.admin.users.show', [$user->id]),
             ];
         };
 

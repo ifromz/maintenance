@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
 use Stevebauman\CoreHelper\Services\Service;
 
 class LogService extends Service

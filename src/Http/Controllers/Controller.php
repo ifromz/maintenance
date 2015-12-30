@@ -2,48 +2,48 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
-use Stevebauman\Purify\Facades\Purify;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
+use Stevebauman\Purify\Facades\Purify;
 
 abstract class Controller extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
 
     /**
-     * Stores the URL to redirect to
+     * Stores the URL to redirect to.
      *
      * @var string
      */
     protected $redirect;
 
     /**
-     * Stores the message to display to the user
+     * Stores the message to display to the user.
      *
      * @var string
      */
     protected $message;
 
     /**
-     * Stores the type of message that is displayed to the user
+     * Stores the type of message that is displayed to the user.
      *
      * @var string
      */
     protected $messageType;
 
     /**
-     * Holds validator errors, either array or json string
+     * Holds validator errors, either array or json string.
      *
      * @var array|string
      */
     protected $errors;
 
     /**
-     * Asks the request if it's ajax or not
+     * Asks the request if it's ajax or not.
      *
      * @return bool
      */
@@ -54,7 +54,7 @@ abstract class Controller extends BaseController
 
     /**
      * Returns the proper response to user. If the request was made from ajax, then an json response is sent.
-     * If a request is a typical request without ajax, a user is sent a redirect with session flash messages
+     * If a request is a typical request without ajax, a user is sent a redirect with session flash messages.
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -67,9 +67,9 @@ abstract class Controller extends BaseController
                 ]);
             } else {
                 return $this->responseJson([
-                    'message' => $this->message,
+                    'message'     => $this->message,
                     'messageType' => $this->messageType,
-                    'redirect' => $this->redirect
+                    'redirect'    => $this->redirect,
                 ]);
             }
         } else {
@@ -87,7 +87,7 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * Returns a JSON response to the client
+     * Returns a JSON response to the client.
      *
      * @param array $data
      *
@@ -103,11 +103,11 @@ abstract class Controller extends BaseController
      * ran through the purifier before it is returned.
      *
      * @param string $name
-     * @param boolean $clean
+     * @param bool   $clean
      *
      * @return mixed
      */
-    protected function input($name, $clean = FALSE)
+    protected function input($name, $clean = false)
     {
         if ($this->inputHas($name)) {
             if ($clean) {
@@ -117,7 +117,7 @@ abstract class Controller extends BaseController
             }
         }
 
-        return NULL;
+        return null;
     }
 
     /**
@@ -129,7 +129,7 @@ abstract class Controller extends BaseController
      */
     protected function inputFile($name)
     {
-        if($this->inputHasFile($name)) {
+        if ($this->inputHasFile($name)) {
             return Input::file($name);
         }
 
@@ -137,7 +137,7 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * Returns all input
+     * Returns all input.
      *
      * @return array
      */
@@ -184,5 +184,4 @@ abstract class Controller extends BaseController
     {
         return Purify::clean($input);
     }
-
 }

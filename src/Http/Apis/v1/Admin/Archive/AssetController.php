@@ -23,7 +23,5 @@ class AssetController extends AssetRepository
 
     public function grid()
     {
-        
     }
 }
-

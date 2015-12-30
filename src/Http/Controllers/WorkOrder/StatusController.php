@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\StatusRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\StatusRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class StatusController extends BaseController
 {
@@ -53,7 +53,7 @@ class StatusController extends BaseController
     {
         $status = $this->status->create($request);
 
-        if($status) {
+        if ($status) {
             $message = 'Successfully created status.';
 
             return redirect()->route('maintenance.work-orders.statuses.index')->withSuccess($message);
@@ -91,7 +91,7 @@ class StatusController extends BaseController
     {
         $status = $this->status->update($request, $id);
 
-        if($status) {
+        if ($status) {
             $message = 'Successfully updated status.';
 
             return redirect()->route('maintenance.work-orders.statuses.index')->withSuccess($message);
@@ -111,7 +111,7 @@ class StatusController extends BaseController
      */
     public function destroy($id)
     {
-        if($this->status->delete($id)) {
+        if ($this->status->delete($id)) {
             $message = 'Successfully deleted status.';
 
             return redirect()->route('maintenance.work-orders.statuses.index')->withSuccess($message);

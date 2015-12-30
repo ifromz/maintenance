@@ -3,8 +3,8 @@
 namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
 use Illuminate\Support\Facades\App;
-use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\EventableController;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 
 class EventController extends EventableController
 {

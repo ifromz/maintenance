@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services\Inventory;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class InventoryService extends BaseModelService
 {
@@ -21,8 +21,8 @@ class InventoryService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param Inventory                  $inventory
-     * @param SentryService              $sentry
+     * @param Inventory     $inventory
+     * @param SentryService $sentry
      */
     public function __construct(Inventory $inventory, SentryService $sentry)
     {
@@ -74,9 +74,9 @@ class InventoryService extends BaseModelService
             // Set insert data
             $insert = [
                 'category_id' => $this->getInput('category_id'),
-                'user_id' => $this->sentry->getCurrentUserId(),
-                'metric_id' => $this->getInput('metric'),
-                'name' => $this->getInput('name', null, true),
+                'user_id'     => $this->sentry->getCurrentUserId(),
+                'metric_id'   => $this->getInput('metric'),
+                'name'        => $this->getInput('name', null, true),
                 'description' => $this->getInput('description', null, true),
             ];
 
@@ -142,8 +142,8 @@ class InventoryService extends BaseModelService
             // Set update data
             $insert = [
                 'category_id' => $this->getInput('category_id', $record->category_id),
-                'metric_id' => $this->getInput('metric'),
-                'name' => $this->getInput('name', $record->name, true),
+                'metric_id'   => $this->getInput('metric'),
+                'name'        => $this->getInput('name', $record->name, true),
                 'description' => $this->getInput('description', $record->description, true),
             ];
 
@@ -171,6 +171,7 @@ class InventoryService extends BaseModelService
      *
      * @return bool
      */
+
     public function destroy($id)
     {
         $record = $this->find($id);

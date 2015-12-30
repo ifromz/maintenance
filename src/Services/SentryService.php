@@ -10,25 +10,24 @@ class SentryService
      * Authenticate with Sentry.
      *
      * @param array $credentials
-     * @param bool $remember
+     * @param bool  $remember
      *
      * @return array
      */
-    public function authenticate($credentials, $remember = NULL)
+    public function authenticate($credentials, $remember = null)
     {
         $response = [
             'authenticated' => false,
-            'message' => '',
+            'message'       => '',
         ];
 
-        if(Sentinel::authenticate($credentials, $remember)) {
+        if (Sentinel::authenticate($credentials, $remember)) {
             $response['authenticated'] = true;
 
             /*
              * Credentials were valid, return authenticated response
              */
             return $response;
-
         } else {
             $response['message'] = 'Username or Password is incorrect.';
         }
@@ -60,9 +59,9 @@ class SentryService
      * Create a user through Sentry and add the roles specified to the user
      * if they exist.
      *
-     * @param array  $data
-     * @param array  $roles
-     * @param bool   $activated
+     * @param array $data
+     * @param array $roles
+     * @param bool  $activated
      *
      * @return mixed
      */
@@ -70,11 +69,11 @@ class SentryService
     {
         $insert = [
             'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'username' => $data['username'],
-            'password' => $data['password'],
-            'activated' => $activated,
+            'last_name'  => $data['last_name'],
+            'email'      => $data['email'],
+            'username'   => $data['username'],
+            'password'   => $data['password'],
+            'activated'  => $activated,
         ];
 
         $user = Sentinel::create($insert);
@@ -96,10 +95,10 @@ class SentryService
     {
         $insert = [
             'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'username' => $data['username'],
-            'password' => $data['password'],
+            'last_name'  => $data['last_name'],
+            'email'      => $data['email'],
+            'username'   => $data['username'],
+            'password'   => $data['password'],
         ];
 
         $user = Sentinel::register($insert);
@@ -114,8 +113,8 @@ class SentryService
      *
      * If the permissions array is empty it will leave the current permissions intact.
      *
-     * @param string $name The name for the group to find or create
-     * @param array $permissions The permissions to assign the group.
+     * @param string $name        The name for the group to find or create
+     * @param array  $permissions The permissions to assign the group.
      *
      * @return \Stevebauman\Maintenance\Models\Role
      */
@@ -123,16 +122,15 @@ class SentryService
     {
         $role = Sentinel::findRoleByName($name);
 
-        if($role) {
-            if (! empty($permissions))
-            {
+        if ($role) {
+            if (!empty($permissions)) {
                 $role->permissions = $permissions;
                 $role->save();
             }
         } else {
             $role = Sentinel::getRoleRepository()->createModel()->create([
-                'name' => $name,
-                'slug' => $name,
+                'name'        => $name,
+                'slug'        => $name,
                 'permissions' => $permissions,
             ]);
         }
@@ -144,7 +142,7 @@ class SentryService
      * Update a user password through sentry.
      *
      * @param string|int $id
-     * @param string $password
+     * @param string     $password
      *
      * @return bool
      */
@@ -154,7 +152,9 @@ class SentryService
 
         $user->password = $password;
 
-        if ($user->save()) return true;
+        if ($user->save()) {
+            return true;
+        }
 
         return false;
     }
@@ -163,7 +163,7 @@ class SentryService
      * Updates a user through Sentry.
      *
      * @param string|int $id
-     * @param array $data
+     * @param array      $data
      *
      * @return bool|mixed
      */
@@ -181,19 +181,17 @@ class SentryService
         $sentryPermissions = [];
 
         // Parse the users submitted permissions
-        if(count($permissions) > 0) {
-            foreach($permissions as $permission) {
+        if (count($permissions) > 0) {
+            foreach ($permissions as $permission) {
                 $sentryPermissions[$permission] = 1;
             }
 
             $user->permissions = $sentryPermissions;
         }
 
-        if($user->save())
-        {
+        if ($user->save()) {
             return $user;
         }
-
 
         return false;
     }
@@ -229,17 +227,17 @@ class SentryService
     {
         $user = Sentinel::getUser();
 
-        if($user) {
+        if ($user) {
             $fullName = sprintf('%s %s', $user->first_name, $user->last_name);
 
             return $fullName;
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Returns current authenticated user ID
+     * Returns current authenticated user ID.
      *
      * @return null|int
      */
@@ -247,30 +245,28 @@ class SentryService
     {
         $user = $this->getCurrentUser();
 
-        if($user) {
+        if ($user) {
             return $user->id;
         }
 
-        return null;
+        return;
     }
 
     /**
      * Adds the array of roles to the specified user.
      *
-     * @param \Stevebauman\Maintenance\Models\User  $user
-     * @param array                                 $roles
+     * @param \Stevebauman\Maintenance\Models\User $user
+     * @param array                                $roles
      *
      * @return bool
      */
     private function addRolesToUser($user, array $roles = [])
     {
-        if (count($roles) > 0)
-        {
-            foreach ($roles as $role)
-            {
+        if (count($roles) > 0) {
+            foreach ($roles as $role) {
                 $role = Sentinel::findRoleByName($role);
 
-                if($role) {
+                if ($role) {
                     $user->addRole($role);
                 }
             }

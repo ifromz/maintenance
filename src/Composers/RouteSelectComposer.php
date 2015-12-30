@@ -2,9 +2,8 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Stevebauman\Maintenance\Services\ConfigService;
-use Illuminate\Support\Facades\Route;
 use Illuminate\View\View;
+use Stevebauman\Maintenance\Services\ConfigService;
 
 class RouteSelectComposer
 {
@@ -32,7 +31,7 @@ class RouteSelectComposer
 
         $routes = $this->config->get('permissions.administrators');
 
-        foreach($routes as $route => $bool) {
+        foreach ($routes as $route => $bool) {
             $allRoutes[$route] = $route;
         }
 

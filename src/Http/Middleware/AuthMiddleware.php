@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Middleware;
 
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Closure;
 use Illuminate\Http\Request;
-use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class AuthMiddleware
 {
@@ -18,7 +18,7 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Sentinel::check()) {
+        if (Sentinel::check()) {
             return $next($request);
         } else {
             $message = "You're not logged in.";

@@ -15,10 +15,10 @@ class Request extends BaseRequest
     {
         return [
             'location_id' => 'integer|min:1|stock_location',
-            'location' => 'required',
-            'quantity' => 'required|positive',
-            'reason' => 'max:250',
-            'cost' => 'positive',
+            'location'    => 'required',
+            'quantity'    => 'required|positive',
+            'reason'      => 'max:250',
+            'cost'        => 'positive',
         ];
     }
 

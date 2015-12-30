@@ -3,11 +3,11 @@
 namespace Stevebauman\Maintenance\Repositories\WorkRequest;
 
 use Stevebauman\Maintenance\Http\Requests\WorkRequest\Request;
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Models\WorkRequest;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class Repository extends BaseRepository
 {
@@ -81,10 +81,10 @@ class Repository extends BaseRepository
         $workRequest->best_time = $request->input('best_time');
         $workRequest->description = $request->clean($request->input('description'));
 
-        if($workRequest->save()) {
+        if ($workRequest->save()) {
             $autoGenerate = $this->config->setPrefix('maintenance')->get('rules.work-orders.auto_generate_from_request', true);
 
-            if($autoGenerate) {
+            if ($autoGenerate) {
                 $this->workOrder->createFromWorkRequest($workRequest);
             }
 
@@ -97,7 +97,7 @@ class Repository extends BaseRepository
     /**
      * Updates a work request.
      *
-     * @param Request $request
+     * @param Request    $request
      * @param int|string $id
      *
      * @return bool|WorkRequest
@@ -110,7 +110,7 @@ class Repository extends BaseRepository
         $workRequest->best_time = $request->input('best_time', $workRequest->best_time);
         $workRequest->description = $request->clean($request->input('description', $workRequest->description));
 
-        if($workRequest->save()) {
+        if ($workRequest->save()) {
             return $workRequest;
         }
 

@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\Archive;
 
-use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 
 class WorkOrderController extends Controller
 {
@@ -53,11 +53,11 @@ class WorkOrderController extends Controller
      */
     public function destroy($id)
     {
-        if($this->workOrder->deleteArchived($id)) {
+        if ($this->workOrder->deleteArchived($id)) {
             $message = 'Successfully deleted work order.';
 
             return redirect()->route('maintenance.admin.archive.work-orders.index')->withSuccess($message);
-        } else  {
+        } else {
             $message = 'There was an issue deleting this work order. Please try again.';
 
             return redirect()->route('maintenance.admin.archive.work-orders.show', [$id])->withErrors($message);

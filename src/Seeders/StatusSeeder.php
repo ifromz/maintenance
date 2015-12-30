@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Repositories\WorkOrder\StatusRepository;
 use Illuminate\Database\Seeder;
+use Stevebauman\Maintenance\Repositories\WorkOrder\StatusRepository;
+use Stevebauman\Maintenance\Services\ConfigService;
 
 class StatusSeeder extends Seeder
 {
@@ -22,7 +22,7 @@ class StatusSeeder extends Seeder
      * Constructor.
      *
      * @param StatusRepository $status
-     * @param ConfigService $config
+     * @param ConfigService    $config
      */
     public function __construct(StatusRepository $status, ConfigService $config)
     {

@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Viewers\GroupViewer;
-use Stevebauman\EloquentTable\TableTrait;
-use Stevebauman\Viewer\Traits\ViewableTrait;
 use Cartalyst\Sentinel\Roles\EloquentRole;
+use Stevebauman\EloquentTable\TableTrait;
+use Stevebauman\Maintenance\Viewers\GroupViewer;
+use Stevebauman\Viewer\Traits\ViewableTrait;
 
 class Role extends EloquentRole
 {

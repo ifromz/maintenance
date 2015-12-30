@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\User;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 use Stevebauman\Maintenance\Http\Requests\Admin\User\CreateRequest;
 use Stevebauman\Maintenance\Http\Requests\Admin\User\UpdateRequest;
 use Stevebauman\Maintenance\Repositories\UserRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -55,7 +55,7 @@ class UserController extends Controller
     {
         $user = $this->user->create($request);
 
-        if($user) {
+        if ($user) {
             $message = 'Successfully created user.';
 
             return redirect()->route('maintenance.admin.users.index')->withSuccess($message);
@@ -79,7 +79,7 @@ class UserController extends Controller
 
         return view('maintenance::admin.users.show', [
             'title' => 'Viewing User',
-            'user' => $user,
+            'user'  => $user,
         ]);
     }
 
@@ -96,7 +96,7 @@ class UserController extends Controller
 
         return view('maintenance::admin.users.edit', [
             'title' => 'Editing User',
-            'user' => $user,
+            'user'  => $user,
         ]);
     }
 
@@ -104,7 +104,7 @@ class UserController extends Controller
      * Processes updating the user with the specified ID.
      *
      * @param UpdateRequest $request
-     * @param int|string     $id
+     * @param int|string    $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -112,7 +112,7 @@ class UserController extends Controller
     {
         $user = $this->user->update($request, $id);
 
-        if($user) {
+        if ($user) {
             $message = 'Successfully updated user.';
 
             return redirect()->route('maintenance.admin.users.index')->withSuccess($message);

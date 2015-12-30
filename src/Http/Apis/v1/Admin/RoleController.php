@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Admin;
 
+use App\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Models\Role;
 use Stevebauman\Maintenance\Repositories\RoleRepository;
-use App\Http\Controllers\Controller as BaseController;
 
 class RoleController extends BaseController
 {
@@ -37,18 +37,17 @@ class RoleController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(Role $role)
-        {
+        $transformer = function (Role $role) {
             return [
-                'name' => $role->name,
+                'name'       => $role->name,
                 'created_at' => $role->created_at->format('Y-m-d g:i a'),
-                'view_url' => route('maintenance.admin.roles.show', [$role->id]),
+                'view_url'   => route('maintenance.admin.roles.show', [$role->id]),
             ];
         };
 

@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
-use Stevebauman\Maintenance\Repositories\WorkOrder\CategoryRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\CategoryController as BaseCategoryController;
+use Stevebauman\Maintenance\Repositories\WorkOrder\CategoryRepository;
 
 class CategoryController extends BaseCategoryController
 {

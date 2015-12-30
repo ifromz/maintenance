@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Repositories\Inventory\Repository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository;
 
 class SkuController extends BaseController
 {
@@ -31,7 +31,7 @@ class SkuController extends BaseController
     {
         $item = $this->inventory->regenerateSku($id);
 
-        if($item) {
+        if ($item) {
             $message = 'Successfully regenerated SKU.';
 
             return redirect()->route('maintenance.inventory.show', [$item->id])->withSuccess($message);

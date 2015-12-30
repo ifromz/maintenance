@@ -4,8 +4,8 @@ namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Carbon\Carbon;
 use Stevebauman\Maintenance\Models\WorkOrderSession;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class SessionService extends BaseModelService
 {
@@ -27,9 +27,9 @@ class SessionService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param WorkOrderSession                  $session
-     * @param WorkOrderService                  $workOrder
-     * @param SentryService                     $sentry
+     * @param WorkOrderSession $session
+     * @param WorkOrderService $workOrder
+     * @param SentryService    $sentry
      */
     public function __construct(
         WorkOrderSession $session,
@@ -40,7 +40,6 @@ class SessionService extends BaseModelService
         $this->workOrder = $workOrder;
         $this->sentry = $sentry;
     }
-
 
     /**
      * Returns the sessions for the
@@ -85,9 +84,9 @@ class SessionService extends BaseModelService
             }
 
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
+                'user_id'       => $this->sentry->getCurrentUserId(),
                 'work_order_id' => $workOrder->id,
-                'in' => $now,
+                'in'            => $now,
             ];
 
             $record = $this->model->create($insert);
@@ -118,7 +117,7 @@ class SessionService extends BaseModelService
         $record = $this->find($id);
 
         // Validate that the current user is the session holder
-        if($record->user_id === $this->sentry->getCurrentUserId()) {
+        if ($record->user_id === $this->sentry->getCurrentUserId()) {
             try {
                 $insert = [
                     'out' => Carbon::now()->toDateTimeString(),

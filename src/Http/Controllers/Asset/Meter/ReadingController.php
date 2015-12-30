@@ -2,12 +2,12 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset\Meter;
 
-use Stevebauman\Maintenance\Validators\Meter\ReadingValidator;
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\Meter\ReadingService;
-use Stevebauman\Maintenance\Services\Meter\MeterService;
-use Stevebauman\Maintenance\Services\Asset\AssetService;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Services\Asset\AssetService;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\Meter\MeterService;
+use Stevebauman\Maintenance\Services\Meter\ReadingService;
+use Stevebauman\Maintenance\Validators\Meter\ReadingValidator;
 
 class ReadingController extends BaseController
 {
@@ -37,11 +37,11 @@ class ReadingController extends BaseController
     protected $meterReadingValidator;
 
     /**
-     * @param AssetService          $asset
-     * @param MeterService          $meter
-     * @param ReadingService        $meterReading
-     * @param ConfigService         $config
-     * @param ReadingValidator      $meterReadingValidator
+     * @param AssetService     $asset
+     * @param MeterService     $meter
+     * @param ReadingService   $meterReading
+     * @param ConfigService    $config
+     * @param ReadingValidator $meterReadingValidator
      */
     public function __construct(
             AssetService $asset,

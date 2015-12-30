@@ -15,10 +15,10 @@ class UpdateRequest extends BaseRequest
     {
         return [
             'first_name' => 'required|min:3',
-            'last_name' => 'required|min:3',
-            'username' => 'required|min:5',
-            'email' => 'required|min:5|email',
-            'activated' => 'integer|boolean',
+            'last_name'  => 'required|min:3',
+            'username'   => 'required|min:5',
+            'email'      => 'required|min:5|email',
+            'activated'  => 'integer|boolean',
         ];
     }
 

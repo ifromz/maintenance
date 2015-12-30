@@ -3,8 +3,8 @@
 namespace Stevebauman\Maintenance\Composers;
 
 use Illuminate\View\View;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\NotificationService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class MainNotificationComposer
 {

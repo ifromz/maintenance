@@ -14,8 +14,8 @@ class Request extends BaseRequest
     public function rules()
     {
         return [
-            'metric' => 'required|integer',
-            'name' => 'required|max:250',
+            'metric'  => 'required|integer',
+            'name'    => 'required|max:250',
             'reading' => 'positive',
             'comment' => 'max:250',
         ];

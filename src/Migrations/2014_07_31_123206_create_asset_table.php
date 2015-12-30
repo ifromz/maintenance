@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateAssetTable extends Migration
 {
@@ -10,8 +10,7 @@ class CreateAssetTable extends Migration
      */
     public function up()
     {
-        Schema::create('assets', function (Blueprint $table)
-        {
+        Schema::create('assets', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->softDeletes();
@@ -45,8 +44,7 @@ class CreateAssetTable extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('asset_meters', function (Blueprint $table)
-        {
+        Schema::create('asset_meters', function (Blueprint $table) {
             $table->integer('asset_id')->unsigned();
             $table->integer('meter_id')->unsigned();
 

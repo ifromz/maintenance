@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Services\Event;
 
-use Stevebauman\Maintenance\Repositories\LocationRepository;
 use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Event;
+use Stevebauman\Maintenance\Repositories\LocationRepository;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 /**
  * Handles interactions between the Event Model and the Event Api Service.
@@ -36,10 +36,10 @@ class EventService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param Event                  $model
-     * @param GoogleEventService     $google
-     * @param SentryService          $sentry
-     * @param LocationRepository     $location
+     * @param Event              $model
+     * @param GoogleEventService $google
+     * @param SentryService      $sentry
+     * @param LocationRepository $location
      */
     public function __construct(
         Event $model,
@@ -149,9 +149,9 @@ class EventService extends BaseModelService
         $record = $this->where('api_id', $event->parent_id)->first();
 
         $insert = [
-            'api_id' => $event->id,
+            'api_id'    => $event->id,
             'parent_id' => $record->id,
-            'user_id' => $record->user_id,
+            'user_id'   => $record->user_id,
         ];
 
         /*
@@ -236,9 +236,9 @@ class EventService extends BaseModelService
 
             // Create the main event
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
+                'user_id'     => $this->sentry->getCurrentUserId(),
                 'location_id' => $location_id,
-                'api_id' => $event->id,
+                'api_id'      => $event->id,
             ];
 
             $this->model->create($insert);
@@ -335,12 +335,12 @@ class EventService extends BaseModelService
              * Add the event into a FullCalendar compatible array
              */
             $arrayEvents[] = [
-                'id' => $event->id,
-                'title' => $event->title,
+                'id'          => $event->id,
+                'title'       => $event->title,
                 'description' => $event->location,
-                'start' => $startDate->format('Y-m-d H:i:s'),
-                'end' => $endDate->format('Y-m-d H:i:s'),
-                'allDay' => $event->all_day,
+                'start'       => $startDate->format('Y-m-d H:i:s'),
+                'end'         => $endDate->format('Y-m-d H:i:s'),
+                'allDay'      => $event->all_day,
             ];
         }
 

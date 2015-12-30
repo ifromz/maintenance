@@ -25,15 +25,15 @@ trait HasCategoryTrait
      */
     public function getRevisedCategoryAttribute($id)
     {
-        if($id) {
+        if ($id) {
             $category = $this->category()->find($id);
 
-            if($category) {
+            if ($category) {
                 return $category->trail;
             }
         }
 
-        return null;
+        return;
     }
 
     /**

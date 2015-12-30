@@ -20,7 +20,7 @@ class StockService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param InventoryStock $inventoryStock
+     * @param InventoryStock       $inventoryStock
      * @param StockMovementService $inventoryStockMovement
      */
     public function __construct(
@@ -47,8 +47,8 @@ class StockService extends BaseModelService
              */
             $insert = [
                 'inventory_id' => $this->getInput('inventory_id'),
-                'location_id' => $this->getInput('location_id'),
-                'quantity' => $this->getInput('quantity'),
+                'location_id'  => $this->getInput('location_id'),
+                'quantity'     => $this->getInput('quantity'),
             ];
 
             /*

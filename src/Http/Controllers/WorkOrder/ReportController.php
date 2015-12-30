@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\ReportRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\ReportRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class ReportController extends BaseController
 {
@@ -60,7 +60,7 @@ class ReportController extends BaseController
 
         $report = $this->report->create($request, $workOrder->id);
 
-        if($report) {
+        if ($report) {
             // Complete the work order.
             $workOrder->complete($request);
 

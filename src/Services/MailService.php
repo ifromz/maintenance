@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Swift_TransportException;
 use Illuminate\Mail\Mailer;
 use Stevebauman\CoreHelper\Services\Service;
+use Swift_TransportException;
 
 class MailService extends Service
 {

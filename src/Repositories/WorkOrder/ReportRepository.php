@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\ReportRequest;
 use Stevebauman\Maintenance\Models\WorkOrderReport;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class ReportRepository extends BaseRepository
 {
@@ -48,7 +48,7 @@ class ReportRepository extends BaseRepository
         $report->work_order_id = $workOrderId;
         $report->description = $request->clean($request->input('description'));
 
-        if($report->save()) {
+        if ($report->save()) {
             return $report;
         }
 
@@ -59,7 +59,7 @@ class ReportRepository extends BaseRepository
      * Updates a work order report.
      *
      * @param ReportRequest $request
-     * @param int|string $reportId
+     * @param int|string    $reportId
      *
      * @return bool|\Illuminate\Database\Eloquent\Model|null
      */
@@ -67,10 +67,10 @@ class ReportRepository extends BaseRepository
     {
         $report = $this->find($reportId);
 
-        if($report) {
+        if ($report) {
             $report->description = $request->clean($request->input('description', $report->description));
 
-            if($report->save()) {
+            if ($report->save()) {
                 return $report;
             }
         }

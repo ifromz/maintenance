@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\AttachmentRequest;
 use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\AttachmentRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class AttachmentController extends BaseController
 {
@@ -23,7 +23,7 @@ class AttachmentController extends BaseController
     /**
      * Constructor.
      *
-     * @param WorkOrderRepository $workOrder
+     * @param WorkOrderRepository  $workOrder
      * @param AttachmentRepository $attachment
      */
     public function __construct(WorkOrderRepository $workOrder, AttachmentRepository $attachment)
@@ -74,7 +74,7 @@ class AttachmentController extends BaseController
 
         $attachments = $this->attachment->upload($request, $workOrder, $workOrder->attachments());
 
-        if($attachments) {
+        if ($attachments) {
             $message = 'Successfully uploaded files.';
 
             return redirect()->route('maintenance.work-orders.attachments.index', [$workOrder->id])->withSuccess($message);
@@ -99,7 +99,7 @@ class AttachmentController extends BaseController
 
         $attachment = $workOrder->attachments()->find($attachmentId);
 
-        if($attachment) {
+        if ($attachment) {
             return view('maintenance::work-orders.attachments.show', compact('workOrder', 'attachment'));
         }
 
@@ -120,7 +120,7 @@ class AttachmentController extends BaseController
 
         $attachment = $workOrder->attachments()->find($attachmentId);
 
-        if($attachment) {
+        if ($attachment) {
             return view('maintenance::work-orders.attachments.edit', compact('workOrder', 'attachment'));
         }
 
@@ -142,7 +142,7 @@ class AttachmentController extends BaseController
 
         $attachment = $this->attachment->update($request, $workOrder->attachments(), $attachmentId);
 
-        if($attachment) {
+        if ($attachment) {
             $message = 'Successfully updated attachment.';
 
             return redirect()->route('maintenance.work-orders.attachments.show', [$workOrder->id, $attachment->id])->withSuccess($message);
@@ -167,7 +167,7 @@ class AttachmentController extends BaseController
 
         $attachment = $workOrder->attachments()->find($attachmentId);
 
-        if($attachment && $attachment->delete()) {
+        if ($attachment && $attachment->delete()) {
             $message = 'Successfully deleted attachment.';
 
             return redirect()->route('maintenance.work-orders.attachments.index', [$workOrder->id])->withSuccess($message);
@@ -192,7 +192,7 @@ class AttachmentController extends BaseController
 
         $attachment = $workOrder->attachments()->find($attachmentId);
 
-        if($attachment) {
+        if ($attachment) {
             return response()->download($attachment->download_path);
         }
 

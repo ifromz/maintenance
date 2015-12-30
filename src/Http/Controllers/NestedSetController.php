@@ -35,7 +35,7 @@ abstract class NestedSetController extends Controller
     public function index()
     {
         return view('maintenance::categories.index', [
-            'routes' => $this->routes,
+            'routes'   => $this->routes,
             'resource' => $this->resource,
         ]);
     }
@@ -58,14 +58,14 @@ abstract class NestedSetController extends Controller
                 return view('maintenance::categories.nodes.create', [
                     'category' => $category,
                     'resource' => $this->resource,
-                    'routes' => $this->routes,
+                    'routes'   => $this->routes,
                 ]);
             }
         }
 
         return view('maintenance::categories.create', [
             'resource' => $this->resource,
-            'routes' => $this->routes,
+            'routes'   => $this->routes,
         ]);
     }
 
@@ -82,7 +82,7 @@ abstract class NestedSetController extends Controller
     {
         $category = $this->repository->create($request, $id);
 
-        if($category) {
+        if ($category) {
             $message = "Successfully created $this->resource";
 
             return redirect()->route($this->routes['index'])->withSuccess($message);
@@ -107,7 +107,7 @@ abstract class NestedSetController extends Controller
         return view('maintenance::categories.edit', [
             'category' => $category,
             'resource' => $this->resource,
-            'routes' => $this->routes,
+            'routes'   => $this->routes,
         ]);
     }
 
@@ -123,7 +123,7 @@ abstract class NestedSetController extends Controller
     {
         $category = $this->repository->update($request, $id);
 
-        if($category) {
+        if ($category) {
             $message = "Successfully updated $this->resource";
 
             return redirect()->route($this->routes['index'])->withSuccess($message);
@@ -145,7 +145,7 @@ abstract class NestedSetController extends Controller
     {
         $record = $this->repository->find($id);
 
-        if($record->delete()) {
+        if ($record->delete()) {
             $message = "Successfully deleted $this->resource.";
 
             return redirect()->route($this->routes['index'])->withSuccess($message);

@@ -3,15 +3,15 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Stevebauman\Maintenance\Viewers\Inventory\InventoryViewer;
 use Stevebauman\Inventory\Traits\InventoryTrait;
 use Stevebauman\Inventory\Traits\InventoryVariantTrait;
-use Stevebauman\Maintenance\Traits\Scopes\HasScopeArchivedTrait;
-use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
-use Stevebauman\Maintenance\Traits\Relationships\HasNotesTrait;
-use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasNotesTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Traits\Scopes\HasScopeArchivedTrait;
+use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
+use Stevebauman\Maintenance\Viewers\Inventory\InventoryViewer;
 
 class Inventory extends Model
 {
@@ -66,7 +66,7 @@ class Inventory extends Model
      * @var array
      */
     protected $revisionColumnsMean = [
-        'metric_id' => 'revised_metric',
+        'metric_id'   => 'revised_metric',
         'category_id' => 'revised_category',
     ];
 
@@ -77,8 +77,8 @@ class Inventory extends Model
      */
     protected $revisionColumnsFormatted = [
         'category_id' => 'Category',
-        'metric_id' => 'Metric',
-        'name' => 'Name',
+        'metric_id'   => 'Metric',
+        'name'        => 'Name',
         'description' => 'Description',
     ];
 
@@ -172,6 +172,7 @@ class Inventory extends Model
 
         return $query;
     }
+
     /**
      * Filters query by the inputted inventory item stock quantity.
      *
@@ -255,7 +256,7 @@ class Inventory extends Model
             return $this->getMetricSymbol();
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -267,14 +268,14 @@ class Inventory extends Model
      */
     public function getRevisedMetricAttribute($id)
     {
-        if($id) {
+        if ($id) {
             $metric = $this->metric()->find($id);
 
-            if($metric) {
+            if ($metric) {
                 return $metric->name;
             }
         }
 
-        return null;
+        return;
     }
 }

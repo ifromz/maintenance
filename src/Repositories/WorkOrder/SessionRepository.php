@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
 use Carbon\Carbon;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\WorkOrderSession;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class SessionRepository extends BaseRepository
 {
@@ -59,7 +59,7 @@ class SessionRepository extends BaseRepository
     /**
      * Creates a new work order session.
      *
-     * @param int|string          $workOrderId
+     * @param int|string $workOrderId
      *
      * @return bool|WorkOrderSession
      */
@@ -67,7 +67,7 @@ class SessionRepository extends BaseRepository
     {
         $workOrder = $this->workOrder->find($workOrderId);
 
-        if($workOrder) {
+        if ($workOrder) {
             // Create a new date time string set to now
             $now = Carbon::now()->toDateTimeString();
 
@@ -87,7 +87,7 @@ class SessionRepository extends BaseRepository
                 $workOrder->update(['started_at' => $now]);
             }
 
-            if($session->save()) {
+            if ($session->save()) {
                 return $session;
             }
         }
@@ -106,17 +106,16 @@ class SessionRepository extends BaseRepository
     {
         $session = $this->workOrder->findLastUserSession($workOrderId);
 
-        if($session && $session->user_id === $this->sentry->getCurrentUserId()) {
+        if ($session && $session->user_id === $this->sentry->getCurrentUserId()) {
             $now = Carbon::now()->toDateTimeString();
 
             $session->out = $now;
 
-            if($session->save()) {
+            if ($session->save()) {
                 return $session;
             }
         }
 
         return false;
     }
-
 }

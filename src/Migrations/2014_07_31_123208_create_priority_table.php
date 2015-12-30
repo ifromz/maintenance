@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreatePriorityTable extends Migration
 {
@@ -10,8 +10,7 @@ class CreatePriorityTable extends Migration
      */
     public function up()
     {
-        Schema::create('priorities', function (Blueprint $table)
-        {
+        Schema::create('priorities', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned()->nullable();

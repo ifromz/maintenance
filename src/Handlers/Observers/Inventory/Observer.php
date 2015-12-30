@@ -16,8 +16,8 @@ class Observer
     {
         $stocks = $model->stocks()->get();
 
-        if(count($stocks) > 0) {
-            foreach($stocks as $stock) {
+        if (count($stocks) > 0) {
+            foreach ($stocks as $stock) {
                 $stock->delete();
             }
         }
@@ -33,8 +33,8 @@ class Observer
     {
         $stocks = $model->stocks()->onlyTrashed()->get();
 
-        if(count($stocks) > 0) {
-            foreach($stocks as $stock) {
+        if (count($stocks) > 0) {
+            foreach ($stocks as $stock) {
                 $stock->restore();
             }
         }

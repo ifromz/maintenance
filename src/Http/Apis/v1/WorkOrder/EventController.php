@@ -3,8 +3,8 @@
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
 use Illuminate\Support\Facades\App;
-use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\EventableController;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 
 class EventController extends EventableController
 {

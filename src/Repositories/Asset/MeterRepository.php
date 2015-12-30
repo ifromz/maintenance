@@ -4,9 +4,9 @@ namespace Stevebauman\Maintenance\Repositories\Asset;
 
 use Stevebauman\Maintenance\Http\Requests\Asset\MeterRequest;
 use Stevebauman\Maintenance\Models\Meter;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class MeterRepository extends BaseRepository
 {
@@ -58,7 +58,7 @@ class MeterRepository extends BaseRepository
         $meter->metric_id = $request->input('metric');
         $meter->name = $request->input('name');
 
-        if($meter->save()) {
+        if ($meter->save()) {
             $asset->meters()->attach($meter);
 
             $reading = [
@@ -90,11 +90,11 @@ class MeterRepository extends BaseRepository
 
         $meter = $asset->meters()->findOrFail($meterId);
 
-        if($meter) {
+        if ($meter) {
             $meter->metric_id = $request->input('metric');
             $meter->name = $request->input('name');
 
-            if($meter->save()) {
+            if ($meter->save()) {
                 $reading = [
                     'user_id' => $this->sentry->getCurrentUserId(),
                     'reading' => $request->input('reading'),

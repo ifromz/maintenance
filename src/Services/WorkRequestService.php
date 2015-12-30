@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services;
 
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Models\Update;
 use Stevebauman\Maintenance\Models\WorkRequest;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 
 class WorkRequestService extends BaseModelService
 {
@@ -140,7 +140,7 @@ class WorkRequestService extends BaseModelService
             if ($workRequest->updates()->save($update)) {
                 $this->fireEvent('maintenance.work-requests.updates.created', [
                     'workRequest' => $workRequest,
-                    'update' => $update,
+                    'update'      => $update,
                 ]);
 
                 $this->dbCommitTransaction();

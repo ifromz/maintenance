@@ -1,7 +1,7 @@
 <?php
 
-use DaveJamesMiller\Breadcrumbs\Generator;
 use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
+use DaveJamesMiller\Breadcrumbs\Generator;
 
 /*
  * Asset crumbs
@@ -116,7 +116,7 @@ Breadcrumbs::register('maintenance.assets.categories.create', function (Generato
 
 Breadcrumbs::register('maintenance.assets.categories.nodes.create', function (Generator $breadcrumbs, $categoryId) {
     $breadcrumbs->parent('maintenance.assets.categories.index');
-    $breadcrumbs->push("Sub-Category");
+    $breadcrumbs->push('Sub-Category');
     $breadcrumbs->push('Create', route('maintenance.assets.categories.nodes.create', [$categoryId]));
 });
 /*

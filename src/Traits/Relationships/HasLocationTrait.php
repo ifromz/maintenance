@@ -25,15 +25,15 @@ trait HasLocationTrait
      */
     public function getRevisedLocationAttribute($id)
     {
-        if($id) {
+        if ($id) {
             $location = $this->location()->find($id);
 
-            if($location) {
+            if ($location) {
                 return $location->trail;
             }
         }
 
-        return null;
+        return;
     }
 
     /**

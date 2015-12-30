@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\Asset;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -41,22 +41,21 @@ class Controller extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(Asset $asset)
-        {
+        $transformer = function (Asset $asset) {
             return [
-                'tag' => $asset->tag,
-                'name' => $asset->name,
-                'condition' => $asset->condition,
-                'location' => ($asset->location ? $asset->location->trail : '<em>None</em>'),
-                'category' => ($asset->category ? $asset->category->trail : '<em>None</em>'),
+                'tag'        => $asset->tag,
+                'name'       => $asset->name,
+                'condition'  => $asset->condition,
+                'location'   => ($asset->location ? $asset->location->trail : '<em>None</em>'),
+                'category'   => ($asset->category ? $asset->category->trail : '<em>None</em>'),
                 'created_at' => $asset->created_at,
-                'view_url' => route('maintenance.assets.show', [$asset->id]),
+                'view_url'   => route('maintenance.assets.show', [$asset->id]),
             ];
         };
 

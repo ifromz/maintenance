@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
-use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\Asset\ManualRequest;
+use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
 use Stevebauman\Maintenance\Repositories\Asset\ManualRepository;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class ManualController extends BaseController
 {
@@ -54,6 +54,7 @@ class ManualController extends BaseController
 
         return view('maintenance::assets.manuals.create', compact('asset'));
     }
+
     /**
      * Uploads manuals and attaches them to the specified asset.
      *
@@ -68,7 +69,7 @@ class ManualController extends BaseController
 
         $attachments = $this->manual->upload($request, $asset, $asset->manuals());
 
-        if($attachments) {
+        if ($attachments) {
             $message = 'Successfully uploaded files.';
 
             return redirect()->route('maintenance.assets.manuals.index', [$asset->id])->withSuccess($message);
@@ -93,7 +94,7 @@ class ManualController extends BaseController
 
         $manual = $asset->manuals()->find($manualId);
 
-        if($manual) {
+        if ($manual) {
             return view('maintenance::assets.manuals.show', compact('asset', 'manual'));
         }
 
@@ -114,7 +115,7 @@ class ManualController extends BaseController
 
         $manual = $asset->manuals()->find($manualId);
 
-        if($manual) {
+        if ($manual) {
             return view('maintenance::assets.manuals.edit', compact('asset', 'manual'));
         }
 
@@ -136,7 +137,7 @@ class ManualController extends BaseController
 
         $manual = $this->manual->update($request, $asset->manuals(), $manualId);
 
-        if($manual) {
+        if ($manual) {
             $message = 'Successfully updated manual.';
 
             return redirect()->route('maintenance.assets.manuals.show', [$asset->id, $manual->id])->withSuccess($message);
@@ -161,7 +162,7 @@ class ManualController extends BaseController
 
         $manual = $asset->manuals()->find($manualId);
 
-        if($manual && $manual->delete()) {
+        if ($manual && $manual->delete()) {
             $message = 'Successfully deleted manual.';
 
             return redirect()->route('maintenance.assets.manuals.index', [$asset->id])->withSuccess($message);
@@ -186,7 +187,7 @@ class ManualController extends BaseController
 
         $manual = $asset->manuals()->find($manualId);
 
-        if($manual) {
+        if ($manual) {
             return response()->download($manual->download_path);
         }
 

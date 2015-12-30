@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class WorkOrderController extends BaseController
 {
@@ -42,23 +42,22 @@ class WorkOrderController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle'  => 10,
         ];
 
-        $transformer = function(WorkOrder $workOrder) use ($assetId)
-        {
+        $transformer = function (WorkOrder $workOrder) use ($assetId) {
             return [
-                'id' => $workOrder->id,
+                'id'         => $workOrder->id,
                 'created_at' => $workOrder->created_at,
-                'subject' => $workOrder->subject,
+                'subject'    => $workOrder->subject,
                 'created_by' => $workOrder->user->full_name,
-                'status' => $workOrder->viewer()->lblStatus(),
-                'priority' =>  $workOrder->viewer()->lblPriority(),
-                'view_url' => route('maintenance.work-orders.show', [$workOrder->id]),
-                'detach_url' => route('maintenance.assets.work-orders.attach.remove', [$assetId, $workOrder->id])
+                'status'     => $workOrder->viewer()->lblStatus(),
+                'priority'   => $workOrder->viewer()->lblPriority(),
+                'view_url'   => route('maintenance.work-orders.show', [$workOrder->id]),
+                'detach_url' => route('maintenance.assets.work-orders.attach.remove', [$assetId, $workOrder->id]),
             ];
         };
 
@@ -84,22 +83,21 @@ class WorkOrderController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle'  => 10,
         ];
 
-        $transformer = function(WorkOrder $workOrder) use ($assetId)
-        {
+        $transformer = function (WorkOrder $workOrder) use ($assetId) {
             return [
-                'id' => $workOrder->id,
+                'id'         => $workOrder->id,
                 'created_at' => $workOrder->created_at,
-                'subject' => $workOrder->subject,
+                'subject'    => $workOrder->subject,
                 'created_by' => $workOrder->user->full_name,
-                'status' => $workOrder->viewer()->lblStatus(),
-                'priority' =>  $workOrder->viewer()->lblPriority(),
-                'view_url' => route('maintenance.work-orders.show', [$workOrder->id]),
+                'status'     => $workOrder->viewer()->lblStatus(),
+                'priority'   => $workOrder->viewer()->lblPriority(),
+                'view_url'   => route('maintenance.work-orders.show', [$workOrder->id]),
                 'attach_url' => route('maintenance.assets.work-orders.attach.store', [$assetId, $workOrder->id]),
             ];
         };

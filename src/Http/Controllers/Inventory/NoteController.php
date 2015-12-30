@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\NoteRequest;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class NoteController extends BaseController
 {
@@ -49,7 +49,7 @@ class NoteController extends BaseController
     {
         $note = $this->inventory->createNote($request, $id);
 
-        if($note) {
+        if ($note) {
             $message = 'Successfully created note.';
 
             return redirect()->route('maintenance.inventory.show', [$id])->withSuccess($message);
@@ -74,7 +74,7 @@ class NoteController extends BaseController
 
         $note = $item->notes()->find($noteId);
 
-        if($note) {
+        if ($note) {
             return view('maintenance::inventory.notes.show', compact('item', 'note'));
         }
 
@@ -95,7 +95,7 @@ class NoteController extends BaseController
 
         $note = $item->notes()->find($noteId);
 
-        if($note) {
+        if ($note) {
             return view('maintenance::inventory.notes.edit', compact('item', 'note'));
         }
 
@@ -115,7 +115,7 @@ class NoteController extends BaseController
     {
         $note = $this->inventory->updateNote($request, $id, $noteId);
 
-        if($note) {
+        if ($note) {
             $message = 'Successfully updated note.';
 
             return redirect()->route('maintenance.inventory.notes.show', [$id, $noteId])->withSuccess($message);
@@ -136,7 +136,7 @@ class NoteController extends BaseController
      */
     public function destroy($id, $noteId)
     {
-        if($this->inventory->deleteNote($id, $noteId)) {
+        if ($this->inventory->deleteNote($id, $noteId)) {
             $message = 'Successfully updated note.';
 
             return redirect()->route('maintenance.inventory.show', [$id])->withSuccess($message);

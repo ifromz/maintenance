@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Client\WorkRequest;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\WorkRequest\Request as WorkRequest;
 use Stevebauman\Maintenance\Repositories\Client\WorkRequestRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -54,7 +54,7 @@ class Controller extends BaseController
     {
         $workRequest = $this->workRequest->create($request);
 
-        if($workRequest) {
+        if ($workRequest) {
             $message = 'Successfully created work request. You will receive a response shortly.';
 
             return redirect()->route('maintenance.client.work-requests.index')->withSuccess($message);
@@ -105,7 +105,7 @@ class Controller extends BaseController
     {
         $workRequest = $this->workRequest->update($request, $id);
 
-        if($workRequest) {
+        if ($workRequest) {
             $message = 'Successfully updated work request.';
 
             return redirect()->route('maintenance.client.work-requests.show', [$workRequest->id])->withSuccess($message);
@@ -127,7 +127,7 @@ class Controller extends BaseController
     {
         $workRequest = $this->workRequest->model()->findOrFail($id);
 
-        if($workRequest->delete()) {
+        if ($workRequest->delete()) {
             $message = 'Successfully deleted work request.';
 
             return redirect()->route('maintenance.client.work-requests.index')->withSuccess($message);

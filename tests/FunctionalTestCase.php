@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Tests;
 
-use Stevebauman\Maintenance\MaintenanceServiceProvider;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Orchestra\Testbench\TestCase;
+use Stevebauman\Maintenance\MaintenanceServiceProvider;
 
 class FunctionalTestCase extends TestCase
 {
@@ -18,7 +18,7 @@ class FunctionalTestCase extends TestCase
         parent::setUp();
 
         // Share view errors to prevent undefined variable in views
-        View::share('errors', Session::get('errors', new \Illuminate\Support\MessageBag));
+        View::share('errors', Session::get('errors', new \Illuminate\Support\MessageBag()));
 
         $this->artisan('migrate', [
             '--database' => 'testbench',
@@ -27,7 +27,7 @@ class FunctionalTestCase extends TestCase
 
         $this->artisan('migrate', [
             '--database' => 'testbench',
-            '--path' => __DIR__.'/Migrations',
+            '--path'     => __DIR__.'/Migrations',
         ]);
     }
 
@@ -69,7 +69,6 @@ class FunctionalTestCase extends TestCase
 
     protected function setUserIsWorker()
     {
-
     }
 
     /**
@@ -86,14 +85,14 @@ class FunctionalTestCase extends TestCase
     {
         $insert = [
             'first_name' => $name,
-            'email' => $email,
-            'password' => str_random(10),
-            'activated' => $activated,
+            'email'      => $email,
+            'password'   => str_random(10),
+            'activated'  => $activated,
         ];
 
         $user = Sentinel::createUser($insert);
 
-        foreach($groups as $group) {
+        foreach ($groups as $group) {
             $user->addGroup($group);
         }
 
@@ -111,7 +110,7 @@ class FunctionalTestCase extends TestCase
     private function createSentryGroup($name, array $permissions = [])
     {
         $insert = [
-            'name' => $name,
+            'name'        => $name,
             'permissions' => $permissions,
         ];
 

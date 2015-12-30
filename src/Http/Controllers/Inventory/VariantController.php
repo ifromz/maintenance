@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\Inventory\VariantRequest;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class VariantController extends BaseController
 {
@@ -51,7 +51,7 @@ class VariantController extends BaseController
     {
         $variant = $this->inventory->createVariant($request, $inventoryId);
 
-        if($variant) {
+        if ($variant) {
             $message = sprintf('Successfully created item variant: %s', link_to_route('maintenance.inventory.show', 'Show', [$variant->id]));
 
             return redirect()->route('maintenance.inventory.show', [$inventoryId, '#tab-variants'])->withSuccess($message);

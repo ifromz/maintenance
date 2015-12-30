@@ -14,9 +14,9 @@ return [
      * Title of the backend Application
      */
     'title' => [
-        'main' => 'Maintenance',
+        'main'   => 'Maintenance',
         'client' => 'Maintenance',
-        'admin' => 'Admin Panel',
+        'admin'  => 'Admin Panel',
     ],
 
     /*
@@ -28,7 +28,7 @@ return [
     'calendars' => [
         'work-orders' => 'mycalendar@group.calendar.google.com',
         'inventories' => 'mycalendar@group.calendar.google.com',
-        'assets' => 'mycalendar@group.calendar.google.com',
+        'assets'      => 'mycalendar@group.calendar.google.com',
     ],
 
     /*

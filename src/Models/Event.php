@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Viewers\Event\EventViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\Event\EventViewer;
 
 class Event extends Model
 {
@@ -53,7 +53,7 @@ class Event extends Model
      */
     public function parentEvent()
     {
-        return $this->belongsTo(Event::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     /**

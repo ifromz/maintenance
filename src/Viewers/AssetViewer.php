@@ -25,7 +25,7 @@ class AssetViewer extends BaseViewer
     }
 
     /**
-     * Returns the assets meters view
+     * Returns the assets meters view.
      *
      * @return \Illuminate\View\View
      */

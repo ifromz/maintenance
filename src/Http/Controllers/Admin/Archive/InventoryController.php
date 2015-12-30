@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\Archive;
 
-use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 
 class InventoryController extends Controller
 {

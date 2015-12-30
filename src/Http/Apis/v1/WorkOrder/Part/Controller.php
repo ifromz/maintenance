@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder\Part;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -16,7 +16,7 @@ class Controller extends BaseController
     /**
      * Constructor.
      *
-     * @param WorkOrderRepository      $workOrder
+     * @param WorkOrderRepository $workOrder
      */
     public function __construct(WorkOrderRepository $workOrder)
     {
@@ -41,23 +41,22 @@ class Controller extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(InventoryStock $stock) use ($workOrderId)
-        {
+        $transformer = function (InventoryStock $stock) use ($workOrderId) {
             return [
-                'item_id' => $stock->inventory_id,
-                'item_sku' => ($stock->item->sku_code ? $stock->item->sku_code : '<em>None</em>'),
-                'item_name' => $stock->item->name,
-                'item_view_url' => route('maintenance.inventory.show', [$stock->inventory_id]),
-                'location' => ($stock->location ? $stock->location->trail : '<em>None</em>'),
+                'item_id'        => $stock->inventory_id,
+                'item_sku'       => ($stock->item->sku_code ? $stock->item->sku_code : '<em>None</em>'),
+                'item_name'      => $stock->item->name,
+                'item_view_url'  => route('maintenance.inventory.show', [$stock->inventory_id]),
+                'location'       => ($stock->location ? $stock->location->trail : '<em>None</em>'),
                 'quantity_taken' => $stock->pivot->quantity,
-                'date_taken' => $stock->pivot->created_at->format('Y-m-d h:i a'),
-                'put_back_url' => route('maintenance.work-orders.parts.stocks.put', [$workOrderId, $stock->inventory_id, $stock->id]),
+                'date_taken'     => $stock->pivot->created_at->format('Y-m-d h:i a'),
+                'put_back_url'   => route('maintenance.work-orders.parts.stocks.put', [$workOrderId, $stock->inventory_id, $stock->id]),
             ];
         };
 

@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Composers;
 
-use Stevebauman\Maintenance\Repositories\RoleRepository;
 use Illuminate\View\View;
+use Stevebauman\Maintenance\Repositories\RoleRepository;
 
 class RoleSelectComposer
 {

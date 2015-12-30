@@ -42,7 +42,7 @@ class AttachmentViewer extends BaseViewer
     public function btnActionsForWorkOrderAttachment(WorkOrder $workOrder)
     {
         return view('maintenance::viewers.attachments.buttons.actions-work-order-attachment', [
-            'workOrder' => $workOrder,
+            'workOrder'  => $workOrder,
             'attachment' => $this->entity,
         ]);
     }
@@ -58,7 +58,7 @@ class AttachmentViewer extends BaseViewer
     public function btnActionsForAssetManual(Asset $asset)
     {
         return view('maintenance::viewers.attachments.buttons.actions-asset-manual', [
-            'asset' => $asset,
+            'asset'  => $asset,
             'manual' => $this->entity,
         ]);
     }

@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\User;
 
-use Stevebauman\Maintenance\Validators\PasswordValidator;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Validators\PasswordValidator;
 
 class PasswordController extends Controller
 {

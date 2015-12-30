@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder\Part;
 
-use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
 
 class Controller extends BaseController
 {

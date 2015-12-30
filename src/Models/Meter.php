@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Viewers\MeterViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\MeterViewer;
 
 class Meter extends Model
 {
@@ -87,7 +87,7 @@ class Meter extends Model
             return $reading->reading;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -103,7 +103,7 @@ class Meter extends Model
             return $reading->reading_with_metric;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -115,10 +115,10 @@ class Meter extends Model
     {
         $reading = $this->getLastReading();
 
-        if($reading) {
+        if ($reading) {
             return $reading->comment;
         }
 
-        return null;
+        return;
     }
 }

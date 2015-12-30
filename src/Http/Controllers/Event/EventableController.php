@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
-use Stevebauman\Maintenance\Repositories\EventRepository;
-use Stevebauman\Maintenance\Http\Requests\Event\Request as EventRequest;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Http\Requests\Event\Request as EventRequest;
+use Stevebauman\Maintenance\Repositories\EventRepository;
 
 abstract class EventableController extends BaseController
 {
@@ -76,7 +76,7 @@ abstract class EventableController extends BaseController
 
         $event = $this->event->create($request);
 
-        if($event && method_exists($eventable, 'events')) {
+        if ($event && method_exists($eventable, 'events')) {
             $eventable->events()->attach($event->id);
 
             $message = 'Successfully created event.';
@@ -103,10 +103,10 @@ abstract class EventableController extends BaseController
 
         $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
-        if(method_exists($eventable, 'events')) {
+        if (method_exists($eventable, 'events')) {
             $event = $eventable->events()->find($eventId);
 
-            if($event) {
+            if ($event) {
                 $apiObject = $this->event->findApiObject($event->api_id);
 
                 return view('maintenance::events.eventables.show', compact('routes', 'eventable', 'event', 'apiObject'));
@@ -128,10 +128,10 @@ abstract class EventableController extends BaseController
 
         $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
-        if(method_exists($eventable, 'events')) {
+        if (method_exists($eventable, 'events')) {
             $event = $eventable->events()->find($eventId);
 
-            if($event) {
+            if ($event) {
                 $apiObject = $this->event->findApiObject($event->api_id);
 
                 return view('maintenance::events.eventables.edit', compact('routes', 'eventable', 'event', 'apiObject'));
@@ -156,7 +156,7 @@ abstract class EventableController extends BaseController
 
         $event = $this->event->update($request, $eventId);
 
-        if($event) {
+        if ($event) {
             $message = 'Successfully updated event.';
 
             return redirect()->route($this->routes['show'], [$eventable->id, $event->id])->withSuccess($message);
@@ -179,10 +179,10 @@ abstract class EventableController extends BaseController
     {
         $eventable = $this->getEventableRepository()->model()->findOrFail($resourceId);
 
-        if(method_exists($eventable, 'events')) {
+        if (method_exists($eventable, 'events')) {
             $event = $eventable->events()->find($eventId);
 
-            if($event && $this->event->delete($event->id)) {
+            if ($event && $this->event->delete($event->id)) {
                 $message = 'Successfully deleted event.';
 
                 return redirect()->route($this->routes['index'], $eventable->id)->withSuccess($message);
@@ -201,10 +201,10 @@ abstract class EventableController extends BaseController
      *
      * @return \Stevebauman\Maintenance\Repositories\Repository
      */
-    protected abstract function getEventableRepository();
+    abstract protected function getEventableRepository();
 
     /**
      * @return string
      */
-    protected abstract function getEventableCalendarId();
+    abstract protected function getEventableCalendarId();
 }

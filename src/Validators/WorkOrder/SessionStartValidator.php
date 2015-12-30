@@ -44,7 +44,7 @@ class SessionStartValidator
 
         $lastSession = $sessions->first();
 
-        if($lastSession && $lastSession->out === null) {
+        if ($lastSession && $lastSession->out === null) {
             return false;
         }
 

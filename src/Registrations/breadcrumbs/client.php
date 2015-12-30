@@ -1,7 +1,7 @@
 <?php
 
-use DaveJamesMiller\Breadcrumbs\Generator;
 use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
+use DaveJamesMiller\Breadcrumbs\Generator;
 
 /*
  * Client Work Request crumbs
@@ -22,7 +22,7 @@ Breadcrumbs::register('maintenance.client.work-requests.show', function (Generat
 
 Breadcrumbs::register('maintenance.client.work-requests.edit', function (Generator $breadcrumbs, $workRequestId) {
     $breadcrumbs->parent('maintenance.client.work-requests.show', $workRequestId);
-    $breadcrumbs->push("Edit", route('maintenance.client.work-requests.edit', [$workRequestId]));
+    $breadcrumbs->push('Edit', route('maintenance.client.work-requests.edit', [$workRequestId]));
 });
 /*
  * End Client Work Request crumbs

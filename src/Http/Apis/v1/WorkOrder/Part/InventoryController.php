@@ -2,12 +2,12 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder\Part;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Models\InventoryStock;
-use Stevebauman\Maintenance\Repositories\Inventory\StockRepository as InventoryStockRepository;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
+use Stevebauman\Maintenance\Repositories\Inventory\StockRepository as InventoryStockRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class InventoryController extends BaseController
 {
@@ -63,23 +63,22 @@ class InventoryController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(Inventory $item) use ($workOrder)
-        {
+        $transformer = function (Inventory $item) use ($workOrder) {
             return [
-                'id' => $item->id,
-                'sku' => ($item->sku_code ? $item->sku_code : '<em>None</em>'),
-                'name' => $item->name,
-                'category' => ($item->category ? $item->category->trail : null),
+                'id'            => $item->id,
+                'sku'           => ($item->sku_code ? $item->sku_code : '<em>None</em>'),
+                'name'          => $item->name,
+                'category'      => ($item->category ? $item->category->trail : null),
                 'current_stock' => $item->viewer()->lblCurrentStock(),
-                'created_at' => $item->created_at,
-                'view_url' => route('maintenance.inventory.show', [$item->id]),
-                'select_url' => route('maintenance.work-orders.parts.stocks.index', [$workOrder->id, $item->id]),
+                'created_at'    => $item->created_at,
+                'view_url'      => route('maintenance.inventory.show', [$item->id]),
+                'select_url'    => route('maintenance.work-orders.parts.stocks.index', [$workOrder->id, $item->id]),
             ];
         };
 
@@ -107,18 +106,17 @@ class InventoryController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(InventoryStock $stock) use ($workOrder, $inventoryId)
-        {
+        $transformer = function (InventoryStock $stock) use ($workOrder, $inventoryId) {
             return [
-                'id' => $stock->id,
-                'location' => ($stock->location ? $stock->location->trail : '<em>None</em>'),
-                'quantity' => $stock->quantity,
+                'id'         => $stock->id,
+                'location'   => ($stock->location ? $stock->location->trail : '<em>None</em>'),
+                'quantity'   => $stock->quantity,
                 'select_url' => route('maintenance.work-orders.parts.stocks.take', [$workOrder->id, $inventoryId, $stock->id]),
             ];
         };
@@ -147,23 +145,22 @@ class InventoryController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(Inventory $item) use ($workOrder)
-        {
+        $transformer = function (Inventory $item) use ($workOrder) {
             return [
-                'id' => $item->id,
-                'sku' => ($item->sku_code ? $item->sku_code : '<em>None</em>'),
-                'name' => $item->name,
-                'category' => ($item->category ? $item->category->trail : null),
+                'id'            => $item->id,
+                'sku'           => ($item->sku_code ? $item->sku_code : '<em>None</em>'),
+                'name'          => $item->name,
+                'category'      => ($item->category ? $item->category->trail : null),
                 'current_stock' => $item->viewer()->lblCurrentStock(),
-                'created_at' => $item->created_at,
-                'view_url' => route('maintenance.inventory.show', [$item->id]),
-                'select_url' => route('maintenance.work-orders.parts.stocks.index', [$workOrder->id, $item->id]),
+                'created_at'    => $item->created_at,
+                'view_url'      => route('maintenance.inventory.show', [$item->id]),
+                'select_url'    => route('maintenance.work-orders.parts.stocks.index', [$workOrder->id, $item->id]),
             ];
         };
 

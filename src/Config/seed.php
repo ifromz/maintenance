@@ -7,65 +7,65 @@ return [
      */
     'priorities' => [
         [
-            'name' => 'Low',
+            'name'  => 'Low',
             'color' => 'default',
         ],
         [
-            'name' => 'Medium',
+            'name'  => 'Medium',
             'color' => 'warning',
         ],
         [
-            'name' => 'High',
+            'name'  => 'High',
             'color' => 'danger',
         ],
         [
-            'name' => 'Requested',
+            'name'  => 'Requested',
             'color' => 'default',
         ],
     ],
 
     'statuses' => [
         [
-            'name' => 'Open',
+            'name'  => 'Open',
             'color' => 'danger',
         ],
         [
-            'name' => 'Closed',
+            'name'  => 'Closed',
             'color' => 'success',
         ],
         [
-            'name' => 'In Progress',
+            'name'  => 'In Progress',
             'color' => 'warning',
         ],
         [
-            'name' => 'Requested',
+            'name'  => 'Requested',
             'color' => 'default',
         ],
     ],
 
     'metrics' => [
         [
-            'name' => 'Pieces',
+            'name'   => 'Pieces',
             'symbol' => 'Pc',
         ],
         [
-            'name' => 'Grams',
+            'name'   => 'Grams',
             'symbol' => 'G',
         ],
         [
-            'name' => 'Kilograms',
+            'name'   => 'Kilograms',
             'symbol' => 'Kg',
         ],
         [
-            'name' => 'Tonnes',
+            'name'   => 'Tonnes',
             'symbol' => 'T',
         ],
         [
-            'name' => 'Millilitres',
+            'name'   => 'Millilitres',
             'symbol' => 'mL',
         ],
         [
-            'name' => 'Litres',
+            'name'   => 'Litres',
             'symbol' => 'L',
         ],
     ],

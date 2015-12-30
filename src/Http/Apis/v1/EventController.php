@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1;
 
-use Stevebauman\Maintenance\Models\Event;
 use Stevebauman\Maintenance\Http\Requests\Event\BetweenRequest;
 use Stevebauman\Maintenance\Http\Requests\Event\MoveRequest;
+use Stevebauman\Maintenance\Models\Event;
 use Stevebauman\Maintenance\Repositories\EventRepository;
 
 class EventController extends Controller
@@ -49,7 +49,7 @@ class EventController extends Controller
      */
     public function move(MoveRequest $request, $apiId)
     {
-        if($this->event->updateDates($request, $apiId)) {
+        if ($this->event->updateDates($request, $apiId)) {
             $message = 'Successfully updated event.';
             $messageType = 'success';
         } else {
@@ -58,7 +58,7 @@ class EventController extends Controller
         }
 
         return [
-            'message' => $message,
+            'message'     => $message,
             'messageType' => $messageType,
         ];
     }
@@ -79,22 +79,21 @@ class EventController extends Controller
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(Event $event)
-        {
+        $transformer = function (Event $event) {
             $apiObject = $this->event->findApiObject($event->api_id);
 
-            if($apiObject) {
+            if ($apiObject) {
                 $startDate = new \DateTime($apiObject->start);
                 $endDate = new \DateTime($apiObject->end);
 
                 // If the event is all day, we'll format the dates differently.
-                if($apiObject->all_day) {
+                if ($apiObject->all_day) {
                     $start = $startDate->format('Y-m-d');
                     $end = $endDate->format('Y-m-d');
                 } else {
@@ -103,15 +102,15 @@ class EventController extends Controller
                 }
 
                 return [
-                    'title' => $apiObject->title,
+                    'title'    => $apiObject->title,
                     'location' => ($event->location ? $event->location->trail : null),
-                    'start' => $start,
-                    'end' => $end,
+                    'start'    => $start,
+                    'end'      => $end,
                     'view_url' => route('maintenance.events.show', [$event->id]),
                 ];
             }
 
-            return null;
+            return;
         };
 
         return $this->event->grid($columns, $settings, $transformer);
@@ -128,17 +127,17 @@ class EventController extends Controller
     {
         $events = $this->event->getRecurrencesByApiId($id);
 
-        if($events) {
+        if ($events) {
             $columns = [
                 'start',
                 'end',
             ];
 
             $settings = [
-                'sort' => 'start',
+                'sort'      => 'start',
                 'direction' => 'desc',
                 'threshold' => 10,
-                'throttle' => 11,
+                'throttle'  => 11,
             ];
 
             return $this->event->newGrid($events, $columns, $settings);

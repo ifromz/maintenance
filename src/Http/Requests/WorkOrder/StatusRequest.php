@@ -17,7 +17,7 @@ class StatusRequest extends BaseRequest
             'color' => 'required|max:20',
         ];
 
-        if($status = $this->route('statuses')) {
+        if ($status = $this->route('statuses')) {
             $rules['name'] = "required|max:250|unique:statuses,name,$status";
         } else {
             $rules['name'] = 'required|max:250|unique:statuses,name';

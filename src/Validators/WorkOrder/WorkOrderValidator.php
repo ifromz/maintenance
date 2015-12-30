@@ -5,16 +5,16 @@ namespace Stevebauman\Maintenance\Validators;
 class WorkOrderValidator extends BaseValidator
 {
     protected $rules = [
-        'category' => '',
+        'category'    => '',
         'category_id' => 'integer|min:1',
 
-        'location' => '',
+        'location'    => '',
         'location_id' => 'integer|min:1',
 
-        'status' => 'required|integer',
+        'status'   => 'required|integer',
         'priority' => 'required|integer',
 
-        'subject' => 'required|min:5|max:250',
+        'subject'     => 'required|min:5|max:250',
         'description' => 'min:5',
 
         'started_at_date' => '',

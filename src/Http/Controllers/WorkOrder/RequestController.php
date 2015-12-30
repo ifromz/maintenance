@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Services\WorkRequestService;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
+use Stevebauman\Maintenance\Services\WorkRequestService;
 
 class RequestController extends BaseController
 {
@@ -43,7 +43,7 @@ class RequestController extends BaseController
         $workRequest = $this->workRequest->find($requestId);
 
         return view('maintenance::work-orders.requests.create', [
-            'title' => 'Create Work Order from Request',
+            'title'       => 'Create Work Order from Request',
             'workRequest' => $workRequest,
         ]);
     }

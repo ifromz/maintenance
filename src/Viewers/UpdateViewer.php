@@ -11,7 +11,7 @@ class UpdateViewer extends BaseViewer
     {
         return view('maintenance::viewers.update.client-work-request', [
             'workRequest' => $workRequest,
-            'update' => $this->entity,
+            'update'      => $this->entity,
         ]);
     }
 
@@ -26,7 +26,7 @@ class UpdateViewer extends BaseViewer
     {
         return view('maintenance::viewers.update.work-request', [
             'workRequest' => $workRequest,
-            'update' => $this->entity,
+            'update'      => $this->entity,
         ]);
     }
 
@@ -41,7 +41,7 @@ class UpdateViewer extends BaseViewer
     {
         return view('maintenance::viewers.update.work-order', [
             'workOrder' => $workOrder,
-            'update' => $this->entity,
+            'update'    => $this->entity,
         ]);
     }
 }

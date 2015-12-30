@@ -17,7 +17,7 @@ class MeterReadingViewer extends BaseViewer
     public function btnActionsForAsset(Asset $asset)
     {
         return view('maintenance::viewers.meter.reading.buttons.actions', [
-            'asset' => $asset,
+            'asset'   => $asset,
             'reading' => $this->entity,
         ]);
     }

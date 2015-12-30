@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateUpdateTables extends Migration
 {
@@ -10,8 +10,7 @@ class CreateUpdateTables extends Migration
      */
     public function up()
     {
-        Schema::create('updates', function (Blueprint $table)
-        {
+        Schema::create('updates', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->integer('user_id')->unsigned();
