@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
-use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
 
 class WorkOrderController extends BaseController
 {
@@ -60,7 +60,7 @@ class WorkOrderController extends BaseController
      */
     public function store($assetId, $workOrderId)
     {
-        if($this->asset->attachWorkOrder($assetId, $workOrderId)) {
+        if ($this->asset->attachWorkOrder($assetId, $workOrderId)) {
             $message = 'Successfully attached work order.';
 
             return redirect()->route('maintenance.assets.work-orders.index', [$assetId])->withSuccess($message);
@@ -81,7 +81,7 @@ class WorkOrderController extends BaseController
      */
     public function remove($assetId, $workOrderId)
     {
-        if($this->asset->detachWorkOrder($assetId, $workOrderId)) {
+        if ($this->asset->detachWorkOrder($assetId, $workOrderId)) {
             $message = 'Successfully detached work order.';
 
             return redirect()->route('maintenance.assets.work-orders.index', [$assetId])->withSuccess($message);

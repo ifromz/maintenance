@@ -14,11 +14,11 @@ class Request extends BaseRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:250',
+            'name'        => 'required|max:250',
             'description' => 'max:1000',
-            'category' => 'required',
+            'category'    => 'required',
             'category_id' => 'min:1|integer|exists:categories,id',
-            'metric' => 'required|integer|exists:metrics,id',
+            'metric'      => 'required|integer|exists:metrics,id',
         ];
     }
 

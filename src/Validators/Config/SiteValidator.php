@@ -12,10 +12,10 @@ class SiteValidator extends BaseValidator
      * @var array
      */
     protected $rules = [
-        'title' => 'required|max:30',
-        'admin_title' => 'required|max:30',
+        'title'               => 'required|max:30',
+        'admin_title'         => 'required|max:30',
         'work_order_calendar' => '',
-        'asset_calendar' => '',
-        'inventory_calendar' => '',
+        'asset_calendar'      => '',
+        'inventory_calendar'  => '',
     ];
 }

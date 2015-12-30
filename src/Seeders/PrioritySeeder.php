@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Repositories\WorkOrder\PriorityRepository;
 use Illuminate\Database\Seeder;
+use Stevebauman\Maintenance\Repositories\WorkOrder\PriorityRepository;
+use Stevebauman\Maintenance\Services\ConfigService;
 
 class PrioritySeeder extends Seeder
 {

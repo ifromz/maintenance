@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Viewers\PriorityViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\PriorityViewer;
 
 class Priority extends Model
 {

@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
-use Stevebauman\Maintenance\Repositories\Asset\CategoryRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\CategoryController as BaseCategoryController;
+use Stevebauman\Maintenance\Repositories\Asset\CategoryRepository;
 
 class CategoryController extends BaseCategoryController
 {

@@ -51,7 +51,7 @@ class MetricController extends Controller
     {
         $metric = $this->metric->create($request);
 
-        if($metric) {
+        if ($metric) {
             $message = 'Successfully created metric.';
 
             return redirect()->route('maintenance.metrics.index')->withSuccess($message);
@@ -102,7 +102,7 @@ class MetricController extends Controller
     {
         $metric = $this->metric->update($request, $id);
 
-        if($metric) {
+        if ($metric) {
             $message = 'Successfully updated metric.';
 
             return redirect()->route('maintenance.metrics.index')->withSuccess($message);
@@ -124,7 +124,7 @@ class MetricController extends Controller
     {
         $metric = $this->metric->model()->findOrFail($id);
 
-        if($metric->delete()) {
+        if ($metric->delete()) {
             $message = 'Successfully deleted metric.';
 
             return redirect()->route('maintenance.metrics.index')->withSuccess($message);

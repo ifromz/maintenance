@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\Inventory\Request;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -52,7 +52,7 @@ class Controller extends BaseController
     {
         $inventory = $this->inventory->create($request);
 
-        if($inventory) {
+        if ($inventory) {
             $message = 'Successfully created inventory item.';
 
             return redirect()->route('maintenance.inventory.index')->withSuccess($message);
@@ -103,7 +103,7 @@ class Controller extends BaseController
     {
         $inventory = $this->inventory->update($request, $id);
 
-        if($inventory) {
+        if ($inventory) {
             $message = 'Successfully updated inventory item.';
 
             return redirect()->route('maintenance.inventory.show', [$inventory->id])->withSuccess($message);
@@ -125,7 +125,7 @@ class Controller extends BaseController
     {
         $item = $this->inventory->model()->findOrFail($id);
 
-        if($item->delete()) {
+        if ($item->delete()) {
             $message = 'Successfully deleted inventory item.';
 
             return redirect()->route('maintenance.inventory.index')->withSuccess($message);

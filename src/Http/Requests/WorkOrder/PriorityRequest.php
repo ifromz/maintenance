@@ -14,7 +14,7 @@ class PriorityRequest extends BaseRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:250',
+            'name'  => 'required|max:250',
             'color' => 'required|max:20',
         ];
     }

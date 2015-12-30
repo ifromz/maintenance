@@ -76,6 +76,6 @@ class Notification extends Model
             return $defaultIcon;
         }
 
-        return null;
+        return;
     }
 }

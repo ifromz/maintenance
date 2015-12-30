@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Middleware;
 
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Closure;
 use Illuminate\Http\Request;
-use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class NotAuthMiddleware
 {
@@ -21,10 +21,10 @@ class NotAuthMiddleware
     {
         $user = Sentinel::getUser();
 
-        if($user) {
+        if ($user) {
             $route = 'maintenance.work-requests.index';
 
-            if(! $user->hasAccess($route)) {
+            if (!$user->hasAccess($route)) {
                 $route = 'maintenance.client.work-requests.index';
             }
 

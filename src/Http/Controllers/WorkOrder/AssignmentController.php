@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
-use Stevebauman\Maintenance\Validators\AssignmentValidator;
-use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
-use Stevebauman\Maintenance\Services\WorkOrder\AssignmentService;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Services\WorkOrder\AssignmentService;
+use Stevebauman\Maintenance\Services\WorkOrder\WorkOrderService;
+use Stevebauman\Maintenance\Validators\AssignmentValidator;
 
 class AssignmentController extends BaseController
 {

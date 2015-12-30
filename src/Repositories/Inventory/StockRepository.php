@@ -3,10 +3,10 @@
 namespace Stevebauman\Maintenance\Repositories\Inventory;
 
 use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\PutRequest;
-use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\TakeRequest;
 use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\Request;
-use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
+use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\TakeRequest;
 use Stevebauman\Maintenance\Models\InventoryStock;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
 
 class StockRepository extends BaseRepository
@@ -37,8 +37,8 @@ class StockRepository extends BaseRepository
     /**
      * Creates a new inventory stock.
      *
-     * @param Request      $request
-     * @param int|string   $inventoryId
+     * @param Request    $request
+     * @param int|string $inventoryId
      *
      * @return bool|InventoryStock
      */
@@ -52,7 +52,7 @@ class StockRepository extends BaseRepository
         $stock->reason = $request->input('reason');
         $stock->cost = $request->input('cost', 0);
 
-        if($stock->save()) {
+        if ($stock->save()) {
             return $stock;
         }
 
@@ -62,9 +62,9 @@ class StockRepository extends BaseRepository
     /**
      * Updates an inventory stock record.
      *
-     * @param Request      $request
-     * @param int|string   $inventoryId
-     * @param int|string   $stockId
+     * @param Request    $request
+     * @param int|string $inventoryId
+     * @param int|string $stockId
      *
      * @return bool|InventoryStock
      */
@@ -79,7 +79,7 @@ class StockRepository extends BaseRepository
         $stock->reason = $request->input('reason');
         $stock->cost = $request->input('cost', 0);
 
-        if($stock->save()) {
+        if ($stock->save()) {
             return $stock;
         }
 
@@ -98,8 +98,8 @@ class StockRepository extends BaseRepository
     {
         $stock = $this->model()->findOrFail($stockId);
 
-        if($stock) {
-            if($stock->take($request->input('quantity', 0))) {
+        if ($stock) {
+            if ($stock->take($request->input('quantity', 0))) {
                 return $stock;
             }
         }
@@ -119,8 +119,8 @@ class StockRepository extends BaseRepository
     {
         $stock = $this->model()->findOrFail($stockId);
 
-        if($stock) {
-            if($stock->put($request->input('quantity', 0))) {
+        if ($stock) {
+            if ($stock->put($request->input('quantity', 0))) {
                 return $stock;
             }
         }

@@ -15,7 +15,7 @@ class MoveRequest extends BaseRequest
     {
         return [
             'start' => 'required|min:10',
-            'end' => 'required|min:10',
+            'end'   => 'required|min:10',
         ];
     }
 

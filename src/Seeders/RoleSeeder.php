@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
-use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\ConfigService;
 use Illuminate\Database\Seeder;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class RoleSeeder extends Seeder
 {
@@ -37,8 +37,7 @@ class RoleSeeder extends Seeder
     {
         $roles = $this->getSeedData();
 
-        foreach($roles as $roleName => $permissions)
-        {
+        foreach ($roles as $roleName => $permissions) {
             $this->sentry->createOrUpdateRole($roleName, $permissions);
         }
     }

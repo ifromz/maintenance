@@ -75,7 +75,7 @@ class InventoryViewer extends BaseViewer
     {
         return view('maintenance::viewers.inventory.buttons.select-work-order', [
             'workOrder' => $workOrder,
-            'item' => $this->entity,
+            'item'      => $this->entity,
         ]);
     }
 
@@ -109,7 +109,7 @@ class InventoryViewer extends BaseViewer
         $totalStock = (float) $stock + (float) $variantStock;
 
         return view('maintenance::viewers.inventory.labels.current-stock', [
-            'currentStock' => $totalStock,
+            'currentStock'        => $totalStock,
             'currentVariantStock' => $variantStock,
         ])->render();
     }

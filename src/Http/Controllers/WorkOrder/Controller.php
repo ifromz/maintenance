@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Request;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -54,12 +54,12 @@ class Controller extends BaseController
     {
         $workOrder = $this->workOrder->create($request);
 
-        if($workOrder) {
+        if ($workOrder) {
             $message = sprintf('Successfully created work order. %s', link_to_route('maintenance.work-orders.show', 'Show', [$workOrder->id]));
 
             return redirect()->route('maintenance.work-orders.index')->withSuccess($message);
         } else {
-            $message = "There was an issue creating this work order. Please try again.";
+            $message = 'There was an issue creating this work order. Please try again.';
 
             return redirect()->route('maintenance.work-orders.index')->withSuccess($message);
         }
@@ -107,12 +107,12 @@ class Controller extends BaseController
     {
         $workOrder = $this->workOrder->update($request, $id);
 
-        if($workOrder) {
+        if ($workOrder) {
             $message = 'Successfully edited work order.';
 
             return redirect()->route('maintenance.work-orders.show', [$workOrder->id])->withSuccess($message);
         } else {
-            $message = "There was an issue updating this work order. Please try again.";
+            $message = 'There was an issue updating this work order. Please try again.';
 
             return redirect()->route('maintenance.work-orders.edit', [$id])->withErrors($message);
         }
@@ -127,12 +127,12 @@ class Controller extends BaseController
      */
     public function destroy($id)
     {
-        if($this->workOrder->delete($id)) {
-            $message = "Successfully deleted work order.";
+        if ($this->workOrder->delete($id)) {
+            $message = 'Successfully deleted work order.';
 
             return redirect()->route('maintenance.work-orders.index')->withSuccess($message);
         } else {
-            $message = "There was an issue deleting this work order. Please try again";
+            $message = 'There was an issue deleting this work order. Please try again';
 
             return redirect()->route('maintenance.work-orders.index')->withErrors($message);
         }

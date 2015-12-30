@@ -60,7 +60,7 @@ return [
          *
          */
         'prevent_spam_updates' => [
-            'enabled' => 'true',
+            'enabled'       => 'true',
             'minutes_apart' => '5',
         ],
 
@@ -82,7 +82,7 @@ return [
          * is created
          */
         'submission_status' => [
-            'name' => 'Requested',
+            'name'  => 'Requested',
             'color' => 'default',
         ],
 
@@ -91,7 +91,7 @@ return [
          * is created
          */
         'submission_priority' => [
-            'name' => 'Requested',
+            'name'  => 'Requested',
             'color' => 'default',
         ],
 

@@ -3,14 +3,14 @@
 namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
 use Stevebauman\Inventory\Exceptions\NotEnoughStockException;
-use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\TakeRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\ReturnRequest;
+use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\TakeRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Request;
+use Stevebauman\Maintenance\Models\WorkOrder;
+use Stevebauman\Maintenance\Models\WorkRequest;
+use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Models\WorkRequest;
-use Stevebauman\Maintenance\Models\WorkOrder;
-use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
 
 class Repository extends BaseRepository
 {
@@ -95,7 +95,7 @@ class Repository extends BaseRepository
     {
         $workOrder = $this->find($id);
 
-        if($workOrder) {
+        if ($workOrder) {
             return $workOrder->parts()->findOrFail($stockId);
         }
 
@@ -224,10 +224,10 @@ class Repository extends BaseRepository
         $workOrder->started_at = $request->input('started_at');
         $workOrder->completed_at = $request->input('completed_at');
 
-        if($workOrder->save()) {
+        if ($workOrder->save()) {
             $assets = $request->input('assets');
 
-            if(count($assets) > 0) {
+            if (count($assets) > 0) {
                 $workOrder->assets()->sync($assets);
             }
 
@@ -293,11 +293,10 @@ class Repository extends BaseRepository
         $workOrder->started_at = $request->input('started_at', $workOrder->started_at);
         $workOrder->completed_at = $request->input('completed_at', $workOrder->completed_at);
 
-        if($workOrder->save()) {
-
+        if ($workOrder->save()) {
             $assets = $request->input('assets', $workOrder->assets);
 
-            if(count($assets) > 0) {
+            if (count($assets) > 0) {
                 $workOrder->assets()->sync($assets);
             }
 
@@ -312,8 +311,8 @@ class Repository extends BaseRepository
      * stock and attaches it to the specified work order.
      *
      * @param TakeRequest $request
-     * @param int|string $workOrderId
-     * @param int|string $stockId
+     * @param int|string  $workOrderId
+     * @param int|string  $stockId
      *
      * @return bool|WorkOrder
      */
@@ -321,7 +320,7 @@ class Repository extends BaseRepository
     {
         $workOrder = $this->find($workOrderId);
 
-        if($workOrder) {
+        if ($workOrder) {
             // Check if the stock is already attached to the work order
             $stock = $workOrder->parts()->find($stockId);
 
@@ -330,7 +329,7 @@ class Repository extends BaseRepository
             $reason = link_to_route('maintenance.work-orders.show', 'Used for Work Order', [$workOrder->id]);
 
             try {
-                if($stock && $stock->take($quantity, $reason)) {
+                if ($stock && $stock->take($quantity, $reason)) {
                     // Add on the quantity inputted to the existing record quantity
                     $newQuantity = $stock->pivot->quantity + $quantity;
 
@@ -344,13 +343,14 @@ class Repository extends BaseRepository
                      */
                     $stock = $workOrder->parts()->getRelated()->find($stockId);
 
-                    if($stock && $stock->take($quantity, $reason)) {
+                    if ($stock && $stock->take($quantity, $reason)) {
                         $workOrder->parts()->attach($stock->id, ['quantity' => $quantity]);
 
                         return $workOrder;
                     }
                 }
-            } catch (NotEnoughStockException $e) {}
+            } catch (NotEnoughStockException $e) {
+            }
         }
 
         return false;
@@ -359,9 +359,9 @@ class Repository extends BaseRepository
     /**
      * Returns quantity that was taken for a work order back into it's original stock.
      *
-     * @param ReturnRequest  $request
-     * @param int|string     $workOrderId
-     * @param int|string     $stockId
+     * @param ReturnRequest $request
+     * @param int|string    $workOrderId
+     * @param int|string    $stockId
      *
      * @return bool|WorkOrder
      */
@@ -371,11 +371,11 @@ class Repository extends BaseRepository
 
         $stock = $workOrder->parts()->find($stockId);
 
-        if($stock) {
+        if ($stock) {
             // Get the requested quantity to return
             $quantity = $request->input('quantity');
 
-            if($quantity > $stock->pivot->quantity) {
+            if ($quantity > $stock->pivot->quantity) {
                 /*
                  * If the quantity entered is greater than
                  * the taken stock, we'll return all of the stock.
@@ -389,11 +389,10 @@ class Repository extends BaseRepository
             // Set the stock put reason
             $reason = link_to_route('maintenance.work-orders.show', 'Put Back from Work Order', [$workOrder->id]);
 
-            if($stock->put($returnQuantity, $reason)) {
-
+            if ($stock->put($returnQuantity, $reason)) {
                 $newQuantity = $stock->pivot->quantity - $returnQuantity;
 
-                if($newQuantity == 0) {
+                if ($newQuantity == 0) {
                     /*
                      * If the new quantity is zero, we'll detach
                      * the stock record from the work order parts.

@@ -2,37 +2,37 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Illuminate\Support\MessageBag;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 use Stevebauman\CoreHelper\Validators\AbstractValidator;
 
 class BaseValidator extends AbstractValidator
 {
     /**
-     * Holds the input to be passed to the validator
+     * Holds the input to be passed to the validator.
      *
      * @var array
      */
     protected $input;
 
     /**
-     * Holds the error messages of the current request
+     * Holds the error messages of the current request.
      *
      * @var MessageBag
      */
     protected $errors;
 
     /**
-     * Holds the rules for the validator
+     * Holds the rules for the validator.
      *
      * @var array
      */
     protected $rules = [];
 
     /**
-     * Holds the current validator object
+     * Holds the current validator object.
      *
      * @var \Illuminate\Validation\Validator
      */
@@ -45,17 +45,15 @@ class BaseValidator extends AbstractValidator
      */
     public function __construct($input = [])
     {
-        if(count($input) > 0)
-        {
+        if (count($input) > 0) {
             $this->setInput($input);
-        } else
-        {
+        } else {
             $this->setInput(Input::all());
         }
     }
 
     /**
-     * Allows rules to be set on the fly if needed
+     * Allows rules to be set on the fly if needed.
      *
      * @param array $rules
      *
@@ -69,7 +67,7 @@ class BaseValidator extends AbstractValidator
     }
 
     /**
-     * Sets the input property
+     * Sets the input property.
      *
      * @param array $input
      *
@@ -104,14 +102,13 @@ class BaseValidator extends AbstractValidator
 
     /**
      * Returns the current validator object and creates a new validator
-     * instance if it does not exist
+     * instance if it does not exist.
      *
      * @return \Illuminate\Validation\Validator
      */
     public function validator()
     {
-        if (!$this->validator)
-        {
+        if (!$this->validator) {
             $validator = Validator::make($this->input, $this->rules);
 
             $this->setValidator($validator);
@@ -121,7 +118,7 @@ class BaseValidator extends AbstractValidator
     }
 
     /**
-     * Quick helper for validating input. Returns boolean on success/failure
+     * Quick helper for validating input. Returns boolean on success/failure.
      *
      * @return bool
      */
@@ -129,7 +126,9 @@ class BaseValidator extends AbstractValidator
     {
         $validator = $this->validator();
 
-        if ($validator->passes()) return true;
+        if ($validator->passes()) {
+            return true;
+        }
 
         $this->setErrors($validator->messages());
 
@@ -144,8 +143,7 @@ class BaseValidator extends AbstractValidator
      */
     public function getErrors()
     {
-        if (Request::ajax())
-        {
+        if (Request::ajax()) {
             return $this->errors->getMessages();
         } else {
             return $this->errors;
@@ -154,7 +152,7 @@ class BaseValidator extends AbstractValidator
 
     /**
      * Adds an ignore validation to be able to dynamically ignore a specific
-     * table value
+     * table value.
      *
      * @param string $field
      * @param string $table
@@ -167,54 +165,48 @@ class BaseValidator extends AbstractValidator
     }
 
     /**
-     * Adds a unique validation to the specified field
+     * Adds a unique validation to the specified field.
      *
      * @param string $field
      * @param string $table
      * @param string $column
-     * @param NULL $ignore
+     * @param null   $ignore
      */
     public function unique($field, $table, $column, $ignore = null)
     {
-        if(array_key_exists($field, $this->rules))
-        {
-            if($ignore)
-            {
+        if (array_key_exists($field, $this->rules)) {
+            if ($ignore) {
                 $this->ignore($field, $table, $column, $ignore);
-            } else
-            {
+            } else {
                 $this->rules[$field] .= sprintf('|unique:%s,%s', $table, $column);
             }
         }
     }
 
     /**
-     * Allows dynamic adding of rules to a field under validation
+     * Allows dynamic adding of rules to a field under validation.
      *
      * @param string $field
      * @param string $rule
      */
     public function addRule($field, $rule)
     {
-        if (array_key_exists($field, $this->rules))
-        {
+        if (array_key_exists($field, $this->rules)) {
             $this->rules[$field] .= sprintf('|%s', $rule);
-        } else
-        {
+        } else {
             $this->rules[$field] = $rule;
         }
     }
 
     /**
-     * Allows dynamic removal of rules to a field under validation
+     * Allows dynamic removal of rules to a field under validation.
      *
      * @param $field
      * @param $rule
      */
     public function removeRule($field, $rule)
     {
-        if (array_key_exists($field, $this->rules))
-        {
+        if (array_key_exists($field, $this->rules)) {
             $newRule = str_replace($rule, '', $this->rules[$field]);
 
             $this->rules[$field] = $newRule;

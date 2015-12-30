@@ -3,8 +3,7 @@
 /*
  * Maintenance Application Routes
  */
-Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maintenance.', 'namespace' => 'Stevebauman\Maintenance\Http\Controllers'], function ()
-{
+Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maintenance.', 'namespace' => 'Stevebauman\Maintenance\Http\Controllers'], function () {
     /*
      * Welcome Route
      */
@@ -18,8 +17,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
     /*
      * Authentication Routes
      */
-    Route::group(['prefix' => 'login', 'as' => 'login.', 'middleware' => ['maintenance.not-auth']], function ()
-    {
+    Route::group(['prefix' => 'login', 'as' => 'login.', 'middleware' => ['maintenance.not-auth']], function () {
         Route::get('/', ['as' => 'index', 'uses' => 'AuthController@login']);
 
         Route::post('/', ['as' => 'authenticate', 'uses' => 'AuthController@authenticate']);
@@ -33,16 +31,14 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
         Route::post('reset-password/{users}/{code}', ['as' => 'reset-password', 'uses' => 'PasswordController@postReset']);
     });
 
-    Route::group(['middleware' => ['maintenance.auth']], function ()
-    {
+    Route::group(['middleware' => ['maintenance.auth']], function () {
         Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
     });
 
     /*
      * Registration Routes
      */
-    Route::group(['prefix' => 'register', 'middleware' => ['maintenance.notauth']], function ()
-    {
+    Route::group(['prefix' => 'register', 'middleware' => ['maintenance.notauth']], function () {
         Route::get('/', ['as' => 'register', 'uses' => 'AuthController@getRegister']);
 
         Route::post('/', ['as' => 'register', 'uses' => 'AuthController@postRegister']);
@@ -51,18 +47,16 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
     /*
      * Client Routes
      */
-    Route::group(['prefix' => 'client', 'as' => 'client.', 'namespace' => 'Client', 'middleware' => ['maintenance.auth', 'maintenance.permission']], function ()
-    {
-        Route::group(['namespace' => 'WorkRequest', 'as' => 'work-requests.'], function()
-        {
+    Route::group(['prefix' => 'client', 'as' => 'client.', 'namespace' => 'Client', 'middleware' => ['maintenance.auth', 'maintenance.permission']], function () {
+        Route::group(['namespace' => 'WorkRequest', 'as' => 'work-requests.'], function () {
             Route::resource('work-requests', 'Controller', [
                 'names' => [
-                    'index' => 'index',
-                    'create' => 'create',
-                    'store' => 'store',
-                    'show' => 'show',
-                    'edit' => 'edit',
-                    'update' => 'update',
+                    'index'   => 'index',
+                    'create'  => 'create',
+                    'store'   => 'store',
+                    'show'    => 'show',
+                    'edit'    => 'edit',
+                    'update'  => 'update',
                     'destroy' => 'destroy',
                 ],
             ]);
@@ -73,7 +67,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                     'destroy',
                 ],
                 'names' => [
-                    'store' => 'updates.store',
+                    'store'   => 'updates.store',
                     'destroy' => 'updates.destroy',
                 ],
             ]);
@@ -83,23 +77,21 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
     /*
      * Management Routes
      */
-    Route::group(['prefix' => 'management', 'middleware' => ['maintenance.auth', 'maintenance.permission']], function ()
-    {
+    Route::group(['prefix' => 'management', 'middleware' => ['maintenance.auth', 'maintenance.permission']], function () {
         Route::get('/', ['as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
 
         /*
          * Event Routes
          */
-        Route::group(['namespace' => 'Event', 'as' => 'events.',], function ()
-        {
+        Route::group(['namespace' => 'Event', 'as' => 'events.'], function () {
             Route::resource('events', 'Controller', [
                 'names' => [
-                    'index' => 'index',
-                    'create' => 'create',
-                    'store' => 'store',
-                    'show' => 'show',
-                    'edit' => 'edit',
-                    'update' => 'update',
+                    'index'   => 'index',
+                    'create'  => 'create',
+                    'store'   => 'store',
+                    'show'    => 'show',
+                    'edit'    => 'edit',
+                    'update'  => 'update',
                     'destroy' => 'destroy',
                 ],
             ]);
@@ -110,9 +102,9 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                     'show',
                 ],
                 'names' => [
-                    'store' => 'report.store',
-                    'edit' => 'report.edit',
-                    'update' => 'report.update',
+                    'store'   => 'report.store',
+                    'edit'    => 'report.edit',
+                    'update'  => 'report.update',
                     'destroy' => 'report.destroy',
                 ],
             ]);
@@ -121,16 +113,15 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
         /*
          * Work Request Routes
          */
-        Route::group(['namespace' => 'WorkRequest', 'as' => 'work-requests.'], function ()
-        {
+        Route::group(['namespace' => 'WorkRequest', 'as' => 'work-requests.'], function () {
             Route::resource('work-requests', 'Controller', [
                 'names' => [
-                    'index' => 'index',
-                    'create' => 'create',
-                    'store' => 'store',
-                    'show' => 'show',
-                    'edit' => 'edit',
-                    'update' => 'update',
+                    'index'   => 'index',
+                    'create'  => 'create',
+                    'store'   => 'store',
+                    'show'    => 'show',
+                    'edit'    => 'edit',
+                    'update'  => 'update',
                     'destroy' => 'destroy',
                 ],
             ]);
@@ -141,7 +132,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                     'destroy',
                 ],
                 'names' => [
-                    'store' => 'updates.store',
+                    'store'   => 'updates.store',
                     'destroy' => 'updates.destroy',
                 ],
             ]);
@@ -150,10 +141,8 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
         /*
          * Work Order Routes
          */
-        Route::group(['as' => 'work-orders.', 'namespace' => 'WorkOrder'], function ()
-        {
-            Route::group(['prefix' => 'work-orders'], function ()
-            {
+        Route::group(['as' => 'work-orders.', 'namespace' => 'WorkOrder'], function () {
+            Route::group(['prefix' => 'work-orders'], function () {
                 Route::get('assigned', ['as' => 'assigned.index', 'uses' => 'AssignedController@index']);
 
                 /*
@@ -164,12 +153,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                         'show',
                     ],
                     'names' => [
-                        'index' => 'priorities.index',
-                        'create' => 'priorities.create',
-                        'store' => 'priorities.store',
-                        'show' => 'priorities.show',
-                        'edit' => 'priorities.edit',
-                        'update' => 'priorities.update',
+                        'index'   => 'priorities.index',
+                        'create'  => 'priorities.create',
+                        'store'   => 'priorities.store',
+                        'show'    => 'priorities.show',
+                        'edit'    => 'priorities.edit',
+                        'update'  => 'priorities.update',
                         'destroy' => 'priorities.destroy',
                     ],
                 ]);
@@ -182,12 +171,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                         'show',
                     ],
                     'names' => [
-                        'index' => 'statuses.index',
-                        'create' => 'statuses.create',
-                        'store' => 'statuses.store',
-                        'show' => 'statuses.show',
-                        'edit' => 'statuses.edit',
-                        'update' => 'statuses.update',
+                        'index'   => 'statuses.index',
+                        'create'  => 'statuses.create',
+                        'store'   => 'statuses.store',
+                        'show'    => 'statuses.show',
+                        'edit'    => 'statuses.edit',
+                        'update'  => 'statuses.update',
                         'destroy' => 'statuses.destroy',
                     ],
                 ]);
@@ -207,11 +196,11 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                         'show',
                     ],
                     'names' => [
-                        'index' => 'categories.index',
-                        'create' => 'categories.create',
-                        'store' => 'categories.store',
-                        'edit' => 'categories.edit',
-                        'update' => 'categories.update',
+                        'index'   => 'categories.index',
+                        'create'  => 'categories.create',
+                        'store'   => 'categories.store',
+                        'edit'    => 'categories.edit',
+                        'update'  => 'categories.update',
                         'destroy' => 'categories.destroy',
                     ],
                 ]);
@@ -223,8 +212,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                 /*
                  * Nested Work Order Routes
                  */
-                Route::group(['prefix' => '{work_orders}'], function ()
-                {
+                Route::group(['prefix' => '{work_orders}'], function () {
                     /*
                      * Work Order Session Routes
                      */
@@ -243,7 +231,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                             'destroy',
                         ],
                         'names' => [
-                            'store' => 'updates.store',
+                            'store'   => 'updates.store',
                             'destroy' => 'updates.destroy',
                         ],
                     ]);
@@ -259,9 +247,9 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                             'destroy',
                         ],
                         'names' => [
-                            'index' => 'assignments.index',
-                            'create' => 'assignments.create',
-                            'store' => 'assignments.store',
+                            'index'   => 'assignments.index',
+                            'create'  => 'assignments.create',
+                            'store'   => 'assignments.store',
                             'destroy' => 'assignments.destroy',
                         ],
                     ]);
@@ -274,11 +262,11 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                             'index',
                         ],
                         'names' => [
-                            'create' => 'report.create',
-                            'store' => 'report.store',
-                            'show' => 'report.show',
-                            'edit' => 'report.edit',
-                            'update' => 'report.update',
+                            'create'  => 'report.create',
+                            'store'   => 'report.store',
+                            'show'    => 'report.show',
+                            'edit'    => 'report.edit',
+                            'update'  => 'report.update',
                             'destroy' => 'report.destroy',
                         ],
                     ]);
@@ -290,12 +278,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
 
                     Route::resource('attachments', 'AttachmentController', [
                         'names' => [
-                            'index' => 'attachments.index',
-                            'create' => 'attachments.create',
-                            'store' => 'attachments.store',
-                            'show' => 'attachments.show',
-                            'edit' => 'attachments.edit',
-                            'update' => 'attachments.update',
+                            'index'   => 'attachments.index',
+                            'create'  => 'attachments.create',
+                            'store'   => 'attachments.store',
+                            'show'    => 'attachments.show',
+                            'edit'    => 'attachments.edit',
+                            'update'  => 'attachments.update',
                             'destroy' => 'attachments.destroy',
                         ],
                     ]);
@@ -309,7 +297,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                             'update',
                         ],
                         'names' => [
-                            'store' => 'notifications.store',
+                            'store'  => 'notifications.store',
                             'update' => 'notifications.update',
                         ],
                     ]);
@@ -319,12 +307,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                      */
                     Route::resource('events', 'EventController', [
                         'names' => [
-                            'index' => 'events.index',
-                            'create' => 'events.create',
-                            'store' => 'events.store',
-                            'show' => 'events.show',
-                            'edit' => 'events.edit',
-                            'update' => 'events.update',
+                            'index'   => 'events.index',
+                            'create'  => 'events.create',
+                            'store'   => 'events.store',
+                            'show'    => 'events.show',
+                            'edit'    => 'events.edit',
+                            'update'  => 'events.update',
                             'destroy' => 'events.destroy',
                         ],
                     ]);
@@ -332,12 +320,10 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                     /*
                      * Work Order Part Routes
                      */
-                    Route::group(['prefix' => 'parts', 'as' => 'parts.', 'namespace' => 'Part'], function ()
-                    {
+                    Route::group(['prefix' => 'parts', 'as' => 'parts.', 'namespace' => 'Part'], function () {
                         Route::get('parts', ['as' => 'index', 'uses' => 'Controller@index']);
 
-                        Route::group(['prefix' => '{inventory}/stocks'], function()
-                        {
+                        Route::group(['prefix' => '{inventory}/stocks'], function () {
                             Route::get('/', ['as' => 'stocks.index', 'uses' => 'StockController@index']);
 
                             Route::get('{stocks}/take', ['as' => 'stocks.take', 'uses' => 'StockController@getTake']);
@@ -357,12 +343,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
              */
             Route::resource('work-orders', 'Controller', [
                 'names' => [
-                    'index' => 'index',
-                    'create' => 'create',
-                    'store' => 'store',
-                    'show' => 'show',
-                    'edit' => 'edit',
-                    'update' => 'update',
+                    'index'   => 'index',
+                    'create'  => 'create',
+                    'store'   => 'store',
+                    'show'    => 'show',
+                    'edit'    => 'edit',
+                    'update'  => 'update',
                     'destroy' => 'destroy',
                 ],
             ]);
@@ -371,21 +357,19 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
         /*
          * Asset Routes
          */
-        Route::group(['as' => 'assets.', 'namespace' => 'Asset'], function ()
-        {
-            Route::group(['prefix' => 'assets'], function()
-            {
+        Route::group(['as' => 'assets.', 'namespace' => 'Asset'], function () {
+            Route::group(['prefix' => 'assets'], function () {
                 /*
                  * Asset Event Routes
                  */
                 Route::resource('events', 'EventController', [
                     'names' => [
-                        'index' => 'events.index',
-                        'create' => 'events.create',
-                        'store' => 'events.store',
-                        'show' => 'events.show',
-                        'edit' => 'events.edit',
-                        'update' => 'events.update',
+                        'index'   => 'events.index',
+                        'create'  => 'events.create',
+                        'store'   => 'events.store',
+                        'show'    => 'events.show',
+                        'edit'    => 'events.edit',
+                        'update'  => 'events.update',
                         'destroy' => 'events.destroy',
                     ],
                 ]);
@@ -398,11 +382,11 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                         'show',
                     ],
                     'names' => [
-                        'index' => 'categories.index',
-                        'create' => 'categories.create',
-                        'store' => 'categories.store',
-                        'edit' => 'categories.edit',
-                        'update' => 'categories.update',
+                        'index'   => 'categories.index',
+                        'create'  => 'categories.create',
+                        'store'   => 'categories.store',
+                        'edit'    => 'categories.edit',
+                        'update'  => 'categories.update',
                         'destroy' => 'categories.destroy',
                     ],
                 ]);
@@ -418,8 +402,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                 /*
                  * Nested Asset Routes
                  */
-                Route::group(['prefix' => '{assets}'], function ()
-                {
+                Route::group(['prefix' => '{assets}'], function () {
                     /*
                      * Asset Work Order Routes
                      */
@@ -438,12 +421,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
 
                     Route::resource('manuals', 'ManualController', [
                         'names' => [
-                            'index' => 'manuals.index',
-                            'create' => 'manuals.create',
-                            'store' => 'manuals.store',
-                            'show' => 'manuals.show',
-                            'edit' => 'manuals.edit',
-                            'update' => 'manuals.update',
+                            'index'   => 'manuals.index',
+                            'create'  => 'manuals.create',
+                            'store'   => 'manuals.store',
+                            'show'    => 'manuals.show',
+                            'edit'    => 'manuals.edit',
+                            'update'  => 'manuals.update',
                             'destroy' => 'manuals.destroy',
                         ],
                     ]);
@@ -455,12 +438,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
 
                     Route::resource('images', 'ImageController', [
                         'names' => [
-                            'index' => 'images.index',
-                            'create' => 'images.create',
-                            'store' => 'images.store',
-                            'show' => 'images.show',
-                            'edit' => 'images.edit',
-                            'update' => 'images.update',
+                            'index'   => 'images.index',
+                            'create'  => 'images.create',
+                            'store'   => 'images.store',
+                            'show'    => 'images.show',
+                            'edit'    => 'images.edit',
+                            'update'  => 'images.update',
                             'destroy' => 'images.destroy',
                         ],
                     ]);
@@ -468,16 +451,15 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                     /*
                      * Asset Meter Routes
                      */
-                    Route::group(['prefix' => 'meters', 'as' => 'meters.', 'namespace' => 'Meter'], function ()
-                    {
+                    Route::group(['prefix' => 'meters', 'as' => 'meters.', 'namespace' => 'Meter'], function () {
                         Route::resource('', 'Controller', [
                             'names' => [
-                                'index' => 'index',
-                                'create' => 'create',
-                                'store' => 'store',
-                                'show' => 'show',
-                                'edit' => 'edit',
-                                'update' => 'update',
+                                'index'   => 'index',
+                                'create'  => 'create',
+                                'store'   => 'store',
+                                'show'    => 'show',
+                                'edit'    => 'edit',
+                                'update'  => 'update',
                                 'destroy' => 'destroy',
                             ],
                         ]);
@@ -488,7 +470,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                                 'destroy',
                             ],
                             'names' => [
-                                'store' => 'readings.store',
+                                'store'   => 'readings.store',
                                 'destroy' => 'readings.destroy',
                             ],
                         ]);
@@ -501,12 +483,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
              */
             Route::resource('assets', 'Controller', [
                 'names' => [
-                    'index' => 'index',
-                    'create' => 'create',
-                    'store' => 'store',
-                    'show' => 'show',
-                    'edit' => 'edit',
-                    'update' => 'update',
+                    'index'   => 'index',
+                    'create'  => 'create',
+                    'store'   => 'store',
+                    'show'    => 'show',
+                    'edit'    => 'edit',
+                    'update'  => 'update',
                     'destroy' => 'destroy',
                 ],
             ]);
@@ -515,10 +497,8 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
         /*
          * Inventory Routes
          */
-        Route::group(['as' => 'inventory.', 'namespace' => 'Inventory'], function ()
-        {
-            Route::group(['prefix' => 'inventory'], function ()
-            {
+        Route::group(['as' => 'inventory.', 'namespace' => 'Inventory'], function () {
+            Route::group(['prefix' => 'inventory'], function () {
                 /*
                  * Inventory Category Routes
                  */
@@ -535,11 +515,11 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                         'show',
                     ],
                     'names' => [
-                        'index' => 'categories.index',
-                        'create' => 'categories.create',
-                        'store' => 'categories.store',
-                        'edit' => 'categories.edit',
-                        'update' => 'categories.update',
+                        'index'   => 'categories.index',
+                        'create'  => 'categories.create',
+                        'store'   => 'categories.store',
+                        'edit'    => 'categories.edit',
+                        'update'  => 'categories.update',
                         'destroy' => 'categories.destroy',
                     ],
                 ]);
@@ -547,8 +527,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                 /*
                  * Nested Inventory Routes
                  */
-                Route::group(['prefix' => '{inventory}'], function ()
-                {
+                Route::group(['prefix' => '{inventory}'], function () {
                     Route::patch('sku/regenerate', ['as' => 'sku.regenerate', 'uses' => 'SkuController@regenerate']);
 
                     /*
@@ -561,7 +540,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                         ],
                         'names' => [
                             'create' => 'variants.create',
-                            'store' => 'variants.store',
+                            'store'  => 'variants.store',
                         ],
                     ]);
 
@@ -570,12 +549,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                      */
                     Route::resource('events', 'EventController', [
                         'names' => [
-                            'index' => 'events.index',
-                            'create' => 'events.create',
-                            'store' => 'events.store',
-                            'show' => 'events.show',
-                            'edit' => 'events.edit',
-                            'update' => 'events.update',
+                            'index'   => 'events.index',
+                            'create'  => 'events.create',
+                            'store'   => 'events.store',
+                            'show'    => 'events.show',
+                            'edit'    => 'events.edit',
+                            'update'  => 'events.update',
                             'destroy' => 'events.destroy',
                         ],
                     ]);
@@ -585,14 +564,14 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                      */
                     Route::resource('notes', 'NoteController', [
                         'except' => [
-                            'index'
+                            'index',
                         ],
                         'names' => [
-                            'create' => 'notes.create',
-                            'store' => 'notes.store',
-                            'show' => 'notes.show',
-                            'edit' => 'notes.edit',
-                            'update' => 'notes.update',
+                            'create'  => 'notes.create',
+                            'store'   => 'notes.store',
+                            'show'    => 'notes.show',
+                            'edit'    => 'notes.edit',
+                            'update'  => 'notes.update',
                             'destroy' => 'notes.destroy',
                         ],
                     ]);
@@ -600,16 +579,15 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                     /*
                      * Inventory Stock Routes
                      */
-                    Route::group(['prefix' => 'stocks', 'as' => 'stocks.'], function ()
-                    {
+                    Route::group(['prefix' => 'stocks', 'as' => 'stocks.'], function () {
                         Route::resource('stocks', 'StockController', [
                             'names' => [
-                                'index' => 'index',
-                                'create' => 'create',
-                                'store' => 'store',
-                                'show' => 'show',
-                                'edit' => 'edit',
-                                'update' => 'update',
+                                'index'   => 'index',
+                                'create'  => 'create',
+                                'store'   => 'store',
+                                'show'    => 'show',
+                                'edit'    => 'edit',
+                                'update'  => 'update',
                                 'destroy' => 'destroy',
                             ],
                         ]);
@@ -617,8 +595,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                         /*
                          * Nested Inventory Stock Routes
                          */
-                        Route::group(['prefix' => 'stocks/{stocks}'], function ()
-                        {
+                        Route::group(['prefix' => 'stocks/{stocks}'], function () {
                             /*
                              * Inventory Stock Movement Routes
                              */
@@ -629,17 +606,15 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
                                 ],
                                 'names' => [
                                     'index' => 'index',
-                                    'show' => 'show',
+                                    'show'  => 'show',
                                 ],
                             ]);
 
-                            Route::group(['prefix' => 'movements', 'as' => 'movements.'], function()
-                            {
+                            Route::group(['prefix' => 'movements', 'as' => 'movements.'], function () {
                                 /*
                                  * Nested Inventory Stock Movement Routes
                                  */
-                                Route::group(['prefix' => '{movements}'], function ()
-                                {
+                                Route::group(['prefix' => '{movements}'], function () {
                                     Route::post('rollback', ['as' => 'rollback', 'uses' => 'StockMovementController@rollback']);
                                 });
                             });
@@ -653,12 +628,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
              */
             Route::resource('inventory', 'Controller', [
                 'names' => [
-                    'index' => 'index',
-                    'create' => 'create',
-                    'store' => 'store',
-                    'show' => '.show',
-                    'edit' => 'edit',
-                    'update' => 'update',
+                    'index'   => 'index',
+                    'create'  => 'create',
+                    'store'   => 'store',
+                    'show'    => '.show',
+                    'edit'    => 'edit',
+                    'update'  => 'update',
                     'destroy' => 'destroy',
                 ],
             ]);
@@ -671,18 +646,18 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
 
         Route::post('locations/move/{categories?}', ['as' => 'locations.nodes.move', 'uses' => 'LocationController@postMoveCategory']);
 
-        Route::post('locations/create/{categories?}', ['as' => 'locations.nodes.store', 'uses' => 'LocationController@store',]);
+        Route::post('locations/create/{categories?}', ['as' => 'locations.nodes.store', 'uses' => 'LocationController@store']);
 
         Route::resource('locations', 'LocationController', [
             'except' => [
                 'show',
             ],
             'names' => [
-                'index' => 'locations.index',
-                'create' => 'locations.create',
-                'store' => 'locations.store',
-                'edit' => 'locations.edit',
-                'update' => 'locations.update',
+                'index'   => 'locations.index',
+                'create'  => 'locations.create',
+                'store'   => 'locations.store',
+                'edit'    => 'locations.edit',
+                'update'  => 'locations.update',
                 'destroy' => 'locations.destroy',
             ],
         ]);
@@ -694,12 +669,12 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
          */
         Route::resource('metrics', 'MetricController', [
             'names' => [
-                'index' => 'metrics.index',
-                'create' => 'metrics.create',
-                'store' => 'metrics.store',
-                'show' => 'metrics.show',
-                'edit' => 'metrics.edit',
-                'update' => 'metrics.update',
+                'index'   => 'metrics.index',
+                'create'  => 'metrics.create',
+                'store'   => 'metrics.store',
+                'show'    => 'metrics.show',
+                'edit'    => 'metrics.edit',
+                'update'  => 'metrics.update',
                 'destroy' => 'metrics.destroy',
             ],
         ]);
@@ -707,8 +682,7 @@ Route::group(['prefix' => Config::get('maintenance.site.prefix'), 'as' => 'maint
         /*
          * Administration Route Group
          */
-        Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function ()
-        {
+        Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             /*
              * Administration Routes
              */

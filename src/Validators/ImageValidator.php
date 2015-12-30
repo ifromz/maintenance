@@ -5,7 +5,7 @@ namespace Stevebauman\Maintenance\Validators;
 class ImageValidator extends FileValidator
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected $rules = [
         'files' => 'required|mimes:jpeg,jpg,png,gif,bmp,svg',

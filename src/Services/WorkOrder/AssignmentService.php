@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Stevebauman\Maintenance\Services\SentryService;
-use Stevebauman\Maintenance\Services\BaseModelService;
 use Stevebauman\Maintenance\Models\WorkOrderAssignment;
+use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class AssignmentService extends BaseModelService
 {
@@ -21,8 +21,8 @@ class AssignmentService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param WorkOrderAssignment                  $assignment
-     * @param SentryService                        $sentry
+     * @param WorkOrderAssignment $assignment
+     * @param SentryService       $sentry
      */
     public function __construct(WorkOrderAssignment $assignment, SentryService $sentry)
     {
@@ -46,8 +46,8 @@ class AssignmentService extends BaseModelService
                 foreach ($users as $user) {
                     $insert = [
                         'work_order_id' => $this->getInput('work_order_id'),
-                        'by_user_id' => $this->sentry->getCurrentUserId(),
-                        'to_user_id' => $user,
+                        'by_user_id'    => $this->sentry->getCurrentUserId(),
+                        'to_user_id'    => $user,
                     ];
 
                     $records[] = $this->model->create($insert);

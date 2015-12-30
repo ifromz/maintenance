@@ -3,9 +3,9 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Stevebauman\Maintenance\Viewers\Inventory\InventoryStockMovementViewer;
-use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\Inventory\InventoryStockMovementViewer;
 
 class InventoryStockMovement extends Model
 {

@@ -40,7 +40,7 @@ class LogController extends Controller
         }
 
         return view('maintenance::admin.logs.index', [
-            'title' => 'Log Entries',
+            'title'   => 'Log Entries',
             'entries' => $entries->paginate(15),
         ]);
     }

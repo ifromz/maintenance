@@ -58,7 +58,7 @@ class InventoryStockViewer extends BaseViewer
     {
         return view('maintenance::viewers.inventory.stock.buttons.add-to-work-order', [
             'workOrder' => $workOrder,
-            'stock' => $this->entity,
+            'stock'     => $this->entity,
         ]);
     }
 
@@ -71,14 +71,14 @@ class InventoryStockViewer extends BaseViewer
      */
     public function btnPutBackSomeForWorkOrder(WorkOrder $workOrder)
     {
-        if($this->entity->item) {
+        if ($this->entity->item) {
             return view('maintenance::viewers.inventory.stock.buttons.put-back-some-work-order', [
                 'workOrder' => $workOrder,
-                'stock' => $this->entity,
+                'stock'     => $this->entity,
             ]);
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -90,13 +90,13 @@ class InventoryStockViewer extends BaseViewer
      */
     public function btnPutBackAllForWorkOrder(WorkOrder $workOrder)
     {
-        if($this->entity->item) {
+        if ($this->entity->item) {
             return view('maintenance::viewers.inventory.stock.buttons.put-back-all-work-order', [
                 'workOrder' => $workOrder,
-                'stock' => $this->entity,
+                'stock'     => $this->entity,
             ]);
         }
 
-        return null;
+        return;
     }
 }

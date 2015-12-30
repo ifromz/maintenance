@@ -86,7 +86,7 @@ Validator::replacer('less_than', function ($message, $attribute, $rule, $paramet
 Validator::extend('session_start', 'Stevebauman\Maintenance\Validators\WorkOrder\SessionStartValidator@validateSessionStart');
 
 Validator::replacer('session_start', function () {
-    return "You already have an open session, you must close it to begin a new one.";
+    return 'You already have an open session, you must close it to begin a new one.';
 });
 
 /*
@@ -95,6 +95,5 @@ Validator::replacer('session_start', function () {
 Validator::extend('session_end', 'Stevebauman\Maintenance\Validators\WorkOrder\SessionEndValidator@validateSessionEnd');
 
 Validator::replacer('session_end', function () {
-    return "This session has already ended. You must create a new session.";
+    return 'This session has already ended. You must create a new session.';
 });
-

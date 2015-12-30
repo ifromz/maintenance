@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Validators\WorkOrder;
 
+use Illuminate\Support\Facades\Route;
 use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\WorkOrder\SessionService;
-use Illuminate\Support\Facades\Route;
 
 class SessionEndValidator
 {
@@ -39,10 +39,10 @@ class SessionEndValidator
     {
         $sessionId = Route::getCurrentRoute()->getParameter('sessions');
 
-        if($sessionId) {
+        if ($sessionId) {
             $session = $this->session->find($sessionId);
 
-            if(!is_null($session->out)) {
+            if (!is_null($session->out)) {
                 return false;
             }
         }

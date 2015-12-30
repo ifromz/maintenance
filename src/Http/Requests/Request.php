@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Requests;
 
-use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Foundation\Http\FormRequest;
+use Stevebauman\Purify\Facades\Purify;
 
 abstract class Request extends FormRequest
 {

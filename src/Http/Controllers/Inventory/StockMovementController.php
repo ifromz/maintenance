@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Inventory;
 
-use Stevebauman\Maintenance\Services\Inventory\InventoryService;
-use Stevebauman\Maintenance\Services\Inventory\StockService;
-use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
 use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
+use Stevebauman\Maintenance\Services\Inventory\InventoryService;
+use Stevebauman\Maintenance\Services\Inventory\StockMovementService;
+use Stevebauman\Maintenance\Services\Inventory\StockService;
 
 class StockMovementController extends BaseController
 {
@@ -56,9 +56,9 @@ class StockMovementController extends BaseController
         $movements = $this->inventoryStockMovement->setInput($data)->getByPageWithFilter();
 
         return view('maintenance::inventory.stocks.movements.index', [
-            'title' => "Viewing Stock Movements for Item: $item->name in Location: ".renderNode($stock->location),
-            'item' => $item,
-            'stock' => $stock,
+            'title'     => "Viewing Stock Movements for Item: $item->name in Location: ".renderNode($stock->location),
+            'item'      => $item,
+            'stock'     => $stock,
             'movements' => $movements,
         ]);
     }
@@ -77,9 +77,9 @@ class StockMovementController extends BaseController
         $movement = $this->inventoryStockMovement->find($movement_id);
 
         return view('maintenance::inventory.stocks.movements.show', [
-            'title' => 'Viewing Movement: '.$movement->id,
-            'item' => $item,
-            'stock' => $stock,
+            'title'    => 'Viewing Movement: '.$movement->id,
+            'item'     => $item,
+            'stock'    => $stock,
             'movement' => $movement,
         ]);
     }

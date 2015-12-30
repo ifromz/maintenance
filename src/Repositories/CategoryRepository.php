@@ -60,12 +60,11 @@ class CategoryRepository extends Repository
         $category->belongs_to = $this->belongsTo;
         $category->name = $request->input('name');
 
-        if($category->save()) {
-
-            if(! is_null($id)) {
+        if ($category->save()) {
+            if (!is_null($id)) {
                 $parent = $this->find($id);
 
-                if($parent) {
+                if ($parent) {
                     $category->makeChildOf($parent);
                 }
             }
@@ -88,10 +87,10 @@ class CategoryRepository extends Repository
     {
         $category = $this->find($id);
 
-        if($category) {
+        if ($category) {
             $category->name = $request->input('name', $category->name);
 
-            if($category->save()) {
+            if ($category->save()) {
                 return $category;
             }
         }

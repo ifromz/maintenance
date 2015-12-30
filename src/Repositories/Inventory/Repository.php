@@ -2,12 +2,12 @@
 
 namespace Stevebauman\Maintenance\Repositories\Inventory;
 
-use Stevebauman\Maintenance\Http\Requests\Inventory\VariantRequest;
 use Stevebauman\Maintenance\Http\Requests\Inventory\Request;
+use Stevebauman\Maintenance\Http\Requests\Inventory\VariantRequest;
 use Stevebauman\Maintenance\Http\Requests\NoteRequest;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Inventory;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class Repository extends BaseRepository
 {
@@ -132,7 +132,7 @@ class Repository extends BaseRepository
         $inventory->name = $request->input('name');
         $inventory->description = $request->clean($request->input('description'));
 
-        if($inventory->save()) {
+        if ($inventory->save()) {
             return $inventory;
         }
 
@@ -153,7 +153,7 @@ class Repository extends BaseRepository
 
         $variant = $this->create($request);
 
-        if($variant) {
+        if ($variant) {
             $variant->makeVariantOf($inventory);
 
             return $variant;
@@ -181,7 +181,7 @@ class Repository extends BaseRepository
 
         $note = $inventory->notes()->create($attributes);
 
-        if($note) {
+        if ($note) {
             return $note;
         }
 
@@ -205,10 +205,9 @@ class Repository extends BaseRepository
         $inventory->name = $request->input('name', $inventory->name);
         $inventory->description = $request->clean($request->input('description', $inventory->description));
 
-        if($inventory->save()) {
+        if ($inventory->save()) {
             return $inventory;
         }
-
 
         return false;
     }
@@ -232,7 +231,7 @@ class Repository extends BaseRepository
             'content' => $request->clean($request->input('content', $note->content)),
         ];
 
-        if($note->update($attributes)) {
+        if ($note->update($attributes)) {
             return $note;
         }
 
@@ -245,9 +244,9 @@ class Repository extends BaseRepository
      * @param int|string $id
      * @param int|string $noteId
      *
-     * @return bool
-     *
      * @throws \Exception
+     *
+     * @return bool
      */
     public function deleteNote($id, $noteId)
     {
@@ -255,7 +254,7 @@ class Repository extends BaseRepository
 
         $note = $inventory->notes()->findOrFail($noteId);
 
-        if($note->delete()) {
+        if ($note->delete()) {
             return true;
         }
 
@@ -273,7 +272,7 @@ class Repository extends BaseRepository
     {
         $inventory = $this->model()->findOrFail($id);
 
-        if($inventory->regenerateSku()) {
+        if ($inventory->regenerateSku()) {
             return $inventory;
         }
 

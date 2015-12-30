@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Viewers\UserViewer;
-use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
-use Stevebauman\EloquentTable\TableTrait;
-use Stevebauman\Viewer\Traits\ViewableTrait;
 use Cartalyst\Sentinel\Users\EloquentUser;
+use Stevebauman\EloquentTable\TableTrait;
+use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
+use Stevebauman\Maintenance\Viewers\UserViewer;
+use Stevebauman\Viewer\Traits\ViewableTrait;
 
 class User extends EloquentUser
 {

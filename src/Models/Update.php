@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Viewers\UpdateViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\UpdateViewer;
 
 class Update extends Model
 {
@@ -30,6 +30,6 @@ class Update extends Model
      */
     protected $fillable = [
         'user_id',
-        'content'
+        'content',
     ];
 }

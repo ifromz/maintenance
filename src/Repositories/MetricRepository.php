@@ -3,8 +3,8 @@
 namespace Stevebauman\Maintenance\Repositories;
 
 use Stevebauman\Maintenance\Http\Requests\MetricRequest;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Metric;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class MetricRepository extends Repository
 {
@@ -44,7 +44,7 @@ class MetricRepository extends Repository
         $metric->symbol = $request->input('symbol');
         $metric->user_id = $this->sentry->getCurrentUserId();
 
-        if($metric->save()) {
+        if ($metric->save()) {
             return $metric;
         }
 
@@ -63,11 +63,11 @@ class MetricRepository extends Repository
     {
         $metric = $this->model()->findOrFail($id);
 
-        if($metric) {
+        if ($metric) {
             $metric->name = $request->input('name', $metric->name);
             $metric->symbol = $request->input('symbol', $metric->symbol);
 
-            if($metric->save()) {
+            if ($metric->save()) {
                 return $metric;
             }
         }

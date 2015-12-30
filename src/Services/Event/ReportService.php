@@ -3,8 +3,8 @@
 namespace Stevebauman\Maintenance\Services\Event;
 
 use Stevebauman\Maintenance\Models\EventReport;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class ReportService extends BaseModelService
 {
@@ -41,8 +41,8 @@ class ReportService extends BaseModelService
 
         try {
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
-                'event_id' => $this->getInput('event_id'),
+                'user_id'     => $this->sentry->getCurrentUserId(),
+                'event_id'    => $this->getInput('event_id'),
                 'description' => $this->getInput('description', null, true),
             ];
 

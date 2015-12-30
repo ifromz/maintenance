@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Repositories\Asset;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Http\Requests\Asset\Request;
 use Stevebauman\Maintenance\Models\Asset;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class Repository extends BaseRepository
 {
@@ -101,7 +101,7 @@ class Repository extends BaseRepository
     {
         $asset = $this->find($assetId);
 
-        $model = $asset->workOrders()->getRelated()->newInstance()->query()->whereDoesntHave('assets', function($query) use ($assetId) {
+        $model = $asset->workOrders()->getRelated()->newInstance()->query()->whereDoesntHave('assets', function ($query) use ($assetId) {
             $query->where('assets.id', '=', $assetId);
         });
 
@@ -203,15 +203,15 @@ class Repository extends BaseRepository
         $asset->serial = $request->input('serial');
         $asset->price = $request->input('price');
 
-        if($request->input('acquired_at')) {
+        if ($request->input('acquired_at')) {
             $asset->acquired_at = $this->strToDate($request->input('acquired_at'));
         }
 
-        if($request->input('end_of_life')) {
+        if ($request->input('end_of_life')) {
             $asset->end_of_life = $this->strToDate($request->input('end_of_life'));
         }
 
-        if($asset->save()) {
+        if ($asset->save()) {
             return $asset;
         }
 
@@ -230,7 +230,7 @@ class Repository extends BaseRepository
     {
         $asset = $this->model()->findOrFail($id);
 
-        if($asset) {
+        if ($asset) {
             $asset->location_id = $request->input('location_id', $asset->location_id);
             $asset->category_id = $request->input('category_id', $asset->category_id);
             $asset->tag = $request->input('tag', $asset->tag);
@@ -245,15 +245,15 @@ class Repository extends BaseRepository
             $asset->serial = $request->input('serial', $asset->serial);
             $asset->price = $request->input('price', $asset->price);
 
-            if($request->input('acquired_at')) {
+            if ($request->input('acquired_at')) {
                 $asset->acquired_at = $this->strToDate($request->input('acquired_at', $asset->acquired_at));
             }
 
-            if($request->input('end_of_life')) {
+            if ($request->input('end_of_life')) {
                 $asset->end_of_life = $this->strToDate($request->input('end_of_life', $asset->end_of_life));
             }
 
-            if($asset->save()) {
+            if ($asset->save()) {
                 return $asset;
             }
         }
@@ -273,11 +273,11 @@ class Repository extends BaseRepository
     {
         $asset = $this->model()->findOrFail($id);
 
-        if($asset) {
+        if ($asset) {
             $workOrder = $asset->workOrders()->find($workOrderId);
 
             // Only attach the work order if it hasn't already been attached.
-            if(!$workOrder) {
+            if (!$workOrder) {
                 $workOrder = $asset->workOrders()->getRelated()->findOrFail($workOrderId);
 
                 $asset->workOrders()->attach($workOrder->id);
@@ -303,7 +303,7 @@ class Repository extends BaseRepository
 
         $workOrder = $asset->workOrders()->findOrFail($workOrderId);
 
-        if($asset->workOrders()->detach($workOrder->id)) {
+        if ($asset->workOrders()->detach($workOrder->id)) {
             return $asset;
         }
 

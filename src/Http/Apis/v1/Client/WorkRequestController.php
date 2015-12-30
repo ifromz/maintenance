@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Client;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\WorkRequest;
 use Stevebauman\Maintenance\Repositories\Client\WorkRequestRepository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class WorkRequestController extends BaseController
 {
@@ -39,24 +39,23 @@ class WorkRequestController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(WorkRequest $workRequest)
-        {
+        $transformer = function (WorkRequest $workRequest) {
             $attributes = [
-                'id' => $workRequest->id,
-                'subject' => $workRequest->subject,
+                'id'          => $workRequest->id,
+                'subject'     => $workRequest->subject,
                 'description' => $workRequest->getLimitedDescriptionAttribute(),
-                'best_time' => $workRequest->best_time,
-                'created_at' => $workRequest->created_at,
-                'view_url' => route('maintenance.client.work-requests.show', [$workRequest->id]),
+                'best_time'   => $workRequest->best_time,
+                'created_at'  => $workRequest->created_at,
+                'view_url'    => route('maintenance.client.work-requests.show', [$workRequest->id]),
             ];
 
-            if($workRequest->workOrder && $workRequest->workOrder->status) {
+            if ($workRequest->workOrder && $workRequest->workOrder->status) {
                 $attributes['status'] = $workRequest->workOrder->status->label;
             } else {
                 $attributes['status'] = '<em>None</em>';

@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset;
 
-use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\Asset\ImageRequest;
+use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
 use Stevebauman\Maintenance\Repositories\Asset\ImageRepository;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class ImageController extends BaseController
 {
@@ -63,8 +63,8 @@ class ImageController extends BaseController
     /**
      * Uploads images and attaches them to the specified asset.
      *
-     * @param ImageRequest      $request
-     * @param int|string        $id
+     * @param ImageRequest $request
+     * @param int|string   $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -74,7 +74,7 @@ class ImageController extends BaseController
 
         $attachments = $this->image->upload($request, $asset, $asset->images());
 
-        if($attachments) {
+        if ($attachments) {
             $message = 'Successfully uploaded files.';
 
             return redirect()->route('maintenance.assets.images.index', [$asset->id])->withSuccess($message);
@@ -99,7 +99,7 @@ class ImageController extends BaseController
 
         $image = $asset->images()->find($imageId);
 
-        if($image) {
+        if ($image) {
             return view('maintenance::assets.images.show', compact('asset', 'image'));
         }
 
@@ -120,7 +120,7 @@ class ImageController extends BaseController
 
         $image = $asset->images()->find($imageId);
 
-        if($image) {
+        if ($image) {
             return view('maintenance::assets.images.edit', compact('asset', 'image'));
         }
 
@@ -142,7 +142,7 @@ class ImageController extends BaseController
 
         $image = $this->image->update($request, $asset->images(), $imageId);
 
-        if($image) {
+        if ($image) {
             $message = 'Successfully updated image.';
 
             return redirect()->route('maintenance.assets.images.show', [$asset->id, $image->id])->withSuccess($message);
@@ -167,7 +167,7 @@ class ImageController extends BaseController
 
         $image = $asset->images()->find($imageId);
 
-        if($image && $image->delete()) {
+        if ($image && $image->delete()) {
             $message = 'Successfully deleted attachment.';
 
             return redirect()->route('maintenance.assets.images.index', [$asset->id])->withSuccess($message);
@@ -192,7 +192,7 @@ class ImageController extends BaseController
 
         $image = $asset->images()->find($imageId);
 
-        if($image) {
+        if ($image) {
             return response()->download($image->download_path);
         }
 

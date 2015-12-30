@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
+use Illuminate\Database\Seeder;
 use Stevebauman\Corp\Objects\User;
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\LdapService;
-use Illuminate\Database\Seeder;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class LdapUserSeeder extends Seeder
 {
@@ -92,10 +92,10 @@ class LdapUserSeeder extends Seeder
             }
 
             $data = [
-                'email' => $user->email,
-                'password' => str_random(20),
-                'username' => $user->username,
-                'last_name' => $last_name,
+                'email'      => $user->email,
+                'password'   => str_random(20),
+                'username'   => $user->username,
+                'last_name'  => $last_name,
                 'first_name' => $first_name,
             ];
 

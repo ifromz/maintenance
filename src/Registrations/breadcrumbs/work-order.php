@@ -1,7 +1,7 @@
 <?php
 
-use DaveJamesMiller\Breadcrumbs\Generator;
 use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
+use DaveJamesMiller\Breadcrumbs\Generator;
 
 /*
  * Work Order crumbs
@@ -118,7 +118,7 @@ Breadcrumbs::register('maintenance.work-orders.attachments.show', function (Gene
 
 Breadcrumbs::register('maintenance.work-orders.attachments.edit', function (Generator $breadcrumbs, $workOrderId, $attachmentId) {
     $breadcrumbs->parent('maintenance.work-orders.attachments.show', $workOrderId, $attachmentId);
-    $breadcrumbs->push("Edit", route('maintenance.work-orders.attachments.edit', [$workOrderId, $attachmentId]));
+    $breadcrumbs->push('Edit', route('maintenance.work-orders.attachments.edit', [$workOrderId, $attachmentId]));
 });
 /*
  * End Work Order attachment crumbs
@@ -173,7 +173,7 @@ Breadcrumbs::register('maintenance.work-orders.categories.create', function (Gen
 
 Breadcrumbs::register('maintenance.work-orders.categories.nodes.create', function (Generator $breadcrumbs, $categoryId) {
     $breadcrumbs->parent('maintenance.work-orders.categories.index');
-    $breadcrumbs->push("Sub-Category");
+    $breadcrumbs->push('Sub-Category');
     $breadcrumbs->push('Create', route('maintenance.work-orders.categories.nodes.create', [$categoryId]));
 });
 /*

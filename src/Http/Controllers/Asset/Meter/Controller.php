@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Asset\Meter;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\Asset\MeterRequest;
 use Stevebauman\Maintenance\Repositories\Asset\MeterRepository;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -71,7 +71,7 @@ class Controller extends BaseController
     {
         $meter = $this->meter->create($request, $id);
 
-        if($meter) {
+        if ($meter) {
             $message = 'Successfully created meter.';
 
             return redirect()->route('maintenance.assets.meters.index', [$id])->withSuccess($message);
@@ -132,7 +132,7 @@ class Controller extends BaseController
     {
         $meter = $this->meter->update($request, $id, $meterId);
 
-        if($meter) {
+        if ($meter) {
             $message = 'Successfully updated meter.';
 
             return redirect()->route('maintenance.assets.meters.show', [$id, $meter->id])->withSuccess($message);
@@ -157,7 +157,7 @@ class Controller extends BaseController
 
         $meter = $asset->meters()->findOrFail($meterId);
 
-        if($meter->delete()) {
+        if ($meter->delete()) {
             $message = 'Successfully deleted meter.';
 
             return redirect()->route('maintenance.assets.meters.index', [$id])->withSuccess($message);

@@ -2,20 +2,20 @@
 
 namespace Stevebauman\Maintenance\Validators;
 
-use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\MessageBag;
 
 class FileValidator extends BaseValidator
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected $rules = [
         'files' => 'required',
     ];
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function passes()
     {

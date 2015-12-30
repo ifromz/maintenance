@@ -36,21 +36,20 @@ class MetricController extends Controller
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(Metric $metric)
-        {
+        $transformer = function (Metric $metric) {
             return [
-                'id' => $metric->id,
-                'name' => $metric->name,
-                'symbol' => $metric->symbol,
+                'id'         => $metric->id,
+                'name'       => $metric->name,
+                'symbol'     => $metric->symbol,
                 'created_at' => $metric->created_at,
                 'created_by' => ($metric->user ? $metric->user->full_name : 'None'),
-                'view_url' => route('maintenance.metrics.show', [$metric->id]),
+                'view_url'   => route('maintenance.metrics.show', [$metric->id]),
             ];
         };
 

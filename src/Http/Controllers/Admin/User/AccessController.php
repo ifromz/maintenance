@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\User;
 
-use Stevebauman\Maintenance\Validators\AccessCheckValidator;
-use Stevebauman\Maintenance\Services\UserService;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Services\UserService;
+use Stevebauman\Maintenance\Validators\AccessCheckValidator;
 
 class AccessController extends Controller
 {

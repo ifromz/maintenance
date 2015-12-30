@@ -30,7 +30,7 @@ class RoleRepository extends BaseRepository
         $role->name = $request->input('name');
         $role->permissions = $this->routesToPermissions($request->input('permissions', []));
 
-        if($role->save()) {
+        if ($role->save()) {
             $users = $request->input('users');
 
             if ($users) {
@@ -47,7 +47,7 @@ class RoleRepository extends BaseRepository
      * Updates a role.
      *
      * @param RoleRequest $request
-     * @param int|string   $id
+     * @param int|string  $id
      *
      * @return bool|Role
      */
@@ -55,7 +55,7 @@ class RoleRepository extends BaseRepository
     {
         $role = $this->model()->findOrFail($id);
 
-        if($role) {
+        if ($role) {
             $role->name = $request->input('name', $role->name);
 
             $updatedPermissions = $request->input('permissions', []);
@@ -76,7 +76,7 @@ class RoleRepository extends BaseRepository
 
             $role->permissions = $updatedPermissions;
 
-            if($role->save()) {
+            if ($role->save()) {
                 $role->users()->sync($request->input('users', []));
 
                 return $role;

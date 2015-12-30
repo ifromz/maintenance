@@ -66,7 +66,7 @@ class Attachment extends Model
 
         $basePath = config($config, $default);
 
-        return $basePath . DIRECTORY_SEPARATOR . $this->file_path;
+        return $basePath.DIRECTORY_SEPARATOR.$this->file_path;
     }
 
     /**

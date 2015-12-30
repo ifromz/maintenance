@@ -2,12 +2,12 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Inventory;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\Inventory\Stock\Request;
 use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Models\InventoryStockMovement;
-use Stevebauman\Maintenance\Repositories\Inventory\StockRepository;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
+use Stevebauman\Maintenance\Repositories\Inventory\StockRepository;
 
 class StockController extends BaseController
 {
@@ -41,22 +41,21 @@ class StockController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(InventoryStock $stock) use ($id)
-        {
+        $transformer = function (InventoryStock $stock) use ($id) {
             return [
-                'id' => $stock->id,
-                'quantity' => $stock->getQuantityMetricAttribute(),
-                'location' => ($stock->location ? $stock->location->trail : null),
-                'last_movement' => $stock->getLastMovementAttribute(),
+                'id'               => $stock->id,
+                'quantity'         => $stock->getQuantityMetricAttribute(),
+                'location'         => ($stock->location ? $stock->location->trail : null),
+                'last_movement'    => $stock->getLastMovementAttribute(),
                 'last_movement_by' => $stock->getLastMovementByAttribute(),
-                'created_at' => $stock->created_at,
-                'view_url' => route('maintenance.inventory.stocks.show', [$id, $stock->id]),
+                'created_at'       => $stock->created_at,
+                'view_url'         => route('maintenance.inventory.stocks.show', [$id, $stock->id]),
             ];
         };
 
@@ -84,24 +83,23 @@ class StockController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(InventoryStockMovement $movement) use ($id, $stockId)
-        {
+        $transformer = function (InventoryStockMovement $movement) use ($id, $stockId) {
             return [
-                'id' => $movement->id,
-                'before' => $movement->before,
-                'after' => $movement->after,
-                'cost' => $movement->cost,
-                'reason' => $movement->reason,
-                'change' => $movement->getChangeAttribute(),
-                'user' => ($movement->user ? $movement->user->full_name : '<em>None</em>'),
+                'id'         => $movement->id,
+                'before'     => $movement->before,
+                'after'      => $movement->after,
+                'cost'       => $movement->cost,
+                'reason'     => $movement->reason,
+                'change'     => $movement->getChangeAttribute(),
+                'user'       => ($movement->user ? $movement->user->full_name : '<em>None</em>'),
                 'created_at' => $movement->created_at,
-                'view_url' => route('maintenance.inventory.stocks.movements.show', [$id, $stockId, $movement->id]),
+                'view_url'   => route('maintenance.inventory.stocks.movements.show', [$id, $stockId, $movement->id]),
             ];
         };
 

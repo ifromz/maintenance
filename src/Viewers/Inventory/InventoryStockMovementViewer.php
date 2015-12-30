@@ -14,8 +14,8 @@ class InventoryStockMovementViewer extends BaseViewer
     public function btnRollback($item, $stock)
     {
         return view('maintenance::viewers.inventory.stock.movement.buttons.rollback', [
-            'item' => $item,
-            'stock' => $stock,
+            'item'     => $item,
+            'stock'    => $stock,
             'movement' => $this->entity,
         ]);
     }
@@ -23,8 +23,8 @@ class InventoryStockMovementViewer extends BaseViewer
     public function btnActions($item, $stock)
     {
         return view('maintenance::viewers.inventory.stock.movement.buttons.actions', [
-            'item' => $item,
-            'stock' => $stock,
+            'item'     => $item,
+            'stock'    => $stock,
             'movement' => $this->entity,
         ]);
     }

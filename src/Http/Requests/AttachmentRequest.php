@@ -46,11 +46,11 @@ class AttachmentRequest extends Request
 
         $rules = [];
 
-        if($this->hasFile('files')) {
+        if ($this->hasFile('files')) {
             $files = $this->file('files');
 
-            foreach($files as $key => $file) {
-                $rules['files.' . $key] = $rule;
+            foreach ($files as $key => $file) {
+                $rules['files.'.$key] = $rule;
             }
         }
 

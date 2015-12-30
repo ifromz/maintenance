@@ -2,14 +2,14 @@
 
 namespace Stevebauman\Maintenance\Repositories;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Filesystem\Factory;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Stevebauman\Maintenance\Http\Requests\AttachmentRequest;
-use Stevebauman\Maintenance\Services\SentryService;
+use Stevebauman\Maintenance\Http\Requests\AttachmentUpdateRequest;
 use Stevebauman\Maintenance\Models\Attachment;
+use Stevebauman\Maintenance\Services\SentryService;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AttachmentRepository extends Repository
 {
@@ -68,19 +68,19 @@ class AttachmentRepository extends Repository
     {
         $uploads = [];
 
-        if($request->hasFile('files')) {
-            foreach($request->file('files') as $file) {
-                if($file instanceof UploadedFile) {
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                if ($file instanceof UploadedFile) {
                     $upload = $this->create($model, $file, $relation);
 
-                    if($upload) {
+                    if ($upload) {
                         $uploads[] = $upload;
                     }
                 }
             }
         }
 
-        if(count($uploads) > 0) {
+        if (count($uploads) > 0) {
             return $uploads;
         }
 
@@ -108,17 +108,17 @@ class AttachmentRepository extends Repository
 
         $contents = ($realPath ? file_get_contents($realPath) : false);
 
-        if($contents && $this->storage->put($storePath, $contents)) {
+        if ($contents && $this->storage->put($storePath, $contents)) {
             $attributes = [
-                'user_id' => $this->sentry->getCurrentUserId(),
-                'name' => $file->getClientOriginalName(),
+                'user_id'   => $this->sentry->getCurrentUserId(),
+                'name'      => $file->getClientOriginalName(),
                 'file_name' => $file->getClientOriginalName(),
                 'file_path' => $storePath,
             ];
 
             $attachment = $relation->create($attributes);
 
-            if($attachment) {
+            if ($attachment) {
                 return $attachment;
             }
         }
@@ -139,10 +139,10 @@ class AttachmentRepository extends Repository
     {
         $attachment = $relation->find($id);
 
-        if($attachment) {
+        if ($attachment) {
             $attachment->name = $request->input('name', $attachment->name);
 
-            if($attachment->save()) {
+            if ($attachment->save()) {
                 return $attachment;
             }
         }
@@ -187,7 +187,7 @@ class AttachmentRepository extends Repository
      */
     public function getUniqueFileName(UploadedFile $file)
     {
-        return uniqid($this->getUploadTimestamp()) . '.' . $file->getClientOriginalExtension();
+        return uniqid($this->getUploadTimestamp()).'.'.$file->getClientOriginalExtension();
     }
 
     /**
@@ -211,8 +211,8 @@ class AttachmentRepository extends Repository
      */
     protected function appendPath($path, $append = null)
     {
-        if($append) {
-            return (string) $path . DIRECTORY_SEPARATOR . (string) $append;
+        if ($append) {
+            return (string) $path.DIRECTORY_SEPARATOR.(string) $append;
         }
 
         return $path;

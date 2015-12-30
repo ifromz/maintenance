@@ -4,10 +4,10 @@ namespace Stevebauman\Maintenance\Repositories;
 
 use Stevebauman\Maintenance\Http\Requests\Admin\User\CreateRequest;
 use Stevebauman\Maintenance\Http\Requests\Admin\User\UpdateRequest;
-use Stevebauman\Maintenance\Services\LdapService;
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\User;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Services\LdapService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class UserRepository extends Repository
 {
@@ -58,18 +58,18 @@ class UserRepository extends Repository
     public function create(CreateRequest $request)
     {
         $attributes = [
-            'username' => $request->input('username'),
-            'email' => $request->input('email'),
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
-            'password' => $request->input('password'),
+            'username'    => $request->input('username'),
+            'email'       => $request->input('email'),
+            'first_name'  => $request->input('first_name'),
+            'last_name'   => $request->input('last_name'),
+            'password'    => $request->input('password'),
             'permissions' => $request->input('permissions', []),
-            'activated' => $request->input('activated', false),
+            'activated'   => $request->input('activated', false),
         ];
 
         $user = $this->sentry->createUser($attributes);
 
-        if($user) {
+        if ($user) {
             return $user;
         }
 
@@ -87,17 +87,17 @@ class UserRepository extends Repository
     public function update(UpdateRequest $request, $id)
     {
         $attributes = [
-            'username' => $request->input('username'),
-            'email' => $request->input('email'),
-            'first_name' => $request->input('first_name'),
-            'last_name' => $request->input('last_name'),
+            'username'    => $request->input('username'),
+            'email'       => $request->input('email'),
+            'first_name'  => $request->input('first_name'),
+            'last_name'   => $request->input('last_name'),
             'permissions' => $request->input('permissions', []),
-            'activated' => $request->input('activated', false),
+            'activated'   => $request->input('activated', false),
         ];
 
         $user = $this->sentry->update($id, $attributes);
 
-        if($user) {
+        if ($user) {
             return $user;
         }
 
@@ -132,12 +132,12 @@ class UserRepository extends Repository
             $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : null);
 
             $data = [
-                'email' => $ldapUser->email,
-                'password' => $password,
-                'username' => $username,
-                'last_name' => (string) $lastName,
+                'email'      => $ldapUser->email,
+                'password'   => $password,
+                'username'   => $username,
+                'last_name'  => (string) $lastName,
                 'first_name' => (string) $firstName,
-                'activated' => 1,
+                'activated'  => 1,
             ];
 
             $user = $this->sentry->createUser($data, ['all_users', 'customers', 'workers']);

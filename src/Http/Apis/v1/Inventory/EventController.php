@@ -3,8 +3,8 @@
 namespace Stevebauman\Maintenance\Http\Apis\v1\Inventory;
 
 use Illuminate\Support\Facades\App;
-use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Http\Apis\v1\EventableController;
+use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 
 class EventController extends EventableController
 {

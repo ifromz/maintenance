@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services\Meter;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Meter;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class MeterService extends BaseModelService
 {
@@ -16,7 +16,7 @@ class MeterService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param Meter $meter
+     * @param Meter         $meter
      * @param SentryService $sentry
      */
     public function __construct(Meter $meter, SentryService $sentry)
@@ -31,9 +31,9 @@ class MeterService extends BaseModelService
 
         try {
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
+                'user_id'   => $this->sentry->getCurrentUserId(),
                 'metric_id' => $this->getInput('metric'),
-                'name' => $this->getInput('name'),
+                'name'      => $this->getInput('name'),
             ];
 
             $record = $this->model->create($insert);
@@ -57,7 +57,7 @@ class MeterService extends BaseModelService
 
             $insert = [
                 'metric_id' => $this->getInput('metric'),
-                'name' => $this->getInput('name'),
+                'name'      => $this->getInput('name'),
             ];
 
             if ($record->update($insert)) {

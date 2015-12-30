@@ -64,10 +64,10 @@ class CategoryController extends Controller
         if ($categories->count() > 0) {
             foreach ($categories as $category) {
                 $categoryArray[] = [
-                    'id' => (string) $category->id,
-                    'parent' => ($category->parent_id ? (string) $category->parent_id : '#'),
-                    'text' => (string) $category->name,
-                    'class' => 'jstree-drop',
+                    'id'          => (string) $category->id,
+                    'parent'      => ($category->parent_id ? (string) $category->parent_id : '#'),
+                    'text'        => (string) $category->name,
+                    'class'       => 'jstree-drop',
                     'data-jstree' => [
                         'icon' => $category->icon,
                     ],

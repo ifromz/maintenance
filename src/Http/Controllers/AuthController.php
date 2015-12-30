@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
+use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
+use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Stevebauman\Corp\Facades\Corp;
 use Stevebauman\Maintenance\Http\Requests\Auth\LoginRequest;
-use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
-use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 
 class AuthController extends Controller
 {
@@ -29,42 +29,35 @@ class AuthController extends Controller
      */
     public function authenticate(LoginRequest $request)
     {
-        try
-        {
+        try {
             $input = $request->all();
 
             $remember = (bool) array_pull($input, 'remember', false);
 
-            if ($auth = Sentinel::authenticate($input, $remember))
-            {
+            if ($auth = Sentinel::authenticate($input, $remember)) {
                 $message = 'Successfully logged in.';
 
                 return redirect()->intended(route('maintenance.dashboard.index'))->withSuccess($message);
-            } else if(Corp::auth($input['login'], $input['password']))
-            {
+            } elseif (Corp::auth($input['login'], $input['password'])) {
                 $user = Corp::user($input['login']);
 
                 $name = explode(',', $user->name);
 
                 $credentials = [
-                    'email' => $user->email,
-                    'username' => $user->username,
-                    'password' => $input['password'],
+                    'email'      => $user->email,
+                    'username'   => $user->username,
+                    'password'   => $input['password'],
                     'first_name' => (array_key_exists(1, $name) ? $name[1] : null),
-                    'last_name' => (array_key_exists(0, $name) ? $name[0] : null),
+                    'last_name'  => (array_key_exists(0, $name) ? $name[0] : null),
                 ];
 
                 return $this->registerAndAuthenticateUser($credentials);
             }
 
             $errors = 'Invalid login or password.';
-        }
-        catch (NotActivatedException $e)
-        {
+        } catch (NotActivatedException $e) {
             $errors = 'Account is not activated!';
-        }
-        catch (ThrottlingException $e)
-        {
+        } catch (ThrottlingException $e) {
             $delay = $e->getDelay();
 
             $errors = "Your account is blocked for {$delay} second(s).";
@@ -101,8 +94,7 @@ class AuthController extends Controller
         // See if the LDAP user already has an account first
         $user = $model->where('email', $credentials['email'])->first();
 
-        if($user)
-        {
+        if ($user) {
             // Update the user
             Sentinel::update($user, $credentials);
 
@@ -112,11 +104,10 @@ class AuthController extends Controller
             $message = 'Successfully logged in.';
 
             return redirect()->intended('/')->withSuccess($message);
-        } else
-        {
+        } else {
             $user = Sentinel::registerAndActivate($credentials);
 
-            if($user) {
+            if ($user) {
                 $user->username = $credentials['username'];
                 $user->save();
 

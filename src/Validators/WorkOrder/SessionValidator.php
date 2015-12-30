@@ -13,6 +13,6 @@ class SessionValidator extends BaseValidator
      * @var array
      */
     protected $rules = [
-        'work_order_id' => 'required|integer'
+        'work_order_id' => 'required|integer',
     ];
 }

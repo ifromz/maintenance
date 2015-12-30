@@ -24,10 +24,10 @@ class UserService extends BaseModelService
     /**
      * Constructor.
      *
-     * @param User                  $user
-     * @param SentryService         $sentry
-     * @param LdapService           $ldap
-     * @param ConfigService         $config
+     * @param User          $user
+     * @param SentryService $sentry
+     * @param LdapService   $ldap
+     * @param ConfigService $config
      */
     public function __construct(
         User $user,
@@ -69,11 +69,11 @@ class UserService extends BaseModelService
             $activated = $this->getInput('activated');
 
             $insert = [
-                'username' => $this->getInput('username'),
-                'email' => $this->getInput('email'),
-                'password' => $this->getInput('password'),
+                'username'    => $this->getInput('username'),
+                'email'       => $this->getInput('email'),
+                'password'    => $this->getInput('password'),
                 'permissions' => $this->getInput('permissions', []),
-                'activated' => ($activated ? true : false),
+                'activated'   => ($activated ? true : false),
             ];
 
             $record = $this->sentry->createUser($insert);
@@ -86,7 +86,7 @@ class UserService extends BaseModelService
 
             $insertAdditional = [
                 'first_name' => $this->getInput('first_name'),
-                'last_name' => $this->getInput('last_name'),
+                'last_name'  => $this->getInput('last_name'),
             ];
 
             $modelRecord->update($insertAdditional);
@@ -131,12 +131,12 @@ class UserService extends BaseModelService
             $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : null);
 
             $data = [
-                'email' => ($ldapUser->email ? $ldapUser->email : $username),
-                'username' => $username,
-                'password' => $password,
-                'last_name' => (string) $lastName,
+                'email'      => ($ldapUser->email ? $ldapUser->email : $username),
+                'username'   => $username,
+                'password'   => $password,
+                'last_name'  => (string) $lastName,
                 'first_name' => (string) $firstName,
-                'activated' => 1,
+                'activated'  => 1,
             ];
 
             // Default all group
@@ -144,7 +144,7 @@ class UserService extends BaseModelService
 
             if (in_array($ldapUser->group, config('maintenance.groups.ldap.administrators'))) {
                 $roles[] = 'administrators';
-            } else if (in_array($ldapUser->group, config('maintenance.groups.ldap.workers'))) {
+            } elseif (in_array($ldapUser->group, config('maintenance.groups.ldap.workers'))) {
                 $roles[] = 'workers';
             } else {
                 $roles[] = 'client';
@@ -181,7 +181,7 @@ class UserService extends BaseModelService
 
             $insert = [
                 'first_name' => $this->getInput('first_name'),
-                'last_name' => $this->getInput('last_name'),
+                'last_name'  => $this->getInput('last_name'),
             ];
 
             if ($user->update($insert)) {

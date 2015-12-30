@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\Event\Request;
 use Stevebauman\Maintenance\Repositories\EventRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -52,7 +52,7 @@ class Controller extends BaseController
     {
         $event = $this->event->create($request);
 
-        if($event) {
+        if ($event) {
             $message = 'Successfully created event.';
 
             return redirect()->route('maintenance.events.index')->withSuccess($message);
@@ -76,7 +76,7 @@ class Controller extends BaseController
 
         $apiObject = $this->event->findApiObject($event->api_id);
 
-        if($apiObject) {
+        if ($apiObject) {
             return view('maintenance::events.show', compact('event', 'apiObject'));
         }
 
@@ -96,7 +96,7 @@ class Controller extends BaseController
 
         $apiObject = $this->event->findApiObject($event->api_id);
 
-        if($apiObject) {
+        if ($apiObject) {
             return view('maintenance::events.edit', compact('event', 'apiObject'));
         }
 
@@ -115,7 +115,7 @@ class Controller extends BaseController
     {
         $event = $this->event->update($request, $id);
 
-        if($event) {
+        if ($event) {
             $message = 'Successfully updated event.';
 
             return redirect()->route('maintenance.events.show', [$event->id])->withSuccess($message);

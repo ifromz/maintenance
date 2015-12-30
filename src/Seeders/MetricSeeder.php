@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
-use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Repositories\MetricRepository;
 use Illuminate\Database\Seeder;
+use Stevebauman\Maintenance\Repositories\MetricRepository;
+use Stevebauman\Maintenance\Services\ConfigService;
 
 class MetricSeeder extends Seeder
 {

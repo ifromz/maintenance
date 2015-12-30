@@ -3,10 +3,9 @@
 namespace Stevebauman\Maintenance\Repositories\WorkOrder;
 
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\StatusRequest;
-
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Status;
 use Stevebauman\Maintenance\Repositories\Repository as BaseRepository;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class StatusRepository extends BaseRepository
 {
@@ -46,7 +45,7 @@ class StatusRepository extends BaseRepository
         $status->name = $request->input('name');
         $status->color = $request->input('color');
 
-        if($status->save()) {
+        if ($status->save()) {
             return $status;
         }
 
@@ -61,11 +60,11 @@ class StatusRepository extends BaseRepository
     public function createDefaultRequested()
     {
         $status = $this->model()->firstOrCreate([
-            'name' => 'Requested',
+            'name'  => 'Requested',
             'color' => 'default',
         ]);
 
-        if($status) {
+        if ($status) {
             return $status;
         }
 
@@ -84,11 +83,11 @@ class StatusRepository extends BaseRepository
     {
         $status = $this->find($id);
 
-        if($status) {
+        if ($status) {
             $status->name = $request->input('name', $status->name);
             $status->color = $request->input('color', $status->color);
 
-            if($status->save()) {
+            if ($status->save()) {
                 return $status;
             }
         }

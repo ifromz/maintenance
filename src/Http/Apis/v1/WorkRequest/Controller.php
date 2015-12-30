@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkRequest;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\WorkRequest;
 use Stevebauman\Maintenance\Repositories\WorkRequest\Repository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -38,20 +38,19 @@ class Controller extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(WorkRequest $workRequest)
-        {
+        $transformer = function (WorkRequest $workRequest) {
             return [
-                'id' => $workRequest->id,
-                'subject' => str_limit($workRequest->subject),
-                'best_time' => $workRequest->best_time,
+                'id'         => $workRequest->id,
+                'subject'    => str_limit($workRequest->subject),
+                'best_time'  => $workRequest->best_time,
                 'created_at' => $workRequest->created_at,
-                'view_url' => route('maintenance.work-requests.show', [$workRequest->id]),
+                'view_url'   => route('maintenance.work-requests.show', [$workRequest->id]),
             ];
         };
 

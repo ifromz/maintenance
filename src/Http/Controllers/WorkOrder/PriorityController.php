@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\PriorityRequest;
 use Stevebauman\Maintenance\Repositories\WorkOrder\PriorityRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class PriorityController extends BaseController
 {
@@ -52,7 +52,7 @@ class PriorityController extends BaseController
     {
         $priority = $this->priority->create($request);
 
-        if($priority) {
+        if ($priority) {
             $message = 'Successfully created priority.';
 
             return redirect()->route('maintenance.work-orders.priorities.index')->withSuccess($message);
@@ -81,7 +81,7 @@ class PriorityController extends BaseController
      * Updates the specified priority.
      *
      * @param PriorityRequest $request
-     * @param int|string     $id
+     * @param int|string      $id
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -89,7 +89,7 @@ class PriorityController extends BaseController
     {
         $priority = $this->priority->update($request, $id);
 
-        if($priority) {
+        if ($priority) {
             $message = 'Successfully updated priority.';
 
             return redirect()->route('maintenance.work-orders.priorities.index')->withSuccess($message);
@@ -111,7 +111,7 @@ class PriorityController extends BaseController
     {
         $priority = $this->priority->model()->findOrFail($id);
 
-        if($priority->delete()) {
+        if ($priority->delete()) {
             $message = 'Successfully deleted priority.';
 
             return redirect()->route('maintenance.work-orders.priorities.index')->withSuccess($message);

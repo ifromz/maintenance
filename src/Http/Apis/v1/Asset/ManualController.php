@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\Asset;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\Attachment;
 use Stevebauman\Maintenance\Repositories\Asset\Repository as AssetRepository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class ManualController extends BaseController
 {
@@ -42,22 +42,21 @@ class ManualController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 10,
+            'throttle'  => 10,
         ];
 
-        $transformer = function(Attachment $attachment) use ($id)
-        {
+        $transformer = function (Attachment $attachment) use ($id) {
             return [
-                'id' => $attachment->id,
-                'user' => ($attachment->user ? $attachment->user->full_name : '<em>System</em>'),
-                'name' => $attachment->name,
-                'icon' => $attachment->icon,
-                'file_name' => $attachment->file_name,
+                'id'         => $attachment->id,
+                'user'       => ($attachment->user ? $attachment->user->full_name : '<em>System</em>'),
+                'name'       => $attachment->name,
+                'icon'       => $attachment->icon,
+                'file_name'  => $attachment->file_name,
                 'created_at' => $attachment->created_at,
-                'view_url' => route('maintenance.assets.manuals.show', [$id, $attachment->id]),
+                'view_url'   => route('maintenance.assets.manuals.show', [$id, $attachment->id]),
             ];
         };
 

@@ -4,8 +4,8 @@ namespace Stevebauman\Maintenance\Services\WorkOrder;
 
 use Carbon\Carbon;
 use Stevebauman\Maintenance\Models\WorkOrderReport;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class ReportService extends BaseModelService
 {
@@ -58,9 +58,9 @@ class ReportService extends BaseModelService
              * Set the insert data for the work order report
              */
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
+                'user_id'       => $this->sentry->getCurrentUserId(),
                 'work_order_id' => $workOrder->id,
-                'description' => $this->getInput('description', null, true),
+                'description'   => $this->getInput('description', null, true),
             ];
 
             /*
@@ -79,7 +79,7 @@ class ReportService extends BaseModelService
              * then we'll throw null inside so it isn't updated, otherwise we'll throw in today's time
              */
             $update = [
-                'started_at' => ($workOrder->started_at ? null : $now),
+                'started_at'   => ($workOrder->started_at ? null : $now),
                 'completed_at' => $now,
             ];
 

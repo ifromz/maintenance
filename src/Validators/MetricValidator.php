@@ -10,7 +10,7 @@ class MetricValidator extends BaseValidator
      * @var array
      */
     protected $rules = [
-        'name' => 'required|max:250',
+        'name'   => 'required|max:250',
         'symbol' => 'required|max:5',
     ];
 }

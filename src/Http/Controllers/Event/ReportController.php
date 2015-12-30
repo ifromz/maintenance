@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Event;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\Event\ReportRequest;
 use Stevebauman\Maintenance\Repositories\EventRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class ReportController extends BaseController
 {
@@ -35,12 +35,12 @@ class ReportController extends BaseController
     {
         $report = $this->event->createReport($request, $eventId);
 
-        if($report) {
-            $message = "Successfully created event report.";
+        if ($report) {
+            $message = 'Successfully created event report.';
 
             return redirect()->route('maintenance.events.show', [$eventId, '#tab-report'])->withSuccess($message);
         } else {
-            $message = "There was an issue creating a report for this event. Please try again.";
+            $message = 'There was an issue creating a report for this event. Please try again.';
 
             return redirect()->route('maintenance.events.show', [$eventId, '#tab-report'])->withErrors($message);
         }

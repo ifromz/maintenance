@@ -4,11 +4,11 @@ return [
 
     'frequency' => [
 
-        null => 'None',
-        'WEEKLY' => 'Weekly',
-        'DAILY' => 'Daily',
+        null      => 'None',
+        'WEEKLY'  => 'Weekly',
+        'DAILY'   => 'Daily',
         'MONTHLY' => 'Monthly',
-        'YEARLY' => 'Yearly',
+        'YEARLY'  => 'Yearly',
 
     ],
 

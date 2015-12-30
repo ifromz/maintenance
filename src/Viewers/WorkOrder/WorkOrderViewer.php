@@ -56,7 +56,7 @@ class WorkOrderViewer extends BaseViewer
     {
         return view('maintenance::viewers.work-order.sessions', [
                 'workOrder' => $this->entity,
-                'sessions' => $sessions,
+                'sessions'  => $sessions,
             ]
         );
     }
@@ -106,7 +106,7 @@ class WorkOrderViewer extends BaseViewer
             return $date->format('M dS Y - h:ia');
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -124,7 +124,7 @@ class WorkOrderViewer extends BaseViewer
             return $date->format('M dS Y - h:ia');
         }
 
-        return null;
+        return;
     }
 
     /**

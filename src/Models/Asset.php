@@ -3,11 +3,11 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Stevebauman\Maintenance\Viewers\AssetViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\AssetViewer;
 
 class Asset extends Model
 {
@@ -33,7 +33,7 @@ class Asset extends Model
     protected $viewer = AssetViewer::class;
 
     /**
-     * The fillable asset attribute.s
+     * The fillable asset attribute.s.
      *
      * @var array
      */
@@ -95,16 +95,16 @@ class Asset extends Model
     protected $revisionColumnsFormatted = [
         'location_id' => 'Location',
         'category_id' => 'Category',
-        'name' => 'Name',
+        'name'        => 'Name',
         'description' => 'Description',
-        'condition' => 'Condition',
-        'size' => 'Size',
-        'weight' => 'Weight',
-        'vendor' => 'Vendor',
-        'make' => 'Make',
-        'model' => 'Model',
-        'serial' => 'Serial',
-        'price' => 'Price',
+        'condition'   => 'Condition',
+        'size'        => 'Size',
+        'weight'      => 'Weight',
+        'vendor'      => 'Vendor',
+        'make'        => 'Make',
+        'model'       => 'Model',
+        'serial'      => 'Serial',
+        'price'       => 'Price',
         'acquired_at' => 'Acquired At',
         'end_of_life' => 'End of Life',
     ];
@@ -152,6 +152,7 @@ class Asset extends Model
     /*
      * Filters query by the inputted asset name
      */
+
     public function scopeName($query, $name = null)
     {
         if ($name) {
@@ -164,6 +165,7 @@ class Asset extends Model
     /*
      * Filters query by the inputted asset condition
      */
+
     public function scopeCondition($query, $condition = null)
     {
         if ($condition) {
@@ -179,6 +181,7 @@ class Asset extends Model
      *
      * @return string
      */
+
     public function getConditionAttribute($attr)
     {
         return trans(sprintf('maintenance::assets.conditions.%s', $attr));
@@ -199,6 +202,7 @@ class Asset extends Model
      *
      * @return string.
      */
+
     public function getLabelAttribute()
     {
         return sprintf(

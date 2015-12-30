@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Http\Requests\WorkOrder;
 
-use Stevebauman\Maintenance\Repositories\WorkOrder\Repository;
 use Stevebauman\Maintenance\Http\Requests\Request as BaseRequest;
+use Stevebauman\Maintenance\Repositories\WorkOrder\Repository;
 
 class SessionEndRequest extends BaseRequest
 {
@@ -31,7 +31,7 @@ class SessionEndRequest extends BaseRequest
 
         $session = $repository->findLastUserSession($workOrderId);
 
-        if($session && $session->out !== null) {
+        if ($session && $session->out !== null) {
             return false;
         } else {
             return true;

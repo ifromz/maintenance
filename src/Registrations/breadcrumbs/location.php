@@ -1,7 +1,7 @@
 <?php
 
-use DaveJamesMiller\Breadcrumbs\Generator;
 use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
+use DaveJamesMiller\Breadcrumbs\Generator;
 
 Breadcrumbs::register('maintenance.locations.index', function (Generator $breadcrumbs) {
     $breadcrumbs->push('Locations', route('maintenance.locations.index'));

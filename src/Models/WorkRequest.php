@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Viewers\WorkRequestViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\WorkRequestViewer;
 
 class WorkRequest extends Model
 {

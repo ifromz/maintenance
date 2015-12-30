@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller;
 use Stevebauman\Maintenance\Http\Requests\Admin\RoleRequest;
 use Stevebauman\Maintenance\Repositories\RoleRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
@@ -54,7 +54,7 @@ class RoleController extends Controller
     {
         $role = $this->role->create($request);
 
-        if($role) {
+        if ($role) {
             $message = 'Successfully created role.';
 
             return redirect()->route('maintenance.admin.roles.index')->withSuccess($message);
@@ -97,7 +97,7 @@ class RoleController extends Controller
      * Processes updating the specified user role.
      *
      * @param RoleRequest $request
-     * @param int|string   $id
+     * @param int|string  $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -105,7 +105,7 @@ class RoleController extends Controller
     {
         $role = $this->role->update($request, $id);
 
-        if($role) {
+        if ($role) {
             $message = 'Successfully updated role.';
 
             return redirect()->route('maintenance.admin.roles.show', [$role->id])->withSuccess($message);
@@ -129,7 +129,7 @@ class RoleController extends Controller
 
         $role->users()->detach();
 
-        if($role->delete()) {
+        if ($role->delete()) {
             $message = 'Successfully deleted role.';
 
             return redirect()->route('maintenance.admin.roles.index')->withSuccess($message);

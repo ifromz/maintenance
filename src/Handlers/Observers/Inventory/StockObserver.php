@@ -16,8 +16,8 @@ class StockObserver
     {
         $movements = $stock->movements()->get();
 
-        if(count($movements) > 0) {
-            foreach($movements as $movement) {
+        if (count($movements) > 0) {
+            foreach ($movements as $movement) {
                 $movement->delete();
             }
         }
@@ -33,10 +33,10 @@ class StockObserver
     {
         $movements = $stock->movements()->onlyTrashed()->get();
 
-        if(count($movements) > 0) {
-            foreach($movements as $movement) {
+        if (count($movements) > 0) {
+            foreach ($movements as $movement) {
                 $movement->restore();
             }
         }
     }
-} 
+}

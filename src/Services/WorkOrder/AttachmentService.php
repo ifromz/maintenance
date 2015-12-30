@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services\WorkOrder;
 
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Services\AttachmentService as BaseAttachmentService;
 use Stevebauman\Maintenance\Services\BaseModelService;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class AttachmentService extends BaseModelService
 {
@@ -67,7 +67,7 @@ class AttachmentService extends BaseModelService
                     $insert = [
                         'file_name' => $file,
                         'file_path' => $uploadDir.$file,
-                        'user_id' => $this->sentry->getCurrentUserId(),
+                        'user_id'   => $this->sentry->getCurrentUserId(),
                     ];
 
                     // Create the attachment record

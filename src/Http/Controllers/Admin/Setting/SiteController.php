@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\Admin\Setting;
 
-use Stevebauman\Maintenance\Validators\Config\SiteValidator;
-use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Http\Controllers\Controller;
+use Stevebauman\Maintenance\Services\ConfigService;
+use Stevebauman\Maintenance\Validators\Config\SiteValidator;
 
 class SiteController extends Controller
 {

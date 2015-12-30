@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\WorkOrder;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class Controller extends BaseController
 {
@@ -38,22 +38,21 @@ class Controller extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(WorkOrder $workOrder)
-        {
+        $transformer = function (WorkOrder $workOrder) {
             return [
-                'id' => $workOrder->id,
+                'id'         => $workOrder->id,
                 'created_at' => $workOrder->created_at,
-                'subject' => str_limit($workOrder->subject),
-                'view_url' => route('maintenance.work-orders.show', [$workOrder->id]),
+                'subject'    => str_limit($workOrder->subject),
+                'view_url'   => route('maintenance.work-orders.show', [$workOrder->id]),
                 'created_by' => $workOrder->user->full_name,
-                'status' => $workOrder->viewer()->lblStatus(),
-                'priority' =>  $workOrder->viewer()->lblPriority(),
+                'status'     => $workOrder->viewer()->lblStatus(),
+                'priority'   => $workOrder->viewer()->lblPriority(),
             ];
         };
 

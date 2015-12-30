@@ -3,12 +3,12 @@
 namespace Stevebauman\Maintenance\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 use Stevebauman\Maintenance\Http\Requests\Event\MoveRequest;
 use Stevebauman\Maintenance\Http\Requests\Event\ReportRequest;
 use Stevebauman\Maintenance\Http\Requests\Event\Request;
-use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
-use Stevebauman\Maintenance\Services\SentryService;
 use Stevebauman\Maintenance\Models\Event;
+use Stevebauman\Maintenance\Services\SentryService;
 
 class EventRepository extends Repository
 {
@@ -48,7 +48,7 @@ class EventRepository extends Repository
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function grid(array $columns = [], array $settings = [], $transformer = null)
     {
@@ -78,7 +78,7 @@ class EventRepository extends Repository
     {
         $local = $this->getWithoutRecurrences();
 
-        if($local->count() > 0) {
+        if ($local->count() > 0) {
             $apiIds = $local->lists('api_id')->toArray();
 
             return $this->eventApi->setInput($filter)->getOnly($apiIds);
@@ -115,7 +115,7 @@ class EventRepository extends Repository
     {
         $event = $this->eventApi->find($id);
 
-        if($event) {
+        if ($event) {
             return $event;
         }
 
@@ -133,21 +133,21 @@ class EventRepository extends Repository
     {
         $apiEvent = $this->eventApi->setInput($request->all())->create();
 
-        if($apiEvent) {
+        if ($apiEvent) {
             $event = $this->model();
 
             $event->user_id = $this->sentry->getCurrentUserId();
             $event->api_id = $apiEvent->id;
 
-            if($request->has('location_id')) {
+            if ($request->has('location_id')) {
                 $location = $this->location->model()->find($request->input('location_id'));
 
-                if($location) {
+                if ($location) {
                     $event->location_id = $request->input('location_id');
                 }
             }
 
-            if($event->save()) {
+            if ($event->save()) {
                 return $event;
             }
         }
@@ -159,7 +159,7 @@ class EventRepository extends Repository
      * Creates a new report for the specified event.
      *
      * @param ReportRequest $request
-     * @param int|string $id
+     * @param int|string    $id
      *
      * @return bool
      */
@@ -167,15 +167,15 @@ class EventRepository extends Repository
     {
         $event = $this->find($id);
 
-        if($event) {
+        if ($event) {
             $insert = [
-                'user_id' => $this->sentry->getCurrentUserId(),
+                'user_id'     => $this->sentry->getCurrentUserId(),
                 'description' => $request->clean($request->input('description')),
             ];
 
             $report = $event->report()->create($insert);
 
-            if($report) {
+            if ($report) {
                 return $report;
             }
         }
@@ -195,18 +195,18 @@ class EventRepository extends Repository
     {
         $event = $this->find($id);
 
-        if($event) {
-            if($request->has('location_id')) {
+        if ($event) {
+            if ($request->has('location_id')) {
                 $location = $this->location->model()->find($request->input('location_id'));
 
-                if($location) {
+                if ($location) {
                     $request->location = strip_tags($location->trail);
                 }
             }
 
             $apiEvent = $this->eventApi->setInput($request->all())->update($event->api_id);
 
-            if($apiEvent) {
+            if ($apiEvent) {
                 return $event;
             }
         }
@@ -225,7 +225,7 @@ class EventRepository extends Repository
     {
         $event = $this->model()->findOrFail($id);
 
-        if($this->eventApi->destroy($event->api_id)) {
+        if ($this->eventApi->destroy($event->api_id)) {
             $event->delete();
 
             return true;
@@ -265,14 +265,14 @@ class EventRepository extends Repository
 
             // Add the event into a FullCalendar compatible array
             $arrayEvents[] = [
-                'id' => $event->id,
-                'title' => $event->title,
+                'id'          => $event->id,
+                'title'       => $event->title,
                 'description' => $event->location,
-                'start' => $startDate->format('Y-m-d H:i:s'),
-                'end' => $endDate->format('Y-m-d H:i:s'),
-                'allDay' => $event->all_day,
-                'move' => route('maintenance.api.v1.events.move', $event->id),
-                'token' => csrf_token(),
+                'start'       => $startDate->format('Y-m-d H:i:s'),
+                'end'         => $endDate->format('Y-m-d H:i:s'),
+                'allDay'      => $event->all_day,
+                'move'        => route('maintenance.api.v1.events.move', $event->id),
+                'token'       => csrf_token(),
             ];
         }
 

@@ -3,13 +3,13 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Schema;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Support\Facades\Schema;
+use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Maintenance\Traits\Scopes\HasScopeIdTrait;
 use Stevebauman\Revision\Traits\HasRevisionsTrait;
-use Stevebauman\EloquentTable\TableTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
-use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Model extends Eloquent
 {
@@ -78,7 +78,7 @@ class Model extends Eloquent
             return Carbon::parse($deleted_at)->format('Y-m-d h:i A');
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -97,7 +97,7 @@ class Model extends Eloquent
             return str_limit(strip_tags($this->attributes['description']), 30);
         }
 
-        return null;
+        return;
     }
 
     /**

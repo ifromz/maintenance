@@ -14,7 +14,7 @@ class ReturnRequest extends BaseRequest
     public function rules()
     {
         return [
-            'quantity' => 'required|positive'
+            'quantity' => 'required|positive',
         ];
     }
 

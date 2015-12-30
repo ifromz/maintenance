@@ -27,7 +27,7 @@ class AssetController extends Controller
         $assets = $this->asset->setInput($this->inputAll())->getByPageWithFilter(true);
 
         return view('maintenance::admin.archive.assets.index', [
-            'title' => 'Archived Assets',
+            'title'  => 'Archived Assets',
             'assets' => $assets,
         ]);
     }

@@ -2,12 +2,12 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers\WorkOrder\Part;
 
+use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\ReturnRequest;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\Part\TakeRequest;
 use Stevebauman\Maintenance\Models\InventoryStock;
 use Stevebauman\Maintenance\Repositories\Inventory\Repository as InventoryRepository;
 use Stevebauman\Maintenance\Repositories\WorkOrder\Repository as WorkOrderRepository;
-use Stevebauman\Maintenance\Http\Controllers\Controller as BaseController;
 
 class StockController extends BaseController
 {
@@ -69,7 +69,7 @@ class StockController extends BaseController
 
         $stock = $item->stocks()->find($stockId);
 
-        if($stock instanceof InventoryStock) {
+        if ($stock instanceof InventoryStock) {
             return view('maintenance::work-orders.parts.inventory.stocks.take', compact('workOrder', 'item', 'stock'));
         }
 
@@ -81,20 +81,20 @@ class StockController extends BaseController
      * inserting it into the work order.
      *
      * @param TakeRequest $request
-     * @param int|string $workOrderId
-     * @param int|string $inventoryId
-     * @param int|string $stockId
+     * @param int|string  $workOrderId
+     * @param int|string  $inventoryId
+     * @param int|string  $stockId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postTake(TakeRequest $request, $workOrderId, $inventoryId, $stockId)
     {
-        if($this->workOrder->takePart($request, $workOrderId, $stockId)) {
-            $message = "Successfully added parts to work order.";
+        if ($this->workOrder->takePart($request, $workOrderId, $stockId)) {
+            $message = 'Successfully added parts to work order.';
 
             return redirect()->route('maintenance.work-orders.parts.index', [$workOrderId])->withSuccess($message);
         } else {
-            $message = "There was an issue adding parts to this work order. Please try again.";
+            $message = 'There was an issue adding parts to this work order. Please try again.';
 
             return redirect()->route('maintenance.work-orders.parts.stocks.take', [$workOrderId, $inventoryId, $stockId])->withErrors($message);
         }
@@ -115,7 +115,7 @@ class StockController extends BaseController
 
         $stock = $workOrder->parts()->find($stockId);
 
-        if($stock instanceof InventoryStock) {
+        if ($stock instanceof InventoryStock) {
             $item = $stock->item;
 
             return view('maintenance::work-orders.parts.inventory.stocks.put', compact('workOrder', 'item', 'stock'));
@@ -128,20 +128,20 @@ class StockController extends BaseController
      * Processes returning parts back into the inventory.
      *
      * @param ReturnRequest $request
-     * @param int|string $workOrderId
-     * @param int|string $inventoryId
-     * @param int|string $stockId
+     * @param int|string    $workOrderId
+     * @param int|string    $inventoryId
+     * @param int|string    $stockId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postPut(ReturnRequest $request, $workOrderId, $inventoryId, $stockId)
     {
-        if($this->workOrder->returnPart($request, $workOrderId, $stockId)) {
-            $message = "Successfully returned parts to the inventory.";
+        if ($this->workOrder->returnPart($request, $workOrderId, $stockId)) {
+            $message = 'Successfully returned parts to the inventory.';
 
             return redirect()->route('maintenance.work-orders.parts.index', [$workOrderId])->withSuccess($message);
         } else {
-            $message = "There was an issue returning parts into the inventory. Please try again.";
+            $message = 'There was an issue returning parts into the inventory. Please try again.';
 
             return redirect()->route('maintenance.work-orders.parts.stocks.put', [$workOrderId])->withErrors($message);
         }

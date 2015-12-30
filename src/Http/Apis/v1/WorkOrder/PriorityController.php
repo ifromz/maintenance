@@ -2,9 +2,9 @@
 
 namespace Stevebauman\Maintenance\Http\Apis\v1\WorkOrder;
 
+use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 use Stevebauman\Maintenance\Models\Priority;
 use Stevebauman\Maintenance\Repositories\WorkOrder\PriorityRepository;
-use Stevebauman\Maintenance\Http\Apis\v1\Controller as BaseController;
 
 class PriorityController extends BaseController
 {
@@ -37,21 +37,20 @@ class PriorityController extends BaseController
         ];
 
         $settings = [
-            'sort' => 'created_at',
+            'sort'      => 'created_at',
             'direction' => 'desc',
             'threshold' => 10,
-            'throttle' => 11,
+            'throttle'  => 11,
         ];
 
-        $transformer = function(Priority $priority)
-        {
+        $transformer = function (Priority $priority) {
             return [
-                'id' => $priority->id,
+                'id'         => $priority->id,
                 'created_at' => $priority->created_at,
                 'created_by' => ($priority->user ? $priority->user->full_name : '<em>System</em>'),
-                'name' => $priority->name,
-                'color' => $priority->color,
-                'view_url' => route('maintenance.work-orders.priorities.edit', [$priority->id]),
+                'name'       => $priority->name,
+                'color'      => $priority->color,
+                'view_url'   => route('maintenance.work-orders.priorities.edit', [$priority->id]),
             ];
         };
 

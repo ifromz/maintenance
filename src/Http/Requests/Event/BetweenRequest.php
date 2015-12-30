@@ -15,7 +15,7 @@ class BetweenRequest extends BaseRequest
     {
         return [
             'start' => 'required|min:10|max:10',
-            'end' => 'required|min:10|max:10',
+            'end'   => 'required|min:10|max:10',
         ];
     }
 

@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Http\Middleware;
 
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Closure;
 use Illuminate\Http\Request;
 use Stevebauman\Maintenance\Models\User;
-use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class PermissionMiddleware
 {
@@ -16,17 +16,17 @@ class PermissionMiddleware
      * @param Request $request
      * @param Closure $next
      *
-     * @return Request
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @return Request
      */
     public function handle(Request $request, Closure $next)
     {
         $user = Sentinel::getUser();
 
-        if($user && $user instanceof User) {
-            if($user->hasAccess($request->route()->getName())) {
+        if ($user && $user instanceof User) {
+            if ($user->hasAccess($request->route()->getName())) {
                 return $next($request);
             }
         }

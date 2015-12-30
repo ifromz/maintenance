@@ -2,13 +2,12 @@
 
 namespace Stevebauman\Maintenance;
 
-use Cartalyst\Sentinel\Laravel\SentinelServiceProvider;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Routing\Router;
+use Illuminate\Support\ServiceProvider;
+use Stevebauman\Maintenance\Http\Middleware\AuthMiddleware;
 use Stevebauman\Maintenance\Http\Middleware\NotAuthMiddleware;
 use Stevebauman\Maintenance\Http\Middleware\PermissionMiddleware;
-use Stevebauman\Maintenance\Http\Middleware\AuthMiddleware;
-use Illuminate\Routing\Router;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider;
 
 class MaintenanceServiceProvider extends ServiceProvider
 {

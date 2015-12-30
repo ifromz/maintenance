@@ -1,7 +1,7 @@
 <?php
 
-use DaveJamesMiller\Breadcrumbs\Generator;
 use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
+use DaveJamesMiller\Breadcrumbs\Generator;
 
 /*
  * Inventory crumbs
@@ -27,7 +27,6 @@ Breadcrumbs::register('maintenance.inventory.edit', function (Generator $breadcr
 /*
  * End Inventory crumbs
  */
-
 
 /*
  * Inventory Category crumbs

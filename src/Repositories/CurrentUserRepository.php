@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Repositories;
 
-use Stevebauman\Maintenance\Models\User;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Stevebauman\Maintenance\Models\User;
 
 class CurrentUserRepository extends Repository
 {

@@ -3,16 +3,16 @@
 namespace Stevebauman\Maintenance\Models;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use Stevebauman\Maintenance\Http\Requests\WorkOrder\ReportRequest;
-use Stevebauman\Maintenance\Viewers\WorkOrder\WorkOrderViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasCategoryTrait;
-use Stevebauman\Maintenance\Traits\Relationships\HasNotesTrait;
-use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
-use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
 use Stevebauman\Maintenance\Traits\Relationships\HasEventsTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasLocationTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasNotesTrait;
+use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\WorkOrder\WorkOrderViewer;
 
 class WorkOrder extends Model
 {
@@ -77,13 +77,13 @@ class WorkOrder extends Model
      * @var array
      */
     protected $revisionColumnsFormatted = [
-        'location_id' => 'Location',
-        'category_id' => 'Work Order Category',
-        'status_id' => 'Status',
-        'priority_id' => 'Priority',
-        'subject' => 'Subject',
-        'description' => 'Description',
-        'started_at' => 'Started At',
+        'location_id'  => 'Location',
+        'category_id'  => 'Work Order Category',
+        'status_id'    => 'Status',
+        'priority_id'  => 'Priority',
+        'subject'      => 'Subject',
+        'description'  => 'Description',
+        'started_at'   => 'Started At',
         'completed_at' => 'Completed At',
     ];
 
@@ -412,6 +412,7 @@ class WorkOrder extends Model
      * sessions for the specified user.
      *
      * @param int|string $userId
+     *
      * @return mixed
      */
     public function getUserSessions($userId)
@@ -427,7 +428,7 @@ class WorkOrder extends Model
      */
     public function getUniqueSessions()
     {
-        $select = "TRUNCATE(ABS(SUM(TIME_TO_SEC(TIMEDIFF(work_order_sessions.in, work_order_sessions.out)) / 3600)), 2) as total_hours";
+        $select = 'TRUNCATE(ABS(SUM(TIME_TO_SEC(TIMEDIFF(work_order_sessions.in, work_order_sessions.out)) / 3600)), 2) as total_hours';
 
         $records = $this->sessions()
             ->select('user_id', DB::raw($select))
@@ -466,21 +467,21 @@ class WorkOrder extends Model
      */
     public function complete(ReportRequest $request)
     {
-        if(!$this->started_at) {
+        if (!$this->started_at) {
             $this->started_at = Carbon::now();
         }
 
         $this->completed_at = Carbon::now();
 
-        if($request->has('status')) {
+        if ($request->has('status')) {
             $status = $this->status()->getRelated()->find($request->input('status'));
 
-            if($status) {
+            if ($status) {
                 $this->status_id = $status->id;
             }
         }
 
-        if($this->save()) {
+        if ($this->save()) {
             return $this;
         }
 

@@ -35,8 +35,8 @@ class PriorityService extends BaseModelService
         try {
             $insert = [
                 'user_id' => $this->sentry->getCurrentUserId(),
-                'name' => $this->getInput('name'),
-                'color' => $this->getInput('color'),
+                'name'    => $this->getInput('name'),
+                'color'   => $this->getInput('color'),
             ];
 
             $record = $this->model->create($insert);
@@ -66,7 +66,7 @@ class PriorityService extends BaseModelService
             $record = $this->find($id);
 
             $insert = [
-                'name' => $this->getInput('name'),
+                'name'  => $this->getInput('name'),
                 'color' => $this->getInput('color'),
             ];
 
@@ -93,7 +93,7 @@ class PriorityService extends BaseModelService
 
         try {
             $insert = [
-                'name' => 'Requested',
+                'name'  => 'Requested',
                 'color' => 'default',
             ];
 

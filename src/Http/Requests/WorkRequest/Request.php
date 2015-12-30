@@ -14,9 +14,9 @@ class Request extends BaseRequest
     public function rules()
     {
         return [
-            'subject' => 'required|min:10',
+            'subject'     => 'required|min:10',
             'description' => 'required|min:10',
-            'best_time' => 'required|min:4',
+            'best_time'   => 'required|min:4',
         ];
     }
 

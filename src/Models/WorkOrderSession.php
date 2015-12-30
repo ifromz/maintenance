@@ -2,8 +2,8 @@
 
 namespace Stevebauman\Maintenance\Models;
 
-use Stevebauman\Maintenance\Viewers\WorkOrder\SessionViewer;
 use Stevebauman\Maintenance\Traits\Relationships\HasUserTrait;
+use Stevebauman\Maintenance\Viewers\WorkOrder\SessionViewer;
 
 class WorkOrderSession extends Model
 {
@@ -53,7 +53,7 @@ class WorkOrderSession extends Model
      */
     public function getHoursAttribute()
     {
-        if(array_key_exists('out', $this->attributes)) {
+        if (array_key_exists('out', $this->attributes)) {
             if ($this->attributes['out']) {
                 $hours = abs(round((strtotime($this->attributes['in']) - strtotime($this->attributes['out'])) / 3600, 2));
 
@@ -61,6 +61,6 @@ class WorkOrderSession extends Model
             }
         }
 
-        return null;
+        return;
     }
 }

@@ -4,7 +4,7 @@ namespace Stevebauman\Maintenance\Validators;
 
 class PositiveNumberValidator
 {
-     /**
+    /**
       * Validates if a number is positive or not.
       *
       * @param $attribute
