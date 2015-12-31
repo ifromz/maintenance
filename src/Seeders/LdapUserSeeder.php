@@ -2,10 +2,11 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
+use Adldap\Models\Group;
 use Illuminate\Database\Seeder;
-use Stevebauman\Corp\Objects\User;
+use Adldap\Models\User;
+use Adldap\Contracts\Adldap;
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\LdapService;
 use Stevebauman\Maintenance\Services\SentryService;
 
 class LdapUserSeeder extends Seeder
@@ -13,9 +14,9 @@ class LdapUserSeeder extends Seeder
     /**
      * Holds the current LDAP instance.
      *
-     * @var LdapService
+     * @var Adldap
      */
-    protected $ldap;
+    protected $adldap;
 
     /**
      * Holds the current Sentry instance.
@@ -32,13 +33,13 @@ class LdapUserSeeder extends Seeder
     /**
      * Constructor.
      *
-     * @param LdapService   $ldap
+     * @param Adldap        $adldap
      * @param SentryService $sentry
      * @param ConfigService $config
      */
-    public function __construct(LdapService $ldap, SentryService $sentry, ConfigService $config)
+    public function __construct(Adldap $adldap, SentryService $sentry, ConfigService $config)
     {
-        $this->ldap = $ldap;
+        $this->adldap = $adldap;
         $this->sentry = $sentry;
         $this->config = $config->setPrefix('maintenance');
     }
@@ -48,7 +49,7 @@ class LdapUserSeeder extends Seeder
      */
     public function run()
     {
-        $users = $this->ldap->users();
+        $users = $this->adldap->users()->all();
 
         foreach ($users as $user) {
             if ($this->syncFiltersEnabled()) {
@@ -70,43 +71,24 @@ class LdapUserSeeder extends Seeder
      */
     private function createUser(User $user)
     {
-        if ($user->username && $user->email) {
-            $first_name = '';
+        $username = $user->getAccountName();
+        $email = $user->getEmail();
 
-            $last_name = '';
-
-            /*
-             * An LDAP user may not have a name, so we'll explode it
-             * by a comma to see if they have a fully separated name
-             */
-            if ($user->name) {
-                $name = explode(',', $user->name);
-
-                if (array_key_exists(0, $name)) {
-                    $last_name = $name[0];
-                }
-
-                if (array_key_exists(1, $name)) {
-                    $first_name = $name[1];
-                }
-            }
-
+        if ($username && $email) {
             $data = [
-                'email'      => $user->email,
+                'email'      => $email,
                 'password'   => str_random(20),
-                'username'   => $user->username,
-                'last_name'  => $last_name,
-                'first_name' => $first_name,
+                'username'   => $username,
+                'last_name'  => $user->getLastName(),
+                'first_name' => $user->getFirstName(),
             ];
 
             $roles = [];
 
-            if ($user->group) {
-                $roles[] = $this->sentry->createOrUpdateRole($user->group);
-            }
-
-            if ($user->type) {
-                $roles[] = $this->sentry->createOrUpdateRole($user->type);
+            foreach ($user->getGroups() as $group) {
+                if ($group instanceof Group) {
+                    $roles[] = $this->sentry->createOrUpdateRole($group->getName());
+                }
             }
 
             $user = $this->sentry->createUser($data, $roles);

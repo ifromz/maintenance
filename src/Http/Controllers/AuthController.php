@@ -5,11 +5,27 @@ namespace Stevebauman\Maintenance\Http\Controllers;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use Stevebauman\Corp\Facades\Corp;
+use Adldap\Models\User;
+use Adldap\Contracts\Adldap;
 use Stevebauman\Maintenance\Http\Requests\Auth\LoginRequest;
 
 class AuthController extends Controller
 {
+    /**
+     * @var Adldap
+     */
+    protected $adldap;
+
+    /**
+     * Constructor.
+     *
+     * @param Adldap $adldap
+     */
+    public function __construct(Adldap $adldap)
+    {
+        $this->adldap = $adldap;
+    }
+
     /**
      * Displays the login page.
      *
@@ -38,20 +54,22 @@ class AuthController extends Controller
                 $message = 'Successfully logged in.';
 
                 return redirect()->intended(route('maintenance.dashboard.index'))->withSuccess($message);
-            } elseif (Corp::auth($input['login'], $input['password'])) {
-                $user = Corp::user($input['login']);
+            } elseif ($this->adldap->authenticate($input['login'], $input['password'])) {
+                $user = $this->adldap->users()->find($input['login']);
 
-                $name = explode(',', $user->name);
+                if ($user instanceof User) {
+                    $name = explode(',', $user->getName());
 
-                $credentials = [
-                    'email'      => $user->email,
-                    'username'   => $user->username,
-                    'password'   => $input['password'],
-                    'first_name' => (array_key_exists(1, $name) ? $name[1] : null),
-                    'last_name'  => (array_key_exists(0, $name) ? $name[0] : null),
-                ];
+                    $credentials = [
+                        'email'      => $user->getEmail(),
+                        'username'   => $user->getAccountName(),
+                        'password'   => $input['password'],
+                        'first_name' => (array_key_exists(1, $name) ? $name[1] : null),
+                        'last_name'  => (array_key_exists(0, $name) ? $name[0] : null),
+                    ];
 
-                return $this->registerAndAuthenticateUser($credentials);
+                    return $this->registerAndAuthenticateUser($credentials);
+                }
             }
 
             $errors = 'Invalid login or password.';

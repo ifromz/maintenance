@@ -2,11 +2,12 @@
 
 namespace Stevebauman\Maintenance\Repositories;
 
+use Adldap\Contracts\Adldap;
+use Adldap\Models\User as AdldapUser;
 use Stevebauman\Maintenance\Http\Requests\Admin\User\CreateRequest;
 use Stevebauman\Maintenance\Http\Requests\Admin\User\UpdateRequest;
 use Stevebauman\Maintenance\Models\User;
 use Stevebauman\Maintenance\Services\ConfigService;
-use Stevebauman\Maintenance\Services\LdapService;
 use Stevebauman\Maintenance\Services\SentryService;
 
 class UserRepository extends Repository
@@ -22,22 +23,22 @@ class UserRepository extends Repository
     protected $config;
 
     /**
-     * @var LdapService
+     * @var Adldap
      */
-    protected $ldap;
+    protected $adldap;
 
     /**
      * Constructor.
      *
      * @param SentryService $sentry
      * @param ConfigService $config
-     * @param LdapService   $ldap
+     * @param Adldap        $adldap
      */
-    public function __construct(SentryService $sentry, ConfigService $config, LdapService $ldap)
+    public function __construct(SentryService $sentry, ConfigService $config, Adldap $adldap)
     {
         $this->sentry = $sentry;
         $this->config = $config;
-        $this->ldap = $ldap;
+        $this->adldap = $adldap;
     }
 
     /**
@@ -119,28 +120,30 @@ class UserRepository extends Repository
         $password = $credentials['password'];
 
         // If a user is found, update their password to match active-directory
-        $user = $this->model()->where('username', $username)->first();
+        $user = $this->model()->query()->where(compact('username'))->first();
 
         if ($user) {
             $this->sentry->updatePasswordById($user->id, $password);
         } else {
             // If a user is not found, create their web account
-            $ldapUser = $this->ldap->user($username);
+            $user = $this->adldap->users()->find($username);
 
-            $fullName = explode(',', $ldapUser->name);
-            $lastName = (array_key_exists(0, $fullName) ? $fullName[0] : null);
-            $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : null);
+            if ($user instanceof AdldapUser) {
+                $fullName = explode(',', $user->getName());
+                $lastName = (array_key_exists(0, $fullName) ? $fullName[0] : null);
+                $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : null);
 
-            $data = [
-                'email'      => $ldapUser->email,
-                'password'   => $password,
-                'username'   => $username,
-                'last_name'  => (string) $lastName,
-                'first_name' => (string) $firstName,
-                'activated'  => 1,
-            ];
+                $data = [
+                    'email'      => $user->getEmail(),
+                    'password'   => $password,
+                    'username'   => $username,
+                    'last_name'  => (string) $lastName,
+                    'first_name' => (string) $firstName,
+                    'activated'  => 1,
+                ];
 
-            $user = $this->sentry->createUser($data, ['all_users', 'customers', 'workers']);
+                $user = $this->sentry->createUser($data, ['all_users', 'customers', 'workers']);
+            }
         }
 
         return $user;

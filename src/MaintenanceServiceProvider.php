@@ -130,11 +130,11 @@ class MaintenanceServiceProvider extends ServiceProvider
         // Authentication
         $this->app->register(\Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class);
 
+        // LDAP
+        $this->app->register(\Adldap\Laravel\AdldapServiceProvider::class);
+
         // DataGrid
         $this->app->register(\Cartalyst\DataGrid\Laravel\DataGridServiceProvider::class);
-
-        // LDAP Auth
-        $this->app->register(\Stevebauman\Corp\CorpServiceProvider::class);
 
         // Nested Set Helper
         $this->app->register(\Baum\Providers\BaumServiceProvider::class);
@@ -176,7 +176,7 @@ class MaintenanceServiceProvider extends ServiceProvider
         $loader->alias('Breadcrumbs', \DaveJamesMiller\Breadcrumbs\Facade::class);
         $loader->alias('Captcha', \Arcanedev\NoCaptcha\Laravel\Facade::class);
 
-        $loader->alias('Corp', \Stevebauman\Corp\Facades\Corp::class);
+        $loader->alias('Adldap', \Adldap\Laravel\Facades\Adldap::class);
         $loader->alias('CalendarHelper', \Stevebauman\CalendarHelper\Facades\CalendarHelper::class);
         $loader->alias('LogReader', \Stevebauman\LogReader\Facades\LogReader::class);
         $loader->alias('Purify', \Stevebauman\Purify\Facades\Purify::class);

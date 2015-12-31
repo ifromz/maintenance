@@ -2,6 +2,9 @@
 
 namespace Stevebauman\Maintenance\Services;
 
+use Adldap\Contracts\Adldap;
+use Adldap\Models\Group;
+use Adldap\Models\User as LdapUser;
 use Stevebauman\Maintenance\Models\User;
 
 class UserService extends BaseModelService
@@ -12,9 +15,9 @@ class UserService extends BaseModelService
     protected $sentry;
 
     /**
-     * @var LdapService
+     * @var Adldap
      */
-    protected $ldap;
+    protected $adldap;
 
     /**
      * @var ConfigService
@@ -26,18 +29,18 @@ class UserService extends BaseModelService
      *
      * @param User          $user
      * @param SentryService $sentry
-     * @param LdapService   $ldap
+     * @param Adldap        $adldap
      * @param ConfigService $config
      */
     public function __construct(
         User $user,
         SentryService $sentry,
-        LdapService $ldap,
+        Adldap $adldap,
         ConfigService $config
     ) {
         $this->model = $user;
         $this->sentry = $sentry;
-        $this->ldap = $ldap;
+        $this->adldap = $adldap;
         $this->config = $config;
     }
 
@@ -124,33 +127,38 @@ class UserService extends BaseModelService
             $this->sentry->updatePasswordById($user->id, $password);
         } else {
             // If a user is not found in the database, create their web account
-            $ldapUser = $this->ldap->user($username);
+            $ldapUser = $this->adldap->users()->find($username);
 
-            $fullName = explode(',', $ldapUser->name);
-            $lastName = (array_key_exists(0, $fullName) ? $fullName[0] : null);
-            $firstName = (array_key_exists(1, $fullName) ? $fullName[1] : null);
+            if ($ldapUser instanceof LdapUser) {
+                $data = [
+                    'email'      => $ldapUser->getEmail(),
+                    'username'   => $username,
+                    'password'   => $password,
+                    'last_name'  => $ldapUser->getLastName(),
+                    'first_name' => $ldapUser->getFirstName(),
+                    'activated'  => 1,
+                ];
 
-            $data = [
-                'email'      => ($ldapUser->email ? $ldapUser->email : $username),
-                'username'   => $username,
-                'password'   => $password,
-                'last_name'  => (string) $lastName,
-                'first_name' => (string) $firstName,
-                'activated'  => 1,
-            ];
+                // Default all group
+                $roles = ['all' => 'all'];
 
-            // Default all group
-            $roles = ['all'];
+                // Go through each user group and determine their permissions.
+                foreach ($ldapUser->getGroups() as $group) {
+                    if ($group instanceof Group) {
+                        $name = $group->getName();
 
-            if (in_array($ldapUser->group, config('maintenance.groups.ldap.administrators'))) {
-                $roles[] = 'administrators';
-            } elseif (in_array($ldapUser->group, config('maintenance.groups.ldap.workers'))) {
-                $roles[] = 'workers';
-            } else {
-                $roles[] = 'client';
+                        if (in_array($name, config('maintenance.groups.ldap.administrators'))) {
+                            $roles['administrators'] = 'administrators';
+                        } elseif (in_array($name, config('maintenance.groups.ldap.workers'))) {
+                            $roles['workers'] = 'workers';
+                        } else {
+                            $roles['client'] = 'client';
+                        }
+                    }
+                }
+
+                $user = $this->sentry->createUser($data, $roles);
             }
-
-            $user = $this->sentry->createUser($data, $roles);
         }
 
         return $user;
@@ -168,15 +176,10 @@ class UserService extends BaseModelService
         try {
             $this->dbStartTransaction();
 
-            /*
-             * Update the user through Sentry first
-             */
+            // Update the user through Sentry first.
             $this->sentry->update($id, $this->input);
 
-            /*
-             * Now we'll update the extra user details Sentry
-             * doesn't manage
-             */
+            // Now we'll update the extra user details Sentry doesn't manage.
             $user = $this->model->find($id);
 
             $insert = [
