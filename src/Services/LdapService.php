@@ -22,12 +22,13 @@ class LdapService
     }
 
     /**
-     * Authenticate with Corp
+     * Authenticate with Corp.
      *
      * @author Steve Bauman
      *
      * @param $username
      * @param $password
+     *
      * @return bool
      */
     public function authenticate($username, $password)
@@ -36,7 +37,7 @@ class LdapService
     }
 
     /**
-     * Returns an array of all users in the current LDAP connection
+     * Returns an array of all users in the current LDAP connection.
      *
      * @return array
      */
@@ -46,7 +47,7 @@ class LdapService
     }
 
     /**
-     * Finds a user
+     * Finds a user.
      *
      * @param string $username
      *
@@ -58,11 +59,12 @@ class LdapService
     }
 
     /**
-     * Return an LDAP user email address
+     * Return an LDAP user email address.
      *
      * @author Steve Bauman
      *
      * @param $username
+     *
      * @return mixed
      */
     public function getUserEmail($username)
@@ -77,11 +79,12 @@ class LdapService
     }
 
     /**
-     * Return an LDAP user full name
+     * Return an LDAP user full name.
      *
      * @author Steve Bauman
      *
      * @param $username
+     *
      * @return mixed
      */
     public function getUserFullName($username)
