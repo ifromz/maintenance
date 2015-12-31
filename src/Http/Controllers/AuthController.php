@@ -2,11 +2,11 @@
 
 namespace Stevebauman\Maintenance\Http\Controllers;
 
+use Adldap\Contracts\Adldap;
+use Adldap\Models\User;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use Adldap\Models\User;
-use Adldap\Contracts\Adldap;
 use Stevebauman\Maintenance\Http\Requests\Auth\LoginRequest;
 
 class AuthController extends Controller

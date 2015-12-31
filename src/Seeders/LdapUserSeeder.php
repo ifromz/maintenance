@@ -2,10 +2,10 @@
 
 namespace Stevebauman\Maintenance\Seeders;
 
-use Adldap\Models\Group;
-use Illuminate\Database\Seeder;
-use Adldap\Models\User;
 use Adldap\Contracts\Adldap;
+use Adldap\Models\Group;
+use Adldap\Models\User;
+use Illuminate\Database\Seeder;
 use Stevebauman\Maintenance\Services\ConfigService;
 use Stevebauman\Maintenance\Services\SentryService;
 
