@@ -17,7 +17,7 @@ it is complete.
 
 - PHP 5.4 or later
 - Laravel 5
-- [Cartalyst Subscription](https://cartalyst.com/) due to [DataGrid](https://cartalyst.com/manual/data-grid/3.0) dependency
+- [Cartalyst Subscription](https://cartalyst.com/) due to [DataGrid](https://cartalyst.com/manual/data-grid/3.0) dependency (Working on Complete Removeal)
 - `php_fileinfo` extension enabled
 
 ##Important Todo's
