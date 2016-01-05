@@ -2,9 +2,9 @@
 
 namespace App\Validators\Event;
 
-use Illuminate\Support\Facades\Route;
 use App\Services\Event\EventService;
 use App\Services\Event\ReportService;
+use Illuminate\Support\Facades\Route;
 
 class UniqueReportValidator
 {

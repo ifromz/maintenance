@@ -2,8 +2,8 @@
 
 namespace App\Composers;
 
-use Illuminate\View\View;
 use App\Services\ConfigService;
+use Illuminate\View\View;
 
 class RouteSelectComposer
 {

@@ -2,9 +2,9 @@
 
 namespace App\Validators\WorkOrder;
 
-use Illuminate\Support\Facades\Route;
 use App\Services\SentryService;
 use App\Services\WorkOrder\SessionService;
+use Illuminate\Support\Facades\Route;
 
 class SessionEndValidator
 {

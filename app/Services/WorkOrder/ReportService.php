@@ -2,10 +2,10 @@
 
 namespace App\Services\WorkOrder;
 
-use Carbon\Carbon;
 use App\Models\WorkOrderReport;
 use App\Services\BaseModelService;
 use App\Services\SentryService;
+use Carbon\Carbon;
 
 class ReportService extends BaseModelService
 {

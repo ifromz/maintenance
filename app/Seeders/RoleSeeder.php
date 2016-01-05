@@ -2,9 +2,9 @@
 
 namespace App\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Services\ConfigService;
 use App\Services\SentryService;
+use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
 {

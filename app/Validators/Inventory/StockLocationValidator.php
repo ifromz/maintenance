@@ -2,8 +2,8 @@
 
 namespace App\Validators\Inventory;
 
-use Illuminate\Support\Facades\Route;
 use App\Services\Inventory\StockService;
+use Illuminate\Support\Facades\Route;
 
 class StockLocationValidator
 {

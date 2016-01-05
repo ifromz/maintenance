@@ -2,11 +2,11 @@
 
 namespace App\Services\Event;
 
-use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 use App\Models\Event;
 use App\Repositories\LocationRepository;
 use App\Services\BaseModelService;
 use App\Services\SentryService;
+use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 
 /**
  * Handles interactions between the Event Model and the Event Api Service.

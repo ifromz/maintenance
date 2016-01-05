@@ -2,14 +2,14 @@
 
 namespace App\Http\Presenters\Asset;
 
+use App\Http\Presenters\Presenter;
+use App\Models\Asset;
+use App\Models\Category;
+use App\Models\Location;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
-use App\Models\Location;
-use App\Models\Category;
-use App\Models\Asset;
 
 class AssetPresenter extends Presenter
 {
@@ -145,13 +145,13 @@ class AssetPresenter extends Presenter
 
                 $fieldset->control('input:text', 'acquired_at')
                     ->attributes([
-                        'class' => 'pickadate',
+                        'class'       => 'pickadate',
                         'placeholder' => 'Click to Select a Date',
                     ]);
 
                 $fieldset->control('input:text', 'end_of_life')
                     ->attributes([
-                        'class' => 'pickadate',
+                        'class'       => 'pickadate',
                         'placeholder' => 'Click to Select a Date',
                     ]);
             });

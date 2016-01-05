@@ -2,9 +2,9 @@
 
 namespace App\Validators\WorkOrder;
 
-use Illuminate\Support\Facades\Route;
 use App\Repositories\Inventory\StockRepository;
 use App\Services\Inventory\StockService;
+use Illuminate\Support\Facades\Route;
 
 class PartStockQuantityValidator
 {

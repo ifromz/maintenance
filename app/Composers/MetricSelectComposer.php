@@ -2,8 +2,8 @@
 
 namespace App\Composers;
 
-use Illuminate\View\View;
 use App\Repositories\MetricRepository;
+use Illuminate\View\View;
 
 class MetricSelectComposer
 {

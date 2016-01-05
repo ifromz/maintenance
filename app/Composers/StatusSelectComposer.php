@@ -2,8 +2,8 @@
 
 namespace App\Composers;
 
-use Illuminate\View\View;
 use App\Repositories\WorkOrder\StatusRepository;
+use Illuminate\View\View;
 
 class StatusSelectComposer
 {

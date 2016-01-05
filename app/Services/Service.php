@@ -2,22 +2,21 @@
 
 namespace App\Services;
 
-use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Support\Facades\Event;
+use Stevebauman\Purify\Facades\Purify;
 
 /**
- * Class Service
- * @package Stevebauman\CoreHelper\Services
+ * Class Service.
  */
 abstract class Service
 {
     /*
      * Holds the data to be inserted into the database
      */
-    protected $input =  [];
+    protected $input = [];
 
     /**
-     * Set's the input data to be inserted into DB
+     * Set's the input data to be inserted into DB.
      *
      * @param array $input
      *
@@ -31,26 +30,24 @@ abstract class Service
     }
 
     /**
-     * Retrieves data from the input array
+     * Retrieves data from the input array.
      *
      * @param string $field
-     * @param mixed $default
-     * @param bool $clean
+     * @param mixed  $default
+     * @param bool   $clean
      *
      * @return null|mixed
      */
-    public function getInput($field,  $default = null, $clean = false)
+    public function getInput($field, $default = null, $clean = false)
     {
         /*
          * If the field exists in the input array
          */
-        if(array_key_exists($field, $this->input))
-        {
+        if (array_key_exists($field, $this->input)) {
             /*
              * If clean is set to true, clean the input and return it
              */
-            if($clean)
-            {
+            if ($clean) {
                 return $this->clean($this->input[$field]);
             }
 
@@ -58,27 +55,24 @@ abstract class Service
              * If clean is set to false, return the input
              */
             return $this->input[$field];
-
-        } else
-        {
+        } else {
             /*
              * If key does not exist in the input array, and a
              * default value is specified, return the default value
              */
-            if($default !== null)
-            {
+            if ($default !== null) {
                 return $default;
             }
 
             /*
              * Return NULL if the default value is not set
              */
-            return null;
+            return;
         }
     }
 
     /**
-     * Cleans input from data removing invalid HTML tags such as scripts
+     * Cleans input from data removing invalid HTML tags such as scripts.
      *
      * @param string $input
      *
@@ -86,21 +80,20 @@ abstract class Service
      */
     protected function clean($input)
     {
-        if($input)
-        {
+        if ($input) {
             $cleaned = Purify::clean($input);
 
             return $cleaned;
         }
 
-        return NULL;
+        return null;
     }
 
     /**
-     * Alias for firing events easily that extend from this class
+     * Alias for firing events easily that extend from this class.
      *
      * @param string $name
-     * @param array $args
+     * @param array  $args
      *
      * @return mixed
      */

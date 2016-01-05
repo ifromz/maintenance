@@ -31,4 +31,3 @@ function active()
 {
     return new Active();
 }
-

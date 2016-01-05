@@ -257,7 +257,7 @@ class SentryService
      * Adds the array of roles to the specified user.
      *
      * @param \App\Models\User $user
-     * @param array                                $roles
+     * @param array            $roles
      *
      * @return bool
      */

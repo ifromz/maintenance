@@ -2,14 +2,14 @@
 
 namespace App\Http\Presenters\Inventory;
 
-use App\Models\Location;
+use App\Http\Presenters\Presenter;
 use App\Models\Inventory;
 use App\Models\InventoryStock;
+use App\Models\Location;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
 
 class InventoryStockPresenter extends Presenter
 {

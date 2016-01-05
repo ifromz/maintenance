@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Stevebauman\Purify\Facades\Purify;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Orchestra\Routing\Controller as BaseController;
 use Orchestra\Routing\Traits\ControllerResponseTrait;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Stevebauman\Purify\Facades\Purify;
 
 abstract class Controller extends BaseController
 {
@@ -119,7 +119,7 @@ abstract class Controller extends BaseController
             }
         }
 
-        return null;
+        return;
     }
 
     /**

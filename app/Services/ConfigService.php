@@ -18,21 +18,21 @@ class ConfigService extends Service
     protected $filesystem;
 
     /**
-     * Stores the prefix for accessing package configuration values
+     * Stores the prefix for accessing package configuration values.
      *
      * @var string
      */
     protected $prefix = '';
 
     /**
-     * Stores the prefix separator
+     * Stores the prefix separator.
      *
      * @var string
      */
     protected $prefixSeparator = '.';
 
     /**
-     * @param Config $config
+     * @param Config     $config
      * @param Filesystem $filesystem
      */
     public function __construct(Config $config, Filesystem $filesystem)
@@ -42,20 +42,20 @@ class ConfigService extends Service
     }
 
     /**
-     * Retrieves the specified key from the current configuration
+     * Retrieves the specified key from the current configuration.
      *
      * @param int|string $key
-     * @param mixed $default
+     * @param mixed      $default
      *
      * @return mixed
      */
-    public function get($key, $default = NULL)
+    public function get($key, $default = null)
     {
         return $this->config->get($this->prefix.$key, $default);
     }
 
     /**
-     * Sets a configuration by the specified key
+     * Sets a configuration by the specified key.
      *
      * @param $key
      * @param $value
@@ -70,7 +70,7 @@ class ConfigService extends Service
     }
 
     /**
-     * Sets the prefix property
+     * Sets the prefix property.
      *
      * @param string $prefix
      *
@@ -84,7 +84,7 @@ class ConfigService extends Service
     }
 
     /**
-     * Sets the prefix separator
+     * Sets the prefix separator.
      *
      * @param string $separator
      *
@@ -177,7 +177,7 @@ class ConfigService extends Service
     }
 
     /**
-     * Replaces content from configuration files and returns the result content
+     * Replaces content from configuration files and returns the result content.
      *
      * @param $content
      * @param $name
@@ -189,8 +189,7 @@ class ConfigService extends Service
      */
     protected function replaceConfigEntry($content, $name, $entry, $value = "''", $type = 'string')
     {
-        switch($type)
-        {
+        switch ($type) {
             case 'string':
 
                 $oldEntry = sprintf("'$name' => '%s'", addslashes($this->get($entry)));
@@ -218,9 +217,9 @@ class ConfigService extends Service
      *
      * @param $path
      *
-     * @return string
-     *
      * @throws \Illuminate\Filesystem\FileNotFoundException
+     *
+     * @return string
      */
     protected function getConfigFile($path)
     {
@@ -238,7 +237,9 @@ class ConfigService extends Service
      */
     protected function setConfigFile($path, $content)
     {
-        if($this->filesystem->put(config_path($path), $content)) return true;
+        if ($this->filesystem->put(config_path($path), $content)) {
+            return true;
+        }
 
         return false;
     }

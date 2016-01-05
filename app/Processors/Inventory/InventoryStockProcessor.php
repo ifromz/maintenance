@@ -50,7 +50,7 @@ class InventoryStockProcessor extends Processor
     }
 
     /**
-     * Displays the from for creating a stock for
+     * Displays the from for creating a stock for.
      *
      * @param int|string $itemId
      *
@@ -151,8 +151,8 @@ class InventoryStockProcessor extends Processor
     /**
      * Deletes the specified inventory stock.
      *
-     * @param int|string  $itemId
-     * @param int|string  $stockId
+     * @param int|string $itemId
+     * @param int|string $stockId
      *
      * @return bool
      */
