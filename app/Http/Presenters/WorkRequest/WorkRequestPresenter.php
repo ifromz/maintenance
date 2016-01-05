@@ -1,14 +1,13 @@
 <?php
 
-
 namespace App\Http\Presenters\WorkRequest;
 
+use App\Http\Presenters\Presenter;
+use App\Models\WorkRequest;
 use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Models\WorkRequest;
-use App\Http\Presenters\Presenter;
 
 class WorkRequestPresenter extends Presenter
 {
@@ -102,4 +101,3 @@ class WorkRequestPresenter extends Presenter
         ]);
     }
 }
-
