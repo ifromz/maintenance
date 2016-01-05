@@ -3,8 +3,8 @@
 namespace App\Jobs\WorkRequest;
 
 use App\Http\Requests\WorkRequest as WorkHttpRequest;
-use App\Models\WorkRequest;
 use App\Jobs\Job;
+use App\Models\WorkRequest;
 
 class Update extends Job
 {

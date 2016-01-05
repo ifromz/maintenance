@@ -41,7 +41,7 @@ class Status extends Model
      */
     public static function findOrCreateRequested()
     {
-        return (new static)->firstOrCreate([
+        return (new static())->firstOrCreate([
             'name'  => 'Requested',
             'color' => 'default',
         ]);

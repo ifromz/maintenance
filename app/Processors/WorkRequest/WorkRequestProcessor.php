@@ -2,8 +2,8 @@
 
 namespace App\Processors\WorkRequest;
 
-use App\Http\Requests\WorkRequest as WorkHttpRequest;
 use App\Http\Presenters\WorkRequest\WorkRequestPresenter;
+use App\Http\Requests\WorkRequest as WorkHttpRequest;
 use App\Jobs\WorkOrder\StoreFromWorkRequest;
 use App\Jobs\WorkRequest\Store;
 use App\Jobs\WorkRequest\Update;
@@ -25,7 +25,7 @@ class WorkRequestProcessor extends Processor
     /**
      * Constructor.
      *
-     * @param WorkRequest $workRequest
+     * @param WorkRequest          $workRequest
      * @param WorkRequestPresenter $presenter
      */
     public function __construct(WorkRequest $workRequest, WorkRequestPresenter $presenter)
@@ -72,8 +72,8 @@ class WorkRequestProcessor extends Processor
         $workRequest = $this->workRequest->newInstance();
 
         if ($this->dispatch(new Store($request, $workRequest))) {
-
             $this->dispatch(new StoreFromWorkRequest($workRequest));
+
             return true;
         }
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\WorkRequest;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkRequest as WorkHttpRequest;
 use App\Processors\WorkRequest\WorkRequestProcessor;
-use App\Http\Controllers\Controller;
 
 class WorkRequestController extends Controller
 {
@@ -96,7 +96,7 @@ class WorkRequestController extends Controller
     public function update(WorkHttpRequest $request, $id)
     {
         if ($this->processor->update($request, $id)) {
-             flash()->success('Success!', 'Successfully updated work request.');
+            flash()->success('Success!', 'Successfully updated work request.');
 
             return redirect()->route('maintenance.work-requests.show', [$id]);
         } else {

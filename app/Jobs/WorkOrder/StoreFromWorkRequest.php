@@ -3,10 +3,10 @@
 namespace App\Jobs\WorkOrder;
 
 use App\Jobs\Job;
-use App\Models\Status;
 use App\Models\Priority;
-use App\Models\WorkRequest;
+use App\Models\Status;
 use App\Models\WorkOrder;
+use App\Models\WorkRequest;
 
 class StoreFromWorkRequest extends Job
 {
