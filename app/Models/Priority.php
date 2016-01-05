@@ -35,6 +35,19 @@ class Priority extends Model
     ];
 
     /**
+     * Finds or creates the default requested priority.
+     *
+     * @return Priority
+     */
+    public static function findOrCreateRequested()
+    {
+        return (new static)->firstOrCreate([
+            'name'  => 'Requested',
+            'color' => 'default',
+        ]);
+    }
+
+    /**
      * Returns a pretty label of the work order priority.
      *
      * @return string

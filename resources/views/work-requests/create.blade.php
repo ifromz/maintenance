@@ -8,15 +8,6 @@
 
 @section('panel.body.content')
 
-    {!!
-        Form::open([
-            'url' => route('maintenance.work-requests.store'),
-            'class'=>'form-horizontal'
-        ])
-    !!}
-
-    @include('work-requests.form')
-
-    {!! Form::close() !!}
+    {!! $form !!}
 
 @stop

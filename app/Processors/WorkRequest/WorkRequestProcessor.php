@@ -4,6 +4,7 @@ namespace App\Processors\WorkRequest;
 
 use App\Http\Requests\WorkRequest as WorkHttpRequest;
 use App\Http\Presenters\WorkRequest\WorkRequestPresenter;
+use App\Jobs\WorkOrder\StoreFromWorkRequest;
 use App\Jobs\WorkRequest\Store;
 use App\Jobs\WorkRequest\Update;
 use App\Models\WorkRequest;
@@ -40,9 +41,11 @@ class WorkRequestProcessor extends Processor
      */
     public function index()
     {
-        $requests = $this->presenter->table($this->workRequest);
+        $workRequests = $this->presenter->table($this->workRequest);
 
-        return view('work-requests.index', compact('requests'));
+        $navbar = $this->presenter->navbar();
+
+        return view('work-requests.index', compact('workRequests', 'navbar'));
     }
 
     /**
@@ -68,7 +71,13 @@ class WorkRequestProcessor extends Processor
     {
         $workRequest = $this->workRequest->newInstance();
 
-        return $this->dispatch(new Store($request, $workRequest));
+        if ($this->dispatch(new Store($request, $workRequest))) {
+
+            $this->dispatch(new StoreFromWorkRequest($workRequest));
+            return true;
+        }
+
+        return false;
     }
 
     /**

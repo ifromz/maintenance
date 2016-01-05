@@ -9,6 +9,7 @@ use App\Models\Location;
 use App\Models\Priority;
 use App\Models\Status;
 use App\Models\WorkOrder;
+use Illuminate\Database\Eloquent\Builder;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
@@ -19,11 +20,11 @@ class WorkOrderPresenter extends Presenter
     /**
      * Returns a new table of all work orders.
      *
-     * @param WorkOrder $workOrder
+     * @param WorkOrder|Builder $workOrder
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table(WorkOrder $workOrder)
+    public function table($workOrder)
     {
         return $this->table->of('work-orders', function (TableGrid $table) use ($workOrder) {
             $table->with($workOrder)->paginate($this->perPage);
@@ -52,6 +53,22 @@ class WorkOrderPresenter extends Presenter
 
             $table->column('status');
         });
+    }
+
+    /**
+     * Returns a new table of all work orders assigned to the current user.
+     *
+     * @param WorkOrder|Builder $workOrder
+     *
+     * @return Builder
+     */
+    public function tableAssigned($workOrder)
+    {
+        $workOrder = $workOrder->whereHas('assignments', function (Builder $query) {
+            $query->where('to_user_id', auth()->id());
+        });
+
+        return $this->table($workOrder);
     }
 
     /**
@@ -151,6 +168,23 @@ class WorkOrderPresenter extends Presenter
             'id'         => 'work-orders',
             'title'      => 'Work Orders',
             'menu'       => view('work-orders._nav'),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ]);
+    }
+
+    /**
+     * Returns a navbar for the assigned work order index.
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbarAssigned()
+    {
+        return $this->fluent([
+            'id'         => 'work-orders-assigned',
+            'title'      => 'Assigned Work Orders',
+            'menu'       => view('work-orders.assigned._nav'),
             'attributes' => [
                 'class' => 'navbar-default',
             ],

@@ -2,10 +2,26 @@
 
 namespace App\Http\Controllers\WorkOrder;
 
-use App\Http\Controllers\Controller as BaseController;
+use App\Http\Controllers\Controller;
+use App\Processors\WorkOrder\WorkOrderAssignedProcessor;
 
-class AssignedController extends BaseController
+class AssignedController extends Controller
 {
+    /**
+     * @var WorkOrderAssignedProcessor
+     */
+    protected $processor;
+
+    /**
+     * Constructor.
+     *
+     * @param WorkOrderAssignedProcessor $processor
+     */
+    public function __construct(WorkOrderAssignedProcessor $processor)
+    {
+        $this->processor = $processor;
+    }
+
     /**
      * Displays the all assigned work orders for the current user.
      *
@@ -13,6 +29,6 @@ class AssignedController extends BaseController
      */
     public function index()
     {
-        return view('work-orders.assigned.index');
+        return $this->processor->index();
     }
 }

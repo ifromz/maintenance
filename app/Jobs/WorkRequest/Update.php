@@ -5,14 +5,9 @@ namespace App\Jobs\WorkRequest;
 use App\Http\Requests\WorkRequest as WorkHttpRequest;
 use App\Models\WorkRequest;
 use App\Jobs\Job;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Update extends Job implements ShouldQueue
+class Update extends Job
 {
-    use InteractsWithQueue, SerializesModels;
-
     /**
      * @var WorkHttpRequest
      */

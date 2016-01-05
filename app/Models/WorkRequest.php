@@ -49,4 +49,15 @@ class WorkRequest extends Model
     {
         return $this->belongsToMany(Update::class, 'work_request_updates', 'work_request_id', 'update_id');
     }
+
+    /**
+     * Returns true / false if the current
+     * work request has a work order.
+     *
+     * @return bool
+     */
+    public function hasWorkOrder()
+    {
+        return $this->workOrder ? true : false;
+    }
 }

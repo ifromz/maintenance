@@ -4,6 +4,8 @@ namespace App\Processors\WorkOrder;
 
 use App\Http\Presenters\WorkOrder\WorkOrderPresenter;
 use App\Http\Requests\WorkOrder\WorkOrderRequest;
+use App\Jobs\WorkOrder\Store;
+use App\Jobs\WorkOrder\Update;
 use App\Models\WorkOrder;
 use App\Processors\Processor;
 
@@ -68,27 +70,7 @@ class WorkOrderProcessor extends Processor
     {
         $workOrder = $this->workOrder->newInstance();
 
-        $workOrder->user_id = auth()->id();
-        $workOrder->category_id = $request->input('category');
-        $workOrder->location_id = $request->input('location');
-        $workOrder->status_id = $request->input('status');
-        $workOrder->priority_id = $request->input('priority');
-        $workOrder->subject = $request->input('subject');
-        $workOrder->description = $request->clean($request->input('description'));
-        $workOrder->started_at = $request->input('started_at');
-        $workOrder->completed_at = $request->input('completed_at');
-
-        if ($workOrder->save()) {
-            $assets = $request->input('assets', []);
-
-            if (is_array($assets) && count($assets) > 0) {
-                $workOrder->assets()->sync($assets);
-            }
-
-            return true;
-        }
-
-        return false;
+        return $this->dispatch(new Store($request, $workOrder));
     }
 
     /**
@@ -135,26 +117,7 @@ class WorkOrderProcessor extends Processor
     {
         $workOrder = $this->workOrder->findOrFail($id);
 
-        $workOrder->category_id = $request->input('category');
-        $workOrder->location_id = $request->input('location');
-        $workOrder->status_id = $request->input('status');
-        $workOrder->priority_id = $request->input('priority');
-        $workOrder->subject = $request->input('subject');
-        $workOrder->description = $request->clean($request->input('description'));
-        $workOrder->started_at = $request->input('started_at');
-        $workOrder->completed_at = $request->input('completed_at');
-
-        if ($workOrder->save()) {
-            $assets = $request->input('assets', []);
-
-            if (is_array($assets) && count($assets) > 0) {
-                $workOrder->assets()->sync($assets);
-            }
-
-            return true;
-        }
-
-        return false;
+        return $this->dispatch(new Update($request, $workOrder));
     }
 
     /**

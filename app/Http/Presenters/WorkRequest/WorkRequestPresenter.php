@@ -4,6 +4,7 @@
 namespace App\Http\Presenters\WorkRequest;
 
 use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use App\Models\WorkRequest;
@@ -23,9 +24,21 @@ class WorkRequestPresenter extends Presenter
         return $this->table->of('work-requests', function (TableGrid $table) use ($workRequest) {
             $table->with($workRequest)->paginate($this->perPage);
 
-            $table->column('subject');
+            $table->attributes([
+                'class' => 'table table-hover table-striped',
+            ]);
+
+            $table->column('ID', 'id');
+
+            $table->column('subject', function (Column $column) {
+                $column->value = function (WorkRequest $workRequest) {
+                    return link_to_route('maintenance.work-requests.show', $workRequest->subject, [$workRequest->getKey()]);
+                };
+            });
+
             $table->column('best_time');
-            $table->column('created');
+
+            $table->column('created_at');
         });
     }
 
@@ -62,7 +75,7 @@ class WorkRequestPresenter extends Presenter
 
                 $fieldset
                     ->control('input:text', 'best_time')
-                    ->attribtes([
+                    ->attributes([
                         'placeholder' => 'Enter Best Time',
                     ]);
 
@@ -70,6 +83,23 @@ class WorkRequestPresenter extends Presenter
                     ->control('input:textarea', 'description');
             });
         });
+    }
+
+    /**
+     * Returns a new navbar for the work request index.
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbar()
+    {
+        return $this->fluent([
+            'id'         => 'work-requests',
+            'title'      => 'Work Requests',
+            'menu'       => view('work-requests._nav'),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ]);
     }
 }
 

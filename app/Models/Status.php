@@ -35,6 +35,19 @@ class Status extends Model
     ];
 
     /**
+     * Finds or creates the default requested status.
+     *
+     * @return Priority
+     */
+    public static function findOrCreateRequested()
+    {
+        return (new static)->firstOrCreate([
+            'name'  => 'Requested',
+            'color' => 'default',
+        ]);
+    }
+
+    /**
      * Returns an html label with the color of the status.
      *
      * @return string

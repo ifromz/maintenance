@@ -24,7 +24,7 @@
         </a>
         <ul class="treeview-menu">
 
-            <li class="{{ active()->route('maintenance.work-requests') }}">
+            <li class="{{ active()->route('maintenance.work-requests.*') }}">
                 <a href="{{ route('maintenance.work-requests.index') }}">
                     <i class="fa fa-exclamation-triangle"></i> Work Requests
                 </a>
@@ -43,25 +43,25 @@
                         </a>
                     </li>
 
-                    <li class="{{ active()->route('maintenance.work-orders.assigned') }}">
+                    <li class="{{ active()->route('maintenance.work-orders.assigned.*') }}">
                         <a href="{{ route('maintenance.work-orders.assigned.index') }}">
                             <i class="fa fa-user"></i> Assigned
                         </a>
                     </li>
 
-                    <li class="{{ active()->route('maintenance.work-orders.statuses') }}">
+                    <li class="{{ active()->route('maintenance.work-orders.statuses.*') }}">
                         <a href="{{ route('maintenance.work-orders.statuses.index') }}">
                             <i class="fa fa-info"></i> Statuses
                         </a>
                     </li>
 
-                    <li class="{{ active()->route('maintenance.work-orders.priorities') }}">
+                    <li class="{{ active()->route('maintenance.work-orders.priorities.*') }}">
                         <a href="{{ route('maintenance.work-orders.priorities.index') }}">
                             <i class="fa fa-exclamation-circle"></i> Priorities
                         </a>
                     </li>
 
-                    <li class="{{ active()->route('maintenance.work-orders.categories') }}">
+                    <li class="{{ active()->route('maintenance.work-orders.categories.*') }}">
                         <a href="{{ route('maintenance.work-orders.categories.index') }}">
                             <i class="fa fa-folder"></i> Categories
                         </a>

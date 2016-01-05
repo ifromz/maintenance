@@ -1,22 +1,11 @@
-@extends('work-orders.index')
+@extends('layouts.main')
 
 @section('title', 'Assigned Work Orders')
 
-@section('grid.table')
-    <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.work-orders.assigned.grid') }}" data-grid="main">
+@section('content')
 
-        <thead>
-            <tr>
-                <th class="sortable" data-sort="id">ID</th>
-                <th class="sortable" data-sort="subject">Subject</th>
-                <th class="sortable" data-sort="created_at">Created At</th>
-                <th class="sortable" data-sort="user_id">Created By</th>
-                <td>Priority</td>
-                <td>Status</td>
-            </tr>
-        </thead>
+    @decorator('navbar', $navbar)
 
-        <tbody></tbody>
+    {!! $workOrders !!}
 
-    </table>
 @stop
