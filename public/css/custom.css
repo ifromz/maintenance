@@ -78,3 +78,8 @@ thead th.sortable.desc:before {
 .fa-6 {
     font-size: 20em;
 }
+
+/* No border rounding, tight corners */
+*:not(.sa-icon) {
+    border-radius: 0 !important;
+}
