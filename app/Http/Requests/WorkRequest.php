@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\WorkRequest;
+namespace App\Http\Requests;
 
-use App\Http\Requests\Request as BaseRequest;
+use App\Http\Requests\Request;
 
-class Request extends BaseRequest
+class WorkRequest extends Request
 {
     /**
      * The work request validation rules.

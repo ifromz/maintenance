@@ -9,7 +9,7 @@ use App\Models\InventoryStock;
 use App\Repositories\Inventory\Repository as InventoryRepository;
 use App\Repositories\WorkOrder\Repository as WorkOrderRepository;
 
-class StockController extends BaseController
+class PartStockController extends BaseController
 {
     /**
      * @var WorkOrderRepository

@@ -124,7 +124,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
              * Work Request Routes
              */
             Route::group(['namespace' => 'WorkRequest', 'as' => 'work-requests.'], function () {
-                Route::resource('work-requests', 'Controller', [
+                Route::resource('work-requests', 'WorkRequestController', [
                     'names' => [
                         'index'   => 'index',
                         'create'  => 'create',
@@ -331,18 +331,18 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                          * Work Order Part Routes
                          */
                         Route::group(['prefix' => 'parts', 'as' => 'parts.', 'namespace' => 'Part'], function () {
-                            Route::get('parts', ['as' => 'index', 'uses' => 'Controller@index']);
+                            Route::get('/', ['as' => 'index', 'uses' => 'PartController@index']);
 
                             Route::group(['prefix' => '{inventory}/stocks'], function () {
-                                Route::get('/', ['as' => 'stocks.index', 'uses' => 'StockController@index']);
+                                Route::get('/', ['as' => 'stocks.index', 'uses' => 'PartStockController@index']);
 
-                                Route::get('{stocks}/take', ['as' => 'stocks.take', 'uses' => 'StockController@getTake']);
+                                Route::get('{stocks}/take', ['as' => 'stocks.take', 'uses' => 'PartStockController@getTake']);
 
-                                Route::post('{stocks}/take', ['as' => 'stocks.take', 'uses' => 'StockController@postTake']);
+                                Route::post('{stocks}/take', ['as' => 'stocks.take', 'uses' => 'PartStockController@postTake']);
 
-                                Route::get('{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'StockController@getPut']);
+                                Route::get('{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'PartStockController@getPut']);
 
-                                Route::post('{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'StockController@postPut']);
+                                Route::post('{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'PartStockController@postPut']);
                             });
                         });
                     });

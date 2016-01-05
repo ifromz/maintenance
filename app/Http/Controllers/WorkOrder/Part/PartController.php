@@ -5,7 +5,7 @@ namespace App\Http\Controllers\WorkOrder\Part;
 use App\Http\Controllers\Controller as BaseController;
 use App\Repositories\WorkOrder\Repository as WorkOrderRepository;
 
-class Controller extends BaseController
+class PartController extends BaseController
 {
     /**
      * Constructor.
