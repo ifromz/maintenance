@@ -2,17 +2,17 @@
 
 namespace App\Http\Presenters\WorkOrder;
 
+use App\Http\Presenters\Presenter;
 use App\Models\Asset;
+use App\Models\Category;
+use App\Models\Location;
 use App\Models\Priority;
 use App\Models\Status;
-use App\Models\Location;
-use App\Models\Category;
 use App\Models\WorkOrder;
 use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Http\Presenters\Presenter;
 
 class WorkOrderPresenter extends Presenter
 {
@@ -125,7 +125,7 @@ class WorkOrderPresenter extends Presenter
                         return Asset::all()->pluck('name', 'id');
                     })
                     ->attributes([
-                        'class' => 'select2',
+                        'class'    => 'select2',
                         'multiple' => true,
                     ]);
 

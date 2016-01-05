@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Inventory;
 
-use App\Processors\Inventory\InventorySkuProcessor;
 use App\Http\Controllers\Controller;
+use App\Processors\Inventory\InventorySkuProcessor;
 
 class InventorySkuController extends Controller
 {

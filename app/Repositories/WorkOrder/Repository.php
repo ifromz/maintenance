@@ -2,7 +2,6 @@
 
 namespace App\Repositories\WorkOrder;
 
-use Stevebauman\Inventory\Exceptions\NotEnoughStockException;
 use App\Http\Requests\WorkOrder\Part\ReturnRequest;
 use App\Http\Requests\WorkOrder\Part\TakeRequest;
 use App\Http\Requests\WorkOrder\Request;
@@ -11,6 +10,7 @@ use App\Models\WorkRequest;
 use App\Repositories\Repository as BaseRepository;
 use App\Services\ConfigService;
 use App\Services\SentryService;
+use Stevebauman\Inventory\Exceptions\NotEnoughStockException;
 
 class Repository extends BaseRepository
 {

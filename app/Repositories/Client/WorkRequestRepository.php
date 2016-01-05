@@ -2,12 +2,12 @@
 
 namespace App\Repositories\Client;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Requests\WorkRequest\Request as WorkRequest;
 use App\Repositories\CurrentUserRepository;
 use App\Repositories\Repository as BaseRepository;
 use App\Repositories\WorkOrder\Repository as WorkOrderRepository;
 use App\Services\ConfigService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class WorkRequestRepository extends BaseRepository
 {

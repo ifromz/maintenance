@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\WorkOrder;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkOrder\WorkOrderRequest;
 use App\Processors\WorkOrder\WorkOrderProcessor;
-use App\Http\Controllers\Controller;
 
 class WorkOrderController extends Controller
 {

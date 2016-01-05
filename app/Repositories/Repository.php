@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\Revision;
 use Cartalyst\DataGrid\Laravel\Facades\DataGrid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use App\Models\Revision;
 
 abstract class Repository
 {

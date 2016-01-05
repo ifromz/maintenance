@@ -2,8 +2,8 @@
 
 namespace App\Validators\WorkOrder;
 
-use Illuminate\Support\Facades\Route;
 use App\Services\WorkOrder\WorkOrderService;
+use Illuminate\Support\Facades\Route;
 
 class ReportUniqueValidator
 {

@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Stevebauman\Inventory\Traits\InventoryTrait;
-use Stevebauman\Inventory\Traits\InventoryVariantTrait;
 use App\Models\Traits\HasCategoryTrait;
 use App\Models\Traits\HasEventsTrait;
 use App\Models\Traits\HasNotesTrait;
-use App\Models\Traits\HasUserTrait;
 use App\Models\Traits\HasScopeArchivedTrait;
 use App\Models\Traits\HasScopeIdTrait;
+use App\Models\Traits\HasUserTrait;
 use App\Viewers\Inventory\InventoryViewer;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Stevebauman\Inventory\Traits\InventoryTrait;
+use Stevebauman\Inventory\Traits\InventoryVariantTrait;
 
 class Inventory extends Model
 {

@@ -2,9 +2,9 @@
 
 namespace App\Http\Apis\v1\WorkOrder;
 
-use Illuminate\Support\Facades\App;
 use App\Http\Apis\v1\EventableController;
 use App\Repositories\WorkOrder\Repository as WorkOrderRepository;
+use Illuminate\Support\Facades\App;
 
 class EventController extends EventableController
 {

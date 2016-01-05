@@ -2,11 +2,11 @@
 
 namespace App\Composers;
 
-use Illuminate\View\View;
 use App\Repositories\Asset\Repository as AssetRepository;
 use App\Repositories\Inventory\Repository as InventoryRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\WorkOrder\Repository as WorkOrderRepository;
+use Illuminate\View\View;
 
 class AdminDashboardComposer
 {

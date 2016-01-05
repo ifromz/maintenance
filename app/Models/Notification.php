@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\App;
-use App\Services\ConfigService;
 use App\Models\Traits\HasUserTrait;
+use App\Services\ConfigService;
+use Illuminate\Support\Facades\App;
 
 class Notification extends Model
 {

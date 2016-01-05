@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use Illuminate\Database\Eloquent\Collection;
-use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 use App\Http\Requests\Event\MoveRequest;
 use App\Http\Requests\Event\ReportRequest;
 use App\Http\Requests\Event\Request;
 use App\Models\Event;
 use App\Services\SentryService;
+use Illuminate\Database\Eloquent\Collection;
+use Stevebauman\CalendarHelper\Services\Google\EventService as GoogleEventService;
 
 class EventRepository extends Repository
 {

@@ -2,13 +2,13 @@
 
 namespace App\Repositories;
 
-use Illuminate\Contracts\Filesystem\Factory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Http\Requests\AttachmentRequest;
 use App\Http\Requests\AttachmentUpdateRequest;
 use App\Models\Attachment;
 use App\Services\SentryService;
+use Illuminate\Contracts\Filesystem\Factory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AttachmentRepository extends Repository
