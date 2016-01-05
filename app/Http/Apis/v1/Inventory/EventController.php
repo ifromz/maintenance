@@ -2,9 +2,9 @@
 
 namespace App\Http\Apis\v1\Inventory;
 
-use Illuminate\Support\Facades\App;
 use App\Http\Apis\v1\EventableController;
 use App\Repositories\Inventory\Repository as InventoryRepository;
+use Illuminate\Support\Facades\App;
 
 class EventController extends EventableController
 {

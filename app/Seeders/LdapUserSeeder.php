@@ -2,12 +2,12 @@
 
 namespace App\Seeders;
 
-use Adldap\Models\Group;
-use Illuminate\Database\Seeder;
-use Adldap\Models\User;
 use Adldap\Contracts\Adldap;
+use Adldap\Models\Group;
+use Adldap\Models\User;
 use App\Services\ConfigService;
 use App\Services\SentryService;
+use Illuminate\Database\Seeder;
 
 class LdapUserSeeder extends Seeder
 {

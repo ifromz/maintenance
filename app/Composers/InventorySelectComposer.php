@@ -2,8 +2,8 @@
 
 namespace App\Composers;
 
-use Illuminate\View\View;
 use App\Services\Inventory\InventoryService;
+use Illuminate\View\View;
 
 class InventorySelectComposer
 {

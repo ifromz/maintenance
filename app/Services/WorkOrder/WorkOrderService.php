@@ -339,7 +339,7 @@ class WorkOrderService extends BaseModelService
     /**
      * Attaches an update to the work order pivot table.
      *
-     * @param WorkOrder                              $workOrder
+     * @param WorkOrder          $workOrder
      * @param \App\Models\Update $update
      *
      * @return bool

@@ -2,14 +2,14 @@
 
 namespace App\Http\Presenters\Inventory;
 
+use App\Http\Presenters\Presenter;
+use App\Models\Category;
+use App\Models\Inventory;
+use App\Models\Metric;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
-use App\Models\Metric;
-use App\Models\Category;
-use App\Models\Inventory;
 
 class InventoryPresenter extends Presenter
 {
@@ -152,7 +152,7 @@ class InventoryPresenter extends Presenter
                 $fieldset
                     ->control('input:text', 'name')
                     ->attributes([
-                        'placeholder' => 'ex. Nails'
+                        'placeholder' => 'ex. Nails',
                     ]);
 
                 $fieldset->control('input:textarea', 'description');

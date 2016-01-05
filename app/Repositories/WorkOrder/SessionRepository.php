@@ -2,10 +2,10 @@
 
 namespace App\Repositories\WorkOrder;
 
-use Carbon\Carbon;
 use App\Models\WorkOrderSession;
 use App\Repositories\Repository as BaseRepository;
 use App\Services\SentryService;
+use Carbon\Carbon;
 
 class SessionRepository extends BaseRepository
 {

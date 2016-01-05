@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\Inventory\InventoryStockMovementViewer;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Stevebauman\Inventory\Traits\InventoryStockMovementTrait;
 
 class InventoryStockMovement extends Model
 {

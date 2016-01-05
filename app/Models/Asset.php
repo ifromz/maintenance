@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\HasCategoryTrait;
 use App\Models\Traits\HasEventsTrait;
 use App\Models\Traits\HasLocationTrait;
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\AssetViewer;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Asset extends Model
 {
@@ -152,6 +152,7 @@ class Asset extends Model
     /*
      * Filters query by the inputted asset name
      */
+
     public function scopeName($query, $name = null)
     {
         if ($name) {
@@ -164,6 +165,7 @@ class Asset extends Model
     /*
      * Filters query by the inputted asset condition
      */
+
     public function scopeCondition($query, $condition = null)
     {
         if ($condition) {
@@ -179,13 +181,14 @@ class Asset extends Model
      *
      * @return string|null
      */
+
     public function getConditionAttribute($condition = null)
     {
         if (!is_null($condition)) {
             return trans(sprintf('assets.conditions.%s', $condition));
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -199,7 +202,7 @@ class Asset extends Model
             return $this->attributes['condition'];
         }
 
-        return null;
+        return;
     }
 
     /*
@@ -207,6 +210,7 @@ class Asset extends Model
      *
      * @return string.
      */
+
     public function getLabelAttribute()
     {
         return sprintf(

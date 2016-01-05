@@ -2,8 +2,8 @@
 
 namespace App\Processors\WorkOrder;
 
-use App\Http\Requests\WorkOrder\WorkOrderRequest;
 use App\Http\Presenters\WorkOrder\WorkOrderPresenter;
+use App\Http\Requests\WorkOrder\WorkOrderRequest;
 use App\Models\WorkOrder;
 use App\Processors\Processor;
 
@@ -22,7 +22,7 @@ class WorkOrderProcessor extends Processor
     /**
      * Constructor.
      *
-     * @param WorkOrder $workOrder
+     * @param WorkOrder          $workOrder
      * @param WorkOrderPresenter $presenter
      */
     public function __construct(WorkOrder $workOrder, WorkOrderPresenter $presenter)

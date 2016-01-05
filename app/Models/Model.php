@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasScopeIdTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facades\Schema;
 use Stevebauman\EloquentTable\TableTrait;
-use App\Models\Traits\HasScopeIdTrait;
 use Stevebauman\Revision\Traits\HasRevisionsTrait;
 use Stevebauman\Viewer\Traits\ViewableTrait;
 

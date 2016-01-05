@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Stevebauman\Inventory\Traits\InventoryStockTrait;
 use App\Models\Traits\HasLocationTrait;
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\Inventory\InventoryStockViewer;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Stevebauman\Inventory\Traits\InventoryStockTrait;
 
 class InventoryStock extends Model
 {

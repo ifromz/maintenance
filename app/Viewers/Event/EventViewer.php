@@ -2,8 +2,8 @@
 
 namespace App\Viewers\Event;
 
-use Stevebauman\CalendarHelper\Objects\Event;
 use App\Viewers\BaseViewer;
+use Stevebauman\CalendarHelper\Objects\Event;
 
 class EventViewer extends BaseViewer
 {

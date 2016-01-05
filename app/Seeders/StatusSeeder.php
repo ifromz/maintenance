@@ -2,9 +2,9 @@
 
 namespace App\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Repositories\WorkOrder\StatusRepository;
 use App\Services\ConfigService;
+use Illuminate\Database\Seeder;
 
 class StatusSeeder extends Seeder
 {

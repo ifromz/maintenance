@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
 use Adldap\Models\User as AdldapUser;
 use App\Http\Presenters\LoginPresenter;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

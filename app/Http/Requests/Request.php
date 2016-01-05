@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Stevebauman\Purify\Facades\Purify;
 use Orchestra\Http\FormRequest;
+use Stevebauman\Purify\Facades\Purify;
 
 abstract class Request extends FormRequest
 {
@@ -20,23 +20,21 @@ abstract class Request extends FormRequest
     }
 
     /**
-     *
-     *
-     * @param string        $date
-     * @param string|null   $time
+     * @param string      $date
+     * @param string|null $time
      *
      * @return bool|null|string
      */
     public function formatDateWithTime($date, $time = null)
     {
-        if(!empty($date)) {
-            if(!empty($time)) {
-                return date('Y-m-d H:i:s', strtotime($date. ' ' . $time));
+        if (!empty($date)) {
+            if (!empty($time)) {
+                return date('Y-m-d H:i:s', strtotime($date.' '.$time));
             }
 
             return date('Y-m-d H:i:s', strtotime($date));
         }
 
-        return null;
+        return;
     }
 }

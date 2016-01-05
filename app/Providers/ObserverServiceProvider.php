@@ -12,7 +12,7 @@ class ObserverServiceProvider extends ServiceProvider
      * @var array
      */
     protected $observers = [
-        \App\Models\Inventory::class => \App\Models\Observers\InventoryObserver::class,
+        \App\Models\Inventory::class      => \App\Models\Observers\InventoryObserver::class,
         \App\Models\InventoryStock::class => \App\Models\Observers\InventoryStockObserver::class,
     ];
 

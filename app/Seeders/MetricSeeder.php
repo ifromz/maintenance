@@ -2,9 +2,9 @@
 
 namespace App\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Repositories\MetricRepository;
 use App\Services\ConfigService;
+use Illuminate\Database\Seeder;
 
 class MetricSeeder extends Seeder
 {

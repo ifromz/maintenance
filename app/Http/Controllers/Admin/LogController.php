@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
 use Stevebauman\LogReader\LogReader;
-use App\Http\Controllers\Controller;
 
 class LogController extends Controller
 {

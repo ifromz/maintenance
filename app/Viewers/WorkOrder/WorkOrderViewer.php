@@ -2,8 +2,8 @@
 
 namespace App\Viewers\WorkOrder;
 
-use Illuminate\Database\Eloquent\Collection;
 use App\Viewers\BaseViewer;
+use Illuminate\Database\Eloquent\Collection;
 
 class WorkOrderViewer extends BaseViewer
 {

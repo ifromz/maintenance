@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Asset;
 
-use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Event\EventableController;
 use App\Repositories\Asset\Repository as AssetRepository;
+use Illuminate\Support\Facades\App;
 
 class EventController extends EventableController
 {

@@ -2,8 +2,8 @@
 
 namespace App\Composers;
 
-use Illuminate\View\View;
 use App\Repositories\Asset\Repository as AssetRepository;
+use Illuminate\View\View;
 
 class AssetSelectComposer
 {

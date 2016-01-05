@@ -2,9 +2,9 @@
 
 namespace App\Validators;
 
+use App\Services\WorkOrder\AssignmentService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Validator;
-use App\Services\WorkOrder\AssignmentService;
 
 class UserAssignmentValidator extends Validator
 {

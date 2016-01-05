@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Storage;
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\AttachmentViewer;
+use Illuminate\Support\Facades\Storage;
 
 class Attachment extends Model
 {

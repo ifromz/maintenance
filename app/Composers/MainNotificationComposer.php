@@ -2,8 +2,8 @@
 
 namespace App\Composers;
 
-use Illuminate\View\View;
 use App\Services\NotificationService;
+use Illuminate\View\View;
 
 class MainNotificationComposer
 {
