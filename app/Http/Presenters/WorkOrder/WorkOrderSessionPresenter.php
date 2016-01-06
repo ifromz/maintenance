@@ -2,11 +2,11 @@
 
 namespace App\Http\Presenters\WorkOrder;
 
+use App\Http\Presenters\Presenter;
 use App\Models\WorkOrder;
 use App\Models\WorkOrderSession;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Http\Presenters\Presenter;
 
 class WorkOrderSessionPresenter extends Presenter
 {
@@ -21,7 +21,7 @@ class WorkOrderSessionPresenter extends Presenter
     {
         $sessions = $workOrder->sessions();
 
-        return $this->table->of('work-orders.sessions', function (TableGrid $table) use($sessions) {
+        return $this->table->of('work-orders.sessions', function (TableGrid $table) use ($sessions) {
             $table->with($sessions)->paginate($this->perPage);
 
             $table->attributes([
