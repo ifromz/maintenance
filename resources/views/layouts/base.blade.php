@@ -81,11 +81,13 @@
                 </section>
 
                 <!-- Main content -->
-                <section class="content body">
+                <section class="content">
                     <div id="content" class="col-md-12">
                         @yield('content')
                     </div>
                 </section>
+
+                <div class="clearfix"></div>
                 <!-- End Main Content -->
             </div>
             <!-- /.right-side -->

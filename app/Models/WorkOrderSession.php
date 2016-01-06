@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Orchestra\Support\Facades\HTML;
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\WorkOrder\SessionViewer;
 
@@ -47,11 +49,25 @@ class WorkOrderSession extends Model
     }
 
     /**
+     * Returns a query scope of sessions grouped by users.
+     *
+     * @param Builder $builder
+     *
+     * @return Builder
+     */
+    public function scopeUnique(Builder $builder)
+    {
+        $select = 'user_id, TRUNCATE(ABS(SUM(TIME_TO_SEC(TIMEDIFF(work_order_sessions.in, work_order_sessions.out)) / 3600)), 2) as total_hours';
+
+        return $builder->selectRaw($select)->groupBy('user_id');
+    }
+
+    /**
      * Returns the number of hours a session lasted with decimals.
      *
      * @return null|int
      */
-    public function getHoursAttribute()
+    public function getHours()
     {
         if (array_key_exists('out', $this->attributes)) {
             if ($this->attributes['out']) {
@@ -62,5 +78,20 @@ class WorkOrderSession extends Model
         }
 
         return;
+    }
+
+    /**
+     * Returns a label if the current users session is open,
+     * otherwise it will return the out datetime.
+     *
+     * @return string
+     */
+    public function getOutLabel()
+    {
+        if (is_null($this->out)) {
+            return HTML::create('span', 'Open', ['class' => 'label label-success']);
+        } else {
+            return $this->out;
+        }
     }
 }

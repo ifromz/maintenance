@@ -84,9 +84,11 @@ class WorkOrderProcessor extends Processor
     {
         $workOrder = $this->workOrder->findOrFail($id);
 
-        $sessions = $workOrder->getUniqueSessions();
+        $sessions = $this->presenter->tableSessions($workOrder);
 
-        return view('work-orders.show', compact('workOrder', 'sessions'));
+        $navbar = $this->presenter->navbarShow($workOrder);
+
+        return view('work-orders.show', compact('workOrder', 'sessions', 'navbar'));
     }
 
     /**

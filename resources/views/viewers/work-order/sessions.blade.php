@@ -8,7 +8,7 @@
                 'user' => 'Worker',
                 'total_hours' => 'Total Hours'
             ])
-            ->means('user', 'user.full_name')
+            ->means('user', 'user.fullname')
             ->modify('total_hours', function($session) {
                 return $session->viewer()->totalHours();
             })

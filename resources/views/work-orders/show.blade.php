@@ -2,6 +2,10 @@
 
 @section('title', "Viewing Work Order")
 
+@section('tab.extra.top')
+    @decorator('navbar', $navbar)
+@stop
+
 @section('tab.head.content')
     <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab-details" data-toggle="tab">Details</a></li>
@@ -11,28 +15,8 @@
 @stop
 
 @section('tab.body.content')
+
     <div class="tab-pane active" id="tab-profile">
-
-        <div class="col-md-12">
-
-            {!! $workOrder->viewer()->btnEvents() !!}
-
-            {!! $workOrder->viewer()->btnParts() !!}
-
-            {!! $workOrder->viewer()->btnAttachments() !!}
-
-            {!! $workOrder->viewer()->btnWorkers() !!}
-
-            {!! $workOrder->viewer()->btnCheckIn() !!}
-
-            {!! $workOrder->viewer()->btnNotifications() !!}
-
-            {!! $workOrder->viewer()->btnComplete() !!}
-
-            {!! $workOrder->viewer()->btnEdit() !!}
-
-            {!! $workOrder->viewer()->btnDelete() !!}
-        </div>
 
         <div class="row">
 
@@ -53,9 +37,13 @@
 
     <div class="tab-pane" id="tab-details">
 
+        <h2>Completion Report</h2>
+
         {!! $workOrder->viewer()->report() !!}
 
-        {!! $workOrder->viewer()->sessions($sessions) !!}
+        <h2>Sessions</h2>
+
+        {!! $sessions !!}
 
     </div>
 
@@ -77,4 +65,5 @@
 
         {!! $workOrder->viewer()->updates() !!}
     </div>
+
 @stop

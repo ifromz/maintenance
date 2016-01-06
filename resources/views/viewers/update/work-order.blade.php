@@ -13,7 +13,7 @@
 
 @section('message.tools.content')
 
-    @if(Sentinel::getUser()->id === $update->user->id)
+    @if(auth()->id() === $update->user->id)
         <a
                 data-method="delete"
                 data-token="{{ csrf_token() }}"

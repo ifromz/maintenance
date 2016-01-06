@@ -1,9 +1,11 @@
 @extends('layouts.main')
 
-@section('title', 'Work Order Sessions')
+@section('title', 'Work Orders')
 
 @section('content')
 
-    @include('work-orders.sessions.grid.index', compact('workOrder'))
+    @decorator('navbar', $navbar)
+
+    {!! $sessions !!}
 
 @stop

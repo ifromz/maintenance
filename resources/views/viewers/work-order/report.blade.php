@@ -1,5 +1,3 @@
-<h2>Completion Report</h2>
-
 @if($workOrder->report)
 
     <table class="table">

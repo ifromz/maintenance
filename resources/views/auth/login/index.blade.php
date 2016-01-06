@@ -6,11 +6,19 @@
 
     <div class="login-box">
 
-        <div class="login-logo">Login</div>
+        <div class="login-logo">
+            <a href="#">
+                <b>Maintenance</b> | Login
+            </a>
+        </div>
 
         <div class="login-box-body">
 
-            {!! $form !!}
+            <div class="col-md-12">
+                {!! $form !!}
+            </div>
+
+            <div class="clearfix"></div>
 
         </div>
 

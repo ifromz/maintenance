@@ -412,29 +412,34 @@ class WorkOrder extends Model
      *
      * @param int|string $userId
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getUserSessions($userId)
     {
-        return $this->sessions()->where('user_id', $userId)->get();
+        return $this->sessions()->where('user_id', $userId)->latest()->get();
+    }
+
+    /**
+     * Returns the specified users last session.
+     *
+     * @param int|string $userId
+     *
+     * @return WorkOrderSession|null
+     */
+    public function getLastUsersSession($userId)
+    {
+        return $this->sessions()->where('user_id', $userId)->latest()->firstOrFail();
     }
 
     /**
      * Retrieves all of the users work order
      * sessions grouped by each user.
      *
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function getUniqueSessions()
     {
-        $select = 'TRUNCATE(ABS(SUM(TIME_TO_SEC(TIMEDIFF(work_order_sessions.in, work_order_sessions.out)) / 3600)), 2) as total_hours';
-
-        $records = $this->sessions()
-            ->select('user_id', DB::raw($select))
-            ->groupBy('user_id')
-            ->get();
-
-        return $records;
+        return $this->sessions()->unique();
     }
 
     /**

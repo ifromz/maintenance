@@ -153,7 +153,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
              */
             Route::group(['as' => 'work-orders.', 'namespace' => 'WorkOrder'], function () {
                 Route::group(['prefix' => 'work-orders'], function () {
-                    Route::get('assigned', ['as' => 'assigned.index', 'uses' => 'AssignedController@index']);
+                    Route::get('assigned', ['as' => 'assigned.index', 'uses' => 'WorkOrderAssignedController@index']);
 
                     /*
                      * Work Order Priority Routes
@@ -226,11 +226,11 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         /*
                          * Work Order Session Routes
                          */
-                        Route::get('sessions', ['as' => 'sessions.index', 'uses' => 'SessionController@index']);
+                        Route::get('sessions', ['as' => 'sessions.index', 'uses' => 'WorkOrderSessionController@index']);
 
-                        Route::post('sessions/start', ['as' => 'sessions.start', 'uses' => 'SessionController@postStart']);
+                        Route::post('sessions/start', ['as' => 'sessions.start', 'uses' => 'WorkOrderSessionController@start']);
 
-                        Route::post('sessions/end', ['as' => 'sessions.end', 'uses' => 'SessionController@postEnd']);
+                        Route::post('sessions/end', ['as' => 'sessions.end', 'uses' => 'WorkOrderSessionController@end']);
 
                         /*
                          * Work Order Update Routes

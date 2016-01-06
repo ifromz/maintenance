@@ -5,7 +5,7 @@ namespace App\Http\Controllers\WorkOrder;
 use App\Http\Controllers\Controller;
 use App\Processors\WorkOrder\WorkOrderAssignedProcessor;
 
-class AssignedController extends Controller
+class WorkOrderAssignedController extends Controller
 {
     /**
      * @var WorkOrderAssignedProcessor

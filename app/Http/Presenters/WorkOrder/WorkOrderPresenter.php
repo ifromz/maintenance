@@ -72,6 +72,20 @@ class WorkOrderPresenter extends Presenter
     }
 
     /**
+     * Displays
+     *
+     * @param WorkOrder $workOrder
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function tableSessions(WorkOrder $workOrder)
+    {
+        $presenter = new WorkOrderSessionPresenter($this->form, $this->table);
+
+        return $presenter->tablePerWorker($workOrder->getUniqueSessions());
+    }
+
+    /**
      * Returns a new form for work orders.
      *
      * @param WorkOrder $workOrder
@@ -168,6 +182,25 @@ class WorkOrderPresenter extends Presenter
             'id'         => 'work-orders',
             'title'      => 'Work Orders',
             'menu'       => view('work-orders._nav'),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ]);
+    }
+
+    /**
+     * Returns a navbar for the specified work order.
+     *
+     * @param WorkOrder $workOrder
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbarShow(WorkOrder $workOrder)
+    {
+        return $this->fluent([
+            'id'         => 'work-orders-show',
+            'title'      => $workOrder->subject,
+            'menu'       => view('work-orders._nav-show', compact('workOrder')),
             'attributes' => [
                 'class' => 'navbar-default',
             ],
