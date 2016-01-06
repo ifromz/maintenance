@@ -11,7 +11,6 @@ use App\Models\Traits\HasUserTrait;
 use App\Viewers\WorkOrder\WorkOrderViewer;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 
 class WorkOrder extends Model
 {

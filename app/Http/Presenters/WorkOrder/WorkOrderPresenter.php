@@ -72,7 +72,7 @@ class WorkOrderPresenter extends Presenter
     }
 
     /**
-     * Displays
+     * Displays.
      *
      * @param WorkOrder $workOrder
      *

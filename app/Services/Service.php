@@ -86,7 +86,7 @@ abstract class Service
             return $cleaned;
         }
 
-        return null;
+        return;
     }
 
     /**

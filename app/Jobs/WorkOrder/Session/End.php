@@ -2,8 +2,8 @@
 
 namespace App\Jobs\WorkOrder\Session;
 
-use App\Models\WorkOrder;
 use App\Jobs\Job;
+use App\Models\WorkOrder;
 
 class End extends Job
 {
