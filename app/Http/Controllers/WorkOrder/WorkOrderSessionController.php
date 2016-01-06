@@ -48,7 +48,7 @@ class WorkOrderSessionController extends Controller
 
             return redirect()->route('maintenance.work-orders.show', [$workOrderId]);
         } else {
-            flash()->error('Error!','There was an issue creating your session. Please try again.');
+            flash()->error('Error!', 'There was an issue creating your session. Please try again.');
 
             return redirect()->route('maintenance.work-orders.show', [$workOrderId]);
         }
@@ -64,11 +64,11 @@ class WorkOrderSessionController extends Controller
     public function end($workOrderId)
     {
         if ($this->processor->end($workOrderId)) {
-            flash()->success('Success!','Successfully ended your session. Your hours have been logged.');
+            flash()->success('Success!', 'Successfully ended your session. Your hours have been logged.');
 
             return redirect()->route('maintenance.work-orders.show', [$workOrderId]);
         } else {
-            flash()->error('Error!','There was an issue ending your session. Please try again.');
+            flash()->error('Error!', 'There was an issue ending your session. Please try again.');
 
             return redirect()->route('maintenance.work-orders.show', [$workOrderId]);
         }

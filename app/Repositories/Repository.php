@@ -204,7 +204,7 @@ abstract class Repository
      *
      * @return mixed
      */
-    public function cache($key, $minutes = 60, \Closure $closure)
+    public function cache($key, $minutes, \Closure $closure)
     {
         return Cache::remember($key, $minutes, $closure);
     }

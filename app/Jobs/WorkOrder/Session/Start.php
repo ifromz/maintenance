@@ -2,9 +2,9 @@
 
 namespace App\Jobs\WorkOrder\Session;
 
-use App\Models\WorkOrderSession;
-use App\Models\WorkOrder;
 use App\Jobs\Job;
+use App\Models\WorkOrder;
+use App\Models\WorkOrderSession;
 
 class Start extends Job
 {
