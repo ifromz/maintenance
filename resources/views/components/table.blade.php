@@ -1,9 +1,8 @@
 @inject('htmlbuilder', 'html')
-{{--*/ $attributes['table'] = $htmlbuilder->decorate($attributes['table'], ['class' => 'table table-hover table-striped']) /*--}}
 
 <div class="table-responsive">
 
-    <table{!! $htmlbuilder->attributes($grid->attributes()) !!}>
+    <table{!! $htmlbuilder->attributable($grid->attributes(), ['class' => 'table table-hover table-striped']) !!}>
 
         <thead>
             <tr>

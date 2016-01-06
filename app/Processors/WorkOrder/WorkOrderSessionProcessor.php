@@ -43,7 +43,7 @@ class WorkOrderSessionProcessor extends Processor
     {
         $workOrder = $this->workOrder->findOrFail($workOrderId);
 
-        $sessions = $this->presenter->table($workOrder->sessions());
+        $sessions = $this->presenter->table($workOrder);
 
         $navbar = $this->presenter->navbar();
 

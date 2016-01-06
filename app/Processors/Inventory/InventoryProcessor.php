@@ -38,7 +38,7 @@ class InventoryProcessor extends Processor
      */
     public function index()
     {
-        $inventory = $this->presenter->tableWithoutVariants($this->inventory);
+        $inventory = $this->presenter->tableNoVariants($this->inventory);
 
         $navbar = $this->presenter->navbar();
 

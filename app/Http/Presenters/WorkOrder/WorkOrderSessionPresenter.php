@@ -2,9 +2,10 @@
 
 namespace App\Http\Presenters\WorkOrder;
 
+use App\Models\WorkOrder;
+use App\Models\WorkOrderSession;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Models\WorkOrderSession;
 use App\Http\Presenters\Presenter;
 
 class WorkOrderSessionPresenter extends Presenter
@@ -12,14 +13,16 @@ class WorkOrderSessionPresenter extends Presenter
     /**
      * Returns a new table of all work order sessions.
      *
-     * @param WorkOrderSession|Builder
+     * @param WorkOrder $workOrder
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function table($session)
+    public function table(WorkOrder $workOrder)
     {
-        return $this->table->of('work-orders.sessions', function (TableGrid $table) use($session) {
-            $table->with($session)->paginate($this->perPage);
+        $sessions = $workOrder->sessions();
+
+        return $this->table->of('work-orders.sessions', function (TableGrid $table) use($sessions) {
+            $table->with($sessions)->paginate($this->perPage);
 
             $table->attributes([
                 'class' => 'table table-hover table-striped',
@@ -50,12 +53,14 @@ class WorkOrderSessionPresenter extends Presenter
     /**
      * Displays unique sessions per worker and totals their hours.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $sessions
+     * @param WorkOrder $workOrder
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function tablePerWorker($sessions)
+    public function tablePerWorker(WorkOrder $workOrder)
     {
+        $sessions = $workOrder->getUniqueSessions();
+
         return $this->table->of('work-orders.sessions.per-worker', function (TableGrid $table) use ($sessions) {
             $table->with($sessions);
 

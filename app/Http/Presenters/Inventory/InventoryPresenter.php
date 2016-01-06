@@ -78,9 +78,9 @@ class InventoryPresenter extends Presenter
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function tableWithoutVariants($item)
+    public function tableNoVariants($item)
     {
-        return $this->table($item->whereNull('parent_id'));
+        return $this->table($item->noVariants());
     }
 
     /**

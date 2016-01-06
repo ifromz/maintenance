@@ -72,7 +72,7 @@ class WorkOrderPresenter extends Presenter
     }
 
     /**
-     * Displays
+     * Displays a table of all unique sessions on the specified work order.
      *
      * @param WorkOrder $workOrder
      *
@@ -82,7 +82,7 @@ class WorkOrderPresenter extends Presenter
     {
         $presenter = new WorkOrderSessionPresenter($this->form, $this->table);
 
-        return $presenter->tablePerWorker($workOrder->getUniqueSessions());
+        return $presenter->tablePerWorker($workOrder);
     }
 
     /**

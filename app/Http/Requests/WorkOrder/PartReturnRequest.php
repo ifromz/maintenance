@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\WorkOrder\Part;
+namespace App\Http\Requests\WorkOrder;
 
 use App\Http\Requests\Request as BaseRequest;
 
-class ReturnRequest extends BaseRequest
+class PartReturnRequest extends BaseRequest
 {
     /**
      * The stock request validation rules.

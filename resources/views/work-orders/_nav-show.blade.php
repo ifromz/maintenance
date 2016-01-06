@@ -1,12 +1,15 @@
 <ul class="nav navbar-left navbar-nav">
     <li>
         <a href="{{ route('maintenance.work-orders.events.index', [$workOrder->getKey()]) }}">
-            <i class="fa fa-calendar"></i> Events
+            <i class="fa fa-calendar"></i>
+            Events
         </a>
     </li>
     <li>
         <a href="{{ route('maintenance.work-orders.parts.index', [$workOrder->getKey()]) }}">
-            <i class="fa fa-cogs"></i> Parts
+            <i class="fa fa-cogs"></i>
+            Parts
+            ({{ $workOrder->parts->count() }})
         </a>
     </li>
     <li>

@@ -330,19 +330,19 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         /*
                          * Work Order Part Routes
                          */
-                        Route::group(['prefix' => 'parts', 'as' => 'parts.', 'namespace' => 'Part'], function () {
-                            Route::get('/', ['as' => 'index', 'uses' => 'PartController@index']);
+                        Route::group(['prefix' => 'parts', 'as' => 'parts.'], function () {
+                            Route::get('/', ['as' => 'index', 'uses' => 'WorkOrderPartController@index']);
 
                             Route::group(['prefix' => '{inventory}/stocks'], function () {
-                                Route::get('/', ['as' => 'stocks.index', 'uses' => 'PartStockController@index']);
+                                Route::get('/', ['as' => 'stocks.index', 'uses' => 'WorkOrderPartStockController@index']);
 
-                                Route::get('{stocks}/take', ['as' => 'stocks.take', 'uses' => 'PartStockController@getTake']);
+                                Route::get('{stocks}/take', ['as' => 'stocks.take', 'uses' => 'WorkOrderPartStockController@getTake']);
 
-                                Route::post('{stocks}/take', ['as' => 'stocks.take', 'uses' => 'PartStockController@postTake']);
+                                Route::post('{stocks}/take', ['as' => 'stocks.take', 'uses' => 'WorkOrderPartStockController@postTake']);
 
-                                Route::get('{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'PartStockController@getPut']);
+                                Route::get('{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'WorkOrderPartStockController@getPut']);
 
-                                Route::post('{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'PartStockController@postPut']);
+                                Route::post('{stocks}/put-back', ['as' => 'stocks.put', 'uses' => 'WorkOrderPartStockController@postPut']);
                             });
                         });
                     });
