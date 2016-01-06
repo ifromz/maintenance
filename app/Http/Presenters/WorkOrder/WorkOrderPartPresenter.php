@@ -2,12 +2,12 @@
 
 namespace App\Http\Presenters\WorkOrder;
 
+use App\Http\Presenters\Presenter;
+use App\Models\Inventory;
 use App\Models\InventoryStock;
+use App\Models\WorkOrder;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use App\Models\Inventory;
-use App\Models\WorkOrder;
-use App\Http\Presenters\Presenter;
 
 class WorkOrderPartPresenter extends Presenter
 {
