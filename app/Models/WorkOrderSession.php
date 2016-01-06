@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Orchestra\Support\Facades\HTML;
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\WorkOrder\SessionViewer;
+use Illuminate\Database\Eloquent\Builder;
+use Orchestra\Support\Facades\HTML;
 
 class WorkOrderSession extends Model
 {

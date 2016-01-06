@@ -6,7 +6,6 @@ use App\Http\Requests\WorkOrder\PartTakeRequest;
 use App\Jobs\Job;
 use App\Models\InventoryStock;
 use App\Models\WorkOrder;
-use Stevebauman\Inventory\Exceptions\NotEnoughStockException;
 
 class Take extends Job
 {
@@ -64,6 +63,8 @@ class Take extends Job
             return true;
         }
 
+        // It looks like the part isn't yet attached to
+        // the work order. We'll attach it now.
         $this->workOrder->parts()->attach($this->stock->getKey(), compact('quantity'));
 
         return true;

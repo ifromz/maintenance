@@ -18,6 +18,8 @@ class WorkOrderPartPresenter extends Presenter
         return $this->table->of('work-orders.parts', function (TableGrid $table) use ($parts) {
             $table->with($parts);
 
+            $table->pageName = 'page-parts';
+
             $table->column('ID', 'id');
 
             $table->column('SKU', function (Column $column) {
@@ -60,6 +62,8 @@ class WorkOrderPartPresenter extends Presenter
 
         return $this->table->of('work-orders.inventory', function (TableGrid $table) use ($inventory, $workOrder) {
             $table->with($inventory);
+
+            $table->pageName = 'page-inventory';
 
             $table->column('ID', 'id');
 
