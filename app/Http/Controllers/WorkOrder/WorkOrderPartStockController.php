@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\WorkOrder;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WorkOrder\PartReturnRequest;
 use App\Http\Requests\WorkOrder\PartTakeRequest;
 use App\Processors\WorkOrder\WorkOrderPartStockProcessor;
 use Stevebauman\Inventory\Exceptions\NotEnoughStockException;
@@ -94,39 +95,29 @@ class WorkOrderPartStockController extends Controller
      */
     public function getPut($workOrderId, $inventoryId, $stockId)
     {
-        $workOrder = $this->workOrder->find($workOrderId);
-
-        $stock = $workOrder->parts()->find($stockId);
-
-        if ($stock instanceof InventoryStock) {
-            $item = $stock->item;
-
-            return view('work-orders.parts.inventory.stocks.put', compact('workOrder', 'item', 'stock'));
-        }
-
-        abort(404);
+        return $this->processor->getPut($workOrderId, $inventoryId, $stockId);
     }
 
     /**
      * Processes returning parts back into the inventory.
      *
-     * @param ReturnRequest $request
-     * @param int|string    $workOrderId
-     * @param int|string    $inventoryId
-     * @param int|string    $stockId
+     * @param PartReturnRequest $request
+     * @param int|string        $workOrderId
+     * @param int|string        $inventoryId
+     * @param int|string        $stockId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postPut(ReturnRequest $request, $workOrderId, $inventoryId, $stockId)
+    public function postPut(PartReturnRequest $request, $workOrderId, $inventoryId, $stockId)
     {
-        if ($this->workOrder->returnPart($request, $workOrderId, $stockId)) {
-            $message = 'Successfully returned parts to the inventory.';
+        if ($this->processor->postPut($request, $workOrderId, $inventoryId, $stockId)) {
+            flash()->success('Success!', 'Successfully returned parts to the inventory.');
 
-            return redirect()->route('maintenance.work-orders.parts.index', [$workOrderId])->withSuccess($message);
+            return redirect()->route('maintenance.work-orders.parts.index', [$workOrderId]);
         } else {
-            $message = 'There was an issue returning parts into the inventory. Please try again.';
+            flash()->error('Error!', 'There was an issue returning parts into the inventory. Please try again.');
 
-            return redirect()->route('maintenance.work-orders.parts.stocks.put', [$workOrderId])->withErrors($message);
+            return redirect()->route('maintenance.work-orders.parts.stocks.put', [$workOrderId]);
         }
     }
 }

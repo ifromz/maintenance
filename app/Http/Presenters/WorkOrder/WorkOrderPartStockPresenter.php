@@ -5,6 +5,7 @@ namespace App\Http\Presenters\WorkOrder;
 use App\Models\Inventory;
 use App\Models\InventoryStock;
 use App\Models\WorkOrder;
+use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
@@ -115,6 +116,16 @@ class WorkOrderPartStockPresenter extends Presenter
         });
     }
 
+    /**
+     * Returns a new form for taking stock from the specified
+     * inventory for the specified work order.
+     *
+     * @param WorkOrder      $workOrder
+     * @param Inventory      $inventory
+     * @param InventoryStock $stock
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
     public function formTake(WorkOrder $workOrder, Inventory $inventory, InventoryStock $stock)
     {
         return $this->form->of('work-orders.parts.stocks.take', function (FormGrid $form) use ($workOrder, $inventory, $stock) {
@@ -131,6 +142,41 @@ class WorkOrderPartStockPresenter extends Presenter
                 $fieldset
                     ->control('input:text', 'quantity')
                     ->value(0)
+                    ->attribute([
+                        'placeholder' => "Enter Quantity in $metric",
+                    ]);
+            });
+        });
+    }
+
+    /**
+     * Returns a new form for putting the stock from the
+     * specified work order back into inventory.
+     *
+     * @param WorkOrder $workOrder
+     * @param Inventory $inventory
+     * @param InventoryStock $stock
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function formPut(WorkOrder $workOrder, Inventory $inventory, InventoryStock $stock)
+    {
+        return $this->form->of('work-orders.parts.stocks.put', function (FormGrid $form) use ($workOrder, $inventory, $stock) {
+            $form->attributes([
+                'method' => 'POST',
+                'url' => route('maintenance.work-orders.parts.stocks.put', [$workOrder->getKey(), $inventory->getKey(), $stock->getKey()]),
+            ]);
+
+            $form->submit = 'Save';
+
+            $form->fieldset(function (Fieldset $fieldset) use ($inventory, $stock) {
+                $metric = $inventory->getMetricSymbol();
+
+                $fieldset
+                    ->control('input:text', 'quantity', function (Field $field) {
+                        $field->label = 'Return Quantity';
+                    })
+                    ->value($stock->pivot->quantity)
                     ->attribute([
                         'placeholder' => "Enter Quantity in $metric",
                     ]);

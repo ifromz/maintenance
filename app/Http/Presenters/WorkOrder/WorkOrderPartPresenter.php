@@ -15,7 +15,7 @@ class WorkOrderPartPresenter extends Presenter
     {
         $parts = $workOrder->parts();
 
-        return $this->table->of('work-orders.parts', function (TableGrid $table) use ($parts) {
+        return $this->table->of('work-orders.parts', function (TableGrid $table) use ($workOrder, $parts) {
             $table->with($parts);
 
             $table->pageName = 'page-parts';
@@ -43,6 +43,21 @@ class WorkOrderPartPresenter extends Presenter
             $table->column('taken', function (Column $column) {
                 $column->value = function (InventoryStock $stock) {
                     return $stock->quantity;
+                };
+            });
+
+            $table->column('return', function (Column $column) use ($workOrder) {
+                $column->label = 'Return Stock';
+                $column->value = function (InventoryStock $stock) use ($workOrder) {
+                    $route = 'maintenance.work-orders.parts.stocks.put';
+
+                    $params = [$workOrder->getKey(), $stock->item->getKey(), $stock->getKey()];
+
+                    $attributes = [
+                        'class' => 'btn btn-default btn-sm',
+                    ];
+
+                    return link_to_route($route, 'Return', $params, $attributes);
                 };
             });
         });

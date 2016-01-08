@@ -5,6 +5,7 @@ namespace App\Processors\WorkOrder;
 use App\Http\Requests\WorkOrder\PartReturnRequest;
 use App\Http\Requests\WorkOrder\PartTakeRequest;
 use App\Http\Presenters\WorkOrder\WorkOrderPartStockPresenter;
+use App\Jobs\WorkOrder\Part\Put;
 use App\Jobs\WorkOrder\Part\Take;
 use App\Models\Inventory;
 use App\Models\WorkOrder;
@@ -58,7 +59,7 @@ class WorkOrderPartStockProcessor extends Processor
     }
 
     /**
-     *
+     * Displays the form for taking inventory for the specified work order.
      *
      * @param int|string $workOrderId
      * @param int|string $itemId
@@ -79,6 +80,19 @@ class WorkOrderPartStockProcessor extends Processor
         return view('work-orders.parts.stocks.take', compact('workOrder', 'item', 'stock', 'form'));
     }
 
+    /**
+     * Processes taking inventory for the specified work order.
+     *
+     * @param PartTakeRequest $request
+     * @param int|string      $workOrderId
+     * @param int|string      $itemId
+     * @param int|string      $stockId
+     *
+     * @return bool
+     *
+     * @throws \Stevebauman\Inventory\Exceptions\InvalidQuantityException
+     * @throws \Stevebauman\Inventory\Exceptions\NotEnoughStockException
+     */
     public function postTake(PartTakeRequest $request, $workOrderId, $itemId, $stockId)
     {
         $workOrder = $this->workOrder->findOrFail($workOrderId);
@@ -90,13 +104,55 @@ class WorkOrderPartStockProcessor extends Processor
         return $this->dispatch(new Take($request, $workOrder, $stock));
     }
 
+    /**
+     * Displays the form for putting inventory from the
+     * work order back into the specified stock.
+     *
+     * @param int|string $workOrderId
+     * @param int|string $itemId
+     * @param int|string $stockId
+     *
+     * @return \Illuminate\View\View
+     */
     public function getPut($workOrderId, $itemId, $stockId)
     {
-        //
+        $workOrder = $this->workOrder->findOrFail($workOrderId);
+
+        $item = $this->inventory->findOrFail($itemId);
+
+        $stock = $workOrder->parts()->findOrFail($stockId);
+
+        $form = $this->presenter->formPut($workOrder, $item, $stock);
+
+        return view('work-orders.parts.stocks.put', compact('workOrder', 'item', 'stock', 'form'));
     }
 
+    /**
+     * Processes returning stock from the work order back into the specified inventory.
+     *
+     * @param PartReturnRequest $request
+     * @param int|string        $workOrderId
+     * @param int|string        $itemId
+     * @param int|string        $stockId
+     *
+     * @return bool
+     *
+     * @throws \Stevebauman\Inventory\Exceptions\InvalidQuantityException
+     */
     public function postPut(PartReturnRequest $request, $workOrderId, $itemId, $stockId)
     {
-        //
+        $workOrder = $this->workOrder->findOrFail($workOrderId);
+
+        // Even though the inventory item isn't necessary here, we'll
+        // find it anyway so we can check for the requests validity
+        // and ensure the specified stock is actually attached to
+        // the one requested.
+        $item = $this->inventory->findOrFail($itemId);
+
+        $item->stocks()->findOrFail($stockId);
+
+        $stock = $workOrder->parts()->findOrFail($stockId);
+
+        return $this->dispatch(new Put($request, $workOrder, $stock));
     }
 }
