@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\PriorityViewer;
+use Orchestra\Support\Facades\HTML;
 
 class Priority extends Model
 {
@@ -48,26 +49,14 @@ class Priority extends Model
     }
 
     /**
-     * Returns a pretty label of the work order priority.
+     * Returns an html label with the color of the priority.
      *
      * @return string
      */
-    public function getLabelAttribute()
+    public function getLabel()
     {
-        return sprintf(
-            '<span class="label label-%s">%s</span>',
-            $this->attributes['color'],
-            $this->attributes['name']
-        );
-    }
+        $color = $this->color;
 
-    /**
-     * Compatibility with Revisionable.
-     *
-     * @return string
-     */
-    public function identifiableName()
-    {
-        return $this->name;
+        return HTML::create('span', $this->name, ['class' => "label label-$color"]);
     }
 }

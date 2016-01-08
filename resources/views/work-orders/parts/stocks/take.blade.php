@@ -7,24 +7,26 @@
 @stop
 
 @section('panel.body.content')
-    <legend>Stock Details</legend>
+    <div class="col-md-4">
+        <table class="table table-hover table-striped">
+            <tbody>
+                <tr>
+                    <th>Item</th>
+                    <td>{{ $item->name }}</td>
+                </tr>
+                <tr>
+                    <th>Location</th>
+                    <td>{{ $stock->location->trail }}</td>
+                </tr>
+                <tr>
+                    <th>Current Stock</th>
+                    <td>{{ $stock->quantity }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-    <dl class="dl-horizontal">
-        <dt>Item:</dt>
-        <dd>{{ $item->name }}</dd>
-
-        <p></p>
-
-        <dt>Location:</dt>
-        <dd>{!! $stock->location->trail !!}</dd>
-
-        <p></p>
-
-        <dt>Current Stock:</dt>
-        <dd id="quantity-refresh">{{ $stock->quantity }}</dd>
-
-        <p></p>
-    </dl>
+    <div class="clearfix"></div>
 
     <hr>
 

@@ -7,7 +7,7 @@
         <tr>
             <th>Current Status</th>
             @if($workRequest->workOrder && $workRequest->workOrder->status)
-                <td>{!! $workRequest->workOrder->status->label !!}</td>
+                <td>{!! $workRequest->workOrder->status->getLabel() !!}</td>
             @else
                 <em>None</em>
             @endif

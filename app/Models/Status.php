@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\StatusViewer;
+use Orchestra\Support\Facades\HTML;
 
 class Status extends Model
 {
@@ -52,22 +53,10 @@ class Status extends Model
      *
      * @return string
      */
-    public function getLabelAttribute()
+    public function getLabel()
     {
-        return sprintf(
-            '<span class="label label-%s">%s</span>',
-            $this->attributes['color'],
-            $this->attributes['name']
-        );
-    }
+        $color = $this->color;
 
-    /**
-     * Compatibility with Revisionable.
-     *
-     * @return string
-     */
-    public function identifiableName()
-    {
-        return $this->name;
+        return HTML::create('span', $this->name, ['class' => "label label-$color"]);
     }
 }

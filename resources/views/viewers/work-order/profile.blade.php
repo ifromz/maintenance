@@ -6,11 +6,11 @@
         </tr>
         <tr>
             <th>Status</th>
-            <td>{!! $workOrder->status->label !!}</td>
+            <td>{!! $workOrder->status->getLabel() !!}</td>
         </tr>
         <tr>
             <th>Priority</th>
-            <td>{!! $workOrder->priority->label !!}</td>
+            <td>{!! $workOrder->priority->getLabel() !!}</td>
         </tr>
         <tr>
             <th>Created By</th>

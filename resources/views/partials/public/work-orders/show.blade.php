@@ -56,7 +56,7 @@
             <dl class="dl-horizontal">
 
                 <dt>Status:</dt>
-                <dd>{{ $workOrder->status->label }}</dd>
+                <dd>{{ $workOrder->status->getLabel() }}</dd>
 
                 <p></p>
 

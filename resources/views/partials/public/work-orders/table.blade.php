@@ -8,7 +8,7 @@
     <tbody>
     @foreach($workOrders as $workOrder)
         <tr>
-            <td>{{ $workOrder->status->label }}</td>
+            <td>{{ $workOrder->status->getLabel() }}</td>
             <td>{{ $workOrder->subject }}</td>
             <td>{{ $workOrder->created_at }}</td>
             <td>

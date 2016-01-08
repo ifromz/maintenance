@@ -158,7 +158,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     /*
                      * Work Order Priority Routes
                      */
-                    Route::resource('priorities', 'PriorityController', [
+                    Route::resource('priorities', 'WorkOrderPriorityController', [
                         'except' => [
                             'show',
                         ],
@@ -176,7 +176,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     /*
                      * Work Order Status Routes
                      */
-                    Route::resource('statuses', 'StatusController', [
+                    Route::resource('statuses', 'WorkOrderStatusController', [
                         'except' => [
                             'show',
                         ],
@@ -190,13 +190,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             'destroy' => 'statuses.destroy',
                         ],
                     ]);
-
-                    /*
-                     * Work Order Request Generation Routes
-                     */
-                    Route::get('requests/create/{work_requests}', ['as' => 'requests.create', 'uses' => 'RequestController@create']);
-
-                    Route::put('requests/{work_requests}', ['as' => 'requests.store', 'uses' => 'RequestController@store']);
 
                     /*
                      * Work Order Category Routes

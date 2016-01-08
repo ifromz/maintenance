@@ -1,6 +1,6 @@
 @extends('layouts.pages.main.panel')
 
-@section('title', "Edit Status: $status->name")
+@section('title', 'Edit Status')
 
 @section('panel.head.content')
     Edit Status
@@ -8,16 +8,6 @@
 
 @section('panel.body.content')
 
-    {!!
-        Form::open([
-            'url' => route('maintenance.work-orders.statuses.update', [$status->id]),
-            'method' => 'PATCH',
-            'class' => 'form-horizontal'
-        ])
-    !!}
-
-    @include('work-orders.statuses.form', compact('status'))
-
-    {!! Form::close() !!}
+    {!! $form !!}
 
 @stop

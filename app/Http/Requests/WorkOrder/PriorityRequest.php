@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\WorkOrder;
 
-use App\Http\Requests\Request as BaseRequest;
+use App\Http\Requests\Request;
 
-class PriorityRequest extends BaseRequest
+class PriorityRequest extends Request
 {
     /**
      * The priority validation rules.
@@ -13,10 +13,19 @@ class PriorityRequest extends BaseRequest
      */
     public function rules()
     {
-        return [
-            'name'  => 'required|max:250',
-            'color' => 'required|max:20',
+        $rules = [
+            'color' => 'required|max:20'
         ];
+
+        $priority = $this->route('priorities');
+
+        if ($priority) {
+            $rules['name'] = "required|max:250|unique:priorities,name,$priority";
+        } else {
+            $rules['name'] = 'required|max:250|unique:priorities,name';
+        }
+
+        return $rules;
     }
 
     /**
