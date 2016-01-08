@@ -2,13 +2,13 @@
 
 namespace App\Http\Presenters\WorkOrder;
 
-use App\Models\User;
-use Orchestra\Contracts\Html\Form\Fieldset;
-use Orchestra\Contracts\Html\Table\Column;
-use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use App\Http\Presenters\Presenter;
 use App\Models\Status;
+use App\Models\User;
+use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Table\Column;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Support\Facades\HTML;
 
 class WorkOrderStatusPresenter extends Presenter
@@ -85,7 +85,7 @@ class WorkOrderStatusPresenter extends Presenter
                         return $status->color;
                     })
                     ->attributes([
-                        'class' => 'select2-color'
+                        'class' => 'select2-color',
                     ]);
             });
         });

@@ -24,7 +24,7 @@ class WorkOrderPriorityProcessor extends Processor
     /**
      * Constructor.
      *
-     * @param Priority $priority
+     * @param Priority                   $priority
      * @param WorkOrderPriorityPresenter $presenter
      */
     public function __construct(Priority $priority, WorkOrderPriorityPresenter $presenter)
