@@ -14,7 +14,7 @@ class PriorityRequest extends Request
     public function rules()
     {
         $rules = [
-            'color' => 'required|max:20'
+            'color' => 'required|max:20',
         ];
 
         $priority = $this->route('priorities');

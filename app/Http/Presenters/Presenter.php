@@ -3,9 +3,9 @@
 namespace App\Http\Presenters;
 
 use Illuminate\Support\Fluent;
+use Orchestra\Contracts\Html\Form\Factory as FormFactory;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Form\Presenter as PresenterContract;
-use Orchestra\Contracts\Html\Form\Factory as FormFactory;
 use Orchestra\Contracts\Html\Table\Factory as TableFactory;
 
 abstract class Presenter implements PresenterContract

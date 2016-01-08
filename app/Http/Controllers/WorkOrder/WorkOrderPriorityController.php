@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\WorkOrder;
 
-use App\Http\Requests\WorkOrder\PriorityRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WorkOrder\PriorityRequest;
 use App\Processors\WorkOrder\WorkOrderPriorityProcessor;
 
 class WorkOrderPriorityController extends Controller
