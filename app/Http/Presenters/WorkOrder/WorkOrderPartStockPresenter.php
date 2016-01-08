@@ -2,15 +2,15 @@
 
 namespace App\Http\Presenters\WorkOrder;
 
+use App\Http\Presenters\Presenter;
 use App\Models\Inventory;
 use App\Models\InventoryStock;
 use App\Models\WorkOrder;
 use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Http\Presenters\Presenter;
 
 class WorkOrderPartStockPresenter extends Presenter
 {
@@ -131,7 +131,7 @@ class WorkOrderPartStockPresenter extends Presenter
         return $this->form->of('work-orders.parts.stocks.take', function (FormGrid $form) use ($workOrder, $inventory, $stock) {
             $form->attributes([
                 'method' => 'POST',
-                'url' => route('maintenance.work-orders.parts.stocks.take', [$workOrder->getKey(), $inventory->getKey(), $stock->getKey()]),
+                'url'    => route('maintenance.work-orders.parts.stocks.take', [$workOrder->getKey(), $inventory->getKey(), $stock->getKey()]),
             ]);
 
             $form->submit = 'Save';

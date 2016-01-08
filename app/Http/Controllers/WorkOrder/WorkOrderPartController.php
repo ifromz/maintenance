@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\WorkOrder;
 
-use App\Processors\WorkOrder\WorkOrderPartProcessor;
 use App\Http\Controllers\Controller;
+use App\Processors\WorkOrder\WorkOrderPartProcessor;
 
 class WorkOrderPartController extends Controller
 {
