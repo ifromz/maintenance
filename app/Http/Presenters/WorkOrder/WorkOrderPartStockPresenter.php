@@ -153,8 +153,8 @@ class WorkOrderPartStockPresenter extends Presenter
      * Returns a new form for putting the stock from the
      * specified work order back into inventory.
      *
-     * @param WorkOrder $workOrder
-     * @param Inventory $inventory
+     * @param WorkOrder      $workOrder
+     * @param Inventory      $inventory
      * @param InventoryStock $stock
      *
      * @return \Orchestra\Contracts\Html\Builder
@@ -164,7 +164,7 @@ class WorkOrderPartStockPresenter extends Presenter
         return $this->form->of('work-orders.parts.stocks.put', function (FormGrid $form) use ($workOrder, $inventory, $stock) {
             $form->attributes([
                 'method' => 'POST',
-                'url' => route('maintenance.work-orders.parts.stocks.put', [$workOrder->getKey(), $inventory->getKey(), $stock->getKey()]),
+                'url'    => route('maintenance.work-orders.parts.stocks.put', [$workOrder->getKey(), $inventory->getKey(), $stock->getKey()]),
             ]);
 
             $form->submit = 'Save';

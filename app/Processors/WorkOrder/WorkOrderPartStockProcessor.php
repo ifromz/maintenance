@@ -2,9 +2,9 @@
 
 namespace App\Processors\WorkOrder;
 
+use App\Http\Presenters\WorkOrder\WorkOrderPartStockPresenter;
 use App\Http\Requests\WorkOrder\PartReturnRequest;
 use App\Http\Requests\WorkOrder\PartTakeRequest;
-use App\Http\Presenters\WorkOrder\WorkOrderPartStockPresenter;
 use App\Jobs\WorkOrder\Part\Put;
 use App\Jobs\WorkOrder\Part\Take;
 use App\Models\Inventory;
@@ -88,10 +88,10 @@ class WorkOrderPartStockProcessor extends Processor
      * @param int|string      $itemId
      * @param int|string      $stockId
      *
-     * @return bool
-     *
      * @throws \Stevebauman\Inventory\Exceptions\InvalidQuantityException
      * @throws \Stevebauman\Inventory\Exceptions\NotEnoughStockException
+     *
+     * @return bool
      */
     public function postTake(PartTakeRequest $request, $workOrderId, $itemId, $stockId)
     {
@@ -135,9 +135,9 @@ class WorkOrderPartStockProcessor extends Processor
      * @param int|string        $itemId
      * @param int|string        $stockId
      *
-     * @return bool
-     *
      * @throws \Stevebauman\Inventory\Exceptions\InvalidQuantityException
+     *
+     * @return bool
      */
     public function postPut(PartReturnRequest $request, $workOrderId, $itemId, $stockId)
     {
