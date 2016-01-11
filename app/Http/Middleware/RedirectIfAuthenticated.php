@@ -19,7 +19,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect(handles('app::home'));
+            return redirect()->route('maintenance.dashboard.index');
         }
 
         return $next($request);

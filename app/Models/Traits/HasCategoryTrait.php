@@ -28,7 +28,7 @@ trait HasCategoryTrait
         if ($id) {
             $category = $this->category()->find($id);
 
-            if ($category) {
+            if ($category instanceof Category) {
                 return $category->trail;
             }
         }

@@ -226,7 +226,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         ]);
 
                         // Work Order Report Routes
-                        Route::resource('report', 'ReportController', [
+                        Route::resource('report', 'WorkOrderReportController', [
                             'except' => [
                                 'index',
                             ],

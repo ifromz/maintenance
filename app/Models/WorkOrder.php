@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Http\Requests\WorkOrder\ReportRequest;
 use App\Models\Traits\HasCategoryTrait;
 use App\Models\Traits\HasEventsTrait;
 use App\Models\Traits\HasLocationTrait;
@@ -91,8 +90,10 @@ class WorkOrder extends Model
      * @var array
      */
     protected $revisionColumnsMean = [
-        'location_id' => 'revised_location',
-        'category_id' => 'revised_category',
+        'location_id'   => 'revised_location',
+        'category_id'   => 'revised_category',
+        'status_id'     => 'revised_status',
+        'priority_id'   => 'revised_priority',
     ];
 
     /**
@@ -203,6 +204,46 @@ class WorkOrder extends Model
     public function notifiableUsers()
     {
         return $this->hasMany(WorkOrderNotification::class, 'work_order_id', 'id');
+    }
+
+    /**
+     * Retrieves the revised status attribute.
+     *
+     * @param int|string $id
+     *
+     * @return null|string
+     */
+    public function getRevisedStatusAttribute($id)
+    {
+        if ($id) {
+            $status = $this->status()->find($id);
+
+            if ($status instanceof Status) {
+                return $status->getLabel();
+            }
+        }
+
+        return;
+    }
+
+    /**
+     * Retrieves the revised priority attribute.
+     *
+     * @param int|string $id
+     *
+     * @return null|string
+     */
+    public function getRevisedPriorityAttribute($id)
+    {
+        if ($id) {
+            $priority = $this->priority()->find($id);
+
+            if ($priority instanceof Priority) {
+                return $priority->getLabel();
+            }
+        }
+
+        return;
     }
 
     /**
@@ -464,30 +505,19 @@ class WorkOrder extends Model
     /**
      * Completes the work order by saving the completed at timestamp to now.
      *
-     * @param ReportRequest $request
+     * @param int|string $statusId
      *
      * @return $this|bool
      */
-    public function complete(ReportRequest $request)
+    public function complete($statusId)
     {
         if (!$this->started_at) {
-            $this->started_at = Carbon::now();
+            $this->started_at = $this->freshTimestamp();
         }
 
-        $this->completed_at = Carbon::now();
+        $this->completed_at = $this->freshTimestamp();
+        $this->status_id = $statusId;
 
-        if ($request->has('status')) {
-            $status = $this->status()->getRelated()->find($request->input('status'));
-
-            if ($status) {
-                $this->status_id = $status->id;
-            }
-        }
-
-        if ($this->save()) {
-            return $this;
-        }
-
-        return false;
+        return $this->save();
     }
 }

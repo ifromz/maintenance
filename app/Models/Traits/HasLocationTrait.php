@@ -28,7 +28,7 @@ trait HasLocationTrait
         if ($id) {
             $location = $this->location()->find($id);
 
-            if ($location) {
+            if ($location instanceof Location) {
                 return $location->trail;
             }
         }

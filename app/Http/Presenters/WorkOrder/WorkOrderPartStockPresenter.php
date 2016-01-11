@@ -28,7 +28,7 @@ class WorkOrderPartStockPresenter extends Presenter
         $stocks = $item->stocks();
 
         return $this->table->of('work-orders.parts.stocks', function (TableGrid $table) use ($workOrder, $item, $stocks) {
-            $table->with($stocks);
+            $table->with($stocks)->paginate($this->perPage);
 
             $table->column('location', function (Column $column) use ($item) {
                 $column->value = function (InventoryStock $stock) use ($item) {
@@ -70,7 +70,7 @@ class WorkOrderPartStockPresenter extends Presenter
         $variants = $item->variants();
 
         return $this->table->of('work-orders.parts.variants', function (TableGrid $table) use ($variants, $workOrder) {
-            $table->with($variants);
+            $table->with($variants)->paginate($this->perPage);
 
             $table->column('ID', 'id');
 

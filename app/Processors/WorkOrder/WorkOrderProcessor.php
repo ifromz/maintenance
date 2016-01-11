@@ -86,9 +86,11 @@ class WorkOrderProcessor extends Processor
 
         $sessions = $this->presenter->tableSessions($workOrder);
 
+        $history = $this->presenter->tableHistory('work-orders', $workOrder->revisions());
+
         $navbar = $this->presenter->navbarShow($workOrder);
 
-        return view('work-orders.show', compact('workOrder', 'sessions', 'navbar'));
+        return view('work-orders.show', compact('workOrder', 'sessions', 'history', 'navbar'));
     }
 
     /**

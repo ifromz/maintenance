@@ -47,12 +47,14 @@
             </a>
         @endif
     </li>
-    <li>
-        <a href="{{ route('maintenance.work-orders.report.create', [$workOrder->getKey()]) }}">
-            <i class="fa fa-check"></i>
-            Complete Work Order
-        </a>
-    </li>
+    @if(!$workOrder->isComplete())
+        <li>
+            <a href="{{ route('maintenance.work-orders.report.create', [$workOrder->getKey()]) }}">
+                <i class="fa fa-check"></i>
+                Complete Work Order
+            </a>
+        </li>
+    @endif
     <li>
         <a href="{{ route('maintenance.work-orders.edit', [$workOrder->getKey()]) }}">
             <i class="fa fa-edit"></i> Edit

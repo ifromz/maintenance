@@ -29,7 +29,7 @@ return [
 
     'eloquent' => [
         'default' => [
-            'model' => '\Orchestra\Memory\Model',
+            'model' => Orchestra\Memory\Model::class,
             'cache' => false,
         ],
     ],

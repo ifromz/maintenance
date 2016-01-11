@@ -16,7 +16,7 @@ class WorkOrderPartPresenter extends Presenter
         $parts = $workOrder->parts();
 
         return $this->table->of('work-orders.parts', function (TableGrid $table) use ($workOrder, $parts) {
-            $table->with($parts);
+            $table->with($parts)->paginate($this->perPage);
 
             $table->pageName = 'page-parts';
 
@@ -76,7 +76,7 @@ class WorkOrderPartPresenter extends Presenter
         $inventory = $inventory->noVariants();
 
         return $this->table->of('work-orders.inventory', function (TableGrid $table) use ($inventory, $workOrder) {
-            $table->with($inventory);
+            $table->with($inventory)->paginate($this->perPage);
 
             $table->pageName = 'page-inventory';
 

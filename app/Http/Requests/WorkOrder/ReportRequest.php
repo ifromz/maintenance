@@ -14,8 +14,8 @@ class ReportRequest extends Request
     public function rules()
     {
         return [
-            'status'      => 'required|integer',
-            'description' => 'required|min:5|unique_report',
+            'status'      => 'required|integer|exists:statuses,id',
+            'description' => 'required|min:5',
         ];
     }
 

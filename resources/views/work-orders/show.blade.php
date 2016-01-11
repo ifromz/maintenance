@@ -55,7 +55,7 @@
 
     <div class="tab-pane" id="tab-history">
 
-        {!! $workOrder->viewer()->history() !!}
+        {!! $history !!}
 
     </div>
 
