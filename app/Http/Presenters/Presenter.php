@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Fluent;
 use Orchestra\Contracts\Html\Form\Factory as FormFactory;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use Orchestra\Contracts\Html\Table\Column;
-use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Contracts\Html\Form\Presenter as PresenterContract;
+use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Factory as TableFactory;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 use Orchestra\Support\Facades\HTML;
 
 abstract class Presenter implements PresenterContract
@@ -82,14 +82,14 @@ abstract class Presenter implements PresenterContract
     }
 
     /**
-     * Returns a new table of all revisions
+     * Returns a new table of all revisions.
      *
      * @param string    $for
      * @param MorphMany $revisions
      *
      * @return \Orchestra\Contracts\Html\Builder
      */
-    public function tableHistory($for = '', MorphMany $revisions)
+    public function tableHistory($for, MorphMany $revisions)
     {
         return $this->table->of("$for.revisions", function (TableGrid $table) use ($revisions) {
             $table->with($revisions)->paginate($this->perPage);

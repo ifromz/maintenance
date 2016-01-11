@@ -6,8 +6,8 @@ use App\Exceptions\WorkOrder\ReportExistsException;
 use App\Http\Presenters\WorkOrder\WorkOrderReportPresenter;
 use App\Http\Requests\WorkOrder\ReportRequest;
 use App\Jobs\WorkOrder\Report\Store;
-use App\Models\WorkOrderReport;
 use App\Models\WorkOrder;
+use App\Models\WorkOrderReport;
 use App\Processors\Processor;
 
 class WorkOrderReportProcessor extends Processor
@@ -30,8 +30,8 @@ class WorkOrderReportProcessor extends Processor
     /**
      * Constructor.
      *
-     * @param WorkOrder $workOrder
-     * @param WorkOrderReport $report
+     * @param WorkOrder                $workOrder
+     * @param WorkOrderReport          $report
      * @param WorkOrderReportPresenter $presenter
      */
     public function __construct(WorkOrder $workOrder, WorkOrderReport $report, WorkOrderReportPresenter $presenter)
