@@ -30,7 +30,7 @@
         </td>
     </tr>
 </table>
-@stop
+@endsection
 
 @section('footer')
 <table width="100%">

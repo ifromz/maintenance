@@ -2,7 +2,7 @@
 
 @section('header')
     <h1>{{ $title }}</h1>
-@stop
+@endsection
 
 @section('breadcrumb')
     <li>
@@ -14,7 +14,7 @@
     <li class="active">
         {{ $workOrder->subject }}
     </li>
-@stop
+@endsection
 
 @section('content')
 
@@ -79,4 +79,4 @@
 
     @include('work-orders.partials.update-box', ['workOrder'=>$workOrder])
 
-@stop
+@endsection

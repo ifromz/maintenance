@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Create a new Metric
-@stop
+@endsection
 
 @section('panel.body.content')
     {!!
@@ -17,4 +17,4 @@
     @include('metrics.form')
 
     {!! Form::close() !!}
-@stop
+@endsection

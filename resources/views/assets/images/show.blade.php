@@ -39,4 +39,4 @@
 
     <hr>
 
-@stop
+@endsection

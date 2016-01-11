@@ -4,7 +4,7 @@
 
 @section('tab.extra.top')
     @decorator('navbar', $navbar)
-@stop
+@endsection
 
 @section('tab.head.content')
     <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
@@ -12,7 +12,7 @@
     <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
     <li><a href="#tab-history" data-toggle="tab">History</a></li>
     <li><a href="#tab-updates" data-toggle="tab">Updates</a></li>
-@stop
+@endsection
 
 @section('tab.body.content')
 
@@ -66,4 +66,4 @@
         {!! $workOrder->viewer()->updates() !!}
     </div>
 
-@stop
+@endsection

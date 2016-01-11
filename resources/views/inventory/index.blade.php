@@ -8,4 +8,4 @@
 
     {!! $inventory !!}
 
-@stop
+@endsection

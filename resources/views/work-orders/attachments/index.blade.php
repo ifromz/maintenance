@@ -6,4 +6,4 @@
 
     @include('work-orders.attachments.grid.index')
 
-@stop
+@endsection

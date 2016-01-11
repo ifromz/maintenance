@@ -2,11 +2,11 @@
 
 @section('title')
     Edit Meter
-@stop
+@endsection
 
 @section('panel.head.content')
     Edit Meter
-@stop
+@endsection
 
 @section('panel.body.content')
 
@@ -22,4 +22,4 @@
 
     {!! Form::close() !!}
 
-@stop
+@endsection

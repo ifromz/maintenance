@@ -2,7 +2,7 @@
 
 @section('header')
     <h1>{{ $title }}</h1>
-@stop
+@endsection
 
 @section('breadcrumb')
     <li>
@@ -15,7 +15,7 @@
         <i class="fa fa-plus-circle"></i>
         Submit
     </li>
-@stop
+@endsection
 
 @section('content')
     <div class="col-md-12">
@@ -61,4 +61,4 @@
         </div>
 
     </div>
-@stop
+@endsection

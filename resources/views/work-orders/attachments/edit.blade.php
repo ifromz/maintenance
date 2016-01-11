@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
 Edit Attachment
-@stop
+@endsection
 
 @section('panel.body.content')
 
@@ -20,4 +20,4 @@ Edit Attachment
 
     {!! Form::close() !!}
 
-@stop
+@endsection

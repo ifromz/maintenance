@@ -4,7 +4,7 @@
 
 @section('tab.head.content')
     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile</a></li>
-@stop
+@endsection
 
 @section('tab.body.content')
 
@@ -25,4 +25,4 @@
         @include('inventory.stocks.movements.grid.thin', compact('item', 'stock'))
 
     </div>
-@stop
+@endsection

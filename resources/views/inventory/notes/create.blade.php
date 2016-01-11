@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
 Create Note
-@stop
+@endsection
 
 @section('panel.body.content')
     {!!
@@ -17,4 +17,4 @@ Create Note
     @include('inventory.notes.form')
 
     {!! Form::close() !!}
-@stop
+@endsection

@@ -4,10 +4,10 @@
 
 @section('panel.head.content')
     Create Item Variant
-@stop
+@endsection
 
 @section('panel.body.content')
 
     {!! $form !!}
 
-@stop
+@endsection

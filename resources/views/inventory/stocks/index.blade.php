@@ -8,4 +8,4 @@
 
     {!! $stocks !!}
 
-@stop
+@endsection

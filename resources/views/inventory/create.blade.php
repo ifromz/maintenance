@@ -4,10 +4,10 @@
 
 @section('panel.head.content')
     Add an Item
-@stop
+@endsection
 
 @section('panel.body.content')
 
     {!! $form !!}
 
-@stop
+@endsection

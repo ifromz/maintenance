@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
 Viewing Metric
-@stop
+@endsection
 
 @section('panel.body.content')
 
@@ -29,4 +29,4 @@ Viewing Metric
         </table>
     </div>
 
-@stop
+@endsection

@@ -5,7 +5,7 @@
 @section('tab.head.content')
     <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab-report" data-toggle="tab">Report</a></li>
-@stop
+@endsection
 
 @section('tab.body.content')
 
@@ -23,4 +23,4 @@
         {!! $event->viewer()->report() !!}
     </div>
 
-@stop
+@endsection

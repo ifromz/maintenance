@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Create {{ $resource }}
-@stop
+@endsection
 
 @section('panel.body.content')
     {!!
@@ -17,4 +17,4 @@
     @include('categories.form')
 
     {!! Form::close() !!}
-@stop
+@endsection

@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Add Asset Images
-@stop
+@endsection
 
 @section('panel.body.content')
     {!!
@@ -23,4 +23,4 @@
     <div class="form-group">
         {!! Form::submit('Save', ['class'=>'btn btn-success']) !!}
     </div>
-@stop
+@endsection

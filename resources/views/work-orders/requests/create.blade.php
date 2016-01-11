@@ -2,7 +2,7 @@
 
 @section('panel.head.content')
     Create Work Request
-@stop
+@endsection
 
 @section('panel.body.content')
     {!!
@@ -18,4 +18,4 @@
     ])
 
     {!! Form::close() !!}
-@stop
+@endsection

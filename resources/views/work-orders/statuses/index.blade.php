@@ -8,4 +8,4 @@
 
     {!! $statuses !!}
 
-@stop
+@endsection

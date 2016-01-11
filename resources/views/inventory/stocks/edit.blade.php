@@ -4,10 +4,10 @@
 
 @section('panel.head.content')
     Update Stock
-@stop
+@endsection
 
 @section('panel.body.content')
 
     {!! $form !!}
 
-@stop
+@endsection

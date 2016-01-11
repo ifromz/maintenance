@@ -8,7 +8,7 @@
             <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
         </a>
     </li>
-@stop
+@endsection
 
 @section('grid.table')
     <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.metrics.grid') }}" data-grid="main">
@@ -26,11 +26,11 @@
         <tbody></tbody>
 
     </table>
-@stop
+@endsection
 
 @section('grid.results')
     @include('metrics.grid.no-results')
     @include('metrics.grid.results')
     @include('metrics.grid.pagination')
     @include('metrics.grid.filters')
-@stop
+@endsection

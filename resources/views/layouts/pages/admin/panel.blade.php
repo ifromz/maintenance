@@ -32,4 +32,4 @@
 
     @yield('panel.extra.bottom')
 
-@stop
+@endsection

@@ -6,4 +6,4 @@
 
     @include('assets.meters.grid.index')
 
-@stop
+@endsection

@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Editing Work Request
-@stop
+@endsection
 
 @section('panel.body.content')
 
@@ -20,4 +20,4 @@
 
     {!! Form::close() !!}
 
-@stop
+@endsection

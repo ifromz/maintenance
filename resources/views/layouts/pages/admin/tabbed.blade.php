@@ -30,4 +30,4 @@
 
     @yield('tab.extra.bottom')
 
-@stop
+@endsection

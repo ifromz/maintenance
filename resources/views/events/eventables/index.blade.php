@@ -8,7 +8,7 @@
             <i class="fa fa-plus"></i> <span class="visible-xs-inline">Create</span>
         </a>
     </li>
-@stop
+@endsection
 
 @section('grid.table')
 
@@ -26,11 +26,11 @@
         <tbody></tbody>
 
     </table>
-@stop
+@endsection
 
 @section('grid.results')
     @include('events.grid.no-results')
     @include('events.grid.results')
     @include('events.grid.pagination')
     @include('events.grid.filters')
-@stop
+@endsection

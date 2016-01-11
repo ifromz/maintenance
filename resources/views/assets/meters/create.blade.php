@@ -2,11 +2,11 @@
 
 @section('title')
 Create Meter
-@stop
+@endsection
 
 @section('panel.head.content')
     Create a Meter
-@stop
+@endsection
 
 @section('panel.body.content')
 
@@ -21,4 +21,4 @@ Create Meter
 
     {!! Form::close() !!}
 
-@stop
+@endsection

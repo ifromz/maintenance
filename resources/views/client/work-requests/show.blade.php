@@ -35,4 +35,4 @@
 
     {!! $workRequest->viewer()->clientUpdates() !!}
 
-@stop
+@endsection

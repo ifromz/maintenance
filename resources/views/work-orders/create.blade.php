@@ -4,10 +4,10 @@
 
 @section('panel.head.content')
     Create a new Work Order
-@stop
+@endsection
 
 @section('panel.body.content')
 
     {!! $form !!}
 
-@stop
+@endsection

@@ -8,4 +8,4 @@
 
     {!! $sessions !!}
 
-@stop
+@endsection

@@ -154,4 +154,4 @@
 
     </script>
 
-@stop
+@endsection

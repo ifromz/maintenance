@@ -8,4 +8,4 @@
 
     {!! $workOrders !!}
 
-@stop
+@endsection

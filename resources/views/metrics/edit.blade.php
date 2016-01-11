@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Edit Metric
-@stop
+@endsection
 
 @section('panel.body.content')
     {!!
@@ -18,4 +18,4 @@
     @include('metrics.form', compact('metric'))
 
     {!! Form::close() !!}
-@stop
+@endsection

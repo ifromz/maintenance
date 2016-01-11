@@ -8,7 +8,7 @@
     <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
     <li><a href="#tab-notes" data-toggle="tab">Notes</a></li>
     <li><a href="#tab-history" data-toggle="tab">History</a></li>
-@stop
+@endsection
 
 @section('tab.body.content')
     <div class="tab-pane active" id="tab-profile">
@@ -53,4 +53,4 @@
     <div class="tab-pane" id="tab-history">
         {!! $item->viewer()->history() !!}
     </div>
-@stop
+@endsection

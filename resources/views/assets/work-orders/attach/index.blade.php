@@ -6,4 +6,4 @@
 
     @include('assets.work-orders.attach.grid.index', compact('asset'))
 
-@stop
+@endsection

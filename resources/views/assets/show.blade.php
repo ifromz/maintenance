@@ -7,7 +7,7 @@
     <li><a href="#tab-history" data-toggle="tab">History</a></li>
     <li><a href="#tab-meters" data-toggle="tab">Meters & Readings</a></li>
     <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
-@stop
+@endsection
 
 @section('tab.body.content')
 
@@ -69,4 +69,4 @@
         {!! $asset->viewer()->calendar() !!}
     </div>
 
-@stop
+@endsection

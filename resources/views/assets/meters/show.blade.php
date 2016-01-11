@@ -5,7 +5,7 @@
 @section('tab.head.content')
     <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
     <li><a href="#tab-readings" data-toggle="tab">Readings</a></li>
-@stop
+@endsection
 
 @section('tab.body.content')
     <div class="tab-pane active" id="tab-profile">
@@ -46,4 +46,4 @@
             $.datagrid('assets-meters-readings', '#assets-meters-readings-results', '#assets-meters-readings-pagination', '#assets-meters-readings-filters');
         });
     </script>
-@stop
+@endsection

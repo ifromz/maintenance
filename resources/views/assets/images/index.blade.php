@@ -6,4 +6,4 @@
 
     @include('assets.images.grid.index', compact('asset'))
 
-@stop
+@endsection

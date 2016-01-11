@@ -42,7 +42,7 @@
             </a>
         </div>
     </div>
-@stop
+@endsection
 
 @section('panel.body.content')
 
@@ -52,4 +52,4 @@
         <div class="tree" data-token="{{ csrf_token() }}" data-src="{{ route($routes['grid'])  }}" data-move="{{ route($routes['move']) }}"></div>
     </div>
 </div>
-@stop
+@endsection

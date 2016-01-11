@@ -4,7 +4,7 @@
     <h3 class="panel-title">
         Create Note
     </h3>
-@stop
+@endsection
 
 @section('panel.body.content')
     {!!
@@ -17,4 +17,4 @@
     @include('noteables.form')
 
     {!! Form::close() !!}
-@stop
+@endsection

@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Create a new Sub-{{ $resource }} for {{ $category->name }}
-@stop
+@endsection
 
 @section('panel.body.content')
     {!!
@@ -17,4 +17,4 @@
     @include('categories.form', ['category' => $category])
 
     {!! Form::close() !!}
-@stop
+@endsection

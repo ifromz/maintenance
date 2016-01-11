@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Edit {{ $resource }} {{ $category->name }}
-@stop
+@endsection
 
 @section('panel.body.content')
 {!!
@@ -18,4 +18,4 @@
 @include('categories.form', compact('category'))
 
 {!! Form::close() !!}
-@stop
+@endsection

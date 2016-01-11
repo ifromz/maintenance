@@ -8,4 +8,4 @@
 
     {!! $priorities !!}
 
-@stop
+@endsection

@@ -4,10 +4,10 @@
 
 @section('panel.head.content')
     Create a new Priority
-@stop
+@endsection
 
 @section('panel.body.content')
 
     {!! $form !!}
 
-@stop
+@endsection

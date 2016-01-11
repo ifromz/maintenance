@@ -2,14 +2,14 @@
 
 @section('header')
     <h1>{{ $title }}</h1>
-@stop
+@endsection
 
 @section('breadcrumb')
     <li class="active">
         <i class="fa fa-book"></i>
         My Work Requests
     </li>
-@stop
+@endsection
 
 @section('content')
 
@@ -37,4 +37,4 @@
 
     </div>
 
-@stop
+@endsection

@@ -2,7 +2,7 @@
 
 @section('styles')
 {!! HTML::style('assets/bootstrap-daterangepicker/daterangepicker-bs3.css') !!}
-@stop
+@endsection
 
 @section('nav.left')
 
@@ -67,7 +67,7 @@
             <i class="fa fa-list-alt"></i> Site Log
         </a>
     </li>
-@stop
+@endsection
 
 @section('scripts')
 
@@ -76,4 +76,4 @@
     <!-- Bootstrap Date Range Picker -->
     {!! HTML::script('assets/bootstrap-daterangepicker/daterangepicker.js') !!}
 
-@stop
+@endsection

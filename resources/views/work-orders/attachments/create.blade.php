@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Add Attachments
-@stop
+@endsection
 
 @section('panel.body.content')
 
@@ -23,4 +23,4 @@
         {!! Form::submit('Save', ['class'=>'btn btn-success']) !!}
     </div>
 
-@stop
+@endsection

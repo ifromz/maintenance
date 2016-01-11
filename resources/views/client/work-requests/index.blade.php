@@ -6,4 +6,4 @@
 
     @include('client.work-requests.grid.index')
 
-@stop
+@endsection

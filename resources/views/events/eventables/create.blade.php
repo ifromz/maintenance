@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Create Event
-@stop
+@endsection
 
 @section('panel.body.content')
 
@@ -19,4 +19,4 @@
 
     {!! Form::close() !!}
 
-@stop
+@endsection

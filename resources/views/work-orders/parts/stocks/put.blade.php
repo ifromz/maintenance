@@ -4,7 +4,7 @@
 
 @section('panel.head.content')
     Enter the Quantity to Return
-@stop
+@endsection
 
 @section('panel.body.content')
     <div class="col-md-4">
@@ -33,4 +33,4 @@
     <div class="col-md-6">
         {!! $form !!}
     </div>
-@stop
+@endsection

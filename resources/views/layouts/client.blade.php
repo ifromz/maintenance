@@ -2,7 +2,7 @@
 
 @section('styles')
     {!! HTML::style('assets/bootstrap-daterangepicker/daterangepicker-bs3.css') !!}
-@stop
+@endsection
 
 @section('nav.left')
     <li class="{{ active()->route('maintenance.client.work-requests') }}">
@@ -10,7 +10,7 @@
             <i class="fa fa-exclamation-triangle"></i> Work Requests
         </a>
     </li>
-@stop
+@endsection
 
 @section('scripts')
 
@@ -19,4 +19,4 @@
         <!-- Bootstrap Date Range Picker -->
 {!! HTML::script('assets/bootstrap-daterangepicker/daterangepicker.js') !!}
 
-@stop
+@endsection

@@ -4,10 +4,10 @@
 
 @section('panel.head.content')
     Create Report
-@stop
+@endsection
 
 @section('panel.body.content')
 
     {!! $form !!}
 
-@stop
+@endsection

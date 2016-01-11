@@ -6,4 +6,4 @@
 
     @include('assets.manuals.grid.index', compact('asset'))
 
-@stop
+@endsection

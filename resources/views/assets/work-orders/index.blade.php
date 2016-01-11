@@ -6,4 +6,4 @@
 
     @include('assets.work-orders.grid.index')
 
-@stop
+@endsection

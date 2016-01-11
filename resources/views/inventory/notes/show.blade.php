@@ -4,10 +4,10 @@
 
 @section('panel.head.content')
 Viewing Note
-@stop
+@endsection
 
 @section('panel.body.content')
 
     {!! $note->content !!}
 
-@stop
+@endsection

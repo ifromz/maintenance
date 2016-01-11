@@ -12,4 +12,4 @@
 
     {!! $variants !!}
 
-@stop
+@endsection

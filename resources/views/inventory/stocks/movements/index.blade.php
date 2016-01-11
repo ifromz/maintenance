@@ -6,4 +6,4 @@
 
     @include('inventory.stocks.movements.grid.index', compact('item', 'stock'))
 
-@stop
+@endsection
