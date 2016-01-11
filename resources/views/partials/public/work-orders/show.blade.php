@@ -55,10 +55,13 @@
 
             <dl class="dl-horizontal">
 
-                <dt>Status:</dt>
-                <dd>{{ $workOrder->status->getLabel() }}</dd>
+                @if($workOrder->status instanceof \App\Models\Status)
+                    <dt>Status:</dt>
+                    <dd>{{ $workOrder->status->getLabel() }}</dd>
 
-                <p></p>
+                    <p></p>
+
+                @endif
 
                 <dt>Subject:</dt>
                 <dd>{{ $workOrder->subject }}</dd>

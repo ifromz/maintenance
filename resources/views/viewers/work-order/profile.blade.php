@@ -4,14 +4,18 @@
             <th>Work Order ID</th>
             <td>{{ $workOrder->id }}</td>
         </tr>
-        <tr>
-            <th>Status</th>
-            <td>{!! $workOrder->status->getLabel() !!}</td>
-        </tr>
-        <tr>
-            <th>Priority</th>
-            <td>{!! $workOrder->priority->getLabel() !!}</td>
-        </tr>
+        @if($workOrder->status instanceof \App\Models\Status)
+            <tr>
+                <th>Status</th>
+                <td>{!! $workOrder->status->getLabel() !!}</td>
+            </tr>
+        @endif
+        @if($workOrder->priority instanceof \App\Models\Priority)
+            <tr>
+                <th>Priority</th>
+                <td>{!! $workOrder->priority->getLabel() !!}</td>
+            </tr>
+        @endif
         <tr>
             <th>Created By</th>
             <td>{{ $workOrder->user->full_name }}</td>

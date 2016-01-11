@@ -6,7 +6,7 @@
         </tr>
         <tr>
             <th>Current Status</th>
-            @if($workRequest->workOrder && $workRequest->workOrder->status)
+            @if($workRequest->workOrder && $workRequest->workOrder->status instanceof \App\Models\Status)
                 <td>{!! $workRequest->workOrder->status->getLabel() !!}</td>
             @else
                 <em>None</em>

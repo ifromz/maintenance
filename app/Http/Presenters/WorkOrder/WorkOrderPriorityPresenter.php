@@ -27,7 +27,7 @@ class WorkOrderPriorityPresenter extends Presenter
 
             $table->column('priority', function (Column $column) {
                 $column->value = function (Priority $priority) {
-                    return $priority->getLabel();
+                    return link_to_route('maintenance.work-orders.priorities.edit', $priority->getLabel(), [$priority->getKey()]);
                 };
             });
 
@@ -58,7 +58,7 @@ class WorkOrderPriorityPresenter extends Presenter
             if ($priority->exists) {
                 $url = route('maintenance.work-orders.priorities.update', [$priority->getKey()]);
                 $method = 'PATCH';
-                $form->submit = 'Update';
+                $form->submit = 'Save';
             } else {
                 $url = route('maintenance.work-orders.priorities.store');
                 $method = 'POST';

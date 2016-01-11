@@ -14,19 +14,13 @@ use Illuminate\Routing\Router;
 
 $router->group(['middleware' => ['web']], function (Router $router) {
     Route::group(['as' => 'maintenance.'], function () {
-        /*
-         * Welcome Route
-         */
+        // Welcome Route
         Route::get('/', ['as' => 'welcome.index', 'uses' => 'WelcomeController@index']);
 
-        /*
-         * Permission Denied Route
-         */
+        // Permission Denied Route
         Route::get('permission-denied', ['as' => 'permission-denied.index', 'uses' => 'PermissionDeniedController@getIndex']);
 
-        /*
-         * Authentication Routes
-         */
+        // Authentication Routes
         Route::group(['prefix' => 'login', 'as' => 'login.', 'middleware' => ['guest']], function () {
             Route::get('/', ['as' => 'index', 'uses' => 'AuthController@login']);
 
@@ -45,18 +39,14 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             Route::get('logout', ['as' => 'logout', 'uses' => 'AuthController@logout']);
         });
 
-        /*
-         * Registration Routes
-         */
+        // Registration Routes
         Route::group(['prefix' => 'register'], function () {
             Route::get('/', ['as' => 'register', 'uses' => 'AuthController@getRegister']);
 
             Route::post('/', ['as' => 'register', 'uses' => 'AuthController@postRegister']);
         });
 
-        /*
-         * Client Routes
-         */
+        // Client Routes
         Route::group(['prefix' => 'client', 'as' => 'client.', 'namespace' => 'Client', 'middleware' => ['auth']], function () {
             Route::group(['namespace' => 'WorkRequest', 'as' => 'work-requests.'], function () {
                 Route::resource('work-requests', 'Controller', [
@@ -84,15 +74,11 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             });
         });
 
-        /*
-         * Management Routes
-         */
+        // Management Routes
         Route::group(['prefix' => 'management', 'middleware' => ['auth']], function () {
             Route::get('/', ['as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
 
-            /*
-             * Event Routes
-             */
+            // Event Routes
             Route::group(['namespace' => 'Event', 'as' => 'events.'], function () {
                 Route::resource('events', 'Controller', [
                     'names' => [
@@ -120,9 +106,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ]);
             });
 
-            /*
-             * Work Request Routes
-             */
+            // Work Request Routes
             Route::group(['namespace' => 'WorkRequest', 'as' => 'work-requests.'], function () {
                 Route::resource('work-requests', 'WorkRequestController', [
                     'names' => [
@@ -148,16 +132,12 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ]);
             });
 
-            /*
-             * Work Order Routes
-             */
+            // Work Order Routes
             Route::group(['as' => 'work-orders.', 'namespace' => 'WorkOrder'], function () {
                 Route::group(['prefix' => 'work-orders'], function () {
                     Route::get('assigned', ['as' => 'assigned.index', 'uses' => 'WorkOrderAssignedController@index']);
 
-                    /*
-                     * Work Order Priority Routes
-                     */
+                    // Work Order Priority Routes
                     Route::resource('priorities', 'WorkOrderPriorityController', [
                         'except' => [
                             'show',
@@ -173,9 +153,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         ],
                     ]);
 
-                    /*
-                     * Work Order Status Routes
-                     */
+                    // Work Order Status Routes
                     Route::resource('statuses', 'WorkOrderStatusController', [
                         'except' => [
                             'show',
@@ -191,9 +169,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         ],
                     ]);
 
-                    /*
-                     * Work Order Category Routes
-                     */
+                    // Work Order Category Routes
                     Route::resource('categories', 'CategoryController', [
                         'except' => [
                             'show',
@@ -212,22 +188,16 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                     Route::post('categories/create/{categories?}', ['as' => 'categories.nodes.store', 'uses' => 'CategoryController@store']);
 
-                    /*
-                     * Nested Work Order Routes
-                     */
+                    // Nested Work Order Routes
                     Route::group(['prefix' => '{work_orders}'], function () {
-                        /*
-                         * Work Order Session Routes
-                         */
+                        // Work Order Session Routes
                         Route::get('sessions', ['as' => 'sessions.index', 'uses' => 'WorkOrderSessionController@index']);
 
                         Route::post('sessions/start', ['as' => 'sessions.start', 'uses' => 'WorkOrderSessionController@start']);
 
                         Route::post('sessions/end', ['as' => 'sessions.end', 'uses' => 'WorkOrderSessionController@end']);
 
-                        /*
-                         * Work Order Update Routes
-                         */
+                        // Work Order Update Routes
                         Route::resource('updates', 'UpdateController', [
                             'only' => [
                                 'store',
@@ -239,9 +209,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Work Order Assignment Routes
-                         */
+                        // Work Order Assignment Routes
                         Route::resource('assignments', 'AssignmentController', [
                             'only' => [
                                 'index',
@@ -257,9 +225,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Work Order Report Routes
-                         */
+                        // Work Order Report Routes
                         Route::resource('report', 'ReportController', [
                             'except' => [
                                 'index',
@@ -274,9 +240,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Work Order Attachment Routes
-                         */
+                        // Work Order Attachment Routes
                         Route::get('attachments/{attachments}/download', ['as' => 'attachments.download', 'uses' => 'AttachmentController@download']);
 
                         Route::resource('attachments', 'AttachmentController', [
@@ -291,9 +255,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Work Order Notification Routes
-                         */
+                        // Work Order Notification Routes
                         Route::resource('notifications', 'NotificationController', [
                             'only' => [
                                 'store',
@@ -305,9 +267,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Work Order Event Routes
-                         */
+                        // Work Order Event Routes
                         Route::resource('events', 'EventController', [
                             'names' => [
                                 'index'   => 'events.index',
@@ -320,9 +280,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Work Order Part Routes
-                         */
+                        // Work Order Part Routes
                         Route::group(['prefix' => 'parts', 'as' => 'parts.'], function () {
                             Route::get('/', ['as' => 'index', 'uses' => 'WorkOrderPartController@index']);
 
@@ -341,9 +299,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     });
                 });
 
-                /*
-                 * Work Order Routes
-                 */
+                // Work Order Routes
                 Route::resource('work-orders', 'WorkOrderController', [
                     'names' => [
                         'index'   => 'index',
@@ -357,14 +313,10 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ]);
             });
 
-            /*
-             * Asset Routes
-             */
+            // Asset Routes
             Route::group(['as' => 'assets.', 'namespace' => 'Asset'], function () {
                 Route::group(['prefix' => 'assets'], function () {
-                    /*
-                     * Asset Event Routes
-                     */
+                    // Asset Event Routes
                     Route::resource('events', 'EventController', [
                         'names' => [
                             'index'   => 'events.index',
@@ -377,9 +329,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         ],
                     ]);
 
-                    /*
-                     * Category Routes
-                     */
+                    // Category Routes
                     Route::resource('categories', 'CategoryController', [
                         'except' => [
                             'show',
@@ -402,13 +352,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                     Route::post('categories/move/{categories?}', ['as' => 'categories.nodes.move', 'uses' => 'CategoryController@postMoveCategory']);
 
-                    /*
-                     * Nested Asset Routes
-                     */
+                    // Nested Asset Routes
                     Route::group(['prefix' => '{assets}'], function () {
-                        /*
-                         * Asset Work Order Routes
-                         */
+                        // Asset Work Order Routes
                         Route::get('work-orders', ['as' => 'work-orders.index', 'uses' => 'WorkOrderController@index']);
 
                         Route::get('work-orders/attachable', ['as' => 'work-orders.attach.index', 'uses' => 'WorkOrderController@attach']);
@@ -417,9 +363,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                         Route::post('work-orders/{work_orders}/detach', ['as' => 'work-orders.attach.remove', 'uses' => 'WorkOrderController@remove']);
 
-                        /*
-                         * Asset Manual Routes
-                         */
+                        // Asset Manual Routes
                         Route::get('manuals/{manuals}/download', ['as' => 'manuals.download', 'uses' => 'ManualController@download']);
 
                         Route::resource('manuals', 'ManualController', [
@@ -434,9 +378,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                        * Asset Image Routes
-                        */
+                        // Asset Image Routes
                         Route::get('images/{images}/download', ['as' => 'images.download', 'uses' => 'ImageController@download']);
 
                         Route::resource('images', 'ImageController', [
@@ -451,9 +393,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Asset Meter Routes
-                         */
+                        // Asset Meter Routes
                         Route::group(['prefix' => 'meters', 'as' => 'meters.', 'namespace' => 'Meter'], function () {
                             Route::resource('', 'Controller', [
                                 'names' => [
@@ -481,9 +421,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     });
                 });
 
-                /*
-                 * Asset Routes
-                 */
+                // Asset Routes
                 Route::resource('assets', 'Controller', [
                     'names' => [
                         'index'   => 'index',
@@ -497,14 +435,10 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ]);
             });
 
-            /*
-             * Inventory Routes
-             */
+            // Inventory Routes
             Route::group(['as' => 'inventory.', 'namespace' => 'Inventory'], function () {
                 Route::group(['prefix' => 'inventory'], function () {
-                    /*
-                     * Inventory Category Routes
-                     */
+                    // Inventory Category Routes
                     Route::get('categories/json', ['as' => 'categories.json', 'uses' => 'CategoryController@getJson']);
 
                     Route::get('categories/create/{categories}', ['as' => 'categories.nodes.create', 'uses' => 'CategoryController@create']);
@@ -527,15 +461,11 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         ],
                     ]);
 
-                    /*
-                     * Nested Inventory Routes
-                     */
+                    // Nested Inventory Routes
                     Route::group(['prefix' => '{inventory}'], function () {
                         Route::patch('sku/regenerate', ['as' => 'sku.regenerate', 'uses' => 'InventorySkuController@regenerate']);
 
-                        /*
-                         * Inventory Variant Routes
-                         */
+                        // Inventory Variant Routes
                         Route::resource('variants', 'InventoryVariantController', [
                             'only' => [
                                 'create',
@@ -547,9 +477,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Inventory Event Routes
-                         */
+                        // Inventory Event Routes
                         Route::resource('events', 'EventController', [
                             'names' => [
                                 'index'   => 'events.index',
@@ -562,9 +490,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Inventory Note Routes
-                         */
+                        // Inventory Note Routes
                         Route::resource('notes', 'NoteController', [
                             'except' => [
                                 'index',
@@ -579,9 +505,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                             ],
                         ]);
 
-                        /*
-                         * Inventory Stock Routes
-                         */
+                        // Inventory Stock Routes
                         Route::group(['as' => 'stocks.'], function () {
                             Route::resource('stocks', 'StockController', [
                                 'names' => [
@@ -595,13 +519,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                                 ],
                             ]);
 
-                            /*
-                             * Nested Inventory Stock Routes
-                             */
+                            // Nested Inventory Stock Routes
                             Route::group(['prefix' => 'stocks/{stocks}'], function () {
-                                /*
-                                 * Inventory Stock Movement Routes
-                                 */
+                                // Inventory Stock Movement Routes
                                 Route::resource('movements', 'StockMovementController', [
                                     'only' => [
                                         'index',
@@ -614,9 +534,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                                 ]);
 
                                 Route::group(['prefix' => 'movements', 'as' => 'movements.'], function () {
-                                    /*
-                                     * Nested Inventory Stock Movement Routes
-                                     */
+                                    // Nested Inventory Stock Movement Routes
                                     Route::group(['prefix' => '{movements}'], function () {
                                         Route::post('rollback', ['as' => 'rollback', 'uses' => 'StockMovementController@rollback']);
                                     });
@@ -626,9 +544,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     });
                 });
 
-                /*
-                 * Inventory Routes
-                 */
+                // Inventory Routes
                 Route::resource('inventory', 'InventoryController', [
                     'names' => [
                         'index'   => 'index',
@@ -642,9 +558,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                 ]);
             });
 
-            /*
-             * Location Routes
-             */
+            // Location Routes
             Route::get('locations/json', ['as' => 'locations.json', 'uses' => 'LocationController@getJson']);
 
             Route::post('locations/move/{categories?}', ['as' => 'locations.nodes.move', 'uses' => 'LocationController@postMoveCategory']);
@@ -667,9 +581,7 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
             Route::get('locations/create/{categories}', ['as' => 'locations.nodes.create', 'uses' => 'LocationController@create']);
 
-            /*
-             * Metric Routes
-             */
+            // Metric Routes
             Route::resource('metrics', 'MetricController', [
                 'names' => [
                     'index'   => 'metrics.index',
@@ -681,153 +593,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                     'destroy' => 'metrics.destroy',
                 ],
             ]);
-
-            /*
-             * Administration Route Group
-             */
-            Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-                /*
-                 * Administration Routes
-                 */
-                Route::get('/', [
-                    'as'   => 'admin.dashboard.index',
-                    'uses' => 'DashboardController@getIndex',
-                ]);
-
-                // Log Management Routes
-                Route::post('logs/{logs}/mark-read', [
-                    'as'   => 'admin.logs.mark-read',
-                    'uses' => 'LogController@markRead',
-                ]);
-
-                Route::resource('logs', 'LogController', [
-                    'only' => [
-                        'index',
-                        'show',
-                        'destroy',
-                    ],
-                    'names' => [
-                        'index'   => 'admin.logs.index',
-                        'show'    => 'admin.logs.show',
-                        'destroy' => 'admin.logs.destroy',
-                    ],
-                ]);
-                // End Log Management Routes
-
-                // User Management Routes
-                Route::group(['namespace' => 'User'], function () {
-                    Route::resource('users', 'UserController', [
-                        'names' => [
-                            'index'   => 'admin.users.index',
-                            'create'  => 'admin.users.create',
-                            'store'   => 'admin.users.store',
-                            'show'    => 'admin.users.show',
-                            'edit'    => 'admin.users.edit',
-                            'update'  => 'admin.users.update',
-                            'destroy' => 'admin.users.destroy',
-                        ],
-                    ]);
-
-                    Route::patch('users/{users}/password', [
-                        'as'   => 'admin.users.password.update',
-                        'uses' => 'PasswordController@update',
-                    ]);
-
-                    Route::post('users/{users}/check-access', [
-                        'as'   => 'admin.users.check-access',
-                        'uses' => 'AccessController@postCheck',
-                    ]);
-                });
-                // End User Management Routes
-
-                // Group Management Routes
-                Route::resource('roles', 'RoleController', [
-                    'names' => [
-                        'index'   => 'admin.roles.index',
-                        'create'  => 'admin.roles.create',
-                        'store'   => 'admin.roles.store',
-                        'show'    => 'admin.roles.show',
-                        'edit'    => 'admin.roles.edit',
-                        'update'  => 'admin.roles.update',
-                        'destroy' => 'admin.roles.destroy',
-                    ],
-                ]);
-
-                // Archive Routes
-                Route::group(['namespace' => 'Archive'], function () {
-                    // Asset Archive Routes
-                    Route::post('archive/assets/{assets}/restore', [
-                        'as'   => 'admin.archive.assets.restore',
-                        'uses' => 'AssetController@restore',
-                    ]);
-
-                    Route::resource('archive/assets', 'AssetController', [
-                        'only' => [
-                            'index',
-                            'show',
-                            'destroy',
-                        ],
-                        'names' => [
-                            'index'   => 'admin.archive.assets.index',
-                            'show'    => 'admin.archive.assets.show',
-                            'destroy' => 'admin.archive.assets.destroy',
-                        ],
-                    ]);
-
-                    // Work Order Archive Routes
-                    Route::post('archive/work-orders/{work_orders}/restore', [
-                        'as'   => 'admin.archive.work-orders.restore',
-                        'uses' => 'WorkOrderController@restore',
-                    ]);
-
-                    Route::resource('archive/work-orders', 'WorkOrderController', [
-                        'only' => [
-                            'index',
-                            'show',
-                            'destroy',
-                        ],
-                        'names' => [
-                            'index'   => 'admin.archive.work-orders.index',
-                            'show'    => 'admin.archive.work-orders.show',
-                            'destroy' => 'admin.archive.work-orders.destroy',
-                        ],
-                    ]);
-
-                    // Inventory Archive Routes
-                    Route::post('archive/inventory/{inventory}/restore', [
-                        'as'   => 'admin.archive.inventory.restore',
-                        'uses' => 'InventoryController@restore',
-                    ]);
-
-                    Route::resource('archive/inventory', 'InventoryController', [
-                        'only' => [
-                            'index',
-                            'show',
-                            'destroy',
-                        ],
-                        'names' => [
-                            'index'   => 'admin.archive.inventory.index',
-                            'show'    => 'admin.archive.inventory.show',
-                            'destroy' => 'admin.archive.inventory.destroy',
-                        ],
-                    ]);
-                });
-                // End Archive Routes
-
-                // Setting Routes
-                Route::group(['namespace' => 'Setting'], function () {
-                    Route::resource('settings/site', 'SiteController', [
-                        'only' => [
-                            'index',
-                            'store',
-                        ],
-                        'names' => [
-                            'index' => 'admin.settings.site.index',
-                            'store' => 'admin.settings.site.store',
-                        ],
-                    ]);
-                });
-            });
         });
     });
 });
