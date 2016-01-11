@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\WorkOrder;
 
 use App\Exceptions\WorkOrder\ReportExistsException;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\WorkOrder\ReportRequest;
 use App\Processors\WorkOrder\WorkOrderReportProcessor;
-use App\Http\Controllers\Controller;
 
 class WorkOrderReportController extends Controller
 {
