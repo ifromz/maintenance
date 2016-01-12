@@ -54,6 +54,16 @@ class Attachment extends Model
     }
 
     /**
+     * Returns the attachments relative storage file path.
+     *
+     * @return string
+     */
+    public function getStorageFilePath()
+    {
+        return $this->file_path;
+    }
+
+    /**
      * Returns the full path of the uploaded file.
      *
      * @return string
