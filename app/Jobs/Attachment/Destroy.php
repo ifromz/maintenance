@@ -5,6 +5,7 @@ namespace App\Jobs\Attachment;
 use App\Jobs\Job;
 use App\Models\Attachment;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use League\Flysystem\FileNotFoundException;
 
 class Destroy extends Job
 {
@@ -34,8 +35,12 @@ class Destroy extends Job
      */
     public function handle(Filesystem $filesystem)
     {
-        if ($filesystem->delete($this->attachment->path)) {
-            return $this->attachment->delete();
+        try {
+            if ($filesystem->delete($this->attachment->getStorageFilePath())) {
+                return $this->attachment->delete();
+            }
+        } catch (FileNotFoundException $e) {
+            //
         }
 
         return false;
