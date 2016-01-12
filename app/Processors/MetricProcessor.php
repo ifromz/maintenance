@@ -23,7 +23,7 @@ class MetricProcessor extends Processor
     /**
      * Constructor.
      *
-     * @param Metric $metric
+     * @param Metric          $metric
      * @param MetricPresenter $presenter
      */
     public function __construct(Metric $metric, MetricPresenter $presenter)

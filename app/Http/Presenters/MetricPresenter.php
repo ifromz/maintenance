@@ -2,10 +2,10 @@
 
 namespace App\Http\Presenters;
 
-use Orchestra\Contracts\Html\Form\Fieldset;
-use Orchestra\Contracts\Html\Table\Grid as TableGrid;
-use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use App\Models\Metric;
+use Orchestra\Contracts\Html\Form\Fieldset;
+use Orchestra\Contracts\Html\Form\Grid as FormGrid;
+use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
 class MetricPresenter extends Presenter
 {
