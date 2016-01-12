@@ -6,6 +6,4 @@
 [![Latest Unstable Version](https://poser.pugx.org/stevebauman/maintenance/v/unstable.svg)](https://packagist.org/packages/stevebauman/maintenance) 
 [![License](https://poser.pugx.org/stevebauman/maintenance/license.svg)](https://packagist.org/packages/stevebauman/maintenance)
 
-## Description
-
 A CMMS built using [Orchestra Platform](http://orchestraplatform.com/) and [Laravel](http://laravel.com).
