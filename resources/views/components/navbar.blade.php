@@ -7,7 +7,8 @@
 
         <div class="navbar-header">
 
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".{!! $navbar->id !!}-responsive-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".{!! $navbar->id !!}-responsive-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>

@@ -16,7 +16,8 @@
             <div class="carousel-inner">
                 @foreach($asset->images as $image)
                     <div class="item @if($asset->images->first()->id == $image->id) active @endif">
-                        <img class="img-responsive img-center" src="{{ route('maintenance.assets.images.download', [$asset->id, $image->id]) }}">
+                        <img class="img-responsive img-center"
+                             src="{{ route('maintenance.assets.images.download', [$asset->id, $image->id]) }}">
                     </div>
                 @endforeach
             </div>

@@ -8,53 +8,53 @@
 <!-- jQuery -->
 {!! HTML::script('assets/jquery/dist/jquery.js') !!}
 
-<!-- jQuery UI -->
+        <!-- jQuery UI -->
 {!! HTML::script('assets/jquery-ui/jquery-ui.min.js') !!}
 
-<!-- Moment JS -->
+        <!-- Moment JS -->
 {!! HTML::script('assets/moment/moment.js') !!}
 
-<!-- FullCalendar -->
+        <!-- FullCalendar -->
 {!! HTML::script('assets/fullcalendar/dist/fullcalendar.min.js') !!}
 
-<!-- Sweet Alert -->
+        <!-- Sweet Alert -->
 {!! HTML::script('js/vendor/sweetalert.min.js') !!}
 
-<!-- Styles -->
+        <!-- Styles -->
 <!-- Bootstrap 3.1.0 -->
 {!! HTML::style('assets/adminlte/bootstrap/css/bootstrap.min.css') !!}
 
-<!-- Bootstrap stackable modals extension -->
+        <!-- Bootstrap stackable modals extension -->
 {!! HTML::style('assets/bootstrap-modal/css/bootstrap-modal.css') !!}
 
-<!-- Sweet Alert -->
+        <!-- Sweet Alert -->
 {!! HTML::style('css/libs/sweetalert.css') !!}
 
-<!-- Font Awesome -->
+        <!-- Font Awesome -->
 {!! HTML::style('assets/fontawesome/css/font-awesome.min.css') !!}
 
-<!-- Select2 3.4.5-->
+        <!-- Select2 3.4.5-->
 {!! HTML::style('assets/select2/select2.css') !!}
 {!! HTML::style('assets/select2/select2-bootstrap.css') !!}
 
-<!-- Theme style -->
+        <!-- Theme style -->
 {!! HTML::style('assets/adminlte/dist/css/AdminLTE.min.css') !!}
 {!! HTML::style('assets/adminlte/dist/css/skins/_all-skins.min.css') !!}
 
-<!-- Custom style -->
+        <!-- Custom style -->
 {!! HTML::style('css/custom.css') !!}
 
-<!-- YellowText -->
+        <!-- YellowText -->
 {!! HTML::style('assets/yellow-text/yellow-text-default.css') !!}
 
-<!-- JS Tree Style -->
+        <!-- JS Tree Style -->
 {!! HTML::style('assets/jstree/dist/themes/default/style.min.css') !!}
 
-<!-- FullCalendar -->
+        <!-- FullCalendar -->
 {!! HTML::style('assets/fullcalendar/dist/fullcalendar.css') !!}
 {!! HTML::style('assets/fullcalendar/dist/fullcalendar.print.css', ['media'=>'print']) !!}
 
-<!-- Mobiscroll Date/Time Picker -->
+        <!-- Mobiscroll Date/Time Picker -->
 {!! HTML::style('assets/mobiscroll/css/mobiscroll.animation.css') !!}
 {!! HTML::style('assets/mobiscroll/css/mobiscroll.icons.css') !!}
 
@@ -66,4 +66,4 @@
 {!! HTML::style('assets/mobiscroll/css/mobiscroll.scroller.ios-classic.css') !!}
 {!! HTML::style('assets/mobiscroll/css/mobiscroll.scroller.ios.css') !!}
 
-<!-- End Styles -->
+        <!-- End Styles -->

@@ -12,7 +12,7 @@
 #{{ $asset->style('all', 'css/all.css') }}
 #{{ $asset->script('all', 'js/all.js') }}
 
-<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+        <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
 <!--[if lt IE 9]>
 #{{ $asset->script('html5', 'js/html5.js') }}
 <![endif]-->

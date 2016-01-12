@@ -1,6 +1,6 @@
 <a class="btn btn-app"
    data-toggle="modal" data-target="#create-reading-modal"
-        >
+>
     <i class="fa fa-dashboard"></i> Add a Meter
 </a>
 

@@ -104,7 +104,8 @@
             <div class="col-md-4 col-md-offset-2">
                 <div class="alert alert-warning">
                     <p>
-                        <b>Heads Up!</b> Setting a new frequency will change the dates and times of all events in the series.
+                        <b>Heads Up!</b> Setting a new frequency will change the dates and times of all events in the
+                        series.
                         If you've modified a recurrence, it's not recommended to change the recurrence options.
                     </p>
                 </div>

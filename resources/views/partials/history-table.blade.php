@@ -5,13 +5,13 @@
 
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>User Responsible</th>
-                    <th>Changed</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>On</th>
-                </tr>
+            <tr>
+                <th>User Responsible</th>
+                <th>Changed</th>
+                <th>From</th>
+                <th>To</th>
+                <th>On</th>
+            </tr>
             </thead>
             <tbody>
             @foreach($record->revisions as $record)

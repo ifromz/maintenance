@@ -7,15 +7,15 @@
 @endsection
 
 @section('panel.body.content')
-{!!
-    Form::open([
-        'url' => route($routes['update'], [$category->id]),
-        'class' => 'form-horizontal',
-        'method' => 'PATCH',
-    ])
-!!}
+    {!!
+        Form::open([
+            'url' => route($routes['update'], [$category->id]),
+            'class' => 'form-horizontal',
+            'method' => 'PATCH',
+        ])
+    !!}
 
-@include('categories.form', compact('category'))
+    @include('categories.form', compact('category'))
 
-{!! Form::close() !!}
+    {!! Form::close() !!}
 @endsection

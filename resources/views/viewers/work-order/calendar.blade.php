@@ -9,4 +9,5 @@
     });
 </script>
 
-<div id="calendar" data-event-url="{{ route('maintenance.api.v1.work-orders.events.between', [$workOrder->id]) }}"></div>
+<div id="calendar"
+     data-event-url="{{ route('maintenance.api.v1.work-orders.events.between', [$workOrder->id]) }}"></div>

@@ -2,15 +2,15 @@
 
     <% _.each(pagination, function(p) { %>
 
-     		<div class="text-center">
+    <div class="text-center">
 
-     			<ul class="pagination pagination-sm">
+        <ul class="pagination pagination-sm">
 
-     				<% if (p.previous_page !== null) { %>
+            <% if (p.previous_page !== null) { %>
 
-     					<li><a href="#" data-grid="{{ $grid }}" data-page="1"><i class="fa fa-angle-double-left"></i></a></li>
+            <li><a href="#" data-grid="{{ $grid }}" data-page="1"><i class="fa fa-angle-double-left"></i></a></li>
 
-     					<li><a href="#" data-grid="{{ $grid }}" data-page="<%= p.previous_page %>"><i class="fa fa-chevron-left"></i></a></li>
+            <li><a href="#" data-grid="{{ $grid }}" data-page="<%= p.previous_page %>"><i class="fa fa-chevron-left"></i></a></li>
 
      				<% } else { %>
 

@@ -12,15 +12,16 @@
 
 @section('grid.table')
 
-    <table id="data-grid" class="results table table-hover" data-source="{{ route($routes['grid'], $eventable->id) }}" data-grid="main">
+    <table id="data-grid" class="results table table-hover" data-source="{{ route($routes['grid'], $eventable->id) }}"
+           data-grid="main">
 
         <thead>
-            <tr>
-                <th>Title / Summary</th>
-                <th class="sortable" data-sort="location_id">Location</th>
-                <th>Start</th>
-                <th>End</th>
-            </tr>
+        <tr>
+            <th>Title / Summary</th>
+            <th class="sortable" data-sort="location_id">Location</th>
+            <th>Start</th>
+            <th>End</th>
+        </tr>
         </thead>
 
         <tbody></tbody>

@@ -21,14 +21,14 @@
         <div class="col-md-6">
             <table class="table">
                 <tbody>
-                    <tr>
-                        <th>Name</th>
-                        <td>{{ $meter->name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Current Reading</th>
-                        <td>{{ $meter->getLastReadingWithMetricAttribute() }}</td>
-                    </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ $meter->name }}</td>
+                </tr>
+                <tr>
+                    <th>Current Reading</th>
+                    <td>{{ $meter->getLastReadingWithMetricAttribute() }}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -41,8 +41,7 @@
     </div>
 
     <script>
-        $(function()
-        {
+        $(function () {
             $.datagrid('assets-meters-readings', '#assets-meters-readings-results', '#assets-meters-readings-pagination', '#assets-meters-readings-filters');
         });
     </script>

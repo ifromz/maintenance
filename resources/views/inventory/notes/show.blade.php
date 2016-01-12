@@ -3,7 +3,7 @@
 @section('title', 'Viewing Note')
 
 @section('panel.head.content')
-Viewing Note
+    Viewing Note
 @endsection
 
 @section('panel.body.content')

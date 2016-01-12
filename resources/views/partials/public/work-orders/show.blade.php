@@ -31,7 +31,7 @@
             <a class="btn btn-app"
                data-target="#notification-modal"
                data-toggle="modal"
-                    >
+            >
                 <i class="fa fa-warning"></i>
                 Notifications
             </a>

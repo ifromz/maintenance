@@ -9,7 +9,8 @@
             <div class="container-fluid">
 
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#asset-images-actions">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#asset-images-actions">
                         <span class="fa fa-bars"></span>
                     </button>
                 </div>
@@ -20,18 +21,26 @@
                     <ul class="nav navbar-nav navbar-left">
 
                         <li class="dropdown">
-                            <a href="#" data-grid-exporter class="dropdown-toggle tip" data-toggle="dropdown" role="button" aria-expanded="false" data-original-title="Export">
+                            <a href="#" data-grid-exporter class="dropdown-toggle tip" data-toggle="dropdown"
+                               role="button" aria-expanded="false" data-original-title="Export">
                                 <i class="fa fa-download"></i> <span class="visible-xs-inline">Export</span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" data-download="pdf" data-toggle="tooltip" data-original-title="Export Results as PDF"><i class="fa fa-file-pdf-o"></i> PDF</a></li>
-                                <li><a href="#" data-download="csv" data-toggle="tooltip" data-original-title="Export Results as CSV"><i class="fa fa-file-excel-o"></i> CSV</a></li>
-                                <li><a href="#" data-download="json" data-toggle="tooltip" data-original-title="Export Results as JSON"><i class="fa fa-file-code-o"></i> JSON</a></li>
+                                <li><a href="#" data-download="pdf" data-toggle="tooltip"
+                                       data-original-title="Export Results as PDF"><i class="fa fa-file-pdf-o"></i> PDF</a>
+                                </li>
+                                <li><a href="#" data-download="csv" data-toggle="tooltip"
+                                       data-original-title="Export Results as CSV"><i class="fa fa-file-excel-o"></i>
+                                        CSV</a></li>
+                                <li><a href="#" data-download="json" data-toggle="tooltip"
+                                       data-original-title="Export Results as JSON"><i class="fa fa-file-code-o"></i>
+                                        JSON</a></li>
                             </ul>
                         </li>
 
                         <li class="primary">
-                            <a href="{{ route('maintenance.assets.images.create', [$asset->id]) }}" data-toggle="tooltip" data-original-title="Upload">
+                            <a href="{{ route('maintenance.assets.images.create', [$asset->id]) }}"
+                               data-toggle="tooltip" data-original-title="Upload">
                                 <i class="fa fa-plus"></i> <span class="visible-xs-inline">Upload</span>
                             </a>
                         </li>
@@ -39,7 +48,8 @@
                     </ul>
 
                     {{-- Grid: Filters --}}
-                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search data-grid="assets-images" role="form">
+                    <form class="navbar-form navbar-right" method="post" accept-charset="utf-8" data-search
+                          data-grid="assets-images" role="form">
 
                         <div class="input-group">
 
@@ -49,7 +59,8 @@
                                         Filters
                                     </button>
 
-                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                                            aria-expanded="false">
                                         <span class="caret"></span>
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
@@ -76,7 +87,8 @@
 
                                     </ul>
 
-                                    <button class="btn btn-default hidden-xs" type="button" data-grid-calendar data-range-filter="created_at">
+                                    <button class="btn btn-default hidden-xs" type="button" data-grid-calendar
+                                            data-range-filter="created_at">
                                         <i class="fa fa-calendar"></i>
                                     </button>
 
@@ -86,11 +98,13 @@
 
                                 <span class="input-group-btn">
 
-                                    <button data-toggle="tooltip" data-original-title="Search" class="btn btn-default" type="submit">
+                                    <button data-toggle="tooltip" data-original-title="Search" class="btn btn-default"
+                                            type="submit">
                                         <span class="fa fa-search"></span>
                                     </button>
 
-                                    <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default" data-grid="assets-images" data-reset>
+                                    <button data-toggle="tooltip" data-original-title="Refresh" class="btn btn-default"
+                                            data-grid="assets-images" data-reset>
                                         <i class="fa fa-refresh fa-sm"></i>
                                     </button>
 
@@ -123,7 +137,9 @@
     {{-- Grid: Table --}}
     <div class="table-responsive">
 
-        <table id="assets-images-results" class="table table-hover" data-source="{{ route('maintenance.api.v1.assets.images.grid', [$asset->id]) }}" data-grid="assets-images">
+        <table id="assets-images-results" class="table table-hover"
+               data-source="{{ route('maintenance.api.v1.assets.images.grid', [$asset->id]) }}"
+               data-grid="assets-images">
 
             <thead>
             <tr>
@@ -157,8 +173,7 @@
 
 <script>
 
-    $(function()
-    {
+    $(function () {
         $.datagrid('assets-images', '#assets-images-results', '#assets-images-pagination', '#assets-images-filters');
     });
 

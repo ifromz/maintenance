@@ -1,7 +1,7 @@
 @extends('layouts.pages.main.panel')
 
 @section('title')
-Create Meter
+    Create Meter
 @endsection
 
 @section('panel.head.content')

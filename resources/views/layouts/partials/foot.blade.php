@@ -3,11 +3,11 @@
 <!-- Bootstrap -->
 {!! HTML::script('assets/AdminLTE/bootstrap/js/bootstrap.min.js') !!}
 
-<!-- Bootstrap modals -->
+        <!-- Bootstrap modals -->
 {!! HTML::script('assets/bootstrap-modal/js/bootstrap-modalmanager.js') !!}
 {!! HTML::script('assets/bootstrap-modal/js/bootstrap-modal.js') !!}
 
-<!-- Mobiscroll scripts -->
+        <!-- Mobiscroll scripts -->
 {!! HTML::script('assets/mobiscroll/js/mobiscroll.core.js') !!}
 {!! HTML::script('assets/mobiscroll/js/mobiscroll.widget.js') !!}
 {!! HTML::script('assets/mobiscroll/js/mobiscroll.scroller.js') !!}
@@ -19,36 +19,36 @@
 {!! HTML::script('assets/mobiscroll/js/mobiscroll.image.js') !!}
 {!! HTML::script('assets/mobiscroll/js/mobiscroll.treelist.js') !!}
 
-<!-- Select2 3.4.5-->
+        <!-- Select2 3.4.5-->
 {!! HTML::script('assets/select2/select2.min.js') !!}
 
-<!-- JS Tree -->
+        <!-- JS Tree -->
 {!! HTML::script('assets/jstree/dist/jstree.min.js') !!}
 
-<!-- SweetAlert -->
+        <!-- SweetAlert -->
 {!! HTML::script('js/vendor/sweetalert.min.js') !!}
 
-<!-- Typeahead -->
+        <!-- Typeahead -->
 {!! HTML::script('js/vendor/bootstrap3-typeahead.js') !!}
 
-<!-- Ajax Form Helper -->
+        <!-- Ajax Form Helper -->
 {!! HTML::script('js/vendor/jquery.form.min.js') !!}
 
-<!-- YellowText -->
+        <!-- YellowText -->
 {!! HTML::script('assets/yellow-text/yellow-text.min.js') !!}
 
-<!-- Bootbox-->
+        <!-- Bootbox-->
 {!! HTML::script('assets/bootbox/bootbox.js') !!}
 
-<!-- SlimScroll -->
+        <!-- SlimScroll -->
 {!! HTML::script('assets/adminlte/plugins/slimScroll/jquery.slimscroll.js') !!}
 
-<!-- AdminLTE App -->
+        <!-- AdminLTE App -->
 {!! HTML::script('assets/adminlte/dist/js/app.js') !!}
 
-<!-- Base JS -->
+        <!-- Base JS -->
 {!! HTML::script('js/app.js') !!}
-<!-- End Scripts -->
+        <!-- End Scripts -->
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

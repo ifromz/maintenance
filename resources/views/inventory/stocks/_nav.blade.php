@@ -4,5 +4,6 @@
             <i class="fa fa-list"></i> All Stocks
         </a>
     </li>
-    <li><a href="{{ route('maintenance.inventory.stocks.create', [$item->getKey()]) }}"><i class="fa fa-plus"></i> New Stock</a></li>
+    <li><a href="{{ route('maintenance.inventory.stocks.create', [$item->getKey()]) }}"><i class="fa fa-plus"></i> New
+            Stock</a></li>
 </ul>

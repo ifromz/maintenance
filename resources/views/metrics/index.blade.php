@@ -11,16 +11,17 @@
 @endsection
 
 @section('grid.table')
-    <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.metrics.grid') }}" data-grid="main">
+    <table id="data-grid" class="results table table-hover" data-source="{{ route('maintenance.api.v1.metrics.grid') }}"
+           data-grid="main">
 
         <thead>
-            <tr>
-                <th class="sortable" data-sort="id">ID</th>
-                <th class="sortable" data-sort="name">Name</th>
-                <th class="sortable" data-sort="symbol">Symbol</th>
-                <th class="sortable" data-sort="created_at">Created At</th>
-                <th class="sortable" data-sort="user_id">Created By</th>
-            </tr>
+        <tr>
+            <th class="sortable" data-sort="id">ID</th>
+            <th class="sortable" data-sort="name">Name</th>
+            <th class="sortable" data-sort="symbol">Symbol</th>
+            <th class="sortable" data-sort="created_at">Created At</th>
+            <th class="sortable" data-sort="user_id">Created By</th>
+        </tr>
         </thead>
 
         <tbody></tbody>

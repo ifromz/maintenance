@@ -10,7 +10,7 @@
                 $movement->id
             ])
         }}
-        ">
+                ">
             <i class="fa fa-search"></i> View Movement
         </a>
     </li>
@@ -24,7 +24,7 @@
                         $movement->id
                     ])
                 }}
-                "
+                        "
                 data-method="post"
                 data-token="{{ csrf_token() }}"
                 data-message="Are you sure you want to roll back this movement?">

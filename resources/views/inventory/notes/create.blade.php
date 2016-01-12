@@ -3,7 +3,7 @@
 @section('title', 'Create Note')
 
 @section('panel.head.content')
-Create Note
+    Create Note
 @endsection
 
 @section('panel.body.content')

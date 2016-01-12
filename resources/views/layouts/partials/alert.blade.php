@@ -21,7 +21,8 @@
 
             @if(Session::get('message'))
                 <div class="alert alert-{{ Session::get('messageType') }} alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-minus-square"></i></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i
+                                class="fa fa-minus-square"></i></button>
                     {!! Session::get('message') !!}
                 </div>
             @endif

@@ -4,7 +4,8 @@
 
         <div class="navbar-header">
 
-            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar"
+                    aria-controls="bs-navbar" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -24,7 +25,8 @@
                 @if(auth()->check())
                     <li class="dropdown {{ active()->route('maintance.work-orders.*') }}" id="work-orders-menu">
 
-                        <a  href="#work-orders-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <a href="#work-orders-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown"
+                           aria-expanded="false">
                             <i class="fa fa-info-circle"></i>
                             Work Orders
                             <i class="fa fa-caret-down"></i>
@@ -68,7 +70,8 @@
 
                     <li class="dropdown {{ active()->route('maintance.work-orders.*') }}" id="inventory-menu">
 
-                        <a  href="#inventory-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <a href="#inventory-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown"
+                           aria-expanded="false">
                             <i class="fa fa-dropbox"></i>
                             Inventory
                             <i class="fa fa-caret-down"></i>
@@ -94,7 +97,8 @@
 
                     <li class="dropdown {{ active()->route('maintance.work-orders.*') }}" id="assets-menu">
 
-                        <a  href="#assets-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <a href="#assets-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown"
+                           aria-expanded="false">
                             <i class="fa fa-truck"></i>
                             Assets
                             <i class="fa fa-caret-down"></i>
@@ -139,7 +143,8 @@
 
                     <li class="dropdown" id="user-menu">
 
-                        <a href="#user-menu" rel="user-menu" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <a href="#user-menu" rel="user-menu" class="dropdown-toggle" data-toggle="dropdown"
+                           aria-expanded="false">
                             {{ auth()->user()->fullname }}
                             <i class="fa fa-caret-down"></i>
                         </a>
@@ -155,11 +160,11 @@
                             <li class="divider"></li>
 
                             @can('backend')
-                                <li>
-                                    <a href="{{ route('orchestra.dashboard') }}">
-                                        <i class="fa fa-user-md"></i> Administration
-                                    </a>
-                                </li>
+                            <li>
+                                <a href="{{ route('orchestra.dashboard') }}">
+                                    <i class="fa fa-user-md"></i> Administration
+                                </a>
+                            </li>
                             @endif
 
                             <li>

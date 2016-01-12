@@ -19,7 +19,7 @@
                 data-token="{{ csrf_token() }}"
                 data-title="Are you sure?"
                 data-message="Are you sure you want to delete this event? Deleting this event will also remove all recurrences."
-                >
+        >
             <i class="fa fa-trash-o"></i> Delete Event
         </a>
     </li>

@@ -10,18 +10,18 @@
     <div class="col-md-4">
         <table class="table table-hover table-striped">
             <tbody>
-                <tr>
-                    <th>Item</th>
-                    <td>{{ $item->name }}</td>
-                </tr>
-                <tr>
-                    <th>Location</th>
-                    <td>{{ $stock->location->trail }}</td>
-                </tr>
-                <tr>
-                    <th>Current Stock</th>
-                    <td>{{ $stock->quantity }}</td>
-                </tr>
+            <tr>
+                <th>Item</th>
+                <td>{{ $item->name }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ $stock->location->trail }}</td>
+            </tr>
+            <tr>
+                <th>Current Stock</th>
+                <td>{{ $stock->quantity }}</td>
+            </tr>
             </tbody>
         </table>
     </div>

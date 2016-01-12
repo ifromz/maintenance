@@ -11,11 +11,13 @@
     <div class="tab-pane active" id="tab_profile">
 
         @if($workRequest->workOrder)
-            <a class="btn btn-app" href="{{ route('maintenance.work-orders.show', array($workRequest->workOrder->id)) }}">
+            <a class="btn btn-app"
+               href="{{ route('maintenance.work-orders.show', array($workRequest->workOrder->id)) }}">
                 <i class="fa fa-search"></i> View Work Order
             </a>
         @else
-            <a class="btn btn-app" href="{{ route('maintenance.work-orders.requests.create', array($workRequest->id)) }}">
+            <a class="btn btn-app"
+               href="{{ route('maintenance.work-orders.requests.create', array($workRequest->id)) }}">
                 <i class="fa fa-plus"></i> Create Work Order
             </a>
         @endif

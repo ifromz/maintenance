@@ -2,59 +2,60 @@
 
 <html lang="en">
 
-    <head>
+<head>
 
-        <title>@yield('title')</title>
+    <title>@yield('title')</title>
 
-        <link href='https://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
 
-        <style>
-            html, body {
-                height: 100%;
-            }
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+    <style>
+        html, body {
+            height: 100%;
+        }
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            color: #B0BEC5;
+            display: table;
+            font-weight: 100;
+            font-family: 'Lato';
+        }
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
+        .container {
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
+        }
 
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
+        .content {
+            text-align: center;
+            display: inline-block;
+        }
 
-    </head>
+        .title {
+            font-size: 72px;
+            margin-bottom: 40px;
+        }
+    </style>
 
-    <body>
+</head>
 
-    <div class="container">
+<body>
 
-        <div class="content">
+<div class="container">
 
-            <div class="title">@yield('title')</div>
+    <div class="content">
 
-            @yield('content')
+        <div class="title">@yield('title')</div>
 
-        </div>
+        @yield('content')
 
     </div>
 
-    </body>
+</div>
+
+</body>
 
 </html>

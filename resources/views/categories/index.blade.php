@@ -36,7 +36,7 @@
                     id="delete-sub-category"
                     class="btn btn-danger"
                     style="display:none;"
-                    >
+            >
                 <i class="fa fa-trash-o"></i>
                 Delete {{ $resource }}
             </a>
@@ -46,10 +46,11 @@
 
 @section('panel.body.content')
 
-<div class="row">
-    <div class="col-md-12">
-        {{-- Dynamic getJson method for allowing mutliple nested set resources to use this view --}}
-        <div class="tree" data-token="{{ csrf_token() }}" data-src="{{ route($routes['grid'])  }}" data-move="{{ route($routes['move']) }}"></div>
+    <div class="row">
+        <div class="col-md-12">
+            {{-- Dynamic getJson method for allowing mutliple nested set resources to use this view --}}
+            <div class="tree" data-token="{{ csrf_token() }}" data-src="{{ route($routes['grid'])  }}"
+                 data-move="{{ route($routes['move']) }}"></div>
+        </div>
     </div>
-</div>
 @endsection

@@ -1,5 +1,6 @@
 <div class="alert alert-info">
-    The work request shown below will be used to create a work order. If you're sure you'd like to do this, click create.
+    The work request shown below will be used to create a work order. If you're sure you'd like to do this, click
+    create.
 </div>
 
 <div class="form-group">
