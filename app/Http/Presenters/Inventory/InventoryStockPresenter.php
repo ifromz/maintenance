@@ -5,11 +5,14 @@ namespace App\Http\Presenters\Inventory;
 use App\Http\Presenters\Presenter;
 use App\Models\Inventory;
 use App\Models\InventoryStock;
+use App\Models\InventoryStockMovement;
 use App\Models\Location;
+use App\Models\User;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
 use Orchestra\Contracts\Html\Table\Column;
 use Orchestra\Contracts\Html\Table\Grid as TableGrid;
+use Orchestra\Support\Facades\HTML;
 
 class InventoryStockPresenter extends Presenter
 {
@@ -24,7 +27,7 @@ class InventoryStockPresenter extends Presenter
     {
         $stocks = $item->stocks();
 
-        return $this->table->of('inventory.stock', function (TableGrid $table) use ($item, $stocks) {
+        return $this->table->of('inventory.stocks', function (TableGrid $table) use ($item, $stocks) {
             $table->with($stocks);
 
             $table->attributes([
@@ -56,6 +59,47 @@ class InventoryStockPresenter extends Presenter
     }
 
     /**
+     * Returns a new table of all movements for the specified inventory stock.
+     *
+     * @param Inventory      $item
+     * @param InventoryStock $stock
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function tableMovements(Inventory $item, InventoryStock $stock)
+    {
+        $movements = $stock->movements();
+
+        return $this->table->of('inventory.stocks.movements', function (TableGrid $table) use ($item, $movements) {
+            $table->with($movements)->paginate($this->perPage);
+
+            $table->pageName = 'stock-movements';
+
+            $table->column('before');
+
+            $table->column('after');
+
+            $table->column('change');
+
+            $table->column('cost');
+
+            $table->column('reason');
+
+            $table->column('Change By', function (Column $column) {
+                return $column->value = function (InventoryStockMovement $movement) {
+                    if ($movement->user instanceof User) {
+                        return $movement->user->getRecipientName();
+                    }
+
+                    return HTML::create('em', 'Unknown');
+                };
+            });
+
+            $table->column('Change On', 'created_at');
+        });
+    }
+
+    /**
      * Returns a new form of the specified inventory stock.
      *
      * @param Inventory      $item
@@ -65,7 +109,7 @@ class InventoryStockPresenter extends Presenter
      */
     public function form(Inventory $item, InventoryStock $stock)
     {
-        return $this->form->of('inventory.stock', function (FormGrid $form) use ($item, $stock) {
+        return $this->form->of('inventory.stocks', function (FormGrid $form) use ($item, $stock) {
             if ($stock->exists) {
                 $method = 'PATCH';
                 $url = route('maintenance.inventory.stocks.update', [$item->getKey(), $stock->getKey()]);

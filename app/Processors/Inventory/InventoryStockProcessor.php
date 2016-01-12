@@ -98,7 +98,9 @@ class InventoryStockProcessor extends Processor
 
         $stock = $item->stocks()->findOrFail($stockId);
 
-        return view('inventory.stocks.show', compact('item', 'stock'));
+        $movements = $this->presenter->tableMovements($item, $stock);
+
+        return view('inventory.stocks.show', compact('item', 'stock', 'movements'));
     }
 
     /**

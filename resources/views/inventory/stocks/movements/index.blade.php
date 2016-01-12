@@ -4,6 +4,6 @@
 
 @section('content')
 
-    @include('inventory.stocks.movements.grid.index', compact('item', 'stock'))
+    {!! $movements !!}
 
 @endsection

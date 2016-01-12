@@ -22,7 +22,8 @@
 
         <h3>Movements</h3>
 
-        @include('inventory.stocks.movements.grid.thin', compact('item', 'stock'))
+        {!! $movements !!}
 
     </div>
+
 @endsection
