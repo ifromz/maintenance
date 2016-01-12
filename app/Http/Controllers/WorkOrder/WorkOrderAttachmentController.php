@@ -129,7 +129,7 @@ class WorkOrderAttachmentController extends Controller
      */
     public function destroy($workOrderId, $attachmentId)
     {
-        if($this->processor->destroy($workOrderId, $attachmentId)) {
+        if ($this->processor->destroy($workOrderId, $attachmentId)) {
             flash()->success('Success!', 'Successfully deleted attachment.');
 
             return redirect()->route('maintenance.work-orders.attachments.index', [$workOrderId]);

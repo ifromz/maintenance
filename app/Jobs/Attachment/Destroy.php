@@ -2,8 +2,8 @@
 
 namespace App\Jobs\Attachment;
 
-use App\Models\Attachment;
 use App\Jobs\Job;
+use App\Models\Attachment;
 use Illuminate\Contracts\Filesystem\Filesystem;
 
 class Destroy extends Job
@@ -28,9 +28,9 @@ class Destroy extends Job
      *
      * @param Filesystem $filesystem
      *
-     * @return bool
-     *
      * @throws \Exception
+     *
+     * @return bool
      */
     public function handle(Filesystem $filesystem)
     {
