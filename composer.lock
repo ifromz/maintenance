@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5f6174e476ac75609f124a17160a804c",
-    "content-hash": "b7fa8757921789dcb92a52237621d71e",
+    "hash": "2255430b9b20049a2d5b6fee88697f24",
+    "content-hash": "6dae655c42e4d2aab9b3958bbe7dbeac",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -61,16 +61,16 @@
         },
         {
             "name": "adldap2/adldap2-laravel",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Adldap2/Adldap2-Laravel.git",
-                "reference": "478a16c8ba877121131b102abe904ee2bc79905d"
+                "reference": "7d671928c4274f4b18fe5ffff064445629693b9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/478a16c8ba877121131b102abe904ee2bc79905d",
-                "reference": "478a16c8ba877121131b102abe904ee2bc79905d",
+                "url": "https://api.github.com/repos/Adldap2/Adldap2-Laravel/zipball/7d671928c4274f4b18fe5ffff064445629693b9c",
+                "reference": "7d671928c4274f4b18fe5ffff064445629693b9c",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "laravel",
                 "ldap"
             ],
-            "time": "2015-12-22 17:38:37"
+            "time": "2016-01-11 20:39:47"
         },
         {
             "name": "arcanedev/no-captcha",
@@ -157,16 +157,16 @@
         },
         {
             "name": "bacon/bacon-qr-code",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bacon/BaconQrCode.git",
-                "reference": "0537ed27917f5ae26e5837ac4bfd837171d0b848"
+                "reference": "031a2ce68c5794064b49d11775b2daf45c96e21c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bacon/BaconQrCode/zipball/0537ed27917f5ae26e5837ac4bfd837171d0b848",
-                "reference": "0537ed27917f5ae26e5837ac4bfd837171d0b848",
+                "url": "https://api.github.com/repos/Bacon/BaconQrCode/zipball/031a2ce68c5794064b49d11775b2daf45c96e21c",
+                "reference": "031a2ce68c5794064b49d11775b2daf45c96e21c",
                 "shasum": ""
             },
             "require": {
@@ -195,7 +195,7 @@
             ],
             "description": "BaconQrCode is a QR code generator for PHP.",
             "homepage": "https://github.com/Bacon/BaconQrCode",
-            "time": "2013-08-27 10:20:42"
+            "time": "2016-01-09 22:55:35"
         },
         {
             "name": "baum/baum",
@@ -2822,6 +2822,72 @@
             "time": "2015-11-12 16:18:56"
         },
         {
+            "name": "ramsey/uuid",
+            "version": "2.8.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/uuid.git",
+                "reference": "805d8e1894c52e5b1582e75ca8803a8d85650df9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/805d8e1894c52e5b1582e75ca8803a8d85650df9",
+                "reference": "805d8e1894c52e5b1582e75ca8803a8d85650df9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "replace": {
+                "rhumsaa/uuid": "self.version"
+            },
+            "require-dev": {
+                "doctrine/dbal": ">=2.3",
+                "jakub-onderka/php-parallel-lint": "^0.9.0",
+                "moontoast/math": "~1.1",
+                "phpunit/phpunit": "~4.1|~5.0",
+                "satooshi/php-coveralls": "~0.6",
+                "squizlabs/php_codesniffer": "^2.3",
+                "symfony/console": "~2.3|~3.0"
+            },
+            "suggest": {
+                "doctrine/dbal": "Allow the use of a UUID as doctrine field type.",
+                "moontoast/math": "Support for converting UUID to 128-bit integer (in string form).",
+                "symfony/console": "Support for use of the bin/uuid command line tool."
+            },
+            "bin": [
+                "bin/uuid"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rhumsaa\\Uuid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marijn Huizendveld",
+                    "email": "marijn.huizendveld@gmail.com"
+                },
+                {
+                    "name": "Ben Ramsey",
+                    "homepage": "http://benramsey.com"
+                }
+            ],
+            "description": "A PHP 5.3+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
+            "homepage": "https://github.com/ramsey/uuid",
+            "keywords": [
+                "guid",
+                "identifier",
+                "uuid"
+            ],
+            "time": "2015-12-17 16:54:24"
+        },
+        {
             "name": "simplesoftwareio/simple-qrcode",
             "version": "1.3.2",
             "source": {
@@ -4743,16 +4809,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "3.0.2",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "f7bb5cddf4ffe113eeb737b05241adb947b43f9d"
+                "reference": "64d40a593fc31a8abf4ce3d200147ddf8ca64e52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f7bb5cddf4ffe113eeb737b05241adb947b43f9d",
-                "reference": "f7bb5cddf4ffe113eeb737b05241adb947b43f9d",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/64d40a593fc31a8abf4ce3d200147ddf8ca64e52",
+                "reference": "64d40a593fc31a8abf4ce3d200147ddf8ca64e52",
                 "shasum": ""
             },
             "require": {
@@ -4775,7 +4841,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0.x-dev"
+                    "dev-master": "3.1.x-dev"
                 }
             },
             "autoload": {
@@ -4801,7 +4867,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-11-12 21:08:20"
+            "time": "2016-01-11 10:05:34"
         },
         {
             "name": "phpunit/php-file-iterator",

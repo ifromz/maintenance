@@ -218,6 +218,14 @@ $(document).ready(function () {
             formatResult: formatColor,
             formatSelection: formatColor
         });
+
+
+        // Issue Labels select.
+        $(".select-labels").select2({
+            formatResult: formatLabel,
+            formatSelection: formatLabel,
+            placeholder: formatPlaceholder
+        });
     }
 
     /*
@@ -484,6 +492,28 @@ function formatIcon(icon) {
  */
 function formatColor(color) {
     return "<span class='label label-" + color.id.toString() + "'>" + color.text + "</span> ";
+}
+
+/**
+ * Formats a select2 label.
+ *
+ * @param label
+ *
+ * @returns {*|jQuery}
+ */
+function formatLabel(label) {
+    return $(label.element).text();
+}
+
+/**
+ * Formats a select2 placeholder.
+ *
+ * @param label
+ *
+ * @returns {*|jQuery}
+ */
+function formatPlaceholder(label) {
+    return $(label.element).data('placeholder');
 }
 
 /**

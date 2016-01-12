@@ -44,17 +44,9 @@ class AttachmentRequest extends Request
 
         $rule = "required|mimes:$mimes|max:$size";
 
-        $rules = [];
-
-        if ($this->hasFile('files')) {
-            $files = $this->file('files');
-
-            foreach ($files as $key => $file) {
-                $rules['files.'.$key] = $rule;
-            }
-        }
-
-        return $rules;
+        return [
+            'files.*' => $rule,
+        ];
     }
 
     /**

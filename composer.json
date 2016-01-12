@@ -19,6 +19,7 @@
         "stevebauman/purify": "1.1.*",
         "stevebauman/revision": "1.1.*",
         "arcanedev/no-captcha": "2.0.*",
+        "ramsey/uuid": "2.8.*",
         "baum/baum": "1.1.*",
         "dompdf/dompdf": "0.6.*",
         "simplesoftwareio/simple-qrcode": "1.3.*",

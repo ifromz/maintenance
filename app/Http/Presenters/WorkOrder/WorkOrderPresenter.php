@@ -131,11 +131,14 @@ class WorkOrderPresenter extends Presenter
                 $fieldset
                     ->control('select', 'status')
                     ->options(function () {
-                        $statuses = Status::all()->pluck('name', 'id');
+                        $statuses = Status::all()->pluck('label', 'id');
                         $statuses[0] = 'None';
 
                         return $statuses;
-                    });
+                    })
+                    ->attributes([
+                        'class' => 'select-labels',
+                    ]);
 
                 $fieldset
                     ->control('select', 'priority')
@@ -143,11 +146,14 @@ class WorkOrderPresenter extends Presenter
                         return $workOrder->priority_id;
                     })
                     ->options(function () {
-                        $priorities = Priority::all()->pluck('name', 'id');
+                        $priorities = Priority::all()->pluck('label', 'id');
                         $priorities[0] = 'None';
 
                         return $priorities;
-                    });
+                    })
+                    ->attributes([
+                        'class' => 'select-labels',
+                    ]);
 
                 $fieldset
                     ->control('select', 'assets[]')

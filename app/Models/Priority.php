@@ -59,4 +59,14 @@ class Priority extends Model
 
         return HTML::create('span', $this->name, ['class' => "label label-$color"]);
     }
+
+    /**
+     * An accessor for the getLabel method.
+     *
+     * @return string
+     */
+    public function getLabelAttribute()
+    {
+        return (string) $this->getLabel();
+    }
 }

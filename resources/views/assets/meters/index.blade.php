@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.master')
 
 @section('title', "All Meters for Asset: $asset->name")
 

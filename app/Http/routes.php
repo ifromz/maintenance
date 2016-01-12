@@ -241,9 +241,9 @@ $router->group(['middleware' => ['web']], function (Router $router) {
                         ]);
 
                         // Work Order Attachment Routes
-                        Route::get('attachments/{attachments}/download', ['as' => 'attachments.download', 'uses' => 'AttachmentController@download']);
+                        Route::get('attachments/{attachments}/download', ['as' => 'attachments.download', 'uses' => 'WorkOrderAttachmentController@download']);
 
-                        Route::resource('attachments', 'AttachmentController', [
+                        Route::resource('attachments', 'WorkOrderAttachmentController', [
                             'names' => [
                                 'index'   => 'attachments.index',
                                 'create'  => 'attachments.create',

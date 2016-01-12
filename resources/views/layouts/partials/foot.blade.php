@@ -47,7 +47,7 @@
 {!! HTML::script('assets/adminlte/dist/js/app.js') !!}
 
 <!-- Base JS -->
-{!! HTML::script('js/base.js') !!}
+{!! HTML::script('js/app.js') !!}
 <!-- End Scripts -->
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
