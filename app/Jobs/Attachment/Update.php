@@ -3,8 +3,8 @@
 namespace App\Jobs\Attachment;
 
 use App\Http\Requests\AttachmentUpdateRequest;
-use App\Models\Attachment;
 use App\Jobs\Job;
+use App\Models\Attachment;
 
 class Update extends Job
 {

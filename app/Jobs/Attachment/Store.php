@@ -3,10 +3,10 @@
 namespace App\Jobs\Attachment;
 
 use App\Http\Requests\AttachmentRequest;
+use App\Jobs\Job;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use App\Jobs\Job;
 
 class Store extends Job
 {

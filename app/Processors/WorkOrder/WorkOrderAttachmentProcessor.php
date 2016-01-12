@@ -124,8 +124,8 @@ class WorkOrderAttachmentProcessor extends Processor
      * Updates the specified work order attachment.
      *
      * @param AttachmentUpdateRequest $request
-     * @param int|string $workOrderId
-     * @param int|string $attachmentId
+     * @param int|string              $workOrderId
+     * @param int|string              $attachmentId
      *
      * @return bool
      */
