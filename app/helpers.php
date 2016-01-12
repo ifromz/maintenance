@@ -1,8 +1,8 @@
 <?php
 
-use Rhumsaa\Uuid\Uuid;
 use App\Http\Active;
 use App\Http\Flash;
+use Rhumsaa\Uuid\Uuid;
 
 /**
  * Generates a session flash message.

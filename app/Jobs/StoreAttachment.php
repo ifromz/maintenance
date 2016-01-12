@@ -30,7 +30,7 @@ class StoreAttachment extends Job
      * Constructor.
      *
      * @param AttachmentRequest $request
-     * @param BelongsToMany $relation
+     * @param BelongsToMany     $relation
      */
     public function __construct(AttachmentRequest $request, BelongsToMany $relation)
     {
