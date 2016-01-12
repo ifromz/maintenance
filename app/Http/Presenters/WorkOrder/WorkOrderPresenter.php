@@ -49,9 +49,25 @@ class WorkOrderPresenter extends Presenter
                 };
             });
 
-            $table->column('priority');
+            $table->column('priority', function (Column $column) {
+                $column->value = function (WorkOrder $workOrder) {
+                    if ($workOrder->priority instanceof Priority) {
+                        return $workOrder->priority->getLabel();
+                    }
 
-            $table->column('status');
+                    return HTML::create('em', 'None');
+                };
+            });
+
+            $table->column('status', function (Column $column) {
+                $column->value = function (WorkOrder $workOrder) {
+                    if ($workOrder->status instanceof Status) {
+                        return $workOrder->status->getLabel();
+                    }
+
+                    return HTML::create('em', 'None');
+                };
+            });
         });
     }
 
