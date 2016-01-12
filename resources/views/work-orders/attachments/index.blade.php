@@ -4,6 +4,8 @@
 
 @section('content')
 
+    @decorator('navbar', $navbar)
+
     {!! $attachments !!}
 
 @endsection

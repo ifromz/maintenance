@@ -72,6 +72,7 @@ class WorkOrderAttachmentPresenter extends Presenter
                 $url = route('maintenance.work-orders.attachments.update', [$workOrder->getKey(), $attachment->getKey()]);
                 $method = 'PATCH';
                 $form->submit = 'Save';
+                $form->with($attachment);
             } else {
                 $url = route('maintenance.work-orders.attachments.store', [$workOrder->getKey()]);
                 $method = 'POST';
@@ -80,14 +81,43 @@ class WorkOrderAttachmentPresenter extends Presenter
 
             $form->attributes(compact('url', 'method', 'files'));
 
-            $form->fieldset(function (Fieldset $fieldset) {
-                $fieldset
-                    ->control('input:file', 'files[]')
-                    ->label('Files')
-                    ->attributes([
-                        'multiple' => true,
-                    ]);
+            $form->fieldset(function (Fieldset $fieldset) use ($attachment) {
+                if ($attachment->exists) {
+                    // If the attachment exists we'll provide the ability
+                    // to only change the attachments name.
+                    $fieldset
+                        ->control('input:text', 'name')
+                        ->label('Attachment Name');
+                } else {
+                    // Otherwise we'll allow the user to upload multiple
+                    // attachments at once for the specified work order.
+                    $fieldset
+                        ->control('input:file', 'files[]')
+                        ->label('Files')
+                        ->attributes([
+                            'multiple' => true,
+                        ]);
+                }
             });
         });
+    }
+
+    /**
+     * Returns a new navbar for the work order attachment index.
+     *
+     * @param WorkOrder $workOrder
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbar(WorkOrder $workOrder)
+    {
+        return $this->fluent([
+            'id'         => 'work-orders-attachments',
+            'title'      => 'Attachments',
+            'menu'       => view('work-orders.attachments._nav', compact('workOrder')),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ]);
     }
 }

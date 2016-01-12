@@ -58,12 +58,14 @@ class WorkOrderAttachmentController extends Controller
      */
     public function store(AttachmentRequest $request, $workOrderId)
     {
-        if ($this->processor->store($request, $workOrderId)) {
-            $message = 'Successfully uploaded files.';
+        if ($uploaded = $this->processor->store($request, $workOrderId)) {
+            $count = (is_array($uploaded) ? count($uploaded) : 0);
+
+            flash()->success('Success!', "Successfully uploaded $count file(s).");
 
             return redirect()->route('maintenance.work-orders.attachments.index', [$workOrderId]);
         } else {
-            $message = 'There was an issue uploading the files you selected. Please try again.';
+            flash()->error('Error!', 'There was an issue uploading the files you selected. Please try again.');
 
             return redirect()->route('maintenance.work-orders.attachments.create', [$workOrderId]);
         }
@@ -79,99 +81,75 @@ class WorkOrderAttachmentController extends Controller
      */
     public function show($workOrderId, $attachmentId)
     {
-        //
+        return $this->processor->show($workOrderId, $attachmentId);
     }
 
     /**
      * Displays the form for editing an uploaded file.
      *
-     * @param int|string $id
+     * @param int|string $workOrderId
      * @param int|string $attachmentId
      *
      * @return \Illuminate\View\View
      */
-    public function edit($id, $attachmentId)
+    public function edit($workOrderId, $attachmentId)
     {
-        $workOrder = $this->workOrder->find($id);
-
-        $attachment = $workOrder->attachments()->find($attachmentId);
-
-        if ($attachment) {
-            return view('work-orders.attachments.edit', compact('workOrder', 'attachment'));
-        }
-
-        abort(404);
+        return $this->processor->edit($workOrderId, $attachmentId);
     }
 
     /**
      * Updates the specified ticket upload.
      *
      * @param AttachmentUpdateRequest $request
-     * @param int|string              $id
+     * @param int|string              $workOrderId
      * @param int|string              $attachmentId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(AttachmentUpdateRequest $request, $id, $attachmentId)
+    public function update(AttachmentUpdateRequest $request, $workOrderId, $attachmentId)
     {
-        $workOrder = $this->workOrder->find($id);
+        if ($this->processor->update($request, $workOrderId, $attachmentId)) {
+            flash()->success('Success!', 'Successfully updated attachment.');
 
-        $attachment = $this->attachment->update($request, $workOrder->attachments(), $attachmentId);
-
-        if ($attachment) {
-            $message = 'Successfully updated attachment.';
-
-            return redirect()->route('maintenance.work-orders.attachments.show', [$workOrder->id, $attachment->id])->withSuccess($message);
+            return redirect()->route('maintenance.work-orders.attachments.show', [$workOrderId, $attachmentId]);
         } else {
-            $message = 'There was an issue updating this attachment. Please try again.';
+            flash()->error('Error!', 'There was an issue updating this attachment. Please try again.');
 
-            return redirect()->route('maintenance.work-orders.attachments.show', [$id, $attachmentId])->withErrors($message);
+            return redirect()->route('maintenance.work-orders.attachments.edit', [$workOrderId, $attachmentId]);
         }
     }
 
     /**
      * Processes deleting an attachment record and the file itself.
      *
-     * @param int|string $id
+     * @param int|string $workOrderId
      * @param int|string $attachmentId
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id, $attachmentId)
+    public function destroy($workOrderId, $attachmentId)
     {
-        $workOrder = $this->workOrder->find($id);
+        if($this->processor->destroy($workOrderId, $attachmentId)) {
+            flash()->success('Success!', 'Successfully deleted attachment.');
 
-        $attachment = $workOrder->attachments()->find($attachmentId);
-
-        if ($attachment && $attachment->delete()) {
-            $message = 'Successfully deleted attachment.';
-
-            return redirect()->route('maintenance.work-orders.attachments.index', [$workOrder->id])->withSuccess($message);
+            return redirect()->route('maintenance.work-orders.attachments.index', [$workOrderId]);
         } else {
-            $message = 'There was an issue deleting this attachment. Please try again.';
+            flash()->error('Error!', 'There was an issue deleting this attachment. Please try again.');
 
-            return redirect()->route('maintenance.work-orders.attachments.show', [$workOrder->id, $attachment->id])->withErrors($message);
+            return redirect()->route('maintenance.work-orders.attachments.show', [$workOrderId, $attachmentId]);
         }
     }
 
     /**
      * Prompts the user to download the specified uploaded file.
      *
-     * @param int|string $id
+     * @param int|string $workOrderId
      * @param int|string $attachmentId
      *
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function download($id, $attachmentId)
+    public function download($workOrderId, $attachmentId)
     {
-        $workOrder = $this->workOrder->find($id);
-
-        $attachment = $workOrder->attachments()->find($attachmentId);
-
-        if ($attachment) {
-            return response()->download($attachment->download_path);
-        }
-
-        abort(404);
+        return $this->processor->download($workOrderId, $attachmentId);
     }
 }
