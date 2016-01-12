@@ -4,6 +4,8 @@ namespace App\Processors\Inventory;
 
 use App\Http\Presenters\Inventory\InventoryStockPresenter;
 use App\Http\Requests\Inventory\InventoryStockRequest;
+use App\Jobs\Inventory\Stock\Store;
+use App\Jobs\Inventory\Stock\Update;
 use App\Models\Inventory;
 use App\Processors\Processor;
 
@@ -79,14 +81,7 @@ class InventoryStockProcessor extends Processor
 
         $stock = $item->stocks()->getRelated();
 
-        $stock->user_id = auth()->id();
-        $stock->inventory_id = $item->getKey();
-        $stock->location_id = $request->input('location');
-        $stock->quantity = $request->input('quantity');
-        $stock->cost = $request->input('cost');
-        $stock->reason = $request->input('reason');
-
-        return $stock->save();
+        return $this->dispatch(new Store($request, $item, $stock));
     }
 
     /**
@@ -140,12 +135,7 @@ class InventoryStockProcessor extends Processor
 
         $stock = $item->stocks()->findOrFail($stockId);
 
-        $stock->location_id = $request->input('location', $stock->location_id);
-        $stock->quantity = $request->input('quantity', $stock->quantity);
-        $stock->cost = $request->input('cost');
-        $stock->reason = $request->input('reason');
-
-        return $stock->save();
+        return $this->dispatch(new Update($request, $item, $stock));
     }
 
     /**

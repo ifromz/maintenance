@@ -4,6 +4,8 @@ namespace App\Processors\Inventory;
 
 use App\Http\Presenters\Inventory\InventoryPresenter;
 use App\Http\Requests\Inventory\InventoryRequest;
+use App\Jobs\Inventory\Store;
+use App\Jobs\Inventory\Update;
 use App\Models\Inventory;
 use App\Processors\Processor;
 
@@ -68,13 +70,7 @@ class InventoryProcessor extends Processor
     {
         $item = $this->inventory->newInstance();
 
-        $item->user_id = auth()->id();
-        $item->category_id = $request->input('category');
-        $item->metric_id = $request->input('metric');
-        $item->name = $request->input('name');
-        $item->description = $request->clean($request->input('description'));
-
-        return $item->save();
+        return $this->dispatch(new Store($request, $item));
     }
 
     /**
@@ -136,12 +132,7 @@ class InventoryProcessor extends Processor
     {
         $item = $this->inventory->findOrFail($id);
 
-        $item->category_id = $request->input('category', $item->category_id);
-        $item->metric_id = $request->input('metric', $item->metric_id);
-        $item->name = $request->input('name', $item->name);
-        $item->description = $request->clean($request->input('description', $item->description));
-
-        return $item->save();
+        return $this->dispatch(new Update($request, $item));
     }
 
     /**
