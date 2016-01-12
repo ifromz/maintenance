@@ -2,10 +2,10 @@
 
 namespace App\Jobs\Inventory\Stock;
 
-use App\Models\Inventory;
-use App\Models\InventoryStock;
 use App\Http\Requests\Inventory\InventoryStockRequest;
 use App\Jobs\Job;
+use App\Models\Inventory;
+use App\Models\InventoryStock;
 
 class Store extends Job
 {
