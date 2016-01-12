@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\WorkOrder;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\AttachmentRequest;
 use App\Http\Requests\AttachmentUpdateRequest;
 use App\Processors\WorkOrder\WorkOrderAttachmentProcessor;
-use App\Http\Controllers\Controller;
 
 class WorkOrderAttachmentController extends Controller
 {

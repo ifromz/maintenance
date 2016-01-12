@@ -23,7 +23,7 @@ class WorkOrderAttachmentProcessor extends Processor
     /**
      * Constructor.
      *
-     * @param WorkOrder $workOrder
+     * @param WorkOrder                    $workOrder
      * @param WorkOrderAttachmentPresenter $presenter
      */
     public function __construct(WorkOrder $workOrder, WorkOrderAttachmentPresenter $presenter)
