@@ -11,6 +11,13 @@ use Orchestra\Contracts\Html\Table\Grid as TableGrid;
 
 class WorkOrderPartPresenter extends Presenter
 {
+    /**
+     * Returns a new table of all parts attached to the specified work order.
+     *
+     * @param WorkOrder $workOrder
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
     public function table(WorkOrder $workOrder)
     {
         $parts = $workOrder->parts();

@@ -7,15 +7,7 @@
 @endsection
 
 @section('panel.body.content')
-    {!!
-        Form::open([
-            'url' => route('maintenance.metrics.update', [$metric->id]),
-            'method' => 'PATCH',
-            'class' => 'form-horizontal'
-        ])
-    !!}
 
-    @include('metrics.form', compact('metric'))
+    {!! $form !!}
 
-    {!! Form::close() !!}
 @endsection

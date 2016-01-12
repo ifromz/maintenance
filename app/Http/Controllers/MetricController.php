@@ -3,21 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MetricRequest;
-use App\Repositories\MetricRepository;
+use App\Processors\MetricProcessor;
 
 class MetricController extends Controller
 {
     /**
-     * @var MetricRepository
+     * @var MetricProcessor
      */
-    protected $metric;
+    protected $processor;
 
     /**
-     * @param MetricRepository $metric
+     * Constructor.
+     *
+     * @param MetricProcessor $processor
      */
-    public function __construct(MetricRepository $metric)
+    public function __construct(MetricProcessor $processor)
     {
-        $this->metric = $metric;
+        $this->processor = $processor;
     }
 
     /**
@@ -27,7 +29,7 @@ class MetricController extends Controller
      */
     public function index()
     {
-        return view('metrics.index');
+        return $this->processor->index();
     }
 
     /**
@@ -37,7 +39,7 @@ class MetricController extends Controller
      */
     public function create()
     {
-        return view('metrics.create');
+        return $this->processor->create();
     }
 
     /**
@@ -45,20 +47,18 @@ class MetricController extends Controller
      *
      * @param MetricRequest $request
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(MetricRequest $request)
     {
-        $metric = $this->metric->create($request);
+        if ($this->processor->store($request)) {
+            flash()->success('Success!', 'Successfully created metric.');
 
-        if ($metric) {
-            $message = 'Successfully created metric.';
-
-            return redirect()->route('maintenance.metrics.index')->withSuccess($message);
+            return redirect()->route('maintenance.metrics.index');
         } else {
-            $message = 'There was an issue creating this metric. Please try again.';
+            flash()->error('Error!', 'There was an issue creating this metric. Please try again.');
 
-            return redirect()->route('maintenance.metrics.index')->withErrors($message);
+            return redirect()->route('maintenance.metrics.index');
         }
     }
 
@@ -71,9 +71,7 @@ class MetricController extends Controller
      */
     public function show($id)
     {
-        $metric = $this->metric->model()->findOrFail($id);
-
-        return view('metrics.show', compact('metric'));
+        return $this->processor->show($id);
     }
 
     /**
@@ -85,9 +83,7 @@ class MetricController extends Controller
      */
     public function edit($id)
     {
-        $metric = $this->metric->model()->findOrFailfind($id);
-
-        return view('metrics.edit', compact('metric'));
+        return $this->processor->edit($id);
     }
 
     /**
@@ -96,20 +92,18 @@ class MetricController extends Controller
      * @param MetricRequest $request
      * @param int|string    $id
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(MetricRequest $request, $id)
     {
-        $metric = $this->metric->update($request, $id);
+        if ($this->processor->update($request, $id)) {
+            flash()->success('Success!', 'Successfully updated metric.');
 
-        if ($metric) {
-            $message = 'Successfully updated metric.';
-
-            return redirect()->route('maintenance.metrics.index')->withSuccess($message);
+            return redirect()->route('maintenance.metrics.index');
         } else {
-            $message = 'There was an issue updating this metric. Please try again.';
+            flash()->error('Error!', 'There was an issue updating this metric. Please try again.');
 
-            return redirect()->route('maintenance.metrics.edit', [$id])->withSuccess($message);
+            return redirect()->route('maintenance.metrics.edit', [$id]);
         }
     }
 
@@ -118,20 +112,18 @@ class MetricController extends Controller
      *
      * @param int|string $id
      *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        $metric = $this->metric->model()->findOrFail($id);
+        if ($this->processor->destroy($id)) {
+            flash()->success('Success!', 'Successfully deleted metric.');
 
-        if ($metric->delete()) {
-            $message = 'Successfully deleted metric.';
-
-            return redirect()->route('maintenance.metrics.index')->withSuccess($message);
+            return redirect()->route('maintenance.metrics.index');
         } else {
-            $message = 'There was an issue deleting this metric. Please try again.';
+            flash()->error('Error!', 'There was an issue deleting this metric. Please try again.');
 
-            return redirect()->route('maintenance.metrics.edit', [$id])->withSuccess($message);
+            return redirect()->route('maintenance.metrics.edit', [$id]);
         }
     }
 }

@@ -7,14 +7,7 @@
 @endsection
 
 @section('panel.body.content')
-    {!!
-        Form::open([
-            'url' => route('maintenance.metrics.store'),
-            'class' => 'form-horizontal'
-        ])
-    !!}
 
-    @include('metrics.form')
+    {!! $form !!}
 
-    {!! Form::close() !!}
 @endsection

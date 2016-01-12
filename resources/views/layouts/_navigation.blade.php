@@ -27,7 +27,7 @@
 
                         <a href="#work-orders-menu" rel="resources-menu" class="dropdown-toggle" data-toggle="dropdown"
                            aria-expanded="false">
-                            <i class="fa fa-info-circle"></i>
+                            <i class="fa fa-wrench"></i>
                             Work Orders
                             <i class="fa fa-caret-down"></i>
                         </a>
@@ -48,7 +48,7 @@
 
                             <li class="{{ active()->route('maintenance.work-orders.statuses.*') }}">
                                 <a href="{{ route('maintenance.work-orders.statuses.index') }}">
-                                    <i class="fa fa-info"></i> Statuses
+                                    <i class="fa fa-info-circle"></i> Statuses
                                 </a>
                             </li>
 
