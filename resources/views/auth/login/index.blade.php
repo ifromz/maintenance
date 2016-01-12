@@ -1,27 +1,33 @@
-@extends('layouts.public')
+@extends('layouts.master')
 
 @section('title', 'Login')
 
+@section('title.header')
+@endsection
+
 @section('content')
 
-    <div class="login-box">
+    <div class="col-md-3"></div>
 
-        <div class="login-logo">
-            <a href="#">
-                <b>Maintenance</b> | Login
-            </a>
-        </div>
+    <div class="col-md-6">
 
-        <div class="login-box-body">
+        <h2 class="text-center">
+            Login
+        </h2>
 
-            <div class="col-md-12">
-                {!! $form !!}
-            </div>
+        <p class="text-muted text-center">
+            Please enter your credentials.
+        </p>
 
-            <div class="clearfix"></div>
+        {!! $form !!}
 
-        </div>
+        <p class="text-center">
+            <br>
+            <a href="#">Forgot Your Password?</a>
+        </p>
 
     </div>
+
+    <div class="col-md-3"></div>
 
 @endsection
