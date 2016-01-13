@@ -14,11 +14,11 @@ class WorkOrderRequest extends Request
     public function rules()
     {
         return [
-            'category'      => 'exists:categories,id,belongs_to,work-orders',
-            'location'      => 'exists:locations,id',
+            'category'      => 'integer|exists:categories,id,belongs_to,work-orders',
+            'location'      => 'integer|exists:locations,id',
             'status'        => 'required|integer|exists:statuses,id',
             'priority'      => 'required|integer|exists:priorities,id',
-            'subject'       => 'required|min:5|max:250',
+            'subject'       => 'required|min:5|max:75',
             'description'   => 'min:5',
 
             'started_at_date' => '',

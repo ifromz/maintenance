@@ -2,6 +2,7 @@
 
 namespace App\Http\Presenters\WorkOrder;
 
+use App\Http\Presenters\Inventory\InventoryPresenter;
 use App\Http\Presenters\Presenter;
 use App\Models\Inventory;
 use App\Models\InventoryStock;
@@ -129,5 +130,37 @@ class WorkOrderPartPresenter extends Presenter
                 };
             });
         });
+    }
+
+    /**
+     * Returns a new navbar for the work order parts table.
+     *
+     * @param WorkOrder $workOrder
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbarParts(WorkOrder $workOrder)
+    {
+        return $this->fluent([
+            'id'         => 'work-orders-parts',
+            'title'      => 'Parts Added',
+            'url'        => route('maintenance.work-orders.parts.index', [$workOrder->getKey()]),
+            'menu'       => view('work-orders.parts._nav', compact('workOrder')),
+            'attributes' => [
+                'class' => 'navbar-default',
+            ],
+        ]);
+    }
+
+    /**
+     * Returns a new navbar for the inventory table.
+     *
+     * @return \Illuminate\Support\Fluent
+     */
+    public function navbarInventory()
+    {
+        $presenter = new InventoryPresenter($this->form, $this->table);
+
+        return $presenter->navbar();
     }
 }

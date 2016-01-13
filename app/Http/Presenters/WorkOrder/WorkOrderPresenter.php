@@ -221,7 +221,7 @@ class WorkOrderPresenter extends Presenter
     {
         return $this->fluent([
             'id'         => 'work-orders-show',
-            'title'      => $workOrder->subject,
+            'title'      => 'Viewing',
             'menu'       => view('work-orders._nav-show', compact('workOrder')),
             'attributes' => [
                 'class' => 'navbar-default',

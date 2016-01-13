@@ -53,6 +53,10 @@ class WorkOrderPartProcessor extends Processor
 
         $inventory = $this->presenter->tableInventory($workOrder, $this->inventory);
 
-        return view('work-orders.parts.index', compact('parts', 'inventory', 'workOrder'));
+        $navbarParts = $this->presenter->navbarParts($workOrder);
+
+        $navbarInventory = $this->presenter->navbarInventory();
+
+        return view('work-orders.parts.index', compact('parts', 'inventory', 'workOrder', 'navbarParts', 'navbarInventory'));
     }
 }

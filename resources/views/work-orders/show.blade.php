@@ -23,7 +23,7 @@
             <div class="col-md-6">
                 <h2>Work Order Profile</h2>
 
-                {!! $workOrder->viewer()->profile() !!}
+                @include('work-orders._profile')
             </div>
 
             <div class="col-md-6">

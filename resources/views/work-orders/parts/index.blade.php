@@ -4,11 +4,11 @@
 
 @section('content')
 
-    <h2>Parts Added</h2>
+    @decorator('navbar', $navbarParts)
 
     {!! $parts !!}
 
-    <h2>Inventory</h2>
+    @decorator('navbar', $navbarInventory)
 
     {!! $inventory !!}
 

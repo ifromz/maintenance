@@ -36,7 +36,7 @@ class Start extends Job
         $session->work_order_id = $this->workOrder->id;
         $session->in = $session->freshTimestamp();
 
-        if ($this->workOrder->sessions->count() === 0) {
+        if ($this->workOrder->sessions->count() === 0 || is_null($this->workOrder->started_at)) {
             $this->workOrder->update(['started_at' => $this->workOrder->freshTimestamp()]);
         }
 

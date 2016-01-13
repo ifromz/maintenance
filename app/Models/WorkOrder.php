@@ -8,17 +8,14 @@ use App\Models\Traits\HasLocationTrait;
 use App\Models\Traits\HasNotesTrait;
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\WorkOrder\WorkOrderViewer;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Orchestra\Support\Facades\HTML;
 
 class WorkOrder extends Model
 {
-    use SoftDeletes;
-    use HasNotesTrait;
-    use HasLocationTrait;
-    use HasUserTrait;
-    use HasEventsTrait;
-    use HasCategoryTrait;
+    use SoftDeletes, HasNotesTrait, HasLocationTrait, HasUserTrait, HasEventsTrait, HasCategoryTrait;
 
     /**
      * The work orders table.
@@ -247,122 +244,25 @@ class WorkOrder extends Model
     }
 
     /**
-     * Filters work order results by priority.
+     * Closes all sessions on the current work order.
      *
-     * @return object
-     */
-    public function scopePriority($query, $priority = null)
-    {
-        if ($priority) {
-            return $query->where('priority_id', $priority);
-        }
-
-        return $query;
-    }
-
-    /**
-     * Filters work order results by subject.
-     *
-     * @return object
-     */
-    public function scopeSubject($query, $subject = null)
-    {
-        if ($subject) {
-            return $query->where('subject', 'LIKE', '%'.$subject.'%');
-        }
-
-        return $query;
-    }
-
-    /**
-     * Filters work order results by description.
-     *
-     * @return object
-     */
-    public function scopeDescription($query, $desc = null)
-    {
-        if ($desc) {
-            return $query->where('description', 'LIKE', '%'.$desc.'%');
-        }
-
-        return $query;
-    }
-
-    /**
-     * Filters work order results by status.
-     *
-     * @return object
-     */
-    public function scopeStatus($query, $status = null)
-    {
-        if ($status) {
-            return $query->where('status_id', $status);
-        }
-
-        return $query;
-    }
-
-    /**
-     * Filters work order results by assets that are included.
-     *
-     * @return object
-     */
-    public function scopeAssets($query, $assets = null)
-    {
-        if ($assets) {
-            return $query->whereHas('assets', function ($query) use ($assets) {
-                return $query->whereIn('asset_id', $assets);
-            });
-        }
-
-        return $query;
-    }
-
-    /**
-     * @param $query
-     * @param $user
-     *
-     * @return mixed
-     */
-    public function scopeUserHours($query, $user)
-    {
-        if ($user) {
-            return $query->whereHas('sessions', function ($query) use ($user) {
-                return $query->where('user_id', $user->id);
-            });
-        }
-
-        return $query;
-    }
-
-    /**
-     * @param $query
-     * @param $user_id
-     *
-     * @return mixed
-     */
-    public function scopeAssignedUser($query, $user_id)
-    {
-        if ($user_id) {
-            return $query->whereHas('assignments', function ($query) use ($user_id) {
-                return $query->where('to_user_id', $user_id);
-            });
-        }
-
-        return $query;
-    }
-
-    /**
-     * Closes the sessions on the current work order.
+     * @return array
      */
     public function closeSessions()
     {
+        $closed = [];
+
         foreach ($this->sessions as $session) {
-            if (!$session->out) {
-                $session->out = Carbon::now()->toDateTimeString();
-                $session->save();
+            if ($session instanceof WorkOrderSession && is_null($session->out)) {
+                $session->out = $this->freshTimestamp();
+
+                if ($session->save()) {
+                    $closed[] = $session;
+                }
             }
         }
+
+        return $closed;
     }
 
     /**
@@ -373,11 +273,7 @@ class WorkOrder extends Model
      */
     public function isComplete()
     {
-        if ($this->report) {
-            return true;
-        }
-
-        return false;
+        return ($this->report ? true : false);
     }
 
     /**
@@ -387,11 +283,7 @@ class WorkOrder extends Model
      */
     public function hasWorkersAssigned()
     {
-        if ($this->assignments->count() > 0) {
-            return true;
-        }
-
-        return false;
+        return ($this->assignments->count() > 0);
     }
 
     /**
@@ -401,12 +293,10 @@ class WorkOrder extends Model
      */
     public function userCheckedIn()
     {
-        $record = $this->getCurrentSession();
+        $session = $this->getCurrentSession();
 
-        if ($record) {
-            if ($record->in && $record->out === null) {
-                return true;
-            }
+        if ($session instanceof WorkOrderSession) {
+            return ($session->in && is_null($session->out));
         }
 
         return false;
@@ -415,13 +305,11 @@ class WorkOrder extends Model
     /**
      * Returns the current users work order session record.
      *
-     * @return object
+     * @return WorkOrderSession|null
      */
     public function getCurrentSession()
     {
-        $record = $this->sessions()->where('user_id', auth()->id())->first();
-
-        return $record;
+        return $this->sessions()->where('user_id', auth()->id())->first();
     }
 
     /**
@@ -441,9 +329,7 @@ class WorkOrder extends Model
      */
     public function getUserNotifications()
     {
-        $record = $this->notifiableUsers()->where('user_id', auth()->id())->first();
-
-        return $record;
+        return $this->notifiableUsers()->where('user_id', auth()->id())->first();
     }
 
     /**
@@ -475,11 +361,55 @@ class WorkOrder extends Model
      * Retrieves all of the users work order
      * sessions grouped by each user.
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function getUniqueSessions()
     {
         return $this->sessions()->unique();
+    }
+
+    /**
+     * Returns an HTML label for the work orders started at date.
+     *
+     * @return string
+     */
+    public function getStartedAtLabel()
+    {
+        if ($this->started_at) {
+            $class = 'label label-success';
+            $icon = 'fa fa-check';
+            $message = $this->started_at;
+        } else {
+            $class = 'label label-danger';
+            $icon = 'fa fa-times';
+            $message = 'Has not been started.';
+        }
+
+        $icon = HTML::create('i', '', ['class' => $icon]);
+
+        return HTML::raw("<span class='$class'>$icon $message</span>");
+    }
+
+    /**
+     * Returns an HTML label for the work orders completed at date.
+     *
+     * @return string
+     */
+    public function getCompletedAtLabel()
+    {
+        if ($this->isComplete()) {
+            $class = 'label label-success';
+            $icon = 'fa fa-check';
+            $message = $this->completed_at;
+        } else {
+            $class = 'label label-danger';
+            $icon = 'fa fa-times';
+            $message = 'No report has been created.';
+        }
+
+        $icon = HTML::create('i', '', ['class' => $icon]);
+
+        return HTML::raw("<span class='$class'>$icon $message</span>");
     }
 
     /**
@@ -511,7 +441,7 @@ class WorkOrder extends Model
      */
     public function complete($statusId)
     {
-        if (!$this->started_at) {
+        if (is_null($this->started_at)) {
             $this->started_at = $this->freshTimestamp();
         }
 
