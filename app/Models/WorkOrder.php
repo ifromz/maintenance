@@ -9,7 +9,6 @@ use App\Models\Traits\HasNotesTrait;
 use App\Models\Traits\HasUserTrait;
 use App\Viewers\WorkOrder\WorkOrderViewer;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Orchestra\Support\Facades\HTML;
 
@@ -273,7 +272,7 @@ class WorkOrder extends Model
      */
     public function isComplete()
     {
-        return ($this->report ? true : false);
+        return $this->report ? true : false;
     }
 
     /**
@@ -283,7 +282,7 @@ class WorkOrder extends Model
      */
     public function hasWorkersAssigned()
     {
-        return ($this->assignments->count() > 0);
+        return $this->assignments->count() > 0;
     }
 
     /**
@@ -296,7 +295,7 @@ class WorkOrder extends Model
         $session = $this->getCurrentSession();
 
         if ($session instanceof WorkOrderSession) {
-            return ($session->in && is_null($session->out));
+            return $session->in && is_null($session->out);
         }
 
         return false;
