@@ -4,6 +4,10 @@
         <th>Work Order ID</th>
         <td>{{ $workOrder->id }}</td>
     </tr>
+    <tr>
+        <th>Created At</th>
+        <td>{{ $workOrder->created_at }}</td>
+    </tr>
     @if($workOrder->status instanceof \App\Models\Status)
         <tr>
             <th>Status</th>
@@ -18,7 +22,7 @@
     @endif
     <tr>
         <th>Created By</th>
-        <td>{{ $workOrder->user->full_name }}</td>
+        <td>{{ $workOrder->user->getRecipientName() }}</td>
     </tr>
     <tr>
         <th>Subject</th>
