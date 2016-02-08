@@ -39,7 +39,7 @@ class WorkOrderAssignedProcessor extends Processor
     {
         $workOrders = $this->presenter->tableAssigned($this->workOrder);
 
-        $navbar = $this->presenter->navbarAssigned();
+        $navbar = $this->presenter->navbar();
 
         return view('work-orders.assigned.index', compact('workOrders', 'navbar'));
     }

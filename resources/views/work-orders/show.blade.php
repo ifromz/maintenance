@@ -8,7 +8,7 @@
 
 @section('tab.head.content')
     <li class="active"><a href="#tab-profile" data-toggle="tab">Profile</a></li>
-    <li><a href="#tab-details" data-toggle="tab">Details</a></li>
+    <li><a href="#tab-sessions" data-toggle="tab">Sessions</a></li>
     <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
     <li><a href="#tab-history" data-toggle="tab">History</a></li>
     <li><a href="#tab-updates" data-toggle="tab">Updates</a></li>
@@ -30,16 +30,18 @@
                 <h2>Maintenance Request</h2>
 
                 {!! $workOrder->viewer()->workRequest() !!}
+
+                <hr>
+
+                <h2>Completion Report</h2>
+
+                {!! $workOrder->viewer()->report() !!}
             </div>
 
         </div>
     </div>
 
-    <div class="tab-pane" id="tab-details">
-
-        <h2>Completion Report</h2>
-
-        {!! $workOrder->viewer()->report() !!}
+    <div class="tab-pane" id="tab-sessions">
 
         <h2>Sessions</h2>
 
