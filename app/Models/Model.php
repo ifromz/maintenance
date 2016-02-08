@@ -65,22 +65,6 @@ class Model extends Eloquent
     }
 
     /**
-     * Formats the deleted_at timestamp.
-     *
-     * @param string $deleted_at
-     *
-     * @return string|null
-     */
-    public function getDeletedAtAttribute($deleted_at)
-    {
-        if (array_key_exists('deleted_at', $this->attributes)) {
-            return Carbon::parse($deleted_at)->format('Y-m-d h:i A');
-        }
-
-        return;
-    }
-
-    /**
      * Accessor for retrieving a limited description for display on tables.
      *
      * @return string
