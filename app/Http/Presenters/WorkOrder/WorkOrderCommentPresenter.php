@@ -2,11 +2,11 @@
 
 namespace App\Http\Presenters\WorkOrder;
 
+use App\Http\Presenters\Presenter;
+use App\Models\Comment;
 use App\Models\WorkOrder;
 use Orchestra\Contracts\Html\Form\Fieldset;
 use Orchestra\Contracts\Html\Form\Grid as FormGrid;
-use App\Http\Presenters\Presenter;;
-use App\Models\Comment;
 
 class WorkOrderCommentPresenter extends Presenter
 {

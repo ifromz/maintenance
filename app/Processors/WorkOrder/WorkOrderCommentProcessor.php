@@ -21,7 +21,7 @@ class WorkOrderCommentProcessor extends Processor
     /**
      * Constructor.
      *
-     * @param WorkOrder $workOrder
+     * @param WorkOrder                 $workOrder
      * @param WorkOrderCommentPresenter $presenter
      */
     public function __construct(WorkOrder $workOrder, WorkOrderCommentPresenter $presenter)
