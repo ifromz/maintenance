@@ -26,14 +26,6 @@ $router->group(['middleware' => ['web']], function (Router $router) {
             $router->get('/', ['as' => 'index', 'uses' => 'AuthController@login']);
 
             $router->post('/', ['as' => 'authenticate', 'uses' => 'AuthController@authenticate']);
-
-            $router->get('forgot-password', ['as' => 'forgot-password', 'uses' => 'PasswordController@getRequest']);
-
-            $router->post('forgot-password', ['as' => 'forgot-password', 'uses' => 'PasswordController@postRequest']);
-
-            $router->get('reset-password/{users}/{code}', ['as' => 'reset-password', 'uses' => 'PasswordController@getReset']);
-
-            $router->post('reset-password/{users}/{code}', ['as' => 'reset-password', 'uses' => 'PasswordController@postReset']);
         });
 
         $router->group(['middleware' => ['auth']], function (Router $router) {
