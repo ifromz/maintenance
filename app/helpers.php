@@ -32,13 +32,3 @@ function uuid()
 {
     return Uuid::uuid3(Uuid::NAMESPACE_DNS, str_random())->toString();
 }
-
-/**
- * Generates a new Active instance.
- *
- * @return Active
- */
-function active()
-{
-    return new Active();
-}
