@@ -12,7 +12,7 @@ use Illuminate\Routing\Router;
 | kernel and includes session state, CSRF protection, and more.
 */
 
-/** @var Router $router */
+/* @var Router $router */
 $router->group(['middleware' => ['web']], function (Router $router) {
     $router->group(['as' => 'maintenance.'], function (Router $router) {
         // Welcome Route
