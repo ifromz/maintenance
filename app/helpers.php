@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Active;
 use App\Http\Flash;
 use Rhumsaa\Uuid\Uuid;
 
