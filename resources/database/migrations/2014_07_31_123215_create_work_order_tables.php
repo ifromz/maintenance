@@ -24,19 +24,6 @@ class CreateWorkOrderTables extends Migration
                 ->onDelete('set null');
         });
 
-        Schema::create('work_request_updates', function (Blueprint $table) {
-            $table->integer('update_id')->unsigned();
-            $table->integer('work_request_id')->unsigned();
-
-            $table->foreign('update_id')->references('id')->on('updates')
-                ->onUpdate('restrict')
-                ->onDelete('cascade');
-
-            $table->foreign('work_request_id')->references('id')->on('work_requests')
-                ->onUpdate('restrict')
-                ->onDelete('cascade');
-        });
-
         Schema::create('work_orders', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
@@ -114,19 +101,6 @@ class CreateWorkOrderTables extends Migration
             $table->text('description');
 
             $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('restrict')
-                ->onDelete('cascade');
-
-            $table->foreign('work_order_id')->references('id')->on('work_orders')
-                ->onUpdate('restrict')
-                ->onDelete('cascade');
-        });
-
-        Schema::create('work_order_updates', function (Blueprint $table) {
-            $table->integer('update_id')->unsigned();
-            $table->integer('work_order_id')->unsigned();
-
-            $table->foreign('update_id')->references('id')->on('updates')
                 ->onUpdate('restrict')
                 ->onDelete('cascade');
 
@@ -226,11 +200,9 @@ class CreateWorkOrderTables extends Migration
         Schema::drop('work_order_assets');
         Schema::drop('work_order_attachments');
         Schema::drop('work_order_sessions');
-        Schema::drop('work_order_updates');
         Schema::drop('work_order_reports');
         Schema::drop('work_order_notifications');
         Schema::drop('work_orders');
-        Schema::drop('work_request_updates');
         Schema::drop('work_requests');
     }
 }

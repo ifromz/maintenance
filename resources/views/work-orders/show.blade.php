@@ -11,7 +11,6 @@
     <li><a href="#tab-sessions" data-toggle="tab">Sessions</a></li>
     <li><a href="#tab-calendar" data-toggle="tab">Calendar</a></li>
     <li><a href="#tab-history" data-toggle="tab">History</a></li>
-    <li><a href="#tab-updates" data-toggle="tab">Updates</a></li>
 @endsection
 
 @section('tab.body.content')
@@ -21,19 +20,19 @@
         <div class="row">
 
             <div class="col-md-6">
-                <h2>Work Order Profile</h2>
+                <h3>Work Order</h3>
 
                 @include('work-orders._profile')
             </div>
 
             <div class="col-md-6">
-                <h2>Maintenance Request</h2>
+                <h3>Maintenance Request</h3>
 
                 {!! $workOrder->viewer()->workRequest() !!}
 
                 <hr>
 
-                <h2>Completion Report</h2>
+                <h3>Completion Report</h3>
 
                 {!! $workOrder->viewer()->report() !!}
             </div>
@@ -61,11 +60,12 @@
 
     </div>
 
-    <div class="tab-pane" id="tab-updates">
+@endsection
 
-        <h2>Updates</h2>
+@section('tab.extra.bottom')
+    <hr>
 
-        {!! $workOrder->viewer()->updates() !!}
-    </div>
+    <h3>Comments</h3>
+
 
 @endsection

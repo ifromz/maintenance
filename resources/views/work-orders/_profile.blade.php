@@ -1,7 +1,7 @@
 <table class="table">
     <tbody>
         <tr>
-            <th>Work Order ID</th>
+            <th>ID</th>
             <td>{{ $workOrder->id }}</td>
         </tr>
         <tr>

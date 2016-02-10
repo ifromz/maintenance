@@ -15,7 +15,7 @@ class AssetRequest extends BaseRequest
     {
         $rules = [
             'category'    => 'required|integer|exists:categories,id,belongs_to,assets',
-            'location'    => 'required|integer|exists:location,id',
+            'location'    => 'required|integer|exists:locations,id',
             'tag'         => 'required|integer',
             'name'        => 'required|min:3|max:250',
             'description' => 'required|max:1500',

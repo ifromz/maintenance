@@ -3,25 +3,17 @@
 namespace App\Models;
 
 use App\Models\Traits\HasUserTrait;
-use App\Viewers\UpdateViewer;
 
-class Update extends Model
+class Comment extends Model
 {
     use HasUserTrait;
 
     /**
-     * The updates table.
+     * The comments table.
      *
      * @var string
      */
-    protected $table = 'updates';
-
-    /**
-     * The update viewer.
-     *
-     * @var string
-     */
-    protected $viewer = UpdateViewer::class;
+    protected $table = 'comments';
 
     /**
      * The fillable update attributes.

@@ -103,13 +103,13 @@ class WorkOrder extends Model
     }
 
     /**
-     * The belongsToMany customer updates relationship.
+     * The belongsToMany comments relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function updates()
+    public function comments()
     {
-        return $this->belongsToMany(Update::class, 'work_order_updates', 'work_order_id', 'update_id');
+        return $this->belongsToMany(Comment::class, 'work_order_comments', 'work_order_id', 'update_id');
     }
 
     /**

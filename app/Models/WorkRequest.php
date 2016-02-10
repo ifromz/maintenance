@@ -41,13 +41,13 @@ class WorkRequest extends Model
     }
 
     /**
-     * The belongsToMany technician updates relationship.
+     * The belongsToMany comments relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function updates()
+    public function comments()
     {
-        return $this->belongsToMany(Update::class, 'work_request_updates', 'work_request_id', 'update_id');
+        return $this->belongsToMany(Comment::class, 'work_request_comments', 'work_request_id', 'update_id');
     }
 
     /**

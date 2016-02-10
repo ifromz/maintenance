@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Client\WorkRequest;
 
 use App\Http\Controllers\Controller as BaseController;
-use App\Http\Requests\WorkRequest\Request as WorkRequest;
+use App\Http\Requests\WorkRequest;
 use App\Repositories\Client\WorkRequestRepository;
 
 class Controller extends BaseController
