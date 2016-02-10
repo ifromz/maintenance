@@ -5,6 +5,7 @@ namespace App\Http\Presenters\WorkOrder;
 use App\Http\Presenters\Presenter;
 use App\Models\Asset;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Location;
 use App\Models\Priority;
 use App\Models\Status;
@@ -185,6 +186,21 @@ class WorkOrderPresenter extends Presenter
                 $fieldset->control('input:textarea', 'description');
             });
         });
+    }
+
+    /**
+     * Returns a new form for the specified work order comment.
+     *
+     * @param WorkOrder $workOrder
+     * @param Comment   $comment
+     *
+     * @return \Orchestra\Contracts\Html\Builder
+     */
+    public function formComment(WorkOrder $workOrder, Comment $comment)
+    {
+        $presenter = new WorkOrderCommentPresenter($this->form, $this->table);
+
+        return $presenter->form($workOrder, $comment);
     }
 
     /**

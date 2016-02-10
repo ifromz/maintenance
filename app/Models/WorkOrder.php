@@ -109,7 +109,7 @@ class WorkOrder extends Model
      */
     public function comments()
     {
-        return $this->belongsToMany(Comment::class, 'work_order_comments', 'work_order_id', 'update_id');
+        return $this->belongsToMany(Comment::class, 'work_order_comments', 'work_order_id', 'comment_id');
     }
 
     /**

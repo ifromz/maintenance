@@ -238,6 +238,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
+        App\Providers\DecoratorServiceProvider::class,
     ],
 
     /*

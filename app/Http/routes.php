@@ -197,15 +197,15 @@ $router->group(['middleware' => ['web']], function (Router $router) {
 
                         Route::post('sessions/end', ['as' => 'sessions.end', 'uses' => 'WorkOrderSessionController@end']);
 
-                        // Work Order Update Routes
-                        Route::resource('updates', 'UpdateController', [
+                        // Work Order Comment Routes
+                        Route::resource('comments', 'WorkOrderCommentController', [
                             'only' => [
                                 'store',
                                 'destroy',
                             ],
                             'names' => [
-                                'store'   => 'updates.store',
-                                'destroy' => 'updates.destroy',
+                                'store'   => 'comments.store',
+                                'destroy' => 'comments.destroy',
                             ],
                         ]);
 

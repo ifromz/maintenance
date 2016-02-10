@@ -90,7 +90,9 @@ class WorkOrderProcessor extends Processor
 
         $navbar = $this->presenter->navbarShow($workOrder);
 
-        return view('work-orders.show', compact('workOrder', 'sessions', 'history', 'navbar'));
+        $formComment = $this->presenter->formComment($workOrder, $workOrder->comments()->getRelated());
+
+        return view('work-orders.show', compact('workOrder', 'sessions', 'history', 'navbar', 'formComment'));
     }
 
     /**

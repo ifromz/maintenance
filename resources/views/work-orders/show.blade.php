@@ -67,5 +67,15 @@
 
     <h3>Comments</h3>
 
+    @foreach($workOrder->comments as $comment)
+        @decorator('comment', $comment, [
+            'edit'      => route('work-orders.comments.edit', [$comment->pivot->issue_id, $comment->getKey()]),
+            'destroy'   => route('work-orders.comments.destroy', [$comment->pivot->issue_id, $comment->getKey()]),
+        ])
+    @endforeach
+
+    <hr>
+
+    {!! $formComment !!}
 
 @endsection

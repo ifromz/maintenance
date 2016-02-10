@@ -47,7 +47,7 @@ class WorkRequest extends Model
      */
     public function comments()
     {
-        return $this->belongsToMany(Comment::class, 'work_request_comments', 'work_request_id', 'update_id');
+        return $this->belongsToMany(Comment::class, 'work_request_comments', 'work_request_id', 'comment_id');
     }
 
     /**
